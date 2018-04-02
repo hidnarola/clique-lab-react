@@ -1,14 +1,19 @@
 import React,{Component} from 'react';
 import {Redirect} from 'react-router-dom';
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router'
 import LogoImg from 'img/common/logo.png';
-import ContactForm  from '../Forms/Front/ContactForm';
-
+import LoginForm  from '../Forms/Front/LoginForm';
+import { SubmissionError } from 'redux-form'
+import { login } from '../../actions/login';
+import { routeCodes } from '../../constants/routes';
 import {reactLocalStorage} from 'reactjs-localstorage';
 // reactLocalStorage.set('var', true); // reactLocalStorage.get('var', true);
 // reactLocalStorage.setObject('var', {'test': 'test'}); // reactLocalStorage.getObject('var');
 import CryptoJS from 'crypto-js';
 import {SECRET_KEY} from '../../constants/usefulvar';
+
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
 class Login extends Component{
     
@@ -18,6 +23,7 @@ class Login extends Component{
             redirectToReferrer: false
         };        
         
+        
         // Encrypt 
         // var ciphertext = CryptoJS.AES.encrypt('my message', SECRET_KEY);        
         // Decrypt 
@@ -25,21 +31,34 @@ class Login extends Component{
         // var plaintext = bytes.toString(CryptoJS.enc.Utf8);        
         // console.log(plaintext);
 
-        
     }
 
-    submitForm = values => {
+    submitForm = (values) => {
         // print the form values to the console
 
-        console.log(values)
-        // reactLocalStorage.set('users', true);
-        this.setState({ redirectToReferrer: true });        
+        const { dispatch } = this.props;
+
+        let loginData = {
+            login_id: values.username,
+            password: values.password,
+        }
+
+        dispatch(login(loginData));        
+    }    
+
+    componentWillReceiveProps(){
+        let { error } = this.props;
+
+        if(error){
+            throw new SubmissionError({            
+                _error: 'Login failed!'
+            })
+        }
     }
-
-    render(){
-        const { redirectToReferrer } = this.state;
-
-        if (redirectToReferrer) {
+    
+    render(){        
+        var token = localStorage.getItem('token');        
+        if (token) {
             return <Redirect to="people" />;
         }
 
@@ -52,7 +71,7 @@ class Login extends Component{
                         </a>
                     </div>
                     <div className="form-content d-flex">
-                        <ContactForm onSubmit={this.submitForm} />
+                        <LoginForm onSubmit={this.submitForm} />
                     </div>
                     <div className="form-ftr">
                         <p>
@@ -68,4 +87,17 @@ class Login extends Component{
     }
 }
 
-export default withRouter(Login);
+
+const mapStateToProps = (state) => {
+    const { login } = state;
+    return {
+        loading: login.get('loading'),
+        error: login.get('error'),
+        user: login.get('user'),
+        token: login.get('token'),
+        refreshToken: login.get('refreshToken'),
+    }
+}
+
+
+export default connect(mapStateToProps)(Login);

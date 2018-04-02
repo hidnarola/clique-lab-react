@@ -5,6 +5,7 @@ import login from 'sagas/login'
 
 export default function* rootSaga() {
   yield all([
-    ...peopleSagas,    
+    ...peopleSagas,
+    ...login
   ]);
 }

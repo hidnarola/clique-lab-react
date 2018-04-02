@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getPeople } from 'actions/people';
+import { withRouter } from 'react-router-dom';
+import { logout } from '../actions/login';
 
 class People extends Component {
     
@@ -13,6 +15,18 @@ class People extends Component {
         dispatch: PropTypes.func,
     }
 
+    constructor(props) {
+        super(props);
+        this.mylogout = this.mylogout.bind(this);
+    }
+    
+    mylogout(){        
+        const { dispatch, history } = this.props;
+        dispatch(logout());
+        // return <Redirect to="/" />
+        history.push('/');
+    }
+
     componentWillMount() {
         const {
             dispatch,
@@ -20,8 +34,10 @@ class People extends Component {
         } = this.props;
 
         if (!people) {
-            dispatch(getPeople());
+            // dispatch(getPeople());
         }
+
+        // dispatch(logout);
     }
 
     renderPeople() {
@@ -51,8 +67,9 @@ class People extends Component {
         } = this.props;
 
         return (
-            <div className='People'>
+            <div className='People'>            
                 <h1>People</h1>
+                <a onClick={this.mylogout}>Click Here</a>
                 { loading && <div>Loading people...</div> }
                 { error && error.toString() }
                 <div className='People-list'>
@@ -69,4 +86,4 @@ const mapStateToProps = (state) => ({
     people: state.people.get('people'),
 })
 
-export default connect(mapStateToProps)(People)
+export default connect(mapStateToProps)(People);

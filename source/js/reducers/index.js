@@ -5,8 +5,8 @@ import login from 'reducers/login';
 import { reducer as formReducer } from 'redux-form'
 
 export default combineReducers({
-  app,
-  people,
-  login,
-  form: formReducer
+    app,
+    people,
+    login,
+    form: formReducer
 });
