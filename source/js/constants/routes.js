@@ -11,4 +11,5 @@ export const routeCodes = {
     LOGIN: `${ publicPath }login`,
     FORGOT: `${ publicPath }forgot_password`,
     REGISTER: `${ publicPath }register`,
+    AFTERREGISTER: `${ publicPath }after-register`,
 };

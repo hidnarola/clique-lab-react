@@ -1,30 +1,21 @@
 import React from 'react';
 import { Route,Redirect } from 'react-router-dom';
-
+import cx from 'classnames';
 import Header from '../global/Header';
+import Header2 from '../global/Header2';
 import LeftMenu from '../global/LeftMenu';
-// Common Template
-export const DefaultLayout = ({component: Component, ...rest}) => {
-    return (
-        <Route {...rest} render={matchProps => (
-                <div className="DefaultLayout">
-                    <div className="Header">Header</div>
-                    <Component {...matchProps} />
-                    <div className="Footer">Footer</div>
-                </div>
-            )} />
-    )
-};
+
 
 export const PrivateRoute = ({ component: Component,showHeader, ...rest }) => {        
         return(<Route
                     {...rest}
                     render={props =>
                         localStorage.getItem('token') ? (
-                            <div className="full-width d-flex">
-                                <LeftMenu/>
-                                <div className="right-panel">
-                                    {(showHeader) ? <Header/>:''}
+                            <div className={cx({'full-width d-flex':(showHeader) ? true:false})} >
+
+                                {(showHeader) ? <LeftMenu/>:''}
+                                <div className={cx({'right-panel':(showHeader) ? true:false})}>
+                                    {(showHeader) ? <Header/>:<Header2/>}
                                     <Component {...props} />
                                 </div>
                             </div>

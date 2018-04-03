@@ -29,7 +29,7 @@ class Login extends Component{
         // Decrypt 
         // var bytes  = CryptoJS.AES.decrypt(ciphertext.toString(), SECRET_KEY);
         // var plaintext = bytes.toString(CryptoJS.enc.Utf8);        
-        // console.log(plaintext);
+        // console.log(plaintext);        
 
     }
 
@@ -44,22 +44,13 @@ class Login extends Component{
         }
 
         dispatch(login(loginData));        
-    }    
-
-    componentWillReceiveProps(){
-        let { error } = this.props;
-
-        if(error){
-            throw new SubmissionError({            
-                _error: 'Login failed!'
-            })
-        }
-    }
+    }     
     
-    render(){        
+    render(){
+        let { error } = this.props;
         var token = localStorage.getItem('token');        
         if (token) {
-            return <Redirect to="people" />;
+            return <Redirect to={routeCodes.DASHBOARD} />;
         }
 
         return(
@@ -71,7 +62,7 @@ class Login extends Component{
                         </a>
                     </div>
                     <div className="form-content d-flex">
-                        <LoginForm onSubmit={this.submitForm} />
+                        <LoginForm onSubmit={this.submitForm} newError={error}/>
                     </div>
                     <div className="form-ftr">
                         <p>
@@ -100,4 +91,4 @@ const mapStateToProps = (state) => {
 }
 
 
-export default connect(mapStateToProps)(Login);
+export default connect(mapStateToProps)(withRouter(Login));

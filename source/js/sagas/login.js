@@ -5,6 +5,8 @@ import api from '../api/login';
 import { LOCALSTORAGE_USER_ITEM_KEY, LOCALSTORAGE_TOKEN_ITEM_KEY, LOCALSTORAGE_REFRESH_TOKEN_ITEM_KEY, 
          LOCALSTORAGE_ROLE_KEY, USER_ROLE, ADMIN_ROLE } from '../constants/consts';
 
+import { SubmissionError } from 'redux-form'; 
+
 
 function authenticateNew(){
 
@@ -14,8 +16,8 @@ function authenticateNew(){
             let data = {};
             let encodedUserRole = '';
 
-            data = yield call(() => api.userLogin(loginData));            
-
+            data = yield call(() => api.userLogin(loginData));
+            
             localStorage.setItem(LOCALSTORAGE_ROLE_KEY, encodedUserRole);
             localStorage.setItem(LOCALSTORAGE_USER_ITEM_KEY, JSON.stringify(data.promoter));
             localStorage.setItem(LOCALSTORAGE_TOKEN_ITEM_KEY, data.token);

@@ -40,7 +40,7 @@ const renderField = ({
 )
 
 let LoginForm = props => {
-    const { handleSubmit,error } = props
+    const { handleSubmit,error,newError } = props
     return (
 
         <form onSubmit={handleSubmit}>
@@ -60,6 +60,7 @@ let LoginForm = props => {
             />
             
             {error && <strong>{error}</strong>}
+            {newError && <strong>{newError}</strong>}
             
             <div className="submit-div">
                 <button type="submit" className="round-btn">Login</button>

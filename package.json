@@ -66,6 +66,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",
+    "classnames": "^2.2.5",
     "crypto-js": "^3.1.9-1",
     "express": "^4.16.2",
     "history": "^4.7.2",
@@ -85,7 +86,8 @@
     "redux-form": "^7.3.0",
     "redux-saga": "^0.16.0",
     "transit-immutable-js": "^0.7.0",
-    "transit-js": "^0.8.846"
+    "transit-js": "^0.8.846",
+    "validator": "^9.4.1"
   },
   "description": "Starter boilerplate for React and Redux, using Webpack 3",
   "repository": {

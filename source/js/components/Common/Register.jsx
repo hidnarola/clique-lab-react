@@ -3,6 +3,10 @@ import LogoImg from 'img/common/logo.png';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import ModalPopUp from './ModalPopUp';
 import {TERMS,PRIVACY} from '../../constants/pages';
+import RegisterForm from '../../components/Forms/Front/RegisterForm';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
+import { register } from '../../actions/register';
 
 class Register extends Component{
 
@@ -13,12 +17,36 @@ class Register extends Component{
         }
         this.openModal = this.openModal.bind(this);
     }
+    
+    submitForm = (values) => {
+        // print the form values to the console
 
-    openModal(){
-        alert('Here');
-        
+        const { dispatch } = this.props;
+
+        let userData = {
+            login_id: values.username,
+            password: values.password,
+
+            "name":values.fullname,
+            "username":values.username,
+            "email":values.email,
+            "company": values.company,
+            "password":values.password
+        }
+
+        dispatch(register(userData));    
+
+    } 
+
+    openModal(e,param){
+        if(param == 'TERMS'){
+            this.setState({contentBody:TERMS});
+        }else if(param == 'PRIVACY'){
+            this.setState({contentBody:PRIVACY});
+        }
+        this.child.toggle()
     }
-
+ 
     render(){
         return(
             <div className="login-register-bg">
@@ -29,41 +57,7 @@ class Register extends Component{
                         </a>
                     </div>
                     <div className="form-content d-flex">
-                        <form>
-                            <h3>Register</h3>                            
-                            <div className="input-div">
-                                <input type="text" name="" placeholder="Full Name" />
-                            </div>	
-                            <div className="input-div">
-                                <input type="text" name="" placeholder="UserName" />
-                            </div>	
-                            <div className="input-div">	
-                                <input type="text" name="" placeholder="Email" />
-                            </div>	
-                            <div className="input-div">	
-                                <input type="text" name="" placeholder="Company" />
-                            </div>	
-                            <div className="input-div">	
-                                <input type="password" name="" placeholder="Password" />
-                            </div>	
-                            <div className="accept-condition checkbox">
-                                <input id="check1" type="checkbox" name="check" value="check1"/>
-                                <label htmlFor="check1">
-                                    I accept the
-                                    <a onClick={() => {this.setState({contentBody:TERMS}); this.child.toggle()}}>
-                                        Terms & Conditions
-                                    </a> 
-                                    
-                                    and the 
-                                    <a onClick={() => {this.setState({contentBody:PRIVACY}); this.child.toggle()}}>
-                                        Privacy Policy
-                                    </a>
-                                </label>
-                            </div>
-                            <div className="submit-div">	
-                                <button className="round-btn" type="submit">Register</button>
-                            </div>
-                        </form>
+                        <RegisterForm func={this.openModal} onSubmit={this.submitForm}/>                         
                     </div>
                     <div className="form-ftr">
                         <p>
@@ -73,13 +67,21 @@ class Register extends Component{
                             </a>
                         </p>
                     </div>
-                </div>
-                
+                </div>                
                 <ModalPopUp onRef={ref => (this.child = ref)} contentBody={this.state.contentBody} />
-
             </div>
         )
     }
 }
 
-export default Register;
+const mapStateToProps = (state) => {
+    const { register } = state;
+    return {
+        loading: register.get('loading'),
+        error: register.get('error'),
+        user: register.get('user'),        
+    }
+}
+
+
+export default connect(mapStateToProps)(withRouter(Register));

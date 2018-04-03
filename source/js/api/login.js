@@ -4,7 +4,7 @@ function userLogin(loginData) {
     var options = {
         method: 'POST',
         body: loginData
-    }
+    }    
     return fetchResource('promoter_login', options);
 }
 
