@@ -58,7 +58,7 @@ class Header extends Component{
                         </div>
                     </div>
                     
-                    <div className="hdr-user dropdown">
+                    <div className="hdr-user ">
                        
                         
 
@@ -75,14 +75,15 @@ class Header extends Component{
                                 <i className="logout-icon"></i> Logout</a>
                         </div> */}
 
-                        <Dropdown direction='down' isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+                        <Dropdown direction='down' isOpen={this.state.dropdownOpen} 
+                                  toggle={this.toggle} >
                             <DropdownToggle caret>                                
                                 <a id="">
                                     <span></span>
                                     <i className=""></i>
                                 </a>
                             </DropdownToggle>
-                            <DropdownMenu>
+                            <DropdownMenu right>
                                 <DropdownItem header>Header</DropdownItem>
                                 <DropdownItem disabled>Action</DropdownItem>
                                 <DropdownItem>Another Action</DropdownItem>

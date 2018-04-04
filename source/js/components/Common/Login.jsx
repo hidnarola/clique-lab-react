@@ -13,6 +13,7 @@ import {reactLocalStorage} from 'reactjs-localstorage';
 import CryptoJS from 'crypto-js';
 import {SECRET_KEY} from '../../constants/usefulvar';
 
+
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
 class Login extends Component{
@@ -29,8 +30,8 @@ class Login extends Component{
         // Decrypt 
         // var bytes  = CryptoJS.AES.decrypt(ciphertext.toString(), SECRET_KEY);
         // var plaintext = bytes.toString(CryptoJS.enc.Utf8);        
-        // console.log(plaintext);        
-
+        // console.log(plaintext);
+        
     }
 
     submitForm = (values) => {
@@ -48,9 +49,9 @@ class Login extends Component{
     
     render(){
         let { error } = this.props;
-        var token = localStorage.getItem('token');        
+        var token = localStorage.getItem('token');
         if (token) {
-            return <Redirect to={routeCodes.DASHBOARD} />;
+            return <Redirect to={routeCodes.AFTERREGISTER} />;
         }
 
         return(
@@ -77,7 +78,6 @@ class Login extends Component{
         );
     }
 }
-
 
 const mapStateToProps = (state) => {
     const { login } = state;

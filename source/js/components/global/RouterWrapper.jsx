@@ -38,7 +38,7 @@ export const LoginPrivateRoute = ({ component: Component, ...rest }) => (
         localStorage.getItem('token') ? (
             <Redirect
                 to={{
-                    pathname: "/people",
+                    pathname: "/dashboard",
                     state: { from: props.location }
                 }}
             />

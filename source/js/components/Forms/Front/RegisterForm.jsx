@@ -2,6 +2,7 @@ import React from 'react'
 import { Field, reduxForm } from 'redux-form'
 import {Link} from 'react-router-dom';
 import validator from 'validator';
+import cx from 'classnames';
 
 const validate = values => {
     const errors = {}
@@ -44,7 +45,7 @@ const renderField = ({
     placeholder,
     meta: { touched, error, warning }
 }) => (
-    <div className="input-div">        
+    <div className={cx('input-div',{'custom-error':(touched && error ) ? true:false })}>
         <input {...input} placeholder={placeholder} type={type} />
         {touched &&
             ((error && <span>{error}</span>) ||

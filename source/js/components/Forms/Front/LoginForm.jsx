@@ -1,6 +1,8 @@
 import React from 'react'
 import { Field, reduxForm } from 'redux-form'
 import {Link} from 'react-router-dom';
+import cx from 'classnames';
+import { Alert } from 'reactstrap';
 
 const validate = values => {
     const errors = {}
@@ -31,11 +33,8 @@ const renderField = ({
     placeholder,
     meta: { touched, error, warning }
 }) => (
-    <div className="input-div">        
-        <input {...input} placeholder={placeholder} type={type} />
-        {touched &&
-            ((error && <span>{error}</span>) ||
-                (warning && <span>{warning}</span>))}
+    <div className={cx('input-div',{'custom-error':(touched && error ) ? true:false })}>
+        <input {...input} placeholder={placeholder} type={type} />        
     </div>
 )
 
@@ -45,6 +44,9 @@ let LoginForm = props => {
 
         <form onSubmit={handleSubmit}>
             <h3>Log In</h3>
+
+            
+
             <Field
                 name="username"
                 type="text"
@@ -59,8 +61,8 @@ let LoginForm = props => {
                 placeholder="Password"
             />
             
-            {error && <strong>{error}</strong>}
-            {newError && <strong>{newError}</strong>}
+            {error && <strong>{error}</strong>}            
+            {newError && <Alert color="danger ">{newError}</Alert>}            
             
             <div className="submit-div">
                 <button type="submit" className="round-btn">Login</button>

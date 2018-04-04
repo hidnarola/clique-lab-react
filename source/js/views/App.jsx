@@ -12,7 +12,9 @@ import EmailVerify from 'components/Common/EmailVerify';
 import ForgotPassword from 'components/Common/ForgotPassword';
 import Register from 'components/Common/Register';
 import AfterRegister from './AfterRegister';
+import CampaignForm from './Campaign';
 import Dashboard from './Dashboard';
+import EverydayPeople from './EverydayPeople';
 
 import createHistory from "history/createBrowserHistory"
 const history = createHistory()
@@ -28,17 +30,14 @@ class App extends Component {
                         
                         <Route path={ routeCodes.REGISTER } component={Register} />
 
-                        
                         <Route path="/email_confirm/:refId" component={EmailVerify} />
-
+                        
                         <PrivateRoute path={routeCodes.AFTERREGISTER} component={AfterRegister} showHeader={false} />
-                        
-                        <PrivateRoute path={ routeCodes.PEOPLE } component={ People } />
-                        
                         <PrivateRoute path={routeCodes.DASHBOARD} component={Dashboard} showHeader={true} />
 
-                        <Route path='*' component={ NotFound } />
-                        {/* <DefaultLayout path="/" component={SomeComponent} /> */}
+                        <PrivateRoute path={routeCodes.CAMPAIGN} component={CampaignForm} showHeader={true} />
+                        <PrivateRoute path={routeCodes.EVERYDAYPEOPLE} component={EverydayPeople} showHeader={true} />
+                        <Route path='*' component={ NotFound } />                        
                     </Switch>
             </div>
         );

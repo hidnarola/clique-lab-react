@@ -19,7 +19,7 @@ const actionMap = {
         return state.merge(Map({
             loading: false,
             error: null,
-            user: JSON.stringify(action.data),            
+            user: true,
         }));
     },
     [REGISTER_ERROR]: (state, action) => {

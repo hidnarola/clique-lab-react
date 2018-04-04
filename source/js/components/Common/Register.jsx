@@ -7,6 +7,8 @@ import RegisterForm from '../../components/Forms/Front/RegisterForm';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { register } from '../../actions/register';
+import {Redirect} from 'react-router-dom';
+import { routeCodes } from '../../constants/routes';
 
 class Register extends Component{
 
@@ -48,6 +50,10 @@ class Register extends Component{
     }
  
     render(){
+        let { user } = this.props;
+        if(user){
+            return <Redirect to={routeCodes.LOGIN} />;
+        }
         return(
             <div className="login-register-bg">
                 <div className="login-register-box">

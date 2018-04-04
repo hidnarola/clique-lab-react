@@ -12,4 +12,7 @@ export const routeCodes = {
     FORGOT: `${ publicPath }forgot_password`,
     REGISTER: `${ publicPath }register`,
     AFTERREGISTER: `${ publicPath }after-register`,
+
+    CAMPAIGN:`${publicPath}campaign`,
+    EVERYDAYPEOPLE:`${publicPath}every-day-people`
 };
