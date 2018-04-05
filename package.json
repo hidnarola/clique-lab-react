@@ -54,7 +54,6 @@
     "postcss-import": "^11.0.0",
     "postcss-loader": "^2.0.9",
     "prepush": "^3.1.11",
-    "react-router-role-authorization": "^1.1.4",
     "react-svg-loader": "^2.1.0",
     "redux-logger": "^3.0.6",
     "style-loader": "^0.19.1",
