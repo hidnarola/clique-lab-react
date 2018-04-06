@@ -35,10 +35,11 @@ class Campaign extends Component {
         return (
             <div className='Campaign'>                                 
                 {page === 1 && <FormStep1 onSubmit={this.nextPage} />}
+                
                 {page === 2 && <FormStep2 
                                     previousPage={this.previousPage}
                                     onSubmit={this.nextPage} />}
-
+                                
                 {page === 3 && <FormStep3
                                     previousPage={this.previousPage}
                                     onSubmit={this.nextPage} />}

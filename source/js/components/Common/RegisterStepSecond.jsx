@@ -3,7 +3,7 @@ import { Field, reduxForm } from 'redux-form';
 import Iframe from 'react-iframe'
 
 const RegisterSecondStep = (props) => {
-    const { handleSubmit,previousPage } = props;
+    const { handleSubmit, pristine, previousPage, submitting } = props
     return(
         <section className="content">
             <div className="container">
@@ -13,7 +13,7 @@ const RegisterSecondStep = (props) => {
                         <a className="active"></a>
                     </div>
                     <h2>Watch a tutorial video</h2>
-                    <form>
+                    <form onSubmit={handleSubmit}>
                         <div className="video-frame">
                         <Iframe url="http://www.youtube.com/embed/xDMP3i36naA"
                             width="450px"
@@ -30,7 +30,7 @@ const RegisterSecondStep = (props) => {
                             <button type="button" className="back-btn" onClick={previousPage}>
                                 Previous
                             </button>
-                            <button type="submit">Next</button>
+                            <button type="submit" disabled={pristine || submitting}>Next</button>
                         </div>
                     </form>
                 </div>

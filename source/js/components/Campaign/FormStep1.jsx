@@ -2,25 +2,50 @@ import React,{Component} from 'react';
 import FormCampaignRight from './FormCampaignRight';
 import { Field, reduxForm } from 'redux-form';
 import DatePicker from 'react-datepicker';
+import validator from 'validator';
 import moment from 'moment';
+import {renderFieldCampaign,renderFieldDatePicker} from '../../components/Forms/RenderFormComponent/EveryComponent';
+
+const validate = values => {
+    
+    const errors = {};
+
+    if (!values.campaignName) {
+        errors.campaignName = 'Required';
+    }
+
+    if (!values.campaignStartDate) {
+        errors.campaignStartDate = 'Required';
+    }
+
+    if (!values.campaignEndDate) {
+        errors.campaignEndDate = 'Required';
+    }
+
+    if(values.campaignStartDate && values.campaignEndDate){
+        let a = moment(values.campaignStartDate);
+        let b = moment(values.campaignEndDate);
+        
+        
+        let diffDate = b.diff(a);        
+        if(diffDate == 0 || diffDate < 0){
+            errors.campaignEndDate = 'End date should be after start date.';
+        }        
+    }
+
+    return errors;
+};
+ 
 
 class FormStep1 extends Component{
 
     constructor(props){
         super(props);
         this.state = {
-            startDate: moment()
-        };
-        this.handleChange = this.handleChange.bind(this);
-    }
-
-    handleChange(date) {
-        this.setState({
-          startDate: date
-        });
-    }
+            
+        };        
+    }    
     
-
     render(){
         const { handleSubmit } = this.props;
         return(
@@ -49,43 +74,38 @@ class FormStep1 extends Component{
                             </div>
                         </div>
                         <div className="step-content d-flex">
-                            <h2>Step 1</h2>
-                            <div className="input-wrap">
-                                <label>Campaign Name</label>
-                                <input type="text" name="" placeholder="Campaign Name" />
-                            </div>
-                            <div className="input-wrap">
-                                <label>Date of Campaign Start</label>
-                                <div className="input-wrap-2">
-                                    <input type="text" name="" placeholder="Campaign Name" />
-                                    <i className="">
-                                        <img src="images/calendar-icon.jpg" alt="" />
-                                    </i>
-                                </div>
-                            </div>
-                            <div className="input-wrap">
-                                <label>Date of Campaign End</label>
-                                <div className="input-wrap-2">
-                                    {/* <input type="text" name="" placeholder="Select Date" /> */}
-                                    
-                                    <DatePicker
-                                        placeholderText="Select Date"
-                                        withPortal
-                                        selected={this.state.startDate}
-                                        onChange={this.handleChange}
-                                    />
+                            <h2>Step 1</h2>                            
+                            <Field
+                                name="campaignName"
+                                type="text"
+                                label="Campaign Name"
+                                component={renderFieldCampaign}
+                                placeholder="Campaign Name"
+                            />
 
-                                    <i className="">
-                                        <img src="images/calendar-icon.jpg" alt="" />
-                                    </i>
-                                </div>
-                            </div>
+                            <Field
+                                name="campaignStartDate"
+                                label="Date of Campaign Start"
+                                component={renderFieldDatePicker}
+                                defaultValue={null}
+                                showDisabledMonthNavigation
+                                minDateVal={moment()}
+                            />
+
+                            <Field
+                                name="campaignEndDate"
+                                label="Date of Campaign End"
+                                component={renderFieldDatePicker}
+                                defaultValue={null}                                
+                                showDisabledMonthNavigation
+                            />
+                            
                             <div className="submit-btn">
                                 <button type="submit" className="round-btn next-btn">Continue</button>
                             </div>
                         </div>
                     </div>                
-                    <FormCampaignRight/>
+                    {/* <FormCampaignRight/> */}
                 </div>
             </form>
         );
@@ -94,8 +114,8 @@ class FormStep1 extends Component{
 
 // export default FormStep1;
 export default reduxForm({
-    form: 'wizardCampaign', //                 <------ same form name
-    destroyOnUnmount: false, //        <------ preserve form data
+    form: 'wizardCampaign', // <------ same form name
+    destroyOnUnmount: false, // <------ preserve form data
     forceUnregisterOnUnmount: true, // <------ unregister fields on unmount
-    // validate,
+    validate,
 })(FormStep1);

@@ -1,7 +1,17 @@
 import React,{Component} from 'react';
+import { connect } from 'react-redux';
 
 class FormCampaignRight extends Component{
+    
+    constructor(props){
+        super(props);
+    }
+
     render(){
+        let { wizardCampaignData } = this.props;
+
+        let hashTags = (wizardCampaignData.values !== undefined) ? wizardCampaignData.values.tagHash:[];
+
         return(
             <div className="create-campaign-r">
                 <div className="create-campaign-r-head">
@@ -11,7 +21,7 @@ class FormCampaignRight extends Component{
                     {/* <img src="images/img-05.jpg" alt="" /> */}
                 </div>
                 <div className="create-campaign-r-summer d-flex">
-                    <h4>The Grocer - Summer
+                    <h4>{(wizardCampaignData.values !== undefined) ? wizardCampaignData.values.campaignName:'' }
                         <a href="">
                             {/* <img src="images/facebook.jpg" alt="" /> */}
                         </a>
@@ -41,7 +51,12 @@ class FormCampaignRight extends Component{
                         </li>
                         <li>
                             <a href="">Use #tags</a>
-                            <p>#thegrocer</p>
+                            {
+                                {/* hashTags.map((obj,index)=>{
+
+                                    return(<p>#{obj.value}</p>)
+                                }) */}
+                            }                            
                         </li>
                     </ul>
                 </div>
@@ -70,4 +85,6 @@ class FormCampaignRight extends Component{
     }
 }
 
-export default FormCampaignRight;
+export default connect(state => ({
+    wizardCampaignData: state.form.wizardCampaign,
+}))(FormCampaignRight);
