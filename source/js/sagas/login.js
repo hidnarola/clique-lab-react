@@ -7,6 +7,9 @@ import { LOCALSTORAGE_USER_ITEM_KEY, LOCALSTORAGE_TOKEN_ITEM_KEY, LOCALSTORAGE_R
 
 import { SubmissionError } from 'redux-form'; 
 
+import CryptoJS from 'crypto-js';
+import {SECRET_KEY} from '../constants/usefulvar';
+
 
 function authenticateNew(){
 
@@ -17,12 +20,24 @@ function authenticateNew(){
             let encodedUserRole = '';
 
             data = yield call(() => api.userLogin(loginData));
+
+            var ciphertext = CryptoJS.AES.encrypt('promoter', SECRET_KEY);
             
             localStorage.setItem(LOCALSTORAGE_ROLE_KEY, encodedUserRole);
             localStorage.setItem(LOCALSTORAGE_USER_ITEM_KEY, JSON.stringify(data.promoter));
             localStorage.setItem(LOCALSTORAGE_TOKEN_ITEM_KEY, data.token);
             localStorage.setItem(LOCALSTORAGE_REFRESH_TOKEN_ITEM_KEY, data.refresh_token);
-             
+            localStorage.setItem("role", ciphertext);
+
+            
+
+            
+            // Decrypt 
+            // var bytes  = CryptoJS.AES.decrypt(ciphertext.toString(), SECRET_KEY);
+            // var plaintext = bytes.toString(CryptoJS.enc.Utf8);        
+            // console.log(plaintext);
+
+
             yield put(loginSuccess(data));
         } catch(error){            
             yield put(loginError(error));

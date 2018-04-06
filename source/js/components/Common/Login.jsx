@@ -31,7 +31,7 @@ class Login extends Component{
         // var bytes  = CryptoJS.AES.decrypt(ciphertext.toString(), SECRET_KEY);
         // var plaintext = bytes.toString(CryptoJS.enc.Utf8);        
         // console.log(plaintext);
-        
+
     }
 
     submitForm = (values) => {
@@ -45,13 +45,27 @@ class Login extends Component{
         }
 
         dispatch(login(loginData));        
-    }     
+    }
+
+    componentDidUpdate(){
+        
+    }
     
     render(){
-        let { error } = this.props;
-        var token = localStorage.getItem('token');
-        if (token) {
-            return <Redirect to={routeCodes.AFTERREGISTER} />;
+        let { error,user } = this.props;
+        let token = localStorage.getItem('token');
+        let usrObj = reactLocalStorage.getObject('user');
+        
+        if (Object.keys(usrObj).length>0){
+            console.log('*************************');
+            console.log(usrObj);
+            console.log('*************************');
+
+            if(usrObj['first_login']){
+                return <Redirect to={routeCodes.AFTERREGISTER} />;
+            }else{
+                return <Redirect to={routeCodes.DASHBOARD} />;
+            }
         }
 
         return(

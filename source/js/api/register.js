@@ -14,7 +14,24 @@ function afterRegisterUpdate(data){
                         } );
 }
 
+function fetchIndustry(){
+    return fetchResource('job_industry');
+}
+
+function fetchSetting(){
+    let newVar = reactLocalStorage.get('token', true);
+    var options = {
+        method: 'GET',        
+        headers:{
+            'x-access-token':newVar
+        }
+    }
+    return fetchResource('promoter/setting/video_tutorial',options);
+}
+
 export default {
     userRegister,
-    afterRegisterUpdate
+    afterRegisterUpdate,
+    fetchIndustry,
+    fetchSetting
 }

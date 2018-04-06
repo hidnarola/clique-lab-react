@@ -51,12 +51,7 @@ class FormCampaignRight extends Component{
                         </li>
                         <li>
                             <a href="">Use #tags</a>
-                            {
-                                {/* hashTags.map((obj,index)=>{
-
-                                    return(<p>#{obj.value}</p>)
-                                }) */}
-                            }                            
+                                                        
                         </li>
                     </ul>
                 </div>

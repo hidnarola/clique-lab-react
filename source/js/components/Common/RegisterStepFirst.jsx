@@ -3,6 +3,7 @@ import { Field, reduxForm } from 'redux-form';
 import validator from 'validator';
 import cx from 'classnames';
 import {FileField_Dropzone,SelectField_ReactSelect} from '../../components/Forms/RenderFormComponent/EveryComponent';
+import { connect } from 'react-redux';
 
 const validate = values => {
     
@@ -15,8 +16,6 @@ const validate = values => {
     if (!values.industryName) {
         // console.log('industryName==>',values.industryName.value);    
         errors.industryName = 'Required';
-    }else if(validator.isEmpty(values.industryName.value)){
-        errors.industryName = 'Required';        
     }
 
     if (!values.description) {
@@ -56,6 +55,13 @@ class RegisterStepFirst extends Component{
         const { handleSubmit } = this.props;
         const { selectedOption } = this.state;
         const value = selectedOption && selectedOption.value;
+
+        const newArr = [];        
+        if(this.props.industryList){
+            this.props.industryList.map((obj,index) => {
+                newArr.push({value: obj._id, label: obj.name })
+            })
+        }
         
         return(
             <section className="content">
@@ -93,11 +99,7 @@ class RegisterStepFirst extends Component{
                                         labelClass="control-label"                                            
                                         placeholder="Main Muscle Group"
                                         component={SelectField_ReactSelect}
-                                        options={[
-                                            { value: '', label: 'Select Industry' },
-                                            { value: 'one', label: 'One' },
-                                            { value: 'two', label: 'Two' },
-                                        ]}                                            
+                                        options={newArr}                                            
                                     />
                                     <Field
                                         name="description"                                        
@@ -120,11 +122,17 @@ class RegisterStepFirst extends Component{
 
 
 // export default RegisterStepFirst;
+const mapStateToProps = (state) => {
+    const { afterRegister } = state;
+    return {        
+        industryList:afterRegister.get('after_register_data').industryList,        
+    }
+}
 
-export default reduxForm({
+export default connect(mapStateToProps)(reduxForm({
     form: 'wizard', //                 <------ same form name
     multipartForm: true,
     destroyOnUnmount: false, //        <------ preserve form data
     forceUnregisterOnUnmount: true, // <------ unregister fields on unmount    
     validate
-})(RegisterStepFirst);
+})(RegisterStepFirst));

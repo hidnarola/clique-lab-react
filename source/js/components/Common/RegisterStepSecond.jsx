@@ -1,9 +1,10 @@
 import React,{Component} from 'react';
 import { Field, reduxForm } from 'redux-form';
 import Iframe from 'react-iframe'
+import { connect } from 'react-redux';
 
 const RegisterSecondStep = (props) => {
-    const { handleSubmit, pristine, previousPage, submitting } = props
+    const { handleSubmit, pristine, previousPage, submitting,videoUrl } = props
     return(
         <section className="content">
             <div className="container">
@@ -15,7 +16,7 @@ const RegisterSecondStep = (props) => {
                     <h2>Watch a tutorial video</h2>
                     <form onSubmit={handleSubmit}>
                         <div className="video-frame">
-                        <Iframe url="http://www.youtube.com/embed/xDMP3i36naA"
+                        <Iframe url={videoUrl}
                             width="450px"
                             height="450px"
                             id="myId"
@@ -42,9 +43,16 @@ const RegisterSecondStep = (props) => {
 
 // export default RegisterStepFirst;
 
-export default reduxForm({
+const mapStateToProps = (state) => {
+    const { afterRegister } = state;
+    return {
+        videoUrl:afterRegister.get('after_register_data').videoUrl,
+    }
+}
+
+export default connect(mapStateToProps)(reduxForm({
     form: 'wizard', //                 <------ same form name
     multipartForm: true,
     destroyOnUnmount: false, //        <------ preserve form data
     forceUnregisterOnUnmount: true, // <------ unregister fields on unmount    
-})(RegisterSecondStep);
+})(RegisterSecondStep));

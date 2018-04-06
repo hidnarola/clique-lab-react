@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import RegisterStepFirst from '../components/Common/RegisterStepFirst';
 import RegisterStepSecond from '../components/Common/RegisterStepSecond';
 import { connect } from 'react-redux';
-import {afterRegisterSend} from '../actions/afterRegister';
+import {afterRegisterSend,industryFetch} from '../actions/afterRegister';
 import {reactLocalStorage} from 'reactjs-localstorage';
+import {Redirect} from 'react-router-dom';
+import { routeCodes } from '../constants/routes';
 
 class AfterRegister extends Component {
     
@@ -14,7 +16,8 @@ class AfterRegister extends Component {
         this.state = {
             page:1,
         };
-        this.submitForm = this.submitForm.bind(this);        
+        this.submitForm = this.submitForm.bind(this);
+
     }
 
     nextPage() {
@@ -25,16 +28,26 @@ class AfterRegister extends Component {
         this.setState({ page: this.state.page - 1 });
     }
 
+    componentWillMount(){
+        const { dispatch } = this.props;
+        dispatch(industryFetch());
+    }
+
     submitForm(values){
         const { dispatch } = this.props;
-        
-        let afterRegisterData = {
-            industry_category: values.industryname,
-            industry_description: values.description,
-        }
 
-        dispatch(afterRegisterSend(afterRegisterData));        
+        const formData = new FormData();
+        formData.append("industry_category", values.industryName.value);
+        formData.append("industry_description", values.description);        
+        formData.append('avatar', values.images[0]);                         
+        dispatch(afterRegisterSend(formData));        
         // window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`)
+        this.props.history.push("/dashboard");
+        // <Redirect to={routeCodes.DASHBOARD} />
+    }
+
+    componentDidUpdate(){
+
     }
 
     render() {
@@ -53,13 +66,12 @@ class AfterRegister extends Component {
 }
 
 const mapStateToProps = (state) => {
-    const { login } = state;
+    const { afterRegister } = state;
     return {
-        loading: login.get('loading'),
-        error: login.get('error'),
-        user: login.get('user'),
-        token: login.get('token'),
-        refreshToken: login.get('refreshToken'),
+        loading: afterRegister.get('loading'),
+        error: afterRegister.get('error'),
+        industryList:afterRegister.get('after_register_data').industryList,
+        videoUrl:afterRegister.get('after_register_data').videoUrl,
     }
 }
 
