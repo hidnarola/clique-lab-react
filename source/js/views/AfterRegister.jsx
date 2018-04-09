@@ -40,7 +40,7 @@ class AfterRegister extends Component {
         formData.append("industry_category", values.industryName.value);
         formData.append("industry_description", values.description);        
         formData.append('avatar', values.images[0]);                         
-        dispatch(afterRegisterSend(formData));        
+        dispatch(afterRegisterSend(formData));
         // window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`)
         this.props.history.push("/dashboard");
         // <Redirect to={routeCodes.DASHBOARD} />

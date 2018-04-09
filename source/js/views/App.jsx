@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
-import { Route, Switch,Redirect } from 'react-router-dom';
+// import { Route, Switch,Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link, Redirect, Switch, withRouter } from "react-router-dom";
+
 import { hot } from 'react-hot-loader';
 import { routeCodes } from 'constants/routes';
 import {DefaultLayout,PrivateRoute,LoginPrivateRoute} from '../components/global/RouterWrapper';
+import ScrollToTop from 'components/global/ScrollToTop';
 
 import Home from 'views/Home';
 import People from 'views/People';
@@ -19,11 +22,13 @@ import EverydayPeople from './EverydayPeople';
 import createHistory from "history/createBrowserHistory"
 const history = createHistory()
 
+
 class App extends Component {
     render() {
         return (
             <div>     
-                    <Switch>
+                <Router>
+                    <ScrollToTop>
                         <LoginPrivateRoute exact path={ routeCodes.HOME } component={ Login } />
                         <LoginPrivateRoute path={ routeCodes.LOGIN } component={Login} />
                         <Route path={ routeCodes.FORGOT } component={ForgotPassword} />
@@ -37,8 +42,9 @@ class App extends Component {
 
                         <PrivateRoute path={routeCodes.CAMPAIGN} component={CampaignForm} showHeader={true} />
                         <PrivateRoute path={routeCodes.EVERYDAYPEOPLE} component={EverydayPeople} showHeader={true} />
-                        <Route path='*' component={ NotFound } />                        
-                    </Switch>
+                        {/* <Route path='*' component={ NotFound } />                         */}
+                    </ScrollToTop>
+                </Router>
             </div>
         );
     }

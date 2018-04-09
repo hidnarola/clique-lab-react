@@ -90,6 +90,7 @@ class FormStep1 extends Component{
                                 defaultValue={null}
                                 showDisabledMonthNavigation
                                 minDateVal={moment()}
+                                placeholder="Campaign start date"
                             />
 
                             <Field
@@ -98,6 +99,7 @@ class FormStep1 extends Component{
                                 component={renderFieldDatePicker}
                                 defaultValue={null}                                
                                 showDisabledMonthNavigation
+                                placeholder="Campaign end date"
                             />
                             
                             <div className="submit-btn">

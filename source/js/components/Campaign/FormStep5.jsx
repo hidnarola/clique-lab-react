@@ -5,7 +5,7 @@ import FormCampaignRight from './FormCampaignRight';
 import {FileField_Dropzone} 
         from '../../components/Forms/RenderFormComponent/EveryComponent';
 
-class FormStep4 extends Component{
+class FormStep5 extends Component{
 
     constructor(props){
         super(props);
@@ -32,26 +32,26 @@ class FormStep4 extends Component{
                                 <a href=""></a>
                                 <strong></strong>
                             </div>
-                            <div className="process-point active">
+                            <div className="process-point active completed">
                                 <a href=""></a>
                                 <strong></strong>
                             </div>
-                            <div className="process-point">
+                            <div className="process-point active">
                                 <a href=""></a>
                             </div>
                         </div>
                         <div className="step-content d-flex">
-                            <h2>Step 4</h2>
+                            <h2>Step 5</h2>
                             <div className="input-wrap select-wrap">
                                 <label>Public or Invite only</label>
                                 <Field
-                                    name="images"
+                                    name="imagesNew"
                                     label="Images"
                                     labelClass="control-label"
                                     wrapperClass="form-group"
                                     placeholder="Images"
                                     component={FileField_Dropzone}
-                                    multiple={false}
+                                    multiple={true}
                                 />
                             </div>
 
@@ -75,4 +75,4 @@ export default reduxForm({
     destroyOnUnmount: false, //        <------ preserve form data
     forceUnregisterOnUnmount: true, // <------ unregister fields on unmount
     // validate,
-})(FormStep4);
+})(FormStep5);

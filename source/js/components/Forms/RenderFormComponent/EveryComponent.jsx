@@ -20,8 +20,7 @@ export const renderFieldCampaign = ({
             {touched && ((error && <span>{error}</span>) || (warning && <span>{warning}</span>))}
         </div>
 )
-
-  
+ 
 export const renderFieldDatePicker = ({
     input, type, placeholder, defaultValue, label,
     minDateVal,maxDateVal,
@@ -32,9 +31,10 @@ export const renderFieldDatePicker = ({
             <div className="input-wrap-2">
                 <DatePicker
                     {...input}                
-                    selected={input.value ? moment(input.value) : ""}
+                    selected={input.value ? moment(input.value) : moment()}
                     minDate={minDateVal}
                     dateFormat="YYYY-MM-DD"
+                    placeholderText={placeholder}
                 />
                 {/* <i className="">
                     <img src="images/calendar-icon.jpg" alt="" />

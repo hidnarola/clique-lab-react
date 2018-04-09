@@ -1,4 +1,5 @@
 import React,{Component} from 'react';
+import { NavLink } from 'react-router-dom';
 import LogoImg from 'img/common/logo.png';
 
 class LeftMenu extends Component {
@@ -18,10 +19,14 @@ class LeftMenu extends Component {
                 <div className="navigation-div">
                     <ul>
                         <li>
-                            <a >
+                            <NavLink
+                                activeClassName='active'
+                                className='Menu-link'
+                                to="dashboard"
+                            >
                                 <i className="dashboard-icon"></i>
-                                Dashboard
-                            </a>
+                                <span>Dashboard</span>
+                            </NavLink>
                         </li>
                         <li>
                             <a >
@@ -31,9 +36,18 @@ class LeftMenu extends Component {
                         </li>
                         <li>
                             <a >
-                                <i className="people-icon"></i>
-                                Everyday People
+                                
+                                
                             </a>
+
+                            <NavLink
+                                activeClassName='active'
+                                className='Menu-link'
+                                to="every-day-people"
+                            >
+                                <i className="people-icon"></i>
+                                <span>Everyday People</span>
+                            </NavLink>
                         </li>
                         <li>
                             <a >
@@ -42,10 +56,14 @@ class LeftMenu extends Component {
                             </a>
                         </li>
                         <li>
-                            <a >
+                            <NavLink
+                                activeClassName='active'
+                                className='Menu-link'
+                                to="campaign"
+                            >
                                 <i className="campaigns-icon"></i>
-                                Campaigns
-                            </a>
+                                <span>Campaigns</span>
+                            </NavLink>
                         </li>
                         <li>
                             <a >

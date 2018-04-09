@@ -82,6 +82,7 @@
     "react-dropzone": "^4.2.9",
     "react-hot-loader": "^4.0.0-beta.12",
     "react-iframe": "^1.1.0",
+    "react-js-pagination": "^3.0.1",
     "react-redux": "^5.0.6",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
@@ -93,7 +94,8 @@
     "redux-saga": "^0.16.0",
     "transit-immutable-js": "^0.7.0",
     "transit-js": "^0.8.846",
-    "validator": "^9.4.1"
+    "validator": "^9.4.1",
+    "voca": "^1.4.0"
   },
   "description": "Starter boilerplate for React and Redux, using Webpack 3",
   "repository": {

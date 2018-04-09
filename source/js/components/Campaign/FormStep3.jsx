@@ -7,6 +7,35 @@ import moment from 'moment';
 import {renderFieldCampaign,renderFieldDatePicker,SelectField_ReactSelect,SelectField_ReactSelectMulti} 
         from '../../components/Forms/RenderFormComponent/EveryComponent';
 
+const validate = values => {
+
+    const errors = {};
+
+    if (!values.public_or_private) {
+        errors.public_or_private = 'Required';
+    }
+
+    if(!values.media_format){
+        errors.media_format = 'Required';
+    }
+
+    if(!values.location){
+        errors.location = 'Required';
+    }
+
+    if(!values.how_much){
+        errors.how_much = 'Required';
+    }else if(!validator.isFloat(values.how_much)){
+        errors.how_much = 'Must be a number';
+    }
+
+    if(!values.currency){
+        errors.currency = 'Required';
+    }
+
+    return errors;
+};
+
 class FormStep3 extends Component{
 
     constructor(props){
@@ -15,6 +44,7 @@ class FormStep3 extends Component{
     }
 
     render(){
+
         const { handleSubmit,previousPage } = this.props;
 
         return(
@@ -81,17 +111,26 @@ class FormStep3 extends Component{
                                 placeholder="Location"
                             />
 
-                            <div className="input-wrap">
-                                <label>How much to pay ( Currency )</label>
-                                <div className="input-2 d-flex select-wrap">
-                                    <Field name="firstName" component="input" type="text" placeholder="First Name"/>
-                                    <select>
-                                        <option>Select currency</option>
-                                        <option>Select currency 01</option>
-                                        <option>Select currency 02</option>
-                                    </select>
-                                </div>
-                            </div>
+                            <Field
+                                name="how_much"
+                                type="text"
+                                label="How Much ?"
+                                component={renderFieldCampaign}
+                                placeholder="How Much ?"
+                            />
+
+                            <Field        
+                                wrapperClass="input-wrap select-wrap"
+                                name="currency"       
+                                label="How much to pay ( Currency )"
+                                labelClass="control-label"
+                                placeholder="How much to pay ( Currency )"
+                                component={SelectField_ReactSelect}
+                                options={[
+                                    { value: '', label: 'Select Media Format' },
+                                    { value: 'dollar' , label :"Dollar"}                                                                        
+                                ]}                                            
+                            />
 
                             <div className="submit-btn d-flex">
                                 <button type="button" onClick={previousPage} 
@@ -100,7 +139,7 @@ class FormStep3 extends Component{
                             </div>
                         </div>
                     </div>
-                    {/* <FormCampaignRight/> */}
+                    <FormCampaignRight/>
                 </div>
             </form>
         );
@@ -112,5 +151,5 @@ export default reduxForm({
     form: 'wizardCampaign', //                 <------ same form name
     destroyOnUnmount: false, //        <------ preserve form data
     forceUnregisterOnUnmount: true, // <------ unregister fields on unmount
-    // validate,
+    validate,
 })(FormStep3);

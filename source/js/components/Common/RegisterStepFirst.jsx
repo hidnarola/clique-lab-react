@@ -120,7 +120,6 @@ class RegisterStepFirst extends Component{
     }
 }
 
-
 // export default RegisterStepFirst;
 const mapStateToProps = (state) => {
     const { afterRegister } = state;

@@ -33,7 +33,8 @@ class ModalPopUp extends React.Component {
     render() {
         return (
             <div id="terms-condition">
-                <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} id="terms-condition">
+                <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} 
+                       id="terms-condition" {...this.props}>
                     <ModalBody>
                         <div dangerouslySetInnerHTML={this.createMarkup()} />
                     </ModalBody>

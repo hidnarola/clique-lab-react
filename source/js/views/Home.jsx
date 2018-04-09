@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { increment } from 'actions/app';
+
 import CircleSvg from 'svg/circle.svg';
 import SquareSvg from 'svg/square.svg';
 import TriangleSvg from 'svg/triangle.svg';

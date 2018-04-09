@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getPeople } from 'actions/people';
+
 import { withRouter } from 'react-router-dom';
 import { logout } from '../actions/login';
 

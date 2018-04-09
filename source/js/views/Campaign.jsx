@@ -4,10 +4,11 @@ import FormStep1 from '../components/Campaign/FormStep1';
 import FormStep2 from '../components/Campaign/FormStep2';
 import FormStep3 from '../components/Campaign/FormStep3';
 import FormStep4 from '../components/Campaign/FormStep4';
+import FormStep5 from '../components/Campaign/FormStep5';
 
-
+import ModalPopUp from '../components/Common/ModalPopUp';
 import { connect } from 'react-redux';
-
+import { createCampaign } from '../actions/campaign';
 
 class Campaign extends Component {
     
@@ -16,16 +17,75 @@ class Campaign extends Component {
         this.nextPage = this.nextPage.bind(this);
         this.previousPage = this.previousPage.bind(this);
         this.state = {
-            page:1,
+            page:1,            
+            contentBody:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."            
         };
+        this.submitForm = this.submitForm.bind(this);
     }
-
+    
     nextPage() {
         this.setState({ page: this.state.page + 1 });
     }
 
     previousPage() {
         this.setState({ page: this.state.page - 1 });
+    }
+
+    submitForm(values){
+        // console.log(values);
+        const {dispatch} = this.props;
+        let hashTagArr = [];
+        let atTagArr = [];
+        
+        values.tagHash.map((obj,index)=>{
+            hashTagArr.push(obj.value);
+        });        
+        values.tagAt.map((obj,index)=>{
+            atTagArr.push(obj.value);
+        });
+
+        // var ins = document.getElementById('fileToUpload').files.length;
+        // for (var x = 0; x < ins; x++) {
+        //     fd.append("fileToUpload[]", document.getElementById('fileToUpload').files[x]);
+        // }
+
+        const formData = new FormData();
+
+        formData.append("name",values.campaignName);
+        formData.append("start_date",values.campaignStartDate);
+        formData.append("end_date",values.campaignEndDate);
+        formData.append("call_to_action",values.call_to_action);
+        formData.append("description",values.short_desc);
+        formData.append("social_media_platform",values.industryName.value);
+        formData.append("hash_tag",JSON.stringify(hashTagArr));
+        formData.append("at_tag",JSON.stringify(atTagArr));
+        formData.append("privacy",values.public_or_private.value);
+        formData.append("media_format",values.media_format.value);
+        formData.append("location",values.location);
+        formData.append("price",values.how_much);
+        formData.append("currency",values.currency.value);
+        formData.append("cover_image",values.images[0]);
+        formData.append("board_image",values.imagesNew[0]);
+
+        dispatch(createCampaign(formData))
+        // formData.append('avatar', values.images[0]);
+
+        // for (var value of formData.values()) {
+        //     console.log(value); 
+        // }
+    }
+
+    componentDidUpdate(){
+        const { campaign } = this.props;
+        console.log('===============================');
+        console.log(campaign);
+        console.log('===============================');
+
+        if(campaign){
+            if(campaign['status']){
+                this.childCampaign.toggle()
+            }
+        }
     }
 
     render() {
@@ -47,11 +107,29 @@ class Campaign extends Component {
                 {page === 4 && <FormStep4
                                     previousPage={this.previousPage}
                                     onSubmit={this.nextPage} />}
+
+                {page === 5 && <FormStep5
+                                    previousPage={this.previousPage}
+                                    onSubmit={this.submitForm} />}
+
+                <ModalPopUp 
+                    onRef={ref => (this.childCampaign = ref)} 
+                    contentBody={this.state.contentBody}
+                    onClosed={() => {console.log('Closed')}}
+                     />
+                <button onClick={() => this.childCampaign.toggle()}>fgjsofrhohoi</button>
             </div>
         );
     }
 }
 
-export default connect(state => ({
-    
-}))(Campaign)
+const mapStateToProps = (state) => {
+    const { campaign } = state;
+    return {
+        loading: campaign.get('loading'),
+        error: campaign.get('error'),
+        campaign:campaign.get('campaign')
+    }
+}
+
+export default connect(mapStateToProps)(Campaign)
