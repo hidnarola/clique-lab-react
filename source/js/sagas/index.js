@@ -3,12 +3,14 @@ import login from 'sagas/login';
 import register from 'sagas/register';
 import afterRegister from 'sagas/afterRegister';
 import campaign from 'sagas/campaign';
+import forgotPass from 'sagas/forgotPass';
 
 export default function* rootSaga() {
   yield all([    
     ...login,
     ...register,
     ...afterRegister,
-    ...campaign
+    ...campaign,
+    ...forgotPass
   ]);
 }

@@ -12,6 +12,7 @@ import {reactLocalStorage} from 'reactjs-localstorage';
 // reactLocalStorage.setObject('var', {'test': 'test'}); // reactLocalStorage.getObject('var');
 import CryptoJS from 'crypto-js';
 import {SECRET_KEY} from '../../constants/usefulvar';
+import { Alert } from 'reactstrap';
 
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
@@ -52,7 +53,7 @@ class Login extends Component{
     }
     
     render(){
-        let { error,user } = this.props;
+        let { error,user,message } = this.props;
         let token = localStorage.getItem('token');
         let usrObj = reactLocalStorage.getObject('user');
         
@@ -77,6 +78,9 @@ class Login extends Component{
                         </a>
                     </div>
                     <div className="form-content d-flex">
+                        <div className="login-alert-msg">
+                            {message && <Alert color="danger">{message}</Alert>} 
+                        </div>
                         <LoginForm onSubmit={this.submitForm} newError={error}/>
                     </div>
                     <div className="form-ftr">
@@ -95,12 +99,14 @@ class Login extends Component{
 
 const mapStateToProps = (state) => {
     const { login } = state;
+    const { forgotPass } = state;
     return {
         loading: login.get('loading'),
         error: login.get('error'),
         user: login.get('user'),
         token: login.get('token'),
         refreshToken: login.get('refreshToken'),
+        message:forgotPass.get('message'),
     }
 }
 

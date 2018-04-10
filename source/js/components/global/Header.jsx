@@ -7,8 +7,6 @@ import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap
 
 class Header extends Component{
 
-    
-
     constructor(props) {
         super(props);
         this.mylogout = this.mylogout.bind(this);
@@ -36,9 +34,10 @@ class Header extends Component{
         return(
             <div className="right-hdr d-flex">
                 <h2>
-                    Hello
+                    {/* Hello
                     <strong>John Doe,</strong> 
-                    what would you like to do today?
+                    what would you like to do today? */}
+                    Profile
                 </h2>
                 <div className="right-hdr-r">
                     <div className="hdr-cart">
