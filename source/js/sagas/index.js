@@ -3,7 +3,9 @@ import login from 'sagas/login';
 import register from 'sagas/register';
 import afterRegister from 'sagas/afterRegister';
 import campaign from 'sagas/campaign';
+
 import everyday from 'sagas/everyDay';
+import forgotPass from 'sagas/forgotPass';
 
 export default function* rootSaga() {
   yield all([    
@@ -11,6 +13,7 @@ export default function* rootSaga() {
     ...register,
     ...afterRegister,
     ...campaign,
-    ...everyday
+    ...everyday,
+    ...forgotPass
   ]);
 }

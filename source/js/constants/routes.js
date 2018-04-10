@@ -10,9 +10,15 @@ export const routeCodes = {
 
     LOGIN: `${ publicPath }login`,
     FORGOT: `${ publicPath }forgot_password`,
+    RESET: `${ publicPath }reset_password`,
     REGISTER: `${ publicPath }register`,
     AFTERREGISTER: `${ publicPath }after-register`,
 
     CAMPAIGN:`${publicPath}campaign`,
-    EVERYDAYPEOPLE:`${publicPath}every-day-people`
+    EVERYDAYPEOPLE:`${publicPath}every-day-people`,
+
+    MY_PROFILE:`${ publicPath }my_profile`,
+    PARTNERSHIP_PROGRAM:`${ publicPath }partnership_program`,
+    WALLET:`${ publicPath }wallet`,
+    PERMISSION:`${ publicPath }permission`,
 };

@@ -4,42 +4,38 @@ import LogoImg from 'img/common/logo.png';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { Link, Redirect } from 'react-router-dom';
-import { forgotPass } from '../../actions/forgotPass';
-import ForgotPassForm from '../Forms/Front/ForgotPassForm';
+import { resetPass } from '../../actions/forgotPass';
+import ResetPassForm from '../Forms/Front/ResetPassForm';
 import PropTypes from 'prop-types';
 
 
-class ForgotPassword extends Component{
+class ResetPassword extends Component{
     constructor(props){
         super(props);
     }
 
-    static propTypes = {
-        loading: PropTypes.text,
-        error: PropTypes.text,
-        status: PropTypes.text,
-        dispatch: PropTypes.func,
-    }
+    // static propTypes = {
+    //     loading: PropTypes.text,
+    //     error: PropTypes.text,
+    //     status: PropTypes.text,
+    //     dispatch: PropTypes.func,
+    // }
 
     submitForm = (values) => {
         const { dispatch } = this.props;
-        let forgotData = {
-            email: values.email,
+        let resetData = {
+            token: this.props.match.params.forgot_token,
+            password: values.password,
         }
-        dispatch(forgotPass(forgotData));        
+        dispatch(resetPass(resetData));        
     }
 
     render(){
-        if(this.props.match.params.forgot_token!==undefined){
-            if(this.props.match.params.forgot_token!==''){
-                return <Redirect to={ `/reset_password/${this.props.match.params.forgot_token}`} />
-            }
-        }
+        console.log(this.props);
         let { error, status } = this.props;
         if(status===1){
             return <Redirect to="/login" />
         }
-        
         return(
             <div className="login-register-bg">
                 <div className="login-register-box">
@@ -49,16 +45,7 @@ class ForgotPassword extends Component{
                         </a>
                     </div>
                     <div className="form-content d-flex">
-                        <ForgotPassForm onSubmit={this.submitForm} newError={error} />
-                        {/* <form>
-                            <h3>Reset Password</h3>
-                            <div className="input-div">
-                                <input type="text" name="" placeholder="Email" />
-                            </div>	
-                            <div className="submit-div">
-                                <button type="submit" className="round-btn">Reset</button>
-                            </div>	
-                        </form> */}
+                        <ResetPassForm onSubmit={this.submitForm} newError={error}/>
                     </div>
                     <div className="form-ftr">
                         <p>Already have an account?<Link className="cursor_pointer" to="/login"> Login Here</Link></p>
@@ -75,8 +62,7 @@ const mapStateToProps = (state) => {
         loading: forgotPass.get('loading'),
         error: forgotPass.get('error'),
         status: forgotPass.get('status'),
-        message: forgotPass.get('message'),
     }
 }
 
-export default connect(mapStateToProps)(withRouter(ForgotPassword));
+export default connect(mapStateToProps)(withRouter(ResetPassword));

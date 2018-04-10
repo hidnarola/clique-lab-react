@@ -13,11 +13,14 @@ import NotFound from 'views/NotFound';
 import Login from 'components/Common/Login';
 import EmailVerify from 'components/Common/EmailVerify';
 import ForgotPassword from 'components/Common/ForgotPassword';
+import ResetPassword from 'components/Common/ResetPassword';
 import Register from 'components/Common/Register';
 import AfterRegister from './AfterRegister';
 import CampaignForm from './Campaign';
 import Dashboard from './Dashboard';
 import EverydayPeople from './EverydayPeople';
+
+import MyProfile from './MyProfile';
 
 import createHistory from "history/createBrowserHistory"
 const history = createHistory()
@@ -31,8 +34,9 @@ class App extends Component {
                     <ScrollToTop>
                         <LoginPrivateRoute exact path={ routeCodes.HOME } component={ Login } />
                         <LoginPrivateRoute path={ routeCodes.LOGIN } component={Login} />
-                        <Route path={ routeCodes.FORGOT } component={ForgotPassword} />
-                        
+                        <Route path={ `${routeCodes.FORGOT}/:forgot_token?` } component={ForgotPassword} />
+                        <Route path={ `${routeCodes.RESET}/:forgot_token?` } component={ResetPassword} />
+
                         <Route path={ routeCodes.REGISTER } component={Register} />
 
                         <Route path="/email_confirm/:refId" component={EmailVerify} />
@@ -42,6 +46,14 @@ class App extends Component {
 
                         <PrivateRoute path={routeCodes.CAMPAIGN} component={CampaignForm} showHeader={true} />
                         <PrivateRoute path={routeCodes.EVERYDAYPEOPLE} component={EverydayPeople} showHeader={true} />
+                        
+                        {/* Profile */}
+                        <PrivateRoute path={routeCodes.MY_PROFILE} component={MyProfile} showHeader={true} />
+                        <PrivateRoute path={routeCodes.PARTNERSHIP_PROGRAM} component={MyProfile} showHeader={true} />
+                        <PrivateRoute path={routeCodes.WALLET} component={CampaignForm} showHeader={true} />
+                        <PrivateRoute path={routeCodes.PERMISSION} component={CampaignForm} showHeader={true} />
+
+                        
                         {/* <Route path='*' component={ NotFound } />                         */}
                     </ScrollToTop>
                 </Router>
