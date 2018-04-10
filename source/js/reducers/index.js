@@ -3,6 +3,7 @@ import login from 'reducers/login';
 import register from 'reducers/register';
 import afterRegister from 'reducers/afterRegister';
 import campaign from 'reducers/campaign';
+import everyDay from 'reducers/everyDay';
 import { reducer as formReducer } from 'redux-form'
 
 export default combineReducers({    
@@ -10,5 +11,6 @@ export default combineReducers({
     register,
     afterRegister,
     campaign,
+    everyDay,
     form: formReducer
 });

@@ -1,13 +1,12 @@
 import { takeLatest, put, call } from 'redux-saga/effects';
 import { EVERY_DAY_REQUEST,EVERY_DAY_SUCCESS,EVERY_DAY_ERROR,everyDaySuccess,everyDayError } from "../actions/everyDay";
-import api from '../api/login';
-import { SubmissionError } from 'redux-form'; 
+import api from '../api/everyDay';
 
 function fetchEveryDayData(){
 
     return function* (action){
         try{            
-            data = yield call(() => api.userLogin(action.data));
+            let data = yield call(() => api.fetchUsersNew(action.data));
             yield put(everyDaySuccess(data));
         } catch(error){            
             yield put(everyDayError(error));
@@ -16,7 +15,7 @@ function fetchEveryDayData(){
 }
 
 export function* watchEveryDay() {
-    yield takeLatest(LOGIN_REQUEST, fetchEveryDayData());
+    yield takeLatest(EVERY_DAY_REQUEST, fetchEveryDayData());
 }
 
 export default [

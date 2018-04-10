@@ -108,6 +108,30 @@ export const fetchResource = (path, userOptions = {}) => {
         });
 };
 
+
+export const getFormData = (path, data, headers) => {
+    // Build Url
+    const url = `${API_URL}${path}`;
+
+    return axios({
+        method: 'GET',
+        url: url,
+        data: data,
+        headers: headers
+    }).then(function (res) {
+
+        if (res.status < 200 || res.status >= 300) {
+            // Get res as text
+            return res.text();
+        }else{
+            return res;
+        }
+
+    }).catch(function (err) {
+        return err.toString();
+    });
+};
+
 export const postFormData = (path, data, headers) => {
     // Build Url
     const url = `${API_URL}${path}`;
