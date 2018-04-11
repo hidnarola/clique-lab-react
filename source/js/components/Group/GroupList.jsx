@@ -107,19 +107,19 @@ class GroupList extends Component {
                 <div className="every-people">
                     <div className="all-people">
                         <ul className="all-people-ul d-flex">
-                            { 
-                                groups.map(function(obj,i){
+                            {                                 
+                                (groups !== null) ? groups.map(function(obj,i){
                                     return(
-                                        <li>
+                                        <li key={Math.random()}>
                                             <div className="all-people-div">
                                                 <div className="all-people-img">
                                                     <a href=""><img src="/assets/img/site/people-01.jpg" alt="" /></a>
-                                                    <ButtonDropdown className="plus-people dropdown">
-                                                        <a className="cursor_pointer"><img src="/assets/img/site/plus-sign.png" alt="" /></a>
+                                                    {/* <a className="cursor_pointer"><img src="/assets/img/site/plus-sign.png" alt="" /></a> */}
+                                                    {/* <ButtonDropdown className="plus-people dropdown">
                                                         <DropdownMenu className="dropdown-menu dropdown-menu-right">
                                                         <a className="dropdown-item" href="#">Add to Campaign</a>
                                                         </DropdownMenu>
-                                                    </ButtonDropdown>
+                                                    </ButtonDropdown> */}
                                                 </div>
                                                 <div className="group-btm-content">
                                                     <h4>Top influencers for skincare range</h4>
@@ -136,62 +136,8 @@ class GroupList extends Component {
                                             </div>
                                         </li>
                                     )
-                                }) 
-                            }
-                            {/* <li>
-                                <div className="all-people-div">
-                                    <div className="all-people-img">
-                                        <a href=""><img src="/assets/img/site/people-01.jpg" alt="" /></a>
-                                        <ButtonDropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} className="plus-people dropdown">
-                                            <DropdownToggle>
-                                                <a className="cursor_pointer"><img src="/assets/img/site/plus-sign.png" alt="" /></a>
-                                            </DropdownToggle>
-                                            <DropdownMenu className="dropdown-menu dropdown-menu-right">
-                                            <a className="dropdown-item" href="#">Add to Campaign</a>
-                                            </DropdownMenu>
-                                        </ButtonDropdown>
-                                    </div>
-                                    <div className="group-btm-content">
-                                        <h4>Top influencers for skincare range</h4>
-                                        <div className="group-btm-btm d-flex">
-                                            <div className="group-btm-l">
-                                                <h5>Members <strong>2343</strong> </h5>
-                                                <h5>Power <strong>34.3k</strong> </h5>
-                                            </div>
-                                            <div className="group-btm-r">
-                                                <h5>Activity rate <strong>75%</strong></h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div className="all-people-div">
-                                    <div className="all-people-img">
-                                        <a href=""><img src="/assets/img/site/people-02.jpg" alt="" /></a>
-                                        <ButtonDropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} className="plus-people dropdown">
-                                            <DropdownToggle>
-                                                <a className="cursor_pointer"><img src="/assets/img/site/plus-sign.png" alt="" /></a>
-                                            </DropdownToggle>
-                                            <DropdownMenu className="dropdown-menu dropdown-menu-right">
-                                            <a className="dropdown-item" href="#">Add to Campaign</a>
-                                            </DropdownMenu>
-                                        </ButtonDropdown>
-                                    </div>
-                                    <div className="group-btm-content">
-                                        <h4>Top influencers for skincare range</h4>
-                                        <div className="group-btm-btm d-flex">
-                                            <div className="group-btm-l">
-                                                <h5>Members <strong>2343</strong> </h5>
-                                                <h5>Power <strong>34.3k</strong> </h5>
-                                            </div>
-                                            <div className="group-btm-r">
-                                                <h5>Activity rate <strong>75%</strong></h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li> */}
+                                }) : ''
+                            }                             
                         </ul>
                     </div>
                     <Pagination 

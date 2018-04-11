@@ -6,6 +6,8 @@ import validator from 'validator';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import _ from 'lodash';
+import uploadImg from 'img/site/upload-img.jpg';
+import filrUp from 'img/site/filrUp.jpg';
 
 export const renderFieldCampaign = ({
         input,
@@ -72,7 +74,7 @@ export const FileField_Dropzone = (props) => {
             >
                 <div className="dropzone-image-preview-wrapper">
                     {input.value && images}
-                    {!input.value && <img src="/assets/img/site/upload-img.jpg" />}
+                    {!input.value && <img src={uploadImg} />}
                 </div>
             </Dropzone>
             {meta.touched &&
@@ -110,7 +112,7 @@ export const FileField_Dropzone_New = (props) => {
             >
                 <div className="dropzone-image-preview-wrapper">
                     {input.value && images}
-                    {!input.value && <img src="/assets/img/site/filrUp.jpg" />}
+                    {!input.value && <img src={filrUp} />}
                 </div>
             </Dropzone>
             {meta.touched &&

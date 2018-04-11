@@ -9,6 +9,7 @@ import FormStep5 from '../components/Campaign/FormStep5';
 import ModalPopUp from '../components/Common/ModalPopUp';
 import { connect } from 'react-redux';
 import { createCampaign } from '../actions/campaign';
+import {routeCodes} from '../constants/routes';
 
 class Campaign extends Component {
     
@@ -84,6 +85,10 @@ class Campaign extends Component {
         if(campaign){
             if(campaign['status']){
                 this.childCampaign.toggle()
+
+                setTimeout(()=>{
+                    this.props.history.push(routeCodes.DASHBOARD)
+                },1000)
             }
         }
     }
