@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import { NavLink } from 'react-router-dom';
 import LogoImg from 'img/common/logo.png';
+import { routeCodes } from 'constants/routes';
 
 class LeftMenu extends Component {
     
@@ -19,57 +20,39 @@ class LeftMenu extends Component {
                 <div className="navigation-div">
                     <ul>
                         <li>
-                            <NavLink
-                                activeClassName='active'
-                                className='Menu-link'
-                                to="dashboard"
-                            >
-                                <i className="dashboard-icon"></i>
-                                <span>Dashboard</span>
+                            <NavLink activeClassName='active' className='Menu-link' to={routeCodes.DASHBOARD }>
+                                <i className="dashboard-icon"></i>Dashboard
                             </NavLink>
                         </li>
                         <li>
-                            <a >
-                                <i className="create-icon"></i>
-                                    Create
-                                </a>
-                        </li>
-                        <li>
-                            <NavLink
-                                activeClassName='active'
-                                className='Menu-link'
-                                to="every-day-people"
-                            >
-                                <i className="people-icon"></i>
-                                <span>Everyday People</span>
+                            <NavLink activeClassName='active' className='Menu-link' to='/create'>
+                                <i className="create-icon"></i>Create
                             </NavLink>
                         </li>
                         <li>
-                            <NavLink activeClassName='active' className='Menu-link' to="groups">
+                            <NavLink activeClassName='active' className='Menu-link' to={routeCodes.EVERYDAYPEOPLE }>
+                                <i className="people-icon"></i>Everyday People
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink activeClassName='active' className='Menu-link' to={ routeCodes.LISTGROUPS }>
                                 <i className="group-icon"></i>Groups
                             </NavLink>
                         </li>
                         <li>
-                            <NavLink
-                                activeClassName='active'
-                                className='Menu-link'
-                                to="campaign"
-                            >
-                                <i className="campaigns-icon"></i>
-                                <span>Campaigns</span>
+                            <NavLink activeClassName='active' className='Menu-link' to={ routeCodes.CAMPAIGN } >
+                                <i className="campaigns-icon"></i>Campaigns
                             </NavLink>
                         </li>
                         <li>
-                            <a >
-                                <i className="calendar-icon"></i>
-                                Calendar
-                            </a>
+                            <NavLink activeClassName='active' className='Menu-link' to='/calendar'>
+                                <i className="calendar-icon"></i>Calendar
+                            </NavLink>
                         </li>
                         <li>
-                            <a >
-                                <i className="analytics-icon"></i>
-                                Analytics
-                            </a>
+                            <NavLink activeClassName='active' className='Menu-link' to='/analytics'>
+                                <i className="analytics-icon"></i>Analytics
+                            </NavLink>
                         </li>
                     </ul>
                 </div>

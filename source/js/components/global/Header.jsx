@@ -31,14 +31,10 @@ class Header extends Component{
     }
 
     render(){
+        let page_name = ((this.props.history.location.pathname).replace('/','')).replace('-',' ').toUpperCase();
         return(
             <div className="right-hdr d-flex">
-                <h2>
-                    {/* Hello
-                    <strong>John Doe,</strong> 
-                    what would you like to do today? */}
-                    Profile
-                </h2>
+                <h2>{ page_name }</h2>
                 <div className="right-hdr-r">
                     <div className="hdr-cart">
                         <a href="javascript:void(0)" role="button" id="cart-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
