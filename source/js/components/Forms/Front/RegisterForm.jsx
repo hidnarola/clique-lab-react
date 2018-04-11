@@ -137,7 +137,7 @@ let RegisterForm = props => {
                     I accept the
                     <a onClick={() => props.func(this, 'TERMS')}>
                         Terms & Conditions
-                    </a> 
+                     </a> 
                     
                     and the 
                     <a onClick={() => props.func(this, 'PRIVACY')}>

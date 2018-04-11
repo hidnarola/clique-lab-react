@@ -7,3 +7,16 @@
 @import "campaign/react-datepicker.css";
 @import "campaign/style.css";
 @import "campaign/custom.css";
+
+
+#group-popup.modal-dialog {
+    max-width: 770px;
+    background: #fff;
+    border: 0;
+    padding: 75px 85px 54px;
+}
+
+.plus-people .dropdown-menu{
+    right: 3px;
+    top: 50px !important;
+}

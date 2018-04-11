@@ -140,8 +140,9 @@ filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='#c76eff', endC
 .navigation-div ul li a{font-size:18px; color:#4f699d; font-weight:500; letter-spacing:.01em; padding:10px 0 10px 60px; line-height:20px; position:relative; display:block; border-radius:90px;}
 .navigation-div ul li a i{position:absolute; top:50%; left:0; text-align:center; -webkit-transform:translateY(-50%); -moz-transform:translateY(-50%); transform:translateY(-50%); width:24px; height:24px; margin:0 18px; display:block;}
 .navigation-div ul li a:hover,
-.navigation-div ul li.active a{color:#fff; background:#6772e5; text-decoration:none;}
 
+.navigation-div ul li a.active{color:#fff; background:#6772e5; text-decoration:none;}
+/* ..../assets/img/book1.jpg */
 .dashboard-icon{ background:url(../assets/img/site/dashboard-icon.png) no-repeat 0 0;}
 .create-icon{ background:url(../assets/img/site/create-icon.png) no-repeat 0 0;}
 .people-icon{ background:url(../assets/img/site/people-icon.png) no-repeat 0 0;}
@@ -150,7 +151,7 @@ filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='#c76eff', endC
 .calendar-icon{ background:url(../assets/img/site/calendar-icon.png) no-repeat 0 0;}
 .analytics-icon{ background:url(../assets/img/site/analiytics-icon.png) no-repeat 0 0;}
 .navigation-div ul li a:hover i,
-.navigation-div ul li.active a i{ background-position:0 -24px;}
+.navigation-div ul li.active a{ background-position:0 -24px;}
 
 .right-hdr{display:block; padding:0 0 22px; border-bottom:1px solid #c8cfda; margin:0 0 40px;}
 .right-hdr h2{ margin:0; padding:0; font-weight:300; font-size:30px; color:#525f7f; line-height:50px;}
