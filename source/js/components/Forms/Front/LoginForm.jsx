@@ -35,6 +35,9 @@ const renderField = ({
 }) => (
     <div className={cx('input-div',{'custom-error':(touched && error ) ? true:false })}>
         <input {...input} placeholder={placeholder} type={type} />        
+        {touched &&
+            ((error && <span>{error}</span>) ||
+                (warning && <span>{warning}</span>))}
     </div>
 )
 
@@ -44,8 +47,6 @@ let LoginForm = props => {
 
         <form onSubmit={handleSubmit}>
             <h3>Log In</h3>
-
-            
 
             <Field
                 name="username"

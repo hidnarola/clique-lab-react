@@ -58,10 +58,6 @@ class Login extends Component{
         let usrObj = reactLocalStorage.getObject('user');
         
         if (Object.keys(usrObj).length>0){
-            console.log('*************************');
-            console.log(usrObj);
-            console.log('*************************');
-
             if(usrObj['first_login']){
                 return <Redirect to={routeCodes.AFTERREGISTER} />;
             }else{

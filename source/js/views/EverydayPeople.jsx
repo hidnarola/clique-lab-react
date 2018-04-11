@@ -3,6 +3,11 @@ import { connect } from 'react-redux';
 import Pagination from "react-js-pagination";
 import { sendReq } from '../actions/everyDay';
 import fbImg from 'img/site/facebook-01.png';
+import ReactLoading from 'react-loading';
+
+const Example = ({ type, color,displayProp }) => (
+    <ReactLoading type={type} color={color} height='667' width='375' style={{display:displayProp}}  />
+);
 
 class EverydayPeople extends Component {
     
@@ -10,7 +15,8 @@ class EverydayPeople extends Component {
         super(props);
         this.state = {
             activePage: 1,
-            totalRecord:1
+            totalRecord:1,
+            loaderShow:false
         };
         this.handlePageChange = this.handlePageChange.bind(this)
         this.renderLi = this.renderLi.bind(this);
@@ -113,6 +119,7 @@ class EverydayPeople extends Component {
 
         return (
             <div className="every-people">
+                <Example displayProp="none" />
                 {/* <img src={fbImg} /> */}
                 <div className="everypeole-head d-flex">
                     <div className="everypeole-head-l">
@@ -169,8 +176,7 @@ class EverydayPeople extends Component {
                     <ul className="all-people-ul d-flex">
                         {
                             (user.status === 1) ? user.users.map((obj,index) => (this.renderLi(obj))) :''
-                        }
-                        
+                        }                        
                     </ul>
 
                     <Pagination 

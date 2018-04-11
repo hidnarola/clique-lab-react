@@ -9,6 +9,7 @@ import { withRouter } from 'react-router';
 import { register } from '../../actions/register';
 import {Redirect} from 'react-router-dom';
 import { routeCodes } from '../../constants/routes';
+import {getFormSyncErrors} from 'redux-form';
 
 class Register extends Component{
 
@@ -50,7 +51,8 @@ class Register extends Component{
     }
  
     render(){
-        let { user } = this.props;
+        let { user,fetchedErrors } = this.props;
+        console.log(fetchedErrors);
         if(user){
             return <Redirect to={routeCodes.LOGIN} />;
         }
@@ -86,6 +88,7 @@ const mapStateToProps = (state) => {
         loading: register.get('loading'),
         error: register.get('error'),
         user: register.get('user'),        
+        fetchedErrors: getFormSyncErrors('registerForm')(state)
     }
 }
 

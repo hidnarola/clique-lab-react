@@ -3,6 +3,7 @@ import { Field, reduxForm } from 'redux-form'
 import {Link} from 'react-router-dom';
 import validator from 'validator';
 import cx from 'classnames';
+import { SubmissionError } from 'redux-form';  // ES6
 
 const validate = values => {
     const errors = {}
@@ -19,6 +20,14 @@ const validate = values => {
         errors.email = 'Required'
     }else  if(validator.isEmail(values.email) === false){
         errors.email = 'Enter valid email address'
+    }
+
+    if (!values.company) {
+        errors.company = 'Required'
+    }
+    
+    if (!values.repeatPassword) {
+        errors.repeatPassword = 'Required'
     }
 
     if (!values.password) {
@@ -51,6 +60,20 @@ const renderField = ({
             ((error && <span>{error}</span>) ||
                 (warning && <span>{warning}</span>))}
     </div>
+)
+
+const renderFieldCheckbox = ({
+    input,
+    type,
+    placeholder,
+    meta: { touched, error, warning }
+}) => (
+    <span>
+        <input {...input} placeholder={placeholder} type={type} />
+        {/* {touched &&
+            ((error && <span>{error}</span>) ||
+                (warning && <span>{warning}</span>))} */}
+    </span>
 )
 
 let RegisterForm = props => {
@@ -103,8 +126,13 @@ let RegisterForm = props => {
             
             {error && <strong>{error}</strong>}
             
+            {error}
+
             <div className="accept-condition checkbox">
-                <input id="check1" type="checkbox" name="check" value="check1"/>
+                
+
+                <Field name="check1" id="check1" component={renderFieldCheckbox} type="checkbox" value="check1"/>
+
                 <label htmlFor="check1">
                     I accept the
                     <a onClick={() => props.func(this, 'TERMS')}>
