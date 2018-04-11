@@ -68,10 +68,11 @@ export const FileField_Dropzone = (props) => {
                 accept={accept ? accept : "image/jpeg, image/png, image/jpg, image/gif"}
                 onDrop={(filesToUpload, e) => input.onChange(filesToUpload)}
                 multiple={multiple ? multiple : false}
-                className={className}
+                className={ `${className}` }
             >
                 <div className="dropzone-image-preview-wrapper">
                     {input.value && images}
+                    {!input.value && <img src="/assets/img/site/upload-img.jpg" />}
                 </div>
             </Dropzone>
             {meta.touched &&
