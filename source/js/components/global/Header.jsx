@@ -40,6 +40,7 @@ class Header extends Component{
                     Profile
                 </h2>
                 <div className="right-hdr-r">
+                    
                     <div className="hdr-cart">
                         <a href="javascript:void(0)" role="button" id="cart-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i className=""></i>
@@ -56,24 +57,8 @@ class Header extends Component{
                             </div>
                         </div>
                     </div>
-                    
+
                     <div className="hdr-user ">
-                       
-                        
-
-                        {/* <div className="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                            <a className="dropdown-item" href="#">
-                                <span></span> My Profile
-                                <img src="images/check-icon.png" alt="" />
-                            </a>
-                            <a className="dropdown-item" href="#">
-                                <span></span> Jacob Robinson</a>
-                            <a className="dropdown-item" href="#">
-                                <i className="newaccount-icon"></i> New Account</a>
-                            <a className="dropdown-item" href="#">
-                                <i className="logout-icon"></i> Logout</a>
-                        </div> */}
-
                         <Dropdown direction='down' isOpen={this.state.dropdownOpen} 
                                   toggle={this.toggle} >
                             <DropdownToggle caret>                                
@@ -83,14 +68,20 @@ class Header extends Component{
                                 </a>
                             </DropdownToggle>
                             <DropdownMenu right>
-                                <DropdownItem header>Header</DropdownItem>
-                                <DropdownItem disabled>Action</DropdownItem>
-                                <DropdownItem>Another Action</DropdownItem>
-                                <DropdownItem divider />
-                                <DropdownItem onClick={this.mylogout}>Logout</DropdownItem>
+                                <DropdownItem>
+                                    <span></span>
+                                    My Profile
+                                    <img src="../assets/img/site/check-icon.png" alt="" />
+                                </DropdownItem>
+                                <DropdownItem><span></span>Jacob Robinson</DropdownItem>
+                                <DropdownItem><i class="newaccount-icon"></i>New Account</DropdownItem>
+                                {/* <DropdownItem divider /> */}
+                                <DropdownItem onClick={this.mylogout}>
+                                    <i class="logout-icon"></i>
+                                    Logout
+                                </DropdownItem>
                             </DropdownMenu>
                         </Dropdown>
-
                     </div>
                 </div>
             </div>

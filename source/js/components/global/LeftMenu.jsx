@@ -29,10 +29,15 @@ class LeftMenu extends Component {
                             </NavLink>
                         </li>
                         <li>
-                            <a >
+                            <NavLink
+                                activeClassName='active'
+                                className='Menu-link'
+                                to="campaign"
+                            >
                                 <i className="create-icon"></i>
-                                    Create
-                                </a>
+                                <span>Create</span>
+                            </NavLink>
+
                         </li>
                         <li>
                             <NavLink
@@ -50,14 +55,10 @@ class LeftMenu extends Component {
                             </NavLink>
                         </li>
                         <li>
-                            <NavLink
-                                activeClassName='active'
-                                className='Menu-link'
-                                to="campaign"
-                            >
+                            <a>
                                 <i className="campaigns-icon"></i>
                                 <span>Campaigns</span>
-                            </NavLink>
+                            </a>                            
                         </li>
                         <li>
                             <a >

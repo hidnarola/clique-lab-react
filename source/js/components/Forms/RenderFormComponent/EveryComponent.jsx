@@ -17,7 +17,7 @@ export const renderFieldCampaign = ({
         <div className={cx('input-wrap',{'custom-error':(touched && error ) ? true:false })} >
             <label>{label}</label>
             <input {...input} placeholder={placeholder} type={type} />
-            {touched && ((error && <span>{error}</span>) || (warning && <span>{warning}</span>))}
+            {touched && ((error && <div className="error-div">{error}</div>) || (warning && <span>{warning}</span>))}
         </div>
 )
  
@@ -40,7 +40,7 @@ export const renderFieldDatePicker = ({
                     <img src="images/calendar-icon.jpg" alt="" />
                 </i> */}
             </div>
-            {touched && ((error && <span>{error}</span>) || (warning && <span>{warning}</span>))}
+            {touched && ((error && <div className="error-div">{error}</div>) || (warning && <span>{warning}</span>))}
         </div>)
 }
 

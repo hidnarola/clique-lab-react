@@ -141,6 +141,7 @@ filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='#c76eff', endC
 .navigation-div ul li a i{position:absolute; top:50%; left:0; text-align:center; -webkit-transform:translateY(-50%); -moz-transform:translateY(-50%); transform:translateY(-50%); width:24px; height:24px; margin:0 18px; display:block;}
 .navigation-div ul li a:hover,
 
+/* .navigation-div ul li a.active{color:#fff; background:#6772e5; text-decoration:none;} */
 .navigation-div ul li a.active{color:#fff; background:#6772e5; text-decoration:none;}
 /* ..../assets/img/book1.jpg */
 .dashboard-icon{ background:url(../assets/img/site/dashboard-icon.png) no-repeat 0 0;}

@@ -37,10 +37,7 @@ class ModalPopUp extends React.Component {
                        id="terms-condition" {...this.props}>
                     <ModalBody>
                         <div dangerouslySetInnerHTML={this.createMarkup()} />
-                    </ModalBody>
-                    <ModalFooter>                        
-                        <Button color="secondary" onClick={this.toggle}>Close</Button>
-                    </ModalFooter>
+                    </ModalBody>                    
                 </Modal>
             </div>
         );
