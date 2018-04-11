@@ -82,6 +82,44 @@ export const FileField_Dropzone = (props) => {
     );
 }
 
+export const FileField_Dropzone_New = (props) => {
+    
+    const { label, input, meta, wrapperClass, className, labelClass, errorClass, accept, multiple } = props;
+    let filesArr = _.values(input.value);
+    let images = [];
+
+    _.forEach(filesArr, (file, key) => {
+        images.push(
+            <div className="images-preview-wrapper" key={key}>
+                <div className="image-preview">
+                    <img src={file.preview} width={'250px'} height={'250px'} />
+                </div>
+            </div>
+        )
+    })
+
+    return (
+        <div className={wrapperClass}>
+            <label htmlFor={input.name} className={labelClass}>{label}</label>
+            <Dropzone
+                {...input}
+                accept={accept ? accept : "image/jpeg, image/png, image/jpg, image/gif"}
+                onDrop={(filesToUpload, e) => input.onChange(filesToUpload)}
+                multiple={multiple ? multiple : false}
+                className={ `${className}` }
+            >
+                <div className="dropzone-image-preview-wrapper">
+                    {input.value && images}
+                    {!input.value && <img src="/assets/img/site/filrUp.jpg" />}
+                </div>
+            </Dropzone>
+            {meta.touched &&
+                ((meta.error && <span className={errorClass}>{meta.error}</span>) || (meta.warning && <span className={warningClass}>{meta.warning}</span>))
+            }
+        </div>
+    );
+}
+
 export const SelectField_ReactSelect = (props) => {
     const { label, input, meta, wrapperClass, className, labelClass, placeholder, errorClass, initialValue, options } = props;
     let val = '';

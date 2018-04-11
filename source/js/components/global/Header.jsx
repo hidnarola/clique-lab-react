@@ -31,14 +31,10 @@ class Header extends Component{
     }
 
     render(){
+        let page_name = ((this.props.history.location.pathname).replace('/','')).replace('-',' ').toUpperCase();
         return(
             <div className="right-hdr d-flex">
-                <h2>
-                    {/* Hello
-                    <strong>John Doe,</strong> 
-                    what would you like to do today? */}
-                    Profile
-                </h2>
+                <h2>{ page_name }</h2>
                 <div className="right-hdr-r">
                     
                     <div className="hdr-cart">
@@ -74,10 +70,10 @@ class Header extends Component{
                                     <img src="../assets/img/site/check-icon.png" alt="" />
                                 </DropdownItem>
                                 <DropdownItem><span></span>Jacob Robinson</DropdownItem>
-                                <DropdownItem><i class="newaccount-icon"></i>New Account</DropdownItem>
+                                <DropdownItem><i className="newaccount-icon"></i>New Account</DropdownItem>
                                 {/* <DropdownItem divider /> */}
                                 <DropdownItem onClick={this.mylogout}>
-                                    <i class="logout-icon"></i>
+                                    <i className="logout-icon"></i>
                                     Logout
                                 </DropdownItem>
                             </DropdownMenu>

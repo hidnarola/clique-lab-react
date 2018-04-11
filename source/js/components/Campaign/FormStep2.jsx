@@ -96,7 +96,7 @@ class FormStep2 extends Component{
                             />
                             
                             <Field        
-                                wrapperClass="input-wrap select-wrap"
+                                wrapperClass="select-wrap"
                                 name="industryName"       
                                 label="Social media platforms"                             
                                 labelClass="control-label"

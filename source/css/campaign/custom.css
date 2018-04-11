@@ -61,4 +61,25 @@ ul { padding: 0; }
 .hdr-user .dropdown .dropdown-menu {margin:18px 0 0;}
 .error-div{ font-size:13px; color:red;} 
 .Select-control {    border: 2px solid rgba(82, 95, 127, .2); padding: 15px 20px; line-height: 26px; color: rgba(82, 95, 127, .5); font-size: 16px; font-weight: 500; width: 100%; border-radius: 2px;}
-.input-wrap .Select-control input{border:0; padding:0;}
+.Select-control input{border:0; padding:0;}
+.Select-control .Select-input{    width: 100%; padding: 0; height: 25px;}
+.Select-input > input {width:100% !important;}
+.Select-placeholder, .Select--single > .Select-control .Select-value{padding: 15px 20px; line-height: 26px; color: #999;}
+.Select.has-value.Select--single > .Select-control .Select-value .Select-value-label,
+.Select.has-value.is-pseudo-focused.Select--single > .Select-control .Select-value .Select-value-label{color: rgba(82, 95, 127, .5);}
+.Select.has-value.Select--single > .Select-control .Select-value .Select-value-label, .Select.has-value.is-pseudo-focused.Select--single > .Select-control .Select-value .Select-value-label {
+    color: rgba(82, 95, 127, .5);
+}
+.select-wrap,
+.form-group{margin: 0 0 24px;}
+.form-group label,
+.select-wrap label{display: block; padding: 0 0 12px; margin: 0; font-size: 16px; font-weight: 500; color: #43458b; line-height: 100%;}
+.Select.is-clearable .Select-menu-outer{border:2px solid rgba(82, 95, 127, .2) !important; box-shadow: none !important;}
+.Select--single{ border:0 !important;}
+
+.navigation-div ul li a:hover, 
+.navigation-div ul li a.active i{background-position:0 -24px;}
+.create-campaign-r-img img{max-width:100%; min-width:280px; }
+.industry-l-box{ height:272px;}
+.industry-l-box .form-group{     height: 100%; margin: 0; display: table;width: 100%;} 
+.industry-l-box .undefined{height: 100%; vertical-align: middle; display: table-cell; width: 100%; text-align: center;}

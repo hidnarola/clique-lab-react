@@ -2,7 +2,7 @@ import React,{Component} from 'react';
 import { Field, reduxForm } from 'redux-form';
 import validator from 'validator';
 import cx from 'classnames';
-import {FileField_Dropzone,SelectField_ReactSelect} from '../../components/Forms/RenderFormComponent/EveryComponent';
+import {FileField_Dropzone,SelectField_ReactSelect,FileField_Dropzone_New} from '../../components/Forms/RenderFormComponent/EveryComponent';
 import { connect } from 'react-redux';
 
 const validate = values => {
@@ -80,11 +80,11 @@ class RegisterStepFirst extends Component{
                                         <div className="industry-l-box">
                                             <Field
                                                 name="images"
-                                                label="Images"
+                                                label=""
                                                 labelClass="control-label"
                                                 wrapperClass="form-group"
                                                 placeholder="Images"
-                                                component={FileField_Dropzone}
+                                                component={FileField_Dropzone_New}
                                                 multiple={false}
                                             />
                                         </div>

@@ -2,23 +2,23 @@ export const GET_GROUP_REQUEST = 'GET_GROUP_REQUEST';
 export const GET_GROUP_SUCCESS = 'GET_GROUP_SUCCESS';
 export const GET_GROUP_ERROR = 'GET_GROUP_ERROR';
 
-export function forgotPass(forgotData) {
+export function getGroups(data) {
     return {
-        type: FORGOT_REQUEST,
-        forgotData
-    }
-}
-
-export function forgotPassSuccess(data) {
-    return {
-        type: FORGOT_SUCCESS,
+        type: GET_GROUP_REQUEST,
         data
     }
 }
 
-export function forgotPassError(error) {
+export function getGroupsSuccess(data) {
     return {
-        type: FORGOT_ERROR,
+        type: GET_GROUP_SUCCESS,
+        data
+    }
+}
+
+export function getGroupsError(error) {
+    return {
+        type: GET_GROUP_ERROR,
         error
     }
 }
