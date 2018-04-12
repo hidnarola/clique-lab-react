@@ -6,13 +6,14 @@ import Pagination from "react-js-pagination";
 import { withRouter } from 'react-router'
 import { SubmissionError } from 'redux-form'
 import { routeCodes } from '../../constants/routes';
+import { imgRoutes } from '../../constants/img_path';
 import CryptoJS from 'crypto-js';
 import { SECRET_KEY } from '../../constants/usefulvar';
-import { Alert, Button, Modal, ModalHeader, ModalBody, ModalFooter, ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import { Alert, Button, Modal, ModalHeader, ModalBody, ModalFooter, ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem, UncontrolledDropdown } from 'reactstrap';
 import validator from 'validator';
 import cx from 'classnames';
 import CreateGroupForm from '../Forms/Group/CreateGroupForm';
-import { getGroups } from '../../actions/groups';
+import { getGroups,addGroups } from '../../actions/groups';
 import PropTypes from 'prop-types';
 
 const validate = values => {
@@ -48,7 +49,8 @@ class GroupList extends Component {
             dropdownOpen: false,
             activePage: 1,
             totalRecord:1,
-            loaderShow:false
+            loaderShow:false,
+            is_inserted: 0,
         };
 
         this.createGroupModal = this.createGroupModalOpen.bind(this);
@@ -58,7 +60,7 @@ class GroupList extends Component {
 
     componentWillMount(){
         const { dispatch } = this.props;
-        dispatch(getGroups({"page_size":9,"page_no":1}))
+        dispatch(getGroups({"page_size":3,"page_no":1}))
     }
 
     createGroupModalOpen() {
@@ -74,18 +76,33 @@ class GroupList extends Component {
       }
     
     createGroupSubmit = (values) => {
-        console.log(values);      
+        const { dispatch } = this.props;
+        const formData = new FormData();
+        formData.append("name", values.group_name);
+        formData.append("image", values.images[0]); 
+        this.setState({ is_inserted: 1});
+        dispatch(addGroups(formData));
     }
 
     handlePageChange(pageNumber) {
         console.log(`active page is ${pageNumber}`);
         this.setState({activePage: pageNumber});
         const { dispatch } = this.props;
-        dispatch(getGroups({"page_size":9,"page_no":pageNumber}))
+        dispatch(getGroups({"page_size":3,"page_no":pageNumber}))
+    }
+
+    componentDidUpdate(){
+        let {inserted_group, dispatch,} = this.props
+        let { is_inserted } = this.state
+        if(inserted_group!=null && is_inserted==1){
+            this.setState({ is_inserted: 0});
+            this.setState({createGroupModalShow: false});
+            dispatch(getGroups({"page_size":3,"page_no":1}));
+        }
     }
 
     render() {
-        let {groups} = this.props
+        let {groups,totalGrps} = this.props
         return (
             <div>
                 <div className="group-head d-flex">
@@ -107,22 +124,26 @@ class GroupList extends Component {
                 <div className="every-people">
                     <div className="all-people">
                         <ul className="all-people-ul d-flex">
-                            {                                 
-                                (groups !== null) ? groups.map(function(obj,i){
+                            {(
+                                groups!==null && groups.map(function(obj,i){
                                     return(
+                                        
                                         <li key={Math.random()}>
                                             <div className="all-people-div">
                                                 <div className="all-people-img">
-                                                    <a href=""><img src="/assets/img/site/people-01.jpg" alt="" /></a>
-                                                    {/* <a className="cursor_pointer"><img src="/assets/img/site/plus-sign.png" alt="" /></a> */}
-                                                    {/* <ButtonDropdown className="plus-people dropdown">
+                                                    {/* <a href=""><img src={`${imgRoutes.GROUP_IMG_PATH}${obj.image}`} alt="" /></a> */}
+                                                    <a href=""><img className="grp_list_img" src={`http://13.55.64.183:3200/uploads/group/${obj.image}`} alt="" /></a>
+                                                    <UncontrolledDropdown className="plus-people dropdown">
+                                                        <DropdownToggle>
+                                                            <a className="cursor_pointer"><img src="/assets/img/site/plus-sign.png" alt="" /></a>
+                                                        </DropdownToggle>
                                                         <DropdownMenu className="dropdown-menu dropdown-menu-right">
-                                                        <a className="dropdown-item" href="#">Add to Campaign</a>
+                                                            <a className="dropdown-item" href="#">Add to Campaign</a>
                                                         </DropdownMenu>
-                                                    </ButtonDropdown> */}
+                                                    </UncontrolledDropdown>
                                                 </div>
                                                 <div className="group-btm-content">
-                                                    <h4>Top influencers for skincare range</h4>
+                                                    <h4>{obj.name}</h4>
                                                     <div className="group-btm-btm d-flex">
                                                         <div className="group-btm-l">
                                                             <h5>Members <strong>2343</strong> </h5>
@@ -136,14 +157,14 @@ class GroupList extends Component {
                                             </div>
                                         </li>
                                     )
-                                }) : ''
-                            }                             
+                                })
+                            )}                 
                         </ul>
                     </div>
                     <Pagination 
                         activePage={this.state.activePage} 
                         itemsCountPerPage={3} 
-                        totalItemsCount={50} 
+                        totalItemsCount={totalGrps} 
                         pageRangeDisplayed={5} 
                         onChange={this.handlePageChange}
                     />
@@ -165,7 +186,9 @@ const mapStateToProps = (state) => {
     return {
         loading: groups.get('loading'),
         error: groups.get('error'),
+        inserted_group: groups.get('inserted_group'),
         groups: groups.get('groups'),
+        totalGrps: groups.get('totalGrps'),
         status: groups.get('status'),
         message: groups.get('message'),
     }
