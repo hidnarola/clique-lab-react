@@ -135,7 +135,6 @@ export const getFormData = (path, data, headers) => {
 export const postFormData = (path, data, headers) => {
     // Build Url
     const url = `${API_URL}${path}`;
-
     return axios({
         method: 'POST',
         url: url,

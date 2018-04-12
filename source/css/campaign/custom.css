@@ -83,3 +83,24 @@ ul { padding: 0; }
 .industry-l-box{ height:272px;}
 .industry-l-box .form-group{     height: 100%; margin: 0; display: table;width: 100%;} 
 .industry-l-box .undefined{height: 100%; vertical-align: middle; display: table-cell; width: 100%; text-align: center;}
+
+.hdr-user .dropdown .dropdown-menu{ left: 33px; }
+.hdr-user .dropdown-menu a{ padding:0px; }
+.hdr-user .dropdown-menu img{ margin-top: -5px; }
+
+.profile-head>ul>li>a.active {
+    border-bottom: 3px solid #6772e5;
+    color: #6772e5;
+    text-decoration: none;
+}
+.grp_list_img{
+    width: 400px;
+    height: 218px;
+}
+
+.plus-people.dropdown.dropdown>button,
+.plus-people.dropdown.dropdown>button:active{
+    padding: 0px;
+    background-color: transparent;
+    border: none;
+}

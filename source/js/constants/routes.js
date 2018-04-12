@@ -18,7 +18,7 @@ export const routeCodes = {
     EVERYDAYPEOPLE:`${publicPath}every-day-people`,
     LISTGROUPS:`${publicPath}groups`,
 
-    MY_PROFILE:`${ publicPath }my_profile`,
+    MY_PROFILE:`${ publicPath }profile`,
     PARTNERSHIP_PROGRAM:`${ publicPath }partnership_program`,
     WALLET:`${ publicPath }wallet`,
     PERMISSION:`${ publicPath }permission`,

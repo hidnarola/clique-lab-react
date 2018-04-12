@@ -1,9 +1,10 @@
 import React,{Component} from 'react';
 import { logout } from '../../actions/login';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import { routeCodes } from 'constants/routes';
 
 class Header extends Component{
 
@@ -31,10 +32,10 @@ class Header extends Component{
     }
 
     render(){
-        let page_name = ((this.props.history.location.pathname).replace('/','')).replace('-',' ').toUpperCase();
+        let page_name = (((this.props.history.location.pathname).replace('/','')).replace('-',' ')).replace('_',' ');
         return(
             <div className="right-hdr d-flex">
-                <h2>{ page_name }</h2>
+                <h2>{ page_name.toUpperCase() }</h2>
                 <div className="right-hdr-r">
                     
                     <div className="hdr-cart">
@@ -66,8 +67,10 @@ class Header extends Component{
                             <DropdownMenu right>
                                 <DropdownItem>
                                     <span></span>
-                                    My Profile
-                                    <img src="../assets/img/site/check-icon.png" alt="" />
+                                    <Link className="cursor_pointer" to={routeCodes.MY_PROFILE}>
+                                        My Profile
+                                    </Link>
+                                    {page_name=='profile' && <img src="../assets/img/site/check-icon.png" alt="" />}
                                 </DropdownItem>
                                 <DropdownItem><span></span>Jacob Robinson</DropdownItem>
                                 <DropdownItem><i className="newaccount-icon"></i>New Account</DropdownItem>

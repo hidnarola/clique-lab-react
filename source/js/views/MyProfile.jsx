@@ -24,10 +24,10 @@ class MyProfile extends Component {
             <div className="profile-page">
 				<div className="profile-head">
 					<ul>
-						<li><Link className="cursor_pointer" to={routeCodes.MY_PROFILE}>My Profile</Link></li>
-						<li><Link className="cursor_pointer" to={routeCodes.PARTNERSHIP_PROGRAM}>Partnership Program</Link></li>
-						<li><Link className="cursor_pointer" to={routeCodes.WALLET}>Wallet</Link></li>
-						<li><Link className="cursor_pointer" to={routeCodes.PERMISSION}>Permission</Link></li>
+						<li><NavLink activeClassName="active" className="cursor_pointer" to={routeCodes.MY_PROFILE}>My Profile</NavLink></li>
+						<li><NavLink activeClassName="active" className="cursor_pointer" to={routeCodes.PARTNERSHIP_PROGRAM}>Partnership Program</NavLink></li>
+						<li><NavLink activeClassName="active" className="cursor_pointer" to={routeCodes.WALLET}>Wallet</NavLink></li>
+						<li><NavLink activeClassName="active" className="cursor_pointer" to={routeCodes.PERMISSION}>Permission</NavLink></li>
 					</ul>
 				</div>				
 
