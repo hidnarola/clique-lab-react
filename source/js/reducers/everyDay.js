@@ -4,10 +4,11 @@ import {  EVERY_DAY_REQUEST,EVERY_DAY_SUCCESS,EVERY_DAY_ERROR } from "../actions
 const initialState = Map({
     loading: false,
     error: null,
-    user: {
+    users: {
         status:0,
         message:null,
-        users:null
+        data:null,
+        total:0
     }
 });
 
@@ -22,7 +23,12 @@ const actionMap = {
         return state.merge(Map({
             loading: false,
             error: false,
-            user: action.data.data,
+            users: {
+                status:action.data.data.status, 
+                message:action.data.data.message, 
+                data:action.data.data.results.users,
+                total:action.data.data.results.total
+            },
         }));
     },
     [EVERY_DAY_ERROR]: (state, action) => {

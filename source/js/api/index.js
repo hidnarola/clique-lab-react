@@ -135,12 +135,18 @@ export const getFormData = (path, data, headers) => {
 export const postFormData = (path, data, headers) => {
     // Build Url
     const url = `${API_URL}${path}`;
-
     return axios({
         method: 'POST',
         url: url,
         data: data,
-        headers: headers
+        headers: headers,
+        validateStatus: function (status) {
+            console.log(status);
+            if(status == 400){
+                return false;
+            }
+            return status >= 200 && status < 300; // default
+        }
     }).then(function (res) {
         return res;
     }).catch(function (err) {

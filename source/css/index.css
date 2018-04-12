@@ -7,6 +7,8 @@
 @import "campaign/react-datepicker.css";
 @import "campaign/style.css";
 @import "campaign/custom.css";
+@import "campaign/inputRange.css";
+/* @import "react-input-range/lib/css/index.css" */
 
 
 #group-popup.modal-dialog {

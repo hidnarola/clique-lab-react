@@ -2,12 +2,100 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Pagination from "react-js-pagination";
 import { sendReq } from '../actions/everyDay';
-import fbImg from 'img/site/facebook-01.png';
 import ReactLoading from 'react-loading';
+import sampleImg from 'img/site/400x218.png';
+import closeImg from 'img/site/close.png';
+import fbImg from 'img/site/facebook-01.png';
+import linkedImg from 'img/site/linkedin.png';
+import pinImg from 'img/site/pintrest.png';
+import twitterImg from 'img/site/twitter.png';
+import instaImg from 'img/site/instagram.png';
+import imgPlus from 'img/site/plus-01.png';
+
+import ReactSelect from 'react-select';
+import InputRange from 'react-input-range';
+
+import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem ,UncontrolledDropdown } from 'reactstrap';
 
 const Example = ({ type, color,displayProp }) => (
     <ReactLoading type={type} color={color} height='667' width='375' style={{display:displayProp}}  />
 );
+
+const DropDownSocial =  () => {
+    return (
+        <UncontrolledDropdown direction="up">
+            <DropdownToggle caret>
+                1036 Follower
+                <i className="dropdown-arrow"></i>
+            </DropdownToggle>
+            <DropdownMenu>
+                <ul>
+                    <li>
+                        <a >
+                            <i>
+                                <img src={fbImg} alt="" />
+                            </i>
+                            <span>823</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a >
+                            <i>
+                                <img src={linkedImg} alt="" />
+                            </i>
+                            <span>1.1k</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a >
+                            <i>
+                                <img src={pinImg} alt="" />
+                            </i>
+                            <span>432</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a >
+                            <i>
+                                <img src={twitterImg} alt="" />
+                            </i>
+                            <span>240</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a >
+                            <i>
+                                <img src={instaImg} alt="" />
+                            </i>
+                            <span>240</span>
+                        </a>
+                    </li>
+                </ul>
+                <div className="close-div"> 
+                    <DropdownItem>
+                        <img src={closeImg} alt="" />
+                    </DropdownItem>
+                </div>                
+            </DropdownMenu>
+        </UncontrolledDropdown>
+    );
+}
+
+const PlusAction = () => {
+    return (
+        <UncontrolledDropdown>
+            <DropdownToggle caret>
+                <img src={imgPlus} alt="" />
+            </DropdownToggle>
+            <DropdownMenu>                
+                <DropdownItem>Add to Campaign</DropdownItem>                
+                <DropdownItem>Add to Group</DropdownItem>
+            </DropdownMenu>
+        </UncontrolledDropdown>
+    );
+}
+
+
 
 class EverydayPeople extends Component {
     
@@ -16,17 +104,39 @@ class EverydayPeople extends Component {
         this.state = {
             activePage: 1,
             totalRecord:1,
-            loaderShow:false
+            loaderShow:false,
+            dropdownOpen: false,
+            selectedOption: '',
+            value: { min: 2, max: 10 },
         };
+
         this.handlePageChange = this.handlePageChange.bind(this)
         this.renderLi = this.renderLi.bind(this);
+        this.toggle = this.toggle.bind(this);        
     }
 
     handlePageChange(pageNumber) {
-        console.log(`active page is ${pageNumber}`);
+        // console.log(`active page is ${pageNumber}`);
         this.setState({activePage: pageNumber});
         const { dispatch } = this.props;
         dispatch(sendReq({"page_size":9,"page_no":pageNumber}))
+    }
+
+    handleChange = (selectedOption) => {
+        const { dispatch } = this.props;
+        this.setState({ selectedOption });
+        let newVar = {
+            "sort":[{ "field": "name", "value":parseInt(selectedOption.value)}],
+            "page_size":9,
+            "page_no":1
+        }
+        dispatch(sendReq(newVar))        
+    }
+
+    toggle() {
+        this.setState({
+          dropdownOpen: !this.state.dropdownOpen
+        });
     }
 
     renderLi(obj){        
@@ -34,75 +144,16 @@ class EverydayPeople extends Component {
             <li key={Math.random()}>
                 <div className="all-people-div">
                     <div className="all-people-img">
-                        <a href="">
-                            <img src="images/people-01.jpg" alt="" />
+                        <a >
+                            <img src={sampleImg} alt="" />
                         </a>
                         <div className="plus-people dropdown">
-                            <a id="dropdownMenuLink-05">
-                                <img src="images/plus-sign.png" alt="" />
-                            </a>
-                            <div className="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink-05">
-                                <a className="dropdown-item" href="#">Add to Campaign</a>
-                                <a className="dropdown-item" href="#">Add to Group</a>
-                            </div>
+                            <PlusAction/>
                         </div>
                     </div>
                     <div className="all-people-content d-flex">
-                        <h4>{obj.name}</h4>
-                        <div className="btn-group dropup">
-                            <a href="" className="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">1036 Follower
-                                <i className="dropdown-arrow"></i>
-                            </a>
-                            <div className="dropdown-menu">
-                                <ul>
-                                    <li>
-                                        <a href="">
-                                            <i>
-                                                <img src="images/facebook-01.png" alt="" />
-                                            </i>
-                                            <span>823</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="">
-                                            <i>
-                                                <img src="images/linkedin.png" alt="" />
-                                            </i>
-                                            <span>1.1k</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="">
-                                            <i>
-                                                <img src="images/pintrest.png" alt="" />
-                                            </i>
-                                            <span>432</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="">
-                                            <i>
-                                                <img src="images/twitter.png" alt="" />
-                                            </i>
-                                            <span>240</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="">
-                                            <i>
-                                                <img src="images/instagram.png" alt="" />
-                                            </i>
-                                            <span>240</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                                <div className="close-div">
-                                    <a href="">
-                                        <img src="images/close.png" alt="" />
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+                        <h4>{obj.name}</h4>                        
+                        <DropDownSocial/>                        
                     </div>
                 </div>
             </li>
@@ -115,11 +166,19 @@ class EverydayPeople extends Component {
     }
 
     render() {
-        let {user} = this.props        
-
+        let {users} = this.props;
+        const { selectedOption } = this.state;
+        const value = selectedOption && selectedOption.value;
+        
         return (
             <div className="every-people">
-                <Example displayProp="none" />
+                <InputRange
+                    maxValue={20}
+                    minValue={0}
+                    value={this.state.value}
+                    onChange={value => this.setState({ value })} />
+
+                <Example displayProp="none"  />
                 {/* <img src={fbImg} /> */}
                 <div className="everypeole-head d-flex">
                     <div className="everypeole-head-l">
@@ -145,17 +204,29 @@ class EverydayPeople extends Component {
                             <li>
                                 <a href="">More filter</a>
                             </li>
-                        </ul>
-                    </div>
-                    <div className="everypeole-head-r">
-                        <ul>
                             <li>
-                                <a href="">Sort
+                                <a >Sort
                                     <i className="dropdown-arrow"></i>
                                 </a>
+
+
+                                <ReactSelect
+                                    name="form-field-name"
+                                    value={value}
+                                    onChange={this.handleChange}
+                                    searchable={false}
+                                    clearable={false}
+                                    autosize={false}
+                                    options={[
+                                        { value: '1', label: 'Name ASC' },
+                                        { value: '-1', label: 'Name DESC' },
+                                    ]}
+                                />
+
                             </li>
                             <li className="dropdown ">
-                                <a href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Add All Results
+                                <a href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Add All Results
                                     <i className="dropdown-arrow"></i>
                                 </a>
                                 <div className="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
@@ -169,13 +240,13 @@ class EverydayPeople extends Component {
 
                 <div className="all-people">
                     <div className="all-people-head d-flex">
-                        <h3>Filtered List (12,400 Results)</h3>
-                        <a href="">
+                        <h3>Filtered List ({" "+users.total+" "} Results)</h3>
+                        <a >
                             <i className="fa fa-plus"></i> Save the results as a Group</a>
                     </div>
                     <ul className="all-people-ul d-flex">
                         {
-                            (user.status === 1) ? user.users.map((obj,index) => (this.renderLi(obj))) :''
+                            (users.status === 1) ? users.data.map((obj,index) => (this.renderLi(obj))) :''
                         }                        
                     </ul>
 
@@ -199,7 +270,7 @@ const mapStateToProps = (state) => {
     return {
         loading: everyDay.get('loading'),
         error: everyDay.get('error'),
-        user: everyDay.get('user')        
+        users: everyDay.get('users')
     }
 }
 
