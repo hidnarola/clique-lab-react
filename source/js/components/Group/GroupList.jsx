@@ -60,7 +60,7 @@ class GroupList extends Component {
 
     componentWillMount(){
         const { dispatch } = this.props;
-        dispatch(getGroups({"page_size":3,"page_no":1}))
+        dispatch(getGroups({"page_size":6,"page_no":1}))
     }
 
     createGroupModalOpen() {
@@ -88,7 +88,7 @@ class GroupList extends Component {
         console.log(`active page is ${pageNumber}`);
         this.setState({activePage: pageNumber});
         const { dispatch } = this.props;
-        dispatch(getGroups({"page_size":3,"page_no":pageNumber}))
+        dispatch(getGroups({"page_size":6,"page_no":pageNumber}))
     }
 
     componentDidUpdate(){
@@ -97,12 +97,18 @@ class GroupList extends Component {
         if(inserted_group!=null && is_inserted==1){
             this.setState({ is_inserted: 0});
             this.setState({createGroupModalShow: false});
-            dispatch(getGroups({"page_size":3,"page_no":1}));
+            dispatch(getGroups({"page_size":6,"page_no":1}));
         }
     }
 
     render() {
-        let {groups,totalGrps} = this.props
+        let {groups,totalGrps,loading} = this.props
+        console.log(loading);
+        if(loading) { // if your component doesn't have to wait for an async action, remove this block 
+            return (
+                <div className="loader"></div>
+            ) // render null when app is not ready
+        }
         return (
             <div>
                 <div className="group-head d-flex">
@@ -163,7 +169,7 @@ class GroupList extends Component {
                     </div>
                     <Pagination 
                         activePage={this.state.activePage} 
-                        itemsCountPerPage={3} 
+                        itemsCountPerPage={6} 
                         totalItemsCount={totalGrps} 
                         pageRangeDisplayed={5} 
                         onChange={this.handlePageChange}
