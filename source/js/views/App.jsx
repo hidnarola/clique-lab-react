@@ -20,9 +20,13 @@ import CampaignForm from './Campaign';
 import Dashboard from './Dashboard';
 import EverydayPeople from './EverydayPeople';
 
+//Campaign
+import CampaignList from './CampaignList';
+
 // Groups
 import ListGroups from 'components/Group/GroupList';
 import ListGroupMembers from 'components/Group/GroupMemberList';
+import FullCalendar from './Calendar';
 
 import MyProfile from './MyProfile';
 
@@ -48,11 +52,18 @@ class App extends Component {
                         <PrivateRoute path={routeCodes.AFTERREGISTER} component={AfterRegister} showHeader={false} />
                         <PrivateRoute path={routeCodes.DASHBOARD} component={Dashboard} showHeader={true} />
 
-                        <PrivateRoute path={routeCodes.CAMPAIGN} component={CampaignForm} showHeader={true} />
+                        <PrivateRoute exact path={routeCodes.CAMPAIGN} component={CampaignForm} showHeader={true} />
+                        <PrivateRoute path={routeCodes.CAMPAIGN_ACTIVE} component={CampaignList} showHeader={true} />
+                        <PrivateRoute path={routeCodes.CAMPAIGN_FUTURE} component={CampaignList} showHeader={true} />
+                        <PrivateRoute path={routeCodes.CAMPAIGN_PAST} component={CampaignList} showHeader={true} />
+
+
                         <PrivateRoute path={routeCodes.EVERYDAYPEOPLE} component={EverydayPeople} showHeader={true} />
 
                         <PrivateRoute exact path={routeCodes.LISTGROUPS} component={ListGroups} showHeader={true} />
                         <PrivateRoute path={`${routeCodes.LISTGROUPS}/:grpId/members`} component={ListGroupMembers} showHeader={true} />
+
+                        <PrivateRoute path={`${routeCodes.CALENDAR}`} component={FullCalendar} showHeader={true} />
                         
                         {/* Profile */}
                         <PrivateRoute path={routeCodes.MY_PROFILE} component={MyProfile} showHeader={true} />

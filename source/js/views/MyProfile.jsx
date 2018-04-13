@@ -14,12 +14,9 @@ class MyProfile extends Component {
     constructor(props){
         super(props);
     }
-	
-    render() {
 
+    render() {
 		let curt_page  = this.props.history.location.pathname;
-		console.log(curt_page);
-		//curt_page = curt_page.replace('/','');
         return (
             <div className="profile-page">
 				<div className="profile-head">
@@ -29,17 +26,11 @@ class MyProfile extends Component {
 						<li><NavLink activeClassName="active" className="cursor_pointer" to={routeCodes.WALLET}>Wallet</NavLink></li>
 						<li><NavLink activeClassName="active" className="cursor_pointer" to={routeCodes.PERMISSION}>Permission</NavLink></li>
 					</ul>
-				</div>				
-
+				</div>
 				{ curt_page==routeCodes.MY_PROFILE && <Profile />}
 				{ curt_page==routeCodes.PARTNERSHIP_PROGRAM && <PartnershipProg />}
 				{ curt_page==routeCodes.WALLET && <Wallet />}
 				{ curt_page==routeCodes.PERMISSION && <Permission />}
-
-				{/* <Router>	
-					<Route exact path={routeCodes.MY_PROFILE} component={Profile}/>
-					<Route path={routeCodes.PARTNERSHIP_PROGRAM} component={PartnershipProg}/>
-				</Router> */}
 			</div>
         );
     }

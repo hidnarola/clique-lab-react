@@ -40,9 +40,26 @@ class LeftMenu extends Component {
                             </NavLink>
                         </li>
                         <li>
-                            <NavLink activeClassName='active' className='Menu-link' to="/capaign-list">
+                            <NavLink className='Menu-link' to={ routeCodes.CAMPAIGN_ACTIVE }>
                                 <i className="campaigns-icon"></i>Campaigns
                             </NavLink>
+                            <ul>
+                                <li>
+                                    <NavLink className='Menu-link' to={ routeCodes.CAMPAIGN_ACTIVE }>
+                                        Campaigns
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink className='Menu-link' to="/capaign-list">
+                                        Inspired submissions
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink className='Menu-link' to="/capaign-list">
+                                        Purchased Posts
+                                    </NavLink>
+                                </li>
+                            </ul>
                         </li>
                         <li>
                             <NavLink activeClassName='active' className='Menu-link' to='/calendar'>

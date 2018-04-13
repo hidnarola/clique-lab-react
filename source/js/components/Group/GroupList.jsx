@@ -15,6 +15,7 @@ import cx from 'classnames';
 import CreateGroupForm from '../Forms/Group/CreateGroupForm';
 import { getGroups,addGroups } from '../../actions/groups';
 import PropTypes from 'prop-types';
+import ReactSelect from 'react-select';
 
 const validate = values => {
     const errors = {}
@@ -91,6 +92,18 @@ class GroupList extends Component {
         dispatch(getGroups({"page_size":6,"page_no":pageNumber}))
     }
 
+    handleSorting = (selectedOption) => {
+        const { dispatch } = this.props;
+        const { activePage } = this.state;
+        this.setState({ selectedOption });
+        let newVar = {
+            "sort":[{ "field": selectedOption.column, "value":parseInt(selectedOption.value)}],
+            "page_size":6,
+            "page_no": 1
+        }
+        dispatch(getGroups(newVar))        
+    }    
+
     componentDidUpdate(){
         let {inserted_group, dispatch,} = this.props
         let { is_inserted } = this.state
@@ -103,7 +116,8 @@ class GroupList extends Component {
 
     render() {
         let {groups,totalGrps,loading} = this.props
-        console.log(loading);
+        const { selectedOption } = this.state;
+        const value = selectedOption && selectedOption.value;
         if(loading) { // if your component doesn't have to wait for an async action, remove this block 
             return (
                 <div className="loader"></div>
@@ -116,7 +130,23 @@ class GroupList extends Component {
                     <div className="group-head-r">
                         <ul>
                             <li className="dropdown sort-by">
-                                <a href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sort<strong>by Power</strong> <i className="dropdown-arrow"></i></a>
+                                {/* <a href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Sort<strong>by Power</strong> <i className="dropdown-arrow"></i>
+                                </a> */}
+                                <ReactSelect
+                                    name="form-field-name"
+                                    value={value}
+                                    onChange={this.handleSorting}
+                                    searchable={false}
+                                    clearable={false}
+                                    autosize={false}
+                                    placeholder= "Sort By Name"
+                                    className="group_sort"
+                                    options={[
+                                        { value: '1', label: 'Sort By Name', column: 'name' },
+                                        { value: '-1', label: 'Sort By Date', column: 'created_at' },
+                                    ]}
+                                />
                                 <div className="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
                                     <a className="dropdown-item" href="#">Add to Campaign</a>
                                 </div>
@@ -132,7 +162,6 @@ class GroupList extends Component {
                         <ul className="all-people-ul d-flex">
                             {(
                                 groups!==null && groups.map(function(obj,i){
-                                    console.log(obj);
                                     return(
                                         <li key={Math.random()}>
                                             <div className="all-people-div">

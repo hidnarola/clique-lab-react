@@ -31,7 +31,7 @@ const DropDownSocial =  () => {
             <DropdownMenu>
                 <ul>
                     <li>
-                        <a >
+                        <a>
                             <i>
                                 <img src={fbImg} alt="" />
                             </i>
