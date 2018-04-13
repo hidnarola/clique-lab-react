@@ -95,7 +95,35 @@ const PlusAction = () => {
     );
 }
 
+class AgeDropDown extends Component {
+    
+    constructor(props) {
+        super(props);        
+    };
 
+    setAgeValue = (value) => {        
+        this.props.parentMethod(value);
+    }
+
+    render() {    
+        return (<UncontrolledDropdown>
+            <DropdownToggle caret >                
+                Age {" "} {this.props.currentVal.min}-{this.props.currentVal.max}
+            </DropdownToggle>
+            <DropdownMenu>
+                <InputRange
+                    maxValue={65}
+                    minValue={15}
+                    value={this.props.currentVal}
+                    onChange={value => this.setAgeValue(value)} 
+                />
+                <div className="ftr-btn">
+                    <button className="bdr-btn" >Apply</button>
+                </div>
+            </DropdownMenu>
+        </UncontrolledDropdown>);
+    }
+}
 
 class EverydayPeople extends Component {
     
@@ -107,13 +135,12 @@ class EverydayPeople extends Component {
             loaderShow:false,
             dropdownOpen: false,
             selectedOption: '',
-            value: { min: 2, max: 10 },
+            value: { min: 20, max: 65 }            
         };
 
         this.handlePageChange = this.handlePageChange.bind(this)
-        this.renderLi = this.renderLi.bind(this);
-        this.toggle = this.toggle.bind(this);        
-    }
+        this.renderLi = this.renderLi.bind(this);        
+    }    
 
     handlePageChange(pageNumber) {
         // console.log(`active page is ${pageNumber}`);
@@ -131,13 +158,7 @@ class EverydayPeople extends Component {
             "page_no":1
         }
         dispatch(sendReq(newVar))        
-    }
-
-    toggle() {
-        this.setState({
-          dropdownOpen: !this.state.dropdownOpen
-        });
-    }
+    }    
 
     renderLi(obj){        
         return(
@@ -165,6 +186,11 @@ class EverydayPeople extends Component {
         dispatch(sendReq({"page_size":9,"page_no":1}))
     }
 
+    setAgeValue(value) {
+        console.log(value);
+        this.setState({value:{min:value.min,max:value.max}});
+    }
+
     render() {
         let {users} = this.props;
         const { selectedOption } = this.state;
@@ -172,44 +198,52 @@ class EverydayPeople extends Component {
         
         return (
             <div className="every-people">
-                <InputRange
-                    maxValue={20}
-                    minValue={0}
-                    value={this.state.value}
-                    onChange={value => this.setState({ value })} />
 
                 <Example displayProp="none"  />
+
                 {/* <img src={fbImg} /> */}
                 <div className="everypeole-head d-flex">
                     <div className="everypeole-head-l">
                         <ul>
                             <li className="dropdown age-dropdown active">
-                                <a href="#" className="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">21 - 25</a>
-                                <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
+
+                                <AgeDropDown 
+                                        parentMethod={(value) => this.setAgeValue(value)}                                         
+                                        currentVal={this.state.value}
+                                />
+
+                                {/* <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                     <h4>Age group</h4>
                                     <div className="age-fillter">
                                         <img src="images/fillter.png" alt="" />
-                                    </div>
-                                    <div className="ftr-btn">
-                                        <button className="bdr-btn">Apply</button>
-                                    </div>
-                                </div>
+                                    </div>                                    
+                                </div> */}
                             </li>
                             <li>
-                                <a href="">Gendar</a>
+                                <a >Gender</a>
+                                <ReactSelect
+                                    name="genderEveryDay"
+                                    value={value}
+                                    onChange={this.handleChange}
+                                    searchable={false}
+                                    clearable={false}
+                                    autosize={false}
+                                    options={[
+                                        { value: 'male', label: 'Male' },
+                                        { value: 'female', label: 'Female' },
+                                    ]}
+                                />
                             </li>
                             <li>
-                                <a href="">Location</a>
+                                <a >Location</a>
                             </li>
                             <li>
-                                <a href="">More filter</a>
+                                <a >More filter</a>
                             </li>
                             <li>
                                 <a >Sort
                                     <i className="dropdown-arrow"></i>
                                 </a>
-
-
                                 <ReactSelect
                                     name="form-field-name"
                                     value={value}
