@@ -6,7 +6,7 @@ import validator from 'validator';
 import cx from 'classnames';
 import Dropzone from 'react-dropzone';
 import _ from 'lodash';
-// import uploadImg from 'img/site/upload-img.jpg';
+import uploadImg from '../../../../assets/img/upload-img.jpg';
 import filrUp from 'img/site/filrUp.jpg';
 
 const validate = values => {
@@ -86,7 +86,7 @@ const FileField_Dropzone = (props) => {
             >
                 <div className="dropzone-image-preview-wrapper">
                     {input.value && images}
-                    {/* {!input.value && <img src={uploadImg} />} */}
+                    {!input.value && <img src={uploadImg} />}
                 </div>
             </Dropzone>
             {meta.touched &&
