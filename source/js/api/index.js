@@ -140,11 +140,10 @@ export const postFormData = (path, data, headers) => {
         url: url,
         data: data,
         headers: headers,
-        validateStatus: function (status) {
-            console.log(status);
-            if(status == 400){
-                return false;
-            }
+        validateStatus: function (status) {            
+            // if(status == 400){
+            //     return false;
+            // }
             return status >= 200 && status < 300; // default
         }
     }).then(function (res) {
