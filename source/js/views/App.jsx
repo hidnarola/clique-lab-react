@@ -19,7 +19,10 @@ import AfterRegister from './AfterRegister';
 import CampaignForm from './Campaign';
 import Dashboard from './Dashboard';
 import EverydayPeople from './EverydayPeople';
+
+// Groups
 import ListGroups from 'components/Group/GroupList';
+import ListGroupMembers from 'components/Group/GroupMemberList';
 
 import MyProfile from './MyProfile';
 
@@ -48,7 +51,8 @@ class App extends Component {
                         <PrivateRoute path={routeCodes.CAMPAIGN} component={CampaignForm} showHeader={true} />
                         <PrivateRoute path={routeCodes.EVERYDAYPEOPLE} component={EverydayPeople} showHeader={true} />
 
-                        <PrivateRoute path={routeCodes.LISTGROUPS} component={ListGroups} showHeader={true} />
+                        <PrivateRoute exact path={routeCodes.LISTGROUPS} component={ListGroups} showHeader={true} />
+                        <PrivateRoute path={`${routeCodes.LISTGROUPS}/:grpId/members`} component={ListGroupMembers} showHeader={true} />
                         
                         {/* Profile */}
                         <PrivateRoute path={routeCodes.MY_PROFILE} component={MyProfile} showHeader={true} />

@@ -132,13 +132,13 @@ class GroupList extends Component {
                         <ul className="all-people-ul d-flex">
                             {(
                                 groups!==null && groups.map(function(obj,i){
+                                    console.log(obj);
                                     return(
-                                        
                                         <li key={Math.random()}>
                                             <div className="all-people-div">
                                                 <div className="all-people-img">
                                                     {/* <a href=""><img src={`${imgRoutes.GROUP_IMG_PATH}${obj.image}`} alt="" /></a> */}
-                                                    <a href=""><img className="grp_list_img" src={`http://13.55.64.183:3200/uploads/group/${obj.image}`} alt="" /></a>
+                                                    <Link className="cursor_pointer" to={`${routeCodes.LISTGROUPS}/${obj._id}/members`}><img className="grp_list_img" src={`http://13.55.64.183:3200/uploads/group/${obj.image}`} alt="" /></Link>
                                                     <UncontrolledDropdown className="plus-people dropdown">
                                                         <DropdownToggle>
                                                             <a className="cursor_pointer"><img src="/assets/img/site/plus-sign.png" alt="" /></a>

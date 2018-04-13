@@ -16,8 +16,11 @@ export const routeCodes = {
 
     CAMPAIGN:`${publicPath}campaign`,
     EVERYDAYPEOPLE:`${publicPath}every-day-people`,
+
+    // Groups
     LISTGROUPS:`${publicPath}groups`,
 
+    //My Profile
     MY_PROFILE:`${ publicPath }profile`,
     PARTNERSHIP_PROGRAM:`${ publicPath }partnership_program`,
     WALLET:`${ publicPath }wallet`,
