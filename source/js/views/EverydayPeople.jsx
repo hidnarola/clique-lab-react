@@ -228,18 +228,14 @@ class EverydayPeople extends Component {
         const value = selectedOption && selectedOption.value;        
         
         const {allDropDown} = this.state;
-        
-        let genderDropVal = _.find(allDropDown, function(o) { return o.dropdown = 'genderDrop'; });
+                
+        let genderDropIndex = _.findIndex(users, function(o) { return o.dropdown == 'genderDrop'; });
         
         console.log('********************');
-            console.log(genderDropVal);            
+            console.log(genderDropIndex);
         console.log('********************');
         
-        let sortDropVal = _.find(allDropDown, function(o) { return o.dropdown = 'genderDrop'; });
-
-        console.log('********************');            
-            console.log(sortDropVal);
-        console.log('********************');
+    
         return (
             <div className="every-people">
 
@@ -260,7 +256,7 @@ class EverydayPeople extends Component {
                                 <a >Gender</a>
                                 <ReactSelect
                                     name="genderDrop"
-                                    value={genderDropVal.value}
+                                    value={value}
                                     onChange={(value) => this.handleChange(value,"genderDrop")}
                                     searchable={false}
                                     clearable={false}
@@ -283,7 +279,7 @@ class EverydayPeople extends Component {
                                 </a>
                                 <ReactSelect
                                     name="form-field-name"
-                                    value={sortDropVal.value}
+                                    value={value}
                                     onChange={(value) => this.handleChange(value,"sortDrop")}
                                     searchable={false}
                                     clearable={false}

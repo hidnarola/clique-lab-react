@@ -10,7 +10,9 @@ import _ from 'lodash';
 import filrUp from 'img/site/filrUp.jpg';
 
 const validate = values => {
-    const errors = {}
+    
+    const errors = {};
+
     if (!values.images) {
         errors.images = 'This Field is Required'
     }
@@ -22,7 +24,7 @@ const validate = values => {
 }
 
 const textField = (
-	{input,type,label,placeholder,meta: { touched, error}}
+    {input,type,label,placeholder,meta: { touched, error}}
 ) => (
 		<div className={cx('input-wrap',{'custom-error':(touched && error ) ? true:false })}>
 			<label>{label}</label>
