@@ -126,6 +126,51 @@ class AgeDropDown extends Component {
     }
 }
 
+class MoreFilterDropDown extends Component {
+
+    constructor(props) {
+        super(props);             
+    };
+
+    render() {    
+        
+
+        return (<UncontrolledDropdown>
+            <DropdownToggle caret >
+                More Filter {" "}
+            </DropdownToggle>
+            <DropdownMenu>
+
+                <ReactSelect
+                    name="jobIndustryDrop" 
+                    value={this.props.allDropArr['jobIndustryDrop']['value']}
+                    onChange={(value) => this.props.parentMethod(value,"jobIndustryDrop")}
+                    searchable={false} clearable={false} autosize={false}
+                    options={[
+                        { value: 'one', label: 'One' },
+                        { value: 'two', label: 'Two' },
+                    ]}
+                />
+
+                <ReactSelect
+                    name="jobTitleDrop" 
+                    value={this.props.allDropArr['jobTitleDrop']['value']}
+                    onChange={(value) => this.props.parentMethod(value,"jobTitleDrop")}
+                    searchable={false} clearable={false} autosize={false}
+                    options={[
+                        { value: 'three', label: 'Three' },
+                        { value: 'four', label: 'Four' },
+                    ]}
+                />
+
+                <div className="ftr-btn">
+                    <button className="bdr-btn" onClick={() => this.props.setAgeFilter()} >Apply</button>
+                </div>
+            </DropdownMenu>
+        </UncontrolledDropdown>);
+    }
+}
+
 class EverydayPeople extends Component {
     
     constructor(props){
@@ -138,7 +183,9 @@ class EverydayPeople extends Component {
             
             ageRange: { min: 15, max: 65 },
             
-            allDropDown:[                
+            allDropDown:[
+                { 'dropwdown':'jobTitleDrop','value':false },
+                { 'dropdown': 'jobIndustryDrop',  'value': false },
                 { 'dropdown': 'genderDrop',  'value': false },
                 { 'dropdown': 'sortDrop',  'value': false },                
             ],
@@ -173,8 +220,7 @@ class EverydayPeople extends Component {
                         
         this.setState({allDropDown:allDropDown});
         
-
-
+        
         // let newVar = {
         //     "sort":[{ "field": "name", "value":parseInt(selectedOption.value)}],
         //     "page_size":9,
@@ -228,14 +274,13 @@ class EverydayPeople extends Component {
         const value = selectedOption && selectedOption.value;        
         
         const {allDropDown} = this.state;
-                
-        let genderDropIndex = _.findIndex(users, function(o) { return o.dropdown == 'genderDrop'; });
+        let allDropArr = [];
+
+        let genderDropArr = _.find(allDropDown, function(o) { return o.dropdown == 'genderDrop'; });
+        let sortDropArr = _.find(allDropDown, function(o) { return o.dropdown == 'sortDrop'; });
+        allDropArr['jobIndustryDrop'] = _.find(allDropDown, function(o) { return o.dropdown == 'jobIndustryDrop'; });
+        allDropArr['jobTitleDrop'] = _.find(allDropDown, function(o) { return o.dropdown == 'jobTitleDrop'; });
         
-        console.log('********************');
-            console.log(genderDropIndex);
-        console.log('********************');
-        
-    
         return (
             <div className="every-people">
 
@@ -247,16 +292,16 @@ class EverydayPeople extends Component {
                         <ul>
                             <li className="dropdown age-dropdown active">
                                 <AgeDropDown 
-                                        parentMethod={(value) => this.setAgeValue(value,"str")}                                         
+                                        parentMethod={(value) => this.setAgeValue(value,"str")}
                                         currentVal={this.state.ageRange}
                                         setAgeFilter={() => this.setAgeFilter()}
-                                />                                
+                                />
                             </li>
                             <li>
                                 <a >Gender</a>
                                 <ReactSelect
                                     name="genderDrop"
-                                    value={value}
+                                    value={genderDropArr.value}
                                     onChange={(value) => this.handleChange(value,"genderDrop")}
                                     searchable={false}
                                     clearable={false}
@@ -271,7 +316,11 @@ class EverydayPeople extends Component {
                                 <a >Location</a>
                             </li>
                             <li>
-                                <a >More filter</a>
+                                <MoreFilterDropDown
+                                    // parentMethod={(value) => this.setAgeValue(value,"str")}                                         
+                                    parentMethod={(selectedOp,dropDownName) => this.handleChange(selectedOp,dropDownName)}
+                                    allDropArr={allDropArr}
+                                />
                             </li>
                             <li>
                                 <a >Sort
@@ -279,7 +328,7 @@ class EverydayPeople extends Component {
                                 </a>
                                 <ReactSelect
                                     name="form-field-name"
-                                    value={value}
+                                    value={sortDropArr.value}
                                     onChange={(value) => this.handleChange(value,"sortDrop")}
                                     searchable={false}
                                     clearable={false}
