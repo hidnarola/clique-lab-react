@@ -102,10 +102,6 @@ class AgeDropDown extends Component {
         super(props);        
     };
 
-    setAgeValue = (value) => {        
-        this.props.parentMethod(value);
-    }
-
     render() {    
         return (<UncontrolledDropdown>
             <DropdownToggle caret >                
@@ -116,7 +112,7 @@ class AgeDropDown extends Component {
                     maxValue={65}
                     minValue={15}
                     value={this.props.currentVal}
-                    onChange={value => this.setAgeValue(value)} 
+                    onChange={value => this.props.parentMethod(value)} 
                 />
                 <div className="ftr-btn">
                     <button className="bdr-btn" onClick={() => this.props.setAgeFilter()} >Apply</button>
@@ -125,6 +121,7 @@ class AgeDropDown extends Component {
         </UncontrolledDropdown>);
     }
 }
+
 
 class MoreFilterDropDown extends Component {
 
@@ -163,6 +160,24 @@ class MoreFilterDropDown extends Component {
                     ]}
                 />
 
+                <ReactSelect
+                    name="education" 
+                    value={this.props.allDropArr['education']['value']}
+                    onChange={(value) => this.props.parentMethod(value,"education")}
+                    searchable={false} clearable={false} autosize={false}
+                    options={[
+                        { value: 'three', label: 'Three' },
+                        { value: 'four', label: 'Four' },
+                    ]}
+                />
+
+                <InputRange
+                    maxValue={2500}
+                    minValue={0}
+                    value={this.props.allSliderArr['facebook']['value']}
+                    onChange={value => this.props.parentSliderMethod(value,"facebook")} 
+                />
+
                 <div className="ftr-btn">
                     <button className="bdr-btn" onClick={() => this.props.setAgeFilter()} >Apply</button>
                 </div>
@@ -173,6 +188,8 @@ class MoreFilterDropDown extends Component {
 
 class EverydayPeople extends Component {
     
+    static displayName = 'Myname';
+
     constructor(props){
         super(props);
 
@@ -184,12 +201,16 @@ class EverydayPeople extends Component {
             ageRange: { min: 15, max: 65 },
             
             allDropDown:[
-                { 'dropwdown':'jobTitleDrop','value':false },
-                { 'dropdown': 'jobIndustryDrop',  'value': false },
-                { 'dropdown': 'genderDrop',  'value': false },
-                { 'dropdown': 'sortDrop',  'value': false },                
+                { 'dropdown': 'education',      'value':false },
+                { 'dropdown': 'jobTitleDrop',   'value': false },
+                { 'dropdown': 'jobIndustryDrop','value': false },
+                { 'dropdown': 'genderDrop',     'value': false },
+                { 'dropdown': 'sortDrop',       'value': false },                
             ],
             
+            allSliders:[
+                { 'slider': 'facebook','value':{ min: 0, max: 2500 } },
+            ],
 
             isMoreFilterSelected:false,
             isAgeFilterSelected:false,
@@ -209,8 +230,7 @@ class EverydayPeople extends Component {
     }
 
     handleChange = (selectedOption,secondParam) => {
-        
-        
+
         const { dispatch } = this.props;
         this.setState({ selectedOption });        
         
@@ -227,7 +247,18 @@ class EverydayPeople extends Component {
         //     "page_no":1
         // }
         // dispatch(sendReq(newVar));
-    }    
+    }
+
+    handleSLider = (selectedOption,secondParam) => {
+
+        console.log(selectedOption);
+        console.log(secondParam);
+
+        let {allSliders} = this.state;                
+        let index = _.findIndex(allSliders, {slider: secondParam});
+        allSliders.splice(index, 1, {slider: secondParam,value: selectedOption});
+        this.setState({allSliders:allSliders});
+    }
 
     renderLi(obj){
         return(
@@ -273,13 +304,20 @@ class EverydayPeople extends Component {
         const { selectedOption } = this.state;
         const value = selectedOption && selectedOption.value;        
         
-        const {allDropDown} = this.state;
+        const {allDropDown,allSliders} = this.state;
         let allDropArr = [];
+        let allSliderArr = [];
 
         let genderDropArr = _.find(allDropDown, function(o) { return o.dropdown == 'genderDrop'; });
         let sortDropArr = _.find(allDropDown, function(o) { return o.dropdown == 'sortDrop'; });
+        
         allDropArr['jobIndustryDrop'] = _.find(allDropDown, function(o) { return o.dropdown == 'jobIndustryDrop'; });
+        allDropArr['education'] = _.find(allDropDown, function(o) { return o.dropdown == 'education'; });
         allDropArr['jobTitleDrop'] = _.find(allDropDown, function(o) { return o.dropdown == 'jobTitleDrop'; });
+        
+        allSliderArr['facebook'] = _.find(allSliders, function(o) { return o.slider == 'facebook'; });
+        
+         
         
         return (
             <div className="every-people">
@@ -319,7 +357,9 @@ class EverydayPeople extends Component {
                                 <MoreFilterDropDown
                                     // parentMethod={(value) => this.setAgeValue(value,"str")}                                         
                                     parentMethod={(selectedOp,dropDownName) => this.handleChange(selectedOp,dropDownName)}
+                                    parentSliderMethod={(selectedOp,sliderName) => this.handleSLider(selectedOp,sliderName)}
                                     allDropArr={allDropArr}
+                                    allSliderArr={allSliderArr}
                                 />
                             </li>
                             <li>
