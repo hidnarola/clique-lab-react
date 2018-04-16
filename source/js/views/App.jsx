@@ -84,8 +84,8 @@ class App extends Component {
                         {/* Profile */}
                         <PrivateRoute path={routeCodes.MY_PROFILE} component={MyProfile} showHeader={true} />
                         <PrivateRoute path={routeCodes.PARTNERSHIP_PROGRAM} component={MyProfile} showHeader={true} />
-                        <PrivateRoute path={routeCodes.WALLET} component={CampaignForm} showHeader={true} />
-                        <PrivateRoute path={routeCodes.PERMISSION} component={CampaignForm} showHeader={true} />
+                        <PrivateRoute path={routeCodes.WALLET} component={MyProfile} showHeader={true} />
+                        <PrivateRoute path={routeCodes.PERMISSION} component={MyProfile} showHeader={true} />
 
                         
                         {/* <Route path='*' component={ NotFound } />                         */}
