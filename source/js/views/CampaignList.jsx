@@ -11,7 +11,9 @@ import { routeCodes } from 'constants/routes';
 
 class CampaignList extends Component {
     constructor(props){
-		super(props);
+        super(props);
+        
+
 		this.state = {
 			page_title : 'abc'
 		}

@@ -6,10 +6,9 @@ a:hover { color: #005580; text-decoration: underline; }
 h2 { padding-top: 20px; }
 h2:first-of-type { padding-top: 0; }
 ul { padding: 0; }
-.pagination { height: 36px; margin: 18px 0; }
-.pagination ul { display: inline-block; *display: inline; /* IE7 inline-block hack */ *zoom: 1; margin-left: 0; margin-bottom: 0; -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); }
-.pagination li { display: inline; }
-.pagination a { float: left; padding: 0 14px; line-height: 34px; text-decoration: none; border: 1px solid #ddd; border-left-width: 0; }
+.pagination {     height: auto; margin: 18px 0; text-align: center; display: inherit;}
+.pagination ul { display: inline-block;  margin-left: 0; margin-bottom: 0; -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); }.pagination li { background:#fff; box-shadow:0 4px 24px 0 rgba(0, 0, 0, .1); display:inline-block;}
+.pagination a {float: left; padding: 5px 20px; line-height: 34px; text-decoration: none; color: #4f699d !important; border: 0; border-left-width: 0;}
 .pagination a:hover, .pagination .active a { background-color: #f5f5f5; }
 .pagination .active a { color: #999999; cursor: default; }
 .pagination .disabled span, .pagination .disabled a, .pagination .disabled a:hover { color: #999999; background-color: transparent; cursor: default; }
@@ -48,9 +47,9 @@ ul { padding: 0; }
 .terms-conditions .close{position:absolute; top:0; right:0; opacity:1;}
 .terms-conditions .close svg{fill:#6772e5; width:19px; height:19px;}
 
-.hdr-user .dropdown .dropdown-toggle{ border:0; border-radius:0; background:transparent !important; }
-.hdr-user .dropdown .dropdown-toggle a span {width: 50px; height: 50px; background: #000; margin-left: 8px; display: inline-block; vertical-align: top; border-radius: 80px;}
-.hdr-user .dropdown .dropdown-toggle::after{ background: url(../assets/img/site/down-arrow.png) no-repeat 0 0; display: inline-block; vertical-align: top; width: 14px; height: 50px; margin-left: 6px; content:''; border:0;}
+.hdr-user .dropdown .dropdown-toggle{ border:0; border-radius:0; background:transparent !important; padding:0; }
+.hdr-user .dropdown .dropdown-toggle a span {width:40px; height:40px; background: #000; margin-right:6px; display: inline-block; vertical-align: top; border-radius: 80px;}
+.hdr-user .dropdown .dropdown-toggle::after{ background: url(../assets/img/site/down-arrow.png) no-repeat 0 50%; display: inline-block; vertical-align: top; width: 14px; height:40px; margin-left: 6px; content:''; border:0;}
 .btn-secondary.focus,
 .btn-secondary:focus {box-shadow: none !important;}
 .hdr-user .dropdown .dropdown-menu button{ position:relative; padding:0 0 0 48px; font-size:16px; color:#525f7f; font-weight: 500; line-height: 30px; margin: 0 0 13px;}
@@ -149,15 +148,30 @@ ul { padding: 0; }
 }
 
 /* Sort By DrOPDOWN */
-  .Select.Select--single{border:2px solid rgba(82, 95, 127, .5) !important; padding:6px 15px; line-height:28px; font-weight: 500; color: #525f7f; background:transparent; height:40px;}
-  .Select-control{    background: transparent !important; border: 0 !important; height: auto; padding:0 30px 0 0;  display: block; line-height: 100%; }
+  .Select.Select--single{border:2px solid rgba(82, 95, 127, .5) !important; padding:6px 15px; line-height:18px; font-weight: 500; color: #525f7f; background:transparent; height:34px;}
+  .Select.Select--single:hover{background: rgba(82, 95, 127,1) !important; color:#fff !important; }
+  .Select.Select--single:hover .Select-placeholder{color:#fff !important;}
+  .Select-control{    background: transparent !important; border: 0 !important; height: auto; padding:0 30px 0 0;  display: block; line-height: 100%;     font-size: 14px;} 
   .Select-placeholder{ padding:0; line-height:20px;  padding: 0; line-height: 28px; background: transparent; border: 0 !important; box-shadow: none;}
   .Select-arrow-zone{background: url(../assets/img/site/down-arrow.png) no-repeat 0 50%;  display:block; width:14px; height: 40px; margin: 0; border: 0; padding: 0 !important; display: block; position: absolute; right: 0; top: 50%; -webkit-transform: translateY(-50%); -moz-transform: translateY(-50%); transform: translateY(-50%);     margin:-13px 0 0;}
   .Select-arrow-zone .Select-arrow{ display:none; }
   .Select-placeholder, .Select--single > .Select-control .Select-value{ padding:0px; line-height:26px; position: relative; }
   span.Select-value-label{line-height:26px;}
   .Select.has-value.Select--single > .Select-control .Select-value .Select-value-label, .Select.has-value.is-pseudo-focused.Select--single > .Select-control .Select-value .Select-value-label { color: #525f7f; }
-  .Select-placeholder{color: #525f7f; position: relative; }
+  .Select-placeholder{color: #525f7f; position:relative; line-height:18px;}
+  .close-div{top:12px; right:20px;}
+  .close-div button{ padding:0; }
+  .everypeole-head .dropdown button.btn-secondary{ border:2px solid rgba(82, 95, 127, .5) !important; padding:6px 15px; line-height:18px; font-weight:500; color:#525f7f; background:transparent !important; height:34px; border-radius:0; font-size:14px; }
+  .everypeole-head .dropdown button.btn-secondary:hover{ background: rgba(82, 95, 127,1) !important; color:#fff; }
+  .everypeole-head .dropdown-toggle::after{ display:none; }
+  .everypeole-head .dropdown .Select-placeholder{ font-size:14px; line-height:14px;  }
+  .everypeole-head ul li a{ border:2px solid rgba(82, 95, 127, .5) !important; padding:6px 15px; line-height:18px; font-weight:500; color:#525f7f !important; background:transparent !important; height:34px; border-radius:0; font-size:14px; }
+  .everypeole-head ul li a:hover{background: rgba(82, 95, 127,1) !important; color:#fff !important; }
+  .everypeole-head .Select-value{ line-height:18px;}
+  
+  .dropdown:hover .Select-arrow-zone,
+  .dropdown:hover .dropdown-arrow,
+  .Select.Select--single:hover .Select-arrow-zone {background: url(../assets/img/site/02.png) no-repeat 0 50%}
 
 @keyframes load8 {
   0% { transform: rotate(0deg);}

@@ -17,11 +17,49 @@ import InputRange from 'react-input-range';
 import _ from 'lodash';
 import moment from 'moment';
 
-import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem ,UncontrolledDropdown } from 'reactstrap';
+import { 
+        Button, Modal, ModalHeader, ModalBody, ModalFooter, Dropdown, 
+        DropdownToggle, DropdownMenu, DropdownItem ,UncontrolledDropdown 
+       } from 'reactstrap';
 
 const Example = ({ type, color,displayProp }) => (
     <ReactLoading type={type} color={color} height='667' width='375' style={{display:displayProp}}  />
 );
+
+class AddToModal extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            modal: false
+        };
+
+        this.toggle = this.toggle.bind(this);
+    }
+
+    toggle() {
+        this.setState({
+            modal: !this.state.modal
+        });
+    }
+
+    render() {
+        return (
+            <div>
+                <Button color="danger" onClick={this.toggle}>{this.props.buttonLabel}</Button>
+                <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
+                    <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
+                    <ModalBody>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button color="primary" onClick={this.toggle}>Do Something</Button>{' '}
+                        <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+                    </ModalFooter>
+                </Modal>
+            </div>
+        );
+    }
+}
 
 const DropDownSocial = () => {
     return (
@@ -83,15 +121,19 @@ const DropDownSocial = () => {
     );
 }
 
-const PlusAction = () => {
+const PlusAction = (props) => {
     return (
         <UncontrolledDropdown>
-            <DropdownToggle caret>
+            <DropdownToggle>
                 <img src={imgPlus} alt="" />
             </DropdownToggle>
             <DropdownMenu>                
-                <DropdownItem>Add to Campaign</DropdownItem>                
-                <DropdownItem>Add to Group</DropdownItem>
+                <DropdownItem onClick={() => { console.log(props.userObj); }}>
+                    Add to Campaign
+                </DropdownItem>
+                <DropdownItem onClick={() => { console.log(props.userObj); }}>
+                    Add to Group
+                </DropdownItem>
             </DropdownMenu>
         </UncontrolledDropdown>
     );
@@ -125,7 +167,7 @@ const MoreFilterDropDown = (props) => {
     let musicTasteArr = [];
 
     if(props.moreFilterData !== null){
-        
+
         props.moreFilterData.job_industry.map((obj)=>{
             jobIndustryArr.push({'value':obj._id,label:obj.name});
         });
@@ -260,6 +302,13 @@ const MoreFilterDropDown = (props) => {
                 onChange={value => props.parentSliderMethod(value,"facebook")} 
             />
 
+            <InputRange
+                maxValue={2500}
+                minValue={0}
+                value={props.allSliderArr['facebook']['value']}
+                onChange={value => props.parentSliderMethod(value,"facebook")} 
+            />
+
             <div className="ftr-btn">
                 <button className="bdr-btn" onClick={() => props.setAgeFilter()} >Apply</button>
             </div>
@@ -267,6 +316,8 @@ const MoreFilterDropDown = (props) => {
     </UncontrolledDropdown>);
     
 }
+
+
 
 class EverydayPeople extends Component {
 
@@ -351,7 +402,7 @@ class EverydayPeople extends Component {
                             <img src={sampleImg} alt="" />
                         </a>
                         <div className="plus-people dropdown">
-                            <PlusAction/>
+                            <PlusAction userObj={obj}/>
                         </div>
                     </div>
                     <div className="all-people-content d-flex">
@@ -423,7 +474,7 @@ class EverydayPeople extends Component {
                                 />
                             </li>
                             <li>
-                                <a >Gender</a>
+                                
                                 <ReactSelect
                                     name="genderDrop"
                                     value={genderDropArr.value}
@@ -431,6 +482,7 @@ class EverydayPeople extends Component {
                                     searchable={false}
                                     clearable={false}
                                     autosize={false}
+                                    placeholder="Gender"
                                     options={[
                                         { value: 'male', label: 'Male' },
                                         { value: 'female', label: 'Female' },
@@ -450,10 +502,11 @@ class EverydayPeople extends Component {
                                     moreFilterData={moreFilterData}
                                 />
                             </li>
-                            <li>
-                                <a >Sort
-                                    <i className="dropdown-arrow"></i>
-                                </a>
+                        </ul>
+                    </div>
+                    <div className="everypeole-head-r">
+                        <ul>                        
+                            <li>                                 
                                 <ReactSelect
                                     name="form-field-name"
                                     value={sortDropArr.value}
@@ -500,6 +553,8 @@ class EverydayPeople extends Component {
                         pageRangeDisplayed={5} 
                         onChange={this.handlePageChange}
                     />
+
+                    {/* <AddToModal /> */}
                 </div>
 
             </div>

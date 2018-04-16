@@ -51,7 +51,7 @@
 	.plus-people {top:20px; right: 20px;}
 	.all-people-content {padding:15px;}
 	.all-people-content h4 {font-size: 16px;}
-	.all-people-content a {font-size: 14px;}
+	.all-people-content button.btn {font-size: 14px;}
 	.all-people-content .dropdown-menu.show {height: calc(100% - 40px);}
 	.group-btm-content {padding: 20px;}
 	.group-btm-content h4 {margin: 0 0 15px; padding: 0 0 15px; font-size: 16px;}

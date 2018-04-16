@@ -344,12 +344,19 @@ ul.all-people-ul{ list-style:none; margin:-15px -15px 0; padding:0; flex-wrap:wr
 ul.all-people-ul li{ width:33.33%; padding:15px;}
 .all-people-div{ background:#fff; border-radius:4px; box-shadow:0 4px 24px 0 rgba(0,0,0,.1); overflow:hidden;position: relative;}
 .all-people-img{position:relative;}
-.all-people-img>a{display:block;}
-.all-people-img img{border-radius:4px 4px 0 0;}
+.all-people-img>button{display:block; padding:0; background:transparent; border:transparent; color:transparent;}
+.all-people-img  img{border-radius:4px 4px 0 0;}
 .plus-people{position:absolute; top:28px; right:28px;}
-.plus-people a{display:block;text-decoration:none;}
+.plus-people>.dropdown>button{display:block;text-decoration:none; background:transparent !important; border:transparent !important; color:transparent !important; padding:0;}
+.plus-people .dropdown-toggle::after{display:none;}
+.dropdown button.dropdown-item{display:block; padding:0; font-weight:500; color: #212529; text-align: inherit; white-space: nowrap; background-color: transparent; border:0; font-size:14px; margin:8px 0;}
+.plus-people button img{ max-width:40px; }
 .all-people-content{ border-radius:0 0 4px 4px; padding:22px;}
-.all-people-content a{margin-left:auto; font-size:16px; color:#4f699d; font-weight:500; line-height:20px; display:block; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;}
+.all-people-content button.btn{margin-left:auto; font-size:16px; color:#4f699d !important; font-weight:500; line-height:20px; display:block; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; background:transparent; border:transparent; padding:0;  }
+.btn-secondary:not(:disabled):not(.disabled).active, 
+.btn-secondary:not(:disabled):not(.disabled):active, 
+.show>.btn-secondary.dropdown-toggle,
+.all-people-content button.btn:hover{background:transparent !important; border:0 !important; }
 .all-people-content .btn-group  >a>i{-webkit-transform: rotate(180deg); -moz-transform: rotate(180deg); transform: rotate(180deg); }
 .all-people-content .dropdown-menu  a>i{display: inline-block; vertical-align: top; margin: 0 8px 0 0;}
 .all-people-content .dropdown-menu  a>span{display: inline-block; vertical-align: top; line-height:28px;}
