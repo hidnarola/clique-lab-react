@@ -1,5 +1,8 @@
 import { Map } from "immutable";
-import {  EVERY_DAY_REQUEST,EVERY_DAY_SUCCESS,EVERY_DAY_ERROR } from "../actions/everyDay";
+import {  
+        EVERY_DAY_REQUEST,EVERY_DAY_SUCCESS,EVERY_DAY_ERROR,
+        MORE_FILTER_REQUEST, MORE_FILTER_SUCCESS, MORE_FILTER_ERROR
+       } from "../actions/everyDay";
 
 const initialState = Map({
     loading: false,
@@ -9,7 +12,8 @@ const initialState = Map({
         message:null,
         data:null,
         total:0
-    }
+    },
+    moreFilterData:null
 });
 
 const actionMap = {
@@ -41,7 +45,32 @@ const actionMap = {
             error: null,
             user: JSON.stringify(action.data),            
         }));
-    }    
+    },
+    //----------------------------------------------------------------------------
+
+    [MORE_FILTER_REQUEST]: (state, action) => {
+        return state.merge(Map({
+            loading: true,
+            error: null            
+        }));
+    },
+    [MORE_FILTER_SUCCESS]: (state, action) => {
+        return state.merge(Map({
+            loading: false,
+            error: false,
+            moreFilterData:action.data.data
+        }));
+    },
+    [MORE_FILTER_ERROR]: (state, action) => {
+        let error = 'Server Error';
+        if (action.error && action.error.response) {
+            error = action.error.response.message;
+        }
+        return state.merge(Map({
+            loading: false,
+            error: error            
+        }));
+    },
 };
 
 export default function reducer(state = initialState, action = {}) {
