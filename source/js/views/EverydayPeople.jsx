@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Pagination from "react-js-pagination";
-import { sendReq } from '../actions/everyDay';
+import { sendReq,moreFilterReq } from '../actions/everyDay';
 import ReactLoading from 'react-loading';
 import sampleImg from 'img/site/400x218.png';
 import closeImg from 'img/site/close.png';
@@ -15,6 +15,7 @@ import imgPlus from 'img/site/plus-01.png';
 import ReactSelect from 'react-select';
 import InputRange from 'react-input-range';
 import _ from 'lodash';
+import moment from 'moment';
 
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem ,UncontrolledDropdown } from 'reactstrap';
 
@@ -22,7 +23,7 @@ const Example = ({ type, color,displayProp }) => (
     <ReactLoading type={type} color={color} height='667' width='375' style={{display:displayProp}}  />
 );
 
-const DropDownSocial =  () => {
+const DropDownSocial = () => {
     return (
         <UncontrolledDropdown direction="up">
             <DropdownToggle caret>
@@ -96,99 +97,178 @@ const PlusAction = () => {
     );
 }
 
-class AgeDropDown extends Component {
-    
-    constructor(props) {
-        super(props);        
-    };
-
-    render() {    
-        return (<UncontrolledDropdown>
-            <DropdownToggle caret >                
-                Age {" "} {this.props.currentVal.min}-{this.props.currentVal.max}
-            </DropdownToggle>
-            <DropdownMenu>
-                <InputRange
-                    maxValue={65}
-                    minValue={15}
-                    value={this.props.currentVal}
-                    onChange={value => this.props.parentMethod(value)} 
-                />
-                <div className="ftr-btn">
-                    <button className="bdr-btn" onClick={() => this.props.setAgeFilter()} >Apply</button>
-                </div>
-            </DropdownMenu>
-        </UncontrolledDropdown>);
-    }
+const AgeDropDown = (props) => {    
+    return (<UncontrolledDropdown>
+        <DropdownToggle caret >                
+            Age {" "} {props.currentVal.min}-{props.currentVal.max}
+        </DropdownToggle>
+        <DropdownMenu>
+            <InputRange
+                maxValue={65}
+                minValue={15}
+                value={props.currentVal}
+                onChange={value => props.parentMethod(value)} 
+            />
+            <div className="ftr-btn">
+                <button className="bdr-btn" onClick={() => props.setAgeFilter()} >Apply</button>
+            </div>
+        </DropdownMenu>
+    </UncontrolledDropdown>);    
 }
 
+const MoreFilterDropDown = (props) => {
+    
+    
+    let jobIndustryArr = []; let jobTitleArr = [];
+    let yearInIndustryArr = []; let educationArr = [];
+    let languageArr = []; let ethnicityArr = [];
+    let musicTasteArr = [];
 
-class MoreFilterDropDown extends Component {
-
-    constructor(props) {
-        super(props);             
-    };
-
-    render() {    
+    if(props.moreFilterData !== null){
         
+        props.moreFilterData.job_industry.map((obj)=>{
+            jobIndustryArr.push({'value':obj._id,label:obj.name});
+        });
 
-        return (<UncontrolledDropdown>
-            <DropdownToggle caret >
-                More Filter {" "}
-            </DropdownToggle>
-            <DropdownMenu>
+        props.moreFilterData.job_title.map((obj)=>{
+            jobTitleArr.push({'value':obj._id,label:obj.job_title});
+        });
 
-                <ReactSelect
-                    name="jobIndustryDrop" 
-                    value={this.props.allDropArr['jobIndustryDrop']['value']}
-                    onChange={(value) => this.props.parentMethod(value,"jobIndustryDrop")}
-                    searchable={false} clearable={false} autosize={false}
-                    options={[
-                        { value: 'one', label: 'One' },
-                        { value: 'two', label: 'Two' },
-                    ]}
-                />
+        for(let i=1;i<=20;i++){
+            yearInIndustryArr.push({'value':i,label:i})
+        }
 
-                <ReactSelect
-                    name="jobTitleDrop" 
-                    value={this.props.allDropArr['jobTitleDrop']['value']}
-                    onChange={(value) => this.props.parentMethod(value,"jobTitleDrop")}
-                    searchable={false} clearable={false} autosize={false}
-                    options={[
-                        { value: 'three', label: 'Three' },
-                        { value: 'four', label: 'Four' },
-                    ]}
-                />
+        props.moreFilterData.education.map((obj)=>{
+            educationArr.push({'value':obj._id,label:obj.name});
+        });
 
-                <ReactSelect
-                    name="education" 
-                    value={this.props.allDropArr['education']['value']}
-                    onChange={(value) => this.props.parentMethod(value,"education")}
-                    searchable={false} clearable={false} autosize={false}
-                    options={[
-                        { value: 'three', label: 'Three' },
-                        { value: 'four', label: 'Four' },
-                    ]}
-                />
+        props.moreFilterData.language.map((obj)=>{
+            languageArr.push({'value':obj._id,label:obj.name});
+        });
 
-                <InputRange
-                    maxValue={2500}
-                    minValue={0}
-                    value={this.props.allSliderArr['facebook']['value']}
-                    onChange={value => this.props.parentSliderMethod(value,"facebook")} 
-                />
+        props.moreFilterData.ethnicity.map((obj)=>{
+            ethnicityArr.push({'value':obj._id,label:obj.ethnicity});
+        });        
 
-                <div className="ftr-btn">
-                    <button className="bdr-btn" onClick={() => this.props.setAgeFilter()} >Apply</button>
-                </div>
-            </DropdownMenu>
-        </UncontrolledDropdown>);
+        props.moreFilterData.music_taste.map((obj)=>{
+            musicTasteArr.push({'value':obj._id,label:obj.name});
+        });
+
     }
+    
+
+    return (<UncontrolledDropdown>
+        <DropdownToggle caret >
+            More Filter {" "}
+        </DropdownToggle>
+        <DropdownMenu>
+
+            <ReactSelect
+                name="jobIndustryDrop" 
+                value={props.allDropArr['jobIndustryDrop']['value']}
+                onChange={(value) => props.parentMethod(value,"jobIndustryDrop")}
+                searchable={false} clearable={false} autosize={false}
+                options={jobIndustryArr}
+                placeholder="Select Job Industry"
+            />
+
+            <ReactSelect
+                name="jobTitleDrop" 
+                value={props.allDropArr['jobTitleDrop']['value']}
+                onChange={(value) => props.parentMethod(value,"jobTitleDrop")}
+                searchable={false} clearable={false} autosize={false}
+                options={jobTitleArr}
+                placeholder="Select Job Title"
+            />
+
+            <ReactSelect
+                name="yearInIndustryArr" 
+                value={props.allDropArr['yearInIndustry']['value']}
+                onChange={(value) => props.parentMethod(value,"yearInIndustry")}
+                searchable={false} clearable={false} autosize={false}
+                options={yearInIndustryArr}
+                placeholder="Select Year in Industry"
+            />
+
+            <ReactSelect
+                name="education" 
+                value={props.allDropArr['education']['value']}
+                onChange={(value) => props.parentMethod(value,"education")}
+                searchable={false} clearable={false} autosize={false}
+                options={educationArr}
+                placeholder="Select Education"
+            />
+
+            <ReactSelect
+                name="language" 
+                value={props.allDropArr['language']['value']}
+                onChange={(value) => props.parentMethod(value,"language")}
+                searchable={false} clearable={false} autosize={false}
+                options={languageArr}
+                placeholder="Select Language"
+            />
+
+            <ReactSelect
+                name="ethnicity" 
+                value={props.allDropArr['ethnicity']['value']}
+                onChange={(value) => props.parentMethod(value,"ethnicity")}
+                searchable={false} clearable={false} autosize={false}
+                options={ethnicityArr}
+                placeholder="Select Ethnicity"
+            />
+            
+            <ReactSelect
+                name="sexualOrientation" 
+                value={props.allDropArr['sexualOrientation']['value']}
+                onChange={(value) => props.parentMethod(value,"sexualOrientation")}
+                searchable={false} clearable={false} autosize={false}
+                options={[
+                    {'value':'male',label:"Male"},
+                    {'value':'female',label:"Female"},
+                    {'value':'both',label:"Both"}
+                ]}
+                placeholder="Select Sexual Orientation"
+            />
+
+            <ReactSelect
+                name="relationship" 
+                value={props.allDropArr['relationship']['value']}
+                onChange={(value) => props.parentMethod(value,"relationship")}
+                searchable={false} clearable={false} autosize={false}
+                options={[
+                    {'value':'Married',label:"Married"},
+                    {'value':'Unmarried',label:"Unmarried"},
+                    {'value':'Single',label:"Single"}
+                ]}                
+
+                placeholder="Select Relationship"
+            />
+
+            <ReactSelect
+                name="musicTaste" 
+                value={props.allDropArr['musicTaste']['value']}
+                onChange={(value) => props.parentMethod(value,"musicTaste")}
+                searchable={false} clearable={false} autosize={false}
+                options={musicTasteArr}
+                placeholder="Select Music Taste"
+            />
+
+            <InputRange
+                maxValue={2500}
+                minValue={0}
+                value={props.allSliderArr['facebook']['value']}
+                onChange={value => props.parentSliderMethod(value,"facebook")} 
+            />
+
+            <div className="ftr-btn">
+                <button className="bdr-btn" onClick={() => props.setAgeFilter()} >Apply</button>
+            </div>
+        </DropdownMenu>
+    </UncontrolledDropdown>);
+    
 }
 
 class EverydayPeople extends Component {
-    
-    static displayName = 'Myname';
 
     constructor(props){
         super(props);
@@ -196,20 +276,25 @@ class EverydayPeople extends Component {
         this.state = {
             activePage: 1,            
             loaderShow:false,
-            selectedOption: '',
-            
-            ageRange: { min: 15, max: 65 },
-            
+
             allDropDown:[
-                { 'dropdown': 'education',      'value':false },
-                { 'dropdown': 'jobTitleDrop',   'value': false },
-                { 'dropdown': 'jobIndustryDrop','value': false },
-                { 'dropdown': 'genderDrop',     'value': false },
-                { 'dropdown': 'sortDrop',       'value': false },                
+                { 'dropdown': 'jobIndustryDrop',   'value': false },
+                { 'dropdown': 'jobTitleDrop',      'value': false },
+                { 'dropdown': 'yearInIndustry',    'value': false },
+                { 'dropdown': 'education',         'value': false },
+                { 'dropdown': 'language',          'value': false },
+                { 'dropdown': 'ethnicity',         'value': false },
+                { 'dropdown': 'sexualOrientation', 'value': false },
+                { 'dropdown': 'relationship',      'value': false },
+                { 'dropdown': 'musicTaste',        'value': false },
+
+                { 'dropdown': 'genderDrop',         'value': false },
+                { 'dropdown': 'sortDrop',           'value': false },                
             ],
             
             allSliders:[
                 { 'slider': 'facebook','value':{ min: 0, max: 2500 } },
+                { 'slider': 'ageRange','value':{ min: 15, max: 65 } },
             ],
 
             isMoreFilterSelected:false,
@@ -222,8 +307,7 @@ class EverydayPeople extends Component {
         this.renderLi = this.renderLi.bind(this);        
     }    
 
-    handlePageChange(pageNumber) {
-        // console.log(`active page is ${pageNumber}`);
+    handlePageChange(pageNumber) {        
         this.setState({activePage: pageNumber});
         const { dispatch } = this.props;
         dispatch(sendReq({"page_size":9,"page_no":pageNumber}))
@@ -231,16 +315,14 @@ class EverydayPeople extends Component {
 
     handleChange = (selectedOption,secondParam) => {
 
-        const { dispatch } = this.props;
-        this.setState({ selectedOption });        
+        const { dispatch } = this.props;        
         
         let allDropDown = this.state.allDropDown;                
         let index = _.findIndex(allDropDown, {dropdown: secondParam});
         allDropDown.splice(index, 1, {dropdown: secondParam,value: selectedOption});
                         
         this.setState({allDropDown:allDropDown});
-        
-        
+
         // let newVar = {
         //     "sort":[{ "field": "name", "value":parseInt(selectedOption.value)}],
         //     "page_size":9,
@@ -251,7 +333,7 @@ class EverydayPeople extends Component {
 
     handleSLider = (selectedOption,secondParam) => {
 
-        console.log(selectedOption);
+        console.log(selectedOption['min']);
         console.log(secondParam);
 
         let {allSliders} = this.state;                
@@ -284,6 +366,7 @@ class EverydayPeople extends Component {
     componentWillMount(){
         const { dispatch } = this.props;
         dispatch(sendReq({"page_size":9,"page_no":1}))
+        dispatch(moreFilterReq());
     }
 
     setAgeValue(value) {        
@@ -295,16 +378,13 @@ class EverydayPeople extends Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot){        
-        // console.log(prevProps);
-        // console.log('===> '+ JSON.stringify(snapshot));
+
     }
 
     render() {
-        let {users} = this.props;
-        const { selectedOption } = this.state;
-        const value = selectedOption && selectedOption.value;        
-        
+        let {users,moreFilterData} = this.props;
         const {allDropDown,allSliders} = this.state;
+
         let allDropArr = [];
         let allSliderArr = [];
 
@@ -312,13 +392,21 @@ class EverydayPeople extends Component {
         let sortDropArr = _.find(allDropDown, function(o) { return o.dropdown == 'sortDrop'; });
         
         allDropArr['jobIndustryDrop'] = _.find(allDropDown, function(o) { return o.dropdown == 'jobIndustryDrop'; });
-        allDropArr['education'] = _.find(allDropDown, function(o) { return o.dropdown == 'education'; });
         allDropArr['jobTitleDrop'] = _.find(allDropDown, function(o) { return o.dropdown == 'jobTitleDrop'; });
+        allDropArr['yearInIndustry'] = _.find(allDropDown, function(o) { return o.dropdown == 'yearInIndustry'; });
+        allDropArr['education'] = _.find(allDropDown, function(o) { return o.dropdown == 'education'; });
+        allDropArr['language'] = _.find(allDropDown, function(o) { return o.dropdown == 'language'; });
+        allDropArr['ethnicity'] = _.find(allDropDown, function(o) { return o.dropdown == 'ethnicity'; });
+        allDropArr['sexualOrientation'] = _.find(allDropDown, function(o) { return o.dropdown == 'sexualOrientation'; });
+
+        allDropArr['relationship'] = _.find(allDropDown, function(o) { return o.dropdown == 'relationship'; });
+        allDropArr['musicTaste'] = _.find(allDropDown, function(o) { return o.dropdown == 'musicTaste'; });
+
+        
         
         allSliderArr['facebook'] = _.find(allSliders, function(o) { return o.slider == 'facebook'; });
-        
-         
-        
+        allSliderArr['ageRange'] = _.find(allSliders, function(o) { return o.slider == 'ageRange'; });
+
         return (
             <div className="every-people">
 
@@ -329,10 +417,9 @@ class EverydayPeople extends Component {
                     <div className="everypeole-head-l">
                         <ul>
                             <li className="dropdown age-dropdown active">
-                                <AgeDropDown 
-                                        parentMethod={(value) => this.setAgeValue(value,"str")}
-                                        currentVal={this.state.ageRange}
-                                        setAgeFilter={() => this.setAgeFilter()}
+                                <AgeDropDown                                        
+                                        parentMethod={(value) => { (value['min']>14) ? this.handleSLider(value,"ageRange"):''; }}
+                                        currentVal={allSliderArr['ageRange']['value']}                                        
                                 />
                             </li>
                             <li>
@@ -357,9 +444,10 @@ class EverydayPeople extends Component {
                                 <MoreFilterDropDown
                                     // parentMethod={(value) => this.setAgeValue(value,"str")}                                         
                                     parentMethod={(selectedOp,dropDownName) => this.handleChange(selectedOp,dropDownName)}
-                                    parentSliderMethod={(selectedOp,sliderName) => this.handleSLider(selectedOp,sliderName)}
+                                    parentSliderMethod={(selectedOp,sliderName) => {(selectedOp['min']>=0) ? this.handleSLider(selectedOp,sliderName):''}}
                                     allDropArr={allDropArr}
                                     allSliderArr={allSliderArr}
+                                    moreFilterData={moreFilterData}
                                 />
                             </li>
                             <li>
@@ -425,7 +513,8 @@ const mapStateToProps = (state) => {
     return {
         loading: everyDay.get('loading'),
         error: everyDay.get('error'),
-        users: everyDay.get('users')
+        users: everyDay.get('users'),
+        moreFilterData: everyDay.get('moreFilterData')
     }
 }
 

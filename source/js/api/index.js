@@ -117,9 +117,14 @@ export const getFormData = (path, data, headers) => {
         method: 'GET',
         url: url,
         data: data,
-        headers: headers
-    }).then(function (res) {
-
+        headers: headers,
+        validateStatus: function (status) {            
+            // if(status == 400){
+            //     return false;
+            // }
+            return status >= 200 && status < 300; // default
+        }
+    }).then(function (res) {        
         if (res.status < 200 || res.status >= 300) {
             // Get res as text
             return res.text();
@@ -127,8 +132,9 @@ export const getFormData = (path, data, headers) => {
             return res;
         }
 
-    }).catch(function (err) {
-        return err.toString();
+    }).catch(function (err) {        
+        throw ApiError(err.toString(), null, 'REQUEST_FAILED');
+        // return err.toString();
     });
 };
 
