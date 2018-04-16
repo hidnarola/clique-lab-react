@@ -16,15 +16,24 @@ export const routeCodes = {
 
     // Campaign
     CAMPAIGN:`${publicPath}campaign`,
-    CAMPAIGN_ACTIVE:`${publicPath}campaign/active_list`,
-    CAMPAIGN_FUTURE:`${publicPath}campaign/future_list`,
-    CAMPAIGN_PAST:`${publicPath}campaign/past_list`,
+    CAMPAIGNS:`${publicPath}campaigns`,
+    CAMPAIGN_ACTIVE:`${publicPath}campaigns/active_list`,
+    CAMPAIGN_FUTURE:`${publicPath}campaigns/future_list`,
+    CAMPAIGN_PAST:`${publicPath}campaigns/past_list`,
+    CAMPAIGN_INSPIRED_SUB: `${publicPath}campaigns/inspired_submission`,
+    CAMPAIGN_PURCHASED_POSTS: `${publicPath}campaigns/purchased_posts`,
+
+    // Analytics
+    ANALYTICS:`${publicPath}analytics`,
+    ANALYTICS_STATS:`${publicPath}analytics/stats`,
+    ANALYTICS_DEMOGRAPHICS:`${publicPath}analytics/demographics`,
 
     EVERYDAYPEOPLE:`${publicPath}every-day-people`,
 
     // Groups
     LISTGROUPS:`${publicPath}groups`,
 
+    //Calendar
     CALENDAR:`${publicPath}calendar`,
 
     //My Profile

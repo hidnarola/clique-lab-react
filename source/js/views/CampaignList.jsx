@@ -11,7 +11,10 @@ import { routeCodes } from 'constants/routes';
 
 class CampaignList extends Component {
     constructor(props){
-        super(props);
+		super(props);
+		this.state = {
+			page_title : 'abc'
+		}
     }
 
     render() {
@@ -25,11 +28,12 @@ class CampaignList extends Component {
 						<li><NavLink activeClassName="active" className="cursor_pointer" to={routeCodes.CAMPAIGN_FUTURE}>Future Campaigns</NavLink></li>
 						<li><NavLink activeClassName="active" className="cursor_pointer" to={routeCodes.CAMPAIGN_PAST}>Past Campaigns</NavLink></li>
 					</ul>
-					<div class="new-permission">
+					<div className="new-permission">
 						<Link className="cursor_pointer" to={routeCodes.CAMPAIGN} >Create New Campaign</Link>
 					</div>
 				</div>
 				
+				{ curt_page==routeCodes.CAMPAIGNS && <CampaignActive />}
 				{ curt_page==routeCodes.CAMPAIGN_ACTIVE && <CampaignActive />}
 				{ curt_page==routeCodes.CAMPAIGN_FUTURE && <CampaignFuture />}
 				{ curt_page==routeCodes.CAMPAIGN_PAST && <CampaignPast />}

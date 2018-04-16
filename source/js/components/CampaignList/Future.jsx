@@ -57,14 +57,14 @@ class Future extends Component {
                             <div className="all-people-img">
                                 <a href=""><img src={fakeImg} alt=""/></a>
                             </div>
-                            <div class="all-people-content">
+                            <div className="all-people-content">
                                 <h4>Content Marketplace by your fans at Festival</h4>
-                                <div class="submission-div d-flex">
-                                    <div class="submission-div-l">
+                                <div className="submission-div d-flex">
+                                    <div className="submission-div-l">
                                         <h5>Submissions :  <small>654</small></h5>
                                         <h5>Starts in   <small>3 days</small></h5>
                                     </div>
-                                    <div class="submission-div-r">
+                                    <div className="submission-div-r">
                                         <a href=""><img src={trashImg} alt="" /></a>
                                     </div>	
                                 </div>

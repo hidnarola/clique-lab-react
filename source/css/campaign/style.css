@@ -130,7 +130,7 @@ filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='#c76eff', endC
 
 /*****  Full width ******/
 .full-width{padding:20px;}
-.left-panel{ padding:132px 0 0; width:254px;}
+.left-panel{ padding:132px 0 0; width:300px;}
 .big-logo{display:block; padding:0 0 98px; text-align:center;}
 .big-logo a{display:block;}
 .right-panel{width:calc(100% - 368px); margin-left:auto;}
