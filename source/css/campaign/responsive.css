@@ -1,9 +1,9 @@
 @media(max-width:1600px){
 	.full-width{max-width:1400px; padding:17px 20px;}
 	.right-hdr h2 {font-size: 22px; line-height: 40px;}
-	.hdr-cart>a>i {background: url(../images/cart-icon.png) no-repeat 0 4px;height: 40px;}
+	.hdr-cart>a>i {background: url(../assets/img/site/cart-icon.png) no-repeat 0 4px;height: 40px;}
 	.hdr-user>a{line-height:40px;}
-	.hdr-user>a>i{line-height:40px; height:40px; background:url(../images/down-arrow.png) no-repeat 0 50%;}
+	.hdr-user>a>i{line-height:40px; height:40px; background:url(../assets/img/site/down-arrow.png) no-repeat 0 50%;}
 	.hdr-user>a>span{ width:40px; height:40px;}
 	.right-hdr h2 strong{ line-height:40px;}
 	.right-hdr {padding:0 0 25px; margin:0 0 25px;}
@@ -11,7 +11,7 @@
 	.navigation-div ul li a{ font-size:16px;}
 	.navigation-div ul li a {font-size: 15px; padding: 8px 0 8px 60px;}
 	.right-box-head a{ font-size:15px;}
-	.right-box-head a i {background: url(../images/down-arrow-1.png) no-repeat 0 50%; height: 16px; background-size: auto 16px; margin-top:4px;}
+	.right-box-head a i {background: url(../assets/img/site/down-arrow-1.png) no-repeat 0 50%; height: 16px; background-size: auto 16px; margin-top:4px;}
 	.right-box-head .dropdown-menu a{ font-size:14px;}
 	.no-data {font-size:30px;}
 	.data-counter li a small {font-size:30px;}
