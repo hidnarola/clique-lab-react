@@ -99,6 +99,9 @@ ul { padding: 0; }
 }
 
 /* Left Menu */
+  .navigation-div ul li a:hover,
+  .navigation-div ul li a.active{color:#fff; background:#6772e5; text-decoration:none;}
+  
   .navigation-div ul li a{
     font-weight:600;
   }
