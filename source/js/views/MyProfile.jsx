@@ -12,7 +12,7 @@ import { routeCodes } from 'constants/routes';
 
 const BtnAddNewPermission = () => {
 	return (
-		<div class="new-permission"><a href="" data-toggle="modal" data-target="#permission-popup">Addd New Permission</a></div>
+		<div className="new-permission"><a href="" data-toggle="modal" data-target="#permission-popup">Addd New Permission</a></div>
 	);
 }
 class MyProfile extends Component {

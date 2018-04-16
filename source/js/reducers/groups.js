@@ -42,9 +42,9 @@ const actionMap = {
             ...initialState,
             loading: false,
             error: error,
-            groups: action.data.data.groups,
+            groups: null,
             status: true,
-            message: action.data.data.message,
+            message: action.error.message,
         }));
     },
     [ADD_GROUP_REQUEST]: (state, action) => {

@@ -18,119 +18,119 @@ import plusImg from 'img/site/plus-01.png';
 
 let Permission = props => {
 	return(
-        <div class="profile-body premission-body">
-            <ul class="premission-ul d-flex"> 
+        <div className="profile-body premission-body">
+            <ul className="premission-ul d-flex"> 
                 <li>
-                    <div class="premission-box">
-                        <div class="premission-head d-flex">
-                            <div class="premission-head-l">
+                    <div className="premission-box">
+                        <div className="premission-head d-flex">
+                            <div className="premission-head-l">
                                 <span></span> <small>Johnson Doe</small>
                             </div>
-                            <div class="premission-head-r">
+                            <div className="premission-head-r">
                                 <a href="" data-toggle="modal" data-target="#permission-edit"><img src={editImg} alt="" /></a>
                                 <a href=""><img src={deleteImg} alt="" /></a>
                             </div>
                         </div>
-                        <div class="premission-points">
-                            <ul class="d-flex">
-                                <li><i class="fa fa-circle"></i> Create</li>
-                                <li><i class="fa fa-circle"></i> Everyday People</li>
-                                <li><i class="fa fa-circle"></i> Groups </li>
-                                <li><i class="fa fa-circle"></i> Campaigns</li>
-                                <li><i class="fa fa-circle"></i> Calendar</li>
-                                <li><i class="fa fa-circle"></i> Analytics</li>
+                        <div className="premission-points">
+                            <ul className="d-flex">
+                                <li><i className="fa fa-circle"></i> Create</li>
+                                <li><i className="fa fa-circle"></i> Everyday People</li>
+                                <li><i className="fa fa-circle"></i> Groups </li>
+                                <li><i className="fa fa-circle"></i> Campaigns</li>
+                                <li><i className="fa fa-circle"></i> Calendar</li>
+                                <li><i className="fa fa-circle"></i> Analytics</li>
                             </ul>
                         </div>
                     </div>
                 </li>
                 <li>
-                    <div class="premission-box">
-                        <div class="premission-head d-flex">
-                            <div class="premission-head-l">
+                    <div className="premission-box">
+                        <div className="premission-head d-flex">
+                            <div className="premission-head-l">
                                 <span></span> <small>Johnson Doe</small>
                             </div>
-                            <div class="premission-head-r">
+                            <div className="premission-head-r">
                                 <a href="" data-toggle="modal" data-target="#permission-edit"><img src={editImg} alt="" /></a>
                                 <a href=""><img src={deleteImg} alt="" /></a>
                             </div>
                         </div>
-                        <div class="premission-points">
-                            <ul class="d-flex">
-                                <li><i class="fa fa-circle"></i> Create</li>
-                                <li><i class="fa fa-circle"></i> Everyday People</li>
-                                <li><i class="fa fa-circle"></i> Groups </li>
-                                <li><i class="fa fa-circle"></i> Campaigns</li>
-                                <li><i class="fa fa-circle"></i> Calendar</li>
-                                <li><i class="fa fa-circle"></i> Analytics</li>
+                        <div className="premission-points">
+                            <ul className="d-flex">
+                                <li><i className="fa fa-circle"></i> Create</li>
+                                <li><i className="fa fa-circle"></i> Everyday People</li>
+                                <li><i className="fa fa-circle"></i> Groups </li>
+                                <li><i className="fa fa-circle"></i> Campaigns</li>
+                                <li><i className="fa fa-circle"></i> Calendar</li>
+                                <li><i className="fa fa-circle"></i> Analytics</li>
                             </ul>
                         </div>
                     </div>
                 </li>
                 <li>
-                    <div class="premission-box">
-                        <div class="premission-head d-flex">
-                            <div class="premission-head-l">
+                    <div className="premission-box">
+                        <div className="premission-head d-flex">
+                            <div className="premission-head-l">
                                 <span></span> <small>Johnson Doe</small>
                             </div>
-                            <div class="premission-head-r">
+                            <div className="premission-head-r">
                                 <a href="" data-toggle="modal" data-target="#permission-edit"><img src={editImg} alt="" /></a>
                                 <a href=""><img src={deleteImg} alt="" /></a>
                             </div>
                         </div>
-                        <div class="premission-points">
-                            <ul class="d-flex">
-                                <li><i class="fa fa-circle"></i> Create</li>
-                                <li><i class="fa fa-circle"></i> Everyday People</li>
-                                <li><i class="fa fa-circle"></i> Groups </li>
-                                <li><i class="fa fa-circle"></i> Campaigns</li>
-                                <li><i class="fa fa-circle"></i> Calendar</li>
-                                <li><i class="fa fa-circle"></i> Analytics</li>
+                        <div className="premission-points">
+                            <ul className="d-flex">
+                                <li><i className="fa fa-circle"></i> Create</li>
+                                <li><i className="fa fa-circle"></i> Everyday People</li>
+                                <li><i className="fa fa-circle"></i> Groups </li>
+                                <li><i className="fa fa-circle"></i> Campaigns</li>
+                                <li><i className="fa fa-circle"></i> Calendar</li>
+                                <li><i className="fa fa-circle"></i> Analytics</li>
                             </ul>
                         </div>
                     </div>
                 </li>
                 <li>
-                    <div class="premission-box">
-                        <div class="premission-head d-flex">
-                            <div class="premission-head-l">
+                    <div className="premission-box">
+                        <div className="premission-head d-flex">
+                            <div className="premission-head-l">
                                 <span></span> <small>Johnson Doe</small>
                             </div>
-                            <div class="premission-head-r">
+                            <div className="premission-head-r">
                                 <a href="" data-toggle="modal" data-target="#permission-edit"><img src={editImg} alt="" /></a>
                                 <a href=""><img src={deleteImg} alt="" /></a>
                             </div>
                         </div>
-                        <div class="premission-points">
-                            <ul class="d-flex">
-                                <li><i class="fa fa-circle"></i> Create</li>
-                                <li><i class="fa fa-circle"></i> Everyday People</li>
-                                <li><i class="fa fa-circle"></i> Groups </li>
-                                <li><i class="fa fa-circle"></i> Campaigns</li>
-                                <li><i class="fa fa-circle"></i> Calendar</li>
-                                <li><i class="fa fa-circle"></i> Analytics</li>
+                        <div className="premission-points">
+                            <ul className="d-flex">
+                                <li><i className="fa fa-circle"></i> Create</li>
+                                <li><i className="fa fa-circle"></i> Everyday People</li>
+                                <li><i className="fa fa-circle"></i> Groups </li>
+                                <li><i className="fa fa-circle"></i> Campaigns</li>
+                                <li><i className="fa fa-circle"></i> Calendar</li>
+                                <li><i className="fa fa-circle"></i> Analytics</li>
                             </ul>
                         </div>
                     </div>
                 </li>
                 <li>
-                    <div class="premission-box">
-                        <div class="premission-head d-flex">
-                            <div class="premission-head-l">
+                    <div className="premission-box">
+                        <div className="premission-head d-flex">
+                            <div className="premission-head-l">
                                 <span></span> <small>Johnson Doe</small>
                             </div>
-                            <div class="premission-head-r">
+                            <div className="premission-head-r">
                                 <a href="" data-toggle="modal" data-target="#permission-edit"><img src={editImg} alt="" /></a>
                                 <a href=""><img src={deleteImg} alt="" /></a>
                             </div>
                         </div>
-                        <div class="premission-points">
-                            <ul class="d-flex">
-                                <li><i class="fa fa-circle"></i> Create</li>
-                                <li><i class="fa fa-circle"></i> Everyday People</li>
-                                <li><i class="fa fa-circle"></i> Groups </li>
-                                <li><i class="fa fa-circle"></i> Campaigns</li>
-                                <li><i class="fa fa-circle"></i> Calendar</li>
-                                <li><i class="fa fa-circle"></i> Analytics</li>
+                        <div className="premission-points">
+                            <ul className="d-flex">
+                                <li><i className="fa fa-circle"></i> Create</li>
+                                <li><i className="fa fa-circle"></i> Everyday People</li>
+                                <li><i className="fa fa-circle"></i> Groups </li>
+                                <li><i className="fa fa-circle"></i> Campaigns</li>
+                                <li><i className="fa fa-circle"></i> Calendar</li>
+                                <li><i className="fa fa-circle"></i> Analytics</li>
                             </ul>
                         </div>
                     </div>

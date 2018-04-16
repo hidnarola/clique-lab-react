@@ -155,6 +155,7 @@ export const postFormData = (path, data, headers) => {
     }).then(function (res) {
         return res;
     }).catch(function (err) {
+        throw ApiError(err.toString(), null, 'REQUEST_FAILED');
         return err.toString();
     });
 };
