@@ -154,7 +154,7 @@ class MoreFilterDropDown extends Component {
 
                 <ReactSelect
                     name="jobTitleDrop" 
-                    value={this.props.allDropArr['jobTitleDrop']['value']}
+                    value={false}
                     onChange={(value) => this.props.parentMethod(value,"jobTitleDrop")}
                     searchable={false} clearable={false} autosize={false}
                     options={[
