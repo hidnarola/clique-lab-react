@@ -18,6 +18,11 @@ class LeftMenu extends Component {
                     </a>
                 </div>
                 <div className="navigation-div">
+                    <div className="mobile-nav" id="nav-icon1" >
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
                     <ul>
                         <li>
                             <NavLink activeClassName='active' className='Menu-link' to={routeCodes.DASHBOARD }>

@@ -27,6 +27,7 @@ const Example = ({ type, color,displayProp }) => (
 );
 
 class AddToModal extends Component {
+    
     constructor(props) {
         super(props);
         this.state = {
@@ -34,6 +35,14 @@ class AddToModal extends Component {
         };
 
         this.toggle = this.toggle.bind(this);
+    }
+
+    componentDidMount(){
+        this.props.onRef(this);
+    }
+
+    componentWillMount(){
+        this.props.onRef(undefined);
     }
 
     toggle() {
@@ -45,11 +54,18 @@ class AddToModal extends Component {
     render() {
         return (
             <div>
-                <Button color="danger" onClick={this.toggle}>{this.props.buttonLabel}</Button>
                 <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
                     <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
                     <ModalBody>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                        <ReactSelect
+                            name="form-field-name"
+                            value={false}
+                            onChange={this.handleChange}
+                            options={[
+                            { value: 'one', label: 'One' },
+                            { value: 'two', label: 'Two' },
+                            ]}
+                        />
                     </ModalBody>
                     <ModalFooter>
                         <Button color="primary" onClick={this.toggle}>Do Something</Button>{' '}
@@ -128,7 +144,7 @@ const PlusAction = (props) => {
                 <img src={imgPlus} alt="" />
             </DropdownToggle>
             <DropdownMenu>                
-                <DropdownItem onClick={() => { console.log(props.userObj); }}>
+                <DropdownItem onClick={() => { props.addCampaign() }}>
                     Add to Campaign
                 </DropdownItem>
                 <DropdownItem onClick={() => { console.log(props.userObj); }}>
@@ -199,115 +215,190 @@ const MoreFilterDropDown = (props) => {
     }
     
 
-    return (<UncontrolledDropdown>
+    return (<UncontrolledDropdown className="MoreFilterLi">
         <DropdownToggle caret >
             More Filter {" "}
         </DropdownToggle>
         <DropdownMenu>
+            <div className="d-flex">
+                <div className="col-md-4">
+                    <div className="morefilter-div">
+                        <label htmlFor="">
+                            Facebook Friends
+                        </label>
+                        <InputRange
+                            maxValue={2500}
+                            minValue={0}
+                            value={props.allSliderArr['facebook']['value']}
+                            onChange={value => props.parentSliderMethod(value,"facebook")} 
+                        />
+                    </div>
 
-            <ReactSelect
-                name="jobIndustryDrop" 
-                value={props.allDropArr['jobIndustryDrop']['value']}
-                onChange={(value) => props.parentMethod(value,"jobIndustryDrop")}
-                searchable={false} clearable={false} autosize={false}
-                options={jobIndustryArr}
-                placeholder="Select Job Industry"
-            />
+                    {/* <div className="morefilter-div">
+                        <label htmlFor="">
+                            Facebook Friends
+                        </label>
+                        <InputRange
+                            maxValue={2500}
+                            minValue={0}
+                            value={props.allSliderArr['facebook']['value']}
+                            onChange={value => props.parentSliderMethod(value,"facebook")} 
+                        />
+                    </div>
 
-            <ReactSelect
-                name="jobTitleDrop" 
-                value={props.allDropArr['jobTitleDrop']['value']}
-                onChange={(value) => props.parentMethod(value,"jobTitleDrop")}
-                searchable={false} clearable={false} autosize={false}
-                options={jobTitleArr}
-                placeholder="Select Job Title"
-            />
+                    <div className="morefilter-div">
+                        <label htmlFor="">
+                            Facebook Friends
+                        </label>
+                        <InputRange
+                            maxValue={2500}
+                            minValue={0}
+                            value={props.allSliderArr['facebook']['value']}
+                            onChange={value => props.parentSliderMethod(value,"facebook")} 
+                        />
+                    </div> */}
+                </div>
 
-            <ReactSelect
-                name="yearInIndustryArr" 
-                value={props.allDropArr['yearInIndustry']['value']}
-                onChange={(value) => props.parentMethod(value,"yearInIndustry")}
-                searchable={false} clearable={false} autosize={false}
-                options={yearInIndustryArr}
-                placeholder="Select Year in Industry"
-            />
+                <div className="col-md-4">
+                    <div className="morefilter-div">
+                        <label htmlFor="">
+                            Job Industry
+                        </label>
+                        <ReactSelect
+                            name="jobIndustryDrop" 
+                            value={props.allDropArr['jobIndustryDrop']['value']}
+                            onChange={(value) => props.parentMethod(value,"jobIndustryDrop")}
+                            searchable={false} clearable={false} autosize={false}
+                            options={jobIndustryArr}
+                            placeholder="Select Job Industry"
+                        />
+                    </div>
 
-            <ReactSelect
-                name="education" 
-                value={props.allDropArr['education']['value']}
-                onChange={(value) => props.parentMethod(value,"education")}
-                searchable={false} clearable={false} autosize={false}
-                options={educationArr}
-                placeholder="Select Education"
-            />
+                    <div className="morefilter-div">
+                        <label htmlFor="">
+                            Job Title
+                        </label>
+                        <ReactSelect
+                            name="jobTitleDrop" 
+                            value={props.allDropArr['jobTitleDrop']['value']}
+                            onChange={(value) => props.parentMethod(value,"jobTitleDrop")}
+                            searchable={false} clearable={false} autosize={false}
+                            options={jobTitleArr}
+                            placeholder="Select Job Title"
+                        />
+                    </div>
 
-            <ReactSelect
-                name="language" 
-                value={props.allDropArr['language']['value']}
-                onChange={(value) => props.parentMethod(value,"language")}
-                searchable={false} clearable={false} autosize={false}
-                options={languageArr}
-                placeholder="Select Language"
-            />
+                    <div className="morefilter-div">
+                        <label htmlFor="">
+                            Year In Industry
+                        </label>            
+                        <ReactSelect
+                            name="yearInIndustryArr" 
+                            value={props.allDropArr['yearInIndustry']['value']}
+                            onChange={(value) => props.parentMethod(value,"yearInIndustry")}
+                            searchable={false} clearable={false} autosize={false}
+                            options={yearInIndustryArr}
+                            placeholder="Select Year in Industry"
+                        />        
+                    </div>
 
-            <ReactSelect
-                name="ethnicity" 
-                value={props.allDropArr['ethnicity']['value']}
-                onChange={(value) => props.parentMethod(value,"ethnicity")}
-                searchable={false} clearable={false} autosize={false}
-                options={ethnicityArr}
-                placeholder="Select Ethnicity"
-            />
+                    <div className="morefilter-div">
+                        <label htmlFor="">
+                            Education Level
+                        </label>            
+                        <ReactSelect
+                            name="education" 
+                            value={props.allDropArr['education']['value']}
+                            onChange={(value) => props.parentMethod(value,"education")}
+                            searchable={false} clearable={false} autosize={false}
+                            options={educationArr}
+                            placeholder="Select Education"
+                        />     
+                    </div>
+
+                    <div className="morefilter-div">
+                        <label htmlFor="">
+                            Language Spoken
+                        </label>            
+                        <ReactSelect
+                            name="language" 
+                            value={props.allDropArr['language']['value']}
+                            onChange={(value) => props.parentMethod(value,"language")}
+                            searchable={false} clearable={false} autosize={false}
+                            options={languageArr}
+                            placeholder="Select Language"
+                        />
+                    </div>
+                </div>
+                
+                <div className="col-md-4">
+                    <div className="morefilter-div">
+                        <label htmlFor="">
+                            Ethnicity
+                        </label>
+                        <ReactSelect
+                            name="ethnicity" 
+                            value={props.allDropArr['ethnicity']['value']}
+                            onChange={(value) => props.parentMethod(value,"ethnicity")}
+                            searchable={false} clearable={false} autosize={false}
+                            options={ethnicityArr}
+                            placeholder="Select Ethnicity"
+                        />
+                    </div>
+
+                    <div className="morefilter-div">
+                        <label htmlFor="">
+                            Sexual orientation
+                        </label>
+                        <ReactSelect
+                            name="sexualOrientation" 
+                            value={props.allDropArr['sexualOrientation']['value']}
+                            onChange={(value) => props.parentMethod(value,"sexualOrientation")}
+                            searchable={false} clearable={false} autosize={false}
+                            options={[
+                                {'value':'male',label:"Male"},
+                                {'value':'female',label:"Female"},
+                                {'value':'both',label:"Both"}
+                            ]}
+                            placeholder="Select Sexual Orientation"
+                        />
+                    </div>
+
+                    <div className="morefilter-div">
+                        <label htmlFor="">
+                            Relationship Status
+                        </label>
+                        <ReactSelect
+                            name="relationship" 
+                            value={props.allDropArr['relationship']['value']}
+                            onChange={(value) => props.parentMethod(value,"relationship")}
+                            searchable={false} clearable={false} autosize={false}
+                            options={[
+                                {'value':'Married',label:"Married"},
+                                {'value':'Unmarried',label:"Unmarried"},
+                                {'value':'Single',label:"Single"}
+                            ]}                
+
+                            placeholder="Select Relationship"
+                        />
+                    </div>
+
+                    <div className="morefilter-div">
+                        <label htmlFor="">
+                            Music Taste
+                        </label>
+                        <ReactSelect
+                            name="musicTaste" 
+                            value={props.allDropArr['musicTaste']['value']}
+                            onChange={(value) => props.parentMethod(value,"musicTaste")}
+                            searchable={false} clearable={false} autosize={false}
+                            options={musicTasteArr}
+                            placeholder="Select Music Taste"
+                        />
+                    </div>
+                </div>
+            </div>
             
-            <ReactSelect
-                name="sexualOrientation" 
-                value={props.allDropArr['sexualOrientation']['value']}
-                onChange={(value) => props.parentMethod(value,"sexualOrientation")}
-                searchable={false} clearable={false} autosize={false}
-                options={[
-                    {'value':'male',label:"Male"},
-                    {'value':'female',label:"Female"},
-                    {'value':'both',label:"Both"}
-                ]}
-                placeholder="Select Sexual Orientation"
-            />
-
-            <ReactSelect
-                name="relationship" 
-                value={props.allDropArr['relationship']['value']}
-                onChange={(value) => props.parentMethod(value,"relationship")}
-                searchable={false} clearable={false} autosize={false}
-                options={[
-                    {'value':'Married',label:"Married"},
-                    {'value':'Unmarried',label:"Unmarried"},
-                    {'value':'Single',label:"Single"}
-                ]}                
-
-                placeholder="Select Relationship"
-            />
-
-            <ReactSelect
-                name="musicTaste" 
-                value={props.allDropArr['musicTaste']['value']}
-                onChange={(value) => props.parentMethod(value,"musicTaste")}
-                searchable={false} clearable={false} autosize={false}
-                options={musicTasteArr}
-                placeholder="Select Music Taste"
-            />
-
-            <InputRange
-                maxValue={2500}
-                minValue={0}
-                value={props.allSliderArr['facebook']['value']}
-                onChange={value => props.parentSliderMethod(value,"facebook")} 
-            />
-
-            <InputRange
-                maxValue={2500}
-                minValue={0}
-                value={props.allSliderArr['facebook']['value']}
-                onChange={value => props.parentSliderMethod(value,"facebook")} 
-            />
 
             <div className="ftr-btn">
                 <button className="bdr-btn" onClick={() => props.setAgeFilter()} >Apply</button>
@@ -393,6 +484,11 @@ class EverydayPeople extends Component {
         this.setState({allSliders:allSliders});
     }
 
+    addCampaign = (obj) => {
+        console.log(obj);
+        this.child.toggle();
+    }
+
     renderLi(obj){
         return(
             <li key={Math.random()}>
@@ -402,7 +498,7 @@ class EverydayPeople extends Component {
                             <img src={sampleImg} alt="" />
                         </a>
                         <div className="plus-people dropdown">
-                            <PlusAction userObj={obj}/>
+                            <PlusAction addCampaign={() => {this.addCampaign(obj)} } />
                         </div>
                     </div>
                     <div className="all-people-content d-flex">
@@ -417,7 +513,11 @@ class EverydayPeople extends Component {
     componentWillMount(){
         const { dispatch } = this.props;
         dispatch(sendReq({"page_size":9,"page_no":1}))
-        dispatch(moreFilterReq());
+        dispatch(moreFilterReq());        
+    }
+
+    componentDidMount(){
+        // this.child.toggle();
     }
 
     setAgeValue(value) {        
@@ -428,9 +528,7 @@ class EverydayPeople extends Component {
         this.setState({isAgeFilterSelected:true});
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot){        
-
-    }
+    
 
     render() {
         let {users,moreFilterData} = this.props;
@@ -463,6 +561,39 @@ class EverydayPeople extends Component {
 
                 <Example displayProp="none"  />
 
+                <div style={{'width':'25%',display:'inlineBlock'}}>
+                    <ReactSelect
+                        name="genderDrop"
+                        value={genderDropArr.value}
+                        onChange={(value) => this.handleChange(value,"genderDrop")}
+                        searchable={false}
+                        clearable={false}
+                        autosize={false}
+                        placeholder="Gender"
+                        options={[
+                            { value: 'male', label: 'Male' },
+                            { value: 'female', label: 'Female' },
+                        ]}
+                    />
+                </div>
+                <div style={{'width':'25%',display:'inlineBlock'}}>
+                    <ReactSelect
+                        name="genderDrop"
+                        value={genderDropArr.value}
+                        onChange={(value) => this.handleChange(value,"genderDrop")}
+                        searchable={false}
+                        clearable={false}
+                        autosize={false}
+                        placeholder="Gender"
+                        options={[
+                            { value: 'male', label: 'Male' },
+                            { value: 'female', label: 'Female' },
+                        ]}
+                    />
+                </div>
+
+                              
+                                
                 {/* <img src={fbImg} /> */}
                 <div className="everypeole-head d-flex">
                     <div className="everypeole-head-l">
@@ -554,7 +685,7 @@ class EverydayPeople extends Component {
                         onChange={this.handlePageChange}
                     />
 
-                    {/* <AddToModal /> */}
+                    <AddToModal onRef={ref => (this.child = ref)} />
                 </div>
 
             </div>
