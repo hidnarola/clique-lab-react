@@ -1,3 +1,5 @@
+img{max-width:100%;}
+
 @media(max-width:1600px){
 	.full-width{max-width:1400px; padding:17px 20px;}
 	.right-hdr h2 {font-size: 22px; line-height: 40px;}
@@ -7,7 +9,7 @@
 	.hdr-user>a>span{ width:40px; height:40px;}
 	.right-hdr h2 strong{ line-height:40px;}
 	.right-hdr {padding:0 0 25px; margin:0 0 25px;}
-	.right-box{ padding:50px 40px;}
+	.right-box{ padding:50px 40px;margin:0 0 25px;}
 	.navigation-div ul li a{ font-size:16px;}
 	.navigation-div ul li a {font-size: 15px; padding: 8px 0 8px 60px;}
 	.right-box-head a{ font-size:15px;}
@@ -22,7 +24,6 @@
 	.right-panel {width: calc(100% - 328px);}
 	.left-panel {width:230px; padding:100px 0 0 10px;}
 	.right-box-content {min-height:300px;}
-	.right-box{ margin:0 0 25px;}
 	.big-logo a img{max-width:75px;}
 	.dropdown-menu {padding:5px 15px !important;}
 	.dropdown-menu a.dropdown-item{ margin:8px 0; font-size:14px;}
@@ -50,8 +51,9 @@
 	.all-people-head a i {font-size:13px;}
 	.plus-people {top:20px; right: 20px;}
 	.all-people-content {padding:15px;}
-	.all-people-content h4 {font-size: 16px;}
-	.all-people-content button.btn {font-size: 14px;}
+	
+	.active-campaigns .all-people-content h4{width:100%;}
+	.all-people-content a {font-size: 14px;}
 	.all-people-content .dropdown-menu.show {height: calc(100% - 40px);}
 	.group-btm-content {padding: 20px;}
 	.group-btm-content h4 {margin: 0 0 15px; padding: 0 0 15px; font-size: 16px;}
@@ -124,6 +126,121 @@
 	.cart-btm-dropdown {padding:10px 5px 0; margin:0;}
 	.cart-btm-dropdown a {font-size: 15px;}
 }
+
+@media (min-width:1025px) and (max-width:1440px){
+	.full-width{max-width:1300px; padding:17px 34px;}
+	.right-panel {width: calc(100% - 295px);}
+	.databox-div-r p,
+	.databox-div-r h3 {margin:0 0 15px;}
+	.databox-div-r-btm {padding:15px 0 0;}
+	.right-box {padding: 35px 30px;}
+	.databox-div-r-btm h5 small {font-size:12px;}
+	.right-box-btm-head {margin: 0 0 15px;}
+	.view-all a{ font-size:13px;}
+	.post-dropdown>a {font-size: 14px;}
+	.post-dropdown>a i {margin-top:4px; background-size: 12px auto; height:16px;}
+	.step-content h2 {padding: 0 0 25px; font-size:16px;}
+	.input-wrap label {font-size:13px;}
+	.input-wrap input {padding:8px 13px; font-size:13px;}
+	.round-btn {font-size:14px; padding:6px 5px; min-width:140px;}
+	.right-hdr h2 {font-size:22px; line-height:34px;}
+	.input-wrap-2{ padding:0;}
+	.input-wrap-2 i img {max-width:20px;}
+	.input-wrap-2 i {width:42px; height:42px; line-height:42px;}
+	.hdr-user>a>span {width: 34px; height:34px; margin:0;}
+	.hdr-user>a>i {line-height:34px; height: 34px; background-size: 10px auto; width: 10px; margin-left:3px;}
+	.hdr-cart>a>i {background:url(../assets/img/site/cart-icon.png) no-repeat 0 5px; height: 34px; background-size:28px auto; width:28px;}
+	.hdr-user>a {line-height:34px;}
+	.hdr-cart>a>span {font-size:13px; bottom:6px; right:0; width:16px; height:16px; font-size:11px; line-height:16px;}
+	.hdr-cart>a>span:before{ width:20px; height:20px; border:2px solid  rgba(103,114,229,.2); left:-2px; top:-2px;}
+	.right-hdr {padding:0 0 20px; margin:0 0 27px;}
+	.hdr-cart {margin-right:16px;}
+	.big-logo a img {max-width: 73px;}
+	.left-panel {padding:82px 0 0;}
+	.navigation-div ul {padding:0 0 0 13px;}
+	.navigation-div ul li a{padding:6px 0 6px 50px; font-size:14px;}
+	.navigation-div ul li a i{background-size:20px auto;}
+	.navigation-div ul li a:hover i, 
+	.navigation-div ul li.active a i {background-position:0 -18px;}
+	.big-logo {padding: 0 0 74px;}
+	.select-wrap select {padding: 11px 15px 11px 11px; font-size: 13px;}
+	.step-process a {width: 16px; height: 16px;}
+	.step-process strong {width: 3px;}
+	.step-process {width: 24px;}
+	.dropdown-menu a.dropdown-item {margin:8px 0; font-size:13px;}
+	.everypeole-head-r>ul>li>a, .everypeole-head-l ul li a {font-size:13px; padding:5px 16px 7px; line-height:18px;}
+	.all-people-head a,
+	.all-people-head h3 {font-size:14px;}
+	.everypeole-head {padding:0 0 27px; margin:0 0 27px;}
+	.all-people-head {margin:0 0 27px;}
+	.plus-people {top:15px; right:15px;}
+	.plus-people>a > img{max-width:36px;}
+	.all-people-content h4 {font-size: 15px;}
+	.all-people-content a{ font-size:13px;}
+	ul.all-people-ul li {padding: 10px;}
+	.close-div {top: 15px; right: 15px;}
+	.close-div img{max-width:36px;}
+	.group-head-r ul li.create-group a {font-size:13px; line-height:30px;}
+	.group-head-r ul li.sort-by>a {font-size: 13px; padding: 5px 15px;}
+	.dropdown-arrow {background: url(../assets/img/site/down-arrow-1.png) no-repeat 0 50%; margin-left:8px; background-size: 12px auto;}
+	.group-head h3 {font-size:15px; padding:7px 0;}
+	.group-btm-content {padding:15px;}
+	.group-btm-content h4 {font-size:15px;margin: 0 0 8px;padding: 0 0 12px;}
+	.group-btm-btm h5 {margin: 2px 0; font-size: 13px;}
+	.profile-head>ul>li>a {font-size: 15px; padding:0 0 12px;}
+	.profile-head>ul>li {margin:0 30px 20px 0;}
+	.drag-drop label{ font-size:13px;}
+	.textarea-wrap textarea{font-size:13px; padding:10px 14px;}
+	.partner-program-top p {font-size:13px; line-height:18px;}
+	.partner-state h3 {padding: 0 0 8px; font-size: 15px;}
+	.partner-program-top h2{ font-size:15px;}
+	.wallet-page h3{ font-size:15px; margin:0 0 10px;}
+	.wallet-balance-box {max-width:450px; padding:40px;}
+	.card-box {margin:0 20px 20px 0; padding:15px; width:260px;}
+	.card-box-body h4 {font-size: 15px;}
+	.card-box-body p {font-size: 16px;}
+	.card-box-ftr h6 {font-size: 15px;}
+	.wallet-account-box h4 small {margin:0 3px 0 0; font-size: 11px;}
+	.wallet-account-box h4 strong {font-size: 15px;}
+	.wallet-account-box h5 strong {font-size:14px;}
+	.transactions-history h2 {font-size:16px;}
+	.transactions-history form input {font-size:14px;}
+	.transactions-history form{ width:260px;}
+	.transactions-body .table td,
+	.transactions-body .table th {font-size: 14px; padding: 12px;}
+	.transactions-body .table td:first-child,
+	.transactions-body .table th:first-child {padding-left: 20px;}
+	.transactions-body {padding:20px;}
+	.new-permission a {font-size:13px; padding:7px 10px; min-width:190px;}
+	.premission-points>ul>li a i, .premission-points>ul>li i{line-height:18px;}
+	.premission-points>ul>li {font-size: 13px; line-height:18px; margin:6px 0;}
+	.premission-box {padding:12px;}
+	.premission-head-l small {font-size:15px;}
+	.premission-head-l span {width:36px; height:36px;}
+	.premission-head-l small {line-height:36px;}
+	.premission-head-r a {line-height: 36px; margin: 0 0 0 6px;}
+	.premission-head-r a img{max-width:16px;}
+	.campaigns-links{margin:0 0 26px}
+	.campaigns-links {margin:0 0 27px; padding:0 0 27px;}
+	ul.all-people-ul {margin: -10px;}
+	.all-people-content {padding: 12px;}
+	.active-campaigns .all-people-content h4{width:100%;}
+	.submission-div h5 {font-size:14px;}
+	.submission-div h5 small {font-size:15px; font-weight:600;}
+	.campaigns-links.profile-head>ul>li {margin: 0 30px 0 0;}
+	.h-view .fan-festival-r {padding:30px;}
+	.average-box-inr h5 {font-size: 20px; padding: 10px;}
+	.demographics-div {padding: 15px;}
+	.demographics-head-l h3{ font-size:15px;}
+	.demographics-body ul li strong {font-size: 13px; line-height: 30px;}
+	.demographics-body ul li i {display: inline-block; vertical-align: top; line-height: 32px; padding: 0 6px 0 0; font-size: 14px; }	
+	.cart-table {padding:20px;}
+	.checkout-r .cart-table table.table tbody td,
+	.checkout-r .cart-table table.table thead td {font-size: 14px; padding:6px;}
+	.checkout-r .cart-table table.table tbody td h3{font-size:13px;}
+	.checkout-r .cart-table {padding:0 0 0 20px;}
+	.checkout .cart-table>table.table {width: 100%;}
+}	
 
 @media(min-width:1025px) and (max-width:1039px){
 .data-box ul li {width:100%;}

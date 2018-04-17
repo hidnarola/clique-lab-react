@@ -564,7 +564,7 @@ border-radius:4px; background:#fff;}
 .user-inputwrap i{position:absolute; top:45px; right:20px;}
 .user-inputwrap input{padding:15px 50px 15px 20px;}
 
-.campaigns-links{ border-bottom: 1px solid #c8cfda; padding:0 0 30px; margin:-10px 0 30px;}
+.campaigns-links{ border-bottom: 1px solid #c8cfda; padding:0 0 30px; margin:0px 0 30px;}
 .campaigns-links.profile-head>ul>li {display: inline-block;margin:0 70px 0 0;}
 .submission-div{margin:8px 0 0;}
 .submission-div h5{ font-size:18px; font-weight:500; color:#525f7f; line-height:20px; margin:0;}
