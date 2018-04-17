@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Pagination from "react-js-pagination";
-import { sendReq } from '../../actions/everyDay';
+import { getGroupMembers } from '../../actions/groups';
+import { imgRoutes } from '../../constants/img_path';
 import ReactLoading from 'react-loading';
 import sampleImg from 'img/site/400x218.png';
 import closeImg from 'img/site/close.png';
@@ -21,55 +22,20 @@ const Example = ({ type, color,displayProp }) => (
     <ReactLoading type={type} color={color} height='667' width='375' style={{display:displayProp}}  />
 );
 
-const DropDownSocial =  () => {
+const DropDownSocial =  (props) => {
     return (
         <UncontrolledDropdown direction="up" className="btn-group dropup">
             <DropdownToggle>
-                1036 Follower
+            {props.fbCount + props.linkedCount + props.pintCount + props.twitCount + props.instaCount} Followers
                 <i className="dropdown-arrow"></i>
             </DropdownToggle>
             <DropdownMenu>
                 <ul>
-                    <li>
-                        <a>
-                            <i>
-                                <img src={fbImg} alt="" />
-                            </i>
-                            <span>823</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a >
-                            <i>
-                                <img src={linkedImg} alt="" />
-                            </i>
-                            <span>1.1k</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a >
-                            <i>
-                                <img src={pinImg} alt="" />
-                            </i>
-                            <span>432</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a >
-                            <i>
-                                <img src={twitterImg} alt="" />
-                            </i>
-                            <span>240</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a >
-                            <i>
-                                <img src={instaImg} alt="" />
-                            </i>
-                            <span>240</span>
-                        </a>
-                    </li>
+                    <li><a><i><img src={fbImg} alt="" /></i><span>{props.fbCount}</span></a></li>
+                    <li><a><i><img src={linkedImg} alt="" /></i><span>{props.linkedCount}</span></a></li>
+                    <li><a><i><img src={pinImg} alt="" /></i><span>{props.pintCount}</span></a></li>
+                    <li><a><i><img src={twitterImg} alt="" /></i><span>{props.twitCount}</span></a></li>
+                    <li><a><i><img src={instaImg} alt="" /></i><span>{props.instaCount}</span></a></li>
                 </ul>
                 <div className="close-div"> 
                     <DropdownItem>
@@ -136,12 +102,15 @@ class GroupMemberList extends Component {
     }
     
     componentWillMount(){
-        //const { dispatch } = this.props;
-        //dispatch(sendReq({"page_size":9,"page_no":1}))
+        console.log(this.props);
+        const { dispatch, match } = this.props;
+        let grpId = match.params.grpId;
+        dispatch(getGroupMembers({"grpId":grpId,"page_size":9,"page_no":1}))
     }
 
     render() {
-        let {users} = this.props;
+        console.log(this.props);
+        let {members, totalMembers} = this.props;
         const { selectedOption } = this.state;
         const value = selectedOption && selectedOption.value;
         
@@ -152,9 +121,7 @@ class GroupMemberList extends Component {
                     minValue={0}
                     value={this.state.value}
                     onChange={value => this.setState({ value })} />
-
                 <Example displayProp="none"  />
-                {/* <img src={fbImg} /> */}
                 <div className="everypeole-head d-flex">
                     <div className="everypeole-head-l">
                         <ul>
@@ -183,8 +150,6 @@ class GroupMemberList extends Component {
                                 <a >Sort
                                     <i className="dropdown-arrow"></i>
                                 </a>
-
-
                                 <ReactSelect
                                     name="form-field-name"
                                     value={value}
@@ -215,25 +180,37 @@ class GroupMemberList extends Component {
 
                 <div className="all-people">
                     <div className="all-people-head d-flex">
-                        <h3>Filtered List ({" "+users.total+" "} Results)</h3>
+                        <h3>Filtered List ({" "+totalMembers+" Results "})</h3>
                         <a >
                             <i className="fa fa-plus"></i> Save the results as a Group</a>
                     </div>
                     <ul className="all-people-ul d-flex">
-                        <li key={Math.random()}>
-                            <div className="all-people-div">
-                                <div className="all-people-img">
-                                    <a>
-                                        <img src="http://placehold.it/400x218" alt="" />
-                                    </a>
-                                    <PlusAction/>
-                                </div>
-                                <div className="all-people-content d-flex">
-                                    <h4>Parth Viramgama</h4>                        
-                                    <DropDownSocial/>                        
-                                </div>
-                            </div>
-                        </li>                    
+                        {(
+                            members!==null && members.map(function(obj,i){
+                                return(
+                                    <li key={Math.random()}>
+                                        <div className="all-people-div">
+                                            <div className="all-people-img">
+                                                <a>
+                                                    <img src={`${imgRoutes.USER_IMG_PATH}${obj.image}`} alt="" className="grp_list_img" />
+                                                </a>
+                                                <PlusAction/>
+                                            </div>
+                                            <div className="all-people-content d-flex">
+                                                <h4>{ obj.name }</h4>                        
+                                                <DropDownSocial
+                                                    fbCount={(obj.hasOwnProperty('facebook')) ? obj.facebook.no_of_friends : 0 }
+                                                    instaCount={(obj.hasOwnProperty('instagram')) ? obj.instagram.no_of_followers : 0 }
+                                                    pintCount={(obj.hasOwnProperty('pinterest')) ? obj.pinterest.no_of_followers : 0 }
+                                                    linkedCount={(obj.hasOwnProperty('linkedin')) ? obj.linkedin.no_of_followers : 0 }
+                                                    twitCount={(obj.hasOwnProperty('twitter')) ? obj.twitter.no_of_followers : 0 }
+                                                />
+                                            </div>
+                                        </div>
+                                    </li>
+                                )
+                            })
+                        )}
                     </ul>
 
                     <Pagination 
@@ -252,11 +229,12 @@ class GroupMemberList extends Component {
 
 
 const mapStateToProps = (state) => {
-    const { everyDay } = state;
+    const { groups } = state;
     return {
-        loading: everyDay.get('loading'),
-        error: everyDay.get('error'),
-        users: everyDay.get('users')
+        loading: groups.get('loading'),
+        error: groups.get('error'),
+        members: groups.get('members'),
+        totalMembers: groups.get('totalMembers'),
     }
 }
 

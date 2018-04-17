@@ -1,14 +1,19 @@
 import { Map } from "immutable";
-import { GET_GROUP_REQUEST, GET_GROUP_SUCCESS, GET_GROUP_ERROR, ADD_GROUP_REQUEST, ADD_GROUP_SUCCESS, ADD_GROUP_ERROR } from "../actions/groups";
+import { GET_GROUP_REQUEST, GET_GROUP_SUCCESS, GET_GROUP_ERROR, ADD_GROUP_REQUEST, ADD_GROUP_SUCCESS, ADD_GROUP_ERROR, GROUP_MEMBERS_REQUEST, GROUP_MEMBERS_SUCCESS, GROUP_MEMBERS_ERROR } from "../actions/groups";
 
 const initialState = Map({
     loading: false,
     error: null,
-    groups: null,
-    inserted_group: null,
-    totalGrps: 0,
     status: 0,
     message: null,
+
+    groups: null,
+    
+    inserted_group: null,
+    totalGrps: 0,
+    
+    members: null,
+    totalMembers: 0,
 });
 
 const actionMap = {
@@ -74,7 +79,37 @@ const actionMap = {
             status: true,
             message: action.data.data.message,
         }));
-    }
+    },
+    [GROUP_MEMBERS_REQUEST]: (state, action) => {
+        return state.merge(Map({
+            ...initialState,
+            loading: true,
+        }));
+    },
+    [GROUP_MEMBERS_SUCCESS]: (state, action) => {
+        return state.merge(Map({
+            ...initialState,
+            loading: false,
+            members: action.data.data.results.members,
+            totalMembers: action.data.data.results.total,
+        }));
+    },
+    [GROUP_MEMBERS_ERROR]: (state, action) => {
+        let error = 'Server Error';
+        if (action.error && action.error.response) {
+            error = action.error.response.message;
+        }
+        console.log('Reducers',action);
+        return;
+        return state.merge(Map({
+            ...initialState,
+            loading: false,
+            error: error,
+            groups: null,
+            status: true,
+            message: action.error.message,
+        }));
+    },
 };
 
 export default function reducer(state = initialState, action = {}) {

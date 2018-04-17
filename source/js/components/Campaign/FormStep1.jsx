@@ -11,15 +11,15 @@ const validate = values => {
     const errors = {};
 
     if (!values.campaignName) {
-        errors.campaignName = 'Required';
+        errors.campaignName = 'This Field is Required';
     }
 
     if (!values.campaignStartDate) {
-        errors.campaignStartDate = 'Required';
+        errors.campaignStartDate = 'This Field is Required';
     }
 
     if (!values.campaignEndDate) {
-        errors.campaignEndDate = 'Required';
+        errors.campaignEndDate = 'This Field is Required';
     }
 
     if(values.campaignStartDate && values.campaignEndDate){
@@ -87,16 +87,19 @@ class FormStep1 extends Component{
                                 name="campaignStartDate"
                                 label="Date of Campaign Start"
                                 component={renderFieldDatePicker}
+                                className="campiagn_date"
                                 defaultValue={null}
                                 showDisabledMonthNavigation
                                 minDateVal={moment()}
                                 placeholder="Campaign start date"
+
                             />
 
                             <Field
                                 name="campaignEndDate"
                                 label="Date of Campaign End"
                                 component={renderFieldDatePicker}
+                                className="campiagn_date"
                                 defaultValue={null}                                
                                 showDisabledMonthNavigation
                                 placeholder="Campaign end date"

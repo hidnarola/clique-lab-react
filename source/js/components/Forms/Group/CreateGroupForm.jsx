@@ -8,13 +8,20 @@ import Dropzone from 'react-dropzone';
 import _ from 'lodash';
 import uploadImg from '../../../../assets/img/site/upload-img.jpg';
 import filrUp from 'img/site/filrUp.jpg';
+import dropImg from 'img/site/canvas.png';
 
 const validate = values => {
     
     const errors = {};
-
+    
     if (!values.images) {
         errors.images = 'This Field is Required'
+    }else {
+        let file_type = values.images[0].type;
+        let extensions = ["image/jpeg", "image/png", "image/jpg", "image/gif"];
+        if (extensions.indexOf(file_type) < 0) {
+            errors.images = 'File type not supported'
+       }
     }
     if (!values.group_name) {
         errors.group_name = 'This Field is Required'
@@ -28,8 +35,8 @@ const textField = (
 ) => (
 		<div className={cx('input-wrap',{'custom-error':(touched && error ) ? true:false })}>
 			<label>{label}</label>
-			<input {...input} placeholder={placeholder} type={type} />    
-			{touched && ((error && <span>{error}</span>))}    
+			<input {...input} placeholder={placeholder} type={type} className={(touched && error) && `txt_error_div`} />    
+			{touched && ((error && <span className="error-div">{error}</span>))}    
 		</div>
 	)
 
@@ -81,19 +88,22 @@ const FileField_Dropzone = (props) => {
             <label htmlFor={input.name} className={labelClass}>{label}</label>
             <Dropzone
                 {...input}
-                accept={accept ? accept : "image/jpeg, image/png, image/jpg, image/gif"}
+                accept="image/*"
                 onDrop={(filesToUpload, e) => input.onChange(filesToUpload)}
-                multiple={multiple ? multiple : false}
+                multiple={false}
                 className={ `${className}` }
             >
                 <div className="dropzone-image-preview-wrapper">
-                    {input.value && images}
-                    {!input.value && <img src={uploadImg} />}
-                </div>
+                    {(input.value && !meta.error) && images}
+                    {meta.error && <div className={ `custom_dropzone_div ${(meta.touched && meta.error) && 'drop_error_div'}` }>
+                            <img src={dropImg} /><br /><br />
+                            <p>Select or Drag Your image here</p>
+                            <button type="button" className="btn_drop_browse">Or Browse</button>
+                        </div>
+                    }
+                </div> 
             </Dropzone>
-            {meta.touched &&
-                ((meta.error && <span className={errorClass}>{meta.error}</span>) || (meta.warning && <span className={warningClass}>{meta.warning}</span>))
-            }
+            {(meta.touched && meta.error) && <span className="error-div">{meta.error}</span>}
         </div>
     );
 }

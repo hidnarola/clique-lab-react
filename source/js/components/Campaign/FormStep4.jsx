@@ -5,6 +5,22 @@ import FormCampaignRight from './FormCampaignRight';
 import {FileField_Dropzone} 
         from '../../components/Forms/RenderFormComponent/EveryComponent';
 
+const validate = values => {
+
+    const errors = {};
+    if (!values.images) {
+        errors.images = 'This Field is Required'
+    }else {
+        let file_type = values.images[0].type;
+        let extensions = ["image/jpeg", "image/png", "image/jpg", "image/gif"];
+        if (extensions.indexOf(file_type) < 0) {
+            errors.images = 'File type not supported'
+       }
+    }
+
+    return errors;
+};
+
 class FormStep4 extends Component{
 
     constructor(props){
@@ -53,6 +69,7 @@ class FormStep4 extends Component{
                                     component={FileField_Dropzone}
                                     multiple={false}
                                 />
+                                
                             </div>
 
                             <div className="submit-btn d-flex">

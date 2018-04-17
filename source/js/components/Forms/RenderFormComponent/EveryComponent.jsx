@@ -8,6 +8,8 @@ import moment from 'moment';
 import _ from 'lodash';
 import uploadImg from 'img/site/upload-img.jpg';
 import filrUp from 'img/site/filrUp.jpg';
+import calendarImg from 'img/site/calendar-icon.jpg';
+import dropImg from 'img/site/canvas.png';
 
 export const renderFieldCampaign = ({
         input,
@@ -18,29 +20,29 @@ export const renderFieldCampaign = ({
     }) => (
         <div className={cx('input-wrap',{'custom-error':(touched && error ) ? true:false })} >
             <label>{label}</label>
-            <input {...input} placeholder={placeholder} type={type} />
+            <input {...input} placeholder={placeholder} type={type} className={touched && ((error && 'txt_error_div') || (warning && 'txt_error_div'))}/>
             {touched && ((error && <div className="error-div">{error}</div>) || (warning && <span>{warning}</span>))}
         </div>
 )
  
 export const renderFieldDatePicker = ({
-    input, type, placeholder, defaultValue, label,
-    minDateVal,maxDateVal,
+    input, type, placeholder, defaultValue, label, minDateVal,maxDateVal, className,
     meta: { touched, error, warning }
     }) => {
-        return(<div className={cx('input-wrap',{'custom-error':(touched && error ) ? true:false })}>
+        return(<div className={cx('input-wrap',{'custom-error':(touched && error ) ? true:false })+' '+className}>
             <label>{label}</label>
-            <div className="input-wrap-2">
+            <div className={`input-wrap-2 ${touched && ((error && `txt_error_div`) || (warning && `txt_error_div`))}`}>
                 <DatePicker
                     {...input}                
                     selected={input.value ? moment(input.value) : moment()}
                     minDate={minDateVal}
                     dateFormat="YYYY-MM-DD"
                     placeholderText={placeholder}
+                    className={className}
                 />
-                {/* <i className="">
-                    <img src="images/calendar-icon.jpg" alt="" />
-                </i> */}
+                <i className="">
+                    <img src={calendarImg} alt="" />
+                </i>
             </div>
             {touched && ((error && <div className="error-div">{error}</div>) || (warning && <span>{warning}</span>))}
         </div>)
@@ -56,7 +58,7 @@ export const FileField_Dropzone = (props) => {
         images.push(
             <div className="images-preview-wrapper" key={key}>
                 <div className="image-preview">
-                    <img src={file.preview} width={'250px'} height={'250px'} />
+                    <img src={file.preview} width={'560px'} height={'280px'} />
                 </div>
             </div>
         )
@@ -73,13 +75,31 @@ export const FileField_Dropzone = (props) => {
                 className={ `${className}` }
             >
                 <div className="dropzone-image-preview-wrapper">
+                    {(input.value && !meta.error) && images}
+                    {!input.value && (!meta.error && <div className={ `custom_dropzone_div ${(meta.touched && meta.error) && 'drop_error_div'}` }>
+                            <img src={dropImg} /><br /><br />
+                            <p>Select or Drag Your image here</p>
+                            <button type="button" className="btn_drop_browse">Or Browse</button>
+                        </div>
+                    )}
+                </div> 
+            </Dropzone>
+            {(meta.touched && meta.error) && <span className="error-div">{meta.error}</span>}
+            {/* <Dropzone
+                {...input}
+                accept={accept ? accept : "image/jpeg, image/png, image/jpg, image/gif"}
+                onDrop={(filesToUpload, e) => input.onChange(filesToUpload)}
+                multiple={multiple ? multiple : false}
+                className={ `${className}` }
+            >
+                <div className="dropzone-image-preview-wrapper">
                     {input.value && images}
                     {!input.value && <img src={uploadImg} />}
                 </div>
             </Dropzone>
             {meta.touched &&
                 ((meta.error && <span className={errorClass}>{meta.error}</span>) || (meta.warning && <span className={warningClass}>{meta.warning}</span>))
-            }
+            } */}
         </div>
     );
 }

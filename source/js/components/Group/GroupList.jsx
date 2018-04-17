@@ -16,6 +16,7 @@ import CreateGroupForm from '../Forms/Group/CreateGroupForm';
 import { getGroups,addGroups } from '../../actions/groups';
 import PropTypes from 'prop-types';
 import ReactSelect from 'react-select';
+import nodataImg from 'img/site/nodata.png';
 
 const validate = values => {
     const errors = {}
@@ -130,23 +131,23 @@ class GroupList extends Component {
                     <div className="group-head-r">
                         <ul>
                             <li className="dropdown sort-by">
-                                {/* <a href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Sort<strong>by Power</strong> <i className="dropdown-arrow"></i>
-                                </a> */}
-                                <ReactSelect
-                                    name="form-field-name"
-                                    value={value}
-                                    onChange={this.handleSorting}
-                                    searchable={false}
-                                    clearable={false}
-                                    autosize={false}
-                                    placeholder= "Sort By Name"
-                                    className="group_sort"
-                                    options={[
-                                        { value: '1', label: 'Sort By Name', column: 'name' },
-                                        { value: '-1', label: 'Sort By Date', column: 'created_at' },
-                                    ]}
-                                />
+                                {(
+                                    groups!==null &&
+                                    <ReactSelect
+                                        name="form-field-name"
+                                        value={value}
+                                        onChange={this.handleSorting}
+                                        searchable={false}
+                                        clearable={false}
+                                        autosize={false}
+                                        placeholder= "Sort By Name"
+                                        className="group_sort"
+                                        options={[
+                                            { value: '1', label: 'Sort By Name', column: 'name' },
+                                            { value: '-1', label: 'Sort By Date', column: 'created_at' },
+                                        ]}
+                                    />
+                                )}
                                 <div className="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
                                     <a className="dropdown-item" href="#">Add to Campaign</a>
                                 </div>
@@ -160,49 +161,58 @@ class GroupList extends Component {
                 <div className="every-people">
                     <div className="all-people">
                         <ul className="all-people-ul d-flex">
-                            {(
-                                groups!==null && groups.map(function(obj,i){
-                                    return(
-                                        <li key={Math.random()}>
-                                            <div className="all-people-div">
-                                                <div className="all-people-img">
-                                                    {/* <a href=""><img src={`${imgRoutes.GROUP_IMG_PATH}${obj.image}`} alt="" /></a> */}
-                                                    <Link className="cursor_pointer" to={`${routeCodes.LISTGROUPS}/${obj._id}/members`}><img className="grp_list_img" src={`http://13.55.64.183:3200/uploads/group/${obj.image}`} alt="" /></Link>
-                                                    <UncontrolledDropdown className="plus-people dropdown">
-                                                        <DropdownToggle>
-                                                            <a className="cursor_pointer"><img src="/assets/img/site/plus-sign.png" alt="" /></a>
-                                                        </DropdownToggle>
-                                                        <DropdownMenu className="dropdown-menu dropdown-menu-right">
-                                                            <a className="dropdown-item" href="#">Add to Campaign</a>
-                                                        </DropdownMenu>
-                                                    </UncontrolledDropdown>
-                                                </div>
-                                                <div className="group-btm-content">
-                                                    <h4>{obj.name}</h4>
-                                                    <div className="group-btm-btm d-flex">
-                                                        <div className="group-btm-l">
-                                                            <h5>Members <strong>2343</strong> </h5>
-                                                            <h5>Power <strong>34.3k</strong> </h5>
-                                                        </div>
-                                                        <div className="group-btm-r">
-                                                            <h5>Activity rate <strong>75%</strong></h5>
+                            {
+                                (groups!==null) ? 
+                                    groups.map(function(obj,i){
+                                        return(
+                                            <li key={Math.random()}>
+                                                <div className="all-people-div">
+                                                    <div className="all-people-img">
+                                                        {/* <a href=""><img src={`${imgRoutes.GROUP_IMG_PATH}${obj.image}`} alt="" /></a> */}
+                                                        <Link className="cursor_pointer" to={`${routeCodes.LISTGROUPS}/${obj._id}/members`}>
+                                                            <img className="grp_list_img" src={`${imgRoutes.GROUP_IMG_PATH}${obj.image}`} alt="" />
+                                                        </Link>
+                                                        <UncontrolledDropdown className="plus-people dropdown">
+                                                            <DropdownToggle>
+                                                                <a className="cursor_pointer"><img src="/assets/img/site/plus-sign.png" alt="" /></a>
+                                                            </DropdownToggle>
+                                                            <DropdownMenu className="dropdown-menu dropdown-menu-right">
+                                                                <a className="dropdown-item" href="#">Add to Campaign</a>
+                                                            </DropdownMenu>
+                                                        </UncontrolledDropdown>
+                                                    </div>
+                                                    <div className="group-btm-content">
+                                                        <h4>{obj.name}</h4>
+                                                        <div className="group-btm-btm d-flex">
+                                                            <div className="group-btm-l">
+                                                                <h5>Members <strong>2343</strong> </h5>
+                                                                <h5>Power <strong>34.3k</strong> </h5>
+                                                            </div>
+                                                            <div className="group-btm-r">
+                                                                <h5>Activity rate <strong>75%</strong></h5>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </li>
-                                    )
-                                })
-                            )}                 
+                                            </li>
+                                        )
+                                    })
+                                :
+                                    <div className="no_data_found">
+                                        <img src={nodataImg} />
+                                    </div>
+                            }                 
                         </ul>
                     </div>
-                    <Pagination 
-                        activePage={this.state.activePage} 
-                        itemsCountPerPage={6} 
-                        totalItemsCount={totalGrps} 
-                        pageRangeDisplayed={5} 
-                        onChange={this.handlePageChange}
-                    />
+                    {(
+                        groups!==null && <Pagination 
+                                activePage={this.state.activePage} 
+                                itemsCountPerPage={6} 
+                                totalItemsCount={totalGrps} 
+                                pageRangeDisplayed={5} 
+                                onChange={this.handlePageChange}
+                            />
+                    )}
                 </div>
                 <Modal isOpen={this.state.createGroupModalShow} toggle={this.createGroupModalOpen} className={this.props.className} id="group-popup">
                     <button type="button" className="close" onClick={this.createGroupModal}>

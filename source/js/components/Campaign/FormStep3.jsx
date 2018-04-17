@@ -12,25 +12,25 @@ const validate = values => {
     const errors = {};
 
     if (!values.public_or_private) {
-        errors.public_or_private = 'Required';
+        errors.public_or_private = 'This Field is Required';
     }
 
     if(!values.media_format){
-        errors.media_format = 'Required';
+        errors.media_format = 'This Field is Required';
     }
 
     if(!values.location){
-        errors.location = 'Required';
+        errors.location = 'This Field is Required';
     }
 
     if(!values.how_much){
-        errors.how_much = 'Required';
+        errors.how_much = 'This Field is Required';
     }else if(!validator.isFloat(values.how_much)){
         errors.how_much = 'Must be a number';
     }
 
     if(!values.currency){
-        errors.currency = 'Required';
+        errors.currency = 'This Field is Required';
     }
 
     return errors;

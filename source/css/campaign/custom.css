@@ -59,6 +59,8 @@ ul { padding: 0; }
 .dropdown-item:focus, .dropdown-item:hover{background:transparent;}
 .hdr-user .dropdown .dropdown-menu {margin:18px 0 0;}
 .error-div{ font-size:13px; color:red;} 
+.txt_error_div{ border: 2px solid red !important; }
+.drop_error_div{ border: 3px dotted red !important; }
 .Select-control {    border: 2px solid rgba(82, 95, 127, .2); padding: 15px 20px; line-height: 26px; color: rgba(82, 95, 127, .5); font-size: 16px; font-weight: 500; width: 100%; border-radius: 2px;}
 .Select-control input{border:0; padding:0;}
 .Select-control .Select-input{    width: 100%; padding: 0; height: 25px;}
@@ -96,6 +98,17 @@ ul { padding: 0; }
     width: 100%;
     height: 200px;
 }
+
+.no_data_found{width:100%; text-align: center }
+.no_data_found img{
+  width: 75%;
+}
+
+/* Campiagn */
+  .campiagn_date .react-datepicker-wrapper{ width:100%; display:block; }
+  .campiagn_date .react-datepicker__input-container{ display:block }
+  .input-wrap-2{ padding:0 }
+  .input-wrap-2 i{ line-height: 45px; }
 
 /* Left Menu */
   .left-panel{ width:275px !important; }
@@ -142,8 +155,8 @@ ul { padding: 0; }
     left: calc(50% - 4em);
     width: 6em;
     height: 6em;
-    border: 1.1em solid rgba(0, 0, 0, 0.2);
-    border-left: 1.1em solid #000000;
+    border: 0.8em solid #6772e585;
+    border-left: 0.8em solid #6772e5;
     border-radius: 50%;
     animation: load8 1.1s infinite linear;
 }
@@ -178,4 +191,28 @@ ul { padding: 0; }
   0% { transform: rotate(0deg);}
   100% { transform: rotate(360deg); }
 }
+
+/*  DropZone */
+  .custom_dropzone_div{
+    border: 3px dotted #d4d4de;
+    width:530px;
+    text-align: center;
+    padding:60px;
+    margin-left:2px;
+  }
+  .custom_dropzone_div p{
+    color: #5b6ca2;
+    font-weight:500;
+  }
+
+  .custom_dropzone_div .btn_drop_browse{
+    width: 10em;
+    padding: 9px;
+    border-radius: 50px;
+    background-color: #6772e6;
+    border: none;
+    color: #fff;
+    font-weight: 500;
+  }
+
 

@@ -12,27 +12,27 @@ const validate = values => {
     const errors = {};
 
     if (!values.call_to_action) {
-        errors.call_to_action = 'Required';
+        errors.call_to_action = 'This Field is Required';
     }
 
     if (!values.discount_code) {
-        errors.discount_code = 'Required';
+        errors.discount_code = 'This Field is Required';
     }
 
     if (!values.industryName) {
-        errors.industryName = 'Required';
+        errors.industryName = 'This Field is Required';
     }    
 
     if (!values.short_desc) {
-        errors.short_desc = 'Required';
+        errors.short_desc = 'This Field is Required';
     }
     
     if(!values.tagHash){
-        errors.tagHash = 'Required';
+        errors.tagHash = 'This Field is Required';
     }
 
     if(!values.tagAt){
-        errors.tagAt = 'Required';
+        errors.tagAt = 'This Field is Required';
     }
 
     return errors;
