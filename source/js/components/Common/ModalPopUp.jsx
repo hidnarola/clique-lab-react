@@ -16,6 +16,7 @@ class ModalPopUp extends React.Component {
     componentDidMount(){
         this.props.onRef(this);
     }
+    
     componentWillMount(){
         this.props.onRef(undefined);
     }

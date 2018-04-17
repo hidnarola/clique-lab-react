@@ -11,7 +11,25 @@ function fetchMoreFilterData(){
     return getFormData('promoter/filter_preference',null,{"Content-Type": "application/json",'x-access-token':newVar});
 }
 
+function fetchDropDownData(data){
+    console.log(data);
+    let newVar = reactLocalStorage.get('token', true);    
+    let url = '';
+
+    if(data.sendReqFor == 'campaign'){
+        url = `promoter/campaign/list_for_user/${data.uId}`;
+    }else{
+        url = `promoter/group/list_for_user/${data.uId}`;
+    }
+    return getFormData(
+                       url,
+                       null,
+                       {"Content-Type": "application/json",'x-access-token':newVar}
+                    );
+}
+
 export default {
     fetchUsersNew,
-    fetchMoreFilterData
+    fetchMoreFilterData,
+    fetchDropDownData
 }
