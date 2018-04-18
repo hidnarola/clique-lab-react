@@ -1,12 +1,18 @@
 import { Map } from "immutable";
 import { 
-        CAMPAIGN_REQUEST,CAMPAIGN_SUCCESS,CAMPAIGN_ERROR 
-        } from "../actions/campaign";
+    CAMPAIGN_REQUEST, CAMPAIGN_SUCCESS, CAMPAIGN_ERROR,
+    GET_ACTIVE_CAMPAIGN_REQUEST, GET_ACTIVE_CAMPAIGN_SUCCESS, GET_ACTIVE_CAMPAIGN_ERROR
+} from "../actions/campaign";
 
 const initialState = Map({
     loading: false,
     error: null,
-    campaign:null
+    campaign: null,
+    message: null,
+    status: 0,
+
+    activeCampaign: null,
+    totalActiveCampaign: 0,
 });
 
 const actionMap = {
@@ -23,6 +29,36 @@ const actionMap = {
         }));
     },
     [CAMPAIGN_ERROR]: (state, action) => {
+        let error = 'Server Error';
+        if (action.error && action.error.response) {
+            error = action.error.response.message;
+        }
+        return state.merge(Map({
+            loading: false,
+            error: error            
+        }));
+    },
+    [GET_ACTIVE_CAMPAIGN_REQUEST]: (state, action) => {
+        return state.merge(Map({
+            ...initialState,
+            loading: true                        
+        }));
+    },
+    [GET_ACTIVE_CAMPAIGN_SUCCESS]: (state, action) => {
+        // console.log('======================================');
+        // console.log(action);
+        // console.log('======================================');
+        // return;
+        return state.merge(Map({
+            ...initialState,
+            loading: false,
+            status: action.data.data.status,
+            message: action.data.data.message,
+            activeCampaign: action.data.data.results[0].campaigns,
+            totalActiveCampaign: action.data.data.results[0].total,
+        }));
+    },
+    [GET_ACTIVE_CAMPAIGN_ERROR]: (state, action) => {
         let error = 'Server Error';
         if (action.error && action.error.response) {
             error = action.error.response.message;

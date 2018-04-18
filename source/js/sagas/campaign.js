@@ -1,8 +1,8 @@
 import { takeLatest, put, call } from 'redux-saga/effects';
 import { 
-        CAMPAIGN_REQUEST,CAMPAIGN_SUCCESS,CAMPAIGN_ERROR, 
-        campaignError,campaignSuccess,createCampaign
-       } from "../actions/campaign";
+    CAMPAIGN_REQUEST,CAMPAIGN_SUCCESS,CAMPAIGN_ERROR, campaignError,campaignSuccess,createCampaign,
+    GET_ACTIVE_CAMPAIGN_REQUEST, GET_ACTIVE_CAMPAIGN_SUCCESS, GET_ACTIVE_CAMPAIGN_ERROR, getActiveCampaign, getActiveCampaignSuccess, getActiveCampaignError,
+} from "../actions/campaign";
 import api from '../api/campaign';
 
 
@@ -10,7 +10,6 @@ function createCampaignFunc(){
     return function* (action){
         try{
             let data = yield call(() => api.createCampaign(action.data));
-            console.log('===>',data);
             yield put(campaignSuccess(data));
         } catch(error){
             yield put(campaignError(error));
@@ -18,10 +17,35 @@ function createCampaignFunc(){
     }
 }
 
+// This function is used to get all active campaign
+function getActiveCampaignFunc() {
+    return function* (action) {
+        // console.log('======================================');
+        // console.log(action);
+        // console.log('======================================');
+        // return;
+        let dataNN = action.data;
+        try {
+            const data = yield call(() => api.getActiveCampaign(dataNN));
+            const action = { type: GET_ACTIVE_CAMPAIGN_SUCCESS, data };
+            yield put(action);
+        } catch (error) {
+            const action = { type: GET_ACTIVE_CAMPAIGN_ERROR, error };
+            yield put(action);
+        }
+    };
+}
+
+
 export function* watchCreateCampaign() {
     yield takeLatest(CAMPAIGN_REQUEST, createCampaignFunc());
 }
+
+export function* watchGetActiveCampaign() {
+    yield takeLatest(GET_ACTIVE_CAMPAIGN_REQUEST, getActiveCampaignFunc());
+}
  
 export default [
-    watchCreateCampaign()
+    watchCreateCampaign(),
+    watchGetActiveCampaign()
 ]

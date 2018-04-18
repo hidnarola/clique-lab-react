@@ -8,6 +8,14 @@ function createCampaign(data) {
                         });    
 }
 
+function getActiveCampaign(data) {
+    let headers = {
+      'x-access-token' : localStorage.getItem('token')
+    }
+    return postFormData('promoter/campaign/active', data, headers);
+}
+
 export default {
-    createCampaign,    
+    createCampaign,
+    getActiveCampaign  
 }

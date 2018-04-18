@@ -130,7 +130,7 @@ class GroupList extends Component {
                     <h3>My Groups</h3>
                     <div className="group-head-r">
                         <ul>
-                            <li className="dropdown sort-by">
+                            <li>
                                 {(
                                     groups!==null &&
                                     <ReactSelect
@@ -141,7 +141,7 @@ class GroupList extends Component {
                                         clearable={false}
                                         autosize={false}
                                         placeholder= "Sort By Name"
-                                        className="group_sort"
+                                        className="dropdown-inr"
                                         options={[
                                             { value: '1', label: 'Sort By Name', column: 'name' },
                                             { value: '-1', label: 'Sort By Date', column: 'created_at' },

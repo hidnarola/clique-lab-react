@@ -12,16 +12,10 @@ import { routeCodes } from 'constants/routes';
 class CampaignList extends Component {
     constructor(props){
         super(props);
-        
-
-		this.state = {
-			page_title : 'abc'
-		}
     }
 
     render() {
 		let curt_page  = this.props.history.location.pathname;
-		console.log(curt_page);
         return (
             <div className="profile-page">
 				<div className="profile-head d-flex campaigns-links">
