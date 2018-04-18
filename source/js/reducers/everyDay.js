@@ -42,10 +42,16 @@ const actionMap = {
         if (action.error && action.error.response) {
             error = action.error.response.message;
         }
+        
         return state.merge(Map({
             loading: false,
             error: null,
-            user: JSON.stringify(action.data),            
+            users: {
+                status:0, 
+                message:'', 
+                data:[],
+                total:0
+            },
         }));
     },
     //----------------------------------------------------------------------------
