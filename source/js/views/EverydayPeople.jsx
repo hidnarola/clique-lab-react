@@ -476,10 +476,8 @@ const MoreFilterDropDown = (props) => {
                     </div>
                 </div>
             </div>
-            
-
             <div className="ftr-btn">
-                <button className="bdr-btn" onClick={() => props.setAgeFilter()} >Apply</button>
+                <button className="bdr-btn" onClick={() => props.applyMoreFilter()} >Apply</button>
             </div>
         </DropdownMenu>
     </UncontrolledDropdown>);
@@ -546,7 +544,19 @@ class EverydayPeople extends Component {
     handlePageChange(pageNumber) {        
         this.setState({activePage: pageNumber});
         const { dispatch } = this.props;
-        dispatch(sendReq({"page_size":9,"page_no":pageNumber}))
+
+        let sortDropArr = _.find(this.state.allDropDown, function(o) { return o.dropdown == 'sortDrop'; });
+
+        let arrayFilter = {
+            filter:this.state.appliedFilter[0]['filter'],
+            "sort":[{ "field": "name", "value":parseInt(sortDropArr['value']['value'])}],
+            "page_size":9,
+            "page_no":pageNumber
+        }
+        
+        // dispatch(sendReq(arrayFilter));            
+
+        dispatch(sendReq(arrayFilter))
     }
 
     handleChange = (selectedOption,secondParam) => {        
@@ -574,7 +584,7 @@ class EverydayPeople extends Component {
                 this.setState({'appliedFilter':[{'filter':filteredArr}]});
             }
 
-            let sortDropArr = _.find(allDropDown, function(o) { return o.dropdown == 'sortDrop'; });                        
+            let sortDropArr = _.find(allDropDown, function(o) { return o.dropdown == 'sortDrop'; });
             
             let arrayFilter = {
                 filter:filteredArr,
@@ -582,6 +592,7 @@ class EverydayPeople extends Component {
                 "page_size":9,
                 "page_no":1
             }
+            this.setState({"activePage":1});
             dispatch(sendReq(arrayFilter));
         }
 
@@ -593,6 +604,7 @@ class EverydayPeople extends Component {
                 "page_size":9,
                 "page_no":1
             }
+            this.setState({"activePage":1});
             dispatch(sendReq(arrayFilter));            
         }
 
@@ -682,11 +694,34 @@ class EverydayPeople extends Component {
             "page_size":9,
             "page_no":1
         }
-        
+        this.setState({"activePage":1});
         dispatch(sendReq(filteredArrNew));
         
         // this.setState({isAgeFilterSelected:true});
     }    
+
+    applyMoreFilter = () => {
+        
+        const { allDropDown,allSliders } = this.state;
+        
+        // || (o.dropdown !== 'sortDrop') || (o.dropdown !== 'genderDrop')
+        let allDropArr = _.filter(
+                allDropDown, 
+                function(o) {                     
+                    return ((o.dropdown !== 'sortDrop') &&  (o.dropdown !== 'genderDrop')); 
+                });
+        
+        let allSliderArr = _.filter(
+            allSliders, 
+            function(o) {                     
+                return (o.slider !== 'ageRange'); 
+            });
+
+        // alert('Here');
+
+        console.log(allSliderArr);
+
+    }
 
     render() {
         let {users,moreFilterData,loading} = this.props;
@@ -696,11 +731,7 @@ class EverydayPeople extends Component {
         let allSliderArr = [];
 
         let genderDropArr = _.find(allDropDown, function(o) { return o.dropdown == 'genderDrop'; });
-        let sortDropArr = _.find(allDropDown, function(o) { return o.dropdown == 'sortDrop'; });
-
-        // console.log('==========================');
-        // console.log(sortDropArr);
-        // console.log('==========================');
+        let sortDropArr = _.find(allDropDown, function(o) { return o.dropdown == 'sortDrop'; });        
                 
         allDropArr['jobIndustryDrop'] = _.find(allDropDown, function(o) { return o.dropdown == 'jobIndustryDrop'; });
         allDropArr['jobTitleDrop'] = _.find(allDropDown, function(o) { return o.dropdown == 'jobTitleDrop'; });
@@ -771,6 +802,7 @@ class EverydayPeople extends Component {
                                     allDropArr={allDropArr}
                                     allSliderArr={allSliderArr}
                                     moreFilterData={moreFilterData}
+                                    applyMoreFilter={() => {this.applyMoreFilter()}}
                                 />
                             </li>
                         </ul>
