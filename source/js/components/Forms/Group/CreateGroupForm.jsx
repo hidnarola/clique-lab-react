@@ -8,7 +8,7 @@ import Dropzone from 'react-dropzone';
 import _ from 'lodash';
 import uploadImg from 'img/site/upload-img.jpg';
 import filrUp from 'img/site/filrUp.jpg';
-import dropImg from 'img/site/canvas.png';
+import dropImg from 'img/site/filrUp.jpg';
 
 const validate = values => {
     
