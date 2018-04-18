@@ -6,7 +6,7 @@ import validator from 'validator';
 import cx from 'classnames';
 import Dropzone from 'react-dropzone';
 import _ from 'lodash';
-import uploadImg from '../../../../assets/img/site/upload-img.jpg';
+import uploadImg from 'img/site/upload-img.jpg';
 import filrUp from 'img/site/filrUp.jpg';
 import dropImg from 'img/site/canvas.png';
 
