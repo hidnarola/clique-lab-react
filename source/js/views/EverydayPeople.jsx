@@ -702,24 +702,38 @@ class EverydayPeople extends Component {
 
     applyMoreFilter = () => {
         
-        const { allDropDown,allSliders } = this.state;
-        
-        // || (o.dropdown !== 'sortDrop') || (o.dropdown !== 'genderDrop')
+        const { allDropDown, allSliders } = this.state;
+        const { dispatch } = this.props;
+                
         let allDropArr = _.filter(
-                allDropDown, 
-                function(o) {                     
-                    return ((o.dropdown !== 'sortDrop') &&  (o.dropdown !== 'genderDrop')); 
+                allDropDown,
+                function(o) {
+                    return ((o.dropdown !== 'sortDrop') &&  (o.dropdown !== 'genderDrop') && (o.value !== false)); 
                 });
         
         let allSliderArr = _.filter(
-            allSliders, 
-            function(o) {                     
+            allSliders,
+            function(o) {
                 return (o.slider !== 'ageRange'); 
             });
+                    
+        let appliedFilter = this.state.appliedFilter[0]['filter'];
 
-        // alert('Here');
+        console.log(allDropArr);
+        console.log('================');
+        console.log(appliedFilter);
+        console.log('================');
 
-        console.log(allSliderArr);
+        let sortDropArr = _.find(allDropDown, function(o) { return o.dropdown == 'sortDrop'; });
+
+        // let filteredArrNew = {
+        //     "filter":this.state.appliedFilter[0]['filter'],
+        //     "sort":[{ "field": "name", "value":parseInt(sortDropArr['value']['value'])}],
+        //     "page_size":9,
+        //     "page_no":1
+        // }
+        // this.setState({"activePage":1});
+        // dispatch(sendReq(filteredArrNew));
 
     }
 
