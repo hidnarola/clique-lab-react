@@ -762,15 +762,6 @@ class EverydayPeople extends Component {
                 case 'musicTaste'       : fieldText='music_taste'; fieldType='id'; break;                
             }
 
-
-            
-                        
-            
-            
-            
-            
-            
-
             exstingFilterArr.push({"field":fieldText, "type":fieldType, "value":obj['value']['value']},);
         });
 
