@@ -6,9 +6,9 @@ import validator from 'validator';
 import cx from 'classnames';
 import Dropzone from 'react-dropzone';
 import _ from 'lodash';
-import uploadImg from 'img/site/filrUp.jpg';
-import filrUp from 'img/site/filrUp.jpg';
-import dropImg from 'img/site/filrUp.jpg';
+import uploadImg from 'img/site/pie-chart.png';
+import filrUp from 'img/site/pie-chart.png';
+import dropImg from 'img/site/pie-chart.png';
 
 const validate = values => {
     
