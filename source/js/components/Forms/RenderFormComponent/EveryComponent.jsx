@@ -157,7 +157,7 @@ export const SelectField_ReactSelect = (props) => {
                 {...input}
                 value={val}
                 options={options}
-                className={className}
+                className={`${className}${meta.touched && ((meta.error && ' txt_error_div') || (meta.warning && ' txt_error_div'))}`}
                 placeholder={placeholder}
                 onChange={(value) => input.onChange(value)}
                 onBlur={() => input.onBlur({ ...input.value })}
@@ -165,7 +165,7 @@ export const SelectField_ReactSelect = (props) => {
                 clearable={false}
             />
             {meta.touched &&
-                ((meta.error && <span className={errorClass}>{meta.error}</span>) || (meta.warning && <span className={warningClass}>{meta.warning}</span>))
+                ((meta.error && <span className={`error-div`}>{meta.error}</span>) || (meta.warning && <span className={`error-div`}>{meta.warning}</span>))
             }
         </div>
     );
@@ -186,14 +186,14 @@ export const SelectField_ReactSelectMulti = (props) => {
             <Select.Creatable
                 {...input}                
                 value={val}                
-                className={className}
+                className={`${className}${meta.touched && ((meta.error && ' txt_error_div') || (meta.warning && ' txt_error_div'))}`}
                 placeholder={placeholder}
                 onChange={(value) => input.onChange(value)}
                 onBlur={() => input.onBlur([...input.value])}
                 multi={true}                
             />
             {meta.touched &&
-                ((meta.error && <span className={errorClass}>{meta.error}</span>) || (meta.warning && <span className={warningClass}>{meta.warning}</span>))
+                ((meta.error && <span className={`error-div`}>{meta.error}</span>) || (meta.warning && <span className={`error-div`}>{meta.warning}</span>))
             }
         </div>
     );

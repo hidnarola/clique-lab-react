@@ -95,7 +95,8 @@ class FormStep2 extends Component{
                                 placeholder="Short Description"
                             />
                             
-                            <Field        
+                            <Field
+                                className="campaign_form_step2_dropdown "
                                 wrapperClass="select-wrap"
                                 name="industryName"       
                                 label="Social media platforms"                             
@@ -118,7 +119,8 @@ class FormStep2 extends Component{
                                 labelClass="control-label"
                                 wrapperClass="form-group"
                                 placeholder="# tags"
-                                component={SelectField_ReactSelectMulti}                                
+                                component={SelectField_ReactSelectMulti} 
+                                className="campaign_form_step2_dropdown "                               
                             />
 
                             <Field
@@ -127,7 +129,8 @@ class FormStep2 extends Component{
                                 labelClass="control-label"
                                 wrapperClass="form-group"
                                 placeholder="@ tags"
-                                component={SelectField_ReactSelectMulti}                                
+                                component={SelectField_ReactSelectMulti}  
+                                className="campaign_form_step2_dropdown "                              
                             />
 
                             <div className="submit-btn d-flex">
