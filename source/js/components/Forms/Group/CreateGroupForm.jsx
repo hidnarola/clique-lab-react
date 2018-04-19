@@ -96,7 +96,8 @@ const FileField_Dropzone = (props) => {
                 <div className="dropzone-image-preview-wrapper">
                     {(input.value && !meta.error) && images}
                     {meta.error && <div className={ `custom_dropzone_div ${(meta.touched && meta.error) && 'drop_error_div'}` }>
-                            <img src={dropImg} /><br /><br />
+                            {/* <img src={dropImg} /> */}
+                            <br /><br />
                             <p>Select or Drag Your image here</p>
                             <button type="button" className="btn_drop_browse">Or Browse</button>
                         </div>
