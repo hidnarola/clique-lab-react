@@ -671,12 +671,6 @@ class EverydayPeople extends Component {
     }
     
     setAgeFilter = () => {
-<<<<<<< HEAD
-        // alert('Over here');
-        const {allSliders} = this.state;
-        console.log(this.state.appliedFilter);
-        console.log(_.find(allSliders, function(o) { return o.slider == 'ageRange'; }));
-=======
                 
         const {allSliders,appliedFilter,allDropDown} = this.state;        
         const {dispatch} = this.props;
@@ -706,7 +700,6 @@ class EverydayPeople extends Component {
         this.setState({"activePage":1});
         dispatch(sendReq(filteredArrNew));
         
->>>>>>> 0689276d05adc9fe329f3eaab2fb3ec203529e70
         // this.setState({isAgeFilterSelected:true});
     }    
 
@@ -741,13 +734,8 @@ class EverydayPeople extends Component {
         let allSliderArr = [];
 
         let genderDropArr = _.find(allDropDown, function(o) { return o.dropdown == 'genderDrop'; });
-<<<<<<< HEAD
-        let sortDropArr = _.find(allDropDown, function(o) { return o.dropdown == 'sortDrop'; });
-        
-=======
         let sortDropArr = _.find(allDropDown, function(o) { return o.dropdown == 'sortDrop'; });        
                 
->>>>>>> 0689276d05adc9fe329f3eaab2fb3ec203529e70
         allDropArr['jobIndustryDrop'] = _.find(allDropDown, function(o) { return o.dropdown == 'jobIndustryDrop'; });
         allDropArr['jobTitleDrop'] = _.find(allDropDown, function(o) { return o.dropdown == 'jobTitleDrop'; });
         allDropArr['yearInIndustry'] = _.find(allDropDown, function(o) { return o.dropdown == 'yearInIndustry'; });
