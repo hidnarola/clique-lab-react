@@ -70,7 +70,7 @@ class Active extends Component {
         console.log(`active page is ${pageNumber}`);
         this.setState({activePage: pageNumber});
         const { dispatch } = this.props;
-        dispatch(getActiveCampaign({"getActiveCampaign":9,"page_no":pageNumber}))
+        dispatch(getActiveCampaign({"page_size":9,"page_no":pageNumber}))
     }
 
     render() {
@@ -103,7 +103,6 @@ class Active extends Component {
 
 
 const mapStateToProps = (state) => {
-    console.log(this.state);
     const {campaign} = state;
     return {
         loading: campaign.get('loading'),

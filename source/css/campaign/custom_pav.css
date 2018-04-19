@@ -3,3 +3,10 @@
 .campaign_form_step2_dropdown.Select--single > .Select-control .Select-value .Select-value-label{ line-height: 27px !important; }
 .campaign_form_step2_dropdown .Select-control > .Select-arrow-zone{ top:10px; }
 .campaign_form_step2_dropdown .Select-control{ border: 2px solid rgb(220, 223, 229) !important; }
+
+#custom_calendar{
+    background: #fff;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0px 20px 26px 3px #dbdee0;
+}

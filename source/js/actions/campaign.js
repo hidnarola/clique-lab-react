@@ -6,6 +6,14 @@ export const GET_ACTIVE_CAMPAIGN_REQUEST = 'GET_ACTIVE_CAMPAIGN_REQUEST';
 export const GET_ACTIVE_CAMPAIGN_SUCCESS = 'GET_ACTIVE_CAMPAIGN_SUCCESS';
 export const GET_ACTIVE_CAMPAIGN_ERROR = 'GET_ACTIVE_CAMPAIGN_ERROR';
 
+export const GET_FUTURE_CAMPAIGN_REQUEST = 'GET_FUTURE_CAMPAIGN_REQUEST';
+export const GET_FUTURE_CAMPAIGN_SUCCESS = 'GET_FUTURE_CAMPAIGN_SUCCESS';
+export const GET_FUTURE_CAMPAIGN_ERROR = 'GET_FUTURE_CAMPAIGN_ERROR';
+
+export const GET_PAST_CAMPAIGN_REQUEST = 'GET_PAST_CAMPAIGN_REQUEST';
+export const GET_PAST_CAMPAIGN_SUCCESS = 'GET_PAST_CAMPAIGN_SUCCESS';
+export const GET_PAST_CAMPAIGN_ERROR = 'GET_PAST_CAMPAIGN_ERROR';
+
 export function createCampaign(data) {
     return { type: CAMPAIGN_REQUEST, data }
 }
@@ -28,4 +36,28 @@ export function getActiveCampaignSuccess(data) {
 
 export function getActiveCampaignError(error) {
     return { type: GET_ACTIVE_CAMPAIGN_ERROR, error }
+}
+
+export function getFutureCampaign(data) {
+    return { type: GET_FUTURE_CAMPAIGN_REQUEST, data }
+}
+
+export function getFutureCampaignSuccess(data) {
+    return { type: GET_FUTURE_CAMPAIGN_SUCCESS, data }
+}
+
+export function getFutureCampaignError(error) {
+    return { type: GET_FUTURE_CAMPAIGN_ERROR, error }
+}
+
+export function getPastCampaign(data) {
+    return { type: GET_PAST_CAMPAIGN_REQUEST, data }
+}
+
+export function getPastCampaignSuccess(data) {
+    return { type: GET_PAST_CAMPAIGN_SUCCESS, data }
+}
+
+export function getPastCampaignError(error) {
+    return { type: GET_PAST_CAMPAIGN_ERROR, error }
 }

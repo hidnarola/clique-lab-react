@@ -15,7 +15,23 @@ function getActiveCampaign(data) {
     return postFormData('promoter/campaign/active', data, headers);
 }
 
+function getFutureCampaign(data) {
+    let headers = {
+      'x-access-token' : localStorage.getItem('token')
+    }
+    return postFormData('promoter/campaign/active', data, headers);
+}
+
+function getPastCampaign(data) {
+    let headers = {
+      'x-access-token' : localStorage.getItem('token')
+    }
+    return postFormData('promoter/campaign/active', data, headers);
+}
+
 export default {
     createCampaign,
-    getActiveCampaign  
+    getActiveCampaign,
+    getFutureCampaign,
+    getPastCampaign
 }

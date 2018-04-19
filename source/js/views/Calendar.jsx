@@ -53,13 +53,18 @@ class Calendar extends Component {
         return (
             <div id="example-component">
                 <FullCalendar
-                    id = "your-custom-ID"
+                    id = "custom_calendar"
                     header = {{
-                        left: 'prev,next today myCustomButton',
+                        left: 'prev',
                         center: 'title',
-                        right: 'month,basicWeek,basicDay'
+                        right: 'next'
                     }}
-                    defaultDate={'2017-09-12'}
+                    // header = {{
+                    //     left: 'prev,next today myCustomButton',
+                    //     center: 'title',
+                    //     right: 'month,basicWeek,basicDay'
+                    // }}
+                    defaultDate={Date.now()}
                     navLinks= {true} // can click day/week names to navigate views
                     editable= {true}
                     eventLimit= {true} // allow "more" link when too many events
