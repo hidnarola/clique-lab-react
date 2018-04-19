@@ -476,10 +476,8 @@ const MoreFilterDropDown = (props) => {
                     </div>
                 </div>
             </div>
-            
-
             <div className="ftr-btn">
-                <button className="bdr-btn" onClick={() => props.setAgeFilter()} >Apply</button>
+                <button className="bdr-btn" onClick={() => props.applyMoreFilter()} >Apply</button>
             </div>
         </DropdownMenu>
     </UncontrolledDropdown>);
@@ -543,7 +541,19 @@ class EverydayPeople extends Component {
     handlePageChange(pageNumber) {        
         this.setState({activePage: pageNumber});
         const { dispatch } = this.props;
-        dispatch(sendReq({"page_size":9,"page_no":pageNumber}))
+
+        let sortDropArr = _.find(this.state.allDropDown, function(o) { return o.dropdown == 'sortDrop'; });
+
+        let arrayFilter = {
+            filter:this.state.appliedFilter[0]['filter'],
+            "sort":[{ "field": "name", "value":parseInt(sortDropArr['value']['value'])}],
+            "page_size":9,
+            "page_no":pageNumber
+        }
+        
+        // dispatch(sendReq(arrayFilter));            
+
+        dispatch(sendReq(arrayFilter))
     }
 
     handleChange = (selectedOption,secondParam) => {
@@ -553,8 +563,46 @@ class EverydayPeople extends Component {
         let allDropDown = this.state.allDropDown;                
         let index = _.findIndex(allDropDown, {dropdown: secondParam});
         allDropDown.splice(index, 1, {dropdown: secondParam,value: selectedOption});
-                        
-        this.setState({allDropDown:allDropDown});
+        this.setState({allDropDown:allDropDown});        
+        
+        if(secondParam == 'genderDrop'){
+
+            let dropDownIndex = _.findIndex(appliedFilter[0]['filter'], function(o) { return o.field == 'gender'; });
+            let filteredArr = appliedFilter[0]['filter'];
+            
+            // Check if age filter is applied or not...
+            if(dropDownIndex === -1){
+                filteredArr.push({"field":'gender',"type":"exact","value":selectedOption['value']},)
+                this.setState({'appliedFilter':[{'filter':filteredArr}]});
+            }else{
+                let arrIndex = _.findIndex(filteredArr, {"field":'gender'});
+                filteredArr.splice(arrIndex, 1, {"field":'gender',"type":"exact","value":selectedOption['value']},);
+                this.setState({'appliedFilter':[{'filter':filteredArr}]});
+            }
+
+            let sortDropArr = _.find(allDropDown, function(o) { return o.dropdown == 'sortDrop'; });
+            
+            let arrayFilter = {
+                filter:filteredArr,
+                "sort":[{ "field": "name", "value":parseInt(sortDropArr['value']['value'])}],
+                "page_size":9,
+                "page_no":1
+            }
+            this.setState({"activePage":1});
+            dispatch(sendReq(arrayFilter));
+        }
+
+        if(secondParam == 'sortDrop'){
+            
+            let arrayFilter = {
+                filter:this.state.appliedFilter[0]['filter'],
+                "sort":[{ "field": "name", "value":parseInt(selectedOption['value'])}],
+                "page_size":9,
+                "page_no":1
+            }
+            this.setState({"activePage":1});
+            dispatch(sendReq(arrayFilter));            
+        }
 
         // let newVar = {
         //     "sort":[{ "field": "name", "value":parseInt(selectedOption.value)}],
@@ -623,12 +671,67 @@ class EverydayPeople extends Component {
     }
     
     setAgeFilter = () => {
+<<<<<<< HEAD
         // alert('Over here');
         const {allSliders} = this.state;
         console.log(this.state.appliedFilter);
         console.log(_.find(allSliders, function(o) { return o.slider == 'ageRange'; }));
+=======
+                
+        const {allSliders,appliedFilter,allDropDown} = this.state;        
+        const {dispatch} = this.props;
+
+        let ageFilterIndex = _.findIndex(appliedFilter[0]['filter'], function(o) { return o.field == 'age'; });
+        let ageVal = _.find(allSliders, function(o) { return o.slider == 'ageRange'; });
+        let filteredArr = appliedFilter[0]['filter'];
+
+        // Check if age filter is applied or not...
+        if(ageFilterIndex === -1){
+            filteredArr.push({"field":"age", "type":"between", "min_value":ageVal['value']['min'],"max_value":ageVal['value']['max']})
+            this.setState({'appliedFilter':[{'filter':filteredArr}]});
+        }else{
+            let arrIndex = _.findIndex(filteredArr, {"field":"age"});
+            filteredArr.splice(arrIndex, 1, {"field":"age", "type":"between", "min_value":ageVal['value']['min'],"max_value":ageVal['value']['max']},);
+            this.setState({'appliedFilter':[{'filter':filteredArr}]});
+        }
+
+        let sortDropArr = _.find(allDropDown, function(o) { return o.dropdown == 'sortDrop'; });        
+
+        let filteredArrNew = {
+            "filter":this.state.appliedFilter[0]['filter'],
+            "sort":[{ "field": "name", "value":parseInt(sortDropArr['value']['value'])}],
+            "page_size":9,
+            "page_no":1
+        }
+        this.setState({"activePage":1});
+        dispatch(sendReq(filteredArrNew));
+        
+>>>>>>> 0689276d05adc9fe329f3eaab2fb3ec203529e70
         // this.setState({isAgeFilterSelected:true});
     }    
+
+    applyMoreFilter = () => {
+        
+        const { allDropDown,allSliders } = this.state;
+        
+        // || (o.dropdown !== 'sortDrop') || (o.dropdown !== 'genderDrop')
+        let allDropArr = _.filter(
+                allDropDown, 
+                function(o) {                     
+                    return ((o.dropdown !== 'sortDrop') &&  (o.dropdown !== 'genderDrop')); 
+                });
+        
+        let allSliderArr = _.filter(
+            allSliders, 
+            function(o) {                     
+                return (o.slider !== 'ageRange'); 
+            });
+
+        // alert('Here');
+
+        console.log(allSliderArr);
+
+    }
 
     render() {
         let {users,moreFilterData} = this.props;
@@ -638,8 +741,13 @@ class EverydayPeople extends Component {
         let allSliderArr = [];
 
         let genderDropArr = _.find(allDropDown, function(o) { return o.dropdown == 'genderDrop'; });
+<<<<<<< HEAD
         let sortDropArr = _.find(allDropDown, function(o) { return o.dropdown == 'sortDrop'; });
         
+=======
+        let sortDropArr = _.find(allDropDown, function(o) { return o.dropdown == 'sortDrop'; });        
+                
+>>>>>>> 0689276d05adc9fe329f3eaab2fb3ec203529e70
         allDropArr['jobIndustryDrop'] = _.find(allDropDown, function(o) { return o.dropdown == 'jobIndustryDrop'; });
         allDropArr['jobTitleDrop'] = _.find(allDropDown, function(o) { return o.dropdown == 'jobTitleDrop'; });
         allDropArr['yearInIndustry'] = _.find(allDropDown, function(o) { return o.dropdown == 'yearInIndustry'; });
@@ -705,6 +813,7 @@ class EverydayPeople extends Component {
                                     allDropArr={allDropArr}
                                     allSliderArr={allSliderArr}
                                     moreFilterData={moreFilterData}
+                                    applyMoreFilter={() => {this.applyMoreFilter()}}
                                 />
                             </li>
                         </ul>
