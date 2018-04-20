@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Pagination from "react-js-pagination";
-import { sendReq,moreFilterReq,fetchDropDownReq } from '../actions/everyDay';
+import { sendReq,moreFilterReq,fetchDropDownReq,resetVal,addUserReq } from '../actions/everyDay';
 import ReactLoading from 'react-loading';
 import sampleImg from 'img/site/400x218.png';
 import closeImg from 'img/site/close.png';
@@ -31,9 +31,11 @@ class AddToModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            modal: false
+            modal: false,
+            selectedOption: '',
+            saveFor:'',
+            userId:''
         };
-
         this.toggle = this.toggle.bind(this);
     }
 
@@ -41,8 +43,16 @@ class AddToModal extends Component {
         this.props.onRef(this);
     }
 
-    componentWillMount(){
+    componentWillMount(){        
         this.props.onRef(undefined);
+    }
+
+    setDefaultVal = () => {
+        this.setState({selectedOption:''});
+    }
+    
+    setSaveFor = (val,userId) => {
+        this.setState({saveFor:val,userId:userId});
     }
 
     toggle() {
@@ -51,25 +61,48 @@ class AddToModal extends Component {
         });
     }
 
+    handleChange = (selectedOption) => {
+        this.setState({ selectedOption });        
+    }
+    
+    saveResult = () => {        
+        let {selectedOption,saveFor,userId} = this.state;
+        if(selectedOption === ''){
+            alert('Select the option');
+        }else{
+            this.props.saveResult(saveFor,selectedOption,userId);
+        }
+    }
+    
     render() {
+        let dropArr = [];     
+        const { selectedOption } = this.state;
+
+        if(this.props.dropdownList !== null){
+            let resultStatus = this.props.dropdownList.status;
+            if(resultStatus === 1){
+                this.props.dropdownList.results.map((obj) => {
+                    dropArr.push({ value: obj._id, label: obj.name });
+                });
+            }
+        }
+
         return (
             <div>
-                <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
+                <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} 
+                       onClosed={this.props.resetDropVal}>
                     <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
                     <ModalBody>
                         <ReactSelect
                             className='dropdown-inr'
                             name="form-field-name"
-                            value={false}
+                            value={selectedOption}
                             onChange={this.handleChange}
-                            options={[
-                            { value: 'one', label: 'One' },
-                            { value: 'two', label: 'Two' },
-                            ]}
+                            options={dropArr}
                         />
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="primary" onClick={this.toggle}>Do Something</Button>{' '}
+                        <Button color="primary" onClick={this.saveResult}>Do Something</Button>{' '}
                         <Button color="secondary" onClick={this.toggle}>Cancel</Button>
                     </ModalFooter>
                 </Modal>
@@ -621,15 +654,15 @@ class EverydayPeople extends Component {
     }
 
     addCampaign = (obj) => {
-        const {dispatch} = this.props;        
+        const {dispatch} = this.props;
+        this.child.setSaveFor('campaign',obj._id);
         dispatch(fetchDropDownReq({"sendReqFor":"campaign","uId":obj._id}));
-        this.child.toggle();
     }
 
     addGroup = (obj) => {
-        const {dispatch} = this.props;        
-        dispatch(fetchDropDownReq({"sendReqFor":"group","uId":obj._id}));
-        this.child.toggle();
+        const {dispatch} = this.props;
+        this.child.setSaveFor('group',obj._id);
+        dispatch(fetchDropDownReq({"sendReqFor":"group","uId":obj._id}));        
     }
 
     renderLi(obj){
@@ -664,6 +697,18 @@ class EverydayPeople extends Component {
 
     componentDidMount(){
         // this.child.toggle();
+    }
+
+    componentDidUpdate(){
+        let {showDrop,userAdded} = this.props;
+        // alert(showDrop);
+        if(showDrop){
+            this.child.toggle();
+        }
+
+        if(userAdded){
+            // alert('User Has been Added');
+        }
     }
 
     setAgeValue(value) {        
@@ -724,9 +769,7 @@ class EverydayPeople extends Component {
                 );
 
         });
-
         
-
         const exstingFilterArr = Object.keys(exstingFilter).map(i => exstingFilter[i])
         
         console.log('====== exstingFilter ==========');
@@ -754,7 +797,7 @@ class EverydayPeople extends Component {
                 case 'yearInIndustry'   : fieldText='year_in_industry'; fieldType='exact'; break;
                 case 'education'        : fieldText='education'; fieldType='exact'; break;
 
-                // case 'jobTitleDrop'     : fieldText=''; fieldType=''; break;
+                case 'jobTitleDrop'     : fieldText='job_title'; fieldType='id'; break;
                 case 'language'         : fieldText='language'; fieldType='exact'; break;
                 case 'ethnicity'        : fieldText='ethnicity'; fieldType='exact'; break;
                 case 'sexualOrientation': fieldText='interested_in'; fieldType='exact'; break;
@@ -782,11 +825,27 @@ class EverydayPeople extends Component {
         }
         this.setState({"activePage":1});
         dispatch(sendReq(filteredArrNew));
+    }
 
+    resetDropVal = () => {
+        const {dispatch} = this.props;
+        this.child.setDefaultVal();
+        dispatch(resetVal(null));
+    }
+
+    saveResult = (param1,param2,param3) => {        
+        let data = {
+            param1,
+            param2,
+            param3
+        }
+        
+        const { dispatch } = this.props;
+        dispatch(addUserReq(data));
     }
 
     render() {
-        let {users,moreFilterData} = this.props;
+        let {users,moreFilterData,dropdownList} = this.props;
         const {allDropDown,allSliders} = this.state;
 
         let allDropArr = [];
@@ -820,7 +879,6 @@ class EverydayPeople extends Component {
 
                 <Example displayProp="none"  />
 
-                                
                 {/* <img src={fbImg} /> */}
                 <div className="everypeole-head d-flex">
                     <div className="everypeole-head-l">
@@ -882,7 +940,6 @@ class EverydayPeople extends Component {
                                         { value: '-1', label: 'Name DESC' },
                                     ]}
                                 />
-
                             </li>
                             <li className="dropdown ">
                                 <a href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -917,8 +974,12 @@ class EverydayPeople extends Component {
                         onChange={this.handlePageChange}
                     />
 
-                    <AddToModal onRef={ref => (this.child = ref)} />
                 </div>
+
+                <AddToModal onRef={ref => (this.child = ref)} 
+                            dropdownList={dropdownList} 
+                            resetDropVal={this.resetDropVal}
+                            saveResult={this.saveResult}  />
 
             </div>
         );
@@ -932,7 +993,10 @@ const mapStateToProps = (state) => {
         loading: everyDay.get('loading'),
         error: everyDay.get('error'),
         users: everyDay.get('users'),
-        moreFilterData: everyDay.get('moreFilterData')
+        moreFilterData: everyDay.get('moreFilterData'),
+        dropdownList:everyDay.get('dropdownList'),
+        showDrop:everyDay.get('showDrop'),
+        userAdded:everyDay.get('userAdded')
     }
 }
 

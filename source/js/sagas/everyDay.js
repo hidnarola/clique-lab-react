@@ -2,7 +2,8 @@ import { takeLatest, put, call } from 'redux-saga/effects';
 import { 
         EVERY_DAY_REQUEST,EVERY_DAY_SUCCESS,EVERY_DAY_ERROR,everyDaySuccess,everyDayError,
         MORE_FILTER_REQUEST, MORE_FILTER_SUCCESS, MORE_FILTER_ERROR,moreFilterReq,moreFilterSuccess,moreFilterError,
-        FETCH_DROPDOWN_REQUEST,FETCH_DROPDOWN_SUCCESS,FETCH_DROPDOWN_ERROR,fetchDropDownReq,fetchDropDownSuccess,fetchDropDownError
+        FETCH_DROPDOWN_REQUEST,FETCH_DROPDOWN_SUCCESS,FETCH_DROPDOWN_ERROR,fetchDropDownReq,fetchDropDownSuccess,fetchDropDownError,
+        ADD_USER_REQUEST,addUserSuccess,addUserError
        } from "../actions/everyDay";
 import api from '../api/everyDay';
 
@@ -40,6 +41,18 @@ function fetchDropdownData(){
     }
 }
 
+function addUserData(){
+    return function* (action){
+        try{   
+            console.log(action.data);         
+            let data = yield call(() => api.addUserData(action.data));
+            yield put(addUserSuccess(data.data));
+        } catch(error){            
+            yield put(addUserError(error));
+        }
+    }
+}
+
 export function* watchEveryDay() {
     yield takeLatest(EVERY_DAY_REQUEST, fetchEveryDayData());
 }
@@ -52,8 +65,13 @@ export function* watchFetchDropDownData() {
     yield takeLatest(FETCH_DROPDOWN_REQUEST, fetchDropdownData());
 }
 
+export function* watchAddUserData() {
+    yield takeLatest(ADD_USER_REQUEST, addUserData());
+}
+
 export default [
     watchEveryDay(),
     watchMoreFilterData(),
-    watchFetchDropDownData()
+    watchFetchDropDownData(),
+    watchAddUserData()
 ]

@@ -62,7 +62,7 @@ class App extends Component {
                         
                         {/* Groups */}
                         <PrivateRoute exact path={routeCodes.LISTGROUPS} component={ListGroups} showHeader={true} />
-                        <PrivateRoute path={`${routeCodes.LISTGROUPS}/:grpId/members`} component={ListGroupMembers} showHeader={true} />
+                        <PrivateRoute path={`${routeCodes.LISTGROUPS}/:grpId/members`} component={EverydayPeople} showHeader={true} />
 
                         {/* Campaign */}
                         <PrivateRoute exact path={routeCodes.CAMPAIGN} component={CampaignForm} showHeader={true} />
