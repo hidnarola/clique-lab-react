@@ -3,10 +3,12 @@ import { connect } from 'react-redux';
 import fakeImg from 'img/site/people-01.jpg';
 import nodataImg from 'img/site/nodata.png';
 import trashImg from 'img/site/trash-icon.png';
+import downloadImg from 'img/site/download-icon.png';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem ,UncontrolledDropdown } from 'reactstrap';
 import { withRouter } from 'react-router';
 import { getPastCampaign } from '../../actions/campaign';
 import Pagination from "react-js-pagination";
+import { imgRoutes } from '../../constants/img_path';
 
 class Past extends Component {
     
@@ -26,17 +28,16 @@ class Past extends Component {
             <li key={Math.random()}>
                 <div className="all-people-div">
                     <div className="all-people-img">
-                        <a href=""><img src={fakeImg} alt=""/></a>
+                        <a href=""><img src={`${imgRoutes.CAMPAIGN_IMG_PATH}${obj.cover_image}`} alt=""/></a>
                     </div>
                     <div className="all-people-content">
-                        <h4>Content Marketplace by your fans at Festival</h4>
+                        <h4>{obj.name}</h4>
                         <div className="submission-div d-flex">
                             <div className="submission-div-l">
-                                <h5>Submissions :  <small>654</small></h5>
-                                <h5>Starts in   <small>3 days</small></h5>
+                                <h5>Submissions :  <small>{obj.submissions}</small></h5>
                             </div>
                             <div className="submission-div-r">
-                                <a href=""><img src={trashImg} alt="" /></a>
+                                <a href=""><img src={downloadImg} alt="" /></a>
                             </div>	
                         </div>
                     </div>
@@ -72,15 +73,15 @@ class Past extends Component {
                         (pastCampaign!==null) ? pastCampaign.map((obj,i) => (this.pastListing(obj))) : <div className="no_data_found"><img src={nodataImg} /></div>
                     }
                 </ul>
-                {(
-                    pastCampaign!==null && <Pagination 
+                {
+                    (pastCampaign!==null && totalPastCampaign>9) && <Pagination 
                             activePage={this.state.activePage} 
                             itemsCountPerPage={6} 
                             totalItemsCount={totalPastCampaign} 
                             pageRangeDisplayed={5} 
                             onChange={this.handlePageChange}
                         />
-                )}
+                }
             </div>
         );
     }

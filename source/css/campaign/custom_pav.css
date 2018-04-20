@@ -10,3 +10,13 @@
     padding: 20px;
     box-shadow: 0px 20px 26px 3px #dbdee0;
 }
+
+.sweet-alert h2{ font-size:22px; }
+.sweet-alert .lead{ font-size:20px; }
+.sweet-alert span .btn-danger,
+.sweet-alert span .btn-default{
+    font-size: 16px;
+    margin-right: 8px;
+    border-radius: 0px;
+    border: 1px solid #b5adad;
+}

@@ -4,6 +4,7 @@ import {
     GET_ACTIVE_CAMPAIGN_REQUEST, GET_ACTIVE_CAMPAIGN_SUCCESS, GET_ACTIVE_CAMPAIGN_ERROR,
     GET_FUTURE_CAMPAIGN_REQUEST, GET_FUTURE_CAMPAIGN_SUCCESS, GET_FUTURE_CAMPAIGN_ERROR,
     GET_PAST_CAMPAIGN_REQUEST, GET_PAST_CAMPAIGN_SUCCESS, GET_PAST_CAMPAIGN_ERROR,
+    STOP_CAMPAIGN_REQUEST, STOP_CAMPAIGN_SUCCESS, STOP_CAMPAIGN_ERROR,
 } from "../actions/campaign";
 
 const initialState = Map({
@@ -21,6 +22,8 @@ const initialState = Map({
 
     pastCampaign: null,
     totalPastCampaign: 0,
+
+    isDelete: 0,
 });
 
 const actionMap = {
@@ -62,6 +65,7 @@ const actionMap = {
             loading: false,
             status: action.data.data.status,
             message: action.data.data.message,
+            isDelete: 0,
             activeCampaign: action.data.data.results[0].campaigns,
             totalActiveCampaign: action.data.data.results[0].total,
         }));
@@ -138,7 +142,31 @@ const actionMap = {
             error: error            
         }));
     },    
-
+    [STOP_CAMPAIGN_REQUEST]: (state, action) => {
+        return state.merge(Map({
+            ...initialState,
+            loading: true
+        }));
+    },
+    [STOP_CAMPAIGN_SUCCESS]: (state, action) => {
+        return state.merge(Map({
+            ...initialState,
+            loading: false,
+            isDelete: action.data.data.status,
+            message: action.data.data.message,
+        }));
+    },
+    [STOP_CAMPAIGN_ERROR]: (state, action) => {
+        let error = 'Server Error';
+        if (action.error && action.error.response) {
+            error = action.error.response.message;
+        }
+        return state.merge(Map({
+            ...initialState,
+            loading: false,
+            error: error            
+        }));
+    },    
 };
 
 export default function reducer(state = initialState, action = {}) {

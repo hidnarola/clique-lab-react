@@ -23,15 +23,23 @@ function getFutureCampaign(data) {
 }
 
 function getPastCampaign(data) {
-    let headers = {
+    let headers = { 
       'x-access-token' : localStorage.getItem('token')
     }
-    return postFormData('promoter/campaign/active', data, headers);
+    return postFormData('promoter/campaign/past', data, headers);
+}
+
+function stopCampaign(data) {
+    let headers = { 
+      'x-access-token' : localStorage.getItem('token')
+    }
+    return postFormData(`promoter/campaign/stop/${data.campaign_id}`, data, headers);
 }
 
 export default {
     createCampaign,
     getActiveCampaign,
     getFutureCampaign,
-    getPastCampaign
+    getPastCampaign,
+    stopCampaign
 }

@@ -32,8 +32,8 @@ class Future extends Component {
                         <h4>Content Marketplace by your fans at Festival</h4>
                         <div className="submission-div d-flex">
                             <div className="submission-div-l">
-                                <h5>Submissions :  <small>654</small></h5>
-                                <h5>Starts in   <small>3 days</small></h5>
+                                <h5>Start Date: <small>654</small></h5>
+                                <h5>Starts in <small>3 days</small></h5>
                             </div>
                             <div className="submission-div-r">
                                 <a href=""><img src={trashImg} alt="" /></a>
