@@ -19,7 +19,7 @@ function getFutureCampaign(data) {
     let headers = {
       'x-access-token' : localStorage.getItem('token')
     }
-    return postFormData('promoter/campaign/active', data, headers);
+    return postFormData('promoter/campaign/future', data, headers);
 }
 
 function getPastCampaign(data) {
