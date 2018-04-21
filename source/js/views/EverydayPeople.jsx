@@ -700,14 +700,15 @@ class EverydayPeople extends Component {
     }
 
     componentDidUpdate(){
-        let {showDrop,userAdded} = this.props;
+        let {showDrop,userAdded,dispatch} = this.props;
         // alert(showDrop);
         if(showDrop){
             this.child.toggle();
         }
 
         if(userAdded){
-            // alert('User Has been Added');
+            alert('User Has been Added');
+            dispatch(resetVal( {'userAdded':false}  ));
         }
     }
 
@@ -834,6 +835,7 @@ class EverydayPeople extends Component {
     }
 
     saveResult = (param1,param2,param3) => {        
+        
         let data = {
             param1,
             param2,
@@ -865,7 +867,6 @@ class EverydayPeople extends Component {
         allDropArr['relationship'] = _.find(allDropDown, function(o) { return o.dropdown == 'relationship'; });
         allDropArr['musicTaste'] = _.find(allDropDown, function(o) { return o.dropdown == 'musicTaste'; });
 
-        
         allSliderArr['facebook'] = _.find(allSliders, function(o) { return o.slider == 'facebook'; });
         allSliderArr['instagram'] = _.find(allSliders, function(o) { return o.slider == 'instagram'; });
         allSliderArr['twitter'] = _.find(allSliders, function(o) { return o.slider == 'twitter'; });
@@ -876,8 +877,10 @@ class EverydayPeople extends Component {
 
         return (
             <div className="every-people">
+                
+                {/* <div className="loader" style={{"zIndex":"9999999999"}}></div> */}
 
-                <Example displayProp="none"  />
+                {/* <Example  /> */}
 
                 {/* <img src={fbImg} /> */}
                 <div className="everypeole-head d-flex">
@@ -891,7 +894,6 @@ class EverydayPeople extends Component {
                                 />
                             </li>
                             <li>
-                                
                                 <ReactSelect
                                     name="genderDrop"
                                     value={genderDropArr.value}
@@ -941,15 +943,22 @@ class EverydayPeople extends Component {
                                     ]}
                                 />
                             </li>
-                            <li className="dropdown ">
-                                <a href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Add All Results
-                                    <i className="dropdown-arrow"></i>
-                                </a>
-                                <div className="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                                    <a className="dropdown-item" href="#">Add to Campaign</a>
-                                    <a className="dropdown-item" href="#">Add to Group</a>
-                                </div>
+                            <li>
+                                
+                                <ReactSelect
+                                    name="genderDrop"
+                                    value={genderDropArr.value}
+                                    // onChange={(value) => this.handleChange(value,"genderDrop")}
+                                    searchable={false}
+                                    clearable={false}
+                                    autosize={false}
+                                    placeholder="Add All Results"
+                                    className='dropdown-inr'
+                                    options={[
+                                        { value: 'add_to_capaign', label: 'Add to Campaign' },
+                                        { value: 'add_to_group', label: 'Add to Group' },
+                                    ]}
+                                />
                             </li>
                         </ul>
                     </div>

@@ -43,8 +43,7 @@ function fetchDropdownData(){
 
 function addUserData(){
     return function* (action){
-        try{   
-            console.log(action.data);         
+        try{
             let data = yield call(() => api.addUserData(action.data));
             yield put(addUserSuccess(data.data));
         } catch(error){            
