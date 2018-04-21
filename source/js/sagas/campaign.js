@@ -5,6 +5,7 @@ import {
     GET_FUTURE_CAMPAIGN_REQUEST, GET_FUTURE_CAMPAIGN_SUCCESS, GET_FUTURE_CAMPAIGN_ERROR, getFutureCampaign, getFutureCampaignSuccess, getFutureCampaignError,
     GET_PAST_CAMPAIGN_REQUEST, GET_PAST_CAMPAIGN_SUCCESS, GET_PAST_CAMPAIGN_ERROR, getPastCampaign, getPastCampaignSuccess, getPastCampaignError,
     STOP_CAMPAIGN_REQUEST, STOP_CAMPAIGN_SUCCESS, STOP_CAMPAIGN_ERROR, stopCampaign, stopCampaignSuccess, stopCampaignError,
+    DELETE_CAMPAIGN_REQUEST, DELETE_CAMPAIGN_SUCCESS, DELETE_CAMPAIGN_ERROR, deleteCampaign, deleteCampaignSuccess, deleteCampaignError,
 } from "../actions/campaign";
 import api from '../api/campaign';
 
@@ -78,10 +79,6 @@ function getPastCampaignFunc() {
 
 function stopCampaignFunc() {
     return function* (action) {
-        // console.log('======================================');
-        // console.log(action);
-        // console.log('======================================');
-        // return;
         let dataNN = action.data;
         try {
             const data = yield call(() => api.stopCampaign(dataNN));
@@ -89,6 +86,20 @@ function stopCampaignFunc() {
             yield put(action);
         } catch (error) {
             const action = { type: STOP_CAMPAIGN_ERROR, error };
+            yield put(action);
+        }
+    };
+}
+
+function deleteCampaignFunc() {
+    return function* (action) {
+        let dataNN = action.data;
+        try {
+            const data = yield call(() => api.deleteCampaign(dataNN));
+            const action = { type: DELETE_CAMPAIGN_SUCCESS, data };
+            yield put(action);
+        } catch (error) {
+            const action = { type: DELETE_CAMPAIGN_ERROR, error };
             yield put(action);
         }
     };
@@ -110,11 +121,15 @@ export function* watchGetPastCampaign() {
 export function* watchStopCampaign() {
     yield takeLatest(STOP_CAMPAIGN_REQUEST, stopCampaignFunc());
 }
+export function* watchDeleteCampaign() {
+    yield takeLatest(DELETE_CAMPAIGN_REQUEST, deleteCampaignFunc());
+}
 
 export default [
     watchCreateCampaign(),
     watchGetActiveCampaign(),
     watchGetFutureCampaign(),
     watchGetPastCampaign(),
-    watchStopCampaign()
+    watchStopCampaign(),
+    watchDeleteCampaign(),
 ]

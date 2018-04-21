@@ -20,3 +20,13 @@
     border-radius: 0px;
     border: 1px solid #b5adad;
 }
+
+.grp_list_img,.campaign_list_img{
+    width: 100%;
+    height: 160px;
+}
+
+.no_data_found{width:100%; text-align: center }
+.no_data_found img{
+  width: 75%;
+}

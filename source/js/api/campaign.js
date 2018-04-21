@@ -1,4 +1,4 @@
-import { fetchResource,postFormData } from "./index";
+import { fetchResource,postFormData,deleteFormData } from "./index";
 import { reactLocalStorage } from 'reactjs-localstorage';
 
 function createCampaign(data) {   
@@ -36,10 +36,18 @@ function stopCampaign(data) {
     return postFormData(`promoter/campaign/stop/${data.campaign_id}`, data, headers);
 }
 
+function deleteCampaign(data) {
+    let headers = { 
+      'x-access-token' : localStorage.getItem('token')
+    }
+    return deleteFormData(`promoter/campaign/${data.campaign_id}`, data, headers);
+}
+
 export default {
     createCampaign,
     getActiveCampaign,
     getFutureCampaign,
     getPastCampaign,
-    stopCampaign
+    stopCampaign,
+    deleteCampaign
 }

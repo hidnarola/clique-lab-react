@@ -110,36 +110,27 @@ export const fetchResource = (path, userOptions = {}) => {
 
 
 export const getFormData = (path, data, headers) => {
-    // Build Url
     const url = `${API_URL}${path}`;
-
     return axios({
         method: 'GET',
         url: url,
         data: data,
         headers: headers,
         validateStatus: function (status) {            
-            // if(status == 400){
-            //     return false;
-            // }
-            return status >= 200 && status < 300; // default
+            return status >= 200 && status < 300;
         }
     }).then(function (res) {        
         if (res.status < 200 || res.status >= 300) {
-            // Get res as text
             return res.text();
         }else{
             return res;
         }
-
     }).catch(function (err) {        
         throw ApiError(err.toString(), null, 'REQUEST_FAILED');
-        // return err.toString();
     });
 };
 
 export const postFormData = (path, data, headers) => {
-    // Build Url
     const url = `${API_URL}${path}`;
     return axios({
         method: 'POST',
@@ -147,10 +138,7 @@ export const postFormData = (path, data, headers) => {
         data: data,
         headers: headers,
         validateStatus: function (status) {            
-            // if(status == 400){
-            //     return false;
-            // }
-            return status >= 200 && status < 300; // default
+            return status >= 200 && status < 300;
         }
     }).then(function (res) {
         return res;
@@ -161,9 +149,7 @@ export const postFormData = (path, data, headers) => {
 };
 
 export const putFormData = (path, data, headers) => {
-    // Build Url
     const url = `${API_URL}${path}`;
-
     return axios({
         method: 'PUT',
         url: url,
@@ -172,6 +158,24 @@ export const putFormData = (path, data, headers) => {
     }).then(function (res) {
         return res;
     }).catch(function (err) {
+        return err.toString();
+    });
+};
+
+export const deleteFormData = (path, data, headers) => {
+    const url = `${API_URL}${path}`;
+    return axios({
+        method: 'DELETE',
+        url: url,
+        data: data,
+        headers: headers,
+        validateStatus: function (status) {            
+            return status >= 200 && status < 300;
+        }
+    }).then(function (res) {
+        return res;
+    }).catch(function (err) {
+        throw ApiError(err.toString(), null, 'REQUEST_FAILED');
         return err.toString();
     });
 };

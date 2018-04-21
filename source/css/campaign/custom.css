@@ -74,7 +74,7 @@ ul { padding: 0; }
 .Select--single{ border:0 !important;}*/
 
 .navigation-div ul li a:hover, 
-.navigation-div ul li a.active i{background-position:0 -24px;}
+.navigation-div ul li a.active i{background-position:0 -18px;}
 .create-campaign-r-img img{max-width:100%; min-width:280px; }
 .industry-l-box{ height:272px;}
 .industry-l-box .form-group{     height: 100%; margin: 0; display: table;width: 100%;} 
@@ -89,15 +89,6 @@ ul { padding: 0; }
     color: #6772e5;
     text-decoration: none;
 }
-.grp_list_img,.campaign_list_img{
-    width: 100%;
-    height: 200px;
-}
-
-.no_data_found{width:100%; text-align: center }
-.no_data_found img{
-  width: 75%;
-}
 
 /* Campiagn */
   .campiagn_date .react-datepicker-wrapper{ width:100%; display:block; }
@@ -106,7 +97,7 @@ ul { padding: 0; }
   .input-wrap-2 i{ line-height: 45px; }
 
 /* Left Menu */
-  .left-panel{ width:275px !important; }
+  .left-panel{ width:245px !important; }
   .navigation-div ul li a:hover,
   .navigation-div ul li a.active{color:#fff; background:#6772e5; text-decoration:none;}
   

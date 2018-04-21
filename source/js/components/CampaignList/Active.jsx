@@ -101,8 +101,8 @@ class Active extends Component {
     }
 
     componentDidUpdate(){
-        const { isDelete, dispatch } = this.props;
-        if(isDelete===1){
+        const { isStop, dispatch } = this.props;
+        if(isStop===1){
             dispatch(getActiveCampaign({"page_size":9,"page_no":1}))
         }
     }
@@ -161,7 +161,7 @@ const mapStateToProps = (state) => {
         status: campaign.get('status'),
         activeCampaign: campaign.get('activeCampaign'),
         totalActiveCampaign: campaign.get('totalActiveCampaign'),
-        isDelete: campaign.get('isDelete')
+        isStop: campaign.get('isStop')
     }
 }
 

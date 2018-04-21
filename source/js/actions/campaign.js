@@ -18,6 +18,10 @@ export const STOP_CAMPAIGN_REQUEST = 'STOP_CAMPAIGN_REQUEST';
 export const STOP_CAMPAIGN_SUCCESS = 'STOP_CAMPAIGN_SUCCESS';
 export const STOP_CAMPAIGN_ERROR = 'STOP_CAMPAIGN_ERROR';
 
+export const DELETE_CAMPAIGN_REQUEST = 'DELETE_CAMPAIGN_REQUEST';
+export const DELETE_CAMPAIGN_SUCCESS = 'DELETE_CAMPAIGN_SUCCESS';
+export const DELETE_CAMPAIGN_ERROR = 'DELETE_CAMPAIGN_ERROR';
+
 export function createCampaign(data) {
     return { type: CAMPAIGN_REQUEST, data }
 }
@@ -76,4 +80,16 @@ export function stopCampaignSuccess(data) {
 
 export function stopCampaignError(error) {
     return { type: STOP_CAMPAIGN_ERROR, error }
+}
+
+export function deleteCampaign(data) {
+    return { type: DELETE_CAMPAIGN_REQUEST, data }
+}
+
+export function deleteCampaignSuccess(data) {
+    return { type: DELETE_CAMPAIGN_SUCCESS, data }
+}
+
+export function deleteCampaignError(error) {
+    return { type: DELETE_CAMPAIGN_ERROR, error }
 }
