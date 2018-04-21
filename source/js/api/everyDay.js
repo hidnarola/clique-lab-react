@@ -12,7 +12,6 @@ function fetchMoreFilterData(){
 }
 
 function fetchDropDownData(data){
-    console.log(data);
     let newVar = reactLocalStorage.get('token', true);    
     let url = '';
 
@@ -28,8 +27,30 @@ function fetchDropDownData(data){
                     );
 }
 
+function addUserData(data){
+    let newVar = reactLocalStorage.get('token', true);    
+    let url = '';
+    
+    // param1 -- Either Campaign Or Group 
+    // param2 -- Either Campaign Id Or Group ID
+    // Param3 -- Selected User Id
+
+    if(data['param1'] == 'campaign'){
+        url = `promoter/campaign/${data['param2']['value']}/add_user/${data['param3']}`;
+    }else{
+        url = `promoter/group/${data['param2']['value']}/add_user/${data['param3']}`;        
+    }
+
+    return postFormData(
+                       url,
+                       null,
+                       {"Content-Type": "application/json",'x-access-token':newVar}
+                    );
+}
+
 export default {
     fetchUsersNew,
     fetchMoreFilterData,
-    fetchDropDownData
+    fetchDropDownData,
+    addUserData
 }

@@ -10,6 +10,12 @@ export const FETCH_DROPDOWN_REQUEST = 'FETCH_DROPDOWN_REQUEST';
 export const FETCH_DROPDOWN_SUCCESS = 'FETCH_DROPDOWN_SUCCESS';
 export const FETCH_DROPDOWN_ERROR = 'FETCH_DROPDOWN_ERROR';
 
+export const RESET_VALUES = 'RESET_VALUES';
+
+export const ADD_USER_REQUEST = 'ADD_USER_REQUEST';
+export const ADD_USER_SUCCESS = 'ADD_USER_SUCCESS';
+export const ADD_USER_ERROR = 'ADD_USER_ERROR';
+
 // ----------------------------------------------------------------------
 
     export function sendReq(data) {
@@ -55,5 +61,24 @@ export const FETCH_DROPDOWN_ERROR = 'FETCH_DROPDOWN_ERROR';
 
     export function fetchDropDownError(error) {
         return { type: FETCH_DROPDOWN_ERROR, error:error }
-    }    
+    }
+// ----------------------------------------------------------------------
+
+// ----------------------------------------------------------------------
+    export function addUserReq(data) {
+        return { type: ADD_USER_REQUEST,data:data}
+    }
+
+    export function addUserSuccess(data) {
+        return { type: ADD_USER_SUCCESS, data:data }
+    }
+
+    export function addUserError(error) {
+        return { type: ADD_USER_ERROR, error:error }
+    }
+// ----------------------------------------------------------------------
+
+    export function resetVal(data) {
+        return { type: RESET_VALUES, data:data }
+    }
 // ----------------------------------------------------------------------
