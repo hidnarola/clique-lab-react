@@ -528,6 +528,8 @@ class EverydayPeople extends Component {
             activePage: 1,            
             loaderShow:false,
 
+            groupId:'',
+
             allDropDown:[
                 { 'dropdown': 'jobIndustryDrop',   'value': false },
                 { 'dropdown': 'jobTitleDrop',      'value': false },
@@ -690,8 +692,12 @@ class EverydayPeople extends Component {
     }
     
     componentWillMount(){
-        const { dispatch } = this.props;
-        dispatch(sendReq({"page_size":9,"page_no":1}))
+        const { dispatch,match } = this.props;
+        this.setState({groupId:''});
+        if(match.params.grpId){
+            this.setState({groupId:match.params.grpId});
+        }
+        dispatch(sendReq({"page_size":9,"page_no":1,groupId:match.params.grpId}))
         dispatch(moreFilterReq());        
     }
 
