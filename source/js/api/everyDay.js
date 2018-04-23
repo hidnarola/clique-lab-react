@@ -2,8 +2,13 @@ import { getFormData,postFormData } from "./index";
 import { reactLocalStorage } from 'reactjs-localstorage';
 
 function fetchUsersNew(data){    
+    
     let newVar = reactLocalStorage.get('token', true);    
-    return postFormData('promoter/user',data,{"Content-Type": "application/json",'x-access-token':newVar});
+    let url = 'promoter/user';
+    if(data.groupId){
+        url = `promoter/group/${data.groupId}/members`;
+    }
+    return postFormData(url,data,{"Content-Type": "application/json",'x-access-token':newVar});
 }
 
 function fetchMoreFilterData(){

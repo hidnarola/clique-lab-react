@@ -120,11 +120,9 @@ export const getFormData = (path, data, headers) => {
             return status >= 200 && status < 300;
         }
     }).then(function (res) {        
-        if (res.status < 200 || res.status >= 300) {
-            return res.text();
-        }else{
+        
             return res;
-        }
+        
     }).catch(function (err) {        
         throw ApiError(err.toString(), null, 'REQUEST_FAILED');
     });
