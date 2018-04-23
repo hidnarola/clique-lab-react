@@ -171,7 +171,7 @@ const DropDownSocial = () => {
     );
 }
 
-const PlusAction = (props) => {
+const PlusAction = (props) => {    
     return (
         <UncontrolledDropdown>
             <DropdownToggle>
@@ -181,9 +181,12 @@ const PlusAction = (props) => {
                 <DropdownItem onClick={() => { props.addCampaign(); }}>
                     Add to Campaign
                 </DropdownItem>
-                <DropdownItem onClick={() => { props.addGroup(); }}>
-                    Add to Group
-                </DropdownItem>
+                {
+                    (props.groupId) ? 
+                        '': <DropdownItem onClick={() => { props.addGroup(); }}>
+                                Add to Group
+                            </DropdownItem>                    
+                }
             </DropdownMenu>
         </UncontrolledDropdown>
     );
@@ -568,12 +571,15 @@ class EverydayPeople extends Component {
 
             isFilterApply:false
         };
+    }
 
-        this.handlePageChange = this.handlePageChange.bind(this)
-        this.renderLi = this.renderLi.bind(this);        
-    }    
+    filterSendReq = (data) => {
+        const { dispatch,match } = this.props;                
+        data['groupId'] = match.params.grpId;
+        dispatch(sendReq(data))
+    }
 
-    handlePageChange(pageNumber) {
+    handlePageChange = (pageNumber) => {
         this.setState({activePage: pageNumber});
         const { dispatch } = this.props;
 
@@ -585,10 +591,7 @@ class EverydayPeople extends Component {
             "page_size":9,
             "page_no":pageNumber
         }
-        
-        // dispatch(sendReq(arrayFilter));            
-
-        dispatch(sendReq(arrayFilter))
+        this.filterSendReq(arrayFilter);        
     }
 
     handleChange = (selectedOption,secondParam) => {
@@ -625,7 +628,7 @@ class EverydayPeople extends Component {
                 "page_no":1
             }
             this.setState({"activePage":1});
-            dispatch(sendReq(arrayFilter));
+            this.filterSendReq(arrayFilter);            
         }
 
         if(secondParam == 'sortDrop'){
@@ -636,16 +639,9 @@ class EverydayPeople extends Component {
                 "page_size":9,
                 "page_no":1
             }
-            this.setState({"activePage":1});
-            dispatch(sendReq(arrayFilter));            
+            this.setState({"activePage":1});                       
+            this.filterSendReq(arrayFilter);
         }
-
-        // let newVar = {
-        //     "sort":[{ "field": "name", "value":parseInt(selectedOption.value)}],
-        //     "page_size":9,
-        //     "page_no":1
-        // }
-        // dispatch(sendReq(newVar));
     }
 
     handleSLider = (selectedOption,secondParam) => {        
@@ -667,7 +663,7 @@ class EverydayPeople extends Component {
         dispatch(fetchDropDownReq({"sendReqFor":"group","uId":obj._id}));        
     }
 
-    renderLi(obj){
+    renderLi = (obj) =>{
         return(
             <li key={Math.random()}>
                 <div className="all-people-div">
@@ -679,6 +675,7 @@ class EverydayPeople extends Component {
                             <PlusAction 
                                 addCampaign={() => {this.addCampaign(obj)} } 
                                 addGroup={() => {this.addGroup(obj)}} 
+                                groupId={this.state.groupId}
                             />
                         </div>
                     </div>
@@ -697,7 +694,13 @@ class EverydayPeople extends Component {
         if(match.params.grpId){
             this.setState({groupId:match.params.grpId});
         }
-        dispatch(sendReq({"page_size":9,"page_no":1,groupId:match.params.grpId}))
+
+        let arrayFilter = {
+            "page_size":9,
+            "page_no":1,
+            groupId:match.params.grpId
+        }
+        this.filterSendReq(arrayFilter);        
         dispatch(moreFilterReq());        
     }
 
@@ -743,14 +746,14 @@ class EverydayPeople extends Component {
 
         let sortDropArr = _.find(allDropDown, function(o) { return o.dropdown == 'sortDrop'; });        
 
-        let filteredArrNew = {
+        let arrayFilter = {
             "filter":this.state.appliedFilter[0]['filter'],
             "sort":[{ "field": "name", "value":parseInt(sortDropArr['value']['value'])}],
             "page_size":9,
             "page_no":1
         }
-        this.setState({"activePage":1});
-        dispatch(sendReq(filteredArrNew));
+        this.setState({"activePage":1});        
+        this.filterSendReq(arrayFilter);
         
         // this.setState({isAgeFilterSelected:true});
     }    
@@ -824,14 +827,14 @@ class EverydayPeople extends Component {
         this.setState({'appliedFilter':[{'filter':exstingFilterArr}]});        
 
         let sortDropArr = _.find(allDropDown, function(o) { return o.dropdown == 'sortDrop'; });
-        let filteredArrNew = {
+        let arrayFilter = {
             "filter":exstingFilterArr,
             "sort":[{ "field": "name", "value":parseInt(sortDropArr['value']['value'])}],
             "page_size":9,
             "page_no":1
         }
-        this.setState({"activePage":1});
-        dispatch(sendReq(filteredArrNew));
+        this.setState({"activePage":1});        
+        this.filterSendReq(arrayFilter);
     }
 
     resetDropVal = () => {
@@ -888,7 +891,6 @@ class EverydayPeople extends Component {
 
                 {/* <Example  /> */}
 
-                {/* <img src={fbImg} /> */}
                 <div className="everypeole-head d-flex">
                     <div className="everypeole-head-l">
                         <ul>
@@ -981,13 +983,15 @@ class EverydayPeople extends Component {
                             (users.status === 1) ? users.data.map((obj,index) => (this.renderLi(obj))) :''
                         }                        
                     </ul>
-
-                    <Pagination 
-                        activePage={this.state.activePage}
-                        totalItemsCount={users.total} 
-                        pageRangeDisplayed={5} 
-                        onChange={this.handlePageChange}
-                    />
+                    
+                    { (users.total > 9) ? 
+                        <Pagination 
+                            activePage={this.state.activePage}
+                            totalItemsCount={users.total} 
+                            pageRangeDisplayed={5} 
+                            onChange={this.handlePageChange}
+                        /> : '' }
+                    
 
                 </div>
 
@@ -1000,7 +1004,6 @@ class EverydayPeople extends Component {
         );
     }
 }
-
 
 const mapStateToProps = (state) => {
     const { everyDay } = state;

@@ -1,13 +1,10 @@
 import { getFormData,postFormData } from "./index";
 import { reactLocalStorage } from 'reactjs-localstorage';
 
-function fetchUsersNew(data){
-    console.log('data');
-    console.log(data);
+function fetchUsersNew(data){    
+    
     let newVar = reactLocalStorage.get('token', true);    
-
     let url = 'promoter/user';
-
     if(data.groupId){
         url = `promoter/group/${data.groupId}/members`;
     }

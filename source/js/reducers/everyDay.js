@@ -111,15 +111,10 @@ const actionMap = {
         if(action['data']){
             (action['data']['userAdded'] === false) ? resetObj['userAdded'] = false:'';
         }
-        console.log(resetObj);
-
-
         return state.merge(Map(resetObj));
     },
 
     //---------------------------------------------------------------------------------------
-    
-    
     
     [ADD_USER_REQUEST]: (state, action) => {
         return state.merge(Map({
@@ -132,7 +127,7 @@ const actionMap = {
         return state.merge(Map({
             loading: false,
             error: false,
-            userAdded:true
+            userAdded:true,
         }));
     },
     [ADD_USER_ERROR]: (state, action) => {
