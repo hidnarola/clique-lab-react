@@ -22,74 +22,34 @@ export const DELETE_CAMPAIGN_REQUEST = 'DELETE_CAMPAIGN_REQUEST';
 export const DELETE_CAMPAIGN_SUCCESS = 'DELETE_CAMPAIGN_SUCCESS';
 export const DELETE_CAMPAIGN_ERROR = 'DELETE_CAMPAIGN_ERROR';
 
-export function createCampaign(data) {
-    return { type: CAMPAIGN_REQUEST, data }
-}
+export const GET_ACTIVE_CAMPAIGN_MEM_REQUEST = 'GET_ACTIVE_CAMPAIGN_MEM_REQUEST';
+export const GET_ACTIVE_CAMPAIGN_MEM_SUCCESS = 'GET_ACTIVE_CAMPAIGN_MEM_SUCCESS';
+export const GET_ACTIVE_CAMPAIGN_MEM_ERROR = 'GET_ACTIVE_CAMPAIGN_MEM_ERROR';
 
-export function campaignSuccess(data) {
-    return { type: CAMPAIGN_SUCCESS, data }
-}
+export function createCampaign(data) { return { type: CAMPAIGN_REQUEST, data } }
+export function campaignSuccess(data) { return { type: CAMPAIGN_SUCCESS, data } }
+export function campaignError(error) { return { type: CAMPAIGN_ERROR, error } }
 
-export function campaignError(error) {
-    return { type: CAMPAIGN_ERROR, error }
-}
+export function getActiveCampaign(data) { return { type: GET_ACTIVE_CAMPAIGN_REQUEST, data } }
+export function getActiveCampaignSuccess(data) { return { type: GET_ACTIVE_CAMPAIGN_SUCCESS, data } }
+export function getActiveCampaignError(error) { return { type: GET_ACTIVE_CAMPAIGN_ERROR, error } }
 
-export function getActiveCampaign(data) {
-    return { type: GET_ACTIVE_CAMPAIGN_REQUEST, data }
-}
+export function getFutureCampaign(data) { return { type: GET_FUTURE_CAMPAIGN_REQUEST, data } }
+export function getFutureCampaignSuccess(data) { return { type: GET_FUTURE_CAMPAIGN_SUCCESS, data } }
+export function getFutureCampaignError(error) { return { type: GET_FUTURE_CAMPAIGN_ERROR, error } }
 
-export function getActiveCampaignSuccess(data) {
-    return { type: GET_ACTIVE_CAMPAIGN_SUCCESS, data }
-}
+export function getPastCampaign(data) { return { type: GET_PAST_CAMPAIGN_REQUEST, data } }
+export function getPastCampaignSuccess(data) { return { type: GET_PAST_CAMPAIGN_SUCCESS, data } }
+export function getPastCampaignError(error) { return { type: GET_PAST_CAMPAIGN_ERROR, error } }
 
-export function getActiveCampaignError(error) {
-    return { type: GET_ACTIVE_CAMPAIGN_ERROR, error }
-}
+export function stopCampaign(data) { return { type: STOP_CAMPAIGN_REQUEST, data } }
+export function stopCampaignSuccess(data) { return { type: STOP_CAMPAIGN_SUCCESS, data } }
+export function stopCampaignError(error) { return { type: STOP_CAMPAIGN_ERROR, error } }
 
-export function getFutureCampaign(data) {
-    return { type: GET_FUTURE_CAMPAIGN_REQUEST, data }
-}
+export function deleteCampaign(data) { return { type: DELETE_CAMPAIGN_REQUEST, data } }
+export function deleteCampaignSuccess(data) { return { type: DELETE_CAMPAIGN_SUCCESS, data } }
+export function deleteCampaignError(error) { return { type: DELETE_CAMPAIGN_ERROR, error } }
 
-export function getFutureCampaignSuccess(data) {
-    return { type: GET_FUTURE_CAMPAIGN_SUCCESS, data }
-}
-
-export function getFutureCampaignError(error) {
-    return { type: GET_FUTURE_CAMPAIGN_ERROR, error }
-}
-
-export function getPastCampaign(data) {
-    return { type: GET_PAST_CAMPAIGN_REQUEST, data }
-}
-
-export function getPastCampaignSuccess(data) {
-    return { type: GET_PAST_CAMPAIGN_SUCCESS, data }
-}
-
-export function getPastCampaignError(error) {
-    return { type: GET_PAST_CAMPAIGN_ERROR, error }
-}
-
-export function stopCampaign(data) {
-    return { type: STOP_CAMPAIGN_REQUEST, data }
-}
-
-export function stopCampaignSuccess(data) {
-    return { type: STOP_CAMPAIGN_SUCCESS, data }
-}
-
-export function stopCampaignError(error) {
-    return { type: STOP_CAMPAIGN_ERROR, error }
-}
-
-export function deleteCampaign(data) {
-    return { type: DELETE_CAMPAIGN_REQUEST, data }
-}
-
-export function deleteCampaignSuccess(data) {
-    return { type: DELETE_CAMPAIGN_SUCCESS, data }
-}
-
-export function deleteCampaignError(error) {
-    return { type: DELETE_CAMPAIGN_ERROR, error }
-}
+export function getActiveCampaignMem(data) { return { type: GET_ACTIVE_CAMPAIGN_MEM_REQUEST, data } }
+export function getActiveCampaignMemSuccess(data) { return { type: GET_ACTIVE_CAMPAIGN_MEM_SUCCESS, data } }
+export function getActiveCampaignMemError(error) { return { type: GET_ACTIVE_CAMPAIGN_MEM_ERROR, error } }

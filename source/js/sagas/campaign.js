@@ -6,6 +6,7 @@ import {
     GET_PAST_CAMPAIGN_REQUEST, GET_PAST_CAMPAIGN_SUCCESS, GET_PAST_CAMPAIGN_ERROR, getPastCampaign, getPastCampaignSuccess, getPastCampaignError,
     STOP_CAMPAIGN_REQUEST, STOP_CAMPAIGN_SUCCESS, STOP_CAMPAIGN_ERROR, stopCampaign, stopCampaignSuccess, stopCampaignError,
     DELETE_CAMPAIGN_REQUEST, DELETE_CAMPAIGN_SUCCESS, DELETE_CAMPAIGN_ERROR, deleteCampaign, deleteCampaignSuccess, deleteCampaignError,
+    GET_ACTIVE_CAMPAIGN_MEM_REQUEST, GET_ACTIVE_CAMPAIGN_MEM_SUCCESS, GET_ACTIVE_CAMPAIGN_MEM_ERROR, getActiveCampaignMem, getActiveCampaignMemSuccess, getActiveCampaignMemError,
 } from "../actions/campaign";
 import api from '../api/campaign';
 
@@ -105,6 +106,25 @@ function deleteCampaignFunc() {
     };
 }
 
+// This function is used to get all active campaign
+function getActiveCampaignMemFunc() {
+    return function* (action) {
+        // console.log('======================================');
+        // console.log(action);
+        // console.log('======================================');
+        // return;
+        let dataNN = action.data;
+        try {
+            const data = yield call(() => api.getActiveCampaignMembers(dataNN.campaignId,dataNN));
+            const action = { type: GET_ACTIVE_CAMPAIGN_MEM_SUCCESS, data };
+            yield put(action);
+        } catch (error) {
+            const action = { type: GET_ACTIVE_CAMPAIGN_MEM_ERROR, error };
+            yield put(action);
+        }
+    };
+}
+
 
 export function* watchCreateCampaign() {
     yield takeLatest(CAMPAIGN_REQUEST, createCampaignFunc());
@@ -124,6 +144,9 @@ export function* watchStopCampaign() {
 export function* watchDeleteCampaign() {
     yield takeLatest(DELETE_CAMPAIGN_REQUEST, deleteCampaignFunc());
 }
+export function* watchGetActiveCampaignMem() {
+    yield takeLatest(GET_ACTIVE_CAMPAIGN_MEM_REQUEST, getActiveCampaignMemFunc());
+}
 
 export default [
     watchCreateCampaign(),
@@ -132,4 +155,5 @@ export default [
     watchGetPastCampaign(),
     watchStopCampaign(),
     watchDeleteCampaign(),
+    watchGetActiveCampaignMem(),
 ]
