@@ -16,10 +16,11 @@ import ReactSelect from 'react-select';
 import InputRange from 'react-input-range';
 import _ from 'lodash';
 import moment from 'moment';
+import SweetAlert from 'react-bootstrap-sweetalert';
 
-import { 
-        Button, Modal, ModalHeader, ModalBody, ModalFooter, Dropdown, 
-        DropdownToggle, DropdownMenu, DropdownItem ,UncontrolledDropdown 
+import {
+        Button, Modal, ModalHeader, ModalBody, ModalFooter, Dropdown,
+        DropdownToggle, DropdownMenu, DropdownItem ,UncontrolledDropdown
        } from 'reactstrap';
 
 const Example = ({ type, color,displayProp }) => (
@@ -27,7 +28,7 @@ const Example = ({ type, color,displayProp }) => (
 );
 
 class AddToModal extends Component {
-    
+
     constructor(props) {
         super(props);
         this.state = {
@@ -43,14 +44,14 @@ class AddToModal extends Component {
         this.props.onRef(this);
     }
 
-    componentWillMount(){        
+    componentWillMount(){
         this.props.onRef(undefined);
     }
 
     setDefaultVal = () => {
         this.setState({selectedOption:''});
     }
-    
+
     setSaveFor = (val,userId) => {
         this.setState({saveFor:val,userId:userId});
     }
@@ -62,10 +63,10 @@ class AddToModal extends Component {
     }
 
     handleChange = (selectedOption) => {
-        this.setState({ selectedOption });        
+        this.setState({ selectedOption });
     }
-    
-    saveResult = () => {        
+
+    saveResult = () => {
         let {selectedOption,saveFor,userId} = this.state;
         if(selectedOption === ''){
             alert('Select the option');
@@ -73,9 +74,9 @@ class AddToModal extends Component {
             this.props.saveResult(saveFor,selectedOption,userId);
         }
     }
-    
+
     render() {
-        let dropArr = [];     
+        let dropArr = [];
         const { selectedOption } = this.state;
 
         if(this.props.dropdownList !== null){
@@ -89,7 +90,7 @@ class AddToModal extends Component {
 
         return (
             <div>
-                <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} 
+                <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}
                        onClosed={this.props.resetDropVal}>
                     <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
                     <ModalBody>
@@ -161,40 +162,40 @@ const DropDownSocial = () => {
                         </a>
                     </li>
                 </ul>
-                <div className="close-div"> 
+                <div className="close-div">
                     <DropdownItem>
                         <img src={closeImg} alt="" />
                     </DropdownItem>
-                </div>                
+                </div>
             </DropdownMenu>
         </UncontrolledDropdown>
     );
 }
 
-const PlusAction = (props) => {    
+const PlusAction = (props) => {
     return (
         <UncontrolledDropdown>
             <DropdownToggle>
                 <img src={imgPlus} alt="" />
             </DropdownToggle>
-            <DropdownMenu>                
+            <DropdownMenu>
                 <DropdownItem onClick={() => { props.addCampaign(); }}>
                     Add to Campaign
                 </DropdownItem>
                 {
-                    (props.groupId) ? 
+                    (props.groupId) ?
                         '': <DropdownItem onClick={() => { props.addGroup(); }}>
                                 Add to Group
-                            </DropdownItem>                    
+                            </DropdownItem>
                 }
             </DropdownMenu>
         </UncontrolledDropdown>
     );
 }
 
-const AgeDropDown = (props) => {    
+const AgeDropDown = (props) => {
     return (<UncontrolledDropdown>
-        <DropdownToggle caret >                
+        <DropdownToggle caret >
             Age {" "} {props.currentVal.min}-{props.currentVal.max}
         </DropdownToggle>
         <DropdownMenu>
@@ -209,19 +210,19 @@ const AgeDropDown = (props) => {
                         maxValue={65}
                         minValue={15}
                         value={props.currentVal}
-                        onChange={value => props.parentMethod(value)} 
+                        onChange={value => props.parentMethod(value)}
                     />
 
                     <div className="range-div">{props.currentVal.min}-{props.currentVal.max}</div>
                 </div>
-            </div>    
+            </div>
 
-            
+
             <div className="ftr-btn">
                 <button className="bdr-btn" onClick={() => props.setAgeFilter()} >Apply</button>
             </div>
         </DropdownMenu>
-    </UncontrolledDropdown>);    
+    </UncontrolledDropdown>);
 }
 
 const MoreFilterDropDown = (props) => {
@@ -255,7 +256,7 @@ const MoreFilterDropDown = (props) => {
 
         props.moreFilterData.ethnicity.map((obj)=>{
             ethnicityArr.push({'value':obj._id,label:obj.ethnicity});
-        });        
+        });
 
         props.moreFilterData.music_taste.map((obj)=>{
             musicTasteArr.push({'value':obj._id,label:obj.name});
@@ -279,7 +280,7 @@ const MoreFilterDropDown = (props) => {
                                 maxValue={2500}
                                 minValue={0}
                                 value={props.allSliderArr['facebook']['value']}
-                                onChange={value => props.parentSliderMethod(value,"facebook")} 
+                                onChange={value => props.parentSliderMethod(value,"facebook")}
                             />
                             <div className="range-div">{props.allSliderArr['facebook']['value']['min']}-{props.allSliderArr['facebook']['value']['max']}</div>
                         </div>
@@ -294,7 +295,7 @@ const MoreFilterDropDown = (props) => {
                                 maxValue={2500}
                                 minValue={0}
                                 value={props.allSliderArr['instagram']['value']}
-                                onChange={value => props.parentSliderMethod(value,"instagram")} 
+                                onChange={value => props.parentSliderMethod(value,"instagram")}
                             />
                             <div className="range-div">
                                 {props.allSliderArr['instagram']['value']['min']}
@@ -313,7 +314,7 @@ const MoreFilterDropDown = (props) => {
                                 maxValue={2500}
                                 minValue={0}
                                 value={props.allSliderArr['twitter']['value']}
-                                onChange={value => props.parentSliderMethod(value,"twitter")} 
+                                onChange={value => props.parentSliderMethod(value,"twitter")}
                             />
                             <div className="range-div">
                                 {props.allSliderArr['twitter']['value']['min']}
@@ -332,7 +333,7 @@ const MoreFilterDropDown = (props) => {
                                 maxValue={2500}
                                 minValue={0}
                                 value={props.allSliderArr['pinterest']['value']}
-                                onChange={value => props.parentSliderMethod(value,"pinterest")} 
+                                onChange={value => props.parentSliderMethod(value,"pinterest")}
                             />
                             <div className="range-div">
                                 {props.allSliderArr['pinterest']['value']['min']}
@@ -351,7 +352,7 @@ const MoreFilterDropDown = (props) => {
                                 maxValue={2500}
                                 minValue={0}
                                 value={props.allSliderArr['linkedin']['value']}
-                                onChange={value => props.parentSliderMethod(value,"linkedin")} 
+                                onChange={value => props.parentSliderMethod(value,"linkedin")}
                             />
                             <div className="range-div">
                                 {props.allSliderArr['linkedin']['value']['min']}
@@ -371,7 +372,7 @@ const MoreFilterDropDown = (props) => {
                         </label>
                         <ReactSelect
                             className='dropdown-inr'
-                            name="jobIndustryDrop" 
+                            name="jobIndustryDrop"
                             value={props.allDropArr['jobIndustryDrop']['value']}
                             onChange={(value) => props.parentMethod(value,"jobIndustryDrop")}
                             searchable={false} clearable={false} autosize={false}
@@ -386,7 +387,7 @@ const MoreFilterDropDown = (props) => {
                         </label>
                         <ReactSelect
                             className='dropdown-inr'
-                            name="jobTitleDrop" 
+                            name="jobTitleDrop"
                             value={props.allDropArr['jobTitleDrop']['value']}
                             onChange={(value) => props.parentMethod(value,"jobTitleDrop")}
                             searchable={false} clearable={false} autosize={false}
@@ -398,40 +399,40 @@ const MoreFilterDropDown = (props) => {
                     <div className="morefilter-div">
                         <label htmlFor="">
                             Year In Industry
-                        </label>            
+                        </label>
                         <ReactSelect
                             className='dropdown-inr'
-                            name="yearInIndustryArr" 
+                            name="yearInIndustryArr"
                             value={props.allDropArr['yearInIndustry']['value']}
                             onChange={(value) => props.parentMethod(value,"yearInIndustry")}
                             searchable={false} clearable={false} autosize={false}
                             options={yearInIndustryArr}
                             placeholder="Select Year in Industry"
-                        />        
+                        />
                     </div>
 
                     <div className="morefilter-div">
                         <label htmlFor="">
                             Education Level
-                        </label>            
+                        </label>
                         <ReactSelect
                             className='dropdown-inr'
-                            name="education" 
+                            name="education"
                             value={props.allDropArr['education']['value']}
                             onChange={(value) => props.parentMethod(value,"education")}
                             searchable={false} clearable={false} autosize={false}
                             options={educationArr}
                             placeholder="Select Education"
-                        />     
+                        />
                     </div>
 
                     <div className="morefilter-div">
                         <label htmlFor="">
                             Language Spoken
-                        </label>            
+                        </label>
                         <ReactSelect
                             className='dropdown-inr'
-                            name="language" 
+                            name="language"
                             value={props.allDropArr['language']['value']}
                             onChange={(value) => props.parentMethod(value,"language")}
                             searchable={false} clearable={false} autosize={false}
@@ -440,7 +441,7 @@ const MoreFilterDropDown = (props) => {
                         />
                     </div>
                 </div>
-                
+
                 <div className="col-md-4">
                     <div className="morefilter-div">
                         <label htmlFor="">
@@ -448,7 +449,7 @@ const MoreFilterDropDown = (props) => {
                         </label>
                         <ReactSelect
                             className='dropdown-inr'
-                            name="ethnicity" 
+                            name="ethnicity"
                             value={props.allDropArr['ethnicity']['value']}
                             onChange={(value) => props.parentMethod(value,"ethnicity")}
                             searchable={false} clearable={false} autosize={false}
@@ -463,7 +464,7 @@ const MoreFilterDropDown = (props) => {
                         </label>
                         <ReactSelect
                             className='dropdown-inr'
-                            name="sexualOrientation" 
+                            name="sexualOrientation"
                             value={props.allDropArr['sexualOrientation']['value']}
                             onChange={(value) => props.parentMethod(value,"sexualOrientation")}
                             searchable={false} clearable={false} autosize={false}
@@ -482,7 +483,7 @@ const MoreFilterDropDown = (props) => {
                         </label>
                         <ReactSelect
                             className='dropdown-inr'
-                            name="relationship" 
+                            name="relationship"
                             value={props.allDropArr['relationship']['value']}
                             onChange={(value) => props.parentMethod(value,"relationship")}
                             searchable={false} clearable={false} autosize={false}
@@ -490,7 +491,7 @@ const MoreFilterDropDown = (props) => {
                                 {'value':'Married',label:"Married"},
                                 {'value':'Unmarried',label:"Unmarried"},
                                 {'value':'Single',label:"Single"}
-                            ]}                
+                            ]}
 
                             placeholder="Select Relationship"
                         />
@@ -502,7 +503,7 @@ const MoreFilterDropDown = (props) => {
                         </label>
                         <ReactSelect
                             className='dropdown-inr'
-                            name="musicTaste" 
+                            name="musicTaste"
                             value={props.allDropArr['musicTaste']['value']}
                             onChange={(value) => props.parentMethod(value,"musicTaste")}
                             searchable={false} clearable={false} autosize={false}
@@ -517,7 +518,7 @@ const MoreFilterDropDown = (props) => {
             </div>
         </DropdownMenu>
     </UncontrolledDropdown>);
-    
+
 }
 
 class EverydayPeople extends Component {
@@ -528,7 +529,7 @@ class EverydayPeople extends Component {
         super(props);
 
         this.state = {
-            activePage: 1,            
+            activePage: 1,
             loaderShow:false,
 
             groupId:'',
@@ -547,7 +548,7 @@ class EverydayPeople extends Component {
                 { 'dropdown': 'genderDrop',         'value': false },
                 { 'dropdown': 'sortDrop',           'value': {value:1,label:"Name ASC"} },
             ],
-            
+
             allSliders:[
                 { 'slider': 'facebook',    'value':{ min: 0,  max: 2500 } },
                 { 'slider': 'instagram',   'value':{ min: 0,  max: 2500 } },
@@ -574,7 +575,7 @@ class EverydayPeople extends Component {
     }
 
     filterSendReq = (data) => {
-        const { dispatch,match } = this.props;                
+        const { dispatch,match } = this.props;
         data['groupId'] = match.params.grpId;
         dispatch(sendReq(data))
     }
@@ -591,31 +592,33 @@ class EverydayPeople extends Component {
             "page_size":9,
             "page_no":pageNumber
         }
-        this.filterSendReq(arrayFilter);        
+        this.filterSendReq(arrayFilter);
     }
 
     handleChange = (selectedOption,secondParam) => {
 
-        const { dispatch } = this.props;        
+        console.log(selectedOption);
+
+        const { dispatch } = this.props;
         let { appliedFilter } = this.state;
-        
-        let allDropDown = this.state.allDropDown;                
+
+        let allDropDown = this.state.allDropDown;
         let index = _.findIndex(allDropDown, {dropdown: secondParam});
         allDropDown.splice(index, 1, {dropdown: secondParam,value: selectedOption});
-        this.setState({allDropDown:allDropDown});        
-        
+        this.setState({allDropDown:allDropDown});
+
         if(secondParam == 'genderDrop'){
 
             let dropDownIndex = _.findIndex(appliedFilter[0]['filter'], function(o) { return o.field == 'gender'; });
             let filteredArr = appliedFilter[0]['filter'];
-            
+
             // Check if age filter is applied or not...
             if(dropDownIndex === -1){
                 filteredArr.push({"field":'gender',"type":"exact","value":selectedOption['value']},)
                 this.setState({'appliedFilter':[{'filter':filteredArr}]});
             }else{
                 let arrIndex = _.findIndex(filteredArr, {"field":'gender'});
-                filteredArr.splice(arrIndex, 1, {"field":'gender',"type":"exact","value":selectedOption['value']},);
+                filteredArr.splice(arrIndex, 1, {"field":'gender',"type":"exact","value":selectedOption['value']});
                 this.setState({'appliedFilter':[{'filter':filteredArr}]});
             }
 
@@ -628,24 +631,24 @@ class EverydayPeople extends Component {
                 "page_no":1
             }
             this.setState({"activePage":1});
-            this.filterSendReq(arrayFilter);            
+            this.filterSendReq(arrayFilter);
         }
 
         if(secondParam == 'sortDrop'){
-            
+
             let arrayFilter = {
                 filter:this.state.appliedFilter[0]['filter'],
                 "sort":[{ "field": "name", "value":parseInt(selectedOption['value'])}],
                 "page_size":9,
                 "page_no":1
             }
-            this.setState({"activePage":1});                       
+            this.setState({"activePage":1});
             this.filterSendReq(arrayFilter);
         }
     }
 
-    handleSLider = (selectedOption,secondParam) => {        
-        let {allSliders} = this.state;                
+    handleSLider = (selectedOption,secondParam) => {
+        let {allSliders} = this.state;
         let index = _.findIndex(allSliders, {slider: secondParam});
         allSliders.splice(index, 1, {slider: secondParam,value: selectedOption});
         this.setState({allSliders:allSliders});
@@ -660,7 +663,7 @@ class EverydayPeople extends Component {
     addGroup = (obj) => {
         const {dispatch} = this.props;
         this.child.setSaveFor('group',obj._id);
-        dispatch(fetchDropDownReq({"sendReqFor":"group","uId":obj._id}));        
+        dispatch(fetchDropDownReq({"sendReqFor":"group","uId":obj._id}));
     }
 
     renderLi = (obj) =>{
@@ -672,22 +675,22 @@ class EverydayPeople extends Component {
                             <img src={sampleImg} alt="" />
                         </a>
                         <div className="plus-people dropdown">
-                            <PlusAction 
-                                addCampaign={() => {this.addCampaign(obj)} } 
-                                addGroup={() => {this.addGroup(obj)}} 
+                            <PlusAction
+                                addCampaign={() => {this.addCampaign(obj)} }
+                                addGroup={() => {this.addGroup(obj)}}
                                 groupId={this.state.groupId}
                             />
                         </div>
                     </div>
                     <div className="all-people-content d-flex">
-                        <h4>{obj.name}</h4>                        
-                        <DropDownSocial/>                        
+                        <h4>{obj.name}</h4>
+                        <DropDownSocial/>
                     </div>
                 </div>
             </li>
         );
     }
-    
+
     componentWillMount(){
         const { dispatch,match } = this.props;
         this.setState({groupId:''});
@@ -700,8 +703,8 @@ class EverydayPeople extends Component {
             "page_no":1,
             groupId:match.params.grpId
         }
-        this.filterSendReq(arrayFilter);        
-        dispatch(moreFilterReq());        
+        this.filterSendReq(arrayFilter);
+        dispatch(moreFilterReq());
     }
 
     componentDidMount(){
@@ -709,8 +712,7 @@ class EverydayPeople extends Component {
     }
 
     componentDidUpdate(){
-        let {showDrop,userAdded,dispatch} = this.props;
-        // alert(showDrop);
+        let {showDrop,userAdded,dispatch} = this.props;        
         if(showDrop){
             this.child.toggle();
         }
@@ -721,13 +723,13 @@ class EverydayPeople extends Component {
         }
     }
 
-    setAgeValue(value) {        
+    setAgeValue(value) {
         this.setState({ageRange:{min:value.min,max:value.max}});
     }
-    
+
     setAgeFilter = () => {
-                
-        const {allSliders,appliedFilter,allDropDown} = this.state;        
+
+        const {allSliders,appliedFilter,allDropDown} = this.state;
         const {dispatch} = this.props;
 
         let ageFilterIndex = _.findIndex(appliedFilter[0]['filter'], function(o) { return o.field == 'age'; });
@@ -744,7 +746,7 @@ class EverydayPeople extends Component {
             this.setState({'appliedFilter':[{'filter':filteredArr}]});
         }
 
-        let sortDropArr = _.find(allDropDown, function(o) { return o.dropdown == 'sortDrop'; });        
+        let sortDropArr = _.find(allDropDown, function(o) { return o.dropdown == 'sortDrop'; });
 
         let arrayFilter = {
             "filter":this.state.appliedFilter[0]['filter'],
@@ -752,17 +754,17 @@ class EverydayPeople extends Component {
             "page_size":9,
             "page_no":1
         }
-        this.setState({"activePage":1});        
+        this.setState({"activePage":1});
         this.filterSendReq(arrayFilter);
-        
+
         // this.setState({isAgeFilterSelected:true});
-    }    
+    }
 
     applyMoreFilter = () => {
 
         const { allDropDown, allSliders,appliedFilter } = this.state;
         const { dispatch } = this.props;
-                
+
         let allDropArr = _.filter( allDropDown, function(o) { return ((o.dropdown !== 'sortDrop') &&  (o.dropdown !== 'genderDrop') && (o.value !== false)); });
         let allSliderArr = _.filter( allSliders, function(o) { return (o.slider !== 'ageRange'); });
 
@@ -771,21 +773,21 @@ class EverydayPeople extends Component {
         // let exstingFilter = Object.assign({},this.state.appliedFilter[0]['filter']);
         let exstingFilter = this.state.appliedFilter[0]['filter'];
 
-        _.remove(exstingFilter, function(o) {            
+        _.remove(exstingFilter, function(o) {
             return (
                     (o.field === 'job_industry') || (o.field === 'year_in_industry') || (o.field === 'education')  ||
-                    (o.field === 'language') || (o.field === 'ethnicity') || (o.field === 'interested_in') || 
+                    (o.field === 'language') || (o.field === 'ethnicity') || (o.field === 'interested_in') ||
                     (o.field === 'relationship_status') || (o.field === 'music_taste')
                 );
 
         });
-        
+
         const exstingFilterArr = Object.keys(exstingFilter).map(i => exstingFilter[i])
-        
+
         console.log('====== exstingFilter ==========');
         console.log(exstingFilterArr);
         console.log('====== exstingFilter ==========');
-                
+
         /*allSliderArr.map((obj,index) => {
             let fieldText = '';
             switch (obj['slider']) {
@@ -797,7 +799,7 @@ class EverydayPeople extends Component {
             }
             exstingFilterArr.push({"field":fieldText, "type":"between", "min_value":obj['value']['min'],"max_value":obj['value']['max']});
         });*/
-        
+
         allDropArr.map((obj)=> {
             let fieldText = '';
             let fieldType = '';
@@ -812,19 +814,19 @@ class EverydayPeople extends Component {
                 case 'ethnicity'        : fieldText='ethnicity'; fieldType='exact'; break;
                 case 'sexualOrientation': fieldText='interested_in'; fieldType='exact'; break;
                 case 'relationship'     : fieldText='relationship_status'; fieldType='exact'; break;
-                case 'musicTaste'       : fieldText='music_taste'; fieldType='id'; break;                
+                case 'musicTaste'       : fieldText='music_taste'; fieldType='id'; break;
             }
 
             exstingFilterArr.push({"field":fieldText, "type":fieldType, "value":obj['value']['value']},);
         });
 
-        //----------------------------------------------------------------------------------------------------------------        
+        //----------------------------------------------------------------------------------------------------------------
 
         console.log('====== last ==========');
         console.log(exstingFilterArr);
         console.log('====== last ==========');
 
-        this.setState({'appliedFilter':[{'filter':exstingFilterArr}]});        
+        this.setState({'appliedFilter':[{'filter':exstingFilterArr}]});
 
         let sortDropArr = _.find(allDropDown, function(o) { return o.dropdown == 'sortDrop'; });
         let arrayFilter = {
@@ -833,7 +835,7 @@ class EverydayPeople extends Component {
             "page_size":9,
             "page_no":1
         }
-        this.setState({"activePage":1});        
+        this.setState({"activePage":1});
         this.filterSendReq(arrayFilter);
     }
 
@@ -843,16 +845,22 @@ class EverydayPeople extends Component {
         dispatch(resetVal(null));
     }
 
-    saveResult = (param1,param2,param3) => {        
-        
+    saveResult = (param1,param2,param3) => {
+
         let data = {
             param1,
             param2,
             param3
         }
-        
+
         const { dispatch } = this.props;
         dispatch(addUserReq(data));
+    }
+
+    saveBulkResult = (value) => {
+        // alert(JSON.stringify(value));
+        // let {} = this.props;
+
     }
 
     render() {
@@ -863,8 +871,8 @@ class EverydayPeople extends Component {
         let allSliderArr = [];
 
         let genderDropArr = _.find(allDropDown, function(o) { return o.dropdown == 'genderDrop'; });
-        let sortDropArr = _.find(allDropDown, function(o) { return o.dropdown == 'sortDrop'; });        
-                
+        let sortDropArr = _.find(allDropDown, function(o) { return o.dropdown == 'sortDrop'; });
+
         allDropArr['jobIndustryDrop'] = _.find(allDropDown, function(o) { return o.dropdown == 'jobIndustryDrop'; });
         allDropArr['jobTitleDrop'] = _.find(allDropDown, function(o) { return o.dropdown == 'jobTitleDrop'; });
         allDropArr['yearInIndustry'] = _.find(allDropDown, function(o) { return o.dropdown == 'yearInIndustry'; });
@@ -886,7 +894,9 @@ class EverydayPeople extends Component {
 
         return (
             <div className="every-people">
-                
+                <SweetAlert title="Here's a message!" onConfirm={this.hideAlert}>
+                    It's pretty, isn't it?
+                </SweetAlert>
                 {/* <div className="loader" style={{"zIndex":"9999999999"}}></div> */}
 
                 {/* <Example  /> */}
@@ -895,7 +905,7 @@ class EverydayPeople extends Component {
                     <div className="everypeole-head-l">
                         <ul>
                             <li className="dropdown age-dropdown active">
-                                <AgeDropDown                                        
+                                <AgeDropDown
                                         parentMethod={(value) => { (value['min']>14) ? this.handleSLider(value,"ageRange"):''; }}
                                         currentVal={allSliderArr['ageRange']['value']}
                                         setAgeFilter={() => { this.setAgeFilter()}}
@@ -922,7 +932,7 @@ class EverydayPeople extends Component {
                             </li>
                             <li>
                                 <MoreFilterDropDown
-                                    // parentMethod={(value) => this.setAgeValue(value,"str")}                                         
+                                    // parentMethod={(value) => this.setAgeValue(value,"str")}
                                     parentMethod={(selectedOp,dropDownName) => this.handleChange(selectedOp,dropDownName)}
                                     parentSliderMethod={(selectedOp,sliderName) => {(selectedOp['min']>=0) ? this.handleSLider(selectedOp,sliderName):''}}
                                     allDropArr={allDropArr}
@@ -934,8 +944,8 @@ class EverydayPeople extends Component {
                         </ul>
                     </div>
                     <div className="everypeole-head-r">
-                        <ul>                        
-                            <li>                                 
+                        <ul>
+                            <li>
                                 <ReactSelect
                                     name="form-field-name"
                                     className='dropdown-inr'
@@ -952,11 +962,11 @@ class EverydayPeople extends Component {
                                 />
                             </li>
                             <li>
-                                
+
                                 <ReactSelect
-                                    name="genderDrop"
-                                    value={genderDropArr.value}
-                                    // onChange={(value) => this.handleChange(value,"genderDrop")}
+                                    name="addAllResults"
+                                    // value={genderDropArr.value}
+                                    onChange={(value) => this.saveBulkResult(value)}
                                     searchable={false}
                                     clearable={false}
                                     autosize={false}
@@ -981,22 +991,22 @@ class EverydayPeople extends Component {
                     <ul className="all-people-ul d-flex">
                         {
                             (users.status === 1) ? users.data.map((obj,index) => (this.renderLi(obj))) :''
-                        }                        
+                        }
                     </ul>
-                    
-                    { (users.total > 9) ? 
-                        <Pagination 
+
+                    { (users.total > 9) ?
+                        <Pagination
                             activePage={this.state.activePage}
-                            totalItemsCount={users.total} 
-                            pageRangeDisplayed={5} 
+                            totalItemsCount={users.total}
+                            pageRangeDisplayed={5}
                             onChange={this.handlePageChange}
                         /> : '' }
-                    
+
 
                 </div>
 
-                <AddToModal onRef={ref => (this.child = ref)} 
-                            dropdownList={dropdownList} 
+                <AddToModal onRef={ref => (this.child = ref)}
+                            dropdownList={dropdownList}
                             resetDropVal={this.resetDropVal}
                             saveResult={this.saveResult}  />
 
