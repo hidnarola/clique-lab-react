@@ -193,6 +193,21 @@ const PlusAction = (props) => {
     );
 }
 
+const PlusAction2 = (props) => {
+    return (
+        <UncontrolledDropdown className="festival-ftr-r dropdown">
+            <DropdownToggle>
+                <a className="cursor_pointer"><img src="/assets/img/site/plus-sign.png" alt="" /></a>
+            </DropdownToggle>
+            <DropdownMenu className="dropdown-menu dropdown-menu-right">
+                <a className="dropdown-item cursor_pointer">Add to Cart</a>
+                <a className="dropdown-item cursor_pointer">Add user to Group</a>
+                <a className="dropdown-item cursor_pointer">Modify status and purchase</a>
+            </DropdownMenu>
+        </UncontrolledDropdown>
+    );
+}
+
 const AgeDropDown = (props) => {
     return (<UncontrolledDropdown>
         <DropdownToggle caret >
@@ -692,6 +707,36 @@ class EverydayPeople extends Component {
         );
     }
 
+    renderLi2 = (obj) => {
+        return (
+            <li key={Math.random()}>
+                <div className="fan-festival-box">
+                    <div className="festival-head d-flex">
+                        <div className="festival-head-l">
+                            <span></span>
+                            <h3>
+                                <big>{obj.name}</big>
+                                <small>Bondi Beach, Sydney, Australia</small>
+                            </h3>
+                        </div>
+                        <div className="festival-head-r"><h3>$45.00</h3></div>
+                    </div>
+                    <div className="festival-img"><img src="http://placehold.it/450x215" alt="" /></div>
+                    <div className="festival-body">
+                        <h2>Make up by morning. boyfriends happy, what a life I lead! <a href="">@thegrocer #morning #earlyriser #excited #sponsored</a></h2>
+                    </div>
+                    <div className="festival-ftr d-flex">
+                        <div className="festival-ftr-l"><a href=""><i><img src="images/facebook-01.png" alt="" /></i><strong>823M</strong></a></div>
+                        <div className="festival-ftr-r dropdown">
+                            <PlusAction2 />
+                        </div>
+                    </div>
+                </div>
+            </li>
+        );
+    }
+
+    
     componentWillMount(){
         const { dispatch,match } = this.props;
         this.setState({groupId:''});
@@ -867,7 +912,7 @@ class EverydayPeople extends Component {
     }
 
     render() {
-        let {users,moreFilterData,dropdownList,loading} = this.props;
+        let {users,moreFilterData,dropdownList,loading,match} = this.props;
         const {allDropDown,allSliders} = this.state;
 
         let allDropArr = [];
@@ -997,11 +1042,16 @@ class EverydayPeople extends Component {
                         <a >
                             <i className="fa fa-plus"></i> Save the results as a Group</a>
                     </div>
-                    <ul className="all-people-ul d-flex">
-                        {
-                            (users.status === 1) ? users.data.map((obj,index) => (this.renderLi(obj))) :''
-                        }
-                    </ul>
+                    {   (match.params.campaignId!==null && match.params.campaignId!==undefined) 
+                        ?
+                        <ul className="fan-festival d-flex">
+                            {(users.status === 1) ? users.data.map((obj,index) => (this.renderLi2(obj))) :''}
+                        </ul>
+                        :
+                        <ul className="all-people-ul d-flex">
+                            {(users.status === 1) ? users.data.map((obj,index) => (this.renderLi(obj))) :''}
+                        </ul>
+                    }
 
                     { (users.total > 9) ?
                         <Pagination
