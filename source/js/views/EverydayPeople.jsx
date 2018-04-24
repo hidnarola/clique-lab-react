@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Pagination from "react-js-pagination";
-import { sendReq,moreFilterReq,fetchDropDownReq,resetVal,addUserReq } from '../actions/everyDay';
+import { sendReq,moreFilterReq,fetchDropDownReq,resetVal,addUserReq,bulkUserReq } from '../actions/everyDay';
 import ReactLoading from 'react-loading';
 import sampleImg from 'img/site/400x218.png';
 import closeImg from 'img/site/close.png';
@@ -648,11 +648,7 @@ class EverydayPeople extends Component {
     }
 
     handleSLider = (selectedOption,secondParam) => {
-<<<<<<< HEAD
         let {allSliders} = this.state;
-=======
-        let {allSliders} = this.state;                
->>>>>>> 4aca4245bf677e4b68a697df12aedfde93c36f35
         let index = _.findIndex(allSliders, {slider: secondParam});
         allSliders.splice(index, 1, {slider: secondParam,value: selectedOption});
         this.setState({allSliders:allSliders});
@@ -863,12 +859,17 @@ class EverydayPeople extends Component {
 
     saveBulkResult = (value) => {
         // alert(JSON.stringify(value));
+        const { dispatch } = this.props;
+        console.log(this.state.appliedFilter);
+
+        dispatch(bulkUserReq({val:value['value'],filter:this.state.appliedFilter})); 
+        // bulkUserReq
         // let {} = this.props;
 
     }
 
     render() {
-        let {users,moreFilterData,dropdownList} = this.props;
+        let {users,moreFilterData,dropdownList,loading} = this.props;
         const {allDropDown,allSliders} = this.state;
 
         let allDropArr = [];
@@ -896,11 +897,17 @@ class EverydayPeople extends Component {
 
         allSliderArr['ageRange'] = _.find(allSliders, function(o) { return o.slider == 'ageRange'; });
 
+        if(loading) { // if your component doesn't have to wait for an async action, remove this block 
+            return (
+                <div className="loader"></div>
+            ) // render null when app is not ready
+        }
+
         return (
             <div className="every-people">
-                <SweetAlert title="Here's a message!" onConfirm={this.hideAlert}>
+                {/* <SweetAlert title="Here's a message!" onConfirm={this.hideAlert}>
                     It's pretty, isn't it?
-                </SweetAlert>
+                </SweetAlert> */}
                 {/* <div className="loader" style={{"zIndex":"9999999999"}}></div> */}
 
                 {/* <Example  /> */}

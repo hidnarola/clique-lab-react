@@ -3,7 +3,10 @@ import {
         EVERY_DAY_REQUEST,EVERY_DAY_SUCCESS,EVERY_DAY_ERROR,everyDaySuccess,everyDayError,
         MORE_FILTER_REQUEST, MORE_FILTER_SUCCESS, MORE_FILTER_ERROR,moreFilterReq,moreFilterSuccess,moreFilterError,
         FETCH_DROPDOWN_REQUEST,FETCH_DROPDOWN_SUCCESS,FETCH_DROPDOWN_ERROR,fetchDropDownReq,fetchDropDownSuccess,fetchDropDownError,
-        ADD_USER_REQUEST,addUserSuccess,addUserError
+        ADD_USER_REQUEST,addUserSuccess,addUserError,
+        
+        BULK_USER_REQUEST,BULK_USER_SUCCESS,BULK_USER_ERROR,bulkUserReq,bulkUserSuccess,bulkUserError
+
        } from "../actions/everyDay";
 import api from '../api/everyDay';
 
@@ -52,6 +55,17 @@ function addUserData(){
     }
 }
 
+function addUserBulkData(){
+    return function* (action){
+        try{    
+            let data = yield call(() => api.addBulkUser(action.data));
+            yield put(bulkUserSuccess(data.data));
+        } catch(error){
+            yield put(bulkUserError(error));
+        }
+    }
+}
+
 export function* watchEveryDay() {
     yield takeLatest(EVERY_DAY_REQUEST, fetchEveryDayData());
 }
@@ -68,9 +82,14 @@ export function* watchAddUserData() {
     yield takeLatest(ADD_USER_REQUEST, addUserData());
 }
 
+export function* watchBulkUserData() {
+    yield takeLatest(ADD_USER_REQUEST, addUserBulkData());
+}
+
 export default [
     watchEveryDay(),
     watchMoreFilterData(),
     watchFetchDropDownData(),
-    watchAddUserData()
+    watchAddUserData(),
+    watchBulkUserData()
 ]

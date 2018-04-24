@@ -16,6 +16,10 @@ export const ADD_USER_REQUEST = 'ADD_USER_REQUEST';
 export const ADD_USER_SUCCESS = 'ADD_USER_SUCCESS';
 export const ADD_USER_ERROR = 'ADD_USER_ERROR';
 
+export const BULK_USER_REQUEST = 'BULK_USER_REQUEST';
+export const BULK_USER_SUCCESS = 'BULK_USER_SUCCESS';
+export const BULK_USER_ERROR = 'BULK_USER_ERROR';
+
 // ----------------------------------------------------------------------
 
     export function sendReq(data) {
@@ -64,6 +68,7 @@ export const ADD_USER_ERROR = 'ADD_USER_ERROR';
     }
 // ----------------------------------------------------------------------
 
+
 // ----------------------------------------------------------------------
     export function addUserReq(data) {
         return { type: ADD_USER_REQUEST,data:data}
@@ -77,8 +82,23 @@ export const ADD_USER_ERROR = 'ADD_USER_ERROR';
         return { type: ADD_USER_ERROR, error:error }
     }
 // ----------------------------------------------------------------------
-
+    
+// ----------------------------------------------------------------------
     export function resetVal(data) {
         return { type: RESET_VALUES, data:data }
+    }
+// ----------------------------------------------------------------------
+
+// ----------------------------------------------------------------------
+    export function bulkUserReq(data) {
+        return { type: BULK_USER_REQUEST,data:data}
+    }
+
+    export function bulkUserSuccess(data) {
+        return { type: BULK_USER_SUCCESS, data:data }
+    }
+
+    export function bulkUserError(error) {
+        return { type: BULK_USER_ERROR, error:error }
     }
 // ----------------------------------------------------------------------
