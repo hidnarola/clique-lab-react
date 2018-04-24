@@ -19,7 +19,7 @@ const initialState = Map({
     moreFilterData:null,
     dropdownList:null,
     showDrop:false,    
-    userAdded:false
+    userAdded:false,
 });
 
 const actionMap = {

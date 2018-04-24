@@ -576,7 +576,8 @@ class EverydayPeople extends Component {
     filterSendReq = (data) => {
         const { dispatch,match } = this.props;                
         data['groupId'] = match.params.grpId;
-        dispatch(sendReq(data))
+        data['campaignId'] = match.params.campaignId;
+        dispatch(sendReq(data));
     }
 
     handlePageChange = (pageNumber) => {
@@ -644,7 +645,7 @@ class EverydayPeople extends Component {
         }
     }
 
-    handleSLider = (selectedOption,secondParam) => {
+    handleSLider = (selectedOption,secondParam) => {        
         let {allSliders} = this.state;                
         let index = _.findIndex(allSliders, {slider: secondParam});
         allSliders.splice(index, 1, {slider: secondParam,value: selectedOption});
