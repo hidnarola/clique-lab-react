@@ -5,14 +5,16 @@ import { Link } from 'react-router-dom';
 import { getActiveCampaignMem } from '../../actions/campaign';
 import nodataImg from 'img/site/nodata.png';
 import { imgRoutes } from '../../constants/img_path';
+import { routeCodes } from '../../constants/routes';
 import PropTypes from 'prop-types';
 import Pagination from "react-js-pagination";
+import InputRange from 'react-input-range';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem ,UncontrolledDropdown } from 'reactstrap';
 
 // Plus Action Button
 const PlusAction = (props) => {
     return (
-        <UncontrolledDropdown className="plus-people dropdown">
+        <UncontrolledDropdown className="festival-ftr-r dropdown">
             <DropdownToggle>
                 <a className="cursor_pointer"><img src="/assets/img/site/plus-sign.png" alt="" /></a>
             </DropdownToggle>
@@ -25,6 +27,38 @@ const PlusAction = (props) => {
     );
 }
 
+const AgeDropDown = (props) => {    
+    return (<UncontrolledDropdown>
+        <DropdownToggle caret >                
+            Age {" "} {props.currentVal.min}-{props.currentVal.max}
+        </DropdownToggle>
+        <DropdownMenu>
+
+            <div className="morefilter-div">
+                <label htmlFor="">
+                    Facebook Friends
+                </label>
+                <div className="range-wrapper">
+
+                    <InputRange
+                        maxValue={65}
+                        minValue={15}
+                        value={props.currentVal}
+                        onChange={value => props.parentMethod(value)} 
+                    />
+
+                    <div className="range-div">{props.currentVal.min}-{props.currentVal.max}</div>
+                </div>
+            </div>    
+
+            
+            <div className="ftr-btn">
+                <button className="bdr-btn" onClick={() => props.setAgeFilter()} >Apply</button>
+            </div>
+        </DropdownMenu>
+    </UncontrolledDropdown>);    
+}
+
 class ActiveMemberList extends Component {
     
     // Main Constructor
@@ -33,7 +67,9 @@ class ActiveMemberList extends Component {
         this.state = {
             activePage: 1,
             totalRecord: 1,
-            page_name: 'Active',
+            allSliders:[
+                { 'slider': 'ageRange',    'value':{ min: 15, max: 65   } },
+            ],
         };
         this.activeMemberListing = this.activeMemberListing.bind(this); 
         this.handlePageChange = this.handlePageChange.bind(this)
@@ -63,12 +99,7 @@ class ActiveMemberList extends Component {
                         <div className="festival-ftr d-flex">
                             <div className="festival-ftr-l"><a href=""><i><img src="images/facebook-01.png" alt="" /></i><strong>823M</strong></a></div>
                             <div className="festival-ftr-r dropdown">
-                                <a href="javascript:void(0)" role="button" id="dropdownMenuLink-06" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="images/plus-sign.png" alt="" /></a>
-                                <div className="dropdown-menu" aria-labelledby="dropdownMenuLink-06">
-                                    <a className="dropdown-item" href="#">Add to Cart</a>
-                                    <a className="dropdown-item" href="#">Add user to Group</a>
-                                    <a className="dropdown-item" href="#">Modify status and purchase</a>
-                                </div>
+                                <PlusAction />
                             </div>
                         </div>
                     </div>
@@ -82,50 +113,83 @@ class ActiveMemberList extends Component {
         componentWillMount(){
             const { dispatch, match } = this.props;
             let campaignId = match.params.campaignId;
-            dispatch(getActiveCampaignMem({"campaignId":campaignId,"page_size":9,"page_no":1}))
+            dispatch(getActiveCampaignMem({"campaignId":campaignId,"page_size":6,"page_no":1}))
         }
-        
-        // componentDidUpdate(){
-        //     const { isStop, dispatch } = this.props;
-        //     if(isStop===1){
-        //         dispatch(getActiveCampaign({"page_size":9,"page_no":1}))
-        //     }
-        // }
     
     /*********************************************
                 Pagination
     **********************************************/
         handlePageChange(pageNumber) {
             this.setState({activePage: pageNumber});
-            const { dispatch } = this.props;
-            dispatch(getActiveCampaign({"page_size":9,"page_no":pageNumber}))
+            const { dispatch, match } = this.props;
+            let campaignId = match.params.campaignId;
+            dispatch(getActiveCampaignMem({"campaignId":campaignId,"page_size":6,"page_no":pageNumber}));
+        }
+    
+    /*********************************************
+                Age Filtration
+    **********************************************/
+        setAgeFilter = () => {    
+            const {allSliders,appliedFilter,allDropDown} = this.state;        
+            const {dispatch} = this.props;
+
+            let ageFilterIndex = _.findIndex(appliedFilter[0]['filter'], function(o) { return o.field == 'age'; });
+            let ageVal = _.find(allSliders, function(o) { return o.slider == 'ageRange'; });
+            let filteredArr = appliedFilter[0]['filter'];
+
+            // Check if age filter is applied or not...
+            if(ageFilterIndex === -1){
+                filteredArr.push({"field":"age", "type":"between", "min_value":ageVal['value']['min'],"max_value":ageVal['value']['max']})
+                this.setState({'appliedFilter':[{'filter':filteredArr}]});
+            }else{
+                let arrIndex = _.findIndex(filteredArr, {"field":"age"});
+                filteredArr.splice(arrIndex, 1, {"field":"age", "type":"between", "min_value":ageVal['value']['min'],"max_value":ageVal['value']['max']},);
+                this.setState({'appliedFilter':[{'filter':filteredArr}]});
+            }
+
+            let sortDropArr = _.find(allDropDown, function(o) { return o.dropdown == 'sortDrop'; });        
+
+            let arrayFilter = {
+                "filter":this.state.appliedFilter[0]['filter'],
+                "sort":[{ "field": "name", "value":parseInt(sortDropArr['value']['value'])}],
+                "page_size":6,
+                "page_no":1
+            }
+            this.setState({"activePage":1});        
+            this.filterSendReq(arrayFilter);
         }
 
+        handleSLider = (selectedOption,secondParam) => {
+            let {allSliders} = this.state;                
+            let index = _.findIndex(allSliders, {slider: secondParam});
+            allSliders.splice(index, 1, {slider: secondParam,value: selectedOption});
+            this.setState({allSliders:allSliders});
+        }
+        
     /*********************************************
                 Render Method
     **********************************************/
         render() {
             let { activeCampaignMem, totalActiveCampaignMem, loading } = this.props;
+            const { allSliders } = this.state;
             if(loading) {
                 return (
                     <div className="loader"></div>
                 )
             }
-            
+            let allSliderArr = [];
+            allSliderArr['ageRange'] = _.find(allSliders, function(o) { return o.slider == 'ageRange'; });
             return (
                 <div className="every-people">
                     <div className="everypeole-head d-flex">
                         <div className="everypeole-head-l">
                             <ul>
                                 <li className="dropdown age-dropdown active">
-                                    <a href="#" className="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">21 - 25</a>
-                                    <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                        <h4>Age group</h4>
-                                        <div className="age-fillter"><img src="images/fillter.png" alt="" /></div>
-                                        <div className="ftr-btn">
-                                            <button className="bdr-btn">Apply</button>
-                                        </div>
-                                    </div>
+                                    <AgeDropDown                                        
+                                        parentMethod={(value) => { (value['min']>14) ? this.handleSLider(value,"ageRange"):''; }}
+                                        currentVal={allSliderArr['ageRange']['value']}
+                                        setAgeFilter={() => { this.setAgeFilter()}}
+                                    />
                                 </li>
                                 <li><a href="">Gendar</a></li>
                                 <li><a href="">Location</a></li>
@@ -133,9 +197,9 @@ class ActiveMemberList extends Component {
                             </ul>
                         </div>
                         <div className="everypeole-head-r">
-                            <ul>
-                                <li><a href="">Sort <i className="dropdown-arrow"></i></a></li>
-                            </ul>
+                            <div className="new-permission">
+                                <Link className="cursor_pointer" to={routeCodes.CAMPAIGN} >Purchase all result</Link>
+                            </div>
                         </div>
                     </div>
                     <div className="all-people">
@@ -161,7 +225,7 @@ class ActiveMemberList extends Component {
 
 
 const mapStateToProps = (state) => {
-    const {campaign} = state;
+    const {campaign} = state; 
     return {
         loading: campaign.get('loading'),
         error: campaign.get('error'),
