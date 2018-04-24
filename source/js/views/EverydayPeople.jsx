@@ -861,12 +861,9 @@ class EverydayPeople extends Component {
     saveBulkResult = (value) => {
         // alert(JSON.stringify(value));
         const { dispatch } = this.props;
-        console.log(this.state.appliedFilter);
-
+        console.log(this.state.appliedFilter);                
+        dispatch(fetchDropDownReq({"sendReqFor":"campaign"}));
         dispatch(bulkUserReq({val:value['value'],filter:this.state.appliedFilter})); 
-        // bulkUserReq
-        // let {} = this.props;
-
     }
 
     render() {
