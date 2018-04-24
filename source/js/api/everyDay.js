@@ -22,7 +22,11 @@ function fetchDropDownData(data){
     let newVar = reactLocalStorage.get('token', true);    
     let url = '';
 
-    if(data.sendReqFor == 'campaign'){
+    if(data.sendReqFor == 'add_to_capaign'){
+        url = `promoter/campaign/list_for_user/${data.uId}`;
+    }else if(data.sendReqFor == 'add_to_group'){
+        url = `promoter/group`;
+    }else if(data.sendReqFor == 'campaign'){
         url = `promoter/campaign/list_for_user/${data.uId}`;
     }else{
         url = `promoter/group/list_for_user/${data.uId}`;

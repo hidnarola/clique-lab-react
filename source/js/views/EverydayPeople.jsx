@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Pagination from "react-js-pagination";
 import { sendReq,moreFilterReq,fetchDropDownReq,resetVal,addUserReq,bulkUserReq } from '../actions/everyDay';
-import ReactLoading from 'react-loading';
 import sampleImg from 'img/site/400x218.png';
 import closeImg from 'img/site/close.png';
 import fbImg from 'img/site/facebook-01.png';
@@ -23,10 +22,6 @@ import {
         DropdownToggle, DropdownMenu, DropdownItem ,UncontrolledDropdown
        } from 'reactstrap';
 
-const Example = ({ type, color,displayProp }) => (
-    <ReactLoading type={type} color={color} height='667' width='375' style={{display:displayProp}}  />
-);
-
 class AddToModal extends Component {
 
     constructor(props) {
@@ -38,6 +33,7 @@ class AddToModal extends Component {
             userId:''
         };
         this.toggle = this.toggle.bind(this);
+        this.setSaveFor = this.setSaveFor.bind(this);
     }
 
     componentDidMount(){
@@ -899,16 +895,20 @@ class EverydayPeople extends Component {
             param3
         }
 
+        console.log(data);
+        
         const { dispatch } = this.props;
         dispatch(addUserReq(data));
     }
 
     saveBulkResult = (value) => {
-        // alert(JSON.stringify(value));
+        alert(JSON.stringify(value));
         const { dispatch } = this.props;
-        console.log(this.state.appliedFilter);                
-        dispatch(fetchDropDownReq({"sendReqFor":"campaign"}));
-        dispatch(bulkUserReq({val:value['value'],filter:this.state.appliedFilter})); 
+        
+        this.child.setSaveFor(value['value']);
+
+        dispatch(fetchDropDownReq({"sendReqFor":value['value']}));
+        // dispatch(bulkUserReq({val:value['value'],filter:this.state.appliedFilter})); 
     }
 
     render() {
@@ -940,21 +940,17 @@ class EverydayPeople extends Component {
 
         allSliderArr['ageRange'] = _.find(allSliders, function(o) { return o.slider == 'ageRange'; });
 
-        if(loading) { // if your component doesn't have to wait for an async action, remove this block 
-            return (
-                <div className="loader"></div>
-            ) // render null when app is not ready
-        }
+        // if(loading) { // if your component doesn't have to wait for an async action, remove this block 
+        //     return (
+        //         <div className="loader"></div>
+        //     ) // render null when app is not ready
+        // }
 
         return (
             <div className="every-people">
-                {/* <SweetAlert title="Here's a message!" onConfirm={this.hideAlert}>
-                    It's pretty, isn't it?
-                </SweetAlert> */}
-                {/* <div className="loader" style={{"zIndex":"9999999999"}}></div> */}
 
-                {/* <Example  /> */}
-
+                { (loading) ? <div className="loader" style={{"zIndex":"999999999"}}></div> : '' }
+                
                 <div className="everypeole-head d-flex">
                     <div className="everypeole-head-l">
                         <ul>
@@ -1064,7 +1060,7 @@ class EverydayPeople extends Component {
 
                 </div>
 
-                <AddToModal onRef={ref => (this.child = ref)}
+                <AddToModal onRef={ref => (this.child = ref)}                            
                             dropdownList={dropdownList}
                             resetDropVal={this.resetDropVal}
                             saveResult={this.saveResult}  />
