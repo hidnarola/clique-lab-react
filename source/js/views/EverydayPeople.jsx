@@ -17,6 +17,8 @@ import InputRange from 'react-input-range';
 import _ from 'lodash';
 import moment from 'moment';
 import SweetAlert from 'react-bootstrap-sweetalert';
+import { Link } from 'react-router-dom';
+import { routeCodes } from '../constants/routes';
 
 import {
         Button, Modal, ModalHeader, ModalBody, ModalFooter, Dropdown,
@@ -998,49 +1000,57 @@ class EverydayPeople extends Component {
                         </ul>
                     </div>
                     <div className="everypeole-head-r">
-                        <ul>
-                            <li>
-                                <ReactSelect
-                                    name="form-field-name"
-                                    className='dropdown-inr'
-                                    value={sortDropArr.value}
-                                    onChange={(value) => this.handleChange(value,"sortDrop")}
-                                    searchable={false}
-                                    clearable={false}
-                                    autosize={false}
-                                    placeholder="Select"
-                                    options={[
-                                        { value: '1', label: 'Name ASC' },
-                                        { value: '-1', label: 'Name DESC' },
-                                    ]}
-                                />
-                            </li>
-                            <li>
+                        {   
+                            (match.params.campaignId!==null && match.params.campaignId!==undefined) ?
+                                <div className="new-permission">
+                                    <Link className="cursor_pointer" to={routeCodes.CAMPAIGN} >Purchase all result</Link>
+                                </div>
+                            :
+                                <ul>
+                                    <li>
+                                        <ReactSelect
+                                            name="form-field-name"
+                                            className='dropdown-inr'
+                                            value={sortDropArr.value}
+                                            onChange={(value) => this.handleChange(value,"sortDrop")}
+                                            searchable={false}
+                                            clearable={false}
+                                            autosize={false}
+                                            placeholder="Select"
+                                            options={[
+                                                { value: '1', label: 'Name ASC' },
+                                                { value: '-1', label: 'Name DESC' },
+                                            ]}
+                                        />
+                                    </li>
+                                    <li>
 
-                                <ReactSelect
-                                    name="addAllResults"
-                                    // value={genderDropArr.value}
-                                    onChange={(value) => this.saveBulkResult(value)}
-                                    searchable={false}
-                                    clearable={false}
-                                    autosize={false}
-                                    placeholder="Add All Results"
-                                    className='dropdown-inr'
-                                    options={[
-                                        { value: 'add_to_capaign', label: 'Add to Campaign' },
-                                        { value: 'add_to_group', label: 'Add to Group' },
-                                    ]}
-                                />
-                            </li>
-                        </ul>
+                                        <ReactSelect
+                                            name="addAllResults"
+                                            // value={genderDropArr.value}
+                                            onChange={(value) => this.saveBulkResult(value)}
+                                            searchable={false}
+                                            clearable={false}
+                                            autosize={false}
+                                            placeholder="Add All Results"
+                                            className='dropdown-inr'
+                                            options={[
+                                                { value: 'add_to_capaign', label: 'Add to Campaign' },
+                                                { value: 'add_to_group', label: 'Add to Group' },
+                                            ]}
+                                        />
+                                    </li>
+                                </ul>
+                        }
                     </div>
                 </div>
 
                 <div className="all-people">
                     <div className="all-people-head d-flex">
-                        <h3>Filtered List ({" "+users.total+" "} Results)</h3>
-                        <a >
-                            <i className="fa fa-plus"></i> Save the results as a Group</a>
+                        <h3>Filtered List ({" "+users.total+" "} Results )</h3>
+                        { (match.params.campaignId===null || match.params.campaignId===undefined) &&
+                            <a><i className="fa fa-plus"></i> Save the results as a Group</a>
+                        }
                     </div>
                     {   (match.params.campaignId!==null && match.params.campaignId!==undefined) 
                         ?

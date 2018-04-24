@@ -18,7 +18,7 @@ export const renderFieldCampaign = ({
         label,
         meta: { touched, error, warning }
     }) => (
-        <div className={cx('input-wrap',{'custom-error':(touched && error ) ? true:false })} >
+        <div className={cx('input-wrap ',{'custom-error':(touched && error ) ? true:false })} >
             <label>{label}</label>
             <input {...input} placeholder={placeholder} type={type} className={touched && ((error && 'txt_error_div') || (warning && 'txt_error_div'))}/>
             {touched && ((error && <div className="error-div">{error}</div>) || (warning && <span>{warning}</span>))}

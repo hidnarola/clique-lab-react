@@ -56,29 +56,31 @@ class Header extends Component{
             'Profile (Partnership Program)': routeCodes.PARTNERSHIP_PROGRAM,
             'Profile (Wallet)': routeCodes.WALLET,
             'Profile (Permission)': routeCodes.PERMISSION,
+            'Cart': routeCodes.MY_CART,
+            'Checkout': routeCodes.CHECKOUT,
         }
         let page_name = (_.invert(page_name_Array))[this.props.history.location.pathname];
         return(
             <div className="right-hdr d-flex">
                 <h2>{ page_name }</h2>
                 <div className="right-hdr-r">
-
-                    <div className="hdr-cart">
-                        <a href="javascript:void(0)" role="button" id="cart-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i className=""></i>
-                            <span>2</span>
-                        </a>
-                        <div className="dropdown-menu dropdown-menu-right" aria-labelledby="cart-dropdown">
-                            <h3>Manage Orders</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                                labore et dolore magna aliqua. Ut enim ad</p>
-                            <div className="cart-btm-dropdown">
-                                <a href="">Got it</a>
-                                <a href="">Previous</a>
-                                <a href="">Next</a>
+                    
+                        <div className="hdr-cart">
+                            <Link to={routeCodes.MY_CART}>
+                                <i className=""></i>
+                                <span>2</span>
+                            </Link>
+                            <div className="dropdown-menu dropdown-menu-right" aria-labelledby="cart-dropdown">
+                                <h3>Manage Orders</h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+                                    labore et dolore magna aliqua. Ut enim ad</p>
+                                <div className="cart-btm-dropdown">
+                                    <a href="">Got it</a>
+                                    <a href="">Previous</a>
+                                    <a href="">Next</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
                     <div className="hdr-user ">
                         <Dropdown direction='down' isOpen={this.state.dropdownOpen} 

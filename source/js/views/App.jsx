@@ -33,6 +33,10 @@ import FullCalendar from './Calendar';
 // Analytics
 import Analytics from './Analytics';
 
+//payment
+import Cart from '../components/Payment/Cart/Cart';
+import Checkout from './Checkout';
+
 import MyProfile from './MyProfile';
 
 import createHistory from "history/createBrowserHistory"
@@ -89,6 +93,9 @@ class App extends Component {
                         <PrivateRoute path={routeCodes.WALLET} component={MyProfile} showHeader={true} />
                         <PrivateRoute path={routeCodes.PERMISSION} component={MyProfile} showHeader={true} />
 
+                        {/* Payment */}
+                        <PrivateRoute path={routeCodes.MY_CART} component={Cart} showHeader={true} />
+                        <PrivateRoute path={routeCodes.CHECKOUT} component={Checkout} showHeader={true} />
                         
                         {/* <Route path='*' component={ NotFound } />                         */}
                     </ScrollToTop>
