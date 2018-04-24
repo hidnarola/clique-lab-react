@@ -7,6 +7,8 @@ function fetchUsersNew(data){
     let url = 'promoter/user';
     if(data.groupId){
         url = `promoter/group/${data.groupId}/members`;
+    } else if(data.campaignId){ 
+        url = `promoter/campaign/${data.campaignId}`;
     }
     return postFormData(url,data,{"Content-Type": "application/json",'x-access-token':newVar});
 }

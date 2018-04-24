@@ -577,7 +577,8 @@ class EverydayPeople extends Component {
     filterSendReq = (data) => {
         const { dispatch,match } = this.props;
         data['groupId'] = match.params.grpId;
-        dispatch(sendReq(data))
+        data['campaignId'] = match.params.campaignId;
+        dispatch(sendReq(data));
     }
 
     handlePageChange = (pageNumber) => {
