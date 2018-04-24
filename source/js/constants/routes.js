@@ -41,4 +41,8 @@ export const routeCodes = {
     PARTNERSHIP_PROGRAM:`${ publicPath }partnership_program`,
     WALLET:`${ publicPath }wallet`,
     PERMISSION:`${ publicPath }permission`,
+
+    //Payment
+    MY_CART:`${ publicPath }cart`,
+    CHECKOUT:`${ publicPath }checkout`,
 };
