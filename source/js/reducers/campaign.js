@@ -6,6 +6,7 @@ import {
     GET_PAST_CAMPAIGN_REQUEST, GET_PAST_CAMPAIGN_SUCCESS, GET_PAST_CAMPAIGN_ERROR,
     STOP_CAMPAIGN_REQUEST, STOP_CAMPAIGN_SUCCESS, STOP_CAMPAIGN_ERROR,
     DELETE_CAMPAIGN_REQUEST, DELETE_CAMPAIGN_SUCCESS, DELETE_CAMPAIGN_ERROR,
+    GET_ACTIVE_CAMPAIGN_MEM_REQUEST, GET_ACTIVE_CAMPAIGN_MEM_SUCCESS, GET_ACTIVE_CAMPAIGN_MEM_ERROR,
 } from "../actions/campaign";
 
 const initialState = Map({
@@ -26,6 +27,9 @@ const initialState = Map({
 
     isStop: 0,
     isDelete: 0,
+
+    activeCampaignMem: null,
+    totalActiveCampaignMem: 0,
 
 });
 
@@ -191,6 +195,35 @@ const actionMap = {
         }));
     },
     [DELETE_CAMPAIGN_ERROR]: (state, action) => {
+        let error = 'Server Error';
+        if (action.error && action.error.response) {
+            error = action.error.response.message;
+        }
+        return state.merge(Map({
+            ...initialState,
+            loading: false,
+            error: error            
+        }));
+    },    
+
+    [GET_ACTIVE_CAMPAIGN_MEM_REQUEST]: (state, action) => {
+        return state.merge(Map({
+            ...initialState,
+            loading: true
+        }));
+    },
+    [GET_ACTIVE_CAMPAIGN_MEM_SUCCESS]: (state, action) => {
+        return state.merge(Map({
+            ...initialState,
+            loading: false,
+            status: action.data.data.status,
+            message: action.data.data.message,
+            isStop: 0,
+            activeCampaignMem: action.data.data.campaign.campaign_user,
+            totalActiveCampaignMem: action.data.data.campaign.total,
+        }));
+    },
+    [GET_ACTIVE_CAMPAIGN_MEM_ERROR]: (state, action) => {
         let error = 'Server Error';
         if (action.error && action.error.response) {
             error = action.error.response.message;

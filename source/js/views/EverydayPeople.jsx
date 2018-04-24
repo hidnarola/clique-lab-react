@@ -648,7 +648,11 @@ class EverydayPeople extends Component {
     }
 
     handleSLider = (selectedOption,secondParam) => {
+<<<<<<< HEAD
         let {allSliders} = this.state;
+=======
+        let {allSliders} = this.state;                
+>>>>>>> 4aca4245bf677e4b68a697df12aedfde93c36f35
         let index = _.findIndex(allSliders, {slider: secondParam});
         allSliders.splice(index, 1, {slider: secondParam,value: selectedOption});
         this.setState({allSliders:allSliders});

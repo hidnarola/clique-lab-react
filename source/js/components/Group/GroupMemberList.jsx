@@ -109,7 +109,6 @@ class GroupMemberList extends Component {
     }
 
     render() {
-        console.log(this.props);
         let {members, totalMembers} = this.props;
         const { selectedOption } = this.state;
         const value = selectedOption && selectedOption.value;

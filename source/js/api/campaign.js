@@ -43,11 +43,19 @@ function deleteCampaign(data) {
     return deleteFormData(`promoter/campaign/${data.campaign_id}`, data, headers);
 }
 
+function getActiveCampaignMembers(campaignId,data) {
+    let headers = {
+      'x-access-token' : localStorage.getItem('token')
+    }
+    return postFormData(`promoter/campaign/${campaignId}`,data,headers);
+  }
+
 export default {
     createCampaign,
     getActiveCampaign,
     getFutureCampaign,
     getPastCampaign,
     stopCampaign,
-    deleteCampaign
+    deleteCampaign,
+    getActiveCampaignMembers,
 }
