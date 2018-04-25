@@ -46,7 +46,11 @@ function addUserData(data){
     // param2 -- Either Campaign Id Or Group ID
     // Param3 -- Selected User Id
 
-    if(data['param1'] == 'campaign'){
+    if(data['param1'] == 'add_to_campaign'){
+        url = `promoter/campaign/${data['param2']['value']}/add_filter_result_to_campaign`;
+    }else if(data['param1'] == 'add_to_group'){
+        url = `promoter/group/${data['param2']['value']}/add_filter_result_to_group`;
+    }else if(data['param1'] == 'campaign'){
         url = `promoter/campaign/${data['param2']['value']}/add_user/${data['param3']}`;
     }else{
         url = `promoter/group/${data['param2']['value']}/add_user/${data['param3']}`;        
@@ -54,7 +58,7 @@ function addUserData(data){
 
     return postFormData(
                        url,
-                       null,
+                       data['param4'],
                        {"Content-Type": "application/json",'x-access-token':newVar}
                     );
 }
@@ -62,5 +66,6 @@ function addUserData(data){
 export default {
     fetchUsersNew,
     fetchMoreFilterData,
-    fetchDropDownData    
+    fetchDropDownData,
+    addUserData
 }

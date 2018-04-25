@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Pagination from "react-js-pagination";
 import { sendReq,moreFilterReq,fetchDropDownReq,resetVal,addUserReq,bulkUserReq } from '../actions/everyDay';
+import { getGroups,addGroups } from '../actions/groups';
 import sampleImg from 'img/site/400x218.png';
 import closeImg from 'img/site/close.png';
 import fbImg from 'img/site/facebook-01.png';
@@ -10,7 +11,7 @@ import pinImg from 'img/site/pintrest.png';
 import twitterImg from 'img/site/twitter.png';
 import instaImg from 'img/site/instagram.png';
 import imgPlus from 'img/site/plus-01.png';
-
+import CreateGroupForm from '../components/Forms/Group/CreateGroupForm';
 import ReactSelect from 'react-select';
 import InputRange from 'react-input-range';
 import _ from 'lodash';
@@ -32,7 +33,8 @@ class AddToModal extends Component {
             modal: false,
             selectedOption: '',
             saveFor:'',
-            userId:''
+            userId:'',
+            filter:''
         };
         this.toggle = this.toggle.bind(this);
         this.setSaveFor = this.setSaveFor.bind(this);
@@ -50,8 +52,8 @@ class AddToModal extends Component {
         this.setState({selectedOption:''});
     }
 
-    setSaveFor = (val,userId) => {
-        this.setState({saveFor:val,userId:userId});
+    setSaveFor = (val,userId,filter=null) => {
+        this.setState({saveFor:val,userId:userId,filter:filter});
     }
 
     toggle() {
@@ -65,11 +67,11 @@ class AddToModal extends Component {
     }
 
     saveResult = () => {
-        let {selectedOption,saveFor,userId} = this.state;
+        let {selectedOption,saveFor,userId,filter} = this.state;
         if(selectedOption === ''){
             alert('Select the option');
         }else{
-            this.props.saveResult(saveFor,selectedOption,userId);
+            this.props.saveResult(saveFor,selectedOption,userId,filter);
         }
     }
 
@@ -542,6 +544,7 @@ class EverydayPeople extends Component {
         super(props);
 
         this.state = {
+            createGroupModalShow: false,
             activePage: 1,
             loaderShow:false,
 
@@ -568,7 +571,6 @@ class EverydayPeople extends Component {
                 { 'slider': 'twitter',     'value':{ min: 0,  max: 2500 } },
                 { 'slider': 'pinterest',   'value':{ min: 0,  max: 2500 } },
                 { 'slider': 'linkedin',    'value':{ min: 0,  max: 2500 } },
-
                 { 'slider': 'ageRange',    'value':{ min: 15, max: 65   } },
             ],
 
@@ -585,6 +587,9 @@ class EverydayPeople extends Component {
 
             isFilterApply:false
         };
+        
+        this.createGroupModal = this.createGroupModalOpen.bind(this);
+        // this.toggle = this.toggle.bind(this);        
     }
 
     filterSendReq = (data) => {
@@ -889,12 +894,13 @@ class EverydayPeople extends Component {
         dispatch(resetVal(null));
     }
 
-    saveResult = (param1,param2,param3) => {
+    saveResult = (param1,param2,param3,param4) => {
 
         let data = {
             param1,
             param2,
-            param3
+            param3,
+            param4
         }
 
         console.log(data);
@@ -904,13 +910,18 @@ class EverydayPeople extends Component {
     }
 
     saveBulkResult = (value) => {
-        alert(JSON.stringify(value));
         const { dispatch } = this.props;
-        
-        this.child.setSaveFor(value['value']);
-
+        this.child.setSaveFor(value['value'],null,this.state.appliedFilter[0]);
         dispatch(fetchDropDownReq({"sendReqFor":value['value']}));
-        // dispatch(bulkUserReq({val:value['value'],filter:this.state.appliedFilter})); 
+    }
+
+    createGroupSubmit = (values) => {
+        const { dispatch } = this.props;
+        const formData = new FormData();
+        formData.append("name", values.group_name);
+        formData.append("image", values.images[0]); 
+        this.setState({ is_inserted: 1});
+        dispatch(addGroups(formData));
     }
 
     render() {
@@ -1044,8 +1055,11 @@ class EverydayPeople extends Component {
                 <div className="all-people">
                     <div className="all-people-head d-flex">
                         <h3>Filtered List ({" "+users.total+" "} Results )</h3>
-                        { (match.params.campaignId===null || match.params.campaignId===undefined) &&
-                            <a><i className="fa fa-plus"></i> Save the results as a Group</a>
+                        { (match.params.campaignId===null || match.params.campaignId===undefined) &&                            
+                            <a className="cursor_pointer" onClick={this.createGroupModal}>
+                                <i className="fa fa-plus"></i> 
+                                Save the results as a Group
+                            </a>
                         }
                     </div>
                     {   (match.params.campaignId!==null && match.params.campaignId!==undefined) 
@@ -1075,8 +1089,35 @@ class EverydayPeople extends Component {
                             resetDropVal={this.resetDropVal}
                             saveResult={this.saveResult}  />
 
+                <Modal isOpen={this.state.createGroupModalShow} toggle={this.createGroupModalOpen}  id="group-popup">
+                    <button type="button" className="close" onClick={this.createGroupModal}>
+                        <img src="/assets/img/site/close-2.png" />
+                    </button>
+                    <h2>Create Group</h2>
+                    <CreateGroupForm onSubmit={this.createGroupSubmit} />
+                </Modal>
+
+                <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
+                    <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
+                    <ModalBody>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button color="primary" onClick={this.toggle}>Do Something</Button>{' '}
+                        <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+                    </ModalFooter>
+                </Modal>
+
             </div>
         );
+    }
+
+    createGroupModalOpen() {
+        let newState = this.state.createGroupModalShow;
+        console.log(newState);
+        this.setState({
+            createGroupModalShow: !newState
+        });
     }
 }
 
