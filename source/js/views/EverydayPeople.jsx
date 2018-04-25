@@ -1038,7 +1038,7 @@ class EverydayPeople extends Component {
                                             placeholder="Add All Results"
                                             className='dropdown-inr'
                                             options={[
-                                                { value: 'add_to_capaign', label: 'Add to Campaign' },
+                                                { value: 'add_to_campaign', label: 'Add to Campaign' },
                                                 { value: 'add_to_group', label: 'Add to Group' },
                                             ]}
                                         />

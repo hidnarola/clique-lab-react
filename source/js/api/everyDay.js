@@ -22,8 +22,8 @@ function fetchDropDownData(data){
     let newVar = reactLocalStorage.get('token', true);    
     let url = '';
 
-    if(data.sendReqFor == 'add_to_capaign'){
-        url = `promoter/campaign/list_for_user/${data.uId}`;
+    if(data.sendReqFor == 'add_to_campaign'){
+        url = `promoter/campaign`;
     }else if(data.sendReqFor == 'add_to_group'){
         url = `promoter/group`;
     }else if(data.sendReqFor == 'campaign' || data.sendReqFor == 'cart'){
@@ -61,26 +61,8 @@ function addUserData(data){
                     );
 }
 
-function addBulkUser(data){
-
-    console.log('data');
-    console.log(data);
-
-    let newVar = reactLocalStorage.get('token', true);
-    let addToCampaign = 'promoter/campaign/5acb56e62f3b3e7c787bed9a/add_filter_result_to_campaign';
-
-    if(1 == 1){
-        addToCampaign = 'promoter/group/5acf2513557ce34fc2e1a059/add_filter_result_to_group';
-    }
-
-
-    return {data:""};
-    // return postFormData(url,data,{"Content-Type": "application/json",'x-access-token':newVar});
-}
-
 export default {
     fetchUsersNew,
     fetchMoreFilterData,
-    fetchDropDownData,
-    addUserData
+    fetchDropDownData    
 }
