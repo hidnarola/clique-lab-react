@@ -2,6 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import { routeCodes } from 'constants/routes';
 import { pageImgRoutes } from '../../../constants/img_path';
+//import img1 from '../../../../assets/img/site/cart-01.jpg'
 
 //`${pageImgRoutes.IMG_CART1}`
 

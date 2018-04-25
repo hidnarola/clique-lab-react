@@ -53,7 +53,7 @@ previousPage()
   render() {
     const { page } = this.state;
     return (
-
+        
       <div>
       {/* <FormStep1 onSubmit={this.nextPage}/> */}
         {page === 1  && <FormStep1 onSubmit={this.nextPage}/>}
