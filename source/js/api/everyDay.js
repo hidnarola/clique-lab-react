@@ -45,7 +45,7 @@ function addUserData(data){
     // param1 -- Either Campaign Or Group 
     // param2 -- Either Campaign Id Or Group ID
     // Param3 -- Selected User Id
-
+    
     if(data['param1'] == 'campaign'){
         url = `promoter/campaign/${data['param2']['value']}/add_user/${data['param3']}`;
     } else if(data['param1'] == 'cart'){
@@ -64,5 +64,6 @@ function addUserData(data){
 export default {
     fetchUsersNew,
     fetchMoreFilterData,
-    fetchDropDownData    
+    fetchDropDownData,
+    addUserData 
 }

@@ -681,9 +681,17 @@ class EverydayPeople extends Component {
     }
 
     addToCart = (obj) => {
-        const {dispatch} = this.props;
-        this.child.setSaveFor('cart',obj._id);
-        dispatch(fetchDropDownReq({"sendReqFor":"cart","uId":obj._id}));
+        const {dispatch,match} = this.props;
+        let data = {
+            'param1':'cart',
+            'param2':{
+                'value':match.params.campaignId
+            },
+            'param3':obj._id
+        }
+        dispatch(addUserReq(data));
+        // this.child.setSaveFor('cart',obj._id);
+        // dispatch(fetchDropDownReq({"sendReqFor":"cart","uId":obj._id}));
     }
 
     renderLi = (obj) =>{
@@ -1006,7 +1014,7 @@ class EverydayPeople extends Component {
                         {   
                             (match.params.campaignId!==null && match.params.campaignId!==undefined) ?
                                 <div className="new-permission">
-                                    <Link className="cursor_pointer" to={routeCodes.CAMPAIGN} >Purchase all result</Link>
+                                    <a className="cursor_pointer" >Purchase all result</a>
                                 </div>
                             :
                                 <ul>
