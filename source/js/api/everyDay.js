@@ -26,7 +26,7 @@ function fetchDropDownData(data){
         url = `promoter/campaign`;
     }else if(data.sendReqFor == 'add_to_group'){
         url = `promoter/group`;
-    }else if(data.sendReqFor == 'campaign'){
+    }else if(data.sendReqFor == 'campaign' || data.sendReqFor == 'cart'){
         url = `promoter/campaign/list_for_user/${data.uId}`;
     }else{
         url = `promoter/group/list_for_user/${data.uId}`;
@@ -52,7 +52,9 @@ function addUserData(data){
         url = `promoter/group/${data['param2']['value']}/add_filter_result_to_group`;
     }else if(data['param1'] == 'campaign'){
         url = `promoter/campaign/${data['param2']['value']}/add_user/${data['param3']}`;
-    }else{
+    } else if(data['param1'] == 'cart'){
+        url = `promoter/campaign/add_to_cart/${data['param2']['value']}/${data['param3']}`;
+    } else{
         url = `promoter/group/${data['param2']['value']}/add_user/${data['param3']}`;        
     }
 
@@ -67,5 +69,9 @@ export default {
     fetchUsersNew,
     fetchMoreFilterData,
     fetchDropDownData,
+<<<<<<< HEAD
     addUserData
+=======
+    addUserData 
+>>>>>>> 190b76d6bbe77c5ee90f42efbf4dbdf61d5838fb
 }
