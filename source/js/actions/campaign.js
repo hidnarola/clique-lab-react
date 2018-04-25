@@ -26,6 +26,10 @@ export const GET_ACTIVE_CAMPAIGN_MEM_REQUEST = 'GET_ACTIVE_CAMPAIGN_MEM_REQUEST'
 export const GET_ACTIVE_CAMPAIGN_MEM_SUCCESS = 'GET_ACTIVE_CAMPAIGN_MEM_SUCCESS';
 export const GET_ACTIVE_CAMPAIGN_MEM_ERROR = 'GET_ACTIVE_CAMPAIGN_MEM_ERROR';
 
+export const PURCHASE_ALL_REQUEST = 'PURCHASE_ALL_REQUEST';
+export const PURCHASE_ALL_SUCCESS = 'PURCHASE_ALL_SUCCESS';
+export const PURCHASE_ALL_ERROR = 'PURCHASE_ALL_ERROR';
+
 export function createCampaign(data) { return { type: CAMPAIGN_REQUEST, data } }
 export function campaignSuccess(data) { return { type: CAMPAIGN_SUCCESS, data } }
 export function campaignError(error) { return { type: CAMPAIGN_ERROR, error } }
@@ -50,6 +54,6 @@ export function deleteCampaign(data) { return { type: DELETE_CAMPAIGN_REQUEST, d
 export function deleteCampaignSuccess(data) { return { type: DELETE_CAMPAIGN_SUCCESS, data } }
 export function deleteCampaignError(error) { return { type: DELETE_CAMPAIGN_ERROR, error } }
 
-export function getActiveCampaignMem(data) { return { type: GET_ACTIVE_CAMPAIGN_MEM_REQUEST, data } }
-export function getActiveCampaignMemSuccess(data) { return { type: GET_ACTIVE_CAMPAIGN_MEM_SUCCESS, data } }
-export function getActiveCampaignMemError(error) { return { type: GET_ACTIVE_CAMPAIGN_MEM_ERROR, error } }
+export function purchaseAll(data) { return { type: PURCHASE_ALL_REQUEST, data } }
+export function purchaseAllSuccess(data) { return { type: PURCHASE_ALL_SUCCESS, data } }
+export function purchaseAllError(error) { return { type: PURCHASE_ALL_ERROR, error } }

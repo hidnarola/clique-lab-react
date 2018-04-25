@@ -48,7 +48,17 @@ function getActiveCampaignMembers(campaignId,data) {
       'x-access-token' : localStorage.getItem('token')
     }
     return postFormData(`promoter/campaign/${campaignId}`,data,headers);
-  }
+}
+
+function purchaseAllResult(campaignId,data) {
+    let headers = {
+      'x-access-token' : localStorage.getItem('token')
+    }
+    let filter = {
+        'filter': data.filter
+    }
+    return postFormData(`promoter/campaign/${campaignId}/add_filtered_user_to_cart`,filter,headers);
+}
 
 export default {
     createCampaign,
@@ -58,4 +68,5 @@ export default {
     stopCampaign,
     deleteCampaign,
     getActiveCampaignMembers,
+    purchaseAllResult,
 }

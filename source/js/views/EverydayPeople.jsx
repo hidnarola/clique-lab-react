@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Pagination from "react-js-pagination";
 import { sendReq,moreFilterReq,fetchDropDownReq,resetVal,addUserReq,bulkUserReq } from '../actions/everyDay';
+import { purchaseAll } from '../actions/campaign';
 import sampleImg from 'img/site/400x218.png';
 import closeImg from 'img/site/close.png';
 import fbImg from 'img/site/facebook-01.png';
@@ -690,8 +691,18 @@ class EverydayPeople extends Component {
             'param3':obj._id
         }
         dispatch(addUserReq(data));
-        // this.child.setSaveFor('cart',obj._id);
-        // dispatch(fetchDropDownReq({"sendReqFor":"cart","uId":obj._id}));
+    }
+
+    purchaseResult = () => {
+        const { dispatch, match } = this.props;
+        let { appliedFilter } = this.state;
+        let arrayFilter = {
+            'filter': appliedFilter[0]['filter'],
+            'campaignId': match.params.campaignId
+        };
+        dispatch(purchaseAll(arrayFilter));
+        // this.setState({"activePage":1});
+        // this.filterSendReq(arrayFilter);
     }
 
     renderLi = (obj) =>{
@@ -1014,7 +1025,7 @@ class EverydayPeople extends Component {
                         {   
                             (match.params.campaignId!==null && match.params.campaignId!==undefined) ?
                                 <div className="new-permission">
-                                    <a className="cursor_pointer" >Purchase all result</a>
+                                    <a className="cursor_pointer" href="javascript:void(0)" onClick={this.purchaseResult}>Purchase all result</a>
                                 </div>
                             :
                                 <ul>
