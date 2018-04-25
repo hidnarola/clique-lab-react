@@ -112,7 +112,7 @@ class FormStep1 extends Component{
                             </div>
                         </div>
                     </div>                
-                    {/* <FormCampaignRight/> */}
+                    {/* <OrderDetails Right-side/> */}
                     <OrderDetails/>
                 </div>
             </form>
