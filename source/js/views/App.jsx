@@ -97,6 +97,7 @@ class App extends Component {
                         <PrivateRoute path={routeCodes.MY_CART} component={Cart} showHeader={true} />
                         <PrivateRoute path={routeCodes.CHECKOUT} component={Checkout} showHeader={true} />
                         
+                        
                         {/* <Route path='*' component={ NotFound } />                         */}
                     </ScrollToTop>
                 </Router>

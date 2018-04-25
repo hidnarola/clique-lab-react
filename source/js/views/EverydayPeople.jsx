@@ -198,8 +198,8 @@ const PlusAction2 = (props) => {
                 <a className="cursor_pointer"><img src="/assets/img/site/plus-sign.png" alt="" /></a>
             </DropdownToggle>
             <DropdownMenu className="dropdown-menu dropdown-menu-right">
-                <a className="dropdown-item cursor_pointer">Add to Cart</a>
-                <a className="dropdown-item cursor_pointer">Add user to Group</a>
+                <a className="dropdown-item cursor_pointer" onClick={() => { props.addToCart(); }}>Add to Cart</a>
+                <a className="dropdown-item cursor_pointer" onClick={() => { props.addGroup(); }}>Add user to Group</a>
                 <a className="dropdown-item cursor_pointer">Modify status and purchase</a>
             </DropdownMenu>
         </UncontrolledDropdown>
@@ -680,6 +680,12 @@ class EverydayPeople extends Component {
         dispatch(fetchDropDownReq({"sendReqFor":"group","uId":obj._id}));
     }
 
+    addToCart = (obj) => {
+        const {dispatch} = this.props;
+        this.child.setSaveFor('cart',obj._id);
+        dispatch(fetchDropDownReq({"sendReqFor":"cart","uId":obj._id}));
+    }
+
     renderLi = (obj) =>{
         return(
             <li key={Math.random()}>
@@ -726,7 +732,10 @@ class EverydayPeople extends Component {
                     <div className="festival-ftr d-flex">
                         <div className="festival-ftr-l"><a href=""><i><img src="images/facebook-01.png" alt="" /></i><strong>823M</strong></a></div>
                         <div className="festival-ftr-r dropdown">
-                            <PlusAction2 />
+                            <PlusAction2 
+                                addToCart={ () => {this.addToCart(obj)} }
+                                addGroup={ () => {this.addGroup(obj)} } 
+                            />
                         </div>
                     </div>
                 </div>
@@ -896,9 +905,7 @@ class EverydayPeople extends Component {
             param2,
             param3
         }
-
         console.log(data);
-        
         const { dispatch } = this.props;
         dispatch(addUserReq(data));
     }
