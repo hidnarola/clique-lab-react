@@ -69,9 +69,5 @@ export default {
     fetchUsersNew,
     fetchMoreFilterData,
     fetchDropDownData,
-<<<<<<< HEAD
     addUserData
-=======
-    addUserData 
->>>>>>> 190b76d6bbe77c5ee90f42efbf4dbdf61d5838fb
 }
