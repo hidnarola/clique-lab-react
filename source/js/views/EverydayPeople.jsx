@@ -247,6 +247,8 @@ const MoreFilterDropDown = (props) => {
     let languageArr = []; let ethnicityArr = [];
     let musicTasteArr = [];
 
+    //console.log('>>>>>>>>',props.moreFilterData);
+
     if(props.moreFilterData !== null){
 
         props.moreFilterData.job_industry.map((obj)=>{

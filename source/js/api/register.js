@@ -1,4 +1,4 @@
-import { fetchResource,postFormData } from "./index";
+import { fetchResource,postFormData,getFormData } from "./index";
 import { reactLocalStorage } from 'reactjs-localstorage';
 
 function userRegister(data) {
@@ -29,9 +29,21 @@ function fetchSetting(){
     return fetchResource('promoter/setting/video_tutorial',options);
 }
 
+function getCountry()
+{
+    // let newVar = reactLocalStorage.get('token', true);
+    // var options = {     
+    //         'Content-Type': 'application/x-www-form-urlencoded',
+    //         'x-access-token':newVar
+    // }
+
+    return getFormData('country', null);
+}
+
 export default {
     userRegister,
     afterRegisterUpdate,
     fetchIndustry,
-    fetchSetting
+    fetchSetting,
+    getCountry
 }
