@@ -49,8 +49,8 @@ const actionMap = {
             inspiredPosts: {
                 status:action.data.data.status,
                 message:action.data.data.message,
-                data:action.data.data.results[0].posts,
-                total:action.data.data.results[0].total
+                data:(action.data.data.results[0]) ? action.data.data.results[0].posts :[],
+                total:(action.data.data.results[0]) ? action.data.data.results[0].total :0
             },
         }));
     },
