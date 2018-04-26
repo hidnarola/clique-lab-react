@@ -4,6 +4,7 @@ import {
     GET_ACTIVE_CAMPAIGN_REQUEST, GET_ACTIVE_CAMPAIGN_SUCCESS, GET_ACTIVE_CAMPAIGN_ERROR,
     GET_FUTURE_CAMPAIGN_REQUEST, GET_FUTURE_CAMPAIGN_SUCCESS, GET_FUTURE_CAMPAIGN_ERROR,
     GET_PAST_CAMPAIGN_REQUEST, GET_PAST_CAMPAIGN_SUCCESS, GET_PAST_CAMPAIGN_ERROR,
+    DOWNLOAD_CAMPAIGN_IMG_REQUEST, DOWNLOAD_CAMPAIGN_IMG_SUCCESS, DOWNLOAD_CAMPAIGN_IMG_ERROR,
     STOP_CAMPAIGN_REQUEST, STOP_CAMPAIGN_SUCCESS, STOP_CAMPAIGN_ERROR,
     DELETE_CAMPAIGN_REQUEST, DELETE_CAMPAIGN_SUCCESS, DELETE_CAMPAIGN_ERROR,
     GET_ACTIVE_CAMPAIGN_MEM_REQUEST, GET_ACTIVE_CAMPAIGN_MEM_SUCCESS, GET_ACTIVE_CAMPAIGN_MEM_ERROR,
@@ -25,6 +26,7 @@ const initialState = Map({
 
     pastCampaign: null,
     totalPastCampaign: 0,
+    filename: null,
 
     isStop: 0,
     isDelete: 0,
@@ -62,7 +64,8 @@ const actionMap = {
     [GET_ACTIVE_CAMPAIGN_REQUEST]: (state, action) => {
         return state.merge(Map({
             ...initialState,
-            loading: true                        
+            loading: true,
+            filename: null,                      
         }));
     },
     [GET_ACTIVE_CAMPAIGN_SUCCESS]: (state, action) => {
@@ -75,6 +78,7 @@ const actionMap = {
             loading: false,
             status: action.data.data.status,
             message: action.data.data.message,
+            filename: null,
             isStop: 0,
             activeCampaign: action.data.data.results[0].campaigns,
             totalActiveCampaign: action.data.data.results[0].total,
@@ -87,14 +91,16 @@ const actionMap = {
         }
         return state.merge(Map({
             loading: false,
-            error: error            
+            error: error,
+            filename: null,          
         }));
     },    
     
     [GET_FUTURE_CAMPAIGN_REQUEST]: (state, action) => {
         return state.merge(Map({
             ...initialState,
-            loading: true                        
+            loading: true,
+            filename: null,
         }));
     },
     [GET_FUTURE_CAMPAIGN_SUCCESS]: (state, action) => {
@@ -107,6 +113,7 @@ const actionMap = {
             loading: false,
             status: action.data.data.status,
             message: action.data.data.message,
+            filename: null,
             isDelete: 0,
             futureCampaign: action.data.data.results[0].campaigns,
             totalFutureCampaign: action.data.data.results[0].total,
@@ -120,14 +127,16 @@ const actionMap = {
         return state.merge(Map({
             ...initialState,
             loading: false,
-            error: error            
+            error: error,
+            filename: null,            
         }));
     },    
     
     [GET_PAST_CAMPAIGN_REQUEST]: (state, action) => {
         return state.merge(Map({
             ...initialState,
-            loading: true                        
+            loading: true,
+            filename: null,              
         }));
     },
     [GET_PAST_CAMPAIGN_SUCCESS]: (state, action) => {
@@ -140,6 +149,7 @@ const actionMap = {
             loading: false,
             status: action.data.data.status,
             message: action.data.data.message,
+            filename: null,
             pastCampaign: action.data.data.results[0].campaigns,
             totalPastCampaign: action.data.data.results[0].total,
         }));
@@ -156,16 +166,48 @@ const actionMap = {
         }));
     },    
     
+    [DOWNLOAD_CAMPAIGN_IMG_REQUEST]: (state, action) => {
+        return state.merge(Map({
+            ...initialState,
+            loading: true,
+            filename: null,
+        }));
+    },
+    [DOWNLOAD_CAMPAIGN_IMG_SUCCESS]: (state, action) => {
+        return state.merge(Map({
+            ...initialState,
+            loading: false,
+            status: action.data.data.status,
+            message: action.data.data.message,
+            filename: action.data.data.filename,
+        }));
+    },
+    [DOWNLOAD_CAMPAIGN_IMG_ERROR]: (state, action) => {
+        let error = 'Server Error';
+        if (action.error && action.error.response) {
+            error = action.error.response.message;
+        }
+        return state.merge(Map({
+            ...initialState,
+            loading: false,
+            error: error,
+            filename: null,
+        }));
+    },    
+    
+
     [STOP_CAMPAIGN_REQUEST]: (state, action) => {
         return state.merge(Map({
             ...initialState,
-            loading: true
+            loading: true,
+            filename: null,
         }));
     },
     [STOP_CAMPAIGN_SUCCESS]: (state, action) => {
         return state.merge(Map({
             ...initialState,
             loading: false,
+            filename: null,
             isStop: action.data.data.status,
             message: action.data.data.message,
         }));
@@ -178,6 +220,7 @@ const actionMap = {
         return state.merge(Map({
             ...initialState,
             loading: false,
+            filename: null,
             error: error            
         }));
     },    
@@ -185,13 +228,15 @@ const actionMap = {
     [DELETE_CAMPAIGN_REQUEST]: (state, action) => {
         return state.merge(Map({
             ...initialState,
-            loading: true
+            loading: true,
+            filename: null,
         }));
     },
     [DELETE_CAMPAIGN_SUCCESS]: (state, action) => {
         return state.merge(Map({
             ...initialState,
             loading: false,
+            filename: null,
             isDelete: action.data.data.status,
             message: action.data.data.message,
         }));
@@ -204,6 +249,7 @@ const actionMap = {
         return state.merge(Map({
             ...initialState,
             loading: false,
+            filename: null,
             error: error            
         }));
     },    
@@ -211,13 +257,15 @@ const actionMap = {
     [GET_ACTIVE_CAMPAIGN_MEM_REQUEST]: (state, action) => {
         return state.merge(Map({
             ...initialState,
-            loading: true
+            loading: true,
+            filename: null,
         }));
     },
     [GET_ACTIVE_CAMPAIGN_MEM_SUCCESS]: (state, action) => {
         return state.merge(Map({
             ...initialState,
             loading: false,
+            filename: null,
             status: action.data.data.status,
             message: action.data.data.message,
             isStop: 0,
@@ -233,6 +281,7 @@ const actionMap = {
         return state.merge(Map({
             ...initialState,
             loading: false,
+            filename: null,
             error: error            
         }));
     },    
@@ -240,13 +289,15 @@ const actionMap = {
     [PURCHASE_ALL_REQUEST]: (state, action) => {
         return state.merge(Map({
             ...initialState,
-            loading: true
+            loading: true,
+            filename: null,
         }));
     },
     [PURCHASE_ALL_SUCCESS]: (state, action) => {
         return state.merge(Map({
             ...initialState,
             loading: false,
+            filename: null,
             status: action.data.data.status,
             alertMessage: action.data.data.message,
         }));
@@ -259,6 +310,7 @@ const actionMap = {
         return state.merge(Map({
             ...initialState,
             loading: false,
+            filename: null,
             alertMessage: error
         }));
     },    

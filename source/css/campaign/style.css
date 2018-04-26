@@ -379,7 +379,7 @@ ul.all-people-ul li{ width:33.33%; padding:15px;}
 .ftr-btn{text-align:right;}
 .age-fillter{margin:0 0 40px;}
 
-.plus-people .dropdown-menu{ -webkit-transform:translate(0,0) !important; -moz-transform:translate(0,0) !important; transform:translate(0,0) !important; right:-10px; left:auto !important; top:25px !important; padding:15px 25px;}
+.plus-people .dropdown-menu{ -webkit-transform:translate(0,0) !important; -moz-transform:translate(0,0) !important; transform:translate(0,0) !important; right:0px; left:auto !important; top:20px !important; padding:15px 25px;}
 .plus-people .dropdown-menu:after{left:auto; right:10px;}
 .plus-people .dropdown-menu a{padding:0; margin:12px 10px; font-weight:500;}
 

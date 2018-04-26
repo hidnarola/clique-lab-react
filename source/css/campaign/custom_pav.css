@@ -30,3 +30,5 @@
 .no_data_found img{
   width: 75%;
 }
+
+.plus-people button img{ max-width: 30px; margin: 5px 15px; }

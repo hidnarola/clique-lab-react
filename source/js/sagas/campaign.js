@@ -4,6 +4,7 @@ import {
     GET_ACTIVE_CAMPAIGN_REQUEST, GET_ACTIVE_CAMPAIGN_SUCCESS, GET_ACTIVE_CAMPAIGN_ERROR, getActiveCampaign, getActiveCampaignSuccess, getActiveCampaignError,
     GET_FUTURE_CAMPAIGN_REQUEST, GET_FUTURE_CAMPAIGN_SUCCESS, GET_FUTURE_CAMPAIGN_ERROR, getFutureCampaign, getFutureCampaignSuccess, getFutureCampaignError,
     GET_PAST_CAMPAIGN_REQUEST, GET_PAST_CAMPAIGN_SUCCESS, GET_PAST_CAMPAIGN_ERROR, getPastCampaign, getPastCampaignSuccess, getPastCampaignError,
+    DOWNLOAD_CAMPAIGN_IMG_REQUEST, DOWNLOAD_CAMPAIGN_IMG_SUCCESS, DOWNLOAD_CAMPAIGN_IMG_ERROR, downloadCampaignImg, downloadCampaignImgSuccess, downloadCampaignImgError,
     STOP_CAMPAIGN_REQUEST, STOP_CAMPAIGN_SUCCESS, STOP_CAMPAIGN_ERROR, stopCampaign, stopCampaignSuccess, stopCampaignError,
     DELETE_CAMPAIGN_REQUEST, DELETE_CAMPAIGN_SUCCESS, DELETE_CAMPAIGN_ERROR, deleteCampaign, deleteCampaignSuccess, deleteCampaignError,
     GET_ACTIVE_CAMPAIGN_MEM_REQUEST, GET_ACTIVE_CAMPAIGN_MEM_SUCCESS, GET_ACTIVE_CAMPAIGN_MEM_ERROR, getActiveCampaignMem, getActiveCampaignMemSuccess, getActiveCampaignMemError,
@@ -74,6 +75,24 @@ function getPastCampaignFunc() {
             yield put(action);
         } catch (error) {
             const action = { type: GET_PAST_CAMPAIGN_ERROR, error };
+            yield put(action);
+        }
+    };
+}
+
+function downloadCampaignImgFunc() {
+    return function* (action) {
+        // console.log('======================================');
+        // console.log(action);
+        // console.log('======================================');
+        // return;
+        let dataNN = action.data;
+        try {
+            const data = yield call(() => api.downloadCampaignImg(dataNN));
+            const action = { type: DOWNLOAD_CAMPAIGN_IMG_SUCCESS, data };
+            yield put(action);
+        } catch (error) {
+            const action = { type: DOWNLOAD_CAMPAIGN_IMG_ERROR, error };
             yield put(action);
         }
     };
@@ -158,6 +177,9 @@ export function* watchGetFutureCampaign() {
 export function* watchGetPastCampaign() {
     yield takeLatest(GET_PAST_CAMPAIGN_REQUEST, getPastCampaignFunc());
 }
+export function* watchDownloadCampaignImg() {
+    yield takeLatest(DOWNLOAD_CAMPAIGN_IMG_REQUEST, downloadCampaignImgFunc());
+}
 export function* watchStopCampaign() {
     yield takeLatest(STOP_CAMPAIGN_REQUEST, stopCampaignFunc());
 }
@@ -176,6 +198,7 @@ export default [
     watchGetActiveCampaign(),
     watchGetFutureCampaign(),
     watchGetPastCampaign(),
+    watchDownloadCampaignImg(),
     watchStopCampaign(),
     watchDeleteCampaign(),
     watchGetActiveCampaignMem(),

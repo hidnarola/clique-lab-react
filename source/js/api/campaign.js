@@ -1,4 +1,4 @@
-import { fetchResource,postFormData,deleteFormData } from "./index";
+import { fetchResource, postFormData, deleteFormData, getFormData } from "./index";
 import { reactLocalStorage } from 'reactjs-localstorage';
 
 function createCampaign(data) {   
@@ -9,54 +9,43 @@ function createCampaign(data) {
 }
 
 function getActiveCampaign(data) {
-    let headers = {
-      'x-access-token' : localStorage.getItem('token')
-    }
+    let headers = { 'x-access-token' : localStorage.getItem('token') }
     return postFormData('promoter/campaign/active', data, headers);
 }
 
 function getFutureCampaign(data) {
-    let headers = {
-      'x-access-token' : localStorage.getItem('token')
-    }
+    let headers = { 'x-access-token' : localStorage.getItem('token') }
     return postFormData('promoter/campaign/future', data, headers);
 }
 
 function getPastCampaign(data) {
-    let headers = { 
-      'x-access-token' : localStorage.getItem('token')
-    }
+    let headers = { 'x-access-token' : localStorage.getItem('token') }
     return postFormData('promoter/campaign/past', data, headers);
 }
 
+function downloadCampaignImg(campaignId) {
+    let headers = { 'x-access-token' : localStorage.getItem('token') }
+    return getFormData(`promoter/campaign/${campaignId}/download`, '', headers);
+}
+
 function stopCampaign(data) {
-    let headers = { 
-      'x-access-token' : localStorage.getItem('token')
-    }
+    let headers = { 'x-access-token' : localStorage.getItem('token') }
     return postFormData(`promoter/campaign/stop/${data.campaign_id}`, data, headers);
 }
 
 function deleteCampaign(data) {
-    let headers = { 
-      'x-access-token' : localStorage.getItem('token')
-    }
+    let headers = { 'x-access-token' : localStorage.getItem('token') }
     return deleteFormData(`promoter/campaign/${data.campaign_id}`, data, headers);
 }
 
 function getActiveCampaignMembers(campaignId,data) {
-    let headers = {
-      'x-access-token' : localStorage.getItem('token')
-    }
+    let headers = { 'x-access-token' : localStorage.getItem('token') }
     return postFormData(`promoter/campaign/${campaignId}`,data,headers);
 }
 
 function purchaseAllResult(campaignId,data) {
-    let headers = {
-      'x-access-token' : localStorage.getItem('token')
-    }
-    let filter = {
-        'filter': data.filter
-    }
+    let headers = { 'x-access-token' : localStorage.getItem('token') }
+    let filter = { 'filter': data.filter }
     return postFormData(`promoter/campaign/${campaignId}/add_filtered_user_to_cart`,filter,headers);
 }
 
@@ -65,6 +54,7 @@ export default {
     getActiveCampaign,
     getFutureCampaign,
     getPastCampaign,
+    downloadCampaignImg,
     stopCampaign,
     deleteCampaign,
     getActiveCampaignMembers,
