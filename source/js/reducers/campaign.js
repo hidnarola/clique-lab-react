@@ -7,6 +7,7 @@ import {
     STOP_CAMPAIGN_REQUEST, STOP_CAMPAIGN_SUCCESS, STOP_CAMPAIGN_ERROR,
     DELETE_CAMPAIGN_REQUEST, DELETE_CAMPAIGN_SUCCESS, DELETE_CAMPAIGN_ERROR,
     GET_ACTIVE_CAMPAIGN_MEM_REQUEST, GET_ACTIVE_CAMPAIGN_MEM_SUCCESS, GET_ACTIVE_CAMPAIGN_MEM_ERROR,
+    PURCHASE_ALL_REQUEST, PURCHASE_ALL_SUCCESS, PURCHASE_ALL_ERROR,
 } from "../actions/campaign";
 
 const initialState = Map({
@@ -31,6 +32,7 @@ const initialState = Map({
     activeCampaignMem: null,
     totalActiveCampaignMem: 0,
 
+    alertMessage: null,
 });
 
 const actionMap = {
@@ -232,6 +234,32 @@ const actionMap = {
             ...initialState,
             loading: false,
             error: error            
+        }));
+    },    
+
+    [PURCHASE_ALL_REQUEST]: (state, action) => {
+        return state.merge(Map({
+            ...initialState,
+            loading: true
+        }));
+    },
+    [PURCHASE_ALL_SUCCESS]: (state, action) => {
+        return state.merge(Map({
+            ...initialState,
+            loading: false,
+            status: action.data.data.status,
+            alertMessage: action.data.data.message,
+        }));
+    },
+    [PURCHASE_ALL_ERROR]: (state, action) => {
+        let error = 'Server Error';
+        if (action.error && action.error.response) {
+            error = action.error.response.message;
+        }
+        return state.merge(Map({
+            ...initialState,
+            loading: false,
+            alertMessage: error
         }));
     },    
 

@@ -6,6 +6,7 @@ import { hot } from 'react-hot-loader';
 import { routeCodes } from 'constants/routes';
 import {DefaultLayout,PrivateRoute,LoginPrivateRoute} from '../components/global/RouterWrapper';
 import ScrollToTop from 'components/global/ScrollToTop';
+import { connect } from 'react-redux';
 
 import Home from 'views/Home';
 import People from 'views/People';
@@ -41,13 +42,56 @@ import MyProfile from './MyProfile';
 
 import createHistory from "history/createBrowserHistory"
 import ActiveMemberList from '../components/CampaignList/ActiveMemberList';
+
+import { ToastContainer, toast, Slide } from 'react-toastify';
+import '../../css/campaign/ReactToastify.css';
+
 const history = createHistory()
 
+// const notify = () => {
+//     toast.error("Success Notification !", {
+//         position: "top-right",
+//         autoClose: 4000,
+//         hideProgressBar: true,
+//         closeOnClick: true,
+//         pauseOnHover: true,
+//         draggable: true,
+//     });
+// }
 
 class App extends Component {
+    constructor(props){
+        super(props);
+    }
+
+    notify = (message) => {
+        toast.success(`${message} !`, {
+            position: "top-right",
+            autoClose: 4000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+        });
+    }
+
     render() {
+        const { alertMessage } = this.props;
         return (
-            <div>     
+            <div>
+                {( alertMessage!==null && this.notify(alertMessage) )}
+                <ToastContainer
+                    position="top-right"
+                    autoClose={4000}
+                    hideProgressBar
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnVisibilityChange
+                    draggable
+                    pauseOnHover
+                    transition={Slide}
+                />
                 <Router>
                     <ScrollToTop>
                         <LoginPrivateRoute exact path={ routeCodes.HOME } component={ Login } />
@@ -76,7 +120,8 @@ class App extends Component {
                         <PrivateRoute path={`${routeCodes.CAMPAIGN_ACTIVE}/:campaignId`} component={EverydayPeople} showHeader={true} />
                         <PrivateRoute path={routeCodes.CAMPAIGN_FUTURE} component={CampaignList} showHeader={true} />
                         <PrivateRoute path={routeCodes.CAMPAIGN_PAST} component={CampaignList} showHeader={true} />
-                        <PrivateRoute path={routeCodes.CAMPAIGN_INSPIRED_SUB} component={CampaignInspiredSub} showHeader={true} />
+                        {/* <PrivateRoute path={routeCodes.CAMPAIGN_INSPIRED_SUB} component={CampaignInspiredSub} showHeader={true} /> */}
+                        <PrivateRoute path={routeCodes.CAMPAIGN_INSPIRED_SUB} component={EverydayPeople} showHeader={true} />
                         <PrivateRoute path={routeCodes.CAMPAIGN_PURCHASED_POSTS} component={CampaignPurchasedPosts} showHeader={true} />
 
                         {/* Calendar */}
@@ -106,4 +151,29 @@ class App extends Component {
     }
 }
 
-export default hot(module)(App);
+const mapStateToProps = (state) => {
+    const {campaign} = state; 
+    return {
+        loading: campaign.get('loading'),
+        error: campaign.get('error'),
+        message: campaign.get('message'),
+        status: campaign.get('status'),
+        activeCampaignMem: campaign.get('activeCampaignMem'),
+        totalActiveCampaignMem: campaign.get('totalActiveCampaignMem')
+    }
+}
+
+// export default connect(mapStateToProps)(withRouter(ActiveMemberList));
+export default (connect((state) => {
+    const {campaign} = state; 
+    let alertMessage = null;
+    if(campaign.get('alertMessage')!==null){ alertMessage = campaign.get('alertMessage'); }
+
+    return {
+        alertMessage: alertMessage
+    }
+}))(hot(module)(App));
+
+// export default (connect((state) => {
+
+// }))(hot(module)(App));

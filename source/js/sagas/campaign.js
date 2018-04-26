@@ -7,6 +7,7 @@ import {
     STOP_CAMPAIGN_REQUEST, STOP_CAMPAIGN_SUCCESS, STOP_CAMPAIGN_ERROR, stopCampaign, stopCampaignSuccess, stopCampaignError,
     DELETE_CAMPAIGN_REQUEST, DELETE_CAMPAIGN_SUCCESS, DELETE_CAMPAIGN_ERROR, deleteCampaign, deleteCampaignSuccess, deleteCampaignError,
     GET_ACTIVE_CAMPAIGN_MEM_REQUEST, GET_ACTIVE_CAMPAIGN_MEM_SUCCESS, GET_ACTIVE_CAMPAIGN_MEM_ERROR, getActiveCampaignMem, getActiveCampaignMemSuccess, getActiveCampaignMemError,
+    PURCHASE_ALL_REQUEST, PURCHASE_ALL_SUCCESS, PURCHASE_ALL_ERROR, purchaseAll, purchaseAllSuccess, purchaseAllError,
 } from "../actions/campaign";
 import api from '../api/campaign';
 
@@ -125,6 +126,25 @@ function getActiveCampaignMemFunc() {
     };
 }
 
+function purchaseAllRequestFunc() {
+    return function* (action) {
+        // console.log('======================================');
+        // console.log(action);
+        // console.log('======================================');
+        // return;
+        let dataNN = action.data;
+        try {
+            const data = yield call(() => api.purchaseAllResult(dataNN.campaignId,dataNN));
+            const action = { type: PURCHASE_ALL_SUCCESS, data };
+            yield put(action);
+        } catch (error) {
+            const action = { type: PURCHASE_ALL_ERROR, error };
+            yield put(action);
+        }
+    };
+}
+
+
 
 export function* watchCreateCampaign() {
     yield takeLatest(CAMPAIGN_REQUEST, createCampaignFunc());
@@ -147,6 +167,9 @@ export function* watchDeleteCampaign() {
 export function* watchGetActiveCampaignMem() {
     yield takeLatest(GET_ACTIVE_CAMPAIGN_MEM_REQUEST, getActiveCampaignMemFunc());
 }
+export function* watchPurchaseAllResult() {
+    yield takeLatest(PURCHASE_ALL_REQUEST, purchaseAllRequestFunc());
+}
 
 export default [
     watchCreateCampaign(),
@@ -156,4 +179,5 @@ export default [
     watchStopCampaign(),
     watchDeleteCampaign(),
     watchGetActiveCampaignMem(),
+    watchPurchaseAllResult(),
 ]
