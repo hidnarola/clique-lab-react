@@ -75,7 +75,7 @@ class GroupList extends Component {
         this.setState({
           dropdownOpen: !this.state.dropdownOpen
         });
-      }
+    }
     
     createGroupSubmit = (values) => {
         const { dispatch } = this.props;

@@ -45,11 +45,21 @@ function addUserData(data){
     // param1 -- Either Campaign Or Group 
     // param2 -- Either Campaign Id Or Group ID
     // Param3 -- Selected User Id
+    // Param4 -- Add filter for the bulk user add
+    // param5 -- Used for bulk insert for campign or group via group member listing. It will be selected group id
 
     if(data['param1'] == 'add_to_campaign'){
-        url = `promoter/campaign/${data['param2']['value']}/add_filter_result_to_campaign`;
+        if(data['param5'] != ''){
+            url = `promoter/campaign/${data['param2']['value']}/${data['param5']}/add_filter_result_to_campaign`;
+        }else{
+            url = `promoter/campaign/${data['param2']['value']}/add_filter_result_to_campaign`;
+        }
     }else if(data['param1'] == 'add_to_group'){
-        url = `promoter/group/${data['param2']['value']}/add_filter_result_to_group`;
+        if(data['param5'] != ''){
+            url = `promoter/group/${data['param2']['value']}/${data['param5']}/add_filter_result_to_group`;
+        }else{
+            url = `promoter/group/${data['param2']['value']}/add_filter_result_to_group`;
+        }
     }else if(data['param1'] == 'campaign'){
         url = `promoter/campaign/${data['param2']['value']}/add_user/${data['param3']}`;
     } else if(data['param1'] == 'cart'){

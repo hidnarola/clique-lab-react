@@ -108,8 +108,15 @@ const actionMap = {
 
     [RESET_VALUES]:(state,action) => {
         let resetObj = { showDrop:false};
+        let resetUserVal = {
+                status:0,
+                message:null,
+                data:null,
+                total:0
+            };
         if(action['data']){
             (action['data']['userAdded'] === false) ? resetObj['userAdded'] = false:'';
+            (action['data']['userListing'] === false) ? resetObj['users']=resetUserVal:'';
         }
         return state.merge(Map(resetObj));
     },

@@ -544,9 +544,11 @@ class EverydayPeople extends Component {
         super(props);
 
         this.state = {
-            createGroupModalShow: false,
+
+            modal: false,
             activePage: 1,
             loaderShow:false,
+            is_inserted: 0,
 
             groupId:'',
 
@@ -573,7 +575,7 @@ class EverydayPeople extends Component {
                 { 'slider': 'linkedin',    'value':{ min: 0,  max: 2500 } },
                 { 'slider': 'ageRange',    'value':{ min: 15, max: 65   } },
             ],
-
+            
             appliedFilter:[
                 {
                     "filter":[] // {"field":"gender","type":"exact","value":"female"}
@@ -586,9 +588,7 @@ class EverydayPeople extends Component {
             isSortApply:false,
 
             isFilterApply:false
-        };
-        
-        this.createGroupModal = this.createGroupModalOpen.bind(this);
+        };        
         // this.toggle = this.toggle.bind(this);        
     }
 
@@ -756,6 +756,11 @@ class EverydayPeople extends Component {
         );
     }
 
+    toggle = () => {
+        this.setState({
+          modal: !this.state.modal
+        });
+    }
     
     componentWillMount(){
         const { dispatch,match } = this.props;
@@ -771,14 +776,12 @@ class EverydayPeople extends Component {
         }
         this.filterSendReq(arrayFilter);
         dispatch(moreFilterReq());
-    }
-
-    componentDidMount(){
-        // this.child.toggle();
-    }
+    }    
 
     componentDidUpdate(){
-        let {showDrop,userAdded,dispatch} = this.props;        
+        let {showDrop,userAdded,dispatch,inserted_group} = this.props;        
+        let { is_inserted } = this.state
+
         if(showDrop){
             this.child.toggle();
         }
@@ -787,6 +790,17 @@ class EverydayPeople extends Component {
             alert('User Has been Added');
             dispatch(resetVal( {'userAdded':false}  ));
         }
+
+        if(inserted_group!=null && is_inserted==1){
+            this.setState({ is_inserted: 0});
+            this.setState({modal: false});
+            // dispatch(getGroups({"page_size":6,"page_no":1}));
+        }
+    }
+
+    componentWillUnmount(){
+        const {dispatch} = this.props;
+        dispatch(resetVal( {'userListing':false}  ));
     }
 
     setAgeValue(value) {
@@ -911,13 +925,14 @@ class EverydayPeople extends Component {
         dispatch(resetVal(null));
     }
 
-    saveResult = (param1,param2,param3,param4) => {
+    saveResult = (param1,param2,param3,param4,param5) => {
 
         let data = {
             param1,
             param2,
             param3,
-            param4
+            param4,
+            param5:this.state.groupId
         }
         console.log(data);
         const { dispatch } = this.props;
@@ -928,6 +943,7 @@ class EverydayPeople extends Component {
         const { dispatch } = this.props;
         this.child.setSaveFor(value['value'],null,this.state.appliedFilter[0]);
         dispatch(fetchDropDownReq({"sendReqFor":value['value']}));
+        // /promoter/group/:new_group_id/:old_group_id/add_filter_result_to_group
     }
 
     createGroupSubmit = (values) => {
@@ -967,12 +983,6 @@ class EverydayPeople extends Component {
         allSliderArr['linkedin'] = _.find(allSliders, function(o) { return o.slider == 'linkedin'; });
 
         allSliderArr['ageRange'] = _.find(allSliders, function(o) { return o.slider == 'ageRange'; });
-
-        // if(loading) { // if your component doesn't have to wait for an async action, remove this block 
-        //     return (
-        //         <div className="loader"></div>
-        //     ) // render null when app is not ready
-        // }
 
         return (
             <div className="every-people">
@@ -1070,8 +1080,9 @@ class EverydayPeople extends Component {
                 <div className="all-people">
                     <div className="all-people-head d-flex">
                         <h3>Filtered List ({" "+users.total+" "} Results )</h3>
+                        
                         { (match.params.campaignId===null || match.params.campaignId===undefined) &&                            
-                            <a className="cursor_pointer" onClick={this.createGroupModal}>
+                            <a className="cursor_pointer" onClick={this.toggle}>
                                 <i className="fa fa-plus"></i> 
                                 Save the results as a Group
                             </a>
@@ -1104,41 +1115,24 @@ class EverydayPeople extends Component {
                             resetDropVal={this.resetDropVal}
                             saveResult={this.saveResult}  />
 
-                <Modal isOpen={this.state.createGroupModalShow} toggle={this.createGroupModalOpen}  id="group-popup">
-                    <button type="button" className="close" onClick={this.createGroupModal}>
+                <Modal isOpen={this.state.modal} toggle={this.toggle}  id="group-popup">
+                    <button type="button" className="close" onClick={this.toggle}>
                         <img src="/assets/img/site/close-2.png" />
                     </button>
                     <h2>Create Group</h2>
                     <CreateGroupForm onSubmit={this.createGroupSubmit} />
                 </Modal>
 
-                <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
-                    <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
-                    <ModalBody>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    </ModalBody>
-                    <ModalFooter>
-                        <Button color="primary" onClick={this.toggle}>Do Something</Button>{' '}
-                        <Button color="secondary" onClick={this.toggle}>Cancel</Button>
-                    </ModalFooter>
-                </Modal>
-
             </div>
         );
     }
 
-    createGroupModalOpen() {
-        let newState = this.state.createGroupModalShow;
-        console.log(newState);
-        this.setState({
-            createGroupModalShow: !newState
-        });
-    }
 }
 
 const mapStateToProps = (state) => {
-    const { everyDay } = state;
+    const { everyDay,groups } = state;
     return {
+        inserted_group: groups.get('inserted_group'),
         loading: everyDay.get('loading'),
         error: everyDay.get('error'),
         users: everyDay.get('users'),
