@@ -32,6 +32,7 @@ const initialState = Map({
     activeCampaignMem: null,
     totalActiveCampaignMem: 0,
 
+    alertMessage: null,
 });
 
 const actionMap = {
@@ -247,7 +248,7 @@ const actionMap = {
             ...initialState,
             loading: false,
             status: action.data.data.status,
-            message: action.data.data.message,
+            alertMessage: action.data.data.message,
         }));
     },
     [PURCHASE_ALL_ERROR]: (state, action) => {
@@ -258,7 +259,7 @@ const actionMap = {
         return state.merge(Map({
             ...initialState,
             loading: false,
-            error: error            
+            alertMessage: error
         }));
     },    
 

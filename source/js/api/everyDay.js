@@ -9,6 +9,8 @@ function fetchUsersNew(data){
         url = `promoter/group/${data.groupId}/members`;
     } else if(data.campaignId){ 
         url = `promoter/campaign/${data.campaignId}`;
+    } else if(data.inspired){
+        url = `promoter/inspired_submission`;
     }
     return postFormData(url,data,{"Content-Type": "application/json",'x-access-token':newVar});
 }

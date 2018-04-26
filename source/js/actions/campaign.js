@@ -54,6 +54,10 @@ export function deleteCampaign(data) { return { type: DELETE_CAMPAIGN_REQUEST, d
 export function deleteCampaignSuccess(data) { return { type: DELETE_CAMPAIGN_SUCCESS, data } }
 export function deleteCampaignError(error) { return { type: DELETE_CAMPAIGN_ERROR, error } }
 
+export function getActiveCampaignMem(data) { return { type: GET_ACTIVE_CAMPAIGN_MEM_REQUEST, data } }
+export function getActiveCampaignMemSuccess(data) { return { type: GET_ACTIVE_CAMPAIGN_MEM_SUCCESS, data } }
+export function getActiveCampaignMemError(error) { return { type: GET_ACTIVE_CAMPAIGN_MEM_ERROR, error } }
+
 export function purchaseAll(data) { return { type: PURCHASE_ALL_REQUEST, data } }
 export function purchaseAllSuccess(data) { return { type: PURCHASE_ALL_SUCCESS, data } }
 export function purchaseAllError(error) { return { type: PURCHASE_ALL_ERROR, error } }

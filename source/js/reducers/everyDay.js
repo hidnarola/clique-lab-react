@@ -16,6 +16,12 @@ const initialState = Map({
         data:null,
         total:0
     },
+    inspiredPosts: {
+        status:0,
+        message:null,
+        data:null,
+        total:0
+    },
     moreFilterData:null,
     dropdownList:null,
     showDrop:false,    
@@ -30,6 +36,7 @@ const actionMap = {
         }));
     },
     [EVERY_DAY_SUCCESS]: (state, action) => {
+        //console.log(action); return;
         return state.merge(Map({
             loading: false,
             error: false,
@@ -38,6 +45,12 @@ const actionMap = {
                 message:action.data.data.message, 
                 data:action.data.data.results.users,
                 total:action.data.data.results.total
+            },
+            inspiredPosts: {
+                status:action.data.data.status,
+                message:action.data.data.message,
+                data:action.data.data.results[0].posts,
+                total:action.data.data.results[0].total
             },
         }));
     },
@@ -53,6 +66,12 @@ const actionMap = {
             loading: false,
             error: null,
             users: {
+                status:0, 
+                message:'', 
+                data:[],
+                total:0
+            },
+            inspiredPosts: {
                 status:0, 
                 message:'', 
                 data:[],
