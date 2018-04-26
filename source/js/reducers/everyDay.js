@@ -16,6 +16,12 @@ const initialState = Map({
         data:null,
         total:0
     },
+    inspiredPosts: {
+        status:0,
+        message:null,
+        data:null,
+        total:0
+    },
     moreFilterData:null,
     dropdownList:null,
     showDrop:false,    
@@ -30,6 +36,7 @@ const actionMap = {
         }));
     },
     [EVERY_DAY_SUCCESS]: (state, action) => {
+        //console.log(action); return;
         return state.merge(Map({
             loading: false,
             error: false,
@@ -38,6 +45,12 @@ const actionMap = {
                 message:action.data.data.message, 
                 data:action.data.data.results.users,
                 total:action.data.data.results.total
+            },
+            inspiredPosts: {
+                status:action.data.data.status,
+                message:action.data.data.message,
+                data:(action.data.data.results[0]) ? action.data.data.results[0].posts :[],
+                total:(action.data.data.results[0]) ? action.data.data.results[0].total :0
             },
         }));
     },
@@ -53,6 +66,12 @@ const actionMap = {
             loading: false,
             error: null,
             users: {
+                status:0, 
+                message:'', 
+                data:[],
+                total:0
+            },
+            inspiredPosts: {
                 status:0, 
                 message:'', 
                 data:[],
@@ -108,8 +127,15 @@ const actionMap = {
 
     [RESET_VALUES]:(state,action) => {
         let resetObj = { showDrop:false};
+        let resetUserVal = {
+                status:0,
+                message:null,
+                data:null,
+                total:0
+            };
         if(action['data']){
             (action['data']['userAdded'] === false) ? resetObj['userAdded'] = false:'';
+            (action['data']['userListing'] === false) ? resetObj['users']=resetUserVal:'';
         }
         return state.merge(Map(resetObj));
     },

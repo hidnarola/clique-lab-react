@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Pagination from "react-js-pagination";
 import { sendReq,moreFilterReq,fetchDropDownReq,resetVal,addUserReq,bulkUserReq } from '../actions/everyDay';
+import { purchaseAll } from '../actions/campaign';
 import { getGroups,addGroups } from '../actions/groups';
 import sampleImg from 'img/site/400x218.png';
 import closeImg from 'img/site/close.png';
@@ -19,6 +20,8 @@ import moment from 'moment';
 import SweetAlert from 'react-bootstrap-sweetalert';
 import { Link } from 'react-router-dom';
 import { routeCodes } from '../constants/routes';
+import img1 from 'img/site/big-img011.jpg';
+import { imgRoutes } from '../constants/img_path';
 
 import {
         Button, Modal, ModalHeader, ModalBody, ModalFooter, Dropdown,
@@ -546,9 +549,11 @@ class EverydayPeople extends Component {
         super(props);
 
         this.state = {
-            createGroupModalShow: false,
+
+            modal: false,
             activePage: 1,
             loaderShow:false,
+            is_inserted: 0,
 
             groupId:'',
 
@@ -575,7 +580,7 @@ class EverydayPeople extends Component {
                 { 'slider': 'linkedin',    'value':{ min: 0,  max: 2500 } },
                 { 'slider': 'ageRange',    'value':{ min: 15, max: 65   } },
             ],
-
+            
             appliedFilter:[
                 {
                     "filter":[] // {"field":"gender","type":"exact","value":"female"}
@@ -588,9 +593,7 @@ class EverydayPeople extends Component {
             isSortApply:false,
 
             isFilterApply:false
-        };
-        
-        this.createGroupModal = this.createGroupModalOpen.bind(this);
+        };        
         // this.toggle = this.toggle.bind(this);        
     }
 
@@ -598,6 +601,7 @@ class EverydayPeople extends Component {
         const { dispatch,match } = this.props;
         data['groupId'] = match.params.grpId;
         data['campaignId'] = match.params.campaignId;
+        data['inspired'] = (match.path==routeCodes.CAMPAIGN_INSPIRED_SUB) ? true : false;
         dispatch(sendReq(data));
     }
 
@@ -697,8 +701,18 @@ class EverydayPeople extends Component {
             'param3':obj._id
         }
         dispatch(addUserReq(data));
-        // this.child.setSaveFor('cart',obj._id);
-        // dispatch(fetchDropDownReq({"sendReqFor":"cart","uId":obj._id}));
+    }
+
+    purchaseResult = () => {
+        const { dispatch, match } = this.props;
+        let { appliedFilter } = this.state;
+        let arrayFilter = {
+            'filter': appliedFilter[0]['filter'],
+            'campaignId': match.params.campaignId
+        };
+        dispatch(purchaseAll(arrayFilter));
+        // this.setState({"activePage":1});
+        // this.filterSendReq(arrayFilter);
     }
 
     renderLi = (obj) =>{
@@ -758,9 +772,49 @@ class EverydayPeople extends Component {
         );
     }
 
+    toggle = () => {
+        this.setState({
+          modal: !this.state.modal
+        });
+    }
+    renderLi3 = (obj) => {
+        return (
+            <li key={Math.random()}>
+                <div className="fan-festival-box d-flex">
+                    <div className="festival-img"><img src={`${imgRoutes.CAMPAIGN_IMG_PATH}${obj.image}`} alt="" /></div>
+                    <div className="fan-festival-r">
+                        <div className="festival-head d-flex">
+                            <div className="festival-head-l">
+                                <span></span>
+                                <h3>
+                                    <big>{obj.users.name}</big>
+                                    <small>{obj.users.email}</small>
+                                    {/* <small>Bondi Beach, Sydney, Australia</small> */}
+                                </h3>
+                            </div>
+                            <div className="festival-head-r"><h3>${(obj.price).toFixed(2)}</h3></div>
+                        </div>
+                        <div className="festival-body">
+                            <h2>Make up by morning. boyfriends happy, what a life I lead! <a href="">@thegrocer #morning #earlyriser #excited #sponsored</a></h2>
+                        </div>
+                        <div className="festival-ftr d-flex">
+                            <div className="festival-ftr-l"><a href=""><i><img src={fbImg} alt="" /></i><strong>823M</strong></a></div>
+                            <div className="festival-ftr-r dropdown">
+                                <PlusAction2 
+                                    addToCart={ () => {this.addToCart(obj)} }
+                                    addGroup={ () => {this.addGroup(obj)} } 
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        );
+    }
+
     
     componentWillMount(){
-        const { dispatch,match } = this.props;
+        const { dispatch,match } = this.props;        
         this.setState({groupId:''});
         if(match.params.grpId){
             this.setState({groupId:match.params.grpId});
@@ -773,14 +827,12 @@ class EverydayPeople extends Component {
         }
         this.filterSendReq(arrayFilter);
         dispatch(moreFilterReq());
-    }
-
-    componentDidMount(){
-        // this.child.toggle();
-    }
+    }    
 
     componentDidUpdate(){
-        let {showDrop,userAdded,dispatch} = this.props;        
+        let {showDrop,userAdded,dispatch,inserted_group} = this.props;        
+        let { is_inserted } = this.state
+
         if(showDrop){
             this.child.toggle();
         }
@@ -789,6 +841,17 @@ class EverydayPeople extends Component {
             alert('User Has been Added');
             dispatch(resetVal( {'userAdded':false}  ));
         }
+
+        if(inserted_group!=null && is_inserted==1){
+            this.setState({ is_inserted: 0});
+            this.setState({modal: false});
+            // dispatch(getGroups({"page_size":6,"page_no":1}));
+        }
+    }
+
+    componentWillUnmount(){
+        const {dispatch} = this.props;
+        dispatch(resetVal( {'userListing':false}  ));
     }
 
     setAgeValue(value) {
@@ -913,13 +976,14 @@ class EverydayPeople extends Component {
         dispatch(resetVal(null));
     }
 
-    saveResult = (param1,param2,param3,param4) => {
+    saveResult = (param1,param2,param3,param4,param5) => {
 
         let data = {
             param1,
             param2,
             param3,
-            param4
+            param4,
+            param5:this.state.groupId
         }
         console.log(data);
         const { dispatch } = this.props;
@@ -930,6 +994,7 @@ class EverydayPeople extends Component {
         const { dispatch } = this.props;
         this.child.setSaveFor(value['value'],null,this.state.appliedFilter[0]);
         dispatch(fetchDropDownReq({"sendReqFor":value['value']}));
+        // /promoter/group/:new_group_id/:old_group_id/add_filter_result_to_group
     }
 
     createGroupSubmit = (values) => {
@@ -942,7 +1007,7 @@ class EverydayPeople extends Component {
     }
 
     render() {
-        let {users,moreFilterData,dropdownList,loading,match} = this.props;
+        let {users,inspiredPosts,moreFilterData,dropdownList,loading,match} = this.props;
         const {allDropDown,allSliders} = this.state;
 
         let allDropArr = [];
@@ -975,7 +1040,6 @@ class EverydayPeople extends Component {
         //         <div className="loader"></div>
         //     ) // render null when app is not ready
         // }
-
         return (
             <div className="every-people">
 
@@ -1027,7 +1091,7 @@ class EverydayPeople extends Component {
                         {   
                             (match.params.campaignId!==null && match.params.campaignId!==undefined) ?
                                 <div className="new-permission">
-                                    <a className="cursor_pointer" >Purchase all result</a>
+                                    <a className="cursor_pointer" href="javascript:void(0)" onClick={this.purchaseResult}>Purchase all result</a>
                                 </div>
                             :
                                 <ul>
@@ -1047,23 +1111,27 @@ class EverydayPeople extends Component {
                                             ]}
                                         />
                                     </li>
-                                    <li>
+                                    {(
+                                        match.path==routeCodes.CAMPAIGN_INSPIRED_SUB ? ''
+                                        :    
+                                            <li>
 
-                                        <ReactSelect
-                                            name="addAllResults"
-                                            // value={genderDropArr.value}
-                                            onChange={(value) => this.saveBulkResult(value)}
-                                            searchable={false}
-                                            clearable={false}
-                                            autosize={false}
-                                            placeholder="Add All Results"
-                                            className='dropdown-inr'
-                                            options={[
-                                                { value: 'add_to_campaign', label: 'Add to Campaign' },
-                                                { value: 'add_to_group', label: 'Add to Group' },
-                                            ]}
-                                        />
-                                    </li>
+                                                <ReactSelect
+                                                    name="addAllResults"
+                                                    // value={genderDropArr.value}
+                                                    onChange={(value) => this.saveBulkResult(value)}
+                                                    searchable={false}
+                                                    clearable={false}
+                                                    autosize={false}
+                                                    placeholder="Add All Results"
+                                                    className='dropdown-inr'
+                                                    options={[
+                                                        { value: 'add_to_campaign', label: 'Add to Campaign' },
+                                                        { value: 'add_to_group', label: 'Add to Group' },
+                                                    ]}
+                                                />
+                                            </li>
+                                    )}
                                 </ul>
                         }
                     </div>
@@ -1071,23 +1139,37 @@ class EverydayPeople extends Component {
 
                 <div className="all-people">
                     <div className="all-people-head d-flex">
-                        <h3>Filtered List ({" "+users.total+" "} Results )</h3>
-                        { (match.params.campaignId===null || match.params.campaignId===undefined) &&                            
+                        <h3>
+                            {
+                                (users.total!==undefined) ? 
+                                    `Filtered List ( ${users.total} Results )`
+                                :
+                                    `Filtered List ( ${inspiredPosts.total} Results )`
+                            }
+                        </h3>
+                        { ((match.params.campaignId===null || match.params.campaignId===undefined) && match.path!==routeCodes.CAMPAIGN_INSPIRED_SUB) &&                            
                             <a className="cursor_pointer" onClick={this.createGroupModal}>
                                 <i className="fa fa-plus"></i> 
                                 Save the results as a Group
                             </a>
                         }
                     </div>
-                    {   (match.params.campaignId!==null && match.params.campaignId!==undefined) 
-                        ?
-                        <ul className="fan-festival d-flex">
-                            {(users.status === 1) ? users.data.map((obj,index) => (this.renderLi2(obj))) :''}
-                        </ul>
+                    {   
+                        (match.params.campaignId!==null && match.params.campaignId!==undefined) ?
+                            <ul className="fan-festival d-flex">
+                                {(users.status === 1) ? users.data.map((obj,index) => (this.renderLi2(obj))) :''}
+                            </ul>
                         :
-                        <ul className="all-people-ul d-flex">
-                            {(users.status === 1) ? users.data.map((obj,index) => (this.renderLi(obj))) :''}
-                        </ul>
+                            (
+                                match.path==routeCodes.CAMPAIGN_INSPIRED_SUB ?
+                                    <ul className="fan-festival d-flex h-view">
+                                        {(inspiredPosts.status === 1) ? inspiredPosts.data.map((obj,index) => (this.renderLi3(obj))) :''}
+                                    </ul>
+                                :
+                                    <ul className="all-people-ul d-flex">
+                                        {(users.status === 1) ? users.data.map((obj,index) => (this.renderLi(obj))) :''}
+                                    </ul>
+                            )
                     }
 
                     { (users.total > 9) ?
@@ -1106,44 +1188,28 @@ class EverydayPeople extends Component {
                             resetDropVal={this.resetDropVal}
                             saveResult={this.saveResult}  />
 
-                <Modal isOpen={this.state.createGroupModalShow} toggle={this.createGroupModalOpen}  id="group-popup">
-                    <button type="button" className="close" onClick={this.createGroupModal}>
+                <Modal isOpen={this.state.modal} toggle={this.toggle}  id="group-popup">
+                    <button type="button" className="close" onClick={this.toggle}>
                         <img src="/assets/img/site/close-2.png" />
                     </button>
                     <h2>Create Group</h2>
                     <CreateGroupForm onSubmit={this.createGroupSubmit} />
                 </Modal>
 
-                <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
-                    <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
-                    <ModalBody>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    </ModalBody>
-                    <ModalFooter>
-                        <Button color="primary" onClick={this.toggle}>Do Something</Button>{' '}
-                        <Button color="secondary" onClick={this.toggle}>Cancel</Button>
-                    </ModalFooter>
-                </Modal>
-
             </div>
         );
     }
 
-    createGroupModalOpen() {
-        let newState = this.state.createGroupModalShow;
-        console.log(newState);
-        this.setState({
-            createGroupModalShow: !newState
-        });
-    }
 }
 
 const mapStateToProps = (state) => {
-    const { everyDay } = state;
+    const { everyDay,groups } = state;
     return {
+        inserted_group: groups.get('inserted_group'),
         loading: everyDay.get('loading'),
         error: everyDay.get('error'),
         users: everyDay.get('users'),
+        inspiredPosts: everyDay.get('inspiredPosts'),
         moreFilterData: everyDay.get('moreFilterData'),
         dropdownList:everyDay.get('dropdownList'),
         showDrop:everyDay.get('showDrop'),
