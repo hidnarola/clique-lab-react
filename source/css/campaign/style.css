@@ -293,11 +293,11 @@ filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='#c76eff', endC
 
 .input-wrap{display:block; margin:0 0 24px;}
 .input-wrap label{display:block; padding:0 0 12px; margin:0; font-size:16px; font-weight:500; color:#43458b; line-height:100%;}
-.input-wrap input{border:2px solid rgba(82,95,127,.2); padding:15px 20px; line-height:26px; color:rgba(82,95,127,.5); font-size:16px; font-weight:500; width:100%; border-radius:2px;}
+.input-wrap input{border:2px solid rgba(82,95,127,.2); padding:12px 15px 11px; line-height:26px; color:rgba(82,95,127,.5); font-size:16px; font-weight:500; width:100%; border-radius:2px;}
 
 .input-wrap-2{border:2px solid rgba(82,95,127,.2); padding:15px 60px 15px 20px; line-height:26px; color:rgba(82,95,127,.5); font-size:16px; font-weight:500; width:100%; position:relative; border-radius:2px;}
-.input-wrap-2 input{ border:0; background:transparent; padding:0;}
-.input-wrap-2 i{ width:56px; height:56px; position:absolute; top:0; right:0; text-align:center;     line-height: 54px;}
+.input-wrap-2 input{ border:0; background:transparent;}
+.input-wrap-2 i{ width:48px; height:48px; position:absolute; top:0; right:0; text-align:center; line-height:4px;}
 
 
 .select-wrap select{border:2px solid rgba(82,95,127,.2); padding:18px 20px 17px 20px; line-height:26px; color:rgba(82,95,127,.5); font-size:16px; font-weight:500; width:100%; border-radius:2px;}
@@ -336,7 +336,7 @@ filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='#c76eff', endC
 .all-people{display:block;}
 .all-people-head{margin:0 0 30px;}
 .all-people-head h3{margin:0; padding:0; font-size:16px; color:#43458b; line-height:20px; font-weight:500;}
-.all-people-head a{margin-left:auto; font-size:16px; color:#6772e5; line-height:20px; font-weight:500;}
+.all-people-head a{margin-left:auto; font-size:16px; color:#6772e5 !important; line-height:20px; font-weight:500;}
 .all-people-head a i{font-size:14px; margin:0 4px 0 0;}
 .all-people-head a:hover{ color:#43458b; text-decoration:none;}
 
@@ -420,7 +420,7 @@ ul.all-people-ul li{ width:33.33%; padding:15px;}
 .drag-drop{margin:0 0 30px;}
 .drag-drop  label{display:block; padding:0 0 12px; margin:0; font-size:16px; font-weight:500; color:#43458b; line-height:100%;}
 #group-popup .input-wrap{ margin:0 0 50px;}
-#group-popup .input-wrap input{padding:15px 20px; line-height:26px; border:2px solid #dcdfe5; border-radius:4px;}
+#group-popup .input-wrap input{padding:12px 15px 11px; line-height:26px; border:2px solid #dcdfe5; border-radius:4px;}
 #group-popup .submit-btn{max-width:230px; margin:0 auto;}
 #group-popup .submit-btn button{width:100%;}
 #group-popup button.close{position:absolute; top:-45px; right:-55px; opacity:1;}
@@ -692,3 +692,5 @@ ul.fan-festival.h-view .festival-body {margin:0 0 50px;}
 .payment-done p{ font-size:18px; color:#525f7f; letter-spacing:.02em; display:block; text-align:center; margin:0 0 50px; padding:0;}
 .payment-done.popup-css .modal-dialog {max-width:668px; padding:55px 85px 60px;}
 .mobile-nav{display:none;}
+
+.btn_add_all_results {min-width:160px;}

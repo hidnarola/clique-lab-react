@@ -1124,7 +1124,7 @@ class EverydayPeople extends Component {
                                                     clearable={false}
                                                     autosize={false}
                                                     placeholder="Add All Results"
-                                                    className='dropdown-inr'
+                                                    className='dropdown-inr btn_add_all_results'
                                                     options={[
                                                         { value: 'add_to_campaign', label: 'Add to Campaign' },
                                                         { value: 'add_to_group', label: 'Add to Group' },

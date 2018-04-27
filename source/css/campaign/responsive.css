@@ -129,7 +129,7 @@ img{max-width:100%;}
 
 @media (min-width:1025px) and (max-width:1600px){
 	.form-logo {height: 146px;}
-	.form-content {height: 464px;}
+	.form-content {height: 564px;}
 	.form-ftr {height:50px;}
 	.input-div input {font-size: 13px;padding: 5px 0 8px 0;}
 	.form-content form{ width:255px;}
@@ -152,6 +152,7 @@ img{max-width:100%;}
 	.post-dropdown>a i {margin-top:4px; background-size: 12px auto; height:16px;}
 	.step-content h2 {padding: 0 0 25px; font-size:16px;}
 	.input-wrap label {font-size:13px;}
+	.select-wrap .Select-control{padding:7px 13px; font-size:13px;}
 	.input-wrap input {padding:8px 13px; font-size:13px;}
 	.round-btn {font-size:14px; padding:6px 5px; min-width:140px;}
 	.right-hdr h2 {font-size:22px; line-height:34px;}
