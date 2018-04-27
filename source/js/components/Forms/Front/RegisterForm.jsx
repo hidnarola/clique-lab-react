@@ -115,7 +115,7 @@ const country_Select = (props) => {
 let RegisterForm = props => {
     const { handleSubmit, error } = props
     
-    console.log('>>Dipesh',props.countryList);
+    // console.log('>>Dipesh',props.countryList);
 
     let countryArr = [];
     if(props.countryList !== null){
