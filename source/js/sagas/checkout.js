@@ -1,7 +1,7 @@
 import { takeLatest, put, call } from 'redux-saga/effects';
 import { 
     GET_CHECKOUT_LIST_REQUEST, GET_CHECKOUT_LIST_SUCCESS, GET_CHECKOUT_LIST_ERROR, getCheckoutList, getCheckoutListSuccess, getCheckoutListError,
-} from "../actions/checkout";
+} from "../actions/Checkout";
 import api from '../api/checkout';
 
 
