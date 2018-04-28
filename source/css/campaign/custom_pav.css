@@ -30,3 +30,8 @@
 
 .plus-people button img{ max-width: 30px; margin: 5px 15px; }
 .Select--multi .Select-value{ margin-top:1px; }
+
+.cart-table table.table thead th{
+    font-size: 13px;
+    font-weight: 600;
+}

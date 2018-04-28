@@ -11,32 +11,32 @@ const validate = values => {
     const errors = {}
 
     if (!values.username) {
-        errors.username = 'Required'
+        errors.username = 'This field is Required'
     }
 
     if (!values.fullname) {
-        errors.fullname = 'Required'
+        errors.fullname = 'This field is Required'
     }
 
     if (!values.email) {
-        errors.email = 'Required'
+        errors.email = 'This field is Required'
     } else if (validator.isEmail(values.email) === false) {
         errors.email = 'Enter valid email address'
     }
 
     if (!values.company) {
-        errors.company = 'Required'
+        errors.company = 'This field is Required'
     }
     if (!values.country) {
-        errors.country = 'Required'
+        errors.country = 'This field is Required'
     }
 
     if (!values.repeatPassword) {
-        errors.repeatPassword = 'Required'
+        errors.repeatPassword = 'This field is Required'
     }
 
     if (!values.password) {
-        errors.password = 'Required'
+        errors.password = 'This field is Required'
     } else if (values.password.length < 5) {
         errors.password = 'Must be more than 5 or more characters.'
     } else if (values.password !== values.repeatPassword) {
@@ -163,6 +163,7 @@ let RegisterForm = props => {
                 name="country"
                 component={country_Select}
                 options={countryArr}
+                placeholder="Select Country"
             />
 
             <Field

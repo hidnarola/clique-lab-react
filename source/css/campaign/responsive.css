@@ -107,7 +107,7 @@ img{max-width:100%;}
 	.closeiocn-btn img{max-width:20px;}
 	.demographics-body ul li strong {font-size:14px; line-height: 32px;}
 	.cart-table {padding:30px;}
-	.cart-table table.table tbody td h3 {font-size:15px;}
+	.cart-table table.table tbody td h3 {font-size:14px;}
 	.cart-table .subtotal table thead th{ font-size:14px;}
 	#congratulations p {font-size:15px;margin: 0 0 30px;}
 	#congratulations h2 {font-size:16px; padding:0 0 25px; margin: 0 0 25px;}
@@ -129,7 +129,7 @@ img{max-width:100%;}
 
 @media (min-width:1025px) and (max-width:1600px){
 	.form-logo {height: 146px;}
-	.form-content {height: 564px;}
+	.form-content {height: 590px;}
 	.form-ftr {height:50px;}
 	.input-div input {font-size: 13px;padding: 5px 0 8px 0;}
 	.form-content form{ width:255px;}

@@ -655,17 +655,17 @@ ul.fan-festival.h-view .festival-body {margin:0 0 50px;}
 .cart-table{padding:48px;}
 .cart-table table.table{margin:0;}
 
-.cart-table table.table thead th{ color:#43458b; font-size:15px; font-weight:500; padding:15px 15px 15px 40px; border:0;}
-.cart-table table.table tbody td{color:#525f7f; font-size:15px; font-weight:500; padding:15px 15px 15px 40px; border:0; border-bottom:2px solid #f4f4f6;}
-.cart-table table.table tbody td h3{margin:0; padding:0; color:#525f7f; font-size:16px; font-weight:500;}
-.cart-table table.table tbody td h4{margin:0; padding:0; color:#525f7f; font-size:16px; font-weight:500;}
+.cart-table table.table thead th{ color:#43458b; font-size:14px; font-weight:600; padding:15px 15px 15px 0px; border:0;}
+.cart-table table.table tbody td{color:#525f7f; font-size:14px; font-weight:500; padding:15px 15px 15px 0px; border:0; border-bottom:2px solid #f4f4f6;}
+.cart-table table.table tbody td h3{margin:0; padding:0; color:#525f7f; font-size:14px; font-weight:500;}
+.cart-table table.table tbody td h4{margin:0; padding:0; color:#525f7f; font-size:14px; font-weight:500;}
 .cart-table table.table tbody td h4 + h4{ margin-left:10px; padding-left:10px; border-left:2px solid #525f7f;}
 .cart-table table.table thead th,
 .cart-table table.table tbody td{vertical-align:middle;}
 .cart-table table.table thead th + th,
 .cart-table table.table tbody td + td{ padding-left:15px;}
 .cart-table>table.table>tfoot>tr>td{text-align:right; background:rgba(79,105,157,.02); border:0; padding:52px 20px 44px 20px;}
-.cart-table .subtotal {width:260px; margin-right:90px; display:inline-block; vertical-align:top;}
+.cart-table .subtotal { width: 248px;margin-right: 0px;display: inline-block;vertical-align: top;}
 .cart-table .subtotal table{background-color:transparent !important; }
 .cart-table .subtotal table thead th{width:50%; padding:13px 30px; font-size:16px; color:#525f7f; font-weight:500; line-height:normal; border:0; text-align:left; border:0;}
 .cart-table .subtotal table thead th:first-child{ text-align:right;}
