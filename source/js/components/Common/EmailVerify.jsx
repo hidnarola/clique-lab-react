@@ -25,7 +25,7 @@ class EmailVerify extends Component{
         
             // Examine the text in the response
             response.json().then(function(data) {
-                this.props.history.push(routeCodes.REGISTER)
+                this.props.history.push(routeCodes.LOGIN)
             });
         })
     }
@@ -41,7 +41,7 @@ class EmailVerify extends Component{
     render(){
         return(
             <div>
-                Hello World
+                {/* Hello World */}
             </div>
         );
     }

@@ -1147,8 +1147,8 @@ class EverydayPeople extends Component {
                                     `Filtered List ( ${inspiredPosts.total} Results )`
                             }
                         </h3>
-                        { ((match.params.campaignId===null || match.params.campaignId===undefined) && match.path!==routeCodes.CAMPAIGN_INSPIRED_SUB) &&                            
-                            <a className="cursor_pointer" onClick={this.createGroupModal}>
+                        { ((match.params.campaignId===null || match.params.campaignId===undefined) && match.path!==routeCodes.CAMPAIGN_INSPIRED_SUB) &&
+                            <a className="cursor_pointer" onClick={this.toggle}>
                                 <i className="fa fa-plus"></i> 
                                 Save the results as a Group
                             </a>

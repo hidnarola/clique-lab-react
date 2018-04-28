@@ -8,10 +8,12 @@ import campaign from 'sagas/campaign';
 import everyday from 'sagas/everyDay';
 import groups from 'sagas/groups';
 import checkout from 'sagas/checkout';
+import purchasedPosts from 'sagas/purchasedPosts';
 
 
 export default function* rootSaga() {
   yield all([    
+    ...purchasedPosts,
     ...login,
     ...register,
     ...forgotPass,
