@@ -1,5 +1,5 @@
 import { Map } from "immutable";
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_ERROR, LOGOUT_REQUEST, LOGOUT_SUCCESS, LOGOUT_ERROR } from "../actions/login";
+import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_ERROR, LOGOUT_REQUEST, LOGOUT_SUCCESS, LOGOUT_ERROR,RESET_VALUES_LOGIN } from "../actions/login";
 
 const initialState = Map({
     loading: false,
@@ -67,6 +67,13 @@ const actionMap = {
             token: null,
             refreshToken: null
         }));
+    },
+
+    [RESET_VALUES_LOGIN]:(state,action) => {        
+        if(action['data']){
+            // (action['data']['userAdded'] === false) ? resetObj['userAdded'] = false:'';            
+        }
+        return state.merge(Map(resetObj));
     },
 };
 

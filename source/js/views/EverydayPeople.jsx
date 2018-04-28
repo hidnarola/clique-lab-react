@@ -550,6 +550,8 @@ class EverydayPeople extends Component {
 
         this.state = {
 
+            perPageItem:9,
+
             modal: false,
             activePage: 1,
             loaderShow:false,
@@ -614,7 +616,7 @@ class EverydayPeople extends Component {
         let arrayFilter = {
             filter:this.state.appliedFilter[0]['filter'],
             "sort":[{ "field": "name", "value":parseInt(sortDropArr['value']['value'])}],
-            "page_size":9,
+            "page_size":this.state.perPageItem,
             "page_no":pageNumber
         }
         this.filterSendReq(arrayFilter);
@@ -652,7 +654,7 @@ class EverydayPeople extends Component {
             let arrayFilter = {
                 filter:filteredArr,
                 "sort":[{ "field": "name", "value":parseInt(sortDropArr['value']['value'])}],
-                "page_size":9,
+                "page_size":this.state.perPageItem,
                 "page_no":1
             }
             this.setState({"activePage":1});
@@ -664,7 +666,7 @@ class EverydayPeople extends Component {
             let arrayFilter = {
                 filter:this.state.appliedFilter[0]['filter'],
                 "sort":[{ "field": "name", "value":parseInt(selectedOption['value'])}],
-                "page_size":9,
+                "page_size":this.state.perPageItem,
                 "page_no":1
             }
             this.setState({"activePage":1});
@@ -821,7 +823,7 @@ class EverydayPeople extends Component {
         }
 
         let arrayFilter = {
-            "page_size":9,
+            "page_size":this.state.perPageItem,
             "page_no":1,
             groupId:match.params.grpId
         }
@@ -845,7 +847,7 @@ class EverydayPeople extends Component {
         if(inserted_group!=null && is_inserted==1){
             this.setState({ is_inserted: 0});
             this.setState({modal: false});
-            // dispatch(getGroups({"page_size":6,"page_no":1}));
+            
         }
     }
 
@@ -882,7 +884,7 @@ class EverydayPeople extends Component {
         let arrayFilter = {
             "filter":this.state.appliedFilter[0]['filter'],
             "sort":[{ "field": "name", "value":parseInt(sortDropArr['value']['value'])}],
-            "page_size":9,
+            "page_size":this.state.perPageItem,
             "page_no":1
         }
         this.setState({"activePage":1});
@@ -963,7 +965,7 @@ class EverydayPeople extends Component {
         let arrayFilter = {
             "filter":exstingFilterArr,
             "sort":[{ "field": "name", "value":parseInt(sortDropArr['value']['value'])}],
-            "page_size":9,
+            "page_size":this.state.perPageItem,
             "page_no":1
         }
         this.setState({"activePage":1});
@@ -1178,6 +1180,7 @@ class EverydayPeople extends Component {
                             totalItemsCount={users.total}
                             pageRangeDisplayed={5}
                             onChange={this.handlePageChange}
+                            itemsCountPerPage={this.state.perPageItem}
                         /> : '' }
 
 
