@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { routeCodes } from '../constants/routes';
 
 // This component is used for Server rendering
 // When you want to return 40x http statuses
@@ -27,8 +29,12 @@ export default class NotFound extends Component {
   render() {
     return (
       <RouteStatus code={ 404 }>
-        <div className='NotFound'>
-          <h1>Not Found</h1>
+        <div className="notfound-main-div">
+          <div class="notfound-inner-box">
+            <h1>Ooops... Error 404</h1>
+            <h2>Sorry, but the page you are looking for dosen't exist.</h2>
+            <Link to={routeCodes.DASHBOARD}>Back to home page</Link>
+          </div>
         </div>
       </RouteStatus>
     );

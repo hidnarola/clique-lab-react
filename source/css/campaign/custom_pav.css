@@ -35,3 +35,10 @@
     font-size: 13px;
     font-weight: 600;
 }
+
+/* Not Found */
+    .notfound-main-div{ padding:10em; text-align: center; width: 80%; margin: 0 10em; }
+    .notfound-inner-box{ box-shadow: 0px 2px 10px 2px #ccc; background-color: #fbfbfb; border-radius: 5px; padding: 20px; }
+    .notfound-inner-box h1,
+    .notfound-inner-box h2{ font-family: inherit; }
+    .notfound-inner-box h2{ font-size:22px; color:#b8b9c0 }
