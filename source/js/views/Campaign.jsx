@@ -32,6 +32,19 @@ class Campaign extends Component {
         this.setState({ page: this.state.page - 1 });
     }
 
+    componentWillUnmount(){
+        const { dispatch } = this.props;
+        dispatch(initialize('wizardCampaign',{}))
+        // dispatch(reset('wizardCampaign'));
+    }
+
+    resetFormData()
+    {
+        const { dispatch } = this.props;
+       dispatch(initialize('wizardCampaign',{}))
+        // dispatch(reset('wizardCampaign'));
+    }
+    
     submitForm(values){
         // console.log(values);
         const {dispatch} = this.props;
@@ -74,24 +87,32 @@ class Campaign extends Component {
         // for (var value of formData.values()) {
         //     console.log(value); 
         // }
+        this.setState({isRedirect:true});
+        this.resetFormData();
+        this.props.history.push(routeCodes.DASHBOARD)
+
     }
 
-    componentDidUpdate(){
-        const { campaign } = this.props;
-        console.log('===============================');
-        console.log(campaign);
-        console.log('===============================');
 
-        if(campaign){
-            if(campaign['status']){
-                this.childCampaign.toggle()
+    // componentDidUpdate(){
+    //     const { campaign } = this.props;
+    //     console.log('===============================');
+    //     console.log(campaign);
+    //     console.log('===============================');
 
-                setTimeout(()=>{
-                    this.props.history.push(routeCodes.DASHBOARD)
-                },1000)
-            }
-        }
-    }
+    //     if(campaign && this.state.isRedirect === true){
+    //         if(campaign['status']){
+    //             //this.childCampaign.toggle()
+    //             this.setState({isRedirect:false});
+    //             // dispatch(initialize('wizardCampaign',{}));
+    //             this.resetFormData();
+    //             setTimeout(()=>{
+    //                 this.props.history.push(routeCodes.DASHBOARD)
+    //             },1000)
+    //         }
+    //     }
+        
+    // }
     
     changePage = (pageNo) => {
         this.setState({page:pageNo});
