@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
 import FormCampaignRight from './FormCampaignRight';
+import {CommonCompo} from './CommonCompo';
 import { Field, reduxForm } from 'redux-form';
 import DatePicker from 'react-datepicker';
 import validator from 'validator';
@@ -51,28 +52,9 @@ class FormStep1 extends Component{
         return(
             <form onSubmit={handleSubmit}>
                 <div className="right-box create-campaign d-flex">                
-                    <div className="create-campaign-l d-flex">
-                        <div className="step-process d-flex">
-                            <div className="process-point active ">
-                                <a className="cursor_pointer"></a>
-                                <strong></strong>
-                            </div>
-                            <div className="process-point">
-                                <a className="cursor_pointer"></a>
-                                <strong></strong>
-                            </div>
-                            <div className="process-point">
-                                <a className="cursor_pointer"></a>
-                                <strong></strong>
-                            </div>
-                            <div className="process-point">
-                                <a className="cursor_pointer"></a>
-                                <strong></strong>
-                            </div>
-                            <div className="process-point">
-                                <a className="cursor_pointer"></a>
-                            </div>
-                        </div>
+                    
+                    <div className="create-campaign-l d-flex">                        
+                        <CommonCompo currentPage="1" changePage={(i) => this.props.changePage(i)}/>
                         <div className="step-content d-flex">
                             <h2>Step 1</h2>                            
                             <Field

@@ -92,6 +92,10 @@ class Campaign extends Component {
             }
         }
     }
+    
+    changePage = (pageNo) => {
+        this.setState({page:pageNo});
+    }
 
     render() {
         const { onSubmit } = this.props;
@@ -99,21 +103,25 @@ class Campaign extends Component {
         
         return (
             <div className='Campaign'>                                 
-                {page === 1 && <FormStep1 onSubmit={this.nextPage} />}
+                {page === 1 && <FormStep1 onSubmit={this.nextPage} changePage={this.changePage}/>}
                 
                 {page === 2 && <FormStep2 
+                                    changePage={(i) =>this.changePage(i) }
                                     previousPage={this.previousPage}
                                     onSubmit={this.nextPage} />}
                                 
                 {page === 3 && <FormStep3
+                                    changePage={(i) =>this.changePage(i) }
                                     previousPage={this.previousPage}
                                     onSubmit={this.nextPage} />}
                 
                 {page === 4 && <FormStep4
+                                    changePage={(i) =>this.changePage(i) }
                                     previousPage={this.previousPage}
                                     onSubmit={this.nextPage} />}
 
                 {page === 5 && <FormStep5
+                                    changePage={(i) =>this.changePage(i) }
                                     previousPage={this.previousPage}
                                     onSubmit={this.submitForm} />}
 

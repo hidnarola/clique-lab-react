@@ -38,11 +38,7 @@ function afterRegFetDataFunc(){
         try {
             
             const industryData = yield call(() => api.fetchIndustry());            
-            const setting = yield call(() => api.fetchSetting());
-            
-            console.log('**************************');
-            console.log(setting);
-            console.log('**************************');
+            const setting = yield call(() => api.fetchSetting());            
             const action = { type: AFTER_FETCH_DATA_SUCCESS, industryData,setting };
             yield put(action);
         } catch (error) {

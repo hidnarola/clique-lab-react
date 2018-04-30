@@ -1,7 +1,4 @@
-.campaign_form_step2_dropdown .Select-placeholder, 
-.campaign_form_step2_dropdown.Select--single > .Select-control .Select-value,
-.campaign_form_step2_dropdown.Select--single > .Select-control .Select-value .Select-value-label{ line-height: 27px !important; }
-.campaign_form_step2_dropdown .Select-control > .Select-arrow-zone{ top:10px; }
+.campaign_form_step2_dropdown .Select-control > .Select-arrow-zone{     top: 50%; right: 15px;}
 .campaign_form_step2_dropdown .Select-control{ border: 2px solid rgb(220, 223, 229) !important; }
 
 #custom_calendar{
@@ -30,3 +27,29 @@
 .no_data_found img{
   width: 75%;
 }
+
+.plus-people button img{ max-width: 30px; margin: 5px 15px; }
+.Select--multi .Select-value{ margin-top:1px; }
+
+.cart-table table.table thead th{
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* Not Found */
+    .notfound-main-div{ padding:10em; text-align: center; width: 80%; margin: 0 10em; }
+    .notfound-inner-box{ box-shadow: 0px 2px 10px 2px #ccc; background-color: #fbfbfb; border-radius: 5px; padding: 20px; }
+    .notfound-inner-box h1,
+    .notfound-inner-box h2{ font-family: inherit; }
+    .notfound-inner-box h2{ font-size:22px; color:#b8b9c0 }
+
+/*****************************************************************
+                        Custom Scroll
+*****************************************************************/
+    body::-webkit-scrollbar { width: 0.3em; }
+    body::-webkit-scrollbar-track { box-shadow: inset 0 0 6px rgba(0,0,0,0.3); }
+    body::-webkit-scrollbar-thumb { background-color: #6772e5; outline: 1px solid #6772e5; }
+
+    .custom_scrollbar::-webkit-scrollbar { width: 0.4em; }
+    .custom_scrollbar::-webkit-scrollbar-track { -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); }
+    .custom_scrollbar::-webkit-scrollbar-thumb { background-color: #26A69A; outline: 1px solid slategrey; }

@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 import { routeCodes } from '../../constants/routes';
 import {Redirect} from 'react-router-dom';
 import  {SERVER_BASE_URL} from '../../constants/consts';
+import { withRouter } from 'react-router'
 
 class EmailVerify extends Component{
     
@@ -12,7 +13,7 @@ class EmailVerify extends Component{
         }
     }
 
-    componentDidMount(){
+    componentWillMount(){
         const { refId } = this.props.match.params;
         let that = this;
         
@@ -25,26 +26,28 @@ class EmailVerify extends Component{
         
             // Examine the text in the response
             response.json().then(function(data) {
-                this.props.history.push(routeCodes.REGISTER)
+                this.props.history.push(routeCodes.LOGIN)
             });
         })
     }
 
     componentDidUpdate(){
         if(this.state.status){
-            <Redirect to={routeCodes.LOGIN} />
+            // <Redirect to={routeCodes.LOGIN} />
+            this.props.history.push(routeCodes.LOGIN)
         }else{
-            <Redirect to={routeCodes.REGISTER} />
+            // <Redirect to={routeCodes.REGISTER} />
+            this.props.history.push(routeCodes.LOGIN)
         }
     }
 
     render(){
         return(
             <div>
-                Hello World
+                {/* Hello World */}
             </div>
         );
     }
 }
 
-export default EmailVerify;
+export default withRouter(EmailVerify);

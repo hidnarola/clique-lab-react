@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
 import FormCampaignRight from './FormCampaignRight';
+import {CommonCompo} from './CommonCompo';
 import { Field, reduxForm } from 'redux-form';
 import DatePicker from 'react-datepicker';
 import validator from 'validator';
@@ -40,6 +41,11 @@ const validate = values => {
 
 
 class FormStep2 extends Component{
+    
+    constructor(props){
+        super(props);
+    }
+
     render(){
         const { handleSubmit,previousPage } = this.props;
 
@@ -47,27 +53,7 @@ class FormStep2 extends Component{
             <form onSubmit={handleSubmit}>
                 <div className="right-box create-campaign d-flex">
                     <div className="create-campaign-l d-flex">
-                        <div className="step-process d-flex">
-                            <div className="process-point active completed ">
-                                <a href=""></a>
-                                <strong></strong>
-                            </div>
-                            <div className="process-point active">
-                                <a href=""></a>
-                                <strong></strong>
-                            </div>
-                            <div className="process-point">
-                                <a href=""></a>
-                                <strong></strong>
-                            </div>
-                            <div className="process-point">
-                                <a href=""></a>
-                                <strong></strong>
-                            </div>
-                            <div className="process-point">
-                                <a href=""></a>
-                            </div>
-                        </div>
+                        <CommonCompo currentPage="2" changePage={(i) => this.props.changePage(i)}/>
                         <div className="step-content d-flex">
                             <h2>Step 2</h2>
 
@@ -117,7 +103,7 @@ class FormStep2 extends Component{
                                 name="tagHash"
                                 label="# tags"
                                 labelClass="control-label"
-                                wrapperClass="form-group"
+                                wrapperClass="select-wrap"
                                 placeholder="# tags"
                                 component={SelectField_ReactSelectMulti} 
                                 className="campaign_form_step2_dropdown "                               
@@ -127,7 +113,7 @@ class FormStep2 extends Component{
                                 name="tagAt"
                                 label="@ tags"
                                 labelClass="control-label"
-                                wrapperClass="form-group"
+                                wrapperClass="select-wrap"
                                 placeholder="@ tags"
                                 component={SelectField_ReactSelectMulti}  
                                 className="campaign_form_step2_dropdown "                              

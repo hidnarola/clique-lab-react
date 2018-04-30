@@ -6,6 +6,8 @@ import afterRegister from 'reducers/afterRegister';
 import campaign from 'reducers/campaign';
 import everyDay from 'reducers/everyDay';
 import groups from 'reducers/groups';
+import checkout from 'reducers/checkout';
+import purchasedPosts from 'reducers/purchasedPosts';
 import { reducer as formReducer } from 'redux-form'
 
 export default combineReducers({    
@@ -16,5 +18,7 @@ export default combineReducers({
     campaign,
     everyDay,
     groups,
+    checkout,
+    purchasedPosts,
     form: formReducer
 });

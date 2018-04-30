@@ -33,11 +33,11 @@ const actionMap = {
     [REGISTER_ERROR]: (state, action) => {
         let error = 'Server Error';
         if (action.error && action.error.response) {
-            error = action.error.response.message;
+            error = action.error.response.data.message;
         }
         return state.merge(Map({
             loading: false,
-            error: null,
+            error: error,
             user: JSON.stringify(action.data),
         }));
     },

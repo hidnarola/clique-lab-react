@@ -136,11 +136,10 @@ export const postFormData = (path, data, headers) => {
         validateStatus: function (status) {            
             return status >= 200 && status < 300;
         }
-    }).then(function (res) {
+    }).then(function (res) {        
         return res;
-    }).catch(function (err) {
-        throw ApiError(err.toString(), null, 'REQUEST_FAILED');
-        return err.toString();
+    }).catch(function (err) {        
+        throw ApiError(err.toString(), err.response, 'REQUEST_FAILED');
     });
 };
 

@@ -59,6 +59,7 @@ class Register extends Component{
         console.log(fetchedErrors);
         //console.log('Props>>>',this.props);
         //console.log('MyCountry:>>>>',this.props.country);
+        let { user,fetchedErrors, error } = this.props;
         if(user){
             return <Redirect to={routeCodes.LOGIN} />;
         }
@@ -71,7 +72,7 @@ class Register extends Component{
                         </a>
                     </div>
                     <div className="form-content d-flex">
-                        <RegisterForm func={this.openModal} onSubmit={this.submitForm} countryList={this.props.country}/>                         
+                        <RegisterForm func={this.openModal} onSubmit={this.submitForm} countryList={this.props.country} newError={error} />                         
                     </div>
                     <div className="form-ftr">
                         <p>

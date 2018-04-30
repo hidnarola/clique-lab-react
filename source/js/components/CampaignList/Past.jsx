@@ -6,7 +6,7 @@ import trashImg from 'img/site/trash-icon.png';
 import downloadImg from 'img/site/download-icon.png';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem ,UncontrolledDropdown } from 'reactstrap';
 import { withRouter } from 'react-router';
-import { getPastCampaign } from '../../actions/campaign';
+import { getPastCampaign, downloadCampaignImg } from '../../actions/campaign';
 import Pagination from "react-js-pagination";
 import { imgRoutes } from '../../constants/img_path';
 
@@ -23,6 +23,11 @@ class Past extends Component {
         this.handlePageChange = this.handlePageChange.bind(this)   
     }
 
+    downloadImg = (campaignId) => {
+        const { dispatch } = this.props;
+        dispatch(downloadCampaignImg(campaignId));
+    }
+
     pastListing(obj){
         return (
             <li key={Math.random()}>
@@ -37,7 +42,7 @@ class Past extends Component {
                                 <h5>Submissions :  <small>{obj.submissions}</small></h5>
                             </div>
                             <div className="submission-div-r">
-                                <a href=""><img src={downloadImg} alt="" /></a>
+                                <a href="javascript:void(0)" onClick={() => this.downloadImg(obj._id)}><img src={downloadImg} alt="" /></a>
                             </div>	
                         </div>
                     </div>
@@ -59,12 +64,16 @@ class Past extends Component {
     }
 
     render() {
-        let { pastCampaign, totalPastCampaign, loading } = this.props;
-
+        let { pastCampaign, totalPastCampaign, filename, loading } = this.props;
+        
         if(loading) {
             return (
                 <div className="loader"></div>
             )
+        }
+        if(filename!==null){
+            let path = imgRoutes.CAMPAIGN_IMG_ZIP_PATH+filename;
+            window.open(path);
         }
         return (
             <div className="active-campaigns">
@@ -96,6 +105,7 @@ const mapStateToProps = (state) => {
         message: campaign.get('message'),
         status: campaign.get('status'),
         pastCampaign: campaign.get('pastCampaign'),
+        filename: campaign.get('filename'),
         totalPastCampaign: campaign.get('totalPastCampaign'),
     }
 }

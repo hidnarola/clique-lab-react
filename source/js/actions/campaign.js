@@ -14,6 +14,10 @@ export const GET_PAST_CAMPAIGN_REQUEST = 'GET_PAST_CAMPAIGN_REQUEST';
 export const GET_PAST_CAMPAIGN_SUCCESS = 'GET_PAST_CAMPAIGN_SUCCESS';
 export const GET_PAST_CAMPAIGN_ERROR = 'GET_PAST_CAMPAIGN_ERROR';
 
+export const DOWNLOAD_CAMPAIGN_IMG_REQUEST = 'DOWNLOAD_CAMPAIGN_IMG_REQUEST';
+export const DOWNLOAD_CAMPAIGN_IMG_SUCCESS = 'DOWNLOAD_CAMPAIGN_IMG_SUCCESS';
+export const DOWNLOAD_CAMPAIGN_IMG_ERROR = 'DOWNLOAD_CAMPAIGN_IMG_ERROR';
+
 export const STOP_CAMPAIGN_REQUEST = 'STOP_CAMPAIGN_REQUEST';
 export const STOP_CAMPAIGN_SUCCESS = 'STOP_CAMPAIGN_SUCCESS';
 export const STOP_CAMPAIGN_ERROR = 'STOP_CAMPAIGN_ERROR';
@@ -45,6 +49,10 @@ export function getFutureCampaignError(error) { return { type: GET_FUTURE_CAMPAI
 export function getPastCampaign(data) { return { type: GET_PAST_CAMPAIGN_REQUEST, data } }
 export function getPastCampaignSuccess(data) { return { type: GET_PAST_CAMPAIGN_SUCCESS, data } }
 export function getPastCampaignError(error) { return { type: GET_PAST_CAMPAIGN_ERROR, error } }
+
+export function downloadCampaignImg(data) { return { type: DOWNLOAD_CAMPAIGN_IMG_REQUEST, data } }
+export function downloadCampaignImgSuccess(data) { return { type: DOWNLOAD_CAMPAIGN_IMG_SUCCESS, data } }
+export function downloadCampaignImgError(error) { return { type: DOWNLOAD_CAMPAIGN_IMG_ERROR, error } }
 
 export function stopCampaign(data) { return { type: STOP_CAMPAIGN_REQUEST, data } }
 export function stopCampaignSuccess(data) { return { type: STOP_CAMPAIGN_SUCCESS, data } }

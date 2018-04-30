@@ -14,13 +14,6 @@ class ForgotPassword extends Component{
         super(props);
     }
 
-    static propTypes = {
-        loading: PropTypes.text,
-        error: PropTypes.text,
-        status: PropTypes.text,
-        dispatch: PropTypes.func,
-    }
-
     submitForm = (values) => {
         const { dispatch } = this.props;
         let forgotData = {
@@ -50,15 +43,6 @@ class ForgotPassword extends Component{
                     </div>
                     <div className="form-content d-flex">
                         <ForgotPassForm onSubmit={this.submitForm} newError={error} />
-                        {/* <form>
-                            <h3>Reset Password</h3>
-                            <div className="input-div">
-                                <input type="text" name="" placeholder="Email" />
-                            </div>	
-                            <div className="submit-div">
-                                <button type="submit" className="round-btn">Reset</button>
-                            </div>	
-                        </form> */}
                     </div>
                     <div className="form-ftr">
                         <p>Already have an account?<Link className="cursor_pointer" to="/login"> Login Here</Link></p>

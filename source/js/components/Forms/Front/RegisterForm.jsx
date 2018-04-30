@@ -1,46 +1,53 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form'
 import { Link } from 'react-router-dom';
 import validator from 'validator';
 import cx from 'classnames';
 import { SubmissionError } from 'redux-form';  // ES6
 import Select from 'react-select';
+import { Alert } from 'reactstrap';
+//import { SelectField_ReactSelect } from '../RenderFormComponent/EveryComponent';
 
 const validate = values => {
     const errors = {}
-
+    
     if (!values.username) {
-        errors.username = 'Required'
+        errors.username = 'This field is Required'
     }
 
     if (!values.fullname) {
-        errors.fullname = 'Required'
+        errors.fullname = 'This field is Required'
     }
 
     if (!values.email) {
-        errors.email = 'Required'
+        errors.email = 'This field is Required'
     } else if (validator.isEmail(values.email) === false) {
         errors.email = 'Enter valid email address'
     }
 
     if (!values.company) {
-        errors.company = 'Required'
+        errors.company = 'This field is Required'
     }
     if (!values.country) {
-        errors.country = 'Required'
-    }
-
-    if (!values.repeatPassword) {
-        errors.repeatPassword = 'Required'
+        errors.country = 'This field is Required'
     }
 
     if (!values.password) {
-        errors.password = 'Required'
+        errors.password = 'This field is Required'
     } else if (values.password.length < 5) {
         errors.password = 'Must be more than 5 or more characters.'
+    } 
+
+    if (!values.repeatPassword) {
+        errors.repeatPassword = 'This field is Required'
     } else if (values.password !== values.repeatPassword) {
-        errors.password = 'Password should be match.'
+        errors.repeatPassword = 'Please enter password same as above.'
     }
+
+    if(!values.check1 || values.check1===''){
+        errors.check1 = 'Please accept the terms & condition.'
+    }
+
     return errors
 }
 
@@ -52,33 +59,26 @@ const warn = values => {
     return warnings
 }
 
-const renderField = ({
-    input,
-    type,
-    placeholder,
-    meta: { touched, error, warning }
-}) => (
-        <div className={cx('input-div', { 'custom-error': (touched && error) ? true : false })}>
-            <input {...input} placeholder={placeholder} type={type} />
-            {touched &&
-                ((error && <span>{error}</span>) ||
-                    (warning && <span>{warning}</span>))}
-        </div>
-    )
+const renderField = ({ input, type, placeholder, meta: { touched, error, warning } }) => (
+    <div className={cx('input-div', { 'custom-error': (touched && error) ? true : false })}>
+        <input {...input} placeholder={placeholder} type={type} />
+        {touched && ((error && <span>{error}</span>) || (warning && <span>{warning}</span>))}
+    </div>
+)
 
-const renderFieldCheckbox = ({
-    input,
-    type,
-    placeholder,
-    meta: { touched, error, warning }
-}) => (
-        <span>
-            <input {...input} placeholder={placeholder} type={type} />
-            {/* {touched &&
-            ((error && <span>{error}</span>) ||
-                (warning && <span>{warning}</span>))} */}
-        </span>
-    )
+const renderFieldCheckbox = ({ input, type, name, className, placeholder, newProp, meta: { touched, error, warning } }) => (
+    <div className={cx('input-div', { 'custom-error': (touched && error) ? true : false })}>
+        <input {...input} placeholder={placeholder} type={type} className={className} id={newProp} />
+        <label htmlFor="check1">
+            I accept the
+            <a href="javascript:void(0)" onClick={() => props.func(this, 'TERMS')}> Terms & Conditions </a> and the
+            <a href="javascript:void(0)" onClick={() => props.func(this, 'PRIVACY')}> Privacy Policy </a>
+        </label>
+        {touched && ((error && <span>{error}</span>) || (warning && <span>{warning}</span>))}
+    </div>
+    
+    
+)
 
 
 const country_Select = (props) => {
@@ -111,106 +111,114 @@ const country_Select = (props) => {
 }
 
 
-let RegisterForm = props => {
-    const { handleSubmit, error } = props
-    
-    //console.log('>>Dipesh',props.countryList);
+class RegisterForm extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            visible: true
+        };
+      
+        this.onDismiss = this.onDismiss.bind(this);
+    }
 
-    let countryArr = [];
-    if(props.countryList !== null){
+    onDismiss() {
+        this.setState({ visible: false });
+    }
 
-        props.countryList.map((obj)=>{
-            countryArr.push({'value':obj._id,label:obj.name});
-        });
-    }   
+      
+    render(){
+        const { handleSubmit, error, newError } = this.props;
+        let countryArr = [];
+        if(this.props.countryList !== null){
+            this.props.countryList.map((obj)=>{
+                countryArr.push({'value':obj._id,label:obj.name});
+            });
+        }
 
+        if(newError!=='' || newError!==null){
+            setTimeout(function(){ this.setState({visible: false}) }, 3000);
+        }
+        return (
+            <div>
+                <div style={{"margin":"0 32%"}}>
+                    {error && <strong>{error}</strong>}
+                    {newError && <Alert color="danger " isOpen={this.state.visible} toggle={this.onDismiss}>{newError}</Alert>}
+                </div>
+                <form onSubmit={handleSubmit}>
+                    <h3>Register</h3>
+                    
+                    <Field
+                        name="fullname"
+                        type="text"
+                        component={renderField}
+                        placeholder="Full Name"
+                    />
 
-    return (
-        
-        <form onSubmit={handleSubmit}>
-            <h3>Register</h3>
-            <Field
-                name="fullname"
-                type="text"
-                component={renderField}
-                placeholder="Full Name"
-            />
+                    <Field
+                        name="username"
+                        type="text"
+                        component={renderField}
+                        placeholder="Username"
+                    />
 
-            <Field
-                name="username"
-                type="text"
-                component={renderField}
-                placeholder="Username"
-            />
+                    <Field
+                        name="email"
+                        type="text"
+                        component={renderField}
+                        placeholder="Email Id"
+                    />
 
-            <Field
-                name="email"
-                type="text"
-                component={renderField}
-                placeholder="Email Id"
-            />
+                    <Field
+                        name="company"
+                        type="text"
+                        component={renderField}
+                        placeholder="Company"
+                    />
 
-            <Field
-                name="company"
-                type="text"
-                component={renderField}
-                placeholder="Company"
-            />
+                    <Field
+                        className="select-wrap"
+                        name="country"
+                        component={country_Select}
+                        options={countryArr}
+                        placeholder="Select Country"
+                    />
 
-            <Field
-                className="select-wrap"
-                name="country"
-                component={country_Select}
-                options={countryArr}
-                placeholder="Select Country"
-            />
+                    <Field
+                        name="password"
+                        type="password"
+                        component={renderField}
+                        placeholder="Password"
+                    />
 
-            <Field
-                name="password"
-                type="password"
-                component={renderField}
-                placeholder="Password"
-            />
-
-            <Field
-                name="repeatPassword"
-                type="password"
-                component={renderField}
-                placeholder="Repeat Password"
-            />
-
-            {error && <strong>{error}</strong>}
-
-            {error}
-
-            <div className="accept-condition checkbox">
-
-
-                <Field name="check1" id="check1" component={renderFieldCheckbox} type="checkbox" value="check1" />
-
-                <label htmlFor="check1">
-                    I accept the
-                    <a onClick={() => props.func(this, 'TERMS')}>
-                        Terms & Conditions
-                     </a>
-
-                    and the
-                    <a onClick={() => props.func(this, 'PRIVACY')}>
-                        Privacy Policy
-                    </a>
-                </label>
+                    <Field
+                        name="repeatPassword"
+                        type="password"
+                        component={renderField}
+                        placeholder="Repeat Password"
+                    />
+                    
+                    <div className="accept-condition checkbox">
+                        <Field 
+                            name="check1"
+                            component={renderFieldCheckbox} 
+                            type="checkbox" 
+                            value="check1"
+                            className="check1"
+                            newProp="check1"
+                        />
+                    </div>
+                    <div className="submit-div">
+                        <button className="round-btn" type="submit">Register</button>
+                    </div>
+                </form>
             </div>
-            <div className="submit-div">
-                <button className="round-btn" type="submit">Register</button>
-            </div>
-        </form>
-    )
+        );
+    }
 }
 
 RegisterForm = reduxForm({
-    // a unique name for the form
     form: 'registerForm',
-    validate, // <--- validation function given to redux-form    
+    validate,
 })(RegisterForm)
 
 export default RegisterForm

@@ -31,7 +31,6 @@ class ResetPassword extends Component{
     }
 
     render(){
-        console.log(this.props);
         let { error, status } = this.props;
         if(status===1){
             return <Redirect to="/login" />
