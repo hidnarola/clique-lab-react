@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import {reset,initialize} from 'redux-form';
 
 import FormStep1 from '../components/Campaign/FormStep1';
 import FormStep2 from '../components/Campaign/FormStep2';
@@ -19,9 +18,8 @@ class Campaign extends Component {
         this.nextPage = this.nextPage.bind(this);
         this.previousPage = this.previousPage.bind(this);
         this.state = {
-            page:1,
-            isRedirect:false            
-            //contentBody:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+            page:1,            
+            contentBody:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
         };
         this.submitForm = this.submitForm.bind(this);
     }
@@ -34,19 +32,6 @@ class Campaign extends Component {
         this.setState({ page: this.state.page - 1 });
     }
 
-    componentWillUnmount(){
-        const { dispatch } = this.props;
-        dispatch(initialize('wizardCampaign',{}))
-        // dispatch(reset('wizardCampaign'));
-    }
-
-    resetFormData()
-    {
-        const { dispatch } = this.props;
-       return dispatch(initialize('wizardCampaign',{}))
-        // dispatch(reset('wizardCampaign'));
-    }
-    
     submitForm(values){
         // console.log(values);
         const {dispatch} = this.props;
@@ -89,9 +74,7 @@ class Campaign extends Component {
         // for (var value of formData.values()) {
         //     console.log(value); 
         // }
-        this.setState({isRedirect:true});
     }
-
 
     componentDidUpdate(){
         const { campaign } = this.props;
@@ -99,18 +82,15 @@ class Campaign extends Component {
         console.log(campaign);
         console.log('===============================');
 
-        if(campaign && this.state.isRedirect === true){
+        if(campaign){
             if(campaign['status']){
-                //this.childCampaign.toggle()
-                this.setState({isRedirect:false});
-                // dispatch(initialize('wizardCampaign',{}));
-                this.resetFormData();
+                this.childCampaign.toggle()
+
                 setTimeout(()=>{
                     this.props.history.push(routeCodes.DASHBOARD)
                 },1000)
             }
         }
-        
     }
     
     changePage = (pageNo) => {
@@ -118,7 +98,6 @@ class Campaign extends Component {
     }
 
     render() {
-        // {this.props.campaign ? this.props.history.push(routeCodes.DASHBOARD) : '' }
         const { onSubmit } = this.props;
         const { page } = this.state;
         
