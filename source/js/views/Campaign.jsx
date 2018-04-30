@@ -43,7 +43,7 @@ class Campaign extends Component {
     resetFormData()
     {
         const { dispatch } = this.props;
-       return dispatch(initialize('wizardCampaign',{}))
+       dispatch(initialize('wizardCampaign',{}))
         // dispatch(reset('wizardCampaign'));
     }
     
@@ -90,28 +90,31 @@ class Campaign extends Component {
         //     console.log(value); 
         // }
         this.setState({isRedirect:true});
+        this.resetFormData();
+        this.props.history.push(routeCodes.DASHBOARD)
+
     }
 
 
-    componentDidUpdate(){
-        const { campaign } = this.props;
-        console.log('===============================');
-        console.log(campaign);
-        console.log('===============================');
+    // componentDidUpdate(){
+    //     const { campaign } = this.props;
+    //     console.log('===============================');
+    //     console.log(campaign);
+    //     console.log('===============================');
 
-        if(campaign && this.state.isRedirect === true){
-            if(campaign['status']){
-                //this.childCampaign.toggle()
-                this.setState({isRedirect:false});
-                // dispatch(initialize('wizardCampaign',{}));
-                this.resetFormData();
-                setTimeout(()=>{
-                    this.props.history.push(routeCodes.DASHBOARD)
-                },1000)
-            }
-        }
+    //     if(campaign && this.state.isRedirect === true){
+    //         if(campaign['status']){
+    //             //this.childCampaign.toggle()
+    //             this.setState({isRedirect:false});
+    //             // dispatch(initialize('wizardCampaign',{}));
+    //             this.resetFormData();
+    //             setTimeout(()=>{
+    //                 this.props.history.push(routeCodes.DASHBOARD)
+    //             },1000)
+    //         }
+    //     }
         
-    }
+    // }
     
     changePage = (pageNo) => {
         this.setState({page:pageNo});
