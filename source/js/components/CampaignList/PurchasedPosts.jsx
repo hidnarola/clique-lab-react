@@ -38,17 +38,8 @@ class PurchasedPosts extends Component {
 
     handlePageChange = (pageNumber) => {
         this.setState({activePage: pageNumber});
-        // const { dispatch } = this.props;
-
-        // let sortDropArr = _.find(this.state.allDropDown, function(o) { return o.dropdown == 'sortDrop'; });
-
-        // let arrayFilter = {
-        //     filter:this.state.appliedFilter[0]['filter'],
-        //     "sort":[{ "field": "name", "value":parseInt(sortDropArr['value']['value'])}],
-        //     "page_size":9,
-        //     "page_no":pageNumber
-        // }
-        // this.filterSendReq(arrayFilter);
+        const { dispatch } = this.props;        
+        dispatch(puchasedPostSend({ "page_size":1,"page_no":pageNumber}));        
     }
 
     componentWillMount(){

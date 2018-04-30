@@ -55,11 +55,10 @@ class Register extends Component{
     }
  
     render(){
-        let { user,fetchedErrors } = this.props;
+        let { user,fetchedErrors,error } = this.props;
         console.log(fetchedErrors);
         //console.log('Props>>>',this.props);
-        //console.log('MyCountry:>>>>',this.props.country);
-        let { user,fetchedErrors, error } = this.props;
+        //console.log('MyCountry:>>>>',this.props.country);        
         if(user){
             return <Redirect to={routeCodes.LOGIN} />;
         }

@@ -1,10 +1,12 @@
+import  {SERVER_BASE_URL} from './consts';
+
 export const publicPath = '/';
 
 export const imgRoutes = {
-    GROUP_IMG_PATH: `http://13.55.64.183:3200/uploads/group/`,
-    USER_IMG_PATH: `http://13.55.64.183:3200/uploads/users/`,
-    CAMPAIGN_IMG_PATH: `http://13.55.64.183:3200/uploads/campaign/`,
-    CAMPAIGN_IMG_ZIP_PATH: `http://13.55.64.183:3200/uploads/campaign/zip/`,
+    GROUP_IMG_PATH: `${SERVER_BASE_URL}uploads/group/`,
+    USER_IMG_PATH: `${SERVER_BASE_URL}uploads/users/`,
+    CAMPAIGN_IMG_PATH: `${SERVER_BASE_URL}uploads/campaign/`,
+    CAMPAIGN_IMG_ZIP_PATH: `${SERVER_BASE_URL}uploads/campaign/zip/`,
 };
 
 export const pageImgRoutes = {
