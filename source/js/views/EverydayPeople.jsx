@@ -22,7 +22,8 @@ import { Link } from 'react-router-dom';
 import { routeCodes } from '../constants/routes';
 import img1 from 'img/site/big-img011.jpg';
 import { imgRoutes } from '../constants/img_path';
-
+import nodataImg from 'img/site/nodata.png';
+import {isImageExists} from "../constants/helper";
 import {
         Button, Modal, ModalHeader, ModalBody, ModalFooter, Dropdown,
         DropdownToggle, DropdownMenu, DropdownItem ,UncontrolledDropdown
@@ -780,10 +781,16 @@ class EverydayPeople extends Component {
         });
     }
     renderLi3 = (obj) => {
+        let img = imgRoutes.CAMPAIGN_IMG_PATH+obj.image;
+        if(!isImageExists(img)){
+            img = 'http://placehold.it/520x335/f1f1f1/cccccc?text=No Image Found'; 
+        }
         return (
             <li key={Math.random()}>
                 <div className="fan-festival-box d-flex">
-                    <div className="festival-img"><img src={`${imgRoutes.CAMPAIGN_IMG_PATH}${obj.image}`} alt="" /></div>
+                    <div className="festival-img">
+                        <img src={img} alt="" />
+                    </div>
                     <div className="fan-festival-r">
                         <div className="festival-head d-flex">
                             <div className="festival-head-l">
@@ -1037,15 +1044,12 @@ class EverydayPeople extends Component {
 
         allSliderArr['ageRange'] = _.find(allSliders, function(o) { return o.slider == 'ageRange'; });
 
-        // if(loading) { // if your component doesn't have to wait for an async action, remove this block 
-        //     return (
-        //         <div className="loader"></div>
-        //     ) // render null when app is not ready
-        // }
+        if(loading) { return (<div className="loader"></div>)}
+        console.log(match);
         return (
             <div className="every-people">
 
-                { (loading) ? <div className="loader" style={{"zIndex":"999999999"}}></div> : '' }
+                {/* { (loading) ? <div className="loader" style={{"zIndex":"999999999"}}></div> : '' } */}
                 
                 <div className="everypeole-head d-flex">
                     <div className="everypeole-head-l">
@@ -1149,27 +1153,63 @@ class EverydayPeople extends Component {
                                     `Filtered List ( ${inspiredPosts.total} Results )`
                             }
                         </h3>
-                        { ((match.params.campaignId===null || match.params.campaignId===undefined) && match.path!==routeCodes.CAMPAIGN_INSPIRED_SUB) &&
+                        {  ((match.params.grpId!==null && match.params.grpId!==undefined && users.total>0) || 
+                            (match.path===routeCodes.EVERYDAYPEOPLE && users.total>0)) &&
                             <a className="cursor_pointer" onClick={this.toggle}>
-                                <i className="fa fa-plus"></i> 
-                                Save the results as a Group
+                                <i className="fa fa-plus"></i> Save the results as a Group
                             </a>
                         }
                     </div>
                     {   
-                        (match.params.campaignId!==null && match.params.campaignId!==undefined) ?
+                        (match.params.campaignId!==null && match.params.campaignId!==undefined) ?    
                             <ul className="fan-festival d-flex">
-                                {(users.status === 1) ? users.data.map((obj,index) => (this.renderLi2(obj))) :''}
+                                {
+                                    (users.status === 1) ? 
+                                        ((users.data).length!==0) ? 
+                                            users.data.map((obj,index) => (this.renderLi2(obj)))
+                                            :
+                                            <div className="no_data_found">
+                                                <img src={nodataImg} />
+                                            </div>
+                                    :
+                                        <div className="no_data_found">
+                                            <img src={nodataImg} />
+                                        </div>
+                                }
                             </ul>
                         :
                             (
                                 match.path==routeCodes.CAMPAIGN_INSPIRED_SUB ?
                                     <ul className="fan-festival d-flex h-view">
-                                        {(inspiredPosts.status === 1) ? inspiredPosts.data.map((obj,index) => (this.renderLi3(obj))) :''}
+                                        {
+                                            (inspiredPosts.status === 1) ? 
+                                                ((inspiredPosts.data).length!==0) ? 
+                                                    inspiredPosts.data.map((obj,index) => (this.renderLi3(obj))) 
+                                                :
+                                                    <div className="no_data_found">
+                                                        <img src={nodataImg} />
+                                                    </div>
+                                            :
+                                                <div className="no_data_found">
+                                                    <img src={nodataImg} />
+                                                </div>
+                                        }
                                     </ul>
                                 :
                                     <ul className="all-people-ul d-flex">
-                                        {(users.status === 1) ? users.data.map((obj,index) => (this.renderLi(obj))) :''}
+                                        {
+                                            (users.status === 1) ?
+                                                ((users.data).length!==0) ? 
+                                                    users.data.map((obj,index) => (this.renderLi(obj))) 
+                                                :
+                                                    <div className="no_data_found">
+                                                        <img src={nodataImg} />
+                                                    </div>
+                                            :
+                                                <div className="no_data_found">
+                                                    <img src={nodataImg} />
+                                                </div>
+                                        }
                                     </ul>
                             )
                     }

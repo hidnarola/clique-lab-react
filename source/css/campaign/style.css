@@ -280,7 +280,7 @@ filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='#c76eff', endC
 .inspirations-img ul li{display:inline-block; vertical-align:top;}
 .inspirations-img ul li a{ width:140px; height:84px; background:#f3f3f3;display:block;}
 
-.step-process{width:30px; padding:4px; margin:0 70px 0 0; flex-direction: column; justify-content: center;}
+.step-process{width:30px; padding:4px; margin:0 70px 0 0; flex-direction: column; justify-content: normal;}
 .process-point{display:block;}
 .step-process a{width:22px; height:22px; background:#cad1dc; border-radius:90px; display:block;}
 .step-process a:hover{background:#6772e5;}

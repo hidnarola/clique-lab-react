@@ -24,9 +24,6 @@
 }
 
 .no_data_found{width:100%; text-align: center }
-.no_data_found img{
-  width: 75%;
-}
 
 .plus-people button img{ max-width: 30px; margin: 5px 15px; }
 .Select--multi .Select-value{ margin-top:1px; }
