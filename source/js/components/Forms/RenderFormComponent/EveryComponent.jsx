@@ -16,18 +16,21 @@ export const renderFieldCampaign = ({
         type,
         placeholder,
         label,
-        meta: { touched, error, warning }
+        isRequired,
+        meta: { touched, error, warning, pristine }
     }) => (
         <div className={cx('input-wrap ',{'custom-error':(touched && error ) ? true:false })} >
             <label>{label}</label>
             <input {...input} placeholder={placeholder} type={type}/>
+            {pristine && isRequired === "true" && <span className="error-div">*</span>}
             {touched && ((error && <div className="error-div">{error}</div>) || (warning && <span>{warning}</span>))}
         </div>
 )
  
 export const renderFieldDatePicker = ({
-    input, type, placeholder, defaultValue, label, minDateVal,maxDateVal, className,
-    meta: { touched, error, warning }
+    input, type, placeholder, defaultValue, label, minDateVal,maxDateVal, 
+    className,isRequired,
+    meta: { touched, error, warning, pristine}
     }) => {
         return(<div className={cx('input-wrap',{'custom-error':(touched && error ) ? true:false })+' '+className}>
             <label>{label}</label>
@@ -44,13 +47,14 @@ export const renderFieldDatePicker = ({
                     <img src={calendarImg} alt="" />
                 </i>
             </div>
+            {pristine && isRequired === "true" && <span className="error-div">*</span>}
             {touched && ((error && <div className="error-div">{error}</div>) || (warning && <span>{warning}</span>))}
         </div>)
 }
 
 export const FileField_Dropzone = (props) => {
     
-    const { label, input, meta, wrapperClass, className, labelClass, errorClass, accept, multiple } = props;
+    const { label, input, meta, wrapperClass, className, labelClass, errorClass, accept, multiple,isRequired } = props;
     let filesArr = _.values(input.value);
     let images = [];
 
@@ -84,6 +88,7 @@ export const FileField_Dropzone = (props) => {
                     )}
                 </div> 
             </Dropzone>
+            {meta.pristine && isRequired === "true" && <span className="error-div">*</span>}
             {(meta.touched && meta.error) && <span className="error-div">{meta.error}</span>}
         </div>
     );
@@ -134,7 +139,7 @@ export const FileField_Dropzone_New = (props) => {
 }
 
 export const SelectField_ReactSelect = (props) => {
-    const { label, input, meta, wrapperClass, className, labelClass, placeholder, errorClass, initialValue, options } = props;
+    const { label, input, meta, wrapperClass, className, labelClass, placeholder, errorClass, initialValue, options ,isRequired} = props;
     let val = '';
     if (input.value && Object.keys(input.value).length > 0) {
         val = input.value;
@@ -155,6 +160,7 @@ export const SelectField_ReactSelect = (props) => {
                 multi={false}
                 clearable={false}
             />
+            {meta.pristine && isRequired === "true" && <span className="error-div">*</span>}
             {meta.touched &&
                 ((meta.error && <span className={`error-div`}>{meta.error}</span>) || (meta.warning && <span className={`error-div`}>{meta.warning}</span>))
             }
@@ -164,7 +170,7 @@ export const SelectField_ReactSelect = (props) => {
 
 export const SelectField_ReactSelectMulti = (props) => {
     const { label, input, meta, wrapperClass, className, labelClass, placeholder, errorClass, 
-            initialValue, options } = props;
+            initialValue, options, isRequired } = props;
     let val = '';
     if (input.value && Object.keys(input.value).length > 0) {
         val = input.value;
@@ -183,6 +189,7 @@ export const SelectField_ReactSelectMulti = (props) => {
                 onBlur={() => input.onBlur([...input.value])}
                 multi={true}                
             />
+            {meta.pristine && isRequired === "true" && <span className="error-div">*</span>}
             {meta.touched &&
                 ((meta.error && <span className={`error-div`}>{meta.error}</span>) || (meta.warning && <span className={`error-div`}>{meta.warning}</span>))
             }

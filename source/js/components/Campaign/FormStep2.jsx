@@ -37,6 +37,7 @@ const validate = values => {
     }
 
     return errors;
+  
 };
 
 
@@ -63,6 +64,7 @@ class FormStep2 extends Component{
                                 label="Call to action"
                                 component={renderFieldCampaign}
                                 placeholder="Call to action"
+                                isRequired="true"
                             />
 
                             <Field
@@ -71,6 +73,7 @@ class FormStep2 extends Component{
                                 label="Discount Code"
                                 component={renderFieldCampaign}
                                 placeholder="Discount Code"
+                                isRequired="true"
                             />
 
                             <Field
@@ -79,6 +82,7 @@ class FormStep2 extends Component{
                                 label="Short Description"
                                 component={renderFieldCampaign}
                                 placeholder="Short Description"
+                                isRequired="true"
                             />
                             
                             <Field
@@ -97,6 +101,7 @@ class FormStep2 extends Component{
                                     { value: 'pinterest' , label :"pinterest"},
                                     { value: 'linkedin' , label :"linkedin"},
                                 ]}
+                                isRequired="true"
                             />
 
                             <Field
@@ -106,7 +111,8 @@ class FormStep2 extends Component{
                                 wrapperClass="select-wrap"
                                 placeholder="# tags"
                                 component={SelectField_ReactSelectMulti} 
-                                className="campaign_form_step2_dropdown "                               
+                                className="campaign_form_step2_dropdown "
+                                isRequired="true"                               
                             />
 
                             <Field
@@ -116,7 +122,8 @@ class FormStep2 extends Component{
                                 wrapperClass="select-wrap"
                                 placeholder="@ tags"
                                 component={SelectField_ReactSelectMulti}  
-                                className="campaign_form_step2_dropdown "                              
+                                className="campaign_form_step2_dropdown " 
+                                isRequired="true"                             
                             />
 
                             <div className="submit-btn d-flex">

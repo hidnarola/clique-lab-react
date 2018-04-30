@@ -6,6 +6,7 @@ import DatePicker from 'react-datepicker';
 import validator from 'validator';
 import moment from 'moment';
 import {renderFieldCampaign,renderFieldDatePicker} from '../../components/Forms/RenderFormComponent/EveryComponent';
+import {reset,initialize} from 'redux-form';
 
 const validate = values => {
     
@@ -48,7 +49,7 @@ class FormStep1 extends Component{
     }    
     
     render(){
-        const { handleSubmit } = this.props;
+        const { handleSubmit} = this.props;
         return(
             <form onSubmit={handleSubmit}>
                 <div className="right-box create-campaign d-flex">                
@@ -63,6 +64,7 @@ class FormStep1 extends Component{
                                 label="Campaign Name"
                                 component={renderFieldCampaign}
                                 placeholder="Campaign Name"
+                                isRequired="true"
                             />
 
                             <Field
@@ -74,6 +76,7 @@ class FormStep1 extends Component{
                                 showDisabledMonthNavigation
                                 minDateVal={moment()}
                                 placeholder="Campaign start date"
+                                isRequired="true"
 
                             />
 
@@ -85,6 +88,7 @@ class FormStep1 extends Component{
                                 defaultValue={null}                                
                                 showDisabledMonthNavigation
                                 placeholder="Campaign end date"
+                                isRequired="true"
                             />
                             
                             <div className="submit-btn">

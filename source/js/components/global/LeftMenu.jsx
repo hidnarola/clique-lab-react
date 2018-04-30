@@ -1,21 +1,21 @@
-import React,{Component} from 'react';
+import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import LogoImg from 'img/common/logo.png';
 import { routeCodes } from 'constants/routes';
 
 class LeftMenu extends Component {
-    
-    constructor(props){
+
+    constructor(props) {
         super(props);
     }
 
-    render(){
-        return(
+    render() {
+        return (
             <div className="left-panel">
                 <div className="big-logo">
-                    <a href="#">
+                    <NavLink to={routeCodes.DASHBOARD}>
                         <img src={LogoImg} alt="" />
-                    </a>
+                    </NavLink>
                 </div>
                 <div className="navigation-div">
                     <div className="mobile-nav" id="nav-icon1" >
@@ -25,42 +25,42 @@ class LeftMenu extends Component {
                     </div>
                     <ul>
                         <li>
-                            <NavLink activeClassName='active' className='Menu-link' to={routeCodes.DASHBOARD }>
+                            <NavLink activeClassName='active' className='Menu-link' to={routeCodes.DASHBOARD}>
                                 <i className="dashboard-icon"></i>Dashboard
                             </NavLink>
                         </li>
                         <li>
-                            <NavLink exact activeClassName='active' className='Menu-link' to={ routeCodes.CAMPAIGN }>
+                            <NavLink exact activeClassName='active' className='Menu-link' to={routeCodes.CAMPAIGN}>
                                 <i className="create-icon"></i>Create
                             </NavLink>
                         </li>
                         <li>
-                            <NavLink activeClassName='active' className='Menu-link' to={routeCodes.EVERYDAYPEOPLE }>
+                            <NavLink activeClassName='active' className='Menu-link' to={routeCodes.EVERYDAYPEOPLE}>
                                 <i className="people-icon"></i>Everyday People
                             </NavLink>
                         </li>
                         <li>
-                            <NavLink activeClassName='active' className='Menu-link' to={ routeCodes.LISTGROUPS }>
+                            <NavLink activeClassName='active' className='Menu-link' to={routeCodes.LISTGROUPS}>
                                 <i className="group-icon"></i>Groups
                             </NavLink>
                         </li>
                         <li>
-                            <NavLink activeClassName='active' className='Menu-link' to={ routeCodes.CAMPAIGNS }>
+                            <NavLink activeClassName='active' className='Menu-link' to={routeCodes.CAMPAIGNS}>
                                 <i className="campaigns-icon"></i>Campaigns
                             </NavLink>
                             <ul>
                                 <li>
-                                    <NavLink activeClassName='active' className='Menu-link first_level' to={ routeCodes.CAMPAIGN_ACTIVE }>
+                                    <NavLink activeClassName='active' className='Menu-link first_level' to={routeCodes.CAMPAIGN_ACTIVE}>
                                         Campaigns
                                     </NavLink>
                                 </li>
                                 <li>
-                                    <NavLink activeClassName='active' className='Menu-link first_level' to={ routeCodes.CAMPAIGN_INSPIRED_SUB }>
+                                    <NavLink activeClassName='active' className='Menu-link first_level' to={routeCodes.CAMPAIGN_INSPIRED_SUB}>
                                         Inspired submissions
                                     </NavLink>
                                 </li>
                                 <li>
-                                    <NavLink activeClassName='active' className='Menu-link first_level' to={ routeCodes.CAMPAIGN_PURCHASED_POSTS }>
+                                    <NavLink activeClassName='active' className='Menu-link first_level' to={routeCodes.CAMPAIGN_PURCHASED_POSTS}>
                                         Purchased Posts
                                     </NavLink>
                                 </li>
@@ -72,7 +72,7 @@ class LeftMenu extends Component {
                             </NavLink>
                         </li>
                         <li>
-                            <NavLink activeClassName='active' className='Menu-link' to={ routeCodes.ANALYTICS }>
+                            <NavLink activeClassName='active' className='Menu-link' to={routeCodes.ANALYTICS}>
                                 <i className="analytics-icon"></i>Analytics
                             </NavLink>
                         </li>

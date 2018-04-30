@@ -32,6 +32,8 @@ class FormStep5 extends Component{
                                     placeholder="Images"
                                     component={FileField_Dropzone}
                                     multiple={true}
+                                    isRequired="true"
+                                   
                                 />
                             </div>
 

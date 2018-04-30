@@ -67,7 +67,8 @@ class FormStep3 extends Component{
                                     { value: '', label: 'Select Industry' },
                                     { value: 'public' , label :"public"},
                                     { value: 'private' , label :"private"}                                    
-                                ]}                                            
+                                ]}
+                                isRequired="true"                                             
                             />
 
                             <Field        
@@ -81,7 +82,8 @@ class FormStep3 extends Component{
                                     { value: '', label: 'Select Media Format' },
                                     { value: 'photograph' , label :"photograph"},
                                     { value: 'video' , label :"video"}                                    
-                                ]}                                            
+                                ]} 
+                                isRequired="true"                                            
                             />
                             
                             <Field
@@ -90,6 +92,7 @@ class FormStep3 extends Component{
                                 label="Location"
                                 component={renderFieldCampaign}
                                 placeholder="Location"
+                                isRequired="true"
                             />
 
                             <Field
@@ -98,6 +101,7 @@ class FormStep3 extends Component{
                                 label="How Much ?"
                                 component={renderFieldCampaign}
                                 placeholder="How Much ?"
+                                isRequired="true"
                             />
 
                             <Field        
@@ -110,7 +114,9 @@ class FormStep3 extends Component{
                                 options={[
                                     { value: '', label: 'Select Media Format' },
                                     { value: 'dollar' , label :"Dollar"}                                                                        
-                                ]}                                            
+                                ]}
+                                isRequired="true"
+                                                                            
                             />
 
                             <div className="submit-btn d-flex">
