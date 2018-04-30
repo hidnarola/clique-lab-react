@@ -52,8 +52,9 @@ export const ADD_USER_ERROR = 'ADD_USER_ERROR';
 
 // ----------------------------------------------------------------------
     export function fetchDropDownReq(data) {
+        
         return { type: FETCH_DROPDOWN_REQUEST,data:data}
-    }
+    }   
 
     export function fetchDropDownSuccess(data) {
         return { type: FETCH_DROPDOWN_SUCCESS, data:data }

@@ -24,14 +24,11 @@ class Register extends Component{
     submitForm = (values) => {
         // print the form values to the console
 
-        const { dispatch } = this.props;
-        console.log('Register Data:',values);
-        console.log('Register Data:',values.country.label);
-        
+        const { dispatch } = this.props;   
         let userData = {
             login_id: values.username,
             password: values.password,
-            
+
             "name":values.fullname,
             "username":values.username,
             "email":values.email,
@@ -58,7 +55,10 @@ class Register extends Component{
     }
  
     render(){
-        let { user,fetchedErrors, error } = this.props;
+        let { user,fetchedErrors,error } = this.props;
+        console.log(fetchedErrors);
+        //console.log('Props>>>',this.props);
+        //console.log('MyCountry:>>>>',this.props.country);        
         if(user){
             return <Redirect to={routeCodes.LOGIN} />;
         }

@@ -82,7 +82,7 @@ class AddToModal extends Component {
     render() {
         let dropArr = [];
         const { selectedOption } = this.state;
-
+    
         if(this.props.dropdownList !== null){
             let resultStatus = this.props.dropdownList.status;
             if(resultStatus === 1){
@@ -597,7 +597,7 @@ class EverydayPeople extends Component {
 
             isFilterApply:false
         };        
-        // this.toggle = this.toggle.bind(this);        
+        // this.toggle = this.toggle.bind(this);  
     }
 
     filterSendReq = (data) => {
@@ -874,6 +874,7 @@ class EverydayPeople extends Component {
 
         let ageFilterIndex = _.findIndex(appliedFilter[0]['filter'], function(o) { return o.field == 'age'; });
         let ageVal = _.find(allSliders, function(o) { return o.slider == 'ageRange'; });
+        
         let filteredArr = appliedFilter[0]['filter'];
 
         // Check if age filter is applied or not...
@@ -996,6 +997,7 @@ class EverydayPeople extends Component {
         }
         console.log(data);
         const { dispatch } = this.props;
+    
         dispatch(addUserReq(data));
     }
 
@@ -1045,7 +1047,7 @@ class EverydayPeople extends Component {
         allSliderArr['ageRange'] = _.find(allSliders, function(o) { return o.slider == 'ageRange'; });
 
         if(loading) { return (<div className="loader"></div>)}
-        console.log(match);
+                
         return (
             <div className="every-people">
 
@@ -1148,7 +1150,7 @@ class EverydayPeople extends Component {
                         <h3>
                             {
                                 (users.total!==undefined) ? 
-                                    `Filtered List ( ${users.total} Results )`
+                                    `Filtered List ( ${users.total} Results )` 
                                 :
                                     `Filtered List ( ${inspiredPosts.total} Results )`
                             }
