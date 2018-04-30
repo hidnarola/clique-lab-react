@@ -184,32 +184,39 @@ class GroupMemberList extends Component {
                             <i className="fa fa-plus"></i> Save the results as a Group</a>
                     </div>
                     <ul className="all-people-ul d-flex">
-                        {(
-                            members!==null && members.map(function(obj,i){
-                                return(
-                                    <li key={Math.random()}>
-                                        <div className="all-people-div">
-                                            <div className="all-people-img">
-                                                <a>
-                                                    <img src={`${imgRoutes.USER_IMG_PATH}${obj.image}`} alt="" className="grp_list_img" />
-                                                </a>
-                                                <PlusAction/>
+                        {
+                            console.log(members)
+                            (members!==null) ?
+                                members.map(function(obj,i){
+                                    return(
+                                        <li key={Math.random()}>
+                                            <div className="all-people-div">
+                                                <div className="all-people-img">
+                                                    <a>
+                                                        <img src={`${imgRoutes.USER_IMG_PATH}${obj.image}`} alt="" className="grp_list_img" />
+                                                    </a>
+                                                    <PlusAction/>
+                                                </div>
+                                                <div className="all-people-content d-flex">
+                                                    <h4>{ obj.name }</h4>                        
+                                                    <DropDownSocial
+                                                        fbCount={(obj.hasOwnProperty('facebook')) ? obj.facebook.no_of_friends : 0 }
+                                                        instaCount={(obj.hasOwnProperty('instagram')) ? obj.instagram.no_of_followers : 0 }
+                                                        pintCount={(obj.hasOwnProperty('pinterest')) ? obj.pinterest.no_of_followers : 0 }
+                                                        linkedCount={(obj.hasOwnProperty('linkedin')) ? obj.linkedin.no_of_followers : 0 }
+                                                        twitCount={(obj.hasOwnProperty('twitter')) ? obj.twitter.no_of_followers : 0 }
+                                                    />
+                                                </div>
                                             </div>
-                                            <div className="all-people-content d-flex">
-                                                <h4>{ obj.name }</h4>                        
-                                                <DropDownSocial
-                                                    fbCount={(obj.hasOwnProperty('facebook')) ? obj.facebook.no_of_friends : 0 }
-                                                    instaCount={(obj.hasOwnProperty('instagram')) ? obj.instagram.no_of_followers : 0 }
-                                                    pintCount={(obj.hasOwnProperty('pinterest')) ? obj.pinterest.no_of_followers : 0 }
-                                                    linkedCount={(obj.hasOwnProperty('linkedin')) ? obj.linkedin.no_of_followers : 0 }
-                                                    twitCount={(obj.hasOwnProperty('twitter')) ? obj.twitter.no_of_followers : 0 }
-                                                />
-                                            </div>
-                                        </div>
-                                    </li>
-                                )
-                            })
-                        )}
+                                        </li>
+                                    )
+                                })
+                            :
+                            <div className="no_data_found">
+                                sdsdsdsdsd
+                                <img src={nodataImg} />
+                            </div>
+                        }
                     </ul>
 
                     <Pagination 
