@@ -55,7 +55,6 @@ const actionMap = {
         return state.merge(Map({
             loading: false,
             error: null,
-            //country: true,
             country: action.data.data.countries
         }));
     },

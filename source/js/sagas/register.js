@@ -36,8 +36,7 @@ function countries() {
     return function* (action) { // eslint-disable-line consistent-return
         try {
             const data = yield call(() => api.getCountry());
-
-            console.log('>>>>>>Country',data);
+            //console.log('>>>>>>Country',data);
             const action = { type: FETCH_REGISTER_COUNTRY_SUCCESS, data };
             yield put(action);
         } catch (error) {

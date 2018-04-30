@@ -1,11 +1,10 @@
-import React from 'react'
+import React from 'react';
 import { Field, reduxForm } from 'redux-form'
 import { Link } from 'react-router-dom';
 import validator from 'validator';
 import cx from 'classnames';
 import { SubmissionError } from 'redux-form';  // ES6
 import Select from 'react-select';
-//import { SelectField_ReactSelect } from '../RenderFormComponent/EveryComponent';
 
 const validate = values => {
     const errors = {}
@@ -115,7 +114,7 @@ const country_Select = (props) => {
 let RegisterForm = props => {
     const { handleSubmit, error } = props
     
-    console.log('>>Dipesh',props.countryList);
+    //console.log('>>Dipesh',props.countryList);
 
     let countryArr = [];
     if(props.countryList !== null){
@@ -127,7 +126,7 @@ let RegisterForm = props => {
 
 
     return (
-
+        
         <form onSubmit={handleSubmit}>
             <h3>Register</h3>
             <Field
@@ -163,6 +162,7 @@ let RegisterForm = props => {
                 name="country"
                 component={country_Select}
                 options={countryArr}
+                placeholder="Select Country"
             />
 
             <Field

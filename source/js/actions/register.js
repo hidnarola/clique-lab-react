@@ -30,7 +30,7 @@ export function registerError(error) {
 }
 
 
-//get country
+//get country on registration page
 
 export function country() {
     return {
