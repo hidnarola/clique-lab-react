@@ -28,16 +28,14 @@ const actionMap = {
         }));
     },
     [FORGOT_ERROR]: (state, action) => {
-        console.log(action);
         let error = 'Server Error';
-        if (action.error && action.error.response) {
-            error = action.error.response.message;
+        if (action.error && action.error.response.data.message) {
+            error = action.error.response.data.message;
         }
         return state.merge(Map({
             loading: false,
             error: error,
-            status: true,
-            message: action.data.data.message,
+            status: 0,
         }));
     },
     [RESET_REQUEST]: (state, action) => {

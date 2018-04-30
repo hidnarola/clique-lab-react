@@ -8,33 +8,32 @@ import { connect } from 'react-redux';
 const validate = values => {
     
     const errors = {};
-
     if (!values.images) {
-        errors.images = 'Required';
+        errors.images = 'This Field is Required'
+    }else {
+        let file_type = values.images[0].type;
+        let extensions = ["image/jpeg", "image/png", "image/jpg"];
+        if (extensions.indexOf(file_type) < 0) {
+            errors.images = 'File type not supported'
+       }
     }
 
     if (!values.industryName) {
-        // console.log('industryName==>',values.industryName.value);    
-        errors.industryName = 'Required';
+        errors.industryName = 'This field is Required';
     }
 
     if (!values.description) {
-        errors.description = 'Required';
+        errors.description = 'This field is Required';
     }
 
     return errors;
 };
 
-const renderField = ({
-    input,
-    type,
-    placeholder,
-    meta: { touched, error, warning }
-}) => (    
+const renderField = ({ input, type, placeholder, meta: { touched, error, warning } }) => (    
     <div  className={cx('industry-description',{'custom-error':(touched && error ) ? true:false })}>
         <label>Description</label>
-        <textarea {...input}></textarea>
-        {(touched && error ) ? error:''}
+        <textarea {...input} placeholder={placeholder} className={touched && ((error && `txt_error_div`))}></textarea>
+        {touched && ((error && <span className="error-div">{error}</span>))}
     </div>
 )
 
@@ -78,33 +77,36 @@ class RegisterStepFirst extends Component{
                                     <div className="profile-logo">
                                         <label>Profile Logo</label>
                                         <div className="industry-l-box">
-                                            <Field
-                                                name="images"
-                                                label=""
-                                                labelClass="control-label"
-                                                wrapperClass="form-group"
-                                                placeholder="Images"
-                                                component={FileField_Dropzone_New}
-                                                multiple={false}
-                                            />
+                                            <div className="drag-drop">
+                                                <Field
+                                                    name="images"
+                                                    label=""
+                                                    labelClass="control-label"
+                                                    wrapperClass="form-group"
+                                                    placeholder="Images"
+                                                    className="drag-drop"
+                                                    component={FileField_Dropzone_New}
+                                                    multiple={false}
+                                                />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div className="industry-r">
                                     <Field
-                                        wrapperClass="category-select"
+                                        wrapperClass="category-select select-wrap"
                                         name="industryName"
                                         label="Industry Category"
                                         labelClass="control-label"                                            
-                                        placeholder="Main Muscle Group"
+                                        placeholder="Select Industry Category"
                                         component={SelectField_ReactSelect}
                                         options={newArr}                                            
                                     />
                                     <Field
                                         name="description"                                        
                                         component={renderField}
-                                        placeholder="Please Add ...."
+                                        placeholder="Please add description...."
                                     />
                                 </div>
                             </div>

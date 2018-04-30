@@ -73,7 +73,7 @@ ul { padding: 0; }
 .navigation-div ul li a:hover, 
 .navigation-div ul li a.active i{background-position:0 -18px;}
 .create-campaign-r-img img{max-width:100%; min-width:280px; }
-.industry-l-box{ height:272px;}
+/* .industry-l-box{ height:272px;} */
 .industry-l-box .form-group{     height: 100%; margin: 0; display: table;width: 100%;} 
 .industry-l-box .undefined{height: 100%; vertical-align: middle; display: table-cell; width: 100%; text-align: center;}
 
@@ -142,16 +142,6 @@ ul { padding: 0; }
     animation: load8 1.1s infinite linear;
 }
 
-/* Sort By DrOPDOWN */
-  /*.Select-placeholder, .Select--single > .Select-control .Select-value{ line-height:16px; padding:0;}
-  .Select.Select--single{border:2px solid rgba(82, 95, 127, .5) !important; padding:6px 15px; line-height:18px; font-weight: 500; color: #525f7f; background:transparent; height:34px;}*/
-  /*.Select-control:hover,
-  .Select-control:focus{ box-shadow:none !important; }
-  .Select-placeholder{ padding:0; background: transparent; border: 0 !important; box-shadow: none;color: #525f7f;}
-  .Select-arrow-zone{background: url(../assets/img/site/down-arrow.png) no-repeat 0 50% !important; display:block; width:14px; height:16px; border: 0; padding: 0 !important; display: block; position: absolute; right: 0; top: 50%; -webkit-transform: translateY(-50%); -moz-transform: translateY(-50%); transform: translateY(-50%);}
-  .Select-arrow-zone .Select-arrow{ display:none; }
-  span.Select-value-label{line-height:16px;}
-  .Select.has-value.Select--single > .Select-control .Select-value .Select-value-label, .Select.has-value.is-pseudo-focused.Select--single > .Select-control .Select-value .Select-value-label { color: #525f7f; }*/
   .close-div{top:12px; right:20px;}
   .close-div button{ padding:0; }
   .everypeole-head .dropdown button.btn-secondary{ border:2px solid rgba(82, 95, 127, .5) !important; padding:6px 15px; line-height:18px; font-weight:500; color:#525f7f; background:transparent !important; height:34px; border-radius:0; font-size:14px; }
@@ -177,7 +167,7 @@ ul { padding: 0; }
   
   .select-wrap .Select-control{padding:13px 30px 12px 15px;    line-height: 26px;}
   .Select {box-shadow:none !important;}
-  .Select-control { border: 2px solid rgba(82, 95, 127, .5) !important; padding:5px 30px 5px 10px; line-height: 18px; font-weight: 500; color: #525f7f; background: transparent !important; height: 34px; border-radius: 0; font-size: 14px; box-shadow:none !important;  }
+  .Select-control { border: 2px solid #dcdfe5; padding:5px 30px 5px 10px; line-height: 18px; font-weight: 500; color: #525f7f; background: transparent !important; height: 34px; border-radius: 0; font-size: 14px; box-shadow:none !important;  }
   .Select-arrow{display:none;}
   .Select-control > .Select-arrow-zone{padding:0; background: url(../assets/img/site/down-arrow-1.png) no-repeat 0 0; display: inline-block; vertical-align: top; width: 14px; height: 20px; position: absolute;    right: 10px; top: 50%; -webkit-transform: translateY(-50%); -moz-transform: translateY(-50%); transform: translateY(-50%);}
   .Select-input{ height:auto; padding:0;}

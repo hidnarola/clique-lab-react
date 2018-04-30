@@ -134,75 +134,84 @@ class RegisterForm extends Component {
                 countryArr.push({'value':obj._id,label:obj.name});
             });
         }
+
+        if(newError!=='' || newError!==null){
+            setTimeout(function(){ this.setState({visible: false}) }, 3000);
+        }
         return (
-            <form onSubmit={handleSubmit}>
-                <h3>Register</h3>
-                {error && <strong>{error}</strong>}
-                {newError && <Alert color="danger " isOpen={this.state.visible} toggle={this.onDismiss}>{newError}</Alert>}
-                <Field
-                    name="fullname"
-                    type="text"
-                    component={renderField}
-                    placeholder="Full Name"
-                />
-
-                <Field
-                    name="username"
-                    type="text"
-                    component={renderField}
-                    placeholder="Username"
-                />
-
-                <Field
-                    name="email"
-                    type="text"
-                    component={renderField}
-                    placeholder="Email Id"
-                />
-
-                <Field
-                    name="company"
-                    type="text"
-                    component={renderField}
-                    placeholder="Company"
-                />
-
-                <Field
-                    className="select-wrap"
-                    name="country"
-                    component={country_Select}
-                    options={countryArr}
-                    placeholder="Select Country"
-                />
-
-                <Field
-                    name="password"
-                    type="password"
-                    component={renderField}
-                    placeholder="Password"
-                />
-
-                <Field
-                    name="repeatPassword"
-                    type="password"
-                    component={renderField}
-                    placeholder="Repeat Password"
-                />
-                
-                <div className="accept-condition checkbox">
-                    <Field 
-                        name="check1"
-                        component={renderFieldCheckbox} 
-                        type="checkbox" 
-                        value="check1"
-                        className="check1"
-                        newProp="check1"
+            <div>
+                <div style={{"margin":"0 32%"}}>
+                    {error && <strong>{error}</strong>}
+                    {newError && <Alert color="danger " isOpen={this.state.visible} toggle={this.onDismiss}>{newError}</Alert>}
+                </div>
+                <form onSubmit={handleSubmit}>
+                    <h3>Register</h3>
+                    
+                    <Field
+                        name="fullname"
+                        type="text"
+                        component={renderField}
+                        placeholder="Full Name"
                     />
-                </div>
-                <div className="submit-div">
-                    <button className="round-btn" type="submit">Register</button>
-                </div>
-            </form>
+
+                    <Field
+                        name="username"
+                        type="text"
+                        component={renderField}
+                        placeholder="Username"
+                    />
+
+                    <Field
+                        name="email"
+                        type="text"
+                        component={renderField}
+                        placeholder="Email Id"
+                    />
+
+                    <Field
+                        name="company"
+                        type="text"
+                        component={renderField}
+                        placeholder="Company"
+                    />
+
+                    <Field
+                        className="select-wrap"
+                        name="country"
+                        component={country_Select}
+                        options={countryArr}
+                        placeholder="Select Country"
+                    />
+
+                    <Field
+                        name="password"
+                        type="password"
+                        component={renderField}
+                        placeholder="Password"
+                    />
+
+                    <Field
+                        name="repeatPassword"
+                        type="password"
+                        component={renderField}
+                        placeholder="Repeat Password"
+                    />
+                    
+                    <div className="accept-condition checkbox">
+                        <Field 
+                            name="check1"
+                            component={renderFieldCheckbox} 
+                            type="checkbox" 
+                            value="check1"
+                            className="check1"
+                            newProp="check1"
+                        />
+                    </div>
+                    <div className="submit-div">
+                        <button className="round-btn" type="submit">Register</button>
+                    </div>
+                </form>
+            </div>
         );
     }
 }
