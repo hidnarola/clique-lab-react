@@ -21,7 +21,7 @@ class FormCampaignRight extends Component{
 
     render(){
         
-        let { wizardCampaignData } = this.props;        
+        let { wizardCampaignData } = this.props;                
         let {mediaFormat,hashTagStr,atTagStr,imgStr} = '';
         let imgArr = []; 
 
