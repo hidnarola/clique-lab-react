@@ -109,7 +109,7 @@ class FormStep2 extends Component{
                         </div>
                     </div>
 
-                    <OrderDetails/>
+                    {/* <OrderDetails/> */}
                 </div>
             </form>
         );

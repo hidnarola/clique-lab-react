@@ -17,7 +17,6 @@ export const PrivateRoute = ({ component: Component,showHeader, ...rest }) => {
         let bytes  = CryptoJS.AES.decrypt(localStorage.getItem('role').toString(), SECRET_KEY);
         plaintext = bytes.toString(CryptoJS.enc.Utf8);
     }
-
     return(<Route
                 {...rest}
                 render={props =>

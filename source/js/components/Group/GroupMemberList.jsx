@@ -103,7 +103,6 @@ class GroupMemberList extends Component {
     }
     
     componentWillMount(){
-        console.log(this.props);
         const { dispatch, match } = this.props;
         let grpId = match.params.grpId;
         dispatch(getGroupMembers({"grpId":grpId,"page_size":9,"page_no":1}))
@@ -186,7 +185,6 @@ class GroupMemberList extends Component {
                     </div>
                     <ul className="all-people-ul d-flex">
                         {
-                            console.log(members)
                             (members!==null) ?
                                 members.map(function(obj,i){
                                     return(

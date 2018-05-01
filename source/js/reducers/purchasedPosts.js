@@ -21,10 +21,6 @@ const actionMap = {
         }));
     },
     [PURCHASED_POSTS_SUCCESS]: (state, action) => {
-        console.log('=====================');
-        console.log(action);        
-        console.log('=====================');
-
         return state.merge(Map({
             loading: false,
             error: null,

@@ -87,7 +87,6 @@ class GroupList extends Component {
     }
 
     handlePageChange(pageNumber) {
-        console.log(`active page is ${pageNumber}`);
         this.setState({activePage: pageNumber});
         const { dispatch } = this.props;
         dispatch(getGroups({"page_size":6,"page_no":pageNumber}))
@@ -167,11 +166,11 @@ class GroupList extends Component {
                                         return(
                                             <li key={Math.random()}>
                                                 <div className="all-people-div">
-                                                    <Link className="cursor_pointer" to={`${routeCodes.LISTGROUPS}/${obj._id}/members`}>
                                                         <div className="all-people-img">
-                                                            {/* <a href=""><img src={`${imgRoutes.GROUP_IMG_PATH}${obj.image}`} alt="" /></a> */}
+                                                    <Link className="cursor_pointer" to={`${routeCodes.LISTGROUPS}/${obj._id}/members`}>
                                                                 <img className="grp_list_img" src={`${imgRoutes.GROUP_IMG_PATH}${obj.image}`} alt="" />
                                                             
+                                                    </Link>
                                                             <UncontrolledDropdown className="plus-people dropdown">
                                                                 <DropdownToggle>
                                                                     <a className="cursor_pointer"><img src="/assets/img/site/plus-sign.png" alt="" /></a>
@@ -181,7 +180,6 @@ class GroupList extends Component {
                                                                 </DropdownMenu>
                                                             </UncontrolledDropdown>
                                                         </div>
-                                                    </Link>
                                                     <div className="group-btm-content">
                                                         <h4>{obj.name}</h4>
                                                         <div className="group-btm-btm d-flex">

@@ -60,6 +60,7 @@ class Header extends Component{
             'Checkout': routeCodes.CHECKOUT,
         }
         let page_name = (_.invert(page_name_Array))[this.props.history.location.pathname];
+        console.log(this.props);
         return(
             <div className="right-hdr d-flex">
                 <h2>{ page_name }</h2>
@@ -115,4 +116,4 @@ class Header extends Component{
     }
 }
 
-export default connect()(withRouter(Header));
+export default withRouter(connect()(Header));
