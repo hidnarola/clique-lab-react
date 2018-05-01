@@ -12,6 +12,7 @@ import pinImg from 'img/site/pintrest.png';
 import twitterImg from 'img/site/twitter.png';
 import instaImg from 'img/site/instagram.png';
 import imgPlus from 'img/site/plus-01.png';
+import nodataImg from 'img/site/nodata.png';
 
 import ReactSelect from 'react-select';
 import InputRange from 'react-input-range';
@@ -213,7 +214,6 @@ class GroupMemberList extends Component {
                                 })
                             :
                             <div className="no_data_found">
-                                sdsdsdsdsd
                                 <img src={nodataImg} />
                             </div>
                         }

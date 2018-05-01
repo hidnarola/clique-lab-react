@@ -6,6 +6,12 @@ function getCheckoutList() {
     return getFormData(`promoter/cart`, '', headers);
 }
 
+function cartPayment(data) {
+    let headers = { 'x-access-token' : localStorage.getItem('token') }                                                                                                                                                                                                                                         
+    return postFormData(`promoter/cart/purchase`, data, headers);
+}
+
 export default {
     getCheckoutList,
+    cartPayment,
 }

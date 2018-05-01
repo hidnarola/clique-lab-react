@@ -1,5 +1,6 @@
 import { Map } from "immutable";
-import { GET_GROUP_REQUEST, GET_GROUP_SUCCESS, GET_GROUP_ERROR, ADD_GROUP_REQUEST, ADD_GROUP_SUCCESS, ADD_GROUP_ERROR, GROUP_MEMBERS_REQUEST, GROUP_MEMBERS_SUCCESS, GROUP_MEMBERS_ERROR } from "../actions/groups";
+import { GET_GROUP_REQUEST, GET_GROUP_SUCCESS, GET_GROUP_ERROR, ADD_GROUP_REQUEST, ADD_GROUP_SUCCESS, ADD_GROUP_ERROR, GROUP_MEMBERS_REQUEST, 
+    GROUP_MEMBERS_SUCCESS, GROUP_MEMBERS_ERROR,RESET_GROUP_VALUES } from "../actions/groups";
 
 const initialState = Map({
     loading: false,
@@ -56,6 +57,7 @@ const actionMap = {
         return state.merge(Map({
             ...initialState,
             loading: true,
+            status:0
         }));
     },
     [ADD_GROUP_SUCCESS]: (state, action) => {
@@ -110,6 +112,18 @@ const actionMap = {
             message: action.error.message,
         }));
     },
+
+    [RESET_GROUP_VALUES]:(state,action) => {
+        return state.merge(Map({
+            ...initialState,
+            loading: false,
+            error: null,
+            inserted_group: null,
+            status: 0,
+            message: null,
+        }));
+    },
+
 };
 
 export default function reducer(state = initialState, action = {}) {

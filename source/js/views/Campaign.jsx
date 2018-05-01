@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import {reset,initialize} from 'redux-form';
 
 import FormStep1 from '../components/Campaign/FormStep1';
 import FormStep2 from '../components/Campaign/FormStep2';
@@ -11,6 +10,7 @@ import ModalPopUp from '../components/Common/ModalPopUp';
 import { connect } from 'react-redux';
 import { createCampaign } from '../actions/campaign';
 import {routeCodes} from '../constants/routes';
+import {reset,initialize} from 'redux-form';
 
 class Campaign extends Component {
     
@@ -19,9 +19,8 @@ class Campaign extends Component {
         this.nextPage = this.nextPage.bind(this);
         this.previousPage = this.previousPage.bind(this);
         this.state = {
-            page:1,
-            isRedirect:false            
-            //contentBody:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+            page:1,            
+            contentBody:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
         };
         this.submitForm = this.submitForm.bind(this);
     }
@@ -121,7 +120,6 @@ class Campaign extends Component {
     }
 
     render() {
-        // {this.props.campaign ? this.props.history.push(routeCodes.DASHBOARD) : '' }
         const { onSubmit } = this.props;
         const { page } = this.state;
         

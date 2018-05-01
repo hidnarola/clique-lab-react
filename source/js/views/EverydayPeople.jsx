@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Pagination from "react-js-pagination";
 import { sendReq,moreFilterReq,fetchDropDownReq,resetVal,addUserReq,bulkUserReq } from '../actions/everyDay';
 import { purchaseAll } from '../actions/campaign';
-import { getGroups,addGroups } from '../actions/groups';
+import { getGroups,addGroups,resetGroupVal } from '../actions/groups';
 import sampleImg from 'img/site/400x218.png';
 import closeImg from 'img/site/close.png';
 import fbImg from 'img/site/facebook-01.png';
@@ -11,6 +11,9 @@ import linkedImg from 'img/site/linkedin.png';
 import pinImg from 'img/site/pintrest.png';
 import twitterImg from 'img/site/twitter.png';
 import instaImg from 'img/site/instagram.png';
+
+import { Redirect,withRouter } from 'react-router';
+
 import imgPlus from 'img/site/plus-01.png';
 import CreateGroupForm from '../components/Forms/Group/CreateGroupForm';
 import ReactSelect from 'react-select';
@@ -22,8 +25,7 @@ import { Link } from 'react-router-dom';
 import { routeCodes } from '../constants/routes';
 import img1 from 'img/site/big-img011.jpg';
 import { imgRoutes } from '../constants/img_path';
-import nodataImg from 'img/site/nodata.png';
-import {isImageExists} from "../constants/helper";
+import { isImageExists } from '../constants/helper';
 import {
         Button, Modal, ModalHeader, ModalBody, ModalFooter, Dropdown,
         DropdownToggle, DropdownMenu, DropdownItem ,UncontrolledDropdown
@@ -780,17 +782,16 @@ class EverydayPeople extends Component {
           modal: !this.state.modal
         });
     }
+    
     renderLi3 = (obj) => {
-        let img = imgRoutes.CAMPAIGN_IMG_PATH+obj.image;
+        let img = imgRoutes.CAMPAIGN_IMG_PATH + obj.image;
         if(!isImageExists(img)){
-            img = 'http://placehold.it/520x335/f1f1f1/cccccc?text=No Image Found'; 
+            img = 'http://placehold.it/465x300/ececec/525f7f?text=No Image Found';
         }
         return (
             <li key={Math.random()}>
                 <div className="fan-festival-box d-flex">
-                    <div className="festival-img">
-                        <img src={img} alt="" />
-                    </div>
+                    <div className="festival-img"><img src={img} alt="" /></div>
                     <div className="fan-festival-r">
                         <div className="festival-head d-flex">
                             <div className="festival-head-l">
@@ -820,7 +821,6 @@ class EverydayPeople extends Component {
             </li>
         );
     }
-
     
     componentWillMount(){
         const { dispatch,match } = this.props;        
@@ -839,22 +839,33 @@ class EverydayPeople extends Component {
     }    
 
     componentDidUpdate(){
-        let {showDrop,userAdded,dispatch,inserted_group} = this.props;        
+        let {showDrop,userAdded,dispatch,inserted_group,group_status} = this.props;        
         let { is_inserted } = this.state
 
         if(showDrop){
             this.child.toggle();
         }
 
-        if(userAdded){
-            alert('User Has been Added');
-            dispatch(resetVal( {'userAdded':false}  ));
-        }
-
         if(inserted_group!=null && is_inserted==1){
             this.setState({ is_inserted: 0});
             this.setState({modal: false});
-            
+
+            let param1 = 'add_to_group';
+            let param2 = {value:inserted_group._id,label:inserted_group.name};
+            let param3 = null;
+            let param4 = this.state.appliedFilter[0];
+            let param5 = this.state.groupId;
+            console.log('=================================');
+            console.log(inserted_group);
+            console.log(group_status);
+            console.log('=================================');
+            this.saveResult(param1,param2,param3,param4,param5);
+        }
+        
+        if(userAdded){
+            alert('User Has been Added');
+            dispatch(resetVal( {'userAdded':false}  ));
+            dispatch(resetGroupVal());
         }
     }
 
@@ -918,7 +929,13 @@ class EverydayPeople extends Component {
             return (
                     (o.field === 'job_industry') || (o.field === 'year_in_industry') || (o.field === 'education')  ||
                     (o.field === 'language') || (o.field === 'ethnicity') || (o.field === 'interested_in') ||
-                    (o.field === 'relationship_status') || (o.field === 'music_taste')
+                    (o.field === 'relationship_status') || (o.field === 'music_taste' 
+                    // || (o.field === 'fb_friends') || 
+                    // (o.field === 'insta_followers') || 
+                    // (o.field === 'twitter_followers') || 
+                    // (o.field === 'pinterest_followers')|| 
+                    // (o.field === 'linkedin_connection')
+                )
                 );
 
         });
@@ -929,17 +946,17 @@ class EverydayPeople extends Component {
         console.log(exstingFilterArr);
         console.log('====== exstingFilter ==========');
 
-        /*allSliderArr.map((obj,index) => {
-            let fieldText = '';
-            switch (obj['slider']) {
-                case 'facebook': fieldText = 'fb_friends'; break;
-                case 'instagram': fieldText = 'insta_followers'; break;
-                case 'twitter': fieldText = 'twitter_followers'; break;
-                case 'pinterest': fieldText = 'pinterest_followers'; break;
-                case 'linkedin': fieldText = 'linkedin_connection'; break;
-            }
-            exstingFilterArr.push({"field":fieldText, "type":"between", "min_value":obj['value']['min'],"max_value":obj['value']['max']});
-        });*/
+        // allSliderArr.map((obj,index) => {
+        //     let fieldText = '';
+        //     switch (obj['slider']) {
+        //         case 'facebook': fieldText = 'fb_friends'; break;
+        //         case 'instagram': fieldText = 'insta_followers'; break;
+        //         case 'twitter': fieldText = 'twitter_followers'; break;
+        //         case 'pinterest': fieldText = 'pinterest_followers'; break;
+        //         case 'linkedin': fieldText = 'linkedin_connection'; break;
+        //     }
+        //     exstingFilterArr.push({"field":fieldText, "type":"between", "min_value":obj['value']['min'],"max_value":obj['value']['max']});
+        // });
 
         allDropArr.map((obj)=> {
             let fieldText = '';
@@ -994,10 +1011,8 @@ class EverydayPeople extends Component {
             param3,
             param4,
             param5:this.state.groupId
-        }
-        console.log(data);
-        const { dispatch } = this.props;
-    
+        }        
+        const { dispatch } = this.props;    
         dispatch(addUserReq(data));
     }
 
@@ -1046,12 +1061,15 @@ class EverydayPeople extends Component {
 
         allSliderArr['ageRange'] = _.find(allSliders, function(o) { return o.slider == 'ageRange'; });
 
-        if(loading) { return (<div className="loader"></div>)}
-                
+        // if(loading) { // if your component doesn't have to wait for an async action, remove this block 
+        //     return (
+        //         <div className="loader"></div>
+        //     ) // render null when app is not ready
+        // }s
         return (
             <div className="every-people">
 
-                {/* { (loading) ? <div className="loader" style={{"zIndex":"999999999"}}></div> : '' } */}
+                { (loading) ? <div className="loader" style={{"zIndex":"999999999"}}></div> : '' }
                 
                 <div className="everypeole-head d-flex">
                     <div className="everypeole-head-l">
@@ -1155,63 +1173,27 @@ class EverydayPeople extends Component {
                                     `Filtered List ( ${inspiredPosts.total} Results )`
                             }
                         </h3>
-                        {  ((match.params.grpId!==null && match.params.grpId!==undefined && users.total>0) || 
-                            (match.path===routeCodes.EVERYDAYPEOPLE && users.total>0)) &&
+                        { ((match.params.campaignId===null || match.params.campaignId===undefined) && match.path!==routeCodes.CAMPAIGN_INSPIRED_SUB) &&
                             <a className="cursor_pointer" onClick={this.toggle}>
-                                <i className="fa fa-plus"></i> Save the results as a Group
+                                <i className="fa fa-plus"></i> 
+                                Save the results as a Group
                             </a>
                         }
                     </div>
                     {   
-                        (match.params.campaignId!==null && match.params.campaignId!==undefined) ?    
+                        (match.params.campaignId!==null && match.params.campaignId!==undefined) ?
                             <ul className="fan-festival d-flex">
-                                {
-                                    (users.status === 1) ? 
-                                        ((users.data).length!==0) ? 
-                                            users.data.map((obj,index) => (this.renderLi2(obj)))
-                                            :
-                                            <div className="no_data_found">
-                                                <img src={nodataImg} />
-                                            </div>
-                                    :
-                                        <div className="no_data_found">
-                                            <img src={nodataImg} />
-                                        </div>
-                                }
+                                {(users.status === 1) ? users.data.map((obj,index) => (this.renderLi2(obj))) :''}
                             </ul>
                         :
                             (
                                 match.path==routeCodes.CAMPAIGN_INSPIRED_SUB ?
                                     <ul className="fan-festival d-flex h-view">
-                                        {
-                                            (inspiredPosts.status === 1) ? 
-                                                ((inspiredPosts.data).length!==0) ? 
-                                                    inspiredPosts.data.map((obj,index) => (this.renderLi3(obj))) 
-                                                :
-                                                    <div className="no_data_found">
-                                                        <img src={nodataImg} />
-                                                    </div>
-                                            :
-                                                <div className="no_data_found">
-                                                    <img src={nodataImg} />
-                                                </div>
-                                        }
+                                        {(inspiredPosts.status === 1) ? inspiredPosts.data.map((obj,index) => (this.renderLi3(obj))) :''}
                                     </ul>
                                 :
                                     <ul className="all-people-ul d-flex">
-                                        {
-                                            (users.status === 1) ?
-                                                ((users.data).length!==0) ? 
-                                                    users.data.map((obj,index) => (this.renderLi(obj))) 
-                                                :
-                                                    <div className="no_data_found">
-                                                        <img src={nodataImg} />
-                                                    </div>
-                                            :
-                                                <div className="no_data_found">
-                                                    <img src={nodataImg} />
-                                                </div>
-                                        }
+                                        {(users.status === 1) ? users.data.map((obj,index) => (this.renderLi(obj))) :''}
                                     </ul>
                             )
                     }
@@ -1250,6 +1232,7 @@ class EverydayPeople extends Component {
 const mapStateToProps = (state) => {
     const { everyDay,groups } = state;
     return {
+        group_status:groups.get('status'),
         inserted_group: groups.get('inserted_group'),
         loading: everyDay.get('loading'),
         error: everyDay.get('error'),
@@ -1262,4 +1245,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(EverydayPeople)
+export default withRouter(connect(mapStateToProps)(EverydayPeople))

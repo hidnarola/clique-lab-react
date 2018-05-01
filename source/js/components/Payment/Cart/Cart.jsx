@@ -78,17 +78,17 @@ class Cart extends React.Component {
 												<thead>
 													<tr>
 														<th>Subtotal</th>
-														<th>$570</th>
+														<th>$ {(carts.subtotal).toFixed(2)}</th>
 													</tr>
 													<tr>
 														<th>GST</th>
-														<th>$57</th>
+														<th>$ {(carts.gst).toFixed(2)}</th>
 													</tr>
 												</thead>
 												<tbody>
 													<tr>
 														<td>Total</td>
-														<td>$627</td>
+														<td>$ {(carts.total).toFixed(2)}</td>
 													</tr>
 												</tbody>
 												<tfoot>

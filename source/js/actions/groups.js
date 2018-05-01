@@ -1,6 +1,7 @@
     export const GET_GROUP_REQUEST = 'GET_GROUP_REQUEST';
     export const GET_GROUP_SUCCESS = 'GET_GROUP_SUCCESS';
     export const GET_GROUP_ERROR = 'GET_GROUP_ERROR';
+    
     export function getGroups(data) {
         return { type: GET_GROUP_REQUEST, data }
     }
@@ -45,3 +46,12 @@
     export function getGroupMembersError(error) {
         return { type: GROUP_MEMBERS_ERROR, error }
     }
+
+    // ----------------------------------------------------------------------
+
+    export const RESET_GROUP_VALUES = 'RESET_GROUP_VALUES';
+
+    export function resetGroupVal(data) {
+        return { type: RESET_GROUP_VALUES, data:data }
+    }
+// ----------------------------------------------------------------------
