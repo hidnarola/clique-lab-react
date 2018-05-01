@@ -77,8 +77,8 @@ class FormStep2 extends Component{
                             />
                             
                             <Field 
-                                className="campaign_form_step2_dropdown"
-                                wrapperClassName="select-wrap"
+                                className="campaign_form_step2_dropdown "
+                                wrapperClass="select-wrap"
                                 name="state"       
                                 label="State"                             
                                 labelClassName="control-label"

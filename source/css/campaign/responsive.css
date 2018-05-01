@@ -151,7 +151,8 @@ img{max-width:100%;}
 	.post-dropdown>a {font-size: 14px;}
 	.post-dropdown>a i {margin-top:4px; background-size: 12px auto; height:16px;}
 	.step-content h2 {padding: 0 0 25px; font-size:16px;}
-	.input-wrap label {font-size:13px;}
+	.input-wrap label,
+	.select-wrap label {font-size:13px;}
 	.select-wrap .Select-control{padding:7px 13px; font-size:13px;}
 	.input-wrap input {padding:8px 13px; font-size:13px;}
 	.round-btn {font-size:14px; padding:6px 5px; min-width:140px;}

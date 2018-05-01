@@ -50,6 +50,12 @@ class FormStep1 extends Component{
     
     render(){
         const { handleSubmit } = this.props;
+        let countryArr = [];
+        if(this.props.countryList !== null){
+            this.props.countryList.map((obj)=>{
+                countryArr.push({'value':obj._id,label:obj.name});
+            });
+        }
         return(
             <form onSubmit={handleSubmit}>
                 <div className="right-box create-campaign d-flex checkout">                
@@ -90,20 +96,14 @@ class FormStep1 extends Component{
                                 placeholder="ABN"
                             />
                             <Field 
-                                className="campaign_form_step2_dropdown"
-                                wrapperClassName="select-wrap"
+                                className="campaign_form_step2_dropdown "
+                                wrapperClass="select-wrap"
                                 name="country"       
                                 label="Country"                             
                                 labelClassName="control-label"
                                 placeholder="Country"
                                 component={SelectField_ReactSelect}
-                                options={[                                    
-                                    { value: '' , label :"Select Country"},
-                                    { value: 'india' , label :"india"},
-                                    { value: 'australia' , label :"australia"},
-                                    { value: 'america' , label :"america"},
-                                    { value: 'caneda' , label :"caneda"},
-                                ]}
+                                options={countryArr}
                             />
                         
                             <div className="submit-btn d-flex">
