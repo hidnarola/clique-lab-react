@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { routeCodes } from 'constants/routes';
-import { cartPaymentReq } from '../actions/Checkout';
+import { cartPaymentReq, getCheckoutList } from '../actions/Checkout';
 import { country } from '../actions/register';
 
 import FormStep1 from '../components/Payment/Checkout/FormStep1';
@@ -61,6 +61,7 @@ class Checkout extends Component {
     componentWillMount(){
         const { dispatch } = this.props;
         dispatch(country());
+        //dispatch(getCheckoutList());
     }
     
     componentDidUpdate(){
@@ -75,6 +76,11 @@ class Checkout extends Component {
 
     render() {
         const { page } = this.state;
+        //const { carts } = this.props;
+        //console.log(this.props.history.push(routeCodes.CART));
+        // if(carts.data===null){
+        //     this.props.history.push(routeCodes.CART);
+        // }
         return (
             <div>
                 {page === 1  && <FormStep1 onSubmit={this.nextPage} countryList={this.props.country} />}
@@ -103,6 +109,7 @@ const mapStateToProps = (state) => {
     return {
         loading: checkout.get('loading'),
         error: checkout.get('error'),
+        //carts: checkout.get('carts'),
         payment: checkout.get('payment'),
         country:register.get('country'),
     }
