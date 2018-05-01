@@ -13,7 +13,7 @@ class EmailVerify extends Component{
         }
     }
 
-    componentWillMount(){
+    componentDidMount(){
         const { refId } = this.props.match.params;
         let that = this;
         
@@ -21,17 +21,23 @@ class EmailVerify extends Component{
         .then((response) => {
             if (response.status !== 200) {
                 console.log('Looks like there was a problem. Status Code: ' +response.status);                  
-                this.props.history.push(routeCodes.LOGIN)
+                this.props.history.push(routeCodes.LOGIN);
+                // return <Redirect to={routeCodes.LOGIN} />;
             }
         
             // Examine the text in the response
             response.json().then(function(data) {
-                this.props.history.push(routeCodes.LOGIN)
+                this.props.history.push(routeCodes.LOGIN);
+                // return <Redirect to={routeCodes.LOGIN} />;
             });
         })
     }
 
     componentDidUpdate(){
+        
+    }
+
+    render(){
         if(this.state.status){
             // <Redirect to={routeCodes.LOGIN} />
             this.props.history.push(routeCodes.LOGIN)
@@ -39,9 +45,6 @@ class EmailVerify extends Component{
             // <Redirect to={routeCodes.REGISTER} />
             this.props.history.push(routeCodes.LOGIN)
         }
-    }
-
-    render(){
         return(
             <div>
                 {/* Hello World */}
