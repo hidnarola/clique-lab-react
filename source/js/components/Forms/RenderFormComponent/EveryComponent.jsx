@@ -11,29 +11,19 @@ import filrUp from 'img/site/filrUp.jpg';
 import calendarImg from 'img/site/calendar-icon.jpg';
 import dropImg from 'img/site/canvas.png';
 
-export const renderFieldCampaign = ({
-        input,
-        type,
-        placeholder,
-        label,
-        isRequired,
-        meta: { touched, error, warning, pristine }
-    }) => (
-        <div className={cx('input-wrap ',{'custom-error':(touched && error ) ? true:false })} >
-            <label>{label}</label>
-            <input {...input} placeholder={placeholder} type={type}/>
-            {pristine && isRequired === "true" && <span className="error-div">*</span>}
-            {touched && ((error && <div className="error-div">{error}</div>) || (warning && <span>{warning}</span>))}
-        </div>
+export const renderFieldCampaign = ({ input, type, placeholder, label, isRequired, meta: { touched, error, warning, pristine } }) => (
+    <div className={cx('input-wrap ',{'custom-error':(touched && error ) ? true:false })} >
+        <label>{label} {pristine && isRequired === "true" && <span className="error-div">*</span>}</label>
+        <input {...input} placeholder={placeholder} type={type} className={`${touched && ((error && `txt_error_div`) || (warning && `txt_error_div`))}`} />
+        {console.log(touched)}
+        {touched && ((error && <div className="error-div">{error}</div>) || (warning && <span>{warning}</span>))}
+    </div>
 )
  
-export const renderFieldDatePicker = ({
-    input, type, placeholder, defaultValue, label, minDateVal,maxDateVal, 
-    className,isRequired,
-    meta: { touched, error, warning, pristine}
-    }) => {
-        return(<div className={cx('input-wrap',{'custom-error':(touched && error ) ? true:false })+' '+className}>
-            <label>{label}</label>
+export const renderFieldDatePicker = ({ input, type, placeholder, defaultValue, label, minDateVal,maxDateVal, className,isRequired, meta: { touched, error, warning, pristine} }) => {
+    return(
+        <div className={cx('input-wrap',{'custom-error':(touched && error ) ? true:false })+' '+className}>
+            <label>{label} {pristine && isRequired === "true" && <span className="error-div">*</span>}</label>
             <div className={`input-wrap-2 ${touched && ((error && `txt_error_div`) || (warning && `txt_error_div`))}`}>
                 <DatePicker
                     {...input}                
@@ -47,9 +37,10 @@ export const renderFieldDatePicker = ({
                     <img src={calendarImg} alt="" />
                 </i>
             </div>
-            {pristine && isRequired === "true" && <span className="error-div">*</span>}
+            
             {touched && ((error && <div className="error-div">{error}</div>) || (warning && <span>{warning}</span>))}
-        </div>)
+        </div>
+    )
 }
 
 export const FileField_Dropzone = (props) => {
@@ -131,8 +122,7 @@ export const FileField_Dropzone_New = (props) => {
                             </div>
                         }
                     </div> 
-               </Dropzone>
-               {console.log(meta)}
+                </Dropzone>
                 {(meta.touched && meta.error) && <span className="error-div">{meta.error}</span>}
             </div>
     );
@@ -148,7 +138,7 @@ export const SelectField_ReactSelect = (props) => {
     }
     return (
         <div className={wrapperClass}>
-            <label htmlFor={input.name} className={labelClass}>{label}</label>
+            <label htmlFor={input.name} className={labelClass}>{label} {meta.pristine && isRequired === "true" && <span className="error-div">*</span>}</label>
             <Select
                 {...input}
                 value={val}
@@ -160,17 +150,13 @@ export const SelectField_ReactSelect = (props) => {
                 multi={false}
                 clearable={false}
             />
-            {meta.pristine && isRequired === "true" && <span className="error-div">*</span>}
-            {meta.touched &&
-                ((meta.error && <span className={`error-div`}>{meta.error}</span>) || (meta.warning && <span className={`error-div`}>{meta.warning}</span>))
-            }
+            {meta.touched && ((meta.error && <span className={`error-div`}>{meta.error}</span>) || (meta.warning && <span className={`error-div`}>{meta.warning}</span>)) }
         </div>
     );
 }
 
 export const SelectField_ReactSelectMulti = (props) => {
-    const { label, input, meta, wrapperClass, className, labelClass, placeholder, errorClass, 
-            initialValue, options, isRequired } = props;
+    const { label, input, meta, wrapperClass, className, labelClass, placeholder, errorClass, initialValue, options, isRequired } = props;
     let val = '';
     if (input.value && Object.keys(input.value).length > 0) {
         val = input.value;
@@ -179,20 +165,17 @@ export const SelectField_ReactSelectMulti = (props) => {
     }
     return (
         <div className={wrapperClass}>
-            <label htmlFor={input.name} className={labelClass}>{label}</label>
+            <label htmlFor={input.name} className={labelClass}>{label} {meta.pristine && isRequired === "true" && <span className="error-div">*</span>}</label>
             <Select.Creatable
                 {...input}                
                 value={val}                
-                className={`${className}${meta.touched && ((meta.error && ' txt_error_div') || (meta.warning && ' txt_error_div'))}`}
+                className={`${className} ${meta.touched && ((meta.error && ' txt_error_div') || (meta.warning && ' txt_error_div'))}`}
                 placeholder={placeholder}
                 onChange={(value) => input.onChange(value)}
                 onBlur={() => input.onBlur([...input.value])}
                 multi={true}                
             />
-            {meta.pristine && isRequired === "true" && <span className="error-div">*</span>}
-            {meta.touched &&
-                ((meta.error && <span className={`error-div`}>{meta.error}</span>) || (meta.warning && <span className={`error-div`}>{meta.warning}</span>))
-            }
+            {meta.touched && ((meta.error && <span className={`error-div`}>{meta.error}</span>) || (meta.warning && <span className={`error-div`}>{meta.warning}</span>)) }
         </div>
     );
 }

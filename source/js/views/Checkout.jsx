@@ -26,6 +26,8 @@ class Checkout extends Component {
     }
 
     toggle() {
+        const { match } = this.props;
+        this.props.history.push(`${routeCodes.CAMPAIGN_PURCHASED_POSTS}`);
         this.setState({
              modal: !this.state.modal
         });
@@ -47,43 +49,34 @@ class Checkout extends Component {
             "post_code"     : values.post_code,
             "credit_card"   : 'card_1AmK1vFryXXeEhDyOzO0c2qc',
         }
-        // const formData = new FormData();
-        // formData.append("name",values.fullname);
-        // formData.append("email",values.email);
-        // formData.append("abn",values.abn);
-        // formData.append("country",values.country.value);
-        // formData.append("address_line_1",values.address1);
-        // formData.append("address_line_2",values.address2);
-        // formData.append("city",values.city);
-        // formData.append("state",values.state.value);
-        // formData.append("post_code",values.post_code);
-        // formData.append("credit_card",'card_1AmK1vFryXXeEhDyOzO0c2qc');
-
         dispatch(cartPaymentReq(data));
 
-        this.setState({
-            modal : true
-        })
+        // this.setState({
+        //     modal : true
+        // })
     }
 
-    nextPage(){
-        this.setState({ page : this.state.page + 1 });
-    }
-
-    previousPage(){
-        this.setState({ page : this.state.page - 1 });
-    }
-
+    nextPage(){ this.setState({ page : this.state.page + 1 }); }
+    previousPage(){ this.setState({ page : this.state.page - 1 }); }
     componentWillMount(){
         const { dispatch } = this.props;
         dispatch(country());
+    }
+    
+    componentDidUpdate(){
+        const { payment } = this.props;
+        const { modal } = this.state;
+        if(payment.status===1 && modal===false){
+            this.setState({ modal : true });
+        }else{
+            // Else Part
+        }
     }
 
     render() {
         const { page } = this.state;
         return (
             <div>
-                {/* <FormStep1 onSubmit={this.nextPage}/> */}
                 {page === 1  && <FormStep1 onSubmit={this.nextPage} countryList={this.props.country} />}
                 {page === 2  && <FormStep2 onSubmit={this.nextPage} previousPage={this.previousPage} />}
                 {page === 3  && <FormStep3 onSubmit={this.submitForm} previousPage={this.previousPage} />}
@@ -106,10 +99,11 @@ class Checkout extends Component {
 }
 
 const mapStateToProps = (state) => {
-    const { register } = state;
+    const { register, checkout } = state;
     return {
-        // loading: register.get('loading'),
-        // error: register.get('error'),
+        loading: checkout.get('loading'),
+        error: checkout.get('error'),
+        payment: checkout.get('payment'),
         country:register.get('country'),
     }
 }

@@ -9,8 +9,15 @@ const initialState = Map({
     error: null,
     carts: {
         data: null,
+        subtotal: 0,
+        gst: 0,
+        total: 0,
         status: 0,
         message: null,
+    },
+    payment:{
+        status: 0,
+        message: null
     }
 });
 
@@ -29,6 +36,9 @@ const actionMap = {
             error: false,
             carts: {
                 data: action.data.data.results.cart_items,
+                subtotal: action.data.data.results.sub_total,
+                gst: action.data.data.results.gst,
+                total: action.data.data.results.total,
                 status: action.data.data.status,
                 message: action.data.data.message,
             }
@@ -54,14 +64,10 @@ const actionMap = {
         }));
     },
     [CART_PAYMENT_SUCCESS]: (state, action) => {
-        console.log(action);
-        return;
         return state.merge(Map({
             ...initialState,
             loading: false,
-            error: false,
-            carts: {
-                data: action.data.data.results.cart_items,
+            payment: {
                 status: action.data.data.status,
                 message: action.data.data.message,
             }

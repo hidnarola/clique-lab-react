@@ -25,7 +25,7 @@ import { Link } from 'react-router-dom';
 import { routeCodes } from '../constants/routes';
 import img1 from 'img/site/big-img011.jpg';
 import { imgRoutes } from '../constants/img_path';
-
+import { isImageExists } from '../constants/helper';
 import {
         Button, Modal, ModalHeader, ModalBody, ModalFooter, Dropdown,
         DropdownToggle, DropdownMenu, DropdownItem ,UncontrolledDropdown
@@ -784,10 +784,14 @@ class EverydayPeople extends Component {
     }
     
     renderLi3 = (obj) => {
+        let img = imgRoutes.CAMPAIGN_IMG_PATH + obj.image;
+        if(!isImageExists(img)){
+            img = 'http://placehold.it/465x300/ececec/525f7f?text=No Image Found';
+        }
         return (
             <li key={Math.random()}>
                 <div className="fan-festival-box d-flex">
-                    <div className="festival-img"><img src={`${imgRoutes.CAMPAIGN_IMG_PATH}${obj.image}`} alt="" /></div>
+                    <div className="festival-img"><img src={img} alt="" /></div>
                     <div className="fan-festival-r">
                         <div className="festival-head d-flex">
                             <div className="festival-head-l">

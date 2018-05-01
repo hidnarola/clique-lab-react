@@ -10,6 +10,7 @@ import ModalPopUp from '../components/Common/ModalPopUp';
 import { connect } from 'react-redux';
 import { createCampaign } from '../actions/campaign';
 import {routeCodes} from '../constants/routes';
+import {reset,initialize} from 'redux-form';
 
 class Campaign extends Component {
     
