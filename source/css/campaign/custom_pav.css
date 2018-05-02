@@ -50,3 +50,8 @@
     .custom_scrollbar::-webkit-scrollbar { width: 0.4em; }
     .custom_scrollbar::-webkit-scrollbar-track { -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); }
     .custom_scrollbar::-webkit-scrollbar-thumb { background-color: #26A69A; outline: 1px solid slategrey; }
+
+.add_grp_popup_select .Select-value,
+.add_grp_popup_select .Select-placeholder,
+.add_grp_popup_select .Select-input{ text-align: left;}
+.add_grp_popup_select .Select-input{ display: block !important; }
