@@ -5,6 +5,8 @@ import FormStep2 from '../components/Campaign/FormStep2';
 import FormStep3 from '../components/Campaign/FormStep3';
 import FormStep4 from '../components/Campaign/FormStep4';
 import FormStep5 from '../components/Campaign/FormStep5';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 import ModalPopUp from '../components/Common/ModalPopUp';
 import { connect } from 'react-redux';
@@ -20,11 +22,21 @@ class Campaign extends Component {
         this.previousPage = this.previousPage.bind(this);
         this.state = {
             page:1,            
-            contentBody:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+            contentBody:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+            modal:false    
         };
         this.submitForm = this.submitForm.bind(this);
     }
     
+    toggle() {
+        //const { match } = this.props;
+       // this.props.history.push(`${routeCodes.CAMPAIGN_PURCHASED_POSTS}`);
+        this.setState({
+             modal: !this.state.modal
+        });
+    }
+
+
     nextPage() {
         this.setState({ page: this.state.page + 1 });
     }
@@ -89,31 +101,32 @@ class Campaign extends Component {
         //     console.log(value); 
         // }
         this.setState({isRedirect:true});
-        this.resetFormData();
-        this.props.history.push(routeCodes.DASHBOARD)
+       // this.resetFormData();
+       // this.props.history.push(routeCodes.DASHBOARD)
 
     }
 
 
-    // componentDidUpdate(){
-    //     const { campaign } = this.props;
-    //     console.log('===============================');
-    //     console.log(campaign);
-    //     console.log('===============================');
+    componentDidUpdate(){
+        const { campaign } = this.props;
+        console.log('===============================');
+        console.log(campaign);
+        console.log('===============================');
 
-    //     if(campaign && this.state.isRedirect === true){
-    //         if(campaign['status']){
-    //             //this.childCampaign.toggle()
-    //             this.setState({isRedirect:false});
-    //             // dispatch(initialize('wizardCampaign',{}));
-    //             this.resetFormData();
-    //             setTimeout(()=>{
-    //                 this.props.history.push(routeCodes.DASHBOARD)
-    //             },1000)
-    //         }
-    //     }
+        if(campaign && this.state.isRedirect === true){
+            if(campaign['status']){
+                //this.childCampaign.toggle()
+                this.setState({isRedirect:false});
+                // dispatch(initialize('wizardCampaign',{}));
+                this.resetFormData();
+                this.toggle();
+                // setTimeout(()=>{
+                //     this.props.history.push(routeCodes.DASHBOARD)
+                // },1000)
+            }
+        }
         
-    // }
+    }
     
     changePage = (pageNo) => {
         this.setState({page:pageNo});
@@ -152,6 +165,20 @@ class Campaign extends Component {
                     contentBody={this.state.contentBody}
                     onClosed={() => {console.log('Closed')}}
                      />
+
+                <div>
+                    <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
+                        <ModalHeader toggle={this.toggle}>Congratulation Your Campaign has been started!</ModalHeader>
+                        <ModalBody>Lets go ahead and add some Everyday People to your Campaign.Click the button below to add people to your Campaign.You can add people at any time using the 'Everyday People' Navigation</ModalBody>
+                        <ModalFooter>
+                            <div className="submit-btn d-flex">
+                                <Link to={routeCodes.EVERYDAYPEOPLE}>
+                                    <button type="button" className="round-btn next-btn">Select People</button>
+                                </Link>
+                            </div>
+                        </ModalFooter>
+                    </Modal>
+                </div>
                 {/* <button onClick={() => this.childCampaign.toggle()}>fgjsofrhohoi</button> */}
             </div>
         );

@@ -66,13 +66,13 @@ const renderField = ({ input, type, placeholder, meta: { touched, error, warning
     </div>
 )
 
-const renderFieldCheckbox = ({ input, type, name, className, placeholder, newProp, meta: { touched, error, warning } }) => (
+const renderFieldCheckbox = ({ input, type, name,className,term_privacy,placeholder, newProp, meta: { touched, error, warning } }) => (
     <div className={cx('input-div', { 'custom-error': (touched && error) ? true : false })}>
         <input {...input} placeholder={placeholder} type={type} className={className} id={newProp} />
         <label htmlFor="check1">
             I accept the
-            <a href="javascript:void(0)" onClick={() => props.func(this, 'TERMS')}> Terms & Conditions </a> and the
-            <a href="javascript:void(0)" onClick={() => props.func(this, 'PRIVACY')}> Privacy Policy </a>
+            <a href="javascript:void(0)" onClick={() => term_privacy(this, 'TERMS')}> Terms & Conditions </a> and the
+            <a href="javascript:void(0)" onClick={() => term_privacy(this, 'PRIVACY')}> Privacy Policy </a>
         </label>
         {touched && ((error && <span>{error}</span>) || (warning && <span>{warning}</span>))}
     </div>
@@ -205,6 +205,7 @@ class RegisterForm extends Component {
                             value="check1"
                             className="check1"
                             newProp="check1"
+                            term_privacy={this.props.func}
                         />
                     </div>
                     <div className="submit-div">

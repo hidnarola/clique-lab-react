@@ -3,6 +3,7 @@ import { Field, reduxForm } from 'redux-form'
 import { Link } from 'react-router-dom';
 import cx from 'classnames';
 import { Alert } from 'reactstrap';
+import {reset} from 'redux-form';
 
 const validate = values => {
     const errors = {}
@@ -15,7 +16,7 @@ const validate = values => {
 }
 
 const renderField = ({ input, type, placeholder, meta: { touched, error, warning } }) => (
-    <div className={cx('input-div', { 'custom-error': (touched && error) ? true : false })}>
+    <div className={cx('input-div', { 'custom-error': (touched && error ) ? true : false })}>
         <input {...input} placeholder={placeholder} type={type} />
         {touched && ((error && <span>{error}</span>) || (warning && <span>{warning}</span>))}
     </div>
@@ -24,11 +25,25 @@ const renderField = ({ input, type, placeholder, meta: { touched, error, warning
 class LoginForm extends Component {
     constructor(props) {
         super(props);
-        this.state = { 'visible': true };
+        this.state = { 
+                        'visible': true,
+                        'showError':true
+                    };
         this.onDismiss = this.onDismiss.bind(this);
     }
     onDismiss() { this.setState({ 'visible': false }); }
+
+   /* 
+    componentWillReceiveProps(nextProps) {  
+        if(nextProps.newError !== null)
+        {
+            this.setState({'showError':false});
+        }
+    }
+    */
+
     render() {
+        //const {showError} = this.state;
         const { handleSubmit, error, newError } = this.props;
         return (
             <div>
@@ -44,8 +59,8 @@ class LoginForm extends Component {
                 </div>
                 <form onSubmit={handleSubmit}>
                     <h3>Log In</h3>
-                    <Field name="username" type="text" component={renderField} placeholder="Username" />
-                    <Field name="password" type="password" component={renderField} placeholder="Password" />
+                    <Field name="username" type="text" component={renderField} placeholder="Username"/>
+                    <Field name="password" type="password" component={renderField} placeholder="Password"/>
                     <div className="submit-div">
                         <button type="submit" className="round-btn">Login</button>
                     </div>
