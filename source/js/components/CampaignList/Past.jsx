@@ -57,7 +57,6 @@ class Past extends Component {
     }
 
     handlePageChange(pageNumber) {
-        console.log(`active page is ${pageNumber}`);
         this.setState({activePage: pageNumber});
         const { dispatch } = this.props;
         dispatch(getPastCampaign({"page_size":9,"page_no":pageNumber}))
