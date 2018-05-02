@@ -26,44 +26,34 @@ const renderField = ({ input, type, placeholder, displayError,meta: { touched, e
 class LoginForm extends Component {
     constructor(props) {
         super(props);
-        this.state = { 
-                        'visible': true,
-                        'showError':true
-                    };
+        this.state = { visible: true };
         this.onDismiss = this.onDismiss.bind(this);
     }
     onDismiss() { this.setState({ 'visible': false }); }
 
     componentWillReceiveProps(nextProps) { 
-        if(this.state.visible === false && nextProps.newError === null)
-        {
+        if(this.state.visible === false && nextProps.newError === null){
             this.setState({ 'visible': true });
-            //nextProps.newError = null;
         }
-        if(nextProps.newError !== null)
-        {
+        if(nextProps.newError !== null){
             this.setState({'showError':false});
         }
-        if((nextProps.username) === undefined || (nextProps.password) === undefined)
-        {
+        if((nextProps.username) === undefined || (nextProps.password) === undefined){
             this.setState({'showError':true});
         }
     }
 
     render() {
         const {showError} = this.state;
-        const { handleSubmit, error, newError,username,password} = this.props;
-        //this.state.visible
+        const { handleSubmit, error, newError, username, password} = this.props;
         return (
             <div>
                 <div style={{ "margin": "0 32%" }}>
-                    {(error) ?
-                        <Alert color="danger " isOpen={this.state.visible} toggle={this.onDismiss}>{error}</Alert>
-                        :
-                        (newError) ?
-                            <Alert color="danger " isOpen={this.state.visible} toggle={this.onDismiss}>{newError}</Alert>
-                            :
-                            ''
+                    {
+                        // (error && showError) ?
+                        // <Alert color="danger " isOpen={this.state.visible} toggle={this.onDismiss}>{error}</Alert>
+                        // :
+                        (newError) ? <Alert color="danger " isOpen={this.state.visible} toggle={this.onDismiss}>{newError}</Alert> : ''
                     }
                 </div>
                 <form onSubmit={handleSubmit}>
@@ -89,10 +79,8 @@ LoginForm = reduxForm({
 const selector = formValueSelector('contact') // <-- same as form name
 LoginForm = connect(
   state => {
-    // can select values individually
     const username = selector(state, 'username')
     const password = selector(state, 'password')
-    // or together as a group    
     return {
       username,
       password,

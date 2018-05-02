@@ -167,16 +167,14 @@ class Campaign extends Component {
                      />
 
                 <div>
-                    <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
-                        <ModalHeader toggle={this.toggle}>Congratulation Your Campaign has been started!</ModalHeader>
-                        <ModalBody>Lets go ahead and add some Everyday People to your Campaign.Click the button below to add people to your Campaign.You can add people at any time using the 'Everyday People' Navigation</ModalBody>
-                        <ModalFooter>
-                            <div className="submit-btn d-flex">
-                                <Link to={routeCodes.EVERYDAYPEOPLE}>
-                                    <button type="button" className="round-btn next-btn">Select People</button>
-                                </Link>
+                    <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} id="congratulations">
+                        <ModalBody style={{"padding":"40px 80px 40px"}}>
+                            <div className="terms-conditions">
+                                <h2>Congratulation Your Campaign has been started!</h2>
+                                <p>Lets go ahead and add some Everyday People to your Campaign.Click the button below to add people to your Campaign.You can add people at any time using the 'Everyday People' Navigation</p>
+                                <Link className="round-btn" to={routeCodes.EVERYDAYPEOPLE} >Select People</Link>
                             </div>
-                        </ModalFooter>
+                        </ModalBody>
                     </Modal>
                 </div>
                 {/* <button onClick={() => this.childCampaign.toggle()}>fgjsofrhohoi</button> */}
