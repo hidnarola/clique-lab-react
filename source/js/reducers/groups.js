@@ -101,8 +101,6 @@ const actionMap = {
         if (action.error && action.error.response) {
             error = action.error.response.message;
         }
-        console.log('Reducers',action);
-        return;
         return state.merge(Map({
             ...initialState,
             loading: false,

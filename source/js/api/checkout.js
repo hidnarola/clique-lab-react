@@ -6,6 +6,11 @@ function getCheckoutList() {
     return getFormData(`promoter/cart`, '', headers);
 }
 
+function removeCartItems(item_id) {
+    let headers = { 'x-access-token' : localStorage.getItem('token') }                                                                                                                                                                                                                                         
+    return deleteFormData(`promoter/cart/${item_id}`, '', headers);
+}
+
 function cartPayment(data) {
     let headers = { 'x-access-token' : localStorage.getItem('token') }                                                                                                                                                                                                                                         
     return postFormData(`promoter/cart/purchase`, data, headers);
@@ -13,5 +18,6 @@ function cartPayment(data) {
 
 export default {
     getCheckoutList,
+    removeCartItems,
     cartPayment,
 }

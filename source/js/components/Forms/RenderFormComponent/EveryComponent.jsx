@@ -15,7 +15,6 @@ export const renderFieldCampaign = ({ input, type, placeholder, label, isRequire
     <div className={cx('input-wrap ',{'custom-error':(touched && error ) ? true:false })} >
         <label>{label} {pristine && isRequired === "true" && <span className="error-div">*</span>}</label>
         <input {...input} placeholder={placeholder} type={type} className={`${touched && ((error && `txt_error_div`) || (warning && `txt_error_div`))}`} />
-        {console.log(touched)}
         {touched && ((error && <div className="error-div">{error}</div>) || (warning && <span>{warning}</span>))}
     </div>
 )
@@ -115,7 +114,7 @@ export const FileField_Dropzone_New = (props) => {
                 >
                     <div className={ `dropzone-image-preview-wrapper`}>
                         {(input.value && meta.error===undefined) && images}
-                        {(!input.value || meta.error) && <div className={ `custom_dropzone_div` } style={{'width':'100%'}}>
+                        {(!input.value || meta.error) && <div className={ `custom_dropzone_div ${(meta.touched && meta.error) && 'drop_error_div'}` } style={{'width':'100%'}}>
                                 <img src={dropImg} /><br /><br />
                                 <p>Select or Drag Your image here</p>
                                 <button type="button" className={ `btn_drop_browse` }>Or Browse</button>

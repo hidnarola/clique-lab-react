@@ -57,7 +57,7 @@ class FormStep3 extends Component{
                             <h2>Step 3</h2>
 
                             <Field        
-                                wrapperClass="input-wrap select-wrap"
+                                wrapperClass="select-wrap"
                                 name="public_or_private"       
                                 label="Public or Invite only"
                                 labelClass="control-label"
@@ -72,7 +72,7 @@ class FormStep3 extends Component{
                             />
 
                             <Field        
-                                wrapperClass="input-wrap select-wrap"
+                                wrapperClass="select-wrap"
                                 name="media_format"       
                                 label="Media Format"
                                 labelClass="control-label"
@@ -105,7 +105,7 @@ class FormStep3 extends Component{
                             />
 
                             <Field        
-                                wrapperClass="input-wrap select-wrap"
+                                wrapperClass="select-wrap"
                                 name="currency"       
                                 label="How much to pay ( Currency )"
                                 labelClass="control-label"

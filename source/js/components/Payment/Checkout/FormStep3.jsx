@@ -8,30 +8,6 @@ const validate = values => {
 
     const errors = {};
 
-    // if (!values.call_to_action) {
-    //     errors.call_to_action = 'This Field is Required';
-    // }
-
-    // if (!values.discount_code) {
-    //     errors.discount_code = 'This Field is Required';
-    // }
-
-    // if (!values.industryName) {
-    //     errors.industryName = 'This Field is Required';
-    // }    
-
-    // if (!values.short_desc) {
-    //     errors.short_desc = 'This Field is Required';
-    // }
-
-    // if(!values.tagHash){
-    //     errors.tagHash = 'This Field is Required';
-    // }
-
-    // if(!values.tagAt){
-    //     errors.tagAt = 'This Field is Required';
-    // }
-
     return errors;
 };
 
@@ -84,7 +60,7 @@ class FormStep3 extends Component {
 						</div>
                         </div>
                     </div>
-                    <OrderDetails />
+                    {/* <OrderDetails /> */}
                 </div>
             </form>
         );

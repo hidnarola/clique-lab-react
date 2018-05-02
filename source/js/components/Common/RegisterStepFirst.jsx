@@ -30,7 +30,7 @@ const validate = values => {
 };
 
 const renderField = ({ input, type, placeholder, meta: { touched, error, warning } }) => (    
-    <div  className={cx('industry-description',{'custom-error':(touched && error ) ? true:false })}>
+    <div  className={cx('industry-description input-wrap',{'custom-error':(touched && error ) ? true:false })}>
         <label>Description</label>
         <textarea {...input} placeholder={placeholder} className={touched && ((error && `txt_error_div`))}></textarea>
         {touched && ((error && <span className="error-div">{error}</span>))}
@@ -75,12 +75,11 @@ class RegisterStepFirst extends Component{
                             <div className="d-flex">
                                 <div className="industry-l">
                                     <div className="profile-logo">
-                                        <label>Profile Logo</label>
                                         <div className="industry-l-box">
                                             <div className="drag-drop">
                                                 <Field
                                                     name="images"
-                                                    label=""
+                                                    label="Profile Logo"
                                                     labelClass="control-label"
                                                     wrapperClass="form-group"
                                                     placeholder="Images"
@@ -107,6 +106,7 @@ class RegisterStepFirst extends Component{
                                         name="description"                                        
                                         component={renderField}
                                         placeholder="Please add description...."
+                                        className="input-wrap"
                                     />
                                 </div>
                             </div>

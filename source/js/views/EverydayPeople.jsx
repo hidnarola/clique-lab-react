@@ -696,14 +696,14 @@ class EverydayPeople extends Component {
         dispatch(fetchDropDownReq({"sendReqFor":"group","uId":obj._id}));
     }
 
-    addToCart = (obj) => {
+    addToCart = (camp_id,user_id) => {
         const {dispatch,match} = this.props;
         let data = {
             'param1':'cart',
             'param2':{
-                'value':match.params.campaignId
+                'value':camp_id
             },
-            'param3':obj._id
+            'param3':user_id
         }
         dispatch(addUserReq(data));
     }
@@ -767,7 +767,7 @@ class EverydayPeople extends Component {
                         <div className="festival-ftr-l"><a href=""><i><img src="images/facebook-01.png" alt="" /></i><strong>823M</strong></a></div>
                         <div className="festival-ftr-r dropdown">
                             <PlusAction2 
-                                addToCart={ () => {this.addToCart(obj)} }
+                                addToCart={ () => {this.addToCart(obj.campaign_id,obj.user_id)} }
                                 addGroup={ () => {this.addGroup(obj)} } 
                             />
                         </div>
@@ -811,7 +811,7 @@ class EverydayPeople extends Component {
                             <div className="festival-ftr-l"><a href=""><i><img src={fbImg} alt="" /></i><strong>823M</strong></a></div>
                             <div className="festival-ftr-r dropdown">
                                 <PlusAction2 
-                                    addToCart={ () => {this.addToCart(obj)} }
+                                    addToCart={ () => {this.addToCart(obj._id,obj.users._id)} }
                                     addGroup={ () => {this.addGroup(obj)} } 
                                 />
                             </div>
@@ -1061,15 +1061,12 @@ class EverydayPeople extends Component {
 
         allSliderArr['ageRange'] = _.find(allSliders, function(o) { return o.slider == 'ageRange'; });
 
-        // if(loading) { // if your component doesn't have to wait for an async action, remove this block 
-        //     return (
-        //         <div className="loader"></div>
-        //     ) // render null when app is not ready
-        // }s
+        if(loading) { return ( <div className="loader"></div> ) }
+        
         return (
             <div className="every-people">
 
-                { (loading) ? <div className="loader" style={{"zIndex":"999999999"}}></div> : '' }
+                {/* { (loading) ? <div className="loader" style={{"zIndex":"999999999"}}></div> : '' } */}
                 
                 <div className="everypeole-head d-flex">
                     <div className="everypeole-head-l">

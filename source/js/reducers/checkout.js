@@ -1,6 +1,7 @@
 import { Map } from "immutable";
 import {  
     GET_CHECKOUT_LIST_REQUEST, GET_CHECKOUT_LIST_SUCCESS, GET_CHECKOUT_LIST_ERROR,
+    REMOVE_CART_ITEM_REQUEST, REMOVE_CART_ITEM_SUCCESS, REMOVE_CART_ITEM_ERROR,
     CART_PAYMENT_REQUEST, CART_PAYMENT_SUCCESS, CART_PAYMENT_ERROR,
 } from "../actions/Checkout";
 
@@ -16,6 +17,10 @@ const initialState = Map({
         message: null,
     },
     payment:{
+        status: 0,
+        message: null
+    },
+    removeItems:{
         status: 0,
         message: null
     }
@@ -55,6 +60,37 @@ const actionMap = {
             error: null,
         }));
     },
+
+    [REMOVE_CART_ITEM_REQUEST]: (state, action) => {
+        return state.merge(Map({
+            ...initialState,
+            loading: true,
+            error: null            
+        }));
+    },
+    [REMOVE_CART_ITEM_SUCCESS]: (state, action) => {
+        return state.merge(Map({
+            ...initialState,
+            loading: false,
+            error: false,
+            removeItems: {
+                status: action.data.data.status,
+                message: action.data.data.message,
+            }
+        }));
+    },
+    [REMOVE_CART_ITEM_ERROR]: (state, action) => {
+        let error = 'Server Error';
+        if (action.error && action.error.response) {
+            error = action.error.response.message;
+        }
+        return state.merge(Map({
+            ...initialState,
+            loading: false,
+            error: null,
+        }));
+    },
+
 
     [CART_PAYMENT_REQUEST]: (state, action) => {
         return state.merge(Map({

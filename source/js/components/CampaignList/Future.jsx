@@ -62,7 +62,7 @@ class Future extends Component {
             <li key={Math.random()}>
                 <div className="all-people-div">
                     <div className="all-people-img">
-                        <a href=""><img src={`${imgRoutes.CAMPAIGN_IMG_PATH}${obj.cover_image}`} alt="" className="campaign_list_img"/></a>
+                        <img src={`${imgRoutes.CAMPAIGN_IMG_PATH}${obj.cover_image}`} alt="" className="campaign_list_img"/>
                     </div>
                     <div className="all-people-content">
                         <h4>{obj.name}</h4>
@@ -88,7 +88,6 @@ class Future extends Component {
     }
 
     handlePageChange(pageNumber) {
-        console.log(`active page is ${pageNumber}`);
         this.setState({activePage: pageNumber});
         const { dispatch } = this.props;
         dispatch(getFutureCampaign({"page_size":9,"page_no":pageNumber}))
