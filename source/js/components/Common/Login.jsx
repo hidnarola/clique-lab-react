@@ -1,59 +1,58 @@
 import React,{Component} from 'react';
-import {Redirect} from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router'
+import { SubmissionError } from 'redux-form';
+import { reactLocalStorage } from 'reactjs-localstorage';
+import CryptoJS from 'crypto-js';
 import LogoImg from 'img/common/logo.png';
 import LoginForm  from '../Forms/Front/LoginForm';
-import { SubmissionError } from 'redux-form'
 import { login } from '../../actions/login';
 import { routeCodes } from '../../constants/routes';
-import {reactLocalStorage} from 'reactjs-localstorage';
-// reactLocalStorage.set('var', true); // reactLocalStorage.get('var', true);
-// reactLocalStorage.setObject('var', {'test': 'test'}); // reactLocalStorage.getObject('var');
-import CryptoJS from 'crypto-js';
 import {SECRET_KEY} from '../../constants/usefulvar';
 import { Alert } from 'reactstrap';
 
-
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
-class Login extends Component{
-    
+class Login extends Component{    
     constructor(props){
         super(props);
         this.state = {
-            redirectToReferrer: false
-        };        
-        
-        
-        // Encrypt 
-        // var ciphertext = CryptoJS.AES.encrypt('my message', SECRET_KEY);        
-        // Decrypt 
-        // var bytes  = CryptoJS.AES.decrypt(ciphertext.toString(), SECRET_KEY);
-        // var plaintext = bytes.toString(CryptoJS.enc.Utf8);        
-        // console.log(plaintext);
-
+            redirectToReferrer: false,
+            submitAction: false,
+            errorMsg: ''
+        };
     }
 
     submitForm = (values) => {
-        // print the form values to the console
-        
         const { dispatch } = this.props;
-
         let loginData = {
             login_id: values.username,
             password: values.password,
         }
-
+        this.setState({submitAction: true})
         dispatch(login(loginData));        
     }
 
     componentDidUpdate(){
-        let { message } = this.props;
+        let { message, loading, error } = this.props;
+        let { submitAction } = this.state;
+        if(submitAction && !loading){
+            this.setState({submitAction: false})
+            if(error!==null){
+                this.setState({errorMsg: error},() => {
+                    setTimeout(()=>{
+                        this.setState({errorMsg: ''})
+                    },3000);
+                })
+            }
+        }
     }
     
     render(){
         let { error,user,message } = this.props;
+        let { errorMsg } = this.state;
+        
         let token = localStorage.getItem('token');
         let usrObj = reactLocalStorage.getObject('user');
         
@@ -74,10 +73,10 @@ class Login extends Component{
                         </a>
                     </div>
                     <div className="form-content d-flex">
-                        <div className="login-alert-msg">
+                        {/* <div className="login-alert-msg">
                             {message && <Alert color="danger">{message}</Alert>} 
-                        </div>
-                        <LoginForm onSubmit={this.submitForm} newError={error}/>
+                        </div> */}
+                        <LoginForm onSubmit={this.submitForm} newError={errorMsg}/>
                     </div>
                     <div className="form-ftr">
                         <p>
