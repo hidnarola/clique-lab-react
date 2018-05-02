@@ -76,29 +76,32 @@ class Checkout extends Component {
 
     render() {
         const { page } = this.state;
-        //const { carts } = this.props;
-        //console.log(this.props.history.push(routeCodes.CART));
-        // if(carts.data===null){
-        //     this.props.history.push(routeCodes.CART);
-        // }
+
+        const { carts } = this.props;
+   
         return (
             <div>
-                {page === 1  && <FormStep1 onSubmit={this.nextPage} countryList={this.props.country} />}
-                {page === 2  && <FormStep2 onSubmit={this.nextPage} previousPage={this.previousPage} />}
-                {page === 3  && <FormStep3 onSubmit={this.submitForm} previousPage={this.previousPage} />}
-                <div>
-                    <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
-                        <ModalHeader toggle={this.toggle}>Payment Done</ModalHeader>
-                        <ModalBody>Thank you for your payment! Your order has been successfully placed.</ModalBody>
-                        <ModalFooter>
-                            <div className="submit-btn d-flex">
-                                <Link to={routeCodes.CAMPAIGN_PURCHASED_POSTS}>
-                                    <button type="button" className="round-btn next-btn">Purchased Post</button>
-                                </Link>
-                            </div>
-                        </ModalFooter>
-                    </Modal>
+                {carts.data === null ? this.props.history.push(routeCodes.MY_CART) :
+                <div> 
+                    {page === 1  && <FormStep1 onSubmit={this.nextPage} countryList={this.props.country} />}
+                    {page === 2  && <FormStep2 onSubmit={this.nextPage} previousPage={this.previousPage} />}
+                    {page === 3  && <FormStep3 onSubmit={this.submitForm} previousPage={this.previousPage} />}
+                    <div>
+                        <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
+                            <ModalHeader toggle={this.toggle}>Payment Done</ModalHeader>
+                            <ModalBody>Thank you for your payment! Your order has been successfully placed.</ModalBody>
+                            <ModalFooter>
+                                <div className="submit-btn d-flex">
+                                    <Link to={routeCodes.CAMPAIGN_PURCHASED_POSTS}>
+                                        <button type="button" className="round-btn next-btn">Purchased Post</button>
+                                    </Link>
+                                </div>
+                            </ModalFooter>
+                        </Modal>
+                    </div>
+                    
                 </div>
+                }
             </div>
         )
     }
@@ -109,7 +112,7 @@ const mapStateToProps = (state) => {
     return {
         loading: checkout.get('loading'),
         error: checkout.get('error'),
-        //carts: checkout.get('carts'),
+        carts: checkout.get('carts'),
         payment: checkout.get('payment'),
         country:register.get('country'),
     }

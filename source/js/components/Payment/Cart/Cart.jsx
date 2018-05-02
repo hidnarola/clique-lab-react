@@ -5,6 +5,7 @@ import { routeCodes } from 'constants/routes';
 import { imgRoutes } from '../../../constants/img_path';
 import { getCheckoutList, removeCartItems } from '../../../actions/Checkout';
 import trashImg from 'img/site/trash-icon.png';
+import nodataImg from 'img/site/nodata.png';
 
 class Cart extends React.Component {
 	constructor(props) {
@@ -55,11 +56,13 @@ class Cart extends React.Component {
 
 	render() {
 		const { carts } = this.props;
+		
 		return (
 			<div>
 				<div className="all-people-head">
 					<h3>Total {(carts.status === 1) ? (carts.data).length : 0} producs in Cart</h3>
 				</div>
+				{carts.data === null ? <div className="no_data_found"><img src={nodataImg} /></div> :
 				<div className="analytics-body content-box">
 					<div className="cart-table">
 						<table className="table">
@@ -126,6 +129,7 @@ class Cart extends React.Component {
 						</table>
 					</div>
 				</div>
+				}
 			</div>
 		)
 	}
