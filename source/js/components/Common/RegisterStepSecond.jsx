@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 import { Field, reduxForm } from 'redux-form';
 import Iframe from 'react-iframe'
 import { connect } from 'react-redux';
+import {AfterReg} from '../Campaign/CommonCompo';
 
 const RegisterSecondStep = (props) => {
     const { handleSubmit, pristine, previousPage, submitting,videoUrl } = props
@@ -13,6 +14,7 @@ const RegisterSecondStep = (props) => {
                         <a className="active"></a>
                         <a className="active"></a>
                     </div>
+                    {/* <AfterReg currentPage="2" changePage={(i) => this.changePage(i)}/> */}
                     <h2>Watch a tutorial video</h2>
                     <form onSubmit={handleSubmit}>
                         <div className="video-frame">

@@ -4,6 +4,7 @@ import validator from 'validator';
 import cx from 'classnames';
 import {FileField_Dropzone,SelectField_ReactSelect,FileField_Dropzone_New} from '../../components/Forms/RenderFormComponent/EveryComponent';
 import { connect } from 'react-redux';
+import {AfterReg} from '../Campaign/CommonCompo';
 
 const validate = values => {
     
@@ -43,6 +44,7 @@ class RegisterStepFirst extends Component{
         super(props);
         this.state = {  
             selectedOption: '',
+            page:1
         }
     }
 
@@ -50,9 +52,13 @@ class RegisterStepFirst extends Component{
         this.setState({ selectedOption });        
     }
 
+    changePage = (pageNo) => {
+        this.setState({page:pageNo});
+    }
+
     render(){
         const { handleSubmit } = this.props;
-        const { selectedOption } = this.state;
+        const { selectedOption,page } = this.state;
         const value = selectedOption && selectedOption.value;
 
         const newArr = [];        
@@ -67,9 +73,13 @@ class RegisterStepFirst extends Component{
                 <div className="container">
                     <div className="content-box industry-category">
                         <div className="category-step d-flex">
-                            <a href="" className="active"></a>
-                            <a href="" className=""></a>
+                            <a href="#" className="active"></a>
+                            <a href="#" className=""></a>
                         </div>
+
+                        
+                        {/* <AfterReg currentPage="1" changePage={(i) => this.changePage(i)}/> */}
+                       
                         <h2>Industry Category</h2>
                         <form onSubmit={handleSubmit}>
                             <div className="d-flex">

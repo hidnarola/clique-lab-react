@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Field, reduxForm } from 'redux-form'
+import { Field, reduxForm,formValueSelector  } from 'redux-form'
+import { connect } from 'react-redux'
 import { Link } from 'react-router-dom';
 import cx from 'classnames';
 import { Alert } from 'reactstrap';
@@ -15,10 +16,10 @@ const validate = values => {
     return errors
 }
 
-const renderField = ({ input, type, placeholder, meta: { touched, error, warning } }) => (
-    <div className={cx('input-div', { 'custom-error': (touched && error ) ? true : false })}>
+const renderField = ({ input, type, placeholder, displayError,meta: { touched, error, warning } }) => (
+    <div className={cx('input-div', { 'custom-error': (touched && error && displayError ) ? true : false })}>
         <input {...input} placeholder={placeholder} type={type} />
-        {touched && ((error && <span>{error}</span>) || (warning && <span>{warning}</span>))}
+        {touched && displayError &&  ((error && <span>{error}</span>) || (warning && <span>{warning}</span>))}
     </div>
 )
 
@@ -33,18 +34,26 @@ class LoginForm extends Component {
     }
     onDismiss() { this.setState({ 'visible': false }); }
 
-   /* 
-    componentWillReceiveProps(nextProps) {  
+    componentWillReceiveProps(nextProps) { 
+        if(this.state.visible === false && nextProps.newError === null)
+        {
+            this.setState({ 'visible': true });
+            //nextProps.newError = null;
+        }
         if(nextProps.newError !== null)
         {
             this.setState({'showError':false});
         }
+        if((nextProps.username) === undefined || (nextProps.password) === undefined)
+        {
+            this.setState({'showError':true});
+        }
     }
-    */
 
     render() {
-        //const {showError} = this.state;
-        const { handleSubmit, error, newError } = this.props;
+        const {showError} = this.state;
+        const { handleSubmit, error, newError,username,password} = this.props;
+        //this.state.visible
         return (
             <div>
                 <div style={{ "margin": "0 32%" }}>
@@ -59,8 +68,8 @@ class LoginForm extends Component {
                 </div>
                 <form onSubmit={handleSubmit}>
                     <h3>Log In</h3>
-                    <Field name="username" type="text" component={renderField} placeholder="Username"/>
-                    <Field name="password" type="password" component={renderField} placeholder="Password"/>
+                    <Field name="username" type="text" component={renderField} placeholder="Username" displayError={showError}/>
+                    <Field name="password" type="password" component={renderField} placeholder="Password" displayError={showError}/>
                     <div className="submit-div">
                         <button type="submit" className="round-btn">Login</button>
                     </div>
@@ -75,5 +84,20 @@ LoginForm = reduxForm({
     form: 'contact',
     validate,
 })(LoginForm)
+
+
+const selector = formValueSelector('contact') // <-- same as form name
+LoginForm = connect(
+  state => {
+    // can select values individually
+    const username = selector(state, 'username')
+    const password = selector(state, 'password')
+    // or together as a group    
+    return {
+      username,
+      password,
+    }
+  }
+)(LoginForm)
 
 export default LoginForm
