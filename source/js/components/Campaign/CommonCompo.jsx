@@ -1,9 +1,8 @@
 import React from 'react';
 import cx from 'classnames';
 
-export const CommonCompo = (props) => {
+export const CommonCompo = (props) => {    
     let lis = [];
-    
     for (var i=1; i<=5; i++) {
         let newVar = i;
         if(i!==5){
@@ -19,7 +18,6 @@ export const CommonCompo = (props) => {
             );
         }
     }
-    
 
     return (
         <div className="step-process d-flex">

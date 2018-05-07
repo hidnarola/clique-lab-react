@@ -8,17 +8,10 @@ import {
     FETCH_REGISTER_COUNTRY_SUCCESS,
     FETCH_REGISTER_COUNTRY_ERROR
 } from '../actions/register';
-
 import api from '../api/register';
 
-// -------- Get register
-
 function registerUser() {
-    return function* (action) { // eslint-disable-line consistent-return
-        
-        // console.log('======================================');
-        // console.log(action.userData);
-        // console.log('======================================');
+    return function* (action) {
         let dataNN = action.userData;
         try {
             const data = yield call(() => api.userRegister(dataNN));
@@ -33,10 +26,9 @@ function registerUser() {
 
 // get country
 function countries() {
-    return function* (action) { // eslint-disable-line consistent-return
+    return function* (action) {
         try {
             const data = yield call(() => api.getCountry());
-            //console.log('>>>>>>Country',data);
             const action = { type: FETCH_REGISTER_COUNTRY_SUCCESS, data };
             yield put(action);
         } catch (error) {

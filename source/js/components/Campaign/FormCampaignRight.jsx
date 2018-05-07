@@ -1,12 +1,22 @@
 import React,{Component} from 'react';
 import { connect } from 'react-redux';
 import voca from 'voca';
-
+import dummyImg from 'img/site/img-06.jpg';
 class FormCampaignRight extends Component{
     
     constructor(props){
         super(props);
         this.renderImages = this.renderImages.bind(this);
+    }
+
+    dummyInspirationalImages(){
+        return(
+            <ul>
+                <li><a href="javascript:void(0)" style={{"margin-right": "2px"}}><img src={dummyImg} alt=""/></a></li>
+                <li><a href="javascript:void(0)" style={{"margin-right": "2px"}}><img src={dummyImg} alt=""/></a></li>
+                <li><a href="javascript:void(0)" style={{"margin-right": "2px"}}><img src={dummyImg} alt=""/></a></li>
+            </ul>
+        );
     }
 
     renderImages(obj,index){
@@ -21,31 +31,44 @@ class FormCampaignRight extends Component{
 
     render(){
         
-        let { wizardCampaignData } = this.props;                
+        let { wizardCampaignData } = this.props;
+        console.log(wizardCampaignData);
         let {mediaFormat,hashTagStr,atTagStr,imgStr} = '';
         let imgArr = []; 
 
         if(wizardCampaignData.values !== undefined){
 
             if(wizardCampaignData.values.media_format){
-                let mediaFormat = wizardCampaignData.values.media_format.value;
+                mediaFormat = wizardCampaignData.values.media_format.value;
             }
             
             if(wizardCampaignData.values.tagHash){
-                wizardCampaignData.values.tagHash.map((obj,index) => {                    
+                wizardCampaignData.values.tagHash.map((obj,index) => {
+                    if(hashTagStr===undefined){
+                        hashTagStr = '';
+                    }
                     hashTagStr += '#'+obj.value+' , ';
                 });
             }
 
             if(wizardCampaignData.values.tagAt){
-                wizardCampaignData.values.tagAt.map((obj,index) => {                    
+                wizardCampaignData.values.tagAt.map((obj,index) => {
+                    if(atTagStr===undefined){
+                        atTagStr = '';
+                    }
                     atTagStr += '@'+obj.value+' , ';
                 });
             }
 
             if(wizardCampaignData.values.images){
-                imgStr = wizardCampaignData.values.images[0].preview
+                if((wizardCampaignData.values.images).length > 0){
+                    imgStr = wizardCampaignData.values.images[0].preview
+                }else{
+                    imgStr = '';
+                }
+                
             }
+
 
             if(wizardCampaignData.values.imagesNew){                
                 for(let i=0; i<Object.keys(wizardCampaignData.values.imagesNew).length; i++){                    
@@ -60,7 +83,12 @@ class FormCampaignRight extends Component{
                     <h4>Campaign Details</h4>
                 </div>
                 <div className="create-campaign-r-img">
-                    {(wizardCampaignData.values !== undefined) ? <img src={imgStr} alt="" />:'' }
+                    {
+                        (wizardCampaignData.values!== undefined && imgStr!==undefined) ? 
+                            <img src={imgStr} alt="" />
+                        :
+                            <img src='http://placehold.it/280x130/ececec/525f7f?text=No Image Found&bold' alt="" />
+                    }
                 </div>
                 <div className="create-campaign-r-summer d-flex">
                     <h4>{(wizardCampaignData.values !== undefined) ? wizardCampaignData.values.campaignName:'' }
@@ -97,9 +125,14 @@ class FormCampaignRight extends Component{
                 </div>
                 <div className="inspirations-img">
                     <h3>Inspirational Images</h3>
-                    <ul>
-                        {(wizardCampaignData.values !== undefined) ? imgArr.map((obj,index) => (this.renderImages(obj)) ):'' }
-                    </ul>
+                    {
+                        (wizardCampaignData.values !== undefined && imgArr.length > 0) ? 
+                            <ul>
+                                { imgArr.map((obj,index) => (this.renderImages(obj)) ) }
+                            </ul>
+                        :
+                            this.dummyInspirationalImages()
+                    }                    
                 </div>
             </div>
         );

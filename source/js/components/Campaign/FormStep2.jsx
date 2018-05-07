@@ -12,11 +12,11 @@ const validate = values => {
     
     const errors = {};
 
-    if (!values.call_to_action) {
+    if (!values.call_to_action  || (values.call_to_action!==undefined && values.call_to_action.trim()=="")) {
         errors.call_to_action = 'This Field is Required';
     }
 
-    if (!values.discount_code) {
+    if (!values.discount_code  || (values.discount_code!==undefined && values.discount_code.trim()=="")) {
         errors.discount_code = 'This Field is Required';
     }
 
@@ -24,7 +24,7 @@ const validate = values => {
         errors.industryName = 'This Field is Required';
     }    
 
-    if (!values.short_desc) {
+    if (!values.short_desc  || (values.short_desc!==undefined && values.short_desc.trim()=="")) {
         errors.short_desc = 'This Field is Required';
     }
     

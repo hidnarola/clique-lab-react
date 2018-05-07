@@ -12,7 +12,7 @@ const validate = values => {
     
     const errors = {};
 
-    if (!values.campaignName) {
+    if (!values.campaignName || (values.campaignName!==undefined && values.campaignName.trim()=="")) {
         errors.campaignName = 'This Field is Required';
     }
 
@@ -27,14 +27,11 @@ const validate = values => {
     if(values.campaignStartDate && values.campaignEndDate){
         let a = moment(values.campaignStartDate);
         let b = moment(values.campaignEndDate);
-        
-        
         let diffDate = b.diff(a);        
         if(diffDate == 0 || diffDate < 0){
             errors.campaignEndDate = 'End date should be after start date.';
         }        
     }
-
     return errors;
 };
  

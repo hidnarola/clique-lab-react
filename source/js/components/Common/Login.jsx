@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import { Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router'
 import { SubmissionError } from 'redux-form';
@@ -34,6 +34,18 @@ class Login extends Component{
         dispatch(login(loginData));        
     }
 
+    componentWillMount(){
+        let { error,user,message } = this.props;
+        let { errorMsg } = this.state;
+        if (message!==null){
+            this.setState({errorMsg: message},() => {
+                setTimeout(()=>{
+                    this.setState({errorMsg: ''})
+                },3000);
+            })
+        }
+    }
+
     componentDidUpdate(){
         let { message, loading, error } = this.props;
         let { submitAction } = this.state;
@@ -45,6 +57,12 @@ class Login extends Component{
                         this.setState({errorMsg: ''})
                     },3000);
                 })
+            } else if (message!==null){
+                this.setState({errorMsg: message},() => {
+                    setTimeout(()=>{
+                        this.setState({errorMsg: ''})
+                    },3000);
+                })
             }
         }
     }
@@ -52,7 +70,6 @@ class Login extends Component{
     render(){
         let { error,user,message } = this.props;
         let { errorMsg } = this.state;
-        
         let token = localStorage.getItem('token');
         let usrObj = reactLocalStorage.getObject('user');
         
@@ -73,9 +90,6 @@ class Login extends Component{
                         </a>
                     </div>
                     <div className="form-content d-flex">
-                        {/* <div className="login-alert-msg">
-                            {message && <Alert color="danger">{message}</Alert>} 
-                        </div> */}
                         <LoginForm onSubmit={this.submitForm} newError={errorMsg}/>
                     </div>
                     <div className="form-ftr">

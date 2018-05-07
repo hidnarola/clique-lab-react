@@ -205,24 +205,21 @@ ul { padding: 0; }
 /*  DropZone */
   .custom_dropzone_div{
     border: 3px dotted #d4d4de;
-    width:530px;
+    width:100%;
     text-align: center;
     padding:60px;
     margin-left:2px;
   }
-  .custom_dropzone_div p{
-    color: #5b6ca2;
-    font-weight:500;
-  }
-
+  .custom_dropzone_div p{color: #5b6ca2; font-weight: 600; font-size: 14px;}
   .custom_dropzone_div .btn_drop_browse{
     width: 10em;
-    padding: 9px;
+    padding: 6px;
     border-radius: 50px;
-    background-color: #6772e6;
+    background-color: #5b6ca2;
     border: none;
     color: #fff;
-    font-weight: 500;
+    font-weight: 600;
+    font-size: 14px;
   }
 
 .login-register-box .input-div{ margin: 0 0 20px}

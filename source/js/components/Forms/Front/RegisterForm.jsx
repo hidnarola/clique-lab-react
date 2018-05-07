@@ -11,34 +11,34 @@ import { Alert } from 'reactstrap';
 const validate = values => {
     const errors = {}
     
-    if (!values.username) {
+    if (!values.username || (values.username!==undefined && values.username.trim()=="")) {
         errors.username = 'This field is Required'
     }
 
-    if (!values.fullname) {
+    if (!values.fullname || (values.fullname!==undefined && values.fullname.trim()=="")) {
         errors.fullname = 'This field is Required'
     }
 
-    if (!values.email) {
+    if (!values.email || (values.email!==undefined && values.email.trim()=="")) {
         errors.email = 'This field is Required'
     } else if (validator.isEmail(values.email) === false) {
         errors.email = 'Enter valid email address'
     }
 
-    if (!values.company) {
+    if (!values.company || (values.company!==undefined && values.company.trim()=="")) {
         errors.company = 'This field is Required'
     }
-    if (!values.country) {
+    if (!values.country || (values.country!==undefined && values.country.trim()=="")) {
         errors.country = 'This field is Required'
     }
 
-    if (!values.password) {
+    if (!values.password || (values.password!==undefined && values.password.trim()=="")) {
         errors.password = 'This field is Required'
     } else if (values.password.length < 5) {
         errors.password = 'Must be more than 5 or more characters.'
     } 
 
-    if (!values.repeatPassword) {
+    if (!values.repeatPassword || (values.repeatPassword!==undefined && values.repeatPassword.trim()=="")) {
         errors.repeatPassword = 'This field is Required'
     } else if (values.password !== values.repeatPassword) {
         errors.repeatPassword = 'Please enter password same as above.'
@@ -136,7 +136,7 @@ class RegisterForm extends Component {
         }
 
         if(newError!=='' || newError!==null){
-            setTimeout(function(){ this.setState({visible: false}) }, 3000);
+            setTimeout(() => { this.setState({visible: false}) }, 3000);
         }
         return (
             <div>

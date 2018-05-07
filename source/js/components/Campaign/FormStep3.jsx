@@ -20,11 +20,11 @@ const validate = values => {
         errors.media_format = 'This Field is Required';
     }
 
-    if(!values.location){
+    if(!values.location || (values.location!==undefined && values.location.trim()=="")){
         errors.location = 'This Field is Required';
     }
 
-    if(!values.how_much){
+    if(!values.how_much || (values.how_much!==undefined && values.how_much.trim()=="")){
         errors.how_much = 'This Field is Required';
     }else if(!validator.isFloat(values.how_much)){
         errors.how_much = 'Must be a number';
@@ -41,7 +41,6 @@ class FormStep3 extends Component{
 
     constructor(props){
         super(props);
-        
     }
 
     render(){

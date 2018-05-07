@@ -192,10 +192,10 @@ class PurchasedPosts extends Component {
             let param3 = null;
             let param4 = this.state.appliedFilter[0];
             let param5 = this.state.groupId;
-            console.log('=================================');
-            console.log(inserted_group);
-            console.log(group_status);
-            console.log('=================================');
+            // console.log('=================================');
+            // console.log(inserted_group);
+            // console.log(group_status);
+            // console.log('=================================');
             this.saveResult(param1,param2,param3,param4,param5);
         }
         

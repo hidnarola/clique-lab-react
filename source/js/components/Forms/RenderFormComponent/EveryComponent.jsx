@@ -47,7 +47,7 @@ export const FileField_Dropzone = (props) => {
     const { label, input, meta, wrapperClass, className, labelClass, errorClass, accept, multiple,isRequired } = props;
     let filesArr = _.values(input.value);
     let images = [];
-
+    
     _.forEach(filesArr, (file, key) => {
         images.push(
             <div className="images-preview-wrapper" key={key}>
@@ -60,7 +60,10 @@ export const FileField_Dropzone = (props) => {
 
     return (
         <div className={wrapperClass}>
-            <label htmlFor={input.name} className={labelClass}>{label}</label>
+            <label htmlFor={input.name} className={labelClass}>
+                {label} {meta.pristine && isRequired === "true" && <span className="error-div">*</span>}
+            </label>
+            
             <Dropzone
                 {...input}
                 accept={accept ? accept : "image/jpeg, image/png, image/jpg, image/gif"}
@@ -69,16 +72,16 @@ export const FileField_Dropzone = (props) => {
                 className={ `${className}` }
             >
                 <div className="dropzone-image-preview-wrapper">
-                    {(input.value && !meta.error) && images}
-                    {!input.value && (!meta.error && <div className={ `custom_dropzone_div ${(meta.touched && meta.error) && 'drop_error_div'}` }>
-                            <img src={dropImg} /><br /><br />
-                            <p>Select or Drag Your image here</p>
-                            <button type="button" className="btn_drop_browse">Or Browse</button>
-                        </div>
-                    )}
-                </div> 
+                    {(input.value && meta.error===undefined) && images}
+                    {(!input.value || meta.error || images.length ===0 ) && <div className={ `custom_dropzone_div ${(meta.touched && meta.error) && 'drop_error_div'}` } style={{'width':'100% !important'}}>
+                                <img src={dropImg} /><br /><br />
+                                <p>Select or Drag Your image here</p>
+                                <button type="button" className={ `btn_drop_browse` }>Or Browse</button>
+                            </div>
+                    }
+                </div>
             </Dropzone>
-            {meta.pristine && isRequired === "true" && <span className="error-div">*</span>}
+
             {(meta.touched && meta.error) && <span className="error-div">{meta.error}</span>}
         </div>
     );
@@ -114,7 +117,7 @@ export const FileField_Dropzone_New = (props) => {
                 >
                     <div className={ `dropzone-image-preview-wrapper`}>
                         {(input.value && meta.error===undefined) && images}
-                        {(!input.value || meta.error) && <div className={ `custom_dropzone_div ${(meta.touched && meta.error) && 'drop_error_div'}` } style={{'width':'100%'}}>
+                        {(!input.value || meta.error) && <div className={ `custom_dropzone_div ${(meta.touched && meta.error) && 'drop_error_div'}` } style={{'width':'100% !important'}}>
                                 <img src={dropImg} /><br /><br />
                                 <p>Select or Drag Your image here</p>
                                 <button type="button" className={ `btn_drop_browse` }>Or Browse</button>

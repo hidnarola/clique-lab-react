@@ -21,16 +21,15 @@ class Campaign extends Component {
         this.nextPage = this.nextPage.bind(this);
         this.previousPage = this.previousPage.bind(this);
         this.state = {
-            page:1,            
-            contentBody:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-            modal:false    
+            page: 1,
+            contentBody: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+            modal: false,
+            submit_disabled: false
         };
         this.submitForm = this.submitForm.bind(this);
     }
     
     toggle() {
-        //const { match } = this.props;
-       // this.props.history.push(`${routeCodes.CAMPAIGN_PURCHASED_POSTS}`);
         this.setState({
              modal: !this.state.modal
         });
@@ -59,63 +58,50 @@ class Campaign extends Component {
     }
     
     submitForm(values){
-        // console.log(values);
-        const {dispatch} = this.props;
-        let hashTagArr = [];
-        let atTagArr = [];
-        
-        values.tagHash.map((obj,index)=>{
-            hashTagArr.push(obj.value);
-        });        
-        values.tagAt.map((obj,index)=>{
-            atTagArr.push(obj.value);
+        this.setState({submit_disabled: true},() =>{
+            const {dispatch} = this.props;
+            let hashTagArr = [];
+            let atTagArr = [];
+            
+            values.tagHash.map((obj,index)=>{
+                hashTagArr.push(obj.value);
+            });        
+            values.tagAt.map((obj,index)=>{
+                atTagArr.push(obj.value);
+            });
+
+            // var ins = document.getElementById('fileToUpload').files.length;
+            // for (var x = 0; x < ins; x++) {
+            //     fd.append("fileToUpload[]", document.getElementById('fileToUpload').files[x]);
+            // }
+
+            const formData = new FormData();
+
+            formData.append("name",values.campaignName);
+            formData.append("start_date",values.campaignStartDate);
+            formData.append("end_date",values.campaignEndDate);
+            formData.append("call_to_action",values.call_to_action);
+            formData.append("description",values.short_desc);
+            formData.append("social_media_platform",values.industryName.value);
+            formData.append("hash_tag",JSON.stringify(hashTagArr));
+            formData.append("at_tag",JSON.stringify(atTagArr));
+            formData.append("privacy",values.public_or_private.value);
+            formData.append("media_format",values.media_format.value);
+            formData.append("location",values.location);
+            formData.append("price",values.how_much);
+            formData.append("currency",values.currency.value);
+            formData.append("cover_image",values.images[0]);
+            formData.append("board_image",values.imagesNew[0]);
+            dispatch(createCampaign(formData))
+            this.setState({isRedirect:true});
         });
-
-        // var ins = document.getElementById('fileToUpload').files.length;
-        // for (var x = 0; x < ins; x++) {
-        //     fd.append("fileToUpload[]", document.getElementById('fileToUpload').files[x]);
-        // }
-
-        const formData = new FormData();
-
-        formData.append("name",values.campaignName);
-        formData.append("start_date",values.campaignStartDate);
-        formData.append("end_date",values.campaignEndDate);
-        formData.append("call_to_action",values.call_to_action);
-        formData.append("description",values.short_desc);
-        formData.append("social_media_platform",values.industryName.value);
-        formData.append("hash_tag",JSON.stringify(hashTagArr));
-        formData.append("at_tag",JSON.stringify(atTagArr));
-        formData.append("privacy",values.public_or_private.value);
-        formData.append("media_format",values.media_format.value);
-        formData.append("location",values.location);
-        formData.append("price",values.how_much);
-        formData.append("currency",values.currency.value);
-        formData.append("cover_image",values.images[0]);
-        formData.append("board_image",values.imagesNew[0]);
-
-        dispatch(createCampaign(formData))
-        // formData.append('avatar', values.images[0]);
-
-        // for (var value of formData.values()) {
-        //     console.log(value); 
-        // }
-        this.setState({isRedirect:true});
-       // this.resetFormData();
-       // this.props.history.push(routeCodes.DASHBOARD)
-
     }
 
 
     componentDidUpdate(){
         const { campaign } = this.props;
-        console.log('===============================');
-        console.log(campaign);
-        console.log('===============================');
-
         if(campaign && this.state.isRedirect === true){
             if(campaign['status']){
-                //this.childCampaign.toggle()
                 this.setState({isRedirect:false});
                 // dispatch(initialize('wizardCampaign',{}));
                 this.resetFormData();
@@ -125,7 +111,6 @@ class Campaign extends Component {
                 // },1000)
             }
         }
-        
     }
     
     changePage = (pageNo) => {
@@ -139,8 +124,7 @@ class Campaign extends Component {
         return (
             <div className='Campaign'>                                 
                 {page === 1 && <FormStep1 onSubmit={this.nextPage} changePage={this.changePage}/>}
-                
-                {page === 2 && <FormStep2 
+                {page === 2 && <FormStep2
                                     changePage={(i) =>this.changePage(i) }
                                     previousPage={this.previousPage}
                                     onSubmit={this.nextPage} />}
@@ -158,12 +142,17 @@ class Campaign extends Component {
                 {page === 5 && <FormStep5
                                     changePage={(i) =>this.changePage(i) }
                                     previousPage={this.previousPage}
-                                    onSubmit={this.submitForm} />}
+                                    onSubmit={this.submitForm} 
+                                    submitDisabled={this.state.submit_disabled} />}
 
                 <ModalPopUp 
                     onRef={ref => (this.childCampaign = ref)} 
                     contentBody={this.state.contentBody}
-                    onClosed={() => {console.log('Closed')}}
+                    onClosed={() => {
+                            console.log('Closed');
+                            this.toggle
+                        }
+                    }
                      />
 
                 <div>
