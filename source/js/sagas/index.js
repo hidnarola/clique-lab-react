@@ -9,6 +9,7 @@ import everyday from 'sagas/everyDay';
 import groups from 'sagas/groups';
 import checkout from 'sagas/checkout';
 import purchasedPosts from 'sagas/purchasedPosts';
+import calendar from 'sagas/calendar';
 
 
 export default function* rootSaga() {
@@ -22,5 +23,6 @@ export default function* rootSaga() {
     ...everyday,
     ...groups,
     ...checkout,
+    ...calendar,
   ]);
 }
