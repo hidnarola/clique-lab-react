@@ -25,7 +25,7 @@ const validate = values => {
         errors.email = 'Enter valid email address'
     }
 
-    if (!values.company || (values.company!==undefined)) {
+    if (!values.company || (values.company!==undefined && values.company.trim()=="")) {
         errors.company = 'This field is Required'
     }
     if (!values.country) {
