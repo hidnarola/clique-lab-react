@@ -5,8 +5,12 @@ import ReactDOM from 'react-dom';
 import FullCalendar from 'fullcalendar-reactwrapper';
 import { getCampaign } from '../actions/calendar';
 import { Button, Popover, PopoverHeader, PopoverBody } from 'reactstrap';
-
 import _ from 'lodash';
+import fbImg from 'img/site/facebook-01.png';
+import linkedImg from 'img/site/linkedin.png';
+import pinImg from 'img/site/pintrest.png';
+import twitterImg from 'img/site/twitter.png';
+import instaImg from 'img/site/instagram.png';
 
 class PopoverItem extends Component {
     constructor(props) {
@@ -137,7 +141,18 @@ class Calendar extends Component {
     render() {
         const { events } = this.state;
         return (
-            <div id="example-component">
+            <div id="calendar-component">
+                <div class="profile-head d-flex campaigns-links" style={{"margin":"0px","border-bottom":"none"}}>
+                    <ul>
+                        <li><a class="cursor_pointer active" aria-current="false" href="javascript:void(0)">All Platforms</a></li>
+                        <li><a class="cursor_pointer" aria-current="false" href="javascript:void(0)"><img src={fbImg} /> Facebook</a></li>
+                        <li><a class="cursor_pointer" aria-current="false" href="javascript:void(0)"><img src={linkedImg} /> Linkedin</a></li>
+                        <li><a class="cursor_pointer" aria-current="false" href="javascript:void(0)"><img src={instaImg} /> Instagram</a></li>
+                        <li><a class="cursor_pointer" aria-current="false" href="javascript:void(0)"><img src={pinImg} /> Pinterest</a></li>
+                        <li><a class="cursor_pointer" aria-current="false" href="javascript:void(0)"><img src={twitterImg} /> Twitter</a></li>
+                    </ul>
+                    {/* <div class="new-permission"><a class="cursor_pointer" href="/campaign">Create New Campaign</a></div> */}
+                </div>
                 <FullCalendar
                     id="custom_calendar"
                     header={{

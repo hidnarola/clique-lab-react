@@ -76,3 +76,27 @@
     border-bottom-color: #6772e5;
 }
 
+
+/*****************************************************************
+                        Calendar
+*****************************************************************/
+#custom_calendar button.fc-next-button,
+#custom_calendar button.fc-prev-button{ background:transparent; border:0; box-shadow:none;}
+#custom_calendar .fc-center h2{ font-size:18px;line-height: 36px;}
+#custom_calendar th.fc-day-header { border:0; background:#e6ebf1; font-size:16px; color:#9b9c9c; padding:25px 25px 12px 15px; text-align:right; font-weight:400;}
+#custom_calendar td.fc-head-container,
+#custom_calendar .fc td, .fc th { border:0 !important;}
+#custom_calendar .fc-row .fc-content-skeleton td, 
+#custom_calendar .fc-row .fc-helper-skeleton td{ font-size:16px; color:#525f7f;}
+#custom_calendar .fc-content-skeleton table thead tr:first-child td{padding:15px 25px 8px 15px;}
+#custom_calendar .fc-content-skeleton table tbody a.fc-day-grid-event {margin-top: 2px; color: #fff; padding: 0; width: 12px; height: 12px; border-radius:80px; font-size:0; float:right;}
+#custom_calendar .fc-content-skeleton table tbody tr td.fc-event-container { padding:2px 22px 2px 5px;}
+td.fc-widget-content{ border:0;}
+
+#custom_calendar td.fc-day{ border-left:1px solid #e6ebf1 !important;} 
+.fc-bg table tbody tr td{ border-top:1px solid #e6ebf1 !important;} 
+
+#calendar-component .profile-head>ul>li:first-child>a{ padding: 0 0 17px; }
+#calendar-component .profile-head>ul>li>a{ font-size:14px !important; font-weight:600 !important }
+#calendar-component .profile-head>ul>li>a>img{ width:22px; }
+#calendar-component .campaigns-links.profile-head>ul>li{ margin:0 25px 0 0 }

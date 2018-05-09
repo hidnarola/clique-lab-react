@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Pagination from "react-js-pagination";
-import { sendReq,moreFilterReq,fetchDropDownReq,resetVal,addUserReq,bulkUserReq } from '../actions/everyDay';
+import { sendReq, moreFilterReq, fetchDropDownReq, resetVal, addUserReq, bulkUserReq } from '../actions/everyDay';
 import { purchaseAll } from '../actions/campaign';
-import { getGroups,addGroups,resetGroupVal } from '../actions/groups';
+import { getGroups, addGroups, resetGroupVal } from '../actions/groups';
 import sampleImg from 'img/site/400x218.png';
 import closeImg from 'img/site/close.png';
 import fbImg from 'img/site/facebook-01.png';
@@ -11,8 +11,8 @@ import linkedImg from 'img/site/linkedin.png';
 import pinImg from 'img/site/pintrest.png';
 import twitterImg from 'img/site/twitter.png';
 import instaImg from 'img/site/instagram.png';
-
-import { Redirect,withRouter } from 'react-router';
+import nodataImg from 'img/site/nodata.png';
+import { Redirect, withRouter } from 'react-router';
 
 import imgPlus from 'img/site/plus-01.png';
 import CreateGroupForm from '../components/Forms/Group/CreateGroupForm';
@@ -27,9 +27,9 @@ import img1 from 'img/site/big-img011.jpg';
 import { imgRoutes } from '../constants/img_path';
 import { isImageExists } from '../constants/helper';
 import {
-        Button, Modal, ModalHeader, ModalBody, ModalFooter, Dropdown,
-        DropdownToggle, DropdownMenu, DropdownItem ,UncontrolledDropdown
-       } from 'reactstrap';
+    Button, Modal, ModalHeader, ModalBody, ModalFooter, Dropdown,
+    DropdownToggle, DropdownMenu, DropdownItem, UncontrolledDropdown
+} from 'reactstrap';
 
 class AddToModal extends Component {
 
@@ -38,28 +38,28 @@ class AddToModal extends Component {
         this.state = {
             modal: false,
             selectedOption: '',
-            saveFor:'',
-            userId:'',
-            filter:''
+            saveFor: '',
+            userId: '',
+            filter: ''
         };
         this.toggle = this.toggle.bind(this);
         this.setSaveFor = this.setSaveFor.bind(this);
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.props.onRef(this);
     }
 
-    componentWillMount(){
+    componentWillMount() {
         this.props.onRef(undefined);
     }
 
     setDefaultVal = () => {
-        this.setState({selectedOption:''});
+        this.setState({ selectedOption: '' });
     }
 
-    setSaveFor = (val,userId,filter=null) => {
-        this.setState({saveFor:val,userId:userId,filter:filter});
+    setSaveFor = (val, userId, filter = null) => {
+        this.setState({ saveFor: val, userId: userId, filter: filter });
     }
 
     toggle() {
@@ -73,21 +73,21 @@ class AddToModal extends Component {
     }
 
     saveResult = () => {
-        let {selectedOption,saveFor,userId,filter} = this.state;
-        if(selectedOption === ''){
+        let { selectedOption, saveFor, userId, filter } = this.state;
+        if (selectedOption === '') {
             alert('Select the option');
-        }else{
-            this.props.saveResult(saveFor,selectedOption,userId,filter);
+        } else {
+            this.props.saveResult(saveFor, selectedOption, userId, filter);
         }
     }
 
     render() {
         let dropArr = [];
         const { selectedOption } = this.state;
-    
-        if(this.props.dropdownList !== null){
+
+        if (this.props.dropdownList !== null) {
             let resultStatus = this.props.dropdownList.status;
-            if(resultStatus === 1){
+            if (resultStatus === 1) {
                 this.props.dropdownList.results.map((obj) => {
                     dropArr.push({ value: obj._id, label: obj.name });
                 });
@@ -96,22 +96,23 @@ class AddToModal extends Component {
 
         return (
             <div>
-                <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}
-                       onClosed={this.props.resetDropVal}>
-                    <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
+                <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} onClosed={this.props.resetDropVal} id="congratulations">
+                    <ModalHeader toggle={this.toggle}></ModalHeader>
                     <ModalBody>
-                        <ReactSelect
-                            className='dropdown-inr'
-                            name="form-field-name"
-                            value={selectedOption}
-                            onChange={this.handleChange}
-                            options={dropArr}
-                        />
+                        <div className="terms-conditions">
+                            <h2>Which Campaign/Group would you like to Offer the Selected People ? </h2>
+                            <p>Please Select the Campaign/Group from the Dropdownlist,<br /> then click Accept and Continue.</p>
+                            <ReactSelect
+                                className='add_grp_popup_select campaign_form_step2_dropdown select-wrap'
+                                name="form-field-name"
+                                value={selectedOption}
+                                onChange={this.handleChange}
+                                options={dropArr}
+                                placeholder="Please select from the dropdown"
+                            />
+                            <a href="javascript:void(0)" className="round-btn" onClick={this.saveResult}>Accept & Continue</a>
+                        </div>
                     </ModalBody>
-                    <ModalFooter>
-                        <Button color="primary" onClick={this.saveResult}>Do Something</Button>{' '}
-                        <Button color="secondary" onClick={this.toggle}>Cancel</Button>
-                    </ModalFooter>
                 </Modal>
             </div>
         );
@@ -190,8 +191,8 @@ const PlusAction = (props) => {
                 </DropdownItem>
                 {
                     (props.groupId) ?
-                        '': <DropdownItem onClick={() => { props.addGroup(); }}>
-                                Add to Group
+                        '' : <DropdownItem onClick={() => { props.addGroup(); }}>
+                            Add to Group
                             </DropdownItem>
                 }
             </DropdownMenu>
@@ -255,34 +256,34 @@ const MoreFilterDropDown = (props) => {
 
     //console.log('>>>>>>>>',props.moreFilterData);
 
-    if(props.moreFilterData !== null){
+    if (props.moreFilterData !== null) {
 
-        props.moreFilterData.job_industry.map((obj)=>{
-            jobIndustryArr.push({'value':obj._id,label:obj.name});
+        props.moreFilterData.job_industry.map((obj) => {
+            jobIndustryArr.push({ 'value': obj._id, label: obj.name });
         });
 
-        props.moreFilterData.job_title.map((obj)=>{
-            jobTitleArr.push({'value':obj._id,label:obj.job_title});
+        props.moreFilterData.job_title.map((obj) => {
+            jobTitleArr.push({ 'value': obj._id, label: obj.job_title });
         });
 
-        for(let i=1;i<=20;i++){
-            yearInIndustryArr.push({'value':i,label:i})
+        for (let i = 1; i <= 20; i++) {
+            yearInIndustryArr.push({ 'value': i, label: i })
         }
 
-        props.moreFilterData.education.map((obj)=>{
-            educationArr.push({'value':obj._id,label:obj.name});
+        props.moreFilterData.education.map((obj) => {
+            educationArr.push({ 'value': obj._id, label: obj.name });
         });
 
-        props.moreFilterData.language.map((obj)=>{
-            languageArr.push({'value':obj._id,label:obj.name});
+        props.moreFilterData.language.map((obj) => {
+            languageArr.push({ 'value': obj._id, label: obj.name });
         });
 
-        props.moreFilterData.ethnicity.map((obj)=>{
-            ethnicityArr.push({'value':obj._id,label:obj.ethnicity});
+        props.moreFilterData.ethnicity.map((obj) => {
+            ethnicityArr.push({ 'value': obj._id, label: obj.ethnicity });
         });
 
-        props.moreFilterData.music_taste.map((obj)=>{
-            musicTasteArr.push({'value':obj._id,label:obj.name});
+        props.moreFilterData.music_taste.map((obj) => {
+            musicTasteArr.push({ 'value': obj._id, label: obj.name });
         });
 
     }
@@ -303,7 +304,7 @@ const MoreFilterDropDown = (props) => {
                                 maxValue={2500}
                                 minValue={0}
                                 value={props.allSliderArr['facebook']['value']}
-                                onChange={value => props.parentSliderMethod(value,"facebook")}
+                                onChange={value => props.parentSliderMethod(value, "facebook")}
                             />
                             <div className="range-div">{props.allSliderArr['facebook']['value']['min']}-{props.allSliderArr['facebook']['value']['max']}</div>
                         </div>
@@ -318,7 +319,7 @@ const MoreFilterDropDown = (props) => {
                                 maxValue={2500}
                                 minValue={0}
                                 value={props.allSliderArr['instagram']['value']}
-                                onChange={value => props.parentSliderMethod(value,"instagram")}
+                                onChange={value => props.parentSliderMethod(value, "instagram")}
                             />
                             <div className="range-div">
                                 {props.allSliderArr['instagram']['value']['min']}
@@ -337,7 +338,7 @@ const MoreFilterDropDown = (props) => {
                                 maxValue={2500}
                                 minValue={0}
                                 value={props.allSliderArr['twitter']['value']}
-                                onChange={value => props.parentSliderMethod(value,"twitter")}
+                                onChange={value => props.parentSliderMethod(value, "twitter")}
                             />
                             <div className="range-div">
                                 {props.allSliderArr['twitter']['value']['min']}
@@ -356,7 +357,7 @@ const MoreFilterDropDown = (props) => {
                                 maxValue={2500}
                                 minValue={0}
                                 value={props.allSliderArr['pinterest']['value']}
-                                onChange={value => props.parentSliderMethod(value,"pinterest")}
+                                onChange={value => props.parentSliderMethod(value, "pinterest")}
                             />
                             <div className="range-div">
                                 {props.allSliderArr['pinterest']['value']['min']}
@@ -375,7 +376,7 @@ const MoreFilterDropDown = (props) => {
                                 maxValue={2500}
                                 minValue={0}
                                 value={props.allSliderArr['linkedin']['value']}
-                                onChange={value => props.parentSliderMethod(value,"linkedin")}
+                                onChange={value => props.parentSliderMethod(value, "linkedin")}
                             />
                             <div className="range-div">
                                 {props.allSliderArr['linkedin']['value']['min']}
@@ -397,7 +398,7 @@ const MoreFilterDropDown = (props) => {
                             className='dropdown-inr'
                             name="jobIndustryDrop"
                             value={props.allDropArr['jobIndustryDrop']['value']}
-                            onChange={(value) => props.parentMethod(value,"jobIndustryDrop")}
+                            onChange={(value) => props.parentMethod(value, "jobIndustryDrop")}
                             searchable={false} clearable={false} autosize={false}
                             options={jobIndustryArr}
                             placeholder="Select Job Industry"
@@ -412,7 +413,7 @@ const MoreFilterDropDown = (props) => {
                             className='dropdown-inr'
                             name="jobTitleDrop"
                             value={props.allDropArr['jobTitleDrop']['value']}
-                            onChange={(value) => props.parentMethod(value,"jobTitleDrop")}
+                            onChange={(value) => props.parentMethod(value, "jobTitleDrop")}
                             searchable={false} clearable={false} autosize={false}
                             options={jobTitleArr}
                             placeholder="Select Job Title"
@@ -427,7 +428,7 @@ const MoreFilterDropDown = (props) => {
                             className='dropdown-inr'
                             name="yearInIndustryArr"
                             value={props.allDropArr['yearInIndustry']['value']}
-                            onChange={(value) => props.parentMethod(value,"yearInIndustry")}
+                            onChange={(value) => props.parentMethod(value, "yearInIndustry")}
                             searchable={false} clearable={false} autosize={false}
                             options={yearInIndustryArr}
                             placeholder="Select Year in Industry"
@@ -442,7 +443,7 @@ const MoreFilterDropDown = (props) => {
                             className='dropdown-inr'
                             name="education"
                             value={props.allDropArr['education']['value']}
-                            onChange={(value) => props.parentMethod(value,"education")}
+                            onChange={(value) => props.parentMethod(value, "education")}
                             searchable={false} clearable={false} autosize={false}
                             options={educationArr}
                             placeholder="Select Education"
@@ -457,7 +458,7 @@ const MoreFilterDropDown = (props) => {
                             className='dropdown-inr'
                             name="language"
                             value={props.allDropArr['language']['value']}
-                            onChange={(value) => props.parentMethod(value,"language")}
+                            onChange={(value) => props.parentMethod(value, "language")}
                             searchable={false} clearable={false} autosize={false}
                             options={languageArr}
                             placeholder="Select Language"
@@ -474,7 +475,7 @@ const MoreFilterDropDown = (props) => {
                             className='dropdown-inr'
                             name="ethnicity"
                             value={props.allDropArr['ethnicity']['value']}
-                            onChange={(value) => props.parentMethod(value,"ethnicity")}
+                            onChange={(value) => props.parentMethod(value, "ethnicity")}
                             searchable={false} clearable={false} autosize={false}
                             options={ethnicityArr}
                             placeholder="Select Ethnicity"
@@ -489,12 +490,12 @@ const MoreFilterDropDown = (props) => {
                             className='dropdown-inr'
                             name="sexualOrientation"
                             value={props.allDropArr['sexualOrientation']['value']}
-                            onChange={(value) => props.parentMethod(value,"sexualOrientation")}
+                            onChange={(value) => props.parentMethod(value, "sexualOrientation")}
                             searchable={false} clearable={false} autosize={false}
                             options={[
-                                {'value':'male',label:"Male"},
-                                {'value':'female',label:"Female"},
-                                {'value':'both',label:"Both"}
+                                { 'value': 'male', label: "Male" },
+                                { 'value': 'female', label: "Female" },
+                                { 'value': 'both', label: "Both" }
                             ]}
                             placeholder="Select Sexual Orientation"
                         />
@@ -508,12 +509,12 @@ const MoreFilterDropDown = (props) => {
                             className='dropdown-inr'
                             name="relationship"
                             value={props.allDropArr['relationship']['value']}
-                            onChange={(value) => props.parentMethod(value,"relationship")}
+                            onChange={(value) => props.parentMethod(value, "relationship")}
                             searchable={false} clearable={false} autosize={false}
                             options={[
-                                {'value':'Married',label:"Married"},
-                                {'value':'Unmarried',label:"Unmarried"},
-                                {'value':'Single',label:"Single"}
+                                { 'value': 'Married', label: "Married" },
+                                { 'value': 'Unmarried', label: "Unmarried" },
+                                { 'value': 'Single', label: "Single" }
                             ]}
 
                             placeholder="Select Relationship"
@@ -528,7 +529,7 @@ const MoreFilterDropDown = (props) => {
                             className='dropdown-inr'
                             name="musicTaste"
                             value={props.allDropArr['musicTaste']['value']}
-                            onChange={(value) => props.parentMethod(value,"musicTaste")}
+                            onChange={(value) => props.parentMethod(value, "musicTaste")}
                             searchable={false} clearable={false} autosize={false}
                             options={musicTasteArr}
                             placeholder="Select Music Taste"
@@ -548,84 +549,83 @@ class EverydayPeople extends Component {
 
     static displayName = 'SRK';
 
-    constructor(props){
+    constructor(props) {
         super(props);
-
         this.state = {
 
-            perPageItem:9,
+            perPageItem: 9,
 
             modal: false,
             activePage: 1,
-            loaderShow:false,
+            loaderShow: false,
             is_inserted: 0,
 
-            groupId:'',
+            groupId: '',
 
-            allDropDown:[
-                { 'dropdown': 'jobIndustryDrop',   'value': false },
-                { 'dropdown': 'jobTitleDrop',      'value': false },
-                { 'dropdown': 'yearInIndustry',    'value': false },
-                { 'dropdown': 'education',         'value': false },
-                { 'dropdown': 'language',          'value': false },
-                { 'dropdown': 'ethnicity',         'value': false },
+            allDropDown: [
+                { 'dropdown': 'jobIndustryDrop', 'value': false },
+                { 'dropdown': 'jobTitleDrop', 'value': false },
+                { 'dropdown': 'yearInIndustry', 'value': false },
+                { 'dropdown': 'education', 'value': false },
+                { 'dropdown': 'language', 'value': false },
+                { 'dropdown': 'ethnicity', 'value': false },
                 { 'dropdown': 'sexualOrientation', 'value': false },
-                { 'dropdown': 'relationship',      'value': false },
-                { 'dropdown': 'musicTaste',        'value': false },
+                { 'dropdown': 'relationship', 'value': false },
+                { 'dropdown': 'musicTaste', 'value': false },
 
-                { 'dropdown': 'genderDrop',         'value': false },
-                { 'dropdown': 'sortDrop',           'value': {value:1,label:"Name ASC"} },
+                { 'dropdown': 'genderDrop', 'value': false },
+                { 'dropdown': 'sortDrop', 'value': { value: 1, label: "Name ASC" } },
             ],
 
-            allSliders:[
-                { 'slider': 'facebook',    'value':{ min: 0,  max: 2500 } },
-                { 'slider': 'instagram',   'value':{ min: 0,  max: 2500 } },
-                { 'slider': 'twitter',     'value':{ min: 0,  max: 2500 } },
-                { 'slider': 'pinterest',   'value':{ min: 0,  max: 2500 } },
-                { 'slider': 'linkedin',    'value':{ min: 0,  max: 2500 } },
-                { 'slider': 'ageRange',    'value':{ min: 15, max: 65   } },
+            allSliders: [
+                { 'slider': 'facebook', 'value': { min: 0, max: 2500 } },
+                { 'slider': 'instagram', 'value': { min: 0, max: 2500 } },
+                { 'slider': 'twitter', 'value': { min: 0, max: 2500 } },
+                { 'slider': 'pinterest', 'value': { min: 0, max: 2500 } },
+                { 'slider': 'linkedin', 'value': { min: 0, max: 2500 } },
+                { 'slider': 'ageRange', 'value': { min: 15, max: 65 } },
             ],
-            
-            appliedFilter:[
+
+            appliedFilter: [
                 {
-                    "filter":[] // {"field":"gender","type":"exact","value":"female"}
+                    "filter": [] // {"field":"gender","type":"exact","value":"female"}
                 }
             ],
 
-            isMoreFilterSelected:false,
-            isAgeFilterSelected:false,
-            isGenderFilterSelected:false,
-            isSortApply:false,
+            isMoreFilterSelected: false,
+            isAgeFilterSelected: false,
+            isGenderFilterSelected: false,
+            isSortApply: false,
 
-            isFilterApply:false
-        };        
+            isFilterApply: false
+        };
         // this.toggle = this.toggle.bind(this);  
     }
 
     filterSendReq = (data) => {
-        const { dispatch,match } = this.props;
+        const { dispatch, match } = this.props;
         data['groupId'] = match.params.grpId;
         data['campaignId'] = match.params.campaignId;
-        data['inspired'] = (match.path==routeCodes.CAMPAIGN_INSPIRED_SUB) ? true : false;
+        data['inspired'] = (match.path == routeCodes.CAMPAIGN_INSPIRED_SUB) ? true : false;
         dispatch(sendReq(data));
     }
 
     handlePageChange = (pageNumber) => {
-        this.setState({activePage: pageNumber});
+        this.setState({ activePage: pageNumber });
         const { dispatch } = this.props;
 
-        let sortDropArr = _.find(this.state.allDropDown, function(o) { return o.dropdown == 'sortDrop'; });
+        let sortDropArr = _.find(this.state.allDropDown, function (o) { return o.dropdown == 'sortDrop'; });
 
         let arrayFilter = {
-            filter:this.state.appliedFilter[0]['filter'],
-            "sort":[{ "field": "name", "value":parseInt(sortDropArr['value']['value'])}],
-            "page_size":this.state.perPageItem,
-            "page_no":pageNumber
+            filter: this.state.appliedFilter[0]['filter'],
+            "sort": [{ "field": "name", "value": parseInt(sortDropArr['value']['value']) }],
+            "page_size": this.state.perPageItem,
+            "page_no": pageNumber
         }
         this.filterSendReq(arrayFilter);
     }
 
-    handleChange = (selectedOption,secondParam) => {
+    handleChange = (selectedOption, secondParam) => {
 
         console.log(selectedOption);
 
@@ -633,77 +633,77 @@ class EverydayPeople extends Component {
         let { appliedFilter } = this.state;
 
         let allDropDown = this.state.allDropDown;
-        let index = _.findIndex(allDropDown, {dropdown: secondParam});
-        allDropDown.splice(index, 1, {dropdown: secondParam,value: selectedOption});
-        this.setState({allDropDown:allDropDown});
+        let index = _.findIndex(allDropDown, { dropdown: secondParam });
+        allDropDown.splice(index, 1, { dropdown: secondParam, value: selectedOption });
+        this.setState({ allDropDown: allDropDown });
 
-        if(secondParam == 'genderDrop'){
+        if (secondParam == 'genderDrop') {
 
-            let dropDownIndex = _.findIndex(appliedFilter[0]['filter'], function(o) { return o.field == 'gender'; });
+            let dropDownIndex = _.findIndex(appliedFilter[0]['filter'], function (o) { return o.field == 'gender'; });
             let filteredArr = appliedFilter[0]['filter'];
 
             // Check if age filter is applied or not...
-            if(dropDownIndex === -1){
-                filteredArr.push({"field":'gender',"type":"exact","value":selectedOption['value']},)
-                this.setState({'appliedFilter':[{'filter':filteredArr}]});
-            }else{
-                let arrIndex = _.findIndex(filteredArr, {"field":'gender'});
-                filteredArr.splice(arrIndex, 1, {"field":'gender',"type":"exact","value":selectedOption['value']});
-                this.setState({'appliedFilter':[{'filter':filteredArr}]});
+            if (dropDownIndex === -1) {
+                filteredArr.push({ "field": 'gender', "type": "exact", "value": selectedOption['value'] }, )
+                this.setState({ 'appliedFilter': [{ 'filter': filteredArr }] });
+            } else {
+                let arrIndex = _.findIndex(filteredArr, { "field": 'gender' });
+                filteredArr.splice(arrIndex, 1, { "field": 'gender', "type": "exact", "value": selectedOption['value'] });
+                this.setState({ 'appliedFilter': [{ 'filter': filteredArr }] });
             }
 
-            let sortDropArr = _.find(allDropDown, function(o) { return o.dropdown == 'sortDrop'; });
+            let sortDropArr = _.find(allDropDown, function (o) { return o.dropdown == 'sortDrop'; });
 
             let arrayFilter = {
-                filter:filteredArr,
-                "sort":[{ "field": "name", "value":parseInt(sortDropArr['value']['value'])}],
-                "page_size":this.state.perPageItem,
-                "page_no":1
+                filter: filteredArr,
+                "sort": [{ "field": "name", "value": parseInt(sortDropArr['value']['value']) }],
+                "page_size": this.state.perPageItem,
+                "page_no": 1
             }
-            this.setState({"activePage":1});
+            this.setState({ "activePage": 1 });
             this.filterSendReq(arrayFilter);
         }
 
-        if(secondParam == 'sortDrop'){
+        if (secondParam == 'sortDrop') {
 
             let arrayFilter = {
-                filter:this.state.appliedFilter[0]['filter'],
-                "sort":[{ "field": "name", "value":parseInt(selectedOption['value'])}],
-                "page_size":this.state.perPageItem,
-                "page_no":1
+                filter: this.state.appliedFilter[0]['filter'],
+                "sort": [{ "field": "name", "value": parseInt(selectedOption['value']) }],
+                "page_size": this.state.perPageItem,
+                "page_no": 1
             }
-            this.setState({"activePage":1});
+            this.setState({ "activePage": 1 });
             this.filterSendReq(arrayFilter);
         }
     }
 
-    handleSLider = (selectedOption,secondParam) => {
-        let {allSliders} = this.state;
-        let index = _.findIndex(allSliders, {slider: secondParam});
-        allSliders.splice(index, 1, {slider: secondParam,value: selectedOption});
-        this.setState({allSliders:allSliders});
+    handleSLider = (selectedOption, secondParam) => {
+        let { allSliders } = this.state;
+        let index = _.findIndex(allSliders, { slider: secondParam });
+        allSliders.splice(index, 1, { slider: secondParam, value: selectedOption });
+        this.setState({ allSliders: allSliders });
     }
 
     addCampaign = (obj) => {
-        const {dispatch} = this.props;
-        this.child.setSaveFor('campaign',obj._id);
-        dispatch(fetchDropDownReq({"sendReqFor":"campaign","uId":obj._id}));
+        const { dispatch } = this.props;
+        this.child.setSaveFor('campaign', obj._id);
+        dispatch(fetchDropDownReq({ "sendReqFor": "campaign", "uId": obj._id }));
     }
 
     addGroup = (obj) => {
-        const {dispatch} = this.props;
-        this.child.setSaveFor('group',obj._id);
-        dispatch(fetchDropDownReq({"sendReqFor":"group","uId":obj._id}));
+        const { dispatch } = this.props;
+        this.child.setSaveFor('group', obj._id);
+        dispatch(fetchDropDownReq({ "sendReqFor": "group", "uId": obj._id }));
     }
 
-    addToCart = (camp_id,user_id) => {
-        const {dispatch,match} = this.props;
+    addToCart = (camp_id, user_id) => {
+        const { dispatch, match } = this.props;
         let data = {
-            'param1':'cart',
-            'param2':{
-                'value':camp_id
+            'param1': 'cart',
+            'param2': {
+                'value': camp_id
             },
-            'param3':user_id
+            'param3': user_id
         }
         dispatch(addUserReq(data));
     }
@@ -720,8 +720,8 @@ class EverydayPeople extends Component {
         // this.filterSendReq(arrayFilter);
     }
 
-    renderLi = (obj) =>{
-        return(
+    renderLi = (obj) => {
+        return (
             <li key={Math.random()}>
                 <div className="all-people-div">
                     <div className="all-people-img">
@@ -730,15 +730,15 @@ class EverydayPeople extends Component {
                         </a>
                         <div className="plus-people dropdown">
                             <PlusAction
-                                addCampaign={() => {this.addCampaign(obj)} }
-                                addGroup={() => {this.addGroup(obj)}}
+                                addCampaign={() => { this.addCampaign(obj) }}
+                                addGroup={() => { this.addGroup(obj) }}
                                 groupId={this.state.groupId}
                             />
                         </div>
                     </div>
                     <div className="all-people-content d-flex">
                         <h4>{obj.name}</h4>
-                        <DropDownSocial/>
+                        <DropDownSocial />
                     </div>
                 </div>
             </li>
@@ -766,9 +766,9 @@ class EverydayPeople extends Component {
                     <div className="festival-ftr d-flex">
                         <div className="festival-ftr-l"><a href=""><i><img src="images/facebook-01.png" alt="" /></i><strong>823M</strong></a></div>
                         <div className="festival-ftr-r dropdown">
-                            <PlusAction2 
-                                addToCart={ () => {this.addToCart(obj.campaign_id,obj.user_id)} }
-                                addGroup={ () => {this.addGroup(obj)} } 
+                            <PlusAction2
+                                addToCart={() => { this.addToCart(obj.campaign_id, obj.user_id) }}
+                                addGroup={() => { this.addGroup(obj) }}
                             />
                         </div>
                     </div>
@@ -779,13 +779,13 @@ class EverydayPeople extends Component {
 
     toggle = () => {
         this.setState({
-          modal: !this.state.modal
+            modal: !this.state.modal
         });
     }
-    
+
     renderLi3 = (obj) => {
         let img = imgRoutes.CAMPAIGN_IMG_PATH + obj.image;
-        if(!isImageExists(img)){
+        if (!isImageExists(img)) {
             img = 'http://placehold.it/465x300/ececec/525f7f?text=No Image Found';
         }
         return (
@@ -810,9 +810,9 @@ class EverydayPeople extends Component {
                         <div className="festival-ftr d-flex">
                             <div className="festival-ftr-l"><a href=""><i><img src={fbImg} alt="" /></i><strong>823M</strong></a></div>
                             <div className="festival-ftr-r dropdown">
-                                <PlusAction2 
-                                    addToCart={ () => {this.addToCart(obj._id,obj.users._id)} }
-                                    addGroup={ () => {this.addGroup(obj)} } 
+                                <PlusAction2
+                                    addToCart={() => { this.addToCart(obj._id, obj.users._id) }}
+                                    addGroup={() => { this.addGroup(obj) }}
                                 />
                             </div>
                         </div>
@@ -821,37 +821,37 @@ class EverydayPeople extends Component {
             </li>
         );
     }
-    
-    componentWillMount(){
-        const { dispatch,match } = this.props;        
-        this.setState({groupId:''});
-        if(match.params.grpId){
-            this.setState({groupId:match.params.grpId});
+
+    componentWillMount() {
+        const { dispatch, match } = this.props;
+        this.setState({ groupId: '' });
+        if (match.params.grpId) {
+            this.setState({ groupId: match.params.grpId });
         }
 
         let arrayFilter = {
-            "page_size":this.state.perPageItem,
-            "page_no":1,
-            groupId:match.params.grpId
+            "page_size": this.state.perPageItem,
+            "page_no": 1,
+            groupId: match.params.grpId
         }
         this.filterSendReq(arrayFilter);
         dispatch(moreFilterReq());
-    }    
+    }
 
-    componentDidUpdate(){
-        let {showDrop,userAdded,dispatch,inserted_group,group_status} = this.props;        
+    componentDidUpdate() {
+        let { showDrop, userAdded, dispatch, inserted_group, group_status } = this.props;
         let { is_inserted } = this.state
 
-        if(showDrop){
+        if (showDrop) {
             this.child.toggle();
         }
 
-        if(inserted_group!=null && is_inserted==1){
-            this.setState({ is_inserted: 0});
-            this.setState({modal: false});
+        if (inserted_group != null && is_inserted == 1) {
+            this.setState({ is_inserted: 0 });
+            this.setState({ modal: false });
 
             let param1 = 'add_to_group';
-            let param2 = {value:inserted_group._id,label:inserted_group.name};
+            let param2 = { value: inserted_group._id, label: inserted_group.name };
             let param3 = null;
             let param4 = this.state.appliedFilter[0];
             let param5 = this.state.groupId;
@@ -859,54 +859,54 @@ class EverydayPeople extends Component {
             console.log(inserted_group);
             console.log(group_status);
             console.log('=================================');
-            this.saveResult(param1,param2,param3,param4,param5);
+            this.saveResult(param1, param2, param3, param4, param5);
         }
-        
-        if(userAdded){
+
+        if (userAdded) {
             alert('User Has been Added');
-            dispatch(resetVal( {'userAdded':false}  ));
+            dispatch(resetVal({ 'userAdded': false }));
             dispatch(resetGroupVal());
         }
     }
 
-    componentWillUnmount(){
-        const {dispatch} = this.props;
-        dispatch(resetVal( {'userListing':false}  ));
+    componentWillUnmount() {
+        const { dispatch } = this.props;
+        dispatch(resetVal({ 'userListing': false }));
     }
 
     setAgeValue(value) {
-        this.setState({ageRange:{min:value.min,max:value.max}});
+        this.setState({ ageRange: { min: value.min, max: value.max } });
     }
 
     setAgeFilter = () => {
 
-        const {allSliders,appliedFilter,allDropDown} = this.state;
-        const {dispatch} = this.props;
+        const { allSliders, appliedFilter, allDropDown } = this.state;
+        const { dispatch } = this.props;
 
-        let ageFilterIndex = _.findIndex(appliedFilter[0]['filter'], function(o) { return o.field == 'age'; });
-        let ageVal = _.find(allSliders, function(o) { return o.slider == 'ageRange'; });
-        
+        let ageFilterIndex = _.findIndex(appliedFilter[0]['filter'], function (o) { return o.field == 'age'; });
+        let ageVal = _.find(allSliders, function (o) { return o.slider == 'ageRange'; });
+
         let filteredArr = appliedFilter[0]['filter'];
 
         // Check if age filter is applied or not...
-        if(ageFilterIndex === -1){
-            filteredArr.push({"field":"age", "type":"between", "min_value":ageVal['value']['min'],"max_value":ageVal['value']['max']})
-            this.setState({'appliedFilter':[{'filter':filteredArr}]});
-        }else{
-            let arrIndex = _.findIndex(filteredArr, {"field":"age"});
-            filteredArr.splice(arrIndex, 1, {"field":"age", "type":"between", "min_value":ageVal['value']['min'],"max_value":ageVal['value']['max']},);
-            this.setState({'appliedFilter':[{'filter':filteredArr}]});
+        if (ageFilterIndex === -1) {
+            filteredArr.push({ "field": "age", "type": "between", "min_value": ageVal['value']['min'], "max_value": ageVal['value']['max'] })
+            this.setState({ 'appliedFilter': [{ 'filter': filteredArr }] });
+        } else {
+            let arrIndex = _.findIndex(filteredArr, { "field": "age" });
+            filteredArr.splice(arrIndex, 1, { "field": "age", "type": "between", "min_value": ageVal['value']['min'], "max_value": ageVal['value']['max'] }, );
+            this.setState({ 'appliedFilter': [{ 'filter': filteredArr }] });
         }
 
-        let sortDropArr = _.find(allDropDown, function(o) { return o.dropdown == 'sortDrop'; });
+        let sortDropArr = _.find(allDropDown, function (o) { return o.dropdown == 'sortDrop'; });
 
         let arrayFilter = {
-            "filter":this.state.appliedFilter[0]['filter'],
-            "sort":[{ "field": "name", "value":parseInt(sortDropArr['value']['value'])}],
-            "page_size":this.state.perPageItem,
-            "page_no":1
+            "filter": this.state.appliedFilter[0]['filter'],
+            "sort": [{ "field": "name", "value": parseInt(sortDropArr['value']['value']) }],
+            "page_size": this.state.perPageItem,
+            "page_no": 1
         }
-        this.setState({"activePage":1});
+        this.setState({ "activePage": 1 });
         this.filterSendReq(arrayFilter);
 
         // this.setState({isAgeFilterSelected:true});
@@ -914,29 +914,29 @@ class EverydayPeople extends Component {
 
     applyMoreFilter = () => {
 
-        const { allDropDown, allSliders,appliedFilter } = this.state;
+        const { allDropDown, allSliders, appliedFilter } = this.state;
         const { dispatch } = this.props;
 
-        let allDropArr = _.filter( allDropDown, function(o) { return ((o.dropdown !== 'sortDrop') &&  (o.dropdown !== 'genderDrop') && (o.value !== false)); });
-        let allSliderArr = _.filter( allSliders, function(o) { return (o.slider !== 'ageRange'); });
+        let allDropArr = _.filter(allDropDown, function (o) { return ((o.dropdown !== 'sortDrop') && (o.dropdown !== 'genderDrop') && (o.value !== false)); });
+        let allSliderArr = _.filter(allSliders, function (o) { return (o.slider !== 'ageRange'); });
 
         let filterExistingArr = [];
 
         // let exstingFilter = Object.assign({},this.state.appliedFilter[0]['filter']);
         let exstingFilter = this.state.appliedFilter[0]['filter'];
 
-        _.remove(exstingFilter, function(o) {
+        _.remove(exstingFilter, function (o) {
             return (
-                    (o.field === 'job_industry') || (o.field === 'year_in_industry') || (o.field === 'education')  ||
-                    (o.field === 'language') || (o.field === 'ethnicity') || (o.field === 'interested_in') ||
-                    (o.field === 'relationship_status') || (o.field === 'music_taste' 
+                (o.field === 'job_industry') || (o.field === 'year_in_industry') || (o.field === 'education') ||
+                (o.field === 'language') || (o.field === 'ethnicity') || (o.field === 'interested_in') ||
+                (o.field === 'relationship_status') || (o.field === 'music_taste'
                     // || (o.field === 'fb_friends') || 
                     // (o.field === 'insta_followers') || 
                     // (o.field === 'twitter_followers') || 
                     // (o.field === 'pinterest_followers')|| 
                     // (o.field === 'linkedin_connection')
                 )
-                );
+            );
 
         });
 
@@ -958,24 +958,24 @@ class EverydayPeople extends Component {
         //     exstingFilterArr.push({"field":fieldText, "type":"between", "min_value":obj['value']['min'],"max_value":obj['value']['max']});
         // });
 
-        allDropArr.map((obj)=> {
+        allDropArr.map((obj) => {
             let fieldText = '';
             let fieldType = '';
 
             switch (obj['dropdown']) {
-                case 'jobIndustryDrop'  : fieldText='job_industry'; fieldType='id'; break;
-                case 'yearInIndustry'   : fieldText='year_in_industry'; fieldType='exact'; break;
-                case 'education'        : fieldText='education'; fieldType='exact'; break;
+                case 'jobIndustryDrop': fieldText = 'job_industry'; fieldType = 'id'; break;
+                case 'yearInIndustry': fieldText = 'year_in_industry'; fieldType = 'exact'; break;
+                case 'education': fieldText = 'education'; fieldType = 'exact'; break;
 
-                case 'jobTitleDrop'     : fieldText='job_title'; fieldType='id'; break;
-                case 'language'         : fieldText='language'; fieldType='exact'; break;
-                case 'ethnicity'        : fieldText='ethnicity'; fieldType='exact'; break;
-                case 'sexualOrientation': fieldText='interested_in'; fieldType='exact'; break;
-                case 'relationship'     : fieldText='relationship_status'; fieldType='exact'; break;
-                case 'musicTaste'       : fieldText='music_taste'; fieldType='id'; break;
+                case 'jobTitleDrop': fieldText = 'job_title'; fieldType = 'id'; break;
+                case 'language': fieldText = 'language'; fieldType = 'exact'; break;
+                case 'ethnicity': fieldText = 'ethnicity'; fieldType = 'exact'; break;
+                case 'sexualOrientation': fieldText = 'interested_in'; fieldType = 'exact'; break;
+                case 'relationship': fieldText = 'relationship_status'; fieldType = 'exact'; break;
+                case 'musicTaste': fieldText = 'music_taste'; fieldType = 'id'; break;
             }
 
-            exstingFilterArr.push({"field":fieldText, "type":fieldType, "value":obj['value']['value']},);
+            exstingFilterArr.push({ "field": fieldText, "type": fieldType, "value": obj['value']['value'] }, );
         });
 
         //----------------------------------------------------------------------------------------------------------------
@@ -984,42 +984,42 @@ class EverydayPeople extends Component {
         console.log(exstingFilterArr);
         console.log('====== last ==========');
 
-        this.setState({'appliedFilter':[{'filter':exstingFilterArr}]});
+        this.setState({ 'appliedFilter': [{ 'filter': exstingFilterArr }] });
 
-        let sortDropArr = _.find(allDropDown, function(o) { return o.dropdown == 'sortDrop'; });
+        let sortDropArr = _.find(allDropDown, function (o) { return o.dropdown == 'sortDrop'; });
         let arrayFilter = {
-            "filter":exstingFilterArr,
-            "sort":[{ "field": "name", "value":parseInt(sortDropArr['value']['value'])}],
-            "page_size":this.state.perPageItem,
-            "page_no":1
+            "filter": exstingFilterArr,
+            "sort": [{ "field": "name", "value": parseInt(sortDropArr['value']['value']) }],
+            "page_size": this.state.perPageItem,
+            "page_no": 1
         }
-        this.setState({"activePage":1});
+        this.setState({ "activePage": 1 });
         this.filterSendReq(arrayFilter);
     }
 
     resetDropVal = () => {
-        const {dispatch} = this.props;
+        const { dispatch } = this.props;
         this.child.setDefaultVal();
         dispatch(resetVal(null));
     }
 
-    saveResult = (param1,param2,param3,param4,param5) => {
+    saveResult = (param1, param2, param3, param4, param5) => {
 
         let data = {
             param1,
             param2,
             param3,
             param4,
-            param5:this.state.groupId
-        }        
-        const { dispatch } = this.props;    
+            param5: this.state.groupId
+        }
+        const { dispatch } = this.props;
         dispatch(addUserReq(data));
     }
 
     saveBulkResult = (value) => {
         const { dispatch } = this.props;
-        this.child.setSaveFor(value['value'],null,this.state.appliedFilter[0]);
-        dispatch(fetchDropDownReq({"sendReqFor":value['value']}));
+        this.child.setSaveFor(value['value'], null, this.state.appliedFilter[0]);
+        dispatch(fetchDropDownReq({ "sendReqFor": value['value'] }));
         // /promoter/group/:new_group_id/:old_group_id/add_filter_result_to_group
     }
 
@@ -1027,62 +1027,60 @@ class EverydayPeople extends Component {
         const { dispatch } = this.props;
         const formData = new FormData();
         formData.append("name", values.group_name);
-        formData.append("image", values.images[0]); 
-        this.setState({ is_inserted: 1});
+        formData.append("image", values.images[0]);
+        this.setState({ is_inserted: 1 });
         dispatch(addGroups(formData));
     }
 
     render() {
-        let {users,inspiredPosts,moreFilterData,dropdownList,loading,match} = this.props;
-        const {allDropDown,allSliders} = this.state;
+        let { users, inspiredPosts, moreFilterData, dropdownList, loading, match } = this.props;
+        const { allDropDown, allSliders } = this.state;
 
         let allDropArr = [];
         let allSliderArr = [];
 
-        let genderDropArr = _.find(allDropDown, function(o) { return o.dropdown == 'genderDrop'; });
-        let sortDropArr = _.find(allDropDown, function(o) { return o.dropdown == 'sortDrop'; });
+        let genderDropArr = _.find(allDropDown, function (o) { return o.dropdown == 'genderDrop'; });
+        let sortDropArr = _.find(allDropDown, function (o) { return o.dropdown == 'sortDrop'; });
 
-        allDropArr['jobIndustryDrop'] = _.find(allDropDown, function(o) { return o.dropdown == 'jobIndustryDrop'; });
-        allDropArr['jobTitleDrop'] = _.find(allDropDown, function(o) { return o.dropdown == 'jobTitleDrop'; });
-        allDropArr['yearInIndustry'] = _.find(allDropDown, function(o) { return o.dropdown == 'yearInIndustry'; });
-        allDropArr['education'] = _.find(allDropDown, function(o) { return o.dropdown == 'education'; });
-        allDropArr['language'] = _.find(allDropDown, function(o) { return o.dropdown == 'language'; });
-        allDropArr['ethnicity'] = _.find(allDropDown, function(o) { return o.dropdown == 'ethnicity'; });
-        allDropArr['sexualOrientation'] = _.find(allDropDown, function(o) { return o.dropdown == 'sexualOrientation'; });
+        allDropArr['jobIndustryDrop'] = _.find(allDropDown, function (o) { return o.dropdown == 'jobIndustryDrop'; });
+        allDropArr['jobTitleDrop'] = _.find(allDropDown, function (o) { return o.dropdown == 'jobTitleDrop'; });
+        allDropArr['yearInIndustry'] = _.find(allDropDown, function (o) { return o.dropdown == 'yearInIndustry'; });
+        allDropArr['education'] = _.find(allDropDown, function (o) { return o.dropdown == 'education'; });
+        allDropArr['language'] = _.find(allDropDown, function (o) { return o.dropdown == 'language'; });
+        allDropArr['ethnicity'] = _.find(allDropDown, function (o) { return o.dropdown == 'ethnicity'; });
+        allDropArr['sexualOrientation'] = _.find(allDropDown, function (o) { return o.dropdown == 'sexualOrientation'; });
 
-        allDropArr['relationship'] = _.find(allDropDown, function(o) { return o.dropdown == 'relationship'; });
-        allDropArr['musicTaste'] = _.find(allDropDown, function(o) { return o.dropdown == 'musicTaste'; });
+        allDropArr['relationship'] = _.find(allDropDown, function (o) { return o.dropdown == 'relationship'; });
+        allDropArr['musicTaste'] = _.find(allDropDown, function (o) { return o.dropdown == 'musicTaste'; });
 
-        allSliderArr['facebook'] = _.find(allSliders, function(o) { return o.slider == 'facebook'; });
-        allSliderArr['instagram'] = _.find(allSliders, function(o) { return o.slider == 'instagram'; });
-        allSliderArr['twitter'] = _.find(allSliders, function(o) { return o.slider == 'twitter'; });
-        allSliderArr['pinterest'] = _.find(allSliders, function(o) { return o.slider == 'pinterest'; });
-        allSliderArr['linkedin'] = _.find(allSliders, function(o) { return o.slider == 'linkedin'; });
+        allSliderArr['facebook'] = _.find(allSliders, function (o) { return o.slider == 'facebook'; });
+        allSliderArr['instagram'] = _.find(allSliders, function (o) { return o.slider == 'instagram'; });
+        allSliderArr['twitter'] = _.find(allSliders, function (o) { return o.slider == 'twitter'; });
+        allSliderArr['pinterest'] = _.find(allSliders, function (o) { return o.slider == 'pinterest'; });
+        allSliderArr['linkedin'] = _.find(allSliders, function (o) { return o.slider == 'linkedin'; });
 
-        allSliderArr['ageRange'] = _.find(allSliders, function(o) { return o.slider == 'ageRange'; });
+        allSliderArr['ageRange'] = _.find(allSliders, function (o) { return o.slider == 'ageRange'; });
 
-        if(loading) { return ( <div className="loader"></div> ) }
-        
+        // if (loading) { return (<div className="loader"></div>) }
+
         return (
             <div className="every-people">
-
-                {/* { (loading) ? <div className="loader" style={{"zIndex":"999999999"}}></div> : '' } */}
-                
+                {(loading) ? <div className="loader" style={{ "zIndex": "999999999" }}></div> : ''}
                 <div className="everypeole-head d-flex">
                     <div className="everypeole-head-l">
                         <ul>
                             <li className="dropdown age-dropdown active">
                                 <AgeDropDown
-                                        parentMethod={(value) => { (value['min']>14) ? this.handleSLider(value,"ageRange"):''; }}
-                                        currentVal={allSliderArr['ageRange']['value']}
-                                        setAgeFilter={() => { this.setAgeFilter()}}
+                                    parentMethod={(value) => { (value['min'] > 14) ? this.handleSLider(value, "ageRange") : ''; }}
+                                    currentVal={allSliderArr['ageRange']['value']}
+                                    setAgeFilter={() => { this.setAgeFilter() }}
                                 />
                             </li>
                             <li>
                                 <ReactSelect
                                     name="genderDrop"
                                     value={genderDropArr.value}
-                                    onChange={(value) => this.handleChange(value,"genderDrop")}
+                                    onChange={(value) => this.handleChange(value, "genderDrop")}
                                     searchable={false}
                                     clearable={false}
                                     autosize={false}
@@ -1100,30 +1098,32 @@ class EverydayPeople extends Component {
                             <li>
                                 <MoreFilterDropDown
                                     // parentMethod={(value) => this.setAgeValue(value,"str")}
-                                    parentMethod={(selectedOp,dropDownName) => this.handleChange(selectedOp,dropDownName)}
-                                    parentSliderMethod={(selectedOp,sliderName) => {(selectedOp['min']>=0) ? this.handleSLider(selectedOp,sliderName):''}}
+                                    parentMethod={(selectedOp, dropDownName) => this.handleChange(selectedOp, dropDownName)}
+                                    parentSliderMethod={(selectedOp, sliderName) => { (selectedOp['min'] >= 0) ? this.handleSLider(selectedOp, sliderName) : '' }}
                                     allDropArr={allDropArr}
                                     allSliderArr={allSliderArr}
                                     moreFilterData={moreFilterData}
-                                    applyMoreFilter={() => {this.applyMoreFilter()}}
+                                    applyMoreFilter={() => { this.applyMoreFilter() }}
                                 />
                             </li>
                         </ul>
                     </div>
                     <div className="everypeole-head-r">
-                        {   
-                            (match.params.campaignId!==null && match.params.campaignId!==undefined) ?
-                                <div className="new-permission">
-                                    <a className="cursor_pointer" href="javascript:void(0)" onClick={this.purchaseResult}>Purchase all result</a>
-                                </div>
-                            :
+                        {
+                            (match.params.campaignId !== null && match.params.campaignId !== undefined) ?
+                                (users.status == 1) ?
+                                    <div className="new-permission">
+                                        <a className="cursor_pointer" href="javascript:void(0)" onClick={this.purchaseResult}>Purchase all result</a>
+                                    </div>
+                                    : ''
+                                :
                                 <ul>
                                     <li>
                                         <ReactSelect
                                             name="form-field-name"
                                             className='dropdown-inr'
                                             value={sortDropArr.value}
-                                            onChange={(value) => this.handleChange(value,"sortDrop")}
+                                            onChange={(value) => this.handleChange(value, "sortDrop")}
                                             searchable={false}
                                             clearable={false}
                                             autosize={false}
@@ -1135,8 +1135,8 @@ class EverydayPeople extends Component {
                                         />
                                     </li>
                                     {(
-                                        match.path==routeCodes.CAMPAIGN_INSPIRED_SUB ? ''
-                                        :    
+                                        match.path == routeCodes.CAMPAIGN_INSPIRED_SUB ? ''
+                                            :
                                             <li>
 
                                                 <ReactSelect
@@ -1164,55 +1164,55 @@ class EverydayPeople extends Component {
                     <div className="all-people-head d-flex">
                         <h3>
                             {
-                                (users.total!==undefined) ? 
-                                    `Filtered List ( ${users.total} Results )` 
-                                :
+                                (users.total !== undefined) ?
+                                    `Filtered List ( ${users.total} Results )`
+                                    :
                                     `Filtered List ( ${inspiredPosts.total} Results )`
                             }
                         </h3>
-                        { ((match.params.campaignId===null || match.params.campaignId===undefined) && match.path!==routeCodes.CAMPAIGN_INSPIRED_SUB) &&
+                        {((match.params.campaignId === null || match.params.campaignId === undefined) && match.path !== routeCodes.CAMPAIGN_INSPIRED_SUB) &&
                             <a className="cursor_pointer" onClick={this.toggle}>
-                                <i className="fa fa-plus"></i> 
+                                <i className="fa fa-plus"></i>
                                 Save the results as a Group
                             </a>
                         }
                     </div>
-                    {   
-                        (match.params.campaignId!==null && match.params.campaignId!==undefined) ?
+                    {
+                        (match.params.campaignId !== null && match.params.campaignId !== undefined) ?
                             <ul className="fan-festival d-flex">
-                                {(users.status === 1) ? users.data.map((obj,index) => (this.renderLi2(obj))) :''}
+                                {(users.status === 1) ? users.data.map((obj, index) => (this.renderLi2(obj))) : <div className="no_data_found"><img src={nodataImg} /></div>}
                             </ul>
-                        :
+                            :
                             (
-                                match.path==routeCodes.CAMPAIGN_INSPIRED_SUB ?
+                                match.path == routeCodes.CAMPAIGN_INSPIRED_SUB ?
                                     <ul className="fan-festival d-flex h-view">
-                                        {(inspiredPosts.status === 1) ? inspiredPosts.data.map((obj,index) => (this.renderLi3(obj))) :''}
+                                        {(inspiredPosts.status === 1 && inspiredPosts.data==='') ? inspiredPosts.data.map((obj, index) => (this.renderLi3(obj))) : <div className="no_data_found"><img src={nodataImg} /></div>}
                                     </ul>
-                                :
+                                    :
                                     <ul className="all-people-ul d-flex">
-                                        {(users.status === 1) ? users.data.map((obj,index) => (this.renderLi(obj))) :''}
+                                        {(users.status === 1) ? users.data.map((obj, index) => (this.renderLi(obj))) : <div className="no_data_found"><img src={nodataImg} /></div>}
                                     </ul>
                             )
                     }
 
-                    { (users.total > 9) ?
+                    {(users.total > 9) ?
                         <Pagination
                             activePage={this.state.activePage}
                             totalItemsCount={users.total}
                             pageRangeDisplayed={5}
                             onChange={this.handlePageChange}
                             itemsCountPerPage={this.state.perPageItem}
-                        /> : '' }
+                        /> : ''}
 
 
                 </div>
 
-                <AddToModal onRef={ref => (this.child = ref)}                            
-                            dropdownList={dropdownList}
-                            resetDropVal={this.resetDropVal}
-                            saveResult={this.saveResult}  />
+                <AddToModal onRef={ref => (this.child = ref)}
+                    dropdownList={dropdownList}
+                    resetDropVal={this.resetDropVal}
+                    saveResult={this.saveResult} />
 
-                <Modal isOpen={this.state.modal} toggle={this.toggle}  id="group-popup">
+                <Modal isOpen={this.state.modal} toggle={this.toggle} id="group-popup">
                     <button type="button" className="close" onClick={this.toggle}>
                         <img src="/assets/img/site/close-2.png" />
                     </button>
@@ -1227,18 +1227,18 @@ class EverydayPeople extends Component {
 }
 
 const mapStateToProps = (state) => {
-    const { everyDay,groups } = state;
+    const { everyDay, groups } = state;
     return {
-        group_status:groups.get('status'),
+        group_status: groups.get('status'),
         inserted_group: groups.get('inserted_group'),
         loading: everyDay.get('loading'),
         error: everyDay.get('error'),
         users: everyDay.get('users'),
         inspiredPosts: everyDay.get('inspiredPosts'),
         moreFilterData: everyDay.get('moreFilterData'),
-        dropdownList:everyDay.get('dropdownList'),
-        showDrop:everyDay.get('showDrop'),
-        userAdded:everyDay.get('userAdded')
+        dropdownList: everyDay.get('dropdownList'),
+        showDrop: everyDay.get('showDrop'),
+        userAdded: everyDay.get('userAdded')
     }
 }
 
