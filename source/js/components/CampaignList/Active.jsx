@@ -159,9 +159,9 @@ class Active extends Component {
                         }
                     </ul>	
                     {
-                        (activeCampaign!==null && totalActiveCampaign>6) && <Pagination 
+                        (activeCampaign!==null && totalActiveCampaign>9) && <Pagination 
                                 activePage={this.state.activePage} 
-                                itemsCountPerPage={6} 
+                                itemsCountPerPage={9} 
                                 totalItemsCount={totalActiveCampaign} 
                                 pageRangeDisplayed={5} 
                                 onChange={this.handlePageChange}

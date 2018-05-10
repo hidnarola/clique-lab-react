@@ -41,7 +41,7 @@ const textField = (
 	)
 
 let CreateGroupForm = props => {
-    const { handleSubmit,error,message } = props
+    const { handleSubmit,error,message,submitDisabled } = props
     return (
         <form onSubmit={handleSubmit}>
             <Field
@@ -60,7 +60,7 @@ let CreateGroupForm = props => {
                 placeholder="Type group name here"
             />
             <div className="submit-btn">
-                <button type="submit" className="round-btn">Authorise</button>
+                <button type="submit" className="round-btn" disabled={submitDisabled}>Authorise</button>
             </div>
         </form>        
     )

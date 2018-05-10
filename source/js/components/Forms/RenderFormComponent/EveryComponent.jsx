@@ -81,7 +81,9 @@ export const FileField_Dropzone = (props) => {
                     }
                 </div>
             </Dropzone>
-
+            {
+                console.log(input)
+            }
             {(meta.touched && meta.error) && <span className="error-div">{meta.error}</span>}
         </div>
     );

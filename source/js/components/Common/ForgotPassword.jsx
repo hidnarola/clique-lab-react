@@ -4,7 +4,7 @@ import LogoImg from 'img/common/logo.png';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { Link, Redirect } from 'react-router-dom';
-import { forgotPass } from '../../actions/forgotPass';
+import { forgotPass, resetForgotVal } from '../../actions/forgotPass';
 import ForgotPassForm from '../Forms/Front/ForgotPassForm';
 import PropTypes from 'prop-types';
 
@@ -12,6 +12,9 @@ import PropTypes from 'prop-types';
 class ForgotPassword extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            passReset: true
+        }
     }
 
     submitForm = (values) => {
@@ -22,20 +25,25 @@ class ForgotPassword extends Component {
         dispatch(forgotPass(forgotData));
     }
 
-    render() {
-        
-        if (this.props.match.params.forgot_token !== undefined) {
-            if (this.props.match.params.forgot_token !== '') {
-                return <Redirect to={`/reset_password/${this.props.match.params.forgot_token}`} />
+    componentDidUpdate(){
+        let { error, status, history } = this.props;
+        let { passReset } = this.state;
+        if(status===1 && passReset){
+            this.setState({passReset: false});
+            history.push('/login');
+            //return <Redirect to="/login" />
+        }
+    }
+
+    render(){
+        if(this.props.match.params.forgot_token!==undefined){
+            if(this.props.match.params.forgot_token!==''){
+                return <Redirect to={ `/reset_password/${this.props.match.params.forgot_token}`} />
             }
         }
-        let { error, status } = this.props;
-    
-        if (status === 1) {
-            return <Redirect to="/login" />        
-        }
-
-        return (
+        let { error } = this.props;
+        
+        return(
             <div className="login-register-bg">
                 <div className="login-register-box">
                     <div className="form-logo d-flex">

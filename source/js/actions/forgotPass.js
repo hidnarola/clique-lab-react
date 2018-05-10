@@ -6,6 +6,8 @@ export const RESET_REQUEST = 'RESET_REQUEST';
 export const RESET_SUCCESS = 'RESET_SUCCESS';
 export const RESET_ERROR = 'RESET_ERROR';
 
+export const RESET_VALUES_FORGOT = 'RESET_VALUES_FORGOT';
+
 export function forgotPass(forgotData) {
     return {
         type: FORGOT_REQUEST,
@@ -46,4 +48,8 @@ export function resetPassError(error) {
         type: RESET_ERROR,
         error
     }
+}
+
+export function resetForgotVal(data) {
+    return { type: RESET_VALUES_FORGOT, data:data }
 }

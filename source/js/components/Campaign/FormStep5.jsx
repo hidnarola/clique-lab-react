@@ -10,11 +10,14 @@ const validate = values => {
         errors.imagesNew = 'This Field is Required';
     }else {
         if((values.imagesNew).length > 0){
-            let file_type = values.imagesNew[0].type;
-            let extensions = ["image/jpeg", "image/png", "image/jpg"];
-            if (extensions.indexOf(file_type) < 0) {
-                errors.imagesNew = 'File type not supported';
+            _.map(values.imagesNew), function(file){
+                let file_type = file.type;
+                let extensions = ["image/jpeg", "image/png", "image/jpg"];
+                if (extensions.indexOf(file_type) < 0) {
+                    errors.imagesNew = 'File type not supported';
+                }
             }
+            
         }
     }
     return errors;

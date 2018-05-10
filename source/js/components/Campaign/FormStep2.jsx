@@ -11,7 +11,7 @@ import {renderFieldCampaign,renderFieldDatePicker,SelectField_ReactSelect,Select
 const validate = values => {
     
     const errors = {};
-
+    console.log(values);
     if (!values.call_to_action  || (values.call_to_action!==undefined && values.call_to_action.trim()=="")) {
         errors.call_to_action = 'This Field is Required';
     }
@@ -20,7 +20,7 @@ const validate = values => {
         errors.discount_code = 'This Field is Required';
     }
 
-    if (!values.industryName) {
+    if (!values.industryName || values.industryName.value==="") {
         errors.industryName = 'This Field is Required';
     }    
 

@@ -54,10 +54,11 @@ class Future extends Component {
 
     futureListing(obj){
         let d = new Date(obj.start_date);
-        let YYYY = d.getFullYear();
-        let MM = (d.getMonth()<10) ? '0'+d.getMonth() : d.getMonth();
-        let DD = (d.getDate()<10) ? '0'+d.getDate() : d.getDate();
-        let date = YYYY+'-'+MM+'-'+DD;
+        var month = d.getMonth() + 1;
+        var day = d.getDate();
+        var year = d.getFullYear();
+        month = (month<10) ? '0'+month : month;
+        let date = year+'-'+month+'-'+day;
         return (
             <li key={Math.random()}>
                 <div className="all-people-div">

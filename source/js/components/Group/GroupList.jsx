@@ -53,6 +53,7 @@ class GroupList extends Component {
             totalRecord:1,
             loaderShow:false,
             is_inserted: 0,
+            authorise_disabled: false,
         };
 
         this.createGroupModal = this.createGroupModalOpen.bind(this);
@@ -79,12 +80,14 @@ class GroupList extends Component {
     }
     
     createGroupSubmit = (values) => {
-        const { dispatch } = this.props;
-        const formData = new FormData();
-        formData.append("name", values.group_name);
-        formData.append("image", values.images[0]); 
-        this.setState({ is_inserted: 1});
-        dispatch(addGroups(formData));
+        this.setState({authorise_disabled: true},() =>{
+            const { dispatch } = this.props;
+            const formData = new FormData();
+            formData.append("name", values.group_name);
+            formData.append("image", values.images[0]); 
+            this.setState({ is_inserted: 1});
+            dispatch(addGroups(formData));
+        });
     }
 
     handlePageChange(pageNumber) {
@@ -220,7 +223,7 @@ class GroupList extends Component {
                         <img src="/assets/img/site/close-2.png" />
                     </button>
                     <h2>Create Group</h2>
-                    <CreateGroupForm onSubmit={this.createGroupSubmit} />
+                    <CreateGroupForm onSubmit={this.createGroupSubmit} submitDisabled={this.state.authorise_disabled} />
                 </Modal>
             </div>
         );
