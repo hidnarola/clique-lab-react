@@ -1062,7 +1062,7 @@ class EverydayPeople extends Component {
         allSliderArr['ageRange'] = _.find(allSliders, function(o) { return o.slider == 'ageRange'; });
 
         if(loading) { return ( <div className="loader"></div> ) }
-        
+        console.log('Props+++>>>>',this.props);
         return (
             <div className="every-people">
 

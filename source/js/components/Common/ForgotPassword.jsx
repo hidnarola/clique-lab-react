@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+import React, { Component } from 'react';
 
 import LogoImg from 'img/common/logo.png';
 import { connect } from 'react-redux';
@@ -9,8 +9,8 @@ import ForgotPassForm from '../Forms/Front/ForgotPassForm';
 import PropTypes from 'prop-types';
 
 
-class ForgotPassword extends Component{
-    constructor(props){
+class ForgotPassword extends Component {
+    constructor(props) {
         super(props);
     }
 
@@ -19,21 +19,23 @@ class ForgotPassword extends Component{
         let forgotData = {
             email: values.email,
         }
-        dispatch(forgotPass(forgotData));        
+        dispatch(forgotPass(forgotData));
     }
 
-    render(){
-        if(this.props.match.params.forgot_token!==undefined){
-            if(this.props.match.params.forgot_token!==''){
-                return <Redirect to={ `/reset_password/${this.props.match.params.forgot_token}`} />
+    render() {
+        
+        if (this.props.match.params.forgot_token !== undefined) {
+            if (this.props.match.params.forgot_token !== '') {
+                return <Redirect to={`/reset_password/${this.props.match.params.forgot_token}`} />
             }
         }
         let { error, status } = this.props;
-        if(status===1){
-            return <Redirect to="/login" />
+    
+        if (status === 1) {
+            return <Redirect to="/login" />        
         }
-        
-        return(
+
+        return (
             <div className="login-register-bg">
                 <div className="login-register-box">
                     <div className="form-logo d-flex">

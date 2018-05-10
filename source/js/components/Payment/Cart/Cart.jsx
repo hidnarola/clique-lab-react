@@ -39,7 +39,7 @@ class Cart extends React.Component {
 	renderTr = (obj) => {
 		return (
 			<tr key={Math.random()}>
-				<td><a href=""><img src={`${imgRoutes.CAMPAIGN_IMG_PATH}${obj.campaign.cover_image}`} alt="" /></a></td>
+				<td><a href="#"><img src={`${imgRoutes.CAMPAIGN_IMG_PATH}${obj.campaign.cover_image}`} alt="" /></a></td>
 				<td>
 					<b>{obj.campaign.name}</b><br />
 					{obj.campaign.description}
@@ -60,7 +60,7 @@ class Cart extends React.Component {
 		return (
 			<div>
 				<div className="all-people-head">
-					<h3>Total {(carts.status === 1) ? (carts.data).length : 0} producs in Cart</h3>
+					<h3>Total {(carts.status === 1) ? (carts.data).length : 0} products in Cart</h3>
 				</div>
 				{carts.data === null ? <div className="no_data_found"><img src={nodataImg} /></div> :
 				<div className="analytics-body content-box">

@@ -73,7 +73,8 @@ class GroupList extends Component {
 
     toggle() {
         this.setState({
-          dropdownOpen: !this.state.dropdownOpen
+          //dropdownOpen: !this.state.dropdownOpen
+          createGroupModalShow : !this.state.createGroupModalShow
         });
     }
     
@@ -213,7 +214,8 @@ class GroupList extends Component {
                             />
                     )}
                 </div>
-                <Modal isOpen={this.state.createGroupModalShow} toggle={this.createGroupModalOpen} className={this.props.className} id="group-popup">
+                {/* <Modal isOpen={this.state.createGroupModalShow} toggle={this.createGroupModalOpen} className={this.props.className} id="group-popup"> */}
+                <Modal isOpen={this.state.createGroupModalShow} toggle={this.toggle} className={this.props.className} id="group-popup">
                     <button type="button" className="close" onClick={this.createGroupModal}>
                         <img src="/assets/img/site/close-2.png" />
                     </button>

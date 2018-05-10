@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Field, reduxForm,formValueSelector  } from 'redux-form'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom';
+import { Link,NavLink,Redirect } from 'react-router-dom';
 import cx from 'classnames';
 import { Alert } from 'reactstrap';
 import {reset} from 'redux-form';
+import validator from 'validator';
 
 const validate = values => {
     const errors = {}
@@ -12,7 +13,7 @@ const validate = values => {
     if (!values.username) { errors.username = 'This field is Required' }
     if (!values.password) { errors.password = 'This field is Required' }
     else if (values.password.length < 5) { errors.password = 'Must be more than 5 or more characters.' }
-
+    
     return errors
 }
 
@@ -26,7 +27,11 @@ const renderField = ({ input, type, placeholder, displayError,meta: { touched, e
 class LoginForm extends Component {
     constructor(props) {
         super(props);
-        this.state = { visible: true };
+        this.state = { 
+                        visible: true,
+                        isRedirect:false,
+                        control : false
+                    };
         this.onDismiss = this.onDismiss.bind(this);
     }
     onDismiss() { this.setState({ 'visible': false }); }
@@ -38,14 +43,14 @@ class LoginForm extends Component {
         if(nextProps.newError !== null){
             this.setState({'showError':false});
         }
-        if((nextProps.username) === undefined || (nextProps.password) === undefined){
+        if((nextProps.username) === undefined || ( (nextProps.password) === undefined)  || (nextProps.password.length < 5 ) ){
             this.setState({'showError':true});
         }
-    }
-
+    }  
+    
     render() {
         const {showError} = this.state;
-        const { handleSubmit, error, newError, username, password} = this.props;
+        const { handleSubmit, error, newError,username, password} = this.props;
         return (
             <div>
                 <div style={{ "margin": "0 32%" }}>
@@ -54,6 +59,7 @@ class LoginForm extends Component {
                         // <Alert color="danger " isOpen={this.state.visible} toggle={this.onDismiss}>{error}</Alert>
                         // :
                         (newError) ? <Alert color="danger " isOpen={this.state.visible} toggle={this.onDismiss}>{newError}</Alert> : ''
+                  
                     }
                 </div>
                 <form onSubmit={handleSubmit}>
@@ -64,6 +70,8 @@ class LoginForm extends Component {
                         <button type="submit" className="round-btn">Login</button>
                     </div>
                     <p>Forgot Password? <Link className="cursor_pointer" to="/forgot_password">Reset</Link></p>
+                           
+                    {/* <p>Forgot Password? <a className="cursor_pointer" onClick={this.resetLink}>Reset</a></p> */}
                 </form>
             </div>
         )

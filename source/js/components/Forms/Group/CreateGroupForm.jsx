@@ -23,7 +23,7 @@ const validate = values => {
             errors.images = 'File type not supported'
        }
     }
-    if (!values.group_name) {
+    if (!values.group_name || !validator.matches(values.group_name,/^[A-Za-z_]/i)) {
         errors.group_name = 'This Field is Required'
     }
 
@@ -70,9 +70,10 @@ const FileField_Dropzone = (props) => {
     const { label, input, meta, wrapperClass, className, labelClass, errorClass, accept, multiple } = props;
     let filesArr = _.values(input.value);
     let images = [];
+
     let extensions = ["image/jpeg", "image/png", "image/jpg", "image/gif"];
     let error_msg = '';
-
+    
     _.forEach(filesArr, (file, key) => {
         images.push(
             <div className="images-preview-wrapper" key={key}>
@@ -83,6 +84,8 @@ const FileField_Dropzone = (props) => {
         )
     })
 
+    //var clone = images.slice(0);
+   
     return (
         <div className={wrapperClass}>
             <label htmlFor={input.name} className={labelClass}>{label}</label>
@@ -92,18 +95,21 @@ const FileField_Dropzone = (props) => {
                 onDrop={(filesToUpload, e) => input.onChange(filesToUpload)}
                 multiple={false}
                 className={ `${className}` }
+
             >
                 <div className="dropzone-image-preview-wrapper">
                     {(input.value && !meta.error) && images}
-                    {meta.error && <div className={ `custom_dropzone_div ${(meta.touched && meta.error) && 'drop_error_div'}` }>
+                    {/* {(!input.value) ? clone : null}      */}
+                    {meta.error && <div className={ `custom_dropzone_div ${(meta.touched && meta.error ) && 'drop_error_div'}` }>
                             {/* <img src={dropImg} /><br /><br /> */}
                             <p>Select or Drag Your image here</p>
                             <button type="button" className="btn_drop_browse">Or Browse</button>
                         </div>
-                    }
+                    }  
                 </div> 
             </Dropzone>
             {(meta.touched && meta.error) && <span className="error-div">{meta.error}</span>}
+            
         </div>
     );
 }

@@ -11,13 +11,27 @@ const validate = values => {
     const errors = {};
     if (!values.images) {
         errors.images = 'This Field is Required'
-    }else {
-        let file_type = values.images[0].type;
-        let extensions = ["image/jpeg", "image/png", "image/jpg"];
-        if (extensions.indexOf(file_type) < 0) {
-            errors.images = 'File type not supported'
-       }
     }
+    // if(values.images)
+    // {
+    //     console.log(values.images[0].name); 
+    // }
+    if(values.images)
+    {
+        let file_type = values.images[0].type;
+            let extensions = ["image/jpeg", "image/png", "image/jpg"];
+            if (extensions.indexOf(file_type) < 0) {
+                errors.images = 'File type not supported'
+           }
+    }
+   
+    // else {
+    //     let file_type = values.images[0].type;
+    //     let extensions = ["image/jpeg", "image/png", "image/jpg"];
+    //     if (extensions.indexOf(file_type) < 0) {
+    //         errors.images = 'File type not supported'
+    //    }
+   // }
 
     if (!values.industryName) {
         errors.industryName = 'This field is Required';

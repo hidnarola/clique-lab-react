@@ -1,6 +1,8 @@
 import React,{Component} from 'react';
 import LogoImg from 'img/common/logo.png';
 import { reactLocalStorage } from 'reactjs-localstorage';
+import { NavLink } from 'react-router-dom';
+import { routeCodes } from 'constants/routes';
 
 class Header2 extends Component{
 
@@ -10,9 +12,12 @@ class Header2 extends Component{
             <header className="header">
                 <div className="container d-flex">
                     <div className="logo">
-                        <a href="">
+                        {/* <a href="">
                             <img src={LogoImg} alt="" />
-                        </a>
+                        </a> */}
+                        <NavLink to={routeCodes.DASHBOARD}>
+                            <img src={LogoImg} alt="" />
+                        </NavLink>
                     </div>
                     <div className="hdr-user">
                         <a href="javascript:void(0)">

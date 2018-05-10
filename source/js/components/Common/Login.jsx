@@ -20,7 +20,7 @@ class Login extends Component{
         this.state = {
             redirectToReferrer: false,
             submitAction: false,
-            errorMsg: ''
+            errorMsg: '',
         };
     }
 
@@ -45,19 +45,21 @@ class Login extends Component{
             })
         }
     }
-
     componentDidUpdate(){
+       // console.log('orporprorpo>>>',this.porps);
         let { message, loading, error } = this.props;
-        let { submitAction } = this.state;
+        let { submitAction,load} = this.state;
         if(submitAction && !loading){
             this.setState({submitAction: false})
+            
             if(error!==null){
                 this.setState({errorMsg: error},() => {
                     setTimeout(()=>{
                         this.setState({errorMsg: ''})
                     },3000);
                 })
-            } else if (message!==null){
+            } 
+            else if (message!==null){
                 this.setState({errorMsg: message},() => {
                     setTimeout(()=>{
                         this.setState({errorMsg: ''})
@@ -65,11 +67,14 @@ class Login extends Component{
                 })
             }
         }
+       
+        
     }
     
     render(){
-        let { error,user,message } = this.props;
-        let { errorMsg } = this.state;
+      
+        let { error,user,message} = this.props;
+        let { errorMsg,load } = this.state;
         let token = localStorage.getItem('token');
         let usrObj = reactLocalStorage.getObject('user');
         
@@ -90,7 +95,7 @@ class Login extends Component{
                         </a>
                     </div>
                     <div className="form-content d-flex">
-                        <LoginForm onSubmit={this.submitForm} newError={errorMsg}/>
+                        <LoginForm onSubmit={this.submitForm} newError={errorMsg} />
                     </div>
                     <div className="form-ftr">
                         <p>
