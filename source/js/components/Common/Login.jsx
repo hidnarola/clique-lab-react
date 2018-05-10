@@ -8,6 +8,7 @@ import CryptoJS from 'crypto-js';
 import LogoImg from 'img/common/logo.png';
 import LoginForm  from '../Forms/Front/LoginForm';
 import { login } from '../../actions/login';
+import { resetForgotVal } from '../../actions/forgotPass';
 import { routeCodes } from '../../constants/routes';
 import {SECRET_KEY} from '../../constants/usefulvar';
 import { Alert } from 'reactstrap';
@@ -35,12 +36,13 @@ class Login extends Component{
     }
 
     componentWillMount(){
-        let { error,user,message } = this.props;
+        let { error,user,message,dispatch } = this.props;
         let { errorMsg } = this.state;
         if (message!==null){
             this.setState({errorMsg: message},() => {
                 setTimeout(()=>{
                     this.setState({errorMsg: ''})
+                    dispatch(resetForgotVal());
                 },3000);
             })
         }

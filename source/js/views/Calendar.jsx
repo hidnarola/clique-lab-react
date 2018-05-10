@@ -167,7 +167,7 @@ class Calendar extends Component {
                     // }}
                     defaultDate={Date.now()}
                     navLinks={true} // can click day/week names to navigate views
-                    editable={true}
+                    editable={false}
                     eventLimit={false} // allow "more" link when too many events
                     events={this.state.events}
                     // eventClick={(calEvent, jsEvent, view) =>

@@ -552,16 +552,13 @@ class EverydayPeople extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
             perPageItem: 9,
-
             modal: false,
             activePage: 1,
             loaderShow: false,
             is_inserted: 0,
-
             groupId: '',
-
+            authorise_disabled: false,
             allDropDown: [
                 { 'dropdown': 'jobIndustryDrop', 'value': false },
                 { 'dropdown': 'jobTitleDrop', 'value': false },
@@ -1024,12 +1021,14 @@ class EverydayPeople extends Component {
     }
 
     createGroupSubmit = (values) => {
-        const { dispatch } = this.props;
-        const formData = new FormData();
-        formData.append("name", values.group_name);
-        formData.append("image", values.images[0]);
-        this.setState({ is_inserted: 1 });
-        dispatch(addGroups(formData));
+        this.setState({authorise_disabled: true},() =>{
+            const { dispatch } = this.props;
+            const formData = new FormData();
+            formData.append("name", values.group_name);
+            formData.append("image", values.images[0]);
+            this.setState({ is_inserted: 1 });
+            dispatch(addGroups(formData));
+        });
     }
 
     render() {
@@ -1217,7 +1216,7 @@ class EverydayPeople extends Component {
                         <img src="/assets/img/site/close-2.png" />
                     </button>
                     <h2>Create Group</h2>
-                    <CreateGroupForm onSubmit={this.createGroupSubmit} />
+                    <CreateGroupForm onSubmit={this.createGroupSubmit} submitDisabled={this.state.authorise_disabled} />
                 </Modal>
 
             </div>

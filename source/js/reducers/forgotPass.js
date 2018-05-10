@@ -1,5 +1,5 @@
 import { Map } from "immutable";
-import { FORGOT_REQUEST, FORGOT_SUCCESS, FORGOT_ERROR, RESET_REQUEST, RESET_SUCCESS, RESET_ERROR } from "../actions/forgotPass";
+import { FORGOT_REQUEST, FORGOT_SUCCESS, FORGOT_ERROR, RESET_REQUEST, RESET_SUCCESS, RESET_ERROR, RESET_VALUES_FORGOT } from "../actions/forgotPass";
 
 const initialState = Map({
     loading: false,
@@ -38,6 +38,7 @@ const actionMap = {
             status: 0,
         }));
     },
+
     [RESET_REQUEST]: (state, action) => {
         return state.merge(Map({
             loading: true,
@@ -58,6 +59,16 @@ const actionMap = {
         return state.merge(Map({
             loading: false,
             error: null,
+            status: 0,
+            message: null,
+        }));
+    },
+
+    [RESET_VALUES_FORGOT]:(state,action) => {        
+        if(action['data']){
+            // (action['data']['userAdded'] === false) ? resetObj['userAdded'] = false:'';            
+        }
+        return state.merge(Map({
             status: 0,
             message: null,
         }));

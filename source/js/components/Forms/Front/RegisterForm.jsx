@@ -10,7 +10,7 @@ import { Alert } from 'reactstrap';
 
 const validate = values => {
     const errors = {}
-    
+    console.log(values);
     if (!values.username || (values.username!==undefined && values.username.trim()=="")) {
         errors.username = 'This field is Required'
     }
@@ -28,7 +28,7 @@ const validate = values => {
     if (!values.company || (values.company!==undefined && values.company.trim()=="")) {
         errors.company = 'This field is Required'
     }
-    if (!values.country) {
+    if (!values.company || JSON.stringify(values.company) != "{}") {
         errors.country = 'This field is Required'
     }
 

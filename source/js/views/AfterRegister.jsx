@@ -20,6 +20,10 @@ class AfterRegister extends Component {
 
     }
 
+    changePage = (pageNo) => {
+        this.setState({page:pageNo});
+    }
+    
     nextPage() {
         this.setState({ page: this.state.page + 1 });
     }
@@ -46,9 +50,6 @@ class AfterRegister extends Component {
         // <Redirect to={routeCodes.DASHBOARD} />
     }
 
-    componentDidUpdate(){
-
-    }
 
     render() {
         const { onSubmit } = this.props;

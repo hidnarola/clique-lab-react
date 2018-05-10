@@ -12,11 +12,11 @@ const validate = values => {
 
     const errors = {};
 
-    if (!values.public_or_private) {
+    if (!values.public_or_private || values.public_or_private.value==="") {
         errors.public_or_private = 'This Field is Required';
     }
 
-    if(!values.media_format){
+    if(!values.media_format || values.media_format.value===""){
         errors.media_format = 'This Field is Required';
     }
 
@@ -30,7 +30,7 @@ const validate = values => {
         errors.how_much = 'Must be a number';
     }
 
-    if(!values.currency){
+    if(!values.currency || values.currency.value===""){
         errors.currency = 'This Field is Required';
     }
 
@@ -38,15 +38,12 @@ const validate = values => {
 };
 
 class FormStep3 extends Component{
-
     constructor(props){
         super(props);
     }
 
     render(){
-
         const { handleSubmit,previousPage } = this.props;
-
         return(
             <form onSubmit={handleSubmit}>
                 <div className="right-box create-campaign d-flex">
@@ -54,7 +51,6 @@ class FormStep3 extends Component{
                         <CommonCompo currentPage="3" changePage={(i) => this.props.changePage(i)} />
                         <div className="step-content d-flex">
                             <h2>Step 3</h2>
-
                             <Field        
                                 wrapperClass="select-wrap"
                                 name="public_or_private"       

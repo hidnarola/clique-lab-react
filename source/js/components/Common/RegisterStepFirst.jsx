@@ -9,14 +9,17 @@ import {AfterReg} from '../Campaign/CommonCompo';
 const validate = values => {
     
     const errors = {};
-    if (!values.images) {
+    console.log(values.images);
+    if (!values.images || values.images.length===0) {
         errors.images = 'This Field is Required'
     }else {
-        let file_type = values.images[0].type;
-        let extensions = ["image/jpeg", "image/png", "image/jpg"];
-        if (extensions.indexOf(file_type) < 0) {
-            errors.images = 'File type not supported'
-       }
+        if((values.images).length > 0){
+            let file_type = values.images[0].type;
+            let extensions = ["image/jpeg", "image/png", "image/jpg"];
+            if (extensions.indexOf(file_type) < 0) {
+                errors.images = 'File type not supported';
+            }
+        }
     }
 
     if (!values.industryName) {
@@ -33,7 +36,7 @@ const validate = values => {
 const renderField = ({ input, type, placeholder, meta: { touched, error, warning } }) => (    
     <div  className={cx('industry-description input-wrap',{'custom-error':(touched && error ) ? true:false })}>
         <label>Description</label>
-        <textarea {...input} placeholder={placeholder} className={touched && ((error && `txt_error_div`))}></textarea>
+        <textarea {...input} placeholder={placeholder}></textarea>
         {touched && ((error && <span className="error-div">{error}</span>))}
     </div>
 )
@@ -72,13 +75,13 @@ class RegisterStepFirst extends Component{
             <section className="content">
                 <div className="container">
                     <div className="content-box industry-category">
-                        <div className="category-step d-flex">
+                        {/* <div className="category-step d-flex">
                             <a href="#" className="active"></a>
                             <a href="#" className=""></a>
-                        </div>
+                        </div> */}
 
                         
-                        {/* <AfterReg currentPage="1" changePage={(i) => this.changePage(i)}/> */}
+                        <AfterReg currentPage="1" changePage={(i) => this.changePage(i)}/>
                        
                         <h2>Industry Category</h2>
                         <form onSubmit={handleSubmit}>
@@ -94,7 +97,7 @@ class RegisterStepFirst extends Component{
                                                     wrapperClass="form-group"
                                                     placeholder="Images"
                                                     className="drag-drop"
-                                                    component={FileField_Dropzone_New}
+                                                    component={FileField_Dropzone}
                                                     multiple={false}
                                                 />
                                             </div>
