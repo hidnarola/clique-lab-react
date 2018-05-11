@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 import { connect } from 'react-redux';
 import voca from 'voca';
 import dummyImg from 'img/site/img-06.jpg';
+import coverDummyImg from 'img/site/cover_dummy.jpg';
 class FormCampaignRight extends Component{
     
     constructor(props){
@@ -87,7 +88,7 @@ class FormCampaignRight extends Component{
                         (wizardCampaignData.values!== undefined && imgStr!==undefined) ? 
                             <img src={imgStr} alt="" />
                         :
-                            <img src='http://placehold.it/280x130/ececec/525f7f?text=No Image Found&bold' alt="" />
+                            <img src={coverDummyImg} alt="" />
                     }
                 </div>
                 <div className="create-campaign-r-summer d-flex">

@@ -74,7 +74,6 @@ class FormStep1 extends Component {
                                 minDateVal={moment()}
                                 placeholder="Campaign start date"
                                 isRequired="true"
-
                             />
 
                             <Field

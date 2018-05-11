@@ -156,7 +156,7 @@ class Campaign extends Component {
                      />
 
                 <div>
-                    <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} id="congratulations">
+                    <Modal isOpen={this.state.modal} toggle={false} className={this.props.className} id="congratulations">
                         <ModalBody style={{"padding":"40px 80px 40px"}}>
                             <div className="terms-conditions">
                                 <h2>Congratulation Your Campaign has been started!</h2>

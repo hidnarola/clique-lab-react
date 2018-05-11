@@ -3,7 +3,7 @@ import {
         EVERY_DAY_REQUEST,EVERY_DAY_SUCCESS,EVERY_DAY_ERROR,
         MORE_FILTER_REQUEST, MORE_FILTER_SUCCESS, MORE_FILTER_ERROR,
         FETCH_DROPDOWN_REQUEST,FETCH_DROPDOWN_SUCCESS,
-        RESET_VALUES,
+        RESET_VALUES,FORCE_REFRESED,
         ADD_USER_ERROR,ADD_USER_REQUEST,ADD_USER_SUCCESS
        } from "../actions/everyDay";
 
@@ -26,6 +26,7 @@ const initialState = Map({
     dropdownList:null,
     showDrop:false,    
     userAdded:false,
+    forceRefresh: false,
 });
 
 const actionMap = {
@@ -138,6 +139,15 @@ const actionMap = {
             (action['data']['userListing'] === false) ? resetObj['users']=resetUserVal:'';
         }
         return state.merge(Map(resetObj));
+    },
+    [FORCE_REFRESED]:(state,action) => {
+        if(action['data']){
+            // (action['data']['userAdded'] === false) ? resetObj['userAdded'] = false:'';
+            // (action['data']['userListing'] === false) ? resetObj['users']=resetUserVal:'';
+        }
+        return state.merge(Map({
+            forceRefresh: true
+        }));
     },
 
     //---------------------------------------------------------------------------------------

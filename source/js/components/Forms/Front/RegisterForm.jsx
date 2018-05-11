@@ -28,7 +28,7 @@ const validate = values => {
     if (!values.company || (values.company!==undefined && values.company.trim()=="")) {
         errors.company = 'This field is Required'
     }
-    if (!values.company || JSON.stringify(values.company) != "{}") {
+    if (!values.country || JSON.stringify(values.country) == "{}") {
         errors.country = 'This field is Required'
     }
 

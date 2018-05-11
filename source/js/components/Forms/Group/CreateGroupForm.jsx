@@ -14,14 +14,16 @@ const validate = values => {
     
     const errors = {};
     
-    if (!values.images) {
-        errors.images = 'This Field is Required'
+    if (!values.images || values.images.length===0) {
+        errors.images = 'This Field is Required';
     }else {
-        let file_type = values.images[0].type;
-        let extensions = ["image/jpeg", "image/png", "image/jpg", "image/gif"];
-        if (extensions.indexOf(file_type) < 0) {
-            errors.images = 'File type not supported'
-       }
+        if((values.images).length > 0){
+            let file_type = values.images[0].type;
+            let extensions = ["image/jpeg", "image/png", "image/jpg"];
+            if (extensions.indexOf(file_type) < 0) {
+                errors.images = 'File type not supported';
+            }
+        }
     }
     if (!values.group_name || !validator.matches(values.group_name,/^[A-Za-z_]/i)) {
         errors.group_name = 'This Field is Required'
@@ -67,12 +69,9 @@ let CreateGroupForm = props => {
 }
 
 const FileField_Dropzone = (props) => {
-    const { label, input, meta, wrapperClass, className, labelClass, errorClass, accept, multiple } = props;
+    const { label, input, meta, wrapperClass, className, labelClass, errorClass, accept, multiple,isRequired } = props;
     let filesArr = _.values(input.value);
     let images = [];
-
-    let extensions = ["image/jpeg", "image/png", "image/jpg", "image/gif"];
-    let error_msg = '';
     
     _.forEach(filesArr, (file, key) => {
         images.push(
@@ -84,32 +83,30 @@ const FileField_Dropzone = (props) => {
         )
     })
 
-    //var clone = images.slice(0);
-   
     return (
         <div className={wrapperClass}>
-            <label htmlFor={input.name} className={labelClass}>{label}</label>
+            <label htmlFor={input.name} className={labelClass}>
+                {label} {meta.pristine && isRequired === "true" && <span className="error-div">*</span>}
+            </label>
+            
             <Dropzone
                 {...input}
-                accept="image/*"
+                accept={accept ? accept : "image/jpeg, image/png, image/jpg, image/gif"}
                 onDrop={(filesToUpload, e) => input.onChange(filesToUpload)}
-                multiple={false}
+                multiple={multiple ? multiple : false}
                 className={ `${className}` }
-
             >
                 <div className="dropzone-image-preview-wrapper">
-                    {(input.value && !meta.error) && images}
-                    {/* {(!input.value) ? clone : null}      */}
-                    {meta.error && <div className={ `custom_dropzone_div ${(meta.touched && meta.error ) && 'drop_error_div'}` }>
-                            {/* <img src={dropImg} /><br /><br /> */}
-                            <p>Select or Drag Your image here</p>
-                            <button type="button" className="btn_drop_browse">Or Browse</button>
-                        </div>
-                    }  
-                </div> 
+                    {(input.value && meta.error===undefined) && images}
+                    {(!input.value || meta.error || images.length ===0 ) && <div className={ `custom_dropzone_div ${(meta.touched && meta.error) && 'drop_error_div'}` } style={{'width':'100% !important'}}>
+                                <img src={dropImg} /><br /><br />
+                                <p>Select or Drag Your image here</p>
+                                <button type="button" className={ `btn_drop_browse` }>Or Browse</button>
+                            </div>
+                    }
+                </div>
             </Dropzone>
-            {(meta.touched && meta.error) && <span className="error-div">{meta.error}</span>}
-            
+            {((!meta.valid || meta.visited) && meta.error && meta.submitFailed) && <span className="error-div">{meta.error}</span>}
         </div>
     );
 }

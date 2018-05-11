@@ -1,7 +1,8 @@
+import jQuery from 'jquery';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Pagination from "react-js-pagination";
-import { sendReq, moreFilterReq, fetchDropDownReq, resetVal, addUserReq, bulkUserReq } from '../actions/everyDay';
+import { sendReq, moreFilterReq, fetchDropDownReq, resetVal, addUserReq, bulkUserReq, forceRefresh } from '../actions/everyDay';
 import { purchaseAll } from '../actions/campaign';
 import { getGroups, addGroups, resetGroupVal } from '../actions/groups';
 import sampleImg from 'img/site/400x218.png';
@@ -70,12 +71,20 @@ class AddToModal extends Component {
 
     handleChange = (selectedOption) => {
         this.setState({ selectedOption });
+        if (selectedOption === null) {
+            jQuery('.add_grp_popup_select .Select-control').css("cssText", "border: 2px solid red !important");
+            jQuery('.add_grp_popup_select_errorMsg').html('This Field is Required');
+        } else {
+            jQuery('.add_grp_popup_select .Select-control').css("cssText", "border: 2px solid rgb(220, 223, 229) !important");
+            jQuery('.add_grp_popup_select_errorMsg').html('');
+        }
     }
 
     saveResult = () => {
         let { selectedOption, saveFor, userId, filter } = this.state;
-        if (selectedOption === '') {
-            alert('Select the option');
+        if (selectedOption === '' || selectedOption === null) {
+            jQuery('.add_grp_popup_select .Select-control').css("cssText", "border: 2px solid red !important");
+            jQuery('.add_grp_popup_select_errorMsg').html('This Field is Required');
         } else {
             this.props.saveResult(saveFor, selectedOption, userId, filter);
         }
@@ -102,14 +111,17 @@ class AddToModal extends Component {
                         <div className="terms-conditions">
                             <h2>Which Campaign/Group would you like to Offer the Selected People ? </h2>
                             <p>Please Select the Campaign/Group from the Dropdownlist,<br /> then click Accept and Continue.</p>
-                            <ReactSelect
-                                className='add_grp_popup_select campaign_form_step2_dropdown select-wrap'
-                                name="form-field-name"
-                                value={selectedOption}
-                                onChange={this.handleChange}
-                                options={dropArr}
-                                placeholder="Please select from the dropdown"
-                            />
+                            <div className="select-wrap">
+                                <ReactSelect
+                                    className='add_grp_popup_select campaign_form_step2_dropdown '
+                                    name="form-field-name"
+                                    value={selectedOption}
+                                    onChange={this.handleChange}
+                                    options={dropArr}
+                                    placeholder="Please select from the dropdown"
+                                />
+                                <label className="add_grp_popup_select_errorMsg" style={{ "color": "red", "margin-top": "5px", "text-align": "left" }}></label>
+                            </div>
                             <a href="javascript:void(0)" className="round-btn" onClick={this.saveResult}>Accept & Continue</a>
                         </div>
                     </ModalBody>
@@ -204,7 +216,7 @@ const PlusAction2 = (props) => {
     return (
         <UncontrolledDropdown className="festival-ftr-r dropdown">
             <DropdownToggle>
-                <a className="cursor_pointer"><img src="/assets/img/site/plus-sign.png" alt="" /></a>
+                <a className="cursor_pointer"><img src={imgPlus} alt="" /></a>
             </DropdownToggle>
             <DropdownMenu className="dropdown-menu dropdown-menu-right">
                 <a className="dropdown-item cursor_pointer" onClick={() => { props.addToCart(); }}>Add to Cart</a>
@@ -552,13 +564,14 @@ class EverydayPeople extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            perPageItem: 9,
+            perPageItem: 12,
             modal: false,
             activePage: 1,
             loaderShow: false,
             is_inserted: 0,
             groupId: '',
             authorise_disabled: false,
+            forceRefreshed: false,
             allDropDown: [
                 { 'dropdown': 'jobIndustryDrop', 'value': false },
                 { 'dropdown': 'jobTitleDrop', 'value': false },
@@ -761,7 +774,7 @@ class EverydayPeople extends Component {
                         <h2>Make up by morning. boyfriends happy, what a life I lead! <a href="">@thegrocer #morning #earlyriser #excited #sponsored</a></h2>
                     </div>
                     <div className="festival-ftr d-flex">
-                        <div className="festival-ftr-l"><a href=""><i><img src="images/facebook-01.png" alt="" /></i><strong>823M</strong></a></div>
+                        <div className="festival-ftr-l"><a href="javascript:void(0)"><i><img src={fbImg} alt="" /></i><strong>823M</strong></a></div>
                         <div className="festival-ftr-r dropdown">
                             <PlusAction2
                                 addToCart={() => { this.addToCart(obj.campaign_id, obj.user_id) }}
@@ -819,11 +832,40 @@ class EverydayPeople extends Component {
         );
     }
 
+    componentWillUpdate = (nextProps, nextState) => {
+        const { dispatch, match } = nextProps;
+        const { forceRefreshed } = this.state;
+        
+        if (forceRefreshed && !match.params.campaignId) {
+            this.setState({ groupId: '' });
+            if (match.params.grpId) {
+                this.setState({ groupId: match.params.grpId });
+            }
+
+            if (match.params.campaignId) {
+                this.setState({ forceRefreshed: true });
+            }
+
+            let arrayFilter = {
+                "page_size": this.state.perPageItem,
+                "page_no": 1,
+                groupId: match.params.grpId
+            }
+            this.filterSendReq(arrayFilter);
+            dispatch(moreFilterReq());
+            this.setState({ forceRefreshed: false });
+        }
+
+    }
+
     componentWillMount() {
         const { dispatch, match } = this.props;
         this.setState({ groupId: '' });
         if (match.params.grpId) {
             this.setState({ groupId: match.params.grpId });
+        }
+        if (match.params.campaignId) {
+            this.setState({ forceRefreshed: true });
         }
 
         let arrayFilter = {
@@ -869,6 +911,7 @@ class EverydayPeople extends Component {
     componentWillUnmount() {
         const { dispatch } = this.props;
         dispatch(resetVal({ 'userListing': false }));
+
     }
 
     setAgeValue(value) {
@@ -1022,7 +1065,7 @@ class EverydayPeople extends Component {
     }
 
     createGroupSubmit = (values) => {
-        this.setState({authorise_disabled: true},() =>{
+        this.setState({ authorise_disabled: true }, () => {
             const { dispatch } = this.props;
             const formData = new FormData();
             formData.append("name", values.group_name);
@@ -1190,7 +1233,7 @@ class EverydayPeople extends Component {
                             (
                                 match.path == routeCodes.CAMPAIGN_INSPIRED_SUB ?
                                     <ul className="fan-festival d-flex h-view">
-                                        {(inspiredPosts.status === 1 && inspiredPosts.data==='') ? inspiredPosts.data.map((obj, index) => (this.renderLi3(obj))) : <div className="no_data_found"><img src={nodataImg} /></div>}
+                                        {(inspiredPosts.status === 1 && inspiredPosts.data === '') ? inspiredPosts.data.map((obj, index) => (this.renderLi3(obj))) : <div className="no_data_found"><img src={nodataImg} /></div>}
                                     </ul>
                                     :
                                     <ul className="all-people-ul d-flex">
@@ -1199,7 +1242,7 @@ class EverydayPeople extends Component {
                             )
                     }
 
-                    {(users.total > 9) ?
+                    {(users.total > 12) ?
                         <Pagination
                             activePage={this.state.activePage}
                             totalItemsCount={users.total}
@@ -1242,7 +1285,8 @@ const mapStateToProps = (state) => {
         moreFilterData: everyDay.get('moreFilterData'),
         dropdownList: everyDay.get('dropdownList'),
         showDrop: everyDay.get('showDrop'),
-        userAdded: everyDay.get('userAdded')
+        userAdded: everyDay.get('userAdded'),
+        forceRefresh: everyDay.get('forceRefresh')
     }
 }
 
