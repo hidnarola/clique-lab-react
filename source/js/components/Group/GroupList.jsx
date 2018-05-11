@@ -18,6 +18,7 @@ import PropTypes from 'prop-types';
 import ReactSelect from 'react-select';
 import nodataImg from 'img/site/nodata.png';
 import plusImg from 'img/site/plus-sign.png';
+import closeImg from 'img/site/close-2.png';
 
 const validate = values => {
     const errors = {}
