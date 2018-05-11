@@ -17,6 +17,7 @@ import { getGroups,addGroups } from '../../actions/groups';
 import PropTypes from 'prop-types';
 import ReactSelect from 'react-select';
 import nodataImg from 'img/site/nodata.png';
+import plusImg from 'img/site/plus-sign.png';
 
 const validate = values => {
     const errors = {}
@@ -177,7 +178,7 @@ class GroupList extends Component {
                                                     </Link>
                                                             <UncontrolledDropdown className="plus-people dropdown">
                                                                 <DropdownToggle>
-                                                                    <a className="cursor_pointer"><img src="/assets/img/site/plus-sign.png" alt="" /></a>
+                                                                    <a className="cursor_pointer"><img src={plusImg} alt="" /></a>
                                                                 </DropdownToggle>
                                                                 <DropdownMenu className="dropdown-menu dropdown-menu-right">
                                                                     <a className="dropdown-item" href="#">Add to Campaign</a>

@@ -16,6 +16,8 @@ export const ADD_USER_REQUEST = 'ADD_USER_REQUEST';
 export const ADD_USER_SUCCESS = 'ADD_USER_SUCCESS';
 export const ADD_USER_ERROR = 'ADD_USER_ERROR';
 
+export const FORCE_REFRESED = 'FORCE_REFRESED';
+
 // ----------------------------------------------------------------------
 
     export function sendReq(data) {
@@ -83,6 +85,9 @@ export const ADD_USER_ERROR = 'ADD_USER_ERROR';
 // ----------------------------------------------------------------------
     export function resetVal(data) {
         return { type: RESET_VALUES, data:data }
+    }
+    export function forceRefresh(data) {
+        return { type: FORCE_REFRESED, data:data }
     }
 // ----------------------------------------------------------------------
 

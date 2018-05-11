@@ -235,4 +235,6 @@ ul { padding: 0; }
 .Select-menu-outer a{ padding:10px;}
 
 .Select-input input{ border:0; padding:0;}
-
+.everypeole-head .Select-control {border: 2px solid rgba(82, 95, 127, .5) !important;}
+.everypeole-head .Select-control .Select-placeholder{line-height: 14px;}
+.everypeole-head .Select-control .Select-value-label{    vertical-align: top; line-height: 14px !important;}
