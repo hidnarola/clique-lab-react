@@ -18,8 +18,9 @@ export const renderFieldCampaign = ({ input, type, placeholder, label, isRequire
         {touched && ((error && <div className="error-div">{error}</div>) || (warning && <span>{warning}</span>))}
     </div>
 )
- 
-export const renderFieldDatePicker = ({ input, type, placeholder, defaultValue, label, minDateVal,maxDateVal, className,isRequired, meta: { touched, error, warning, pristine} }) => {
+
+export const renderFieldDatePicker = ({ input, type, placeholder, defaultValue, label, minDateVal,maxDateVal, className,isRequired, meta: { touched, error, warning, pristine} }) => { 
+    
     return(
         <div className={cx('input-wrap',{'custom-error':(touched && error ) ? true:false })+' '+className}>
             <label>{label} {pristine && isRequired === "true" && <span className="error-div">*</span>}</label>

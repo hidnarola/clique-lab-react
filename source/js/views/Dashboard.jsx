@@ -40,19 +40,19 @@ class Dashboard extends Component {
                     <div className="right-box-btm">
                         <ul className="data-counter d-flex">
                             <li>
-                                <a href="" className="active">
+                                <a href="javascript:void(0)" className="active">
                                     <small>235</small>
                                     <span>Likes</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="">
+                                <a href="javascript:void(0)">
                                     <small>26</small>
                                     <span>Shares</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="">
+                                <a href="javascript:void(0)">
                                     <small>86</small>
                                     <span>Comments</span>
                                 </a>

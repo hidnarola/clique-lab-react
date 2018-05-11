@@ -17,6 +17,8 @@ import { getGroups,addGroups } from '../../actions/groups';
 import PropTypes from 'prop-types';
 import ReactSelect from 'react-select';
 import nodataImg from 'img/site/nodata.png';
+import closeImg from "img/site/close-2.png";
+import pluseImg from "img/site/plus-sign.png";
 
 const validate = values => {
     const errors = {}
@@ -93,7 +95,10 @@ class GroupList extends Component {
     handlePageChange(pageNumber) {
         this.setState({activePage: pageNumber});
         const { dispatch } = this.props;
-        dispatch(getGroups({"page_size":6,"page_no":pageNumber}))
+        if(pageNumber !== this.state.activePage)
+        {
+            dispatch(getGroups({"page_size":6,"page_no":pageNumber}))
+        }
     }
 
     handleSorting = (selectedOption) => {
@@ -119,6 +124,7 @@ class GroupList extends Component {
     }
 
     render() {
+        
         let {groups,totalGrps,loading} = this.props
         const { selectedOption } = this.state;
         const value = selectedOption && selectedOption.value;
@@ -177,7 +183,7 @@ class GroupList extends Component {
                                                     </Link>
                                                             <UncontrolledDropdown className="plus-people dropdown">
                                                                 <DropdownToggle>
-                                                                    <a className="cursor_pointer"><img src="/assets/img/site/plus-sign.png" alt="" /></a>
+                                                                    <a className="cursor_pointer"><img src={pluseImg} alt="" /></a>
                                                                 </DropdownToggle>
                                                                 <DropdownMenu className="dropdown-menu dropdown-menu-right">
                                                                     <a className="dropdown-item" href="#">Add to Campaign</a>
@@ -220,7 +226,9 @@ class GroupList extends Component {
                 {/* <Modal isOpen={this.state.createGroupModalShow} toggle={this.createGroupModalOpen} className={this.props.className} id="group-popup"> */}
                 <Modal isOpen={this.state.createGroupModalShow} toggle={this.toggle} className={this.props.className} id="group-popup">
                     <button type="button" className="close" onClick={this.createGroupModal}>
-                        <img src="/assets/img/site/close-2.png" />
+                        {/* <img src="/assets/img/site/close-2.png" /> */}
+                        <img src={closeImg}/>
+                       
                     </button>
                     <h2>Create Group</h2>
                     <CreateGroupForm onSubmit={this.createGroupSubmit} submitDisabled={this.state.authorise_disabled} />

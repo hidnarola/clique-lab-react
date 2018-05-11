@@ -955,6 +955,7 @@ class EverydayPeople extends Component {
         //     exstingFilterArr.push({"field":fieldText, "type":"between", "min_value":obj['value']['min'],"max_value":obj['value']['max']});
         // });
 
+        
         allDropArr.map((obj) => {
             let fieldText = '';
             let fieldType = '';
@@ -1030,11 +1031,15 @@ class EverydayPeople extends Component {
             dispatch(addGroups(formData));
         });
     }
-
+    
+  
     render() {
+
+        console.log('>>>Props>>>',this.props);
+    
         let { users, inspiredPosts, moreFilterData, dropdownList, loading, match } = this.props;
         const { allDropDown, allSliders } = this.state;
-
+  
         let allDropArr = [];
         let allSliderArr = [];
 

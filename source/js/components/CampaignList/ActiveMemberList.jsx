@@ -4,6 +4,7 @@ import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import { getActiveCampaignMem } from '../../actions/campaign';
 import nodataImg from 'img/site/nodata.png';
+import fbImg from 'img/site/facebook-01.png';
 import { imgRoutes } from '../../constants/img_path';
 import { routeCodes } from '../../constants/routes';
 import PropTypes from 'prop-types';
@@ -97,7 +98,7 @@ class ActiveMemberList extends Component {
                             <h2>Make up by morning. boyfriends happy, what a life I lead! <a href="">@thegrocer #morning #earlyriser #excited #sponsored</a></h2>
                         </div>
                         <div className="festival-ftr d-flex">
-                            <div className="festival-ftr-l"><a href=""><i><img src="images/facebook-01.png" alt="" /></i><strong>823M</strong></a></div>
+                            <div className="festival-ftr-l"><a href=""><i><img src={fbImg} alt="" /></i><strong>823M</strong></a></div>
                             <div className="festival-ftr-r dropdown">
                                 <PlusAction />
                             </div>

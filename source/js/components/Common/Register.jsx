@@ -56,6 +56,7 @@ class Register extends Component{
  
     render(){
         let { user,fetchedErrors, error } = this.props;
+        console.log('REG>>>',this.props);
         if(user){
             return <Redirect to={routeCodes.LOGIN} />;
         }

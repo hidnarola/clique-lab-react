@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Pagination from "react-js-pagination";
 import { getGroupMembers } from '../../actions/groups';
+import { resetVal } from '../../actions/everyDay';
+
 import { imgRoutes } from '../../constants/img_path';
 import ReactLoading from 'react-loading';
 import sampleImg from 'img/site/400x218.png';
@@ -108,8 +110,10 @@ class GroupMemberList extends Component {
         dispatch(getGroupMembers({"grpId":grpId,"page_size":9,"page_no":1}))
     }
 
+
+    
     render() {
-        let {members, totalMembers} = this.props;
+        let {members, totalMembers} = this.props;  
         const { selectedOption } = this.state;
         const value = selectedOption && selectedOption.value;
         

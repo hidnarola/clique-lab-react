@@ -76,6 +76,7 @@ class Active extends Component {
                 Lisitng of Active Campagin
     **********************************************/
         activeListing(obj){
+            
             return (
                 <li key={Math.random()}>
                     <div className="all-people-div">
