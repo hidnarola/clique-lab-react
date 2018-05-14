@@ -237,17 +237,15 @@ const AgeDropDown = (props) => {
 
             <div className="morefilter-div">
                 <label htmlFor="">
-                    Facebook Friends
+                    Age Group
                 </label>
                 <div className="range-wrapper">
-
                     <InputRange
                         maxValue={65}
                         minValue={15}
                         value={props.currentVal}
                         onChange={value => props.parentMethod(value)}
                     />
-
                     <div className="range-div">{props.currentVal.min}-{props.currentVal.max}</div>
                 </div>
             </div>

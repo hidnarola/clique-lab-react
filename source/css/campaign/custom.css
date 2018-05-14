@@ -145,10 +145,10 @@ ul { padding: 0; }
   .close-div{top:12px; right:20px;}
   .close-div button{ padding:0; }
   .everypeole-head .dropdown button.btn-secondary{ border:2px solid rgba(82, 95, 127, .5) !important; padding:6px 15px; line-height:18px; font-weight:500; color:#525f7f; background:transparent !important; height:34px; border-radius:0; font-size:14px; }
-  .everypeole-head .dropdown button.btn-secondary:hover{ background: rgba(82, 95, 127,1) !important; color:#fff;border: 2px solid rgba(82, 95, 127, .5) !important; }
+  .everypeole-head .dropdown button.btn-secondary:hover{ background: #6772e5 !important; color:#fff;border: 2px solid #6772e5 !important; }
   .everypeole-head .dropdown-toggle::after{ display:none; }
   .everypeole-head ul li a{ border:2px solid rgba(82, 95, 127, .5) !important; padding:6px 15px; line-height:18px; font-weight:500; color:#525f7f !important; background:transparent !important; height:34px; border-radius:0; font-size:14px; }
-  .everypeole-head ul li a:hover{background: rgba(82, 95, 127,1) !important; color:#fff !important; }
+  .everypeole-head ul li a:hover{background: #6772e5 !important; color:#fff !important; }
   .everypeole-head .Select-value{ line-height:18px;}
   
   /*.dropdown:hover .Select-arrow-zone,
@@ -183,17 +183,8 @@ ul { padding: 0; }
   .range-div{ border:2px solid rgba(207, 207, 213, .24); line-height:34px; position: absolute; top: 0; right: 0; text-align: center; font-size: 13px; color: #525f7f; font-weight: 500; width: 110px; background: #fff;}
   .range-wrapper .input-range {margin:11px 0; display:inline-block;}
   body .input-range__track{ height:2px; background: rgba(178,178,189,.4);}
-  body .input-range__track--active {background:#c76eff;
-    background:-moz-linear-gradient(-45deg, #c76eff 0%, #895cf2 100%); /* FF3.6-15 */
-    background:-webkit-linear-gradient(-45deg, #c76eff 0%,#895cf2 100%); /* Chrome10-25,Safari5.1-6 */
-    background:linear-gradient(135deg, #c76eff 0%,#895cf2 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='#c76eff', endColorstr='#895cf2',GradientType=1);}
-  
-  body .input-range__slider{margin-top:-9px; border:0; background:#c76eff;
-    background:-moz-linear-gradient(-45deg, #c76eff 0%, #895cf2 100%); /* FF3.6-15 */
-    background:-webkit-linear-gradient(-45deg, #c76eff 0%,#895cf2 100%); /* Chrome10-25,Safari5.1-6 */
-    background:linear-gradient(135deg, #c76eff 0%,#895cf2 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='#c76eff', endColorstr='#895cf2',GradientType=1);}
+  body .input-range__track--active {background: #6772e5 !important;}
+  body .input-range__slider{margin-top:-9px; border:0; background: #6772e5 !important; }
 
     .age-dropdown .dropdown-menu{ min-width:350px; padding:20px !important;}
     
@@ -215,7 +206,7 @@ ul { padding: 0; }
     width: 10em;
     padding: 6px;
     border-radius: 50px;
-    background-color: #5b6ca2;
+    background-color: #6772e5;
     border: none;
     color: #fff;
     font-weight: 600;
