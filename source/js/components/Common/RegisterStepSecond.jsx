@@ -40,11 +40,8 @@ class RegisterSecondStep extends Component{
                             />
                             </div>
                             <div className="industry-btn d-flex">
-                                {/* <button type="submit">Previous</button> */}
-                                <button type="button" className="back-btn" onClick={previousPage}>
-                                    Previous
-                                </button>
-                                <button type="submit" disabled={pristine || submitting}>Next</button>
+                                <button type="button" className="back-btn" onClick={previousPage}>Previous</button>
+                                <button type="submit" disabled={pristine || submitting}>Skip</button>
                             </div>
                         </form>
                     </div>

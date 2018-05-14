@@ -284,9 +284,11 @@ filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='#c76eff', endC
 .process-point{display:block;}
 .step-process a{width:22px; height:22px; background:#cad1dc; border-radius:90px; display:block;}
 .step-process a:hover{background:#6772e5;}
-.process-point.active a{background:#6772e5;}
+.process-point.active a{background:#6772e5; position:relative;}
 .process-point.completed strong{background:#6772e5;}
 .step-process strong{width:4px; height:110px; background:#cad1dc; margin:0 auto; display:block;}
+.process-point.active a:after{content:''; width: 18px; height: 18px; border-radius: 90px; position: absolute; top:0; left:0; background: #6772e5;}
+.process-point.active a:before{width:30px; height: 30px; border: 2px solid #6772e5; content: ''; position: absolute; top:-6px; left:-6px; border-radius: 60px; background:#fff;}
 
 .step-content{width:calc(100% - 70px); padding:0;  flex-direction: column; justify-content: center;}
 .step-content h2{ margin:0; padding:0 0 35px; font-size:18px; color:#525f7f; line-height:100%; display:block;}

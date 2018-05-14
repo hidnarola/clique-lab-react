@@ -549,6 +549,7 @@ const MoreFilterDropDown = (props) => {
                 </div>
             </div>
             <div className="ftr-btn">
+                <button className="more-cancel-btn" onClick={() => props.applyMoreFilter()} >Cencel</button>
                 <button className="bdr-btn" onClick={() => props.applyMoreFilter()} >Apply</button>
             </div>
         </DropdownMenu>
@@ -834,7 +835,7 @@ class EverydayPeople extends Component {
     componentWillUpdate = (nextProps, nextState) => {
         const { dispatch, match } = nextProps;
         const { forceRefreshed } = this.state;
-        
+
         if (forceRefreshed && !match.params.campaignId) {
             this.setState({ groupId: '' });
             if (match.params.grpId) {
@@ -997,7 +998,7 @@ class EverydayPeople extends Component {
         //     exstingFilterArr.push({"field":fieldText, "type":"between", "min_value":obj['value']['min'],"max_value":obj['value']['max']});
         // });
 
-        
+
         allDropArr.map((obj) => {
             let fieldText = '';
             let fieldType = '';
@@ -1073,15 +1074,15 @@ class EverydayPeople extends Component {
             dispatch(addGroups(formData));
         });
     }
-    
-  
+
+
     render() {
 
-        console.log('>>>Props>>>',this.props);
-    
+        console.log('>>>Props>>>', this.props);
+
         let { users, inspiredPosts, moreFilterData, dropdownList, loading, match } = this.props;
         const { allDropDown, allSliders } = this.state;
-  
+
         let allDropArr = [];
         let allSliderArr = [];
 
@@ -1261,7 +1262,7 @@ class EverydayPeople extends Component {
                 <Modal isOpen={this.state.modal} toggle={this.toggle} id="group-popup" >
                     <button type="button" className="close" onClick={this.toggle}>
                         {/* <img src="/assets/img/site/close-2.png" /> */}
-                        <img src={closeImg2}/>
+                        <img src={closeImg2} />
                     </button>
                     <h2>Create Group</h2>
                     <CreateGroupForm onSubmit={this.createGroupSubmit} submitDisabled={this.state.authorise_disabled} />

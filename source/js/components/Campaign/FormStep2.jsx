@@ -94,7 +94,7 @@ class FormStep2 extends Component{
                                 placeholder="Main Muscle Group"
                                 component={SelectField_ReactSelect}
                                 options={[                                    
-                                    { value: '' , label :"Select platform"},
+                                    { value: '' , label :"Select Social Media"},
                                     { value: 'facebook' , label :"facebook"},
                                     { value: 'instagram' , label :"instagram"},
                                     { value: 'twitter' , label :"twitter"},
