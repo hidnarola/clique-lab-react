@@ -39,6 +39,7 @@ class Active extends Component {
             delete_alert: false,
             selected_id: null
         };
+        
         this.activeListing = this.activeListing.bind(this); 
         this.handlePageChange = this.handlePageChange.bind(this)
     }
@@ -107,13 +108,13 @@ class Active extends Component {
     **********************************************/ 
         componentWillMount(){
             const { dispatch } = this.props;
-            dispatch(getActiveCampaign({"page_size":9,"page_no":1}))
+            dispatch(getActiveCampaign({"page_size":12,"page_no":1}))
         }
         
         componentDidUpdate(){
             const { isStop, dispatch } = this.props;
             if(isStop===1){
-                dispatch(getActiveCampaign({"page_size":9,"page_no":1}))
+                dispatch(getActiveCampaign({"page_size":12,"page_no":1}))
             }
         }
     
@@ -123,7 +124,7 @@ class Active extends Component {
         handlePageChange(pageNumber) {
             this.setState({activePage: pageNumber});
             const { dispatch } = this.props;
-            dispatch(getActiveCampaign({"page_size":9,"page_no":pageNumber}))
+            dispatch(getActiveCampaign({"page_size":12,"page_no":pageNumber}))
         }
 
     /*********************************************
@@ -131,6 +132,7 @@ class Active extends Component {
     **********************************************/
         render() {
             let { activeCampaign, totalActiveCampaign, loading } = this.props;
+            console.log(totalActiveCampaign);
             if(loading) {
                 return (
                     <div className="loader"></div>
@@ -160,9 +162,9 @@ class Active extends Component {
                         }
                     </ul>	
                     {
-                        (activeCampaign!==null && totalActiveCampaign>9) && <Pagination 
+                        (activeCampaign!==null && totalActiveCampaign>12) && <Pagination 
                                 activePage={this.state.activePage} 
-                                itemsCountPerPage={9} 
+                                itemsCountPerPage={12} 
                                 totalItemsCount={totalActiveCampaign} 
                                 pageRangeDisplayed={5} 
                                 onChange={this.handlePageChange}

@@ -28,7 +28,7 @@ const validate = values => {
         let a = moment(values.campaignStartDate);
         let b = moment(values.campaignEndDate);
         let diffDate = b.diff(a);
-        if (diffDate == 0 || diffDate < 0) {
+        if (diffDate < 0) {
             errors.campaignEndDate = 'End date should be after start date.';
         }
     }
@@ -69,7 +69,7 @@ class FormStep1 extends Component {
                                 label="Date of Campaign Start"
                                 component={renderFieldDatePicker}
                                 className="campiagn_date"
-                                defaultValue={null}
+                                defaultValue={moment()}
                                 showDisabledMonthNavigation
                                 minDateVal={moment()}
                                 placeholder="Campaign start date"

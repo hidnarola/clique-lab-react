@@ -11,7 +11,7 @@ const validate = values => {
     const errors = {};
     console.log(values.images);
     if (!values.images || values.images.length===0) {
-        errors.images = 'This Field is Required'
+        errors.images = 'This field is required'
     }else {
         if((values.images).length > 0){
             let file_type = values.images[0].type;
@@ -23,11 +23,11 @@ const validate = values => {
     }
 
     if (!values.industryName) {
-        errors.industryName = 'This field is Required';
+        errors.industryName = 'This field is required';
     }
 
     if (!values.description) {
-        errors.description = 'This field is Required';
+        errors.description = 'This field is required';
     }
 
     return errors;

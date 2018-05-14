@@ -50,7 +50,7 @@ class FormStep5 extends Component{
 
                             <div className="submit-btn d-flex">
                                 <button type="button" onClick={previousPage} className="round-btn prev-btn">Previous</button>
-                                <button type="submit" className="round-btn next-btn" disabled={submitDisabled}>Continue</button>
+                                <button type="submit" className="round-btn next-btn" disabled={submitDisabled}>Done</button>
                             </div>
                         </div>
                     </div>

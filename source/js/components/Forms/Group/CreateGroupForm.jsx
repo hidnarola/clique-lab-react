@@ -71,6 +71,7 @@ const FileField_Dropzone = (props) => {
     let filesArr = _.values(input.value);
     let images = [];
     
+    console.log(filesArr);
     _.forEach(filesArr, (file, key) => {
         images.push(
             <div className="images-preview-wrapper" key={key}>
@@ -96,7 +97,7 @@ const FileField_Dropzone = (props) => {
             >
                 <div className="dropzone-image-preview-wrapper">
                     {(input.value && meta.error===undefined) && images}
-                    {(!input.value || meta.error || images.length ===0 ) && <div className={ `custom_dropzone_div ${(meta.touched && meta.error) && 'drop_error_div'}` } style={{'width':'100% !important'}}>
+                    {(!input.value || meta.error || images.length ===0 ) && <div className={ `custom_dropzone_div ${((!meta.valid || meta.visited) && meta.error && meta.submitFailed) && 'drop_error_div'}` } style={{'width':'100% !important'}}>
                                 {/* <img src={dropImg} /><br /><br /> */}
                                 <p>Select or Drag Your image here</p>
                                 <button type="button" className={ `btn_drop_browse` }>Or Browse</button>

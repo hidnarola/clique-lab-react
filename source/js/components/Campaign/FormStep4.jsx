@@ -47,7 +47,7 @@ class FormStep4 extends Component{
                             </div>
                             <div className="submit-btn d-flex">
                                 <button type="button" onClick={previousPage} className="round-btn prev-btn">Previous</button>
-                                <button type="submit" className="round-btn next-btn">Continue</button>
+                                <button type="submit" className="round-btn next-btn">Next</button>
                             </div>
                         </div>
                     </div>
