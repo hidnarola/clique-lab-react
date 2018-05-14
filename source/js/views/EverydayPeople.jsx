@@ -32,6 +32,7 @@ import {
     Button, Modal, ModalHeader, ModalBody, ModalFooter, Dropdown,
     DropdownToggle, DropdownMenu, DropdownItem, UncontrolledDropdown
 } from 'reactstrap';
+import { select } from 'redux-saga/effects';
 
 class AddToModal extends Component {
 
@@ -91,6 +92,7 @@ class AddToModal extends Component {
         }
     }
 
+  
     render() {
         let dropArr = [];
         const { selectedOption } = this.state;
@@ -415,6 +417,7 @@ const MoreFilterDropDown = (props) => {
                             searchable={false} clearable={false} autosize={false}
                             options={jobIndustryArr}
                             placeholder="Select Job Industry"
+                            // onKeyDown={(e)=>{props.bckPress}}
                         />
                     </div>
 
@@ -613,6 +616,11 @@ class EverydayPeople extends Component {
         // this.toggle = this.toggle.bind(this);  
     }
 
+ 
+    // backspace = (e) =>{
+    //     console.log('ok');
+    // }
+
     filterSendReq = (data) => {
         const { dispatch, match } = this.props;
         data['groupId'] = match.params.grpId;
@@ -633,13 +641,19 @@ class EverydayPeople extends Component {
             "page_size": this.state.perPageItem,
             "page_no": pageNumber
         }
-        this.filterSendReq(arrayFilter);
+        if(pageNumber !== this.state.activePage)
+        {
+            this.filterSendReq(arrayFilter);
+        }
     }
 
     handleChange = (selectedOption, secondParam) => {
 
-        console.log(selectedOption);
-
+        console.log('>>',selectedOption);
+        if(selectedOption === null)
+        {
+            return;
+        }
         const { dispatch } = this.props;
         let { appliedFilter } = this.state;
 
@@ -834,16 +848,17 @@ class EverydayPeople extends Component {
     }
 
     componentWillUpdate = (nextProps, nextState) => {
+      
         const { dispatch, match } = nextProps;
         const { forceRefreshed } = this.state;
         
-        if (forceRefreshed && !match.params.campaignId) {
+        if (forceRefreshed && !match.params.campaignId)  {
             this.setState({ groupId: '' });
             if (match.params.grpId) {
                 this.setState({ groupId: match.params.grpId });
             }
 
-            if (match.params.campaignId) {
+            if (match.params.campaignId ) {
                 this.setState({ forceRefreshed: true });
             }
 
@@ -986,7 +1001,8 @@ class EverydayPeople extends Component {
         console.log('====== exstingFilter ==========');
         console.log(exstingFilterArr);
         console.log('====== exstingFilter ==========');
-
+        
+     
         // allSliderArr.map((obj,index) => {
         //     let fieldText = '';
         //     switch (obj['slider']) {
@@ -1025,6 +1041,16 @@ class EverydayPeople extends Component {
         console.log('====== last ==========');
         console.log(exstingFilterArr);
         console.log('====== last ==========');
+        
+        // console.log("LEN>>>",exstingFilterArr.length);
+        // let l = exstingFilterArr.length;
+        // let v = exstingFilterArr[0].value;
+        // if(v!==undefined)
+        // {
+
+        //     console.log(v);
+        // }
+
 
         this.setState({ 'appliedFilter': [{ 'filter': exstingFilterArr }] });
 
@@ -1079,8 +1105,7 @@ class EverydayPeople extends Component {
   
     render() {
 
-        console.log('>>>Props>>>',this.props);
-    
+
         let { users, inspiredPosts, moreFilterData, dropdownList, loading, match } = this.props;
         const { allDropDown, allSliders } = this.state;
   
@@ -1152,6 +1177,7 @@ class EverydayPeople extends Component {
                                     allSliderArr={allSliderArr}
                                     moreFilterData={moreFilterData}
                                     applyMoreFilter={() => { this.applyMoreFilter() }}
+                                    // bckPress={(e)=>{this.backspace(e)}}
                                 />
                             </li>
                         </ul>
@@ -1211,11 +1237,16 @@ class EverydayPeople extends Component {
                 <div className="all-people">
                     <div className="all-people-head d-flex">
                         <h3>
-                            {
+                            {/* {
                                 (users.total !== undefined) ?
                                     `Filtered List ( ${users.total} Results )`
                                     :
                                     `Filtered List ( ${inspiredPosts.total} Results )`
+                            } */}
+                            {
+                                (users.total !== undefined && match.path === '/every-day-people') ?
+                                    `Filtered List ( ${users.total} Results )`
+                                    : ''    
                             }
                         </h3>
                         {((match.params.campaignId === null || match.params.campaignId === undefined) && match.path !== routeCodes.CAMPAIGN_INSPIRED_SUB) &&
@@ -1236,6 +1267,7 @@ class EverydayPeople extends Component {
                                     <ul className="fan-festival d-flex h-view">
                                         {(inspiredPosts.status === 1 && inspiredPosts.data === '') ? inspiredPosts.data.map((obj, index) => (this.renderLi3(obj))) : <div className="no_data_found"><img src={nodataImg} /></div>}
                                     </ul>
+                                    
                                     :
                                     <ul className="all-people-ul d-flex">
                                         {(users.status === 1) ? users.data.map((obj, index) => (this.renderLi(obj))) : <div className="no_data_found"><img src={nodataImg} /></div>}
