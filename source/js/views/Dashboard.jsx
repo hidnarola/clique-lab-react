@@ -86,7 +86,7 @@ class Dashboard extends Component {
                                                 <big>LinkedIn Campaign</big>
                                                 <small>John Doe</small>
                                             </h3>
-                                            <p>I love the <a href="">@thegrocer</a> new dress range! Make life just that bit more bearable! <a href="">#thegrocer</a> <a href="">#warmsundays</a> <a href="">#sponsored</a></p>
+                                            <p>I love the <a href="javascript:void(0)">@thegrocer</a> new dress range! Make life just that bit more bearable! <a href="javascript:void(0)">#thegrocer</a> <a href="javascript:void(0)">#warmsundays</a> <a href="javascript:void(0)">#sponsored</a></p>
                                             <div className="databox-div-r-btm d-flex">
                                                 <h5>
                                                     <big>335</big>
@@ -112,7 +112,7 @@ class Dashboard extends Component {
                                                 <big>Facebook Campaign</big>
                                                 <small>John Doe</small>
                                             </h3>
-                                            <p>I love the <a href="">@thegrocer</a> new dress range! Make life just that bit more bearable! <a href="">#thegrocer</a> <a href="">#warmsundays</a> <a href="">#sponsored</a></p>
+                                            <p>I love the <a href="javascript:void(0)">@thegrocer</a> new dress range! Make life just that bit more bearable! <a href="javascript:void(0)">#thegrocer</a> <a href="javascript:void(0)">#warmsundays</a> <a href="javascript:void(0)">#sponsored</a></p>
                                             <div className="databox-div-r-btm d-flex">
                                                 <h5>
                                                     <big>335</big>
@@ -138,7 +138,7 @@ class Dashboard extends Component {
                                                 <big>Facebook Campaign</big>
                                                 <small>John Doe</small>
                                             </h3>
-                                            <p>I love the <a href="">@thegrocer</a> new dress range! Make life just that bit more bearable! <a href="">#thegrocer</a> <a href="">#warmsundays</a> <a href="">#sponsored</a></p>
+                                            <p>I love the <a href="javascript:void(0)">@thegrocer</a> new dress range! Make life just that bit more bearable! <a href="javascript:void(0)">#thegrocer</a> <a href="javascript:void(0)">#warmsundays</a> <a href="javascript:void(0)">#sponsored</a></p>
                                             <div className="databox-div-r-btm d-flex">
                                                 <h5>
                                                     <big>335</big>
@@ -164,7 +164,7 @@ class Dashboard extends Component {
                                                 <big>LinkedIn Campaign</big>
                                                 <small>John Doe</small>
                                             </h3>
-                                            <p>I love the <a href="">@thegrocer</a> new dress range! Make life just that bit more bearable! <a href="">#thegrocer</a> <a href="">#warmsundays</a> <a href="">#sponsored</a></p>
+                                            <p>I love the <a href="javascript:void(0)">@thegrocer</a> new dress range! Make life just that bit more bearable! <a href="javascript:void(0)">#thegrocer</a> <a href="javascript:void(0)">#warmsundays</a> <a href="javascript:void(0)">#sponsored</a></p>
                                             <div className="databox-div-r-btm d-flex">
                                                 <h5>
                                                     <big>335</big>

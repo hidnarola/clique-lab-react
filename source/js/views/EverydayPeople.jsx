@@ -7,6 +7,7 @@ import { purchaseAll } from '../actions/campaign';
 import { getGroups, addGroups, resetGroupVal } from '../actions/groups';
 import sampleImg from 'img/site/400x218.png';
 import closeImg from 'img/site/close.png';
+import closeImg2 from 'img/site/close-2.png';
 import fbImg from 'img/site/facebook-01.png';
 import linkedImg from 'img/site/linkedin.png';
 import pinImg from 'img/site/pintrest.png';
@@ -1259,9 +1260,10 @@ class EverydayPeople extends Component {
                     resetDropVal={this.resetDropVal}
                     saveResult={this.saveResult} />
 
-                <Modal isOpen={this.state.modal} toggle={this.toggle} id="group-popup">
+                <Modal isOpen={this.state.modal} toggle={this.toggle} id="group-popup" >
                     <button type="button" className="close" onClick={this.toggle}>
-                        <img src="/assets/img/site/close-2.png" />
+                        {/* <img src="/assets/img/site/close-2.png" /> */}
+                        <img src={closeImg2}/>
                     </button>
                     <h2>Create Group</h2>
                     <CreateGroupForm onSubmit={this.createGroupSubmit} submitDisabled={this.state.authorise_disabled} />

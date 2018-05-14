@@ -61,6 +61,7 @@ class GroupList extends Component {
         this.createGroupModal = this.createGroupModalOpen.bind(this);
         this.toggle = this.toggle.bind(this);
         this.handlePageChange = this.handlePageChange.bind(this)
+        this.createGroupSubmit = this.createGroupSubmit.bind(this);
     }
 
     componentWillMount(){
@@ -81,14 +82,18 @@ class GroupList extends Component {
         });
     }
     
-    createGroupSubmit = (values) => {
+    // createGroupSubmit = (values) => {
+    createGroupSubmit(values){
         this.setState({authorise_disabled: true},() =>{
             const { dispatch } = this.props;
-            const formData = new FormData();
-            formData.append("name", values.group_name);
-            formData.append("image", values.images[0]); 
-            this.setState({ is_inserted: 1});
-            dispatch(addGroups(formData));
+            if(values.images[0] && values.group_name)
+            {
+                const formData = new FormData();
+                formData.append("name", values.group_name);
+                formData.append("image", values.images[0]); 
+                this.setState({ is_inserted: 1});
+                dispatch(addGroups(formData));
+            }
         });
     }
 
@@ -224,14 +229,14 @@ class GroupList extends Component {
                     )}
                 </div>
                 {/* <Modal isOpen={this.state.createGroupModalShow} toggle={this.createGroupModalOpen} className={this.props.className} id="group-popup"> */}
-                <Modal isOpen={this.state.createGroupModalShow} toggle={this.toggle} className={this.props.className} id="group-popup">
+                <Modal isOpen={this.state.createGroupModalShow} toggle={this.toggle} className={this.props.className} id="group-popup" backdrop={false}>
                     <button type="button" className="close" onClick={this.createGroupModal}>
                         {/* <img src="/assets/img/site/close-2.png" /> */}
                         <img src={closeImg}/>
                        
                     </button>
                     <h2>Create Group</h2>
-                    <CreateGroupForm onSubmit={this.createGroupSubmit} submitDisabled={this.state.authorise_disabled} />
+                    <CreateGroupForm onSubmit={this.createGroupSubmit.bind(this)} submitDisabled={this.state.authorise_disabled} />
                 </Modal>
             </div>
         );
