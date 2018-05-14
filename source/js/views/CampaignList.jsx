@@ -6,7 +6,7 @@ import CampaignPast from '../components/CampaignList/Past';
 
 import ModalPopUp from '../components/Common/ModalPopUp';
 import { connect } from 'react-redux';
-import { BrowserRouter as Router,Link,Switch,Route,NavLink } from 'react-router-dom';
+import { Link, Switch, Route, NavLink } from 'react-router-dom';
 import { routeCodes } from 'constants/routes';
 
 class CampaignList extends Component {
@@ -28,7 +28,12 @@ class CampaignList extends Component {
 						<Link className="cursor_pointer" to={routeCodes.CAMPAIGN} >Create New Campaign</Link>
 					</div>
 				</div>
-				
+				{/* <Switch>
+					<Route path={routeCodes.CAMPAIGNS} component={CampaignActive} />
+					<Route path={routeCodes.CAMPAIGN_ACTIVE} component={CampaignActive} />
+					<Route path={routeCodes.CAMPAIGN_FUTURE} component={CampaignFuture} />
+					<Route path={routeCodes.CAMPAIGN_PAST} component={CampaignPast} />
+				</Switch> */}
 				{ curt_page==routeCodes.CAMPAIGNS && <CampaignActive />}
 				{ curt_page==routeCodes.CAMPAIGN_ACTIVE && <CampaignActive />}
 				{ curt_page==routeCodes.CAMPAIGN_FUTURE && <CampaignFuture />}

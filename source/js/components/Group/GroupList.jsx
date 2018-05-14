@@ -66,7 +66,7 @@ class GroupList extends Component {
 
     componentWillMount(){
         const { dispatch } = this.props;
-        dispatch(getGroups({"page_size":6,"page_no":1}))
+        dispatch(getGroups({"page_size":12,"page_no":1}))
     }
 
     createGroupModalOpen() {
@@ -102,7 +102,7 @@ class GroupList extends Component {
         const { dispatch } = this.props;
         if(pageNumber !== this.state.activePage)
         {
-            dispatch(getGroups({"page_size":6,"page_no":pageNumber}))
+            dispatch(getGroups({"page_size":12,"page_no":pageNumber}))
         }
     }
 
@@ -112,19 +112,20 @@ class GroupList extends Component {
         this.setState({ selectedOption });
         let newVar = {
             "sort":[{ "field": selectedOption.column, "value":parseInt(selectedOption.value)}],
-            "page_size":6,
+            "page_size":12,
             "page_no": 1
         }
-        dispatch(getGroups(newVar))        
+        dispatch(getGroups(newVar));
     }    
 
     componentDidUpdate(){
         let {inserted_group, dispatch,} = this.props
-        let { is_inserted } = this.state
+        let { is_inserted, activePage } = this.state
         if(inserted_group!=null && is_inserted==1){
             this.setState({ is_inserted: 0});
             this.setState({createGroupModalShow: false});
-            dispatch(getGroups({"page_size":6,"page_no":1}));
+            this.setState({activePage: 1});
+            dispatch(getGroups({"page_size":12,"page_no":1}));
         }
     }
 
@@ -182,10 +183,9 @@ class GroupList extends Component {
                                             <li key={Math.random()}>
                                                 <div className="all-people-div">
                                                         <div className="all-people-img">
-                                                    <Link className="cursor_pointer" to={`${routeCodes.LISTGROUPS}/${obj._id}/members`}>
+                                                            <Link className="cursor_pointer" to={`${routeCodes.LISTGROUPS}/${obj._id}/members`}>
                                                                 <img className="grp_list_img" src={`${imgRoutes.GROUP_IMG_PATH}${obj.image}`} alt="" />
-                                                            
-                                                    </Link>
+                                                            </Link>
                                                             <UncontrolledDropdown className="plus-people dropdown">
                                                                 <DropdownToggle>
                                                                     <a className="cursor_pointer"><img src={plusImg} alt="" /></a>
@@ -221,7 +221,7 @@ class GroupList extends Component {
                     {(
                         groups!==null && <Pagination 
                                 activePage={this.state.activePage} 
-                                itemsCountPerPage={6} 
+                                itemsCountPerPage={12} 
                                 totalItemsCount={totalGrps} 
                                 pageRangeDisplayed={5} 
                                 onChange={this.handlePageChange}

@@ -7,8 +7,7 @@ import cx from 'classnames';
 import Dropzone from 'react-dropzone';
 import { SubmissionError } from 'redux-form'
 import _ from 'lodash';
-//import uploadImg from 'img/site/filrUp.jpg';
-import dropImg from 'img/site/canvas.png';
+
 
 const validate = values => {
 
@@ -110,7 +109,7 @@ const FileField_Dropzone = (props) => {
                 <div className="dropzone-image-preview-wrapper">
                     {(input.value && meta.error === undefined) && images}
                     {((!input.value || meta.error || images.length === 0)) && <div className={`custom_dropzone_div ${(meta.touched && meta.error) && 'drop_error_div'}`} style={{ 'width': '100% !important' }}>
-                        <img src={dropImg} /><br /><br />
+                        {/* <img src={dropImg} /><br /><br /> */}
                         <p>Select or Drag Your image here</p>
                         <span className={`btn btn_drop_browse`}>Or Browse</span>
                     </div>

@@ -13,9 +13,9 @@ class FormCampaignRight extends Component{
     dummyInspirationalImages(){
         return(
             <ul>
-                <li><a href="javascript:void(0)" style={{"margin-right": "2px"}}><img src={dummyImg} alt=""/></a></li>
-                <li><a href="javascript:void(0)" style={{"margin-right": "2px"}}><img src={dummyImg} alt=""/></a></li>
-                <li><a href="javascript:void(0)" style={{"margin-right": "2px"}}><img src={dummyImg} alt=""/></a></li>
+                <li><a href="javascript:void(0)" style={{"marginRight": "2px"}}><img src={dummyImg} alt=""/></a></li>
+                <li><a href="javascript:void(0)" style={{"marginRight": "2px"}}><img src={dummyImg} alt=""/></a></li>
+                <li><a href="javascript:void(0)" style={{"marginRight": "2px"}}><img src={dummyImg} alt=""/></a></li>
             </ul>
         );
     }
