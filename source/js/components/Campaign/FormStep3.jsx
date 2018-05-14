@@ -61,7 +61,7 @@ class FormStep3 extends Component{
                                 options={[
                                     { value: '', label: 'Select Industry' },
                                     { value: 'public' , label :"public"},
-                                    { value: 'private' , label :"private"}                                    
+                                    { value: 'invite' , label :"private"}                                    
                                 ]}
                                 isRequired="true"                                             
                             />
