@@ -73,7 +73,7 @@ class Register extends Component{
                     <div className="form-ftr">
                         <p>
                             Already have an account?{' '}
-                            <a className="cursor_pointer" onClick={() => (this.props.history.push("/login"))}>
+                            <a className="cursor_pointer" onClick={() => (this.props.history.push("/login"))} style={{"color":"#6772e5"}}>
                                 Login here.
                             </a>
                         </p>

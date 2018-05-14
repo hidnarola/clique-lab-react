@@ -15,10 +15,9 @@ import instaImg from 'img/site/instagram.png';
 class PopoverItem extends Component {
     constructor(props) {
         super(props);
-
         this.toggle = this.toggle.bind(this);
         this.state = {
-            popoverOpen: false
+            popoverOpen: false,
         };
     }
 
@@ -32,13 +31,12 @@ class PopoverItem extends Component {
         return (
             <span>
                 <Button className="mr-1" color="secondary" id={this.props.item.id} onClick={this.toggle}>
-            {this.props.item.text}
-          </Button>
+                    {this.props.item.text}
+                </Button>
                 <Popover placement="top" isOpen={this.state.popoverOpen} target={this.props.item.id} toggle={this.toggle}>
                     {/* <PopoverHeader>Popover Title</PopoverHeader> */}
                     <PopoverBody>
                         {this.props.item.title}
-
                     </PopoverBody>
                 </Popover>
             </span>
@@ -52,47 +50,8 @@ class Calendar extends Component {
         this.state = {
             events: '',
             getCampaign: 0,
-            popoverOpen: false
-            // events:[
-            //     {
-            //         title: 'All Day Event',
-            //         start: '2018-04-01',
-            //     },
-            //     {
-            //         title: 'Long Event',
-            //         start: '2017-05-07',
-            //         end: '2017-05-10'
-            //     },
-            //     {
-            //         id: 999,
-            //         title: 'Repeating Event',
-            //         start: '2017-05-09T16:00:00'
-            //     },
-            //     {
-            //         id: 999,
-            //         title: 'Repeating Event',
-            //         start: '2017-05-16T16:00:00'
-            //     },
-            //     {
-            //         title: 'Conference',
-            //         start: '2017-05-11',
-            //         end: '2017-05-13'
-            //     },
-            //     {
-            //         title: 'Meeting',
-            //         start: '2017-05-12T10:30:00',
-            //         end: '2017-05-12T12:30:00'
-            //     },
-            //     {
-            //         title: 'Birthday Party',
-            //         start: '2017-05-13T07:00:00'
-            //     },
-            //     {
-            //         title: 'Click for Google',
-            //         url: 'http://google.com/',
-            //         start: '2017-05-28'
-            //     }
-            // ],
+            popoverOpen: false,
+            platform: 'all'
         }
     }
 
@@ -116,7 +75,9 @@ class Calendar extends Component {
             'pinterest': '#c8222c',
             'twitter': '#30c2fe',
         };
-
+        // console.log('campaign_data',campaign_data);
+        // console.log('getCampaign',getCampaign);
+        // console.log('campaign_data.status',campaign_data.status);
         if (getCampaign === 0 && campaign_data.status === 1) {
             campaign_data.data.map((data, key) => {
                 eventsArr.push({
@@ -138,20 +99,36 @@ class Calendar extends Component {
         });
     }
 
+    changePlatform = (platformId) => {
+        this.setState({platform: platformId, getCampaign: 0});
+        const { dispatch } = this.props;
+        if(platformId==='all'){
+            platformId = '';
+        }
+        let arrayFilter = {
+            'social_media_platform': platformId,
+            'start_date': "2017-03-10",
+            'end_date': "2018-10-09",
+        };
+        dispatch(getCampaign(arrayFilter));
+    }
+
     render() {
-        const { events } = this.state;
+        const { events, platform } = this.state;
+        const { loading } = this.props;
+        if (loading) { return (<div className="loader"></div>) }
         return (
             <div id="calendar-component">
-                <div class="profile-head d-flex campaigns-links" style={{"margin":"0px","border-bottom":"none"}}>
+                <div className="profile-head d-flex campaigns-links" style={{ "margin": "0px", "borderBottom": "none" }}>
                     <ul>
-                        <li><a class="cursor_pointer active" aria-current="false" href="javascript:void(0)">All Platforms</a></li>
-                        <li><a class="cursor_pointer" aria-current="false" href="javascript:void(0)"><img src={fbImg} /> Facebook</a></li>
-                        <li><a class="cursor_pointer" aria-current="false" href="javascript:void(0)"><img src={linkedImg} /> Linkedin</a></li>
-                        <li><a class="cursor_pointer" aria-current="false" href="javascript:void(0)"><img src={instaImg} /> Instagram</a></li>
-                        <li><a class="cursor_pointer" aria-current="false" href="javascript:void(0)"><img src={pinImg} /> Pinterest</a></li>
-                        <li><a class="cursor_pointer" aria-current="false" href="javascript:void(0)"><img src={twitterImg} /> Twitter</a></li>
+                        <li><a className={`cursor_pointer ${platform==='all' && 'active'}`} aria-current="false" href="javascript:void(0)" onClick={() => this.changePlatform('all')}>All Platforms</a></li>
+                        <li><a className={`cursor_pointer ${platform==='facebook' && 'active'}`} aria-current="false" href="javascript:void(0)" onClick={() => this.changePlatform('facebook')}><img src={fbImg} /> Facebook</a></li>
+                        <li><a className={`cursor_pointer ${platform==='linkedin' && 'active'}`} aria-current="false" href="javascript:void(0)" onClick={() => this.changePlatform('linkedin')}><img src={linkedImg} /> Linkedin</a></li>
+                        <li><a className={`cursor_pointer ${platform==='instagram' && 'active'}`} aria-current="false" href="javascript:void(0)" onClick={() => this.changePlatform('instagram')}><img src={instaImg} /> Instagram</a></li>
+                        <li><a className={`cursor_pointer ${platform==='pinterest' && 'active'}`} aria-current="false" href="javascript:void(0)" onClick={() => this.changePlatform('pinterest')}><img src={pinImg} /> Pinterest</a></li>
+                        <li><a className={`cursor_pointer ${platform==='twitter' && 'active'}`} aria-current="false" href="javascript:void(0)" onClick={() => this.changePlatform('twitter')}><img src={twitterImg} /> Twitter</a></li>
                     </ul>
-                    {/* <div class="new-permission"><a class="cursor_pointer" href="/campaign">Create New Campaign</a></div> */}
+                    {/* <div className="new-permission"><a className="cursor_pointer" href="/campaign">Create New Campaign</a></div> */}
                 </div>
                 <FullCalendar
                     id="custom_calendar"
@@ -170,9 +147,11 @@ class Calendar extends Component {
                     editable={false}
                     eventLimit={false} // allow "more" link when too many events
                     events={this.state.events}
-                    // eventClick={(calEvent, jsEvent, view) =>
-                    //     this.toggle
-                    // }
+                    //defaultView="basicDay"
+                    //defaultView= "week"
+                // eventClick={(calEvent, jsEvent, view) =>
+                //     this.toggle
+                // }
                 />
                 {/* {
                     (events.length > 0) &&

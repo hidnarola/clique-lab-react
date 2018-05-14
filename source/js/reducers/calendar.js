@@ -16,6 +16,11 @@ const actionMap = {
         return state.merge(Map({
             ...initialState,
             loading: true,
+            campaign: {
+                status: 0,
+                message: null,
+                data: null,
+            }
         }));
     },
     [GET_CAMPAIGN_SUCCESS]: (state, action) => {

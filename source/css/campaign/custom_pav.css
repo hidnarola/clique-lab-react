@@ -67,7 +67,9 @@
 
 .react-datepicker__day--selected, 
 .react-datepicker__day--in-selecting-range, 
-.react-datepicker__day--in-range{
+.react-datepicker__day--in-range,
+.react-datepicker__day--keyboard-selected,
+.react-datepicker__day--keyboard-selected:hover{
     background-color: #6772e5;
 }
 
@@ -100,3 +102,6 @@ td.fc-widget-content{ border:0;}
 #calendar-component .profile-head>ul>li>a{ font-size:14px !important; font-weight:600 !important }
 #calendar-component .profile-head>ul>li>a>img{ width:22px; }
 #calendar-component .campaigns-links.profile-head>ul>li{ margin:0 25px 0 0 }
+
+.custom_modal_btn_close{text-align: right; padding: 25px 30px;}
+.custom_modal_btn_close img { width: 15px; }

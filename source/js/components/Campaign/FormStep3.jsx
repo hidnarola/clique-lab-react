@@ -24,7 +24,7 @@ const validate = values => {
         errors.location = 'This Field is Required';
     }
 
-    if(!values.how_much || (values.how_much!==undefined && values.how_much.trim()=="")){
+    if(!values.how_much){
         errors.how_much = 'This Field is Required';
     }else if(!validator.isFloat(values.how_much)){
         errors.how_much = 'Must be a number';
@@ -86,7 +86,7 @@ class FormStep3 extends Component{
                                 type="text"
                                 label="Location"
                                 component={renderFieldCampaign}
-                                placeholder="Location"
+                                placeholder="Write Location"
                                 isRequired="true"
                             />
 
@@ -95,7 +95,7 @@ class FormStep3 extends Component{
                                 type="text"
                                 label="How Much ?"
                                 component={renderFieldCampaign}
-                                placeholder="How Much ?"
+                                placeholder="e.g. 20"
                                 isRequired="true"
                             />
 
@@ -107,7 +107,7 @@ class FormStep3 extends Component{
                                 placeholder="How much to pay ( Currency )"
                                 component={SelectField_ReactSelect}
                                 options={[
-                                    { value: '', label: 'Select Media Format' },
+                                    { value: '', label: 'Select Currency' },
                                     { value: 'dollar' , label :"Dollar"}                                                                        
                                 ]}
                                 isRequired="true"

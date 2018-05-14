@@ -239,17 +239,15 @@ const AgeDropDown = (props) => {
 
             <div className="morefilter-div">
                 <label htmlFor="">
-                    Facebook Friends
+                    Age Group
                 </label>
                 <div className="range-wrapper">
-
                     <InputRange
                         maxValue={65}
                         minValue={15}
                         value={props.currentVal}
                         onChange={value => props.parentMethod(value)}
                     />
-
                     <div className="range-div">{props.currentVal.min}-{props.currentVal.max}</div>
                 </div>
             </div>
@@ -554,6 +552,7 @@ const MoreFilterDropDown = (props) => {
                 </div>
             </div>
             <div className="ftr-btn">
+                <button className="more-cancel-btn" onClick={() => props.applyMoreFilter()} >Cencel</button>
                 <button className="bdr-btn" onClick={() => props.applyMoreFilter()} >Apply</button>
             </div>
         </DropdownMenu>
@@ -851,8 +850,8 @@ class EverydayPeople extends Component {
       
         const { dispatch, match } = nextProps;
         const { forceRefreshed } = this.state;
-        
-        if (forceRefreshed && !match.params.campaignId)  {
+
+        if (forceRefreshed && !match.params.campaignId) {
             this.setState({ groupId: '' });
             if (match.params.grpId) {
                 this.setState({ groupId: match.params.grpId });
@@ -1015,7 +1014,7 @@ class EverydayPeople extends Component {
         //     exstingFilterArr.push({"field":fieldText, "type":"between", "min_value":obj['value']['min'],"max_value":obj['value']['max']});
         // });
 
-        
+
         allDropArr.map((obj) => {
             let fieldText = '';
             let fieldType = '';
@@ -1101,14 +1100,13 @@ class EverydayPeople extends Component {
             dispatch(addGroups(formData));
         });
     }
-    
-  
-    render() {
 
+
+    render() {
 
         let { users, inspiredPosts, moreFilterData, dropdownList, loading, match } = this.props;
         const { allDropDown, allSliders } = this.state;
-  
+
         let allDropArr = [];
         let allSliderArr = [];
 
@@ -1295,7 +1293,7 @@ class EverydayPeople extends Component {
                 <Modal isOpen={this.state.modal} toggle={this.toggle} id="group-popup" >
                     <button type="button" className="close" onClick={this.toggle}>
                         {/* <img src="/assets/img/site/close-2.png" /> */}
-                        <img src={closeImg2}/>
+                        <img src={closeImg2} />
                     </button>
                     <h2>Create Group</h2>
                     <CreateGroupForm onSubmit={this.createGroupSubmit} submitDisabled={this.state.authorise_disabled} />

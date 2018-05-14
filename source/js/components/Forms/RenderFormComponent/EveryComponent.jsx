@@ -22,16 +22,16 @@ export const renderFieldCampaign = ({ input, type, placeholder, label, isRequire
 export const renderFieldDatePicker = ({ input, value, type, placeholder, defaultValue, label, minDateVal,maxDateVal, className,isRequired, meta: { touched, error, warning, pristine} }) => { 
     return(
         <div className={cx('input-wrap',{'custom-error':(touched && error ) ? true:false })+' '+className}>
-            <label>{label} {pristine && isRequired === "true" && <span className="error-div">*</span>}</label>
+            <label>{label} {isRequired === "true" && <span className="error-div">*</span>}</label>
             <div className={`input-wrap-2 ${touched && ((error && `txt_error_div`) || (warning && `txt_error_div`))}`}>
                 <DatePicker
                     {...input}                
-                    selected={input.value ? moment(input.value) : moment()}
+                    selected={input.value ? moment(input.value) : ''}
                     minDate={minDateVal}
                     dateFormat="YYYY-MM-DD"
                     placeholderText={placeholder}
                     className={className}
-                    value={input.value ? moment(input.value) : moment()}
+                    //value={input.value ? moment(input.value) : moment()}
                 />
                 <i className="">
                     <img src={calendarImg} alt="" />
@@ -62,7 +62,7 @@ export const FileField_Dropzone = (props) => {
     return (
         <div className={wrapperClass}>
             <label htmlFor={input.name} className={labelClass}>
-                {label} {meta.pristine && isRequired === "true" && <span className="error-div">*</span>}
+                {label} {isRequired === "true" && <span className="error-div">*</span>}
             </label>
             
             <Dropzone
@@ -143,13 +143,13 @@ export const SelectField_ReactSelect = (props) => {
     }
     return (
         <div className={wrapperClass}>
-            <label htmlFor={input.name} className={labelClass}>{label} {meta.pristine && isRequired === "true" && <span className="error-div">*</span>}</label>
+            <label htmlFor={input.name} className={labelClass}>{label} {isRequired === "true" && <span className="error-div">*</span>}</label>
             <Select
                 {...input}
                 value={val}
                 options={options}
                 className={`${className}${meta.touched && ((meta.error && ' txt_error_div') || (meta.warning && ' txt_error_div'))}`}
-                placeholder={placeholder}
+                placeHolder={placeholder}
                 onChange={(value) => input.onChange(value)}
                 onBlur={() => input.onBlur({ ...input.value })}
                 multi={false}
