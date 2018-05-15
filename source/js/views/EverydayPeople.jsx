@@ -300,17 +300,17 @@ const MoreFilterDropDown = (props) => {
         });
 
     }
-
-    return (<UncontrolledDropdown className="MoreFilterLi">
+// <UncontrolledDropdown className="MoreFilterLi">
+    return (<Dropdown isOpen={props.open} toggle={props.toggle}  className="MoreFilterLi">
         <DropdownToggle caret >
             More Filter {" "}
         </DropdownToggle>
-        <DropdownMenu>
+        <DropdownMenu flip>
             <div className="d-flex">
                 <div className="col-md-4">
                     <div className="morefilter-div">
                         <label htmlFor="">
-                            Facebook Friends
+                            Facebook friends
                         </label>
                         <div className="range-wrapper">
                             <InputRange
@@ -325,7 +325,7 @@ const MoreFilterDropDown = (props) => {
 
                     <div className="morefilter-div">
                         <label htmlFor="">
-                            Instagram Friends
+                            Instagram Followers
                         </label>
                         <div className="range-wrapper">
                             <InputRange
@@ -344,7 +344,7 @@ const MoreFilterDropDown = (props) => {
 
                     <div className="morefilter-div">
                         <label htmlFor="">
-                            Twitter Friends
+                            Twitter Followers
                         </label>
                         <div className="range-wrapper">
                             <InputRange
@@ -363,7 +363,7 @@ const MoreFilterDropDown = (props) => {
 
                     <div className="morefilter-div">
                         <label htmlFor="">
-                            Pinterest Friends
+                            Pinterest Followers
                         </label>
                         <div className="range-wrapper">
                             <InputRange
@@ -382,7 +382,7 @@ const MoreFilterDropDown = (props) => {
 
                     <div className="morefilter-div">
                         <label htmlFor="">
-                            Linkedin Friends
+                            Linkedin Followers
                         </label>
                         <div className="range-wrapper">
                             <InputRange
@@ -552,13 +552,15 @@ const MoreFilterDropDown = (props) => {
                 </div>
             </div>
             <div className="ftr-btn">
-                <button className="more-cancel-btn" onClick={() => props.applyMoreFilter()} >Cencel</button>
+                <button className="more-cancel-btn" onClick={() => props.toggle()} >Cencel</button>
                 <button className="bdr-btn" onClick={() => props.applyMoreFilter()} >Apply</button>
             </div>
         </DropdownMenu>
-    </UncontrolledDropdown>);
-
+        </Dropdown>
+    
+    )
 }
+{/* </UncontrolledDropdown>); */}
 
 class EverydayPeople extends Component {
 
@@ -609,17 +611,21 @@ class EverydayPeople extends Component {
             isAgeFilterSelected: false,
             isGenderFilterSelected: false,
             isSortApply: false,
-
-            isFilterApply: false
+            isFilterApply: false,
+            more_filter_open:false,
         };
         // this.toggle = this.toggle.bind(this);  
+        this.more_filter_toggle = this.more_filter_toggle.bind(this);
     }
 
- 
-    // backspace = (e) =>{
-    //     console.log('ok');
-    // }
 
+    more_filter_toggle()
+    {
+        this.setState({
+            more_filter_open : !this.state.more_filter_open
+        });
+    }
+ 
     filterSendReq = (data) => {
         const { dispatch, match } = this.props;
         data['groupId'] = match.params.grpId;
@@ -860,7 +866,7 @@ class EverydayPeople extends Component {
             if (match.params.campaignId ) {
                 this.setState({ forceRefreshed: true });
             }
-
+        
             let arrayFilter = {
                 "page_size": this.state.perPageItem,
                 "page_no": 1,
@@ -1041,16 +1047,7 @@ class EverydayPeople extends Component {
         console.log(exstingFilterArr);
         console.log('====== last ==========');
         
-        // console.log("LEN>>>",exstingFilterArr.length);
-        // let l = exstingFilterArr.length;
-        // let v = exstingFilterArr[0].value;
-        // if(v!==undefined)
-        // {
-
-        //     console.log(v);
-        // }
-
-
+        
         this.setState({ 'appliedFilter': [{ 'filter': exstingFilterArr }] });
 
         let sortDropArr = _.find(allDropDown, function (o) { return o.dropdown == 'sortDrop'; });
@@ -1062,6 +1059,8 @@ class EverydayPeople extends Component {
         }
         this.setState({ "activePage": 1 });
         this.filterSendReq(arrayFilter);
+
+        this.more_filter_toggle();
     }
 
     resetDropVal = () => {
@@ -1106,6 +1105,9 @@ class EverydayPeople extends Component {
 
         let { users, inspiredPosts, moreFilterData, dropdownList, loading, match } = this.props;
         const { allDropDown, allSliders } = this.state;
+
+        let myObj = this.state.appliedFilter[0].filter;
+        let filter_size = Object.keys(myObj).length;
 
         let allDropArr = [];
         let allSliderArr = [];
@@ -1175,7 +1177,8 @@ class EverydayPeople extends Component {
                                     allSliderArr={allSliderArr}
                                     moreFilterData={moreFilterData}
                                     applyMoreFilter={() => { this.applyMoreFilter() }}
-                                    // bckPress={(e)=>{this.backspace(e)}}
+                                    open={this.state.more_filter_open}
+                                    toggle={this.more_filter_toggle}
                                 />
                             </li>
                         </ul>
@@ -1235,17 +1238,24 @@ class EverydayPeople extends Component {
                 <div className="all-people">
                     <div className="all-people-head d-flex">
                         <h3>
+
+                            {
+                                ((users.total !== undefined && filter_size === 0 )) ? 
+                                    `All ( ${users.total} Results )`
+                                : [
+                                    (users.total !== undefined && filter_size > 0) ? 
+                                    `Filtered List ( ${users.total} Results )`
+                                    :''
+                                ]
+
+                            }
                             {/* {
                                 (users.total !== undefined) ?
                                     `Filtered List ( ${users.total} Results )`
                                     :
                                     `Filtered List ( ${inspiredPosts.total} Results )`
                             } */}
-                            {
-                                (users.total !== undefined && match.path === '/every-day-people') ?
-                                    `Filtered List ( ${users.total} Results )`
-                                    : ''    
-                            }
+                        
                         </h3>
                         {((match.params.campaignId === null || match.params.campaignId === undefined) && match.path !== routeCodes.CAMPAIGN_INSPIRED_SUB) &&
                             <a className="cursor_pointer" onClick={this.toggle}>
@@ -1267,6 +1277,7 @@ class EverydayPeople extends Component {
                                     </ul>
                                     
                                     :
+                                    
                                     <ul className="all-people-ul d-flex">
                                         {(users.status === 1) ? users.data.map((obj, index) => (this.renderLi(obj))) : <div className="no_data_found"><img src={nodataImg} /></div>}
                                     </ul>
