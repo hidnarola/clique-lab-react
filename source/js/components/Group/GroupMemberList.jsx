@@ -116,6 +116,9 @@ class GroupMemberList extends Component {
         let {members, totalMembers} = this.props;  
         const { selectedOption } = this.state;
         const value = selectedOption && selectedOption.value;
+
+        console.log('>>>',this.props);
+        console.log('TM>>',totalMembers);
         
         return (
             <div className="every-people">

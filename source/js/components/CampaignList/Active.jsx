@@ -134,7 +134,6 @@ class Active extends Component {
     **********************************************/
         render() {
             let { activeCampaign, totalActiveCampaign, loading } = this.props;
-            console.log(totalActiveCampaign);
             if(loading) {
                 return (
                     <div className="loader"></div>
