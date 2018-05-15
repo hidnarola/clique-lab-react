@@ -791,7 +791,7 @@ class EverydayPeople extends Component {
                     </div>
                     <div className="festival-img"><img src="http://placehold.it/450x215" alt="" /></div>
                     <div className="festival-body">
-                        <h2>Make up by morning. boyfriends happy, what a life I lead! <a href="">@thegrocer #morning #earlyriser #excited #sponsored</a></h2>
+                        <h2>Make up by morning. boyfriends happy, what a life I lead! <a href="javascript:void(0)">@thegrocer #morning #earlyriser #excited #sponsored</a></h2>
                     </div>
                     <div className="festival-ftr d-flex">
                         <div className="festival-ftr-l"><a href="javascript:void(0)"><i><img src={fbImg} alt="" /></i><strong>823M</strong></a></div>
