@@ -95,11 +95,11 @@ class FormStep2 extends Component{
                                 component={SelectField_ReactSelect}
                                 options={[                                    
                                     { value: '' , label :"Select Social Media"},
-                                    { value: 'facebook' , label :"facebook"},
-                                    { value: 'instagram' , label :"instagram"},
-                                    { value: 'twitter' , label :"twitter"},
-                                    { value: 'pinterest' , label :"pinterest"},
-                                    { value: 'linkedin' , label :"linkedin"},
+                                    { value: 'facebook' , label :"Facebook"},
+                                    { value: 'instagram' , label :"Instagram"},
+                                    { value: 'twitter' , label :"Twitter"},
+                                    { value: 'pinterest' , label :"Pinterest"},
+                                    { value: 'linkedin' , label :"Linkedin"},
                                 ]}
                                 isRequired="true"
                             />

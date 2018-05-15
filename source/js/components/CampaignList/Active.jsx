@@ -4,6 +4,7 @@ import { getActiveCampaign, stopCampaign } from '../../actions/campaign';
 import fakeImg from 'img/site/people-01.jpg';
 import { withRouter } from 'react-router'
 import nodataImg from 'img/site/nodata.png';
+import plusImg from 'img/site/plus-01.png';
 import PropTypes from 'prop-types';
 import { imgRoutes } from '../../constants/img_path';
 import { routeCodes } from '../../constants/routes';
@@ -17,7 +18,7 @@ const PlusAction = (props) => {
     return (
         <UncontrolledDropdown className="plus-people dropdown">
             <DropdownToggle>
-                <a className="cursor_pointer"><img src="/assets/img/site/plus-sign.png" alt="" /></a>
+                <a className="cursor_pointer"><img src={plusImg} alt="" /></a>
             </DropdownToggle>
             <DropdownMenu className="dropdown-menu dropdown-menu-right">
                 <a className="dropdown-item cursor_pointer" onClick={() => props.showDeleteAlert(props.selectedId)}>Stop</a>
@@ -114,6 +115,7 @@ class Active extends Component {
         componentDidUpdate(){
             const { isStop, dispatch } = this.props;
             if(isStop===1){
+                this.setState({activePage: 1});
                 dispatch(getActiveCampaign({"page_size":12,"page_no":1}))
             }
         }

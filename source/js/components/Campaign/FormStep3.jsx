@@ -60,8 +60,8 @@ class FormStep3 extends Component{
                                 component={SelectField_ReactSelect}
                                 options={[
                                     { value: '', label: 'Select Industry' },
-                                    { value: 'public' , label :"public"},
-                                    { value: 'invite' , label :"private"}                                    
+                                    { value: 'public' , label :"Public"},
+                                    { value: 'invite' , label :"Private"}                                    
                                 ]}
                                 isRequired="true"                                             
                             />
@@ -75,8 +75,8 @@ class FormStep3 extends Component{
                                 component={SelectField_ReactSelect}
                                 options={[
                                     { value: '', label: 'Select Media Format' },
-                                    { value: 'photograph' , label :"photograph"},
-                                    { value: 'video' , label :"video"}                                    
+                                    { value: 'photograph' , label :"Photograph"},
+                                    { value: 'video' , label :"Video"}                                    
                                 ]} 
                                 isRequired="true"                                            
                             />
