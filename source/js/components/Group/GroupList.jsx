@@ -344,7 +344,7 @@ class GroupList extends Component {
             <div>
                 <div className="group-head d-flex">
                     <h3>My Groups</h3>
-                    <div className="group-head-r">
+                    <div className="group-head-r sort-date-btn">
                         <ul>
                             <li>
                                 {(

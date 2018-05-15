@@ -111,7 +111,7 @@ class RegisterStepFirst extends Component{
                                         name="industryName"
                                         label="Industry Category"
                                         labelClass="control-label"                                            
-                                        placeholder="Select Industry Category"
+                                        placeholder="Select industry category"
                                         component={SelectField_ReactSelect}
                                         options={newArr}                                            
                                     />
