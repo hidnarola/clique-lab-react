@@ -47,9 +47,9 @@
     body::-webkit-scrollbar-track { box-shadow: inset 0 0 6px rgba(0,0,0,0.3); }
     body::-webkit-scrollbar-thumb { background-color: #6772e5; outline: 1px solid #6772e5; }
 
-    .custom_scrollbar::-webkit-scrollbar { width: 0.4em; }
-    .custom_scrollbar::-webkit-scrollbar-track { -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); }
-    .custom_scrollbar::-webkit-scrollbar-thumb { background-color: #26A69A; outline: 1px solid slategrey; }
+    .custom_scrollbar::-webkit-scrollbar { width: 0.1em; }
+    .custom_scrollbar::-webkit-scrollbar-track { box-shadow: inset 0 0 6px rgba(0,0,0,0.3); }
+    .custom_scrollbar::-webkit-scrollbar-thumb { background-color: #6772e5; outline: 1px solid #6772e5; }
 
 .add_grp_popup_select .Select-value,
 .add_grp_popup_select .Select-placeholder,
@@ -105,3 +105,8 @@ td.fc-widget-content{ border:0;}
 
 .custom_modal_btn_close{text-align: right; padding: 25px 30px;}
 .custom_modal_btn_close img { width: 15px; }
+
+.inspirations-img ul{ overflow: hidden; overflow-x:scroll; }
+.inspirations-img .custom_scrollbar::-webkit-scrollbar { height: 3px; }
+.inspirations-img .custom_scrollbar::-webkit-scrollbar-track { box-shadow: inset 0 0 6px rgba(0,0,0,0.3); }
+.inspirations-img .custom_scrollbar::-webkit-scrollbar-thumb { background-color: #6772e5; outline: 1px solid #6772e5; }

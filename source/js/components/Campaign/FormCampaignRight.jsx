@@ -12,7 +12,7 @@ class FormCampaignRight extends Component{
 
     dummyInspirationalImages(){
         return(
-            <ul>
+            <ul className="custom_scrollbar">
                 <li><a href="javascript:void(0)" style={{"marginRight": "2px"}}><img src={dummyImg} alt=""/></a></li>
                 <li><a href="javascript:void(0)" style={{"marginRight": "2px"}}><img src={dummyImg} alt=""/></a></li>
                 <li><a href="javascript:void(0)" style={{"marginRight": "2px"}}><img src={dummyImg} alt=""/></a></li>
@@ -24,7 +24,7 @@ class FormCampaignRight extends Component{
         return (
             <li key={Math.random()}>
                 <a >
-                    <img src={obj} alt="" width="100px" height="100px" />
+                    <img src={obj} alt="" width="135px" height="80px" />
                 </a>
             </li>    
         );
@@ -100,35 +100,34 @@ class FormCampaignRight extends Component{
                     <h5>${(wizardCampaignData.values !== undefined) ? wizardCampaignData.values.how_much:'' }</h5>
                 </div>
                 <div className="create-campaign-r-responses">
-                    <p>{(wizardCampaignData.values !== undefined) ? voca.truncate(wizardCampaignData.values.short_desc, 200):'' } </p>
-                    <h6>
-                        <i className="fa fa-heart"></i> 0 Responses</h6>
+                    <p style={{"word-wrap": "break-word","min-height": "10em"}}>{(wizardCampaignData.values !== undefined) ? voca.truncate(wizardCampaignData.values.short_desc, 200):'' } </p>
+                    <h6><i className="fa fa-heart"></i> 0 Responses</h6>
                 </div>
                 <div className="create-campaign-r-media-format">
                     <ul>
                         <li>
-                            <a >Media Format</a>
+                            <a><b>Media Format</b></a>
                             <p>{mediaFormat}</p>                            
                         </li>
                         <li>
-                            <a >What not to do?</a>
+                            <a><b>What not to do?</b></a>
                             <p>Feature Competitors products.</p>
                         </li>
                         <li>
-                            <a >Use @tags</a>
+                            <a><b>Use @tags</b></a>
                             <p>{voca.trimRight(atTagStr, ', ')}</p>
                         </li>
                         <li>
-                            <a >Use #tags</a>
+                            <a><b>Use #tags</b></a>
                             <p>{voca.trimRight(hashTagStr, ', ')}</p>
                         </li>
                     </ul>
                 </div>
                 <div className="inspirations-img">
-                    <h3>Inspirational Images</h3>
+                    <h3><b>Inspirational Images</b></h3>
                     {
                         (wizardCampaignData.values !== undefined && imgArr.length > 0) ? 
-                            <ul>
+                            <ul className="custom_scrollbar">
                                 { imgArr.map((obj,index) => (this.renderImages(obj)) ) }
                             </ul>
                         :
