@@ -92,7 +92,7 @@ class AddToModal extends Component {
         }
     }
 
-  
+
     render() {
         let dropArr = [];
         const { selectedOption } = this.state;
@@ -109,7 +109,9 @@ class AddToModal extends Component {
         return (
             <div>
                 <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} onClosed={this.props.resetDropVal} id="congratulations">
-                    <ModalHeader toggle={this.toggle}></ModalHeader>
+                    <div class="custom_modal_btn_close">
+                        <img className="cursor_pointer" src={closeImg2} onClick={() => this.toggle()} />
+                    </div>
                     <ModalBody>
                         <div className="terms-conditions">
                             <h2>Which Campaign/Group would you like to Offer the Selected People ? </h2>
@@ -300,8 +302,8 @@ const MoreFilterDropDown = (props) => {
         });
 
     }
-// <UncontrolledDropdown className="MoreFilterLi">
-    return (<Dropdown isOpen={props.open} toggle={props.toggle}  className="MoreFilterLi">
+    // <UncontrolledDropdown className="MoreFilterLi">
+    return (<Dropdown isOpen={props.open} toggle={props.toggle} className="MoreFilterLi">
         <DropdownToggle caret >
             More Filter {" "}
         </DropdownToggle>
@@ -415,7 +417,7 @@ const MoreFilterDropDown = (props) => {
                             searchable={false} clearable={false} autosize={false}
                             options={jobIndustryArr}
                             placeholder="Select Job Industry"
-                            // onKeyDown={(e)=>{props.bckPress}}
+                        // onKeyDown={(e)=>{props.bckPress}}
                         />
                     </div>
 
@@ -556,11 +558,11 @@ const MoreFilterDropDown = (props) => {
                 <button className="bdr-btn" onClick={() => props.applyMoreFilter()} >Apply</button>
             </div>
         </DropdownMenu>
-        </Dropdown>
-    
+    </Dropdown>
+
     )
 }
-{/* </UncontrolledDropdown>); */}
+{/* </UncontrolledDropdown>); */ }
 
 class EverydayPeople extends Component {
 
@@ -612,20 +614,19 @@ class EverydayPeople extends Component {
             isGenderFilterSelected: false,
             isSortApply: false,
             isFilterApply: false,
-            more_filter_open:false,
+            more_filter_open: false,
         };
         // this.toggle = this.toggle.bind(this);  
         this.more_filter_toggle = this.more_filter_toggle.bind(this);
     }
 
 
-    more_filter_toggle()
-    {
+    more_filter_toggle() {
         this.setState({
-            more_filter_open : !this.state.more_filter_open
+            more_filter_open: !this.state.more_filter_open
         });
     }
- 
+
     filterSendReq = (data) => {
         const { dispatch, match } = this.props;
         data['groupId'] = match.params.grpId;
@@ -646,17 +647,15 @@ class EverydayPeople extends Component {
             "page_size": this.state.perPageItem,
             "page_no": pageNumber
         }
-        if(pageNumber !== this.state.activePage)
-        {
+        if (pageNumber !== this.state.activePage) {
             this.filterSendReq(arrayFilter);
         }
     }
 
     handleChange = (selectedOption, secondParam) => {
 
-        console.log('>>',selectedOption);
-        if(selectedOption === null)
-        {
+        console.log('>>', selectedOption);
+        if (selectedOption === null) {
             return;
         }
         const { dispatch } = this.props;
@@ -853,7 +852,7 @@ class EverydayPeople extends Component {
     }
 
     componentWillUpdate = (nextProps, nextState) => {
-      
+
         const { dispatch, match } = nextProps;
         const { forceRefreshed } = this.state;
 
@@ -863,10 +862,10 @@ class EverydayPeople extends Component {
                 this.setState({ groupId: match.params.grpId });
             }
 
-            if (match.params.campaignId ) {
+            if (match.params.campaignId) {
                 this.setState({ forceRefreshed: true });
             }
-        
+
             let arrayFilter = {
                 "page_size": this.state.perPageItem,
                 "page_no": 1,
@@ -1006,8 +1005,8 @@ class EverydayPeople extends Component {
         console.log('====== exstingFilter ==========');
         console.log(exstingFilterArr);
         console.log('====== exstingFilter ==========');
-        
-     
+
+
         // allSliderArr.map((obj,index) => {
         //     let fieldText = '';
         //     switch (obj['slider']) {
@@ -1046,8 +1045,8 @@ class EverydayPeople extends Component {
         console.log('====== last ==========');
         console.log(exstingFilterArr);
         console.log('====== last ==========');
-        
-        
+
+
         this.setState({ 'appliedFilter': [{ 'filter': exstingFilterArr }] });
 
         let sortDropArr = _.find(allDropDown, function (o) { return o.dropdown == 'sortDrop'; });
@@ -1240,13 +1239,13 @@ class EverydayPeople extends Component {
                         <h3>
 
                             {
-                                ((users.total !== undefined && filter_size === 0 )) ? 
+                                ((users.total !== undefined && filter_size === 0)) ?
                                     `All ( ${users.total} Results )`
-                                : [
-                                    (users.total !== undefined && filter_size > 0) ? 
-                                    `Filtered List ( ${users.total} Results )`
-                                    :''
-                                ]
+                                    : [
+                                        (users.total !== undefined && filter_size > 0) ?
+                                            `Filtered List ( ${users.total} Results )`
+                                            : ''
+                                    ]
 
                             }
                             {/* {
@@ -1255,7 +1254,7 @@ class EverydayPeople extends Component {
                                     :
                                     `Filtered List ( ${inspiredPosts.total} Results )`
                             } */}
-                        
+
                         </h3>
                         {((match.params.campaignId === null || match.params.campaignId === undefined) && match.path !== routeCodes.CAMPAIGN_INSPIRED_SUB) &&
                             <a className="cursor_pointer" onClick={this.toggle}>
@@ -1275,9 +1274,9 @@ class EverydayPeople extends Component {
                                     <ul className="fan-festival d-flex h-view">
                                         {(inspiredPosts.status === 1 && inspiredPosts.data === '') ? inspiredPosts.data.map((obj, index) => (this.renderLi3(obj))) : <div className="no_data_found"><img src={nodataImg} /></div>}
                                     </ul>
-                                    
+
                                     :
-                                    
+
                                     <ul className="all-people-ul d-flex">
                                         {(users.status === 1) ? users.data.map((obj, index) => (this.renderLi(obj))) : <div className="no_data_found"><img src={nodataImg} /></div>}
                                     </ul>
