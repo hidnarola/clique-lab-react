@@ -2,21 +2,31 @@ import React,{Component} from 'react';
 import { Field, reduxForm } from 'redux-form';
 import FormCampaignRight from './FormCampaignRight';
 import {CommonCompo} from './CommonCompo';
+import _ from 'lodash';
+
 import {FileField_Dropzone} from '../../components/Forms/RenderFormComponent/EveryComponent';
 
 const validate = values => {
     const errors = {};
+    let images = [];
     if (!values.imagesNew || values.imagesNew.length===0) {
         errors.imagesNew = 'This Field is Required';
     }else {
         if((values.imagesNew).length > 0){
-            _.map(values.imagesNew), function(file){
-                let file_type = file.type;
-                let extensions = ["image/jpeg", "image/png", "image/jpg"];
-                if (extensions.indexOf(file_type) < 0) {
+            let extensions = ["image/jpeg", "image/png", "image/jpg"];
+            images.push(values.imagesNew);
+            _.forEach(images[0],(file,key)=>{
+                if (extensions.indexOf(file.type) < 0) {
                     errors.imagesNew = 'File type not supported';
                 }
-            }
+            });
+            // _.map(values.imagesNew), function(file){
+            //     let file_type = file.type;
+            //     let extensions = ["image/jpeg", "image/png", "image/jpg"];
+            //     if (extensions.indexOf(file_type) < 0) {
+            //         errors.imagesNew = 'File type not supported';
+            //     }
+            // }
             
         }
     }
