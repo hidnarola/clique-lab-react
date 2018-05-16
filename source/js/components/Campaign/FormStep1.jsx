@@ -13,15 +13,15 @@ const validate = values => {
     const errors = {};
 
     if (!values.campaignName || (values.campaignName !== undefined && values.campaignName.trim() == "")) {
-        errors.campaignName = 'This Field is Required';
+        errors.campaignName = 'This field is required';
     }
 
     if (!values.campaignStartDate) {
-        errors.campaignStartDate = 'This Field is Required';
+        errors.campaignStartDate = 'This field is required';
     }
 
     if (!values.campaignEndDate) {
-        errors.campaignEndDate = 'This Field is Required';
+        errors.campaignEndDate = 'This field is required';
     }
 
     if (values.campaignStartDate && values.campaignEndDate) {
@@ -29,7 +29,7 @@ const validate = values => {
         let b = moment(values.campaignEndDate);
         let diffDate = b.diff(a);
         if (diffDate < 0) {
-            errors.campaignEndDate = 'End date should be after start date.';
+            errors.campaignEndDate = 'End date should be after start date';
         }
     }
     return errors;

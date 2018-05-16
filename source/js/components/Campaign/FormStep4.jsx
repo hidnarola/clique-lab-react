@@ -7,7 +7,7 @@ import {FileField_Dropzone, FileField_Dropzone_New} from '../../components/Forms
 const validate = values => {
     const errors = {};
     if (!values.images || values.images.length===0) {
-        errors.images = 'This Field is Required';
+        errors.images = 'This field is required';
     }else {
         if((values.images).length > 0){
             let file_type = values.images[0].type;

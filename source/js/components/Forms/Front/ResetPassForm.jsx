@@ -8,10 +8,10 @@ import cx from 'classnames';
 const validate = values => {
     const errors = {}
 
-    if (!values.password) { errors.password = 'This Field is Required'; }
-    else if (values.password.length < 5) { errors.password = 'Must be more than 5 or more characters'; }
+    if (!values.password) { errors.password = 'This field is required'; }
+    else if (values.password.length < 5) { errors.password = 'Must be more than 5 characters'; }
 
-    if (!values.repeatPassword) { errors.password = 'This Field is Required'; }
+    if (!values.repeatPassword) { errors.password = 'This field is required'; }
     else if (values.password !== values.repeatPassword) { errors.password = 'Password should be match'; }
 
     return errors;

@@ -5,7 +5,8 @@ import {
             REGISTER_SUCCESS,
             FETCH_REGISTER_COUNTRY_REQUEST,
             FETCH_REGISTER_COUNTRY_SUCCESS,
-            FETCH_REGISTER_COUNTRY_ERROR
+            FETCH_REGISTER_COUNTRY_ERROR,
+            RESET_VALUES_REGISTER,
         } from "../actions/register";
 
 const initialState = Map({
@@ -39,6 +40,14 @@ const actionMap = {
             loading: false,
             error: error,
             user: JSON.stringify(action.data),
+        }));
+    },
+    [RESET_VALUES_REGISTER]:(state,action) => {        
+        if(action['data']){
+            // (action['data']['userAdded'] === false) ? resetObj['userAdded'] = false:'';            
+        }
+        return state.merge(Map({
+            errot: null
         }));
     },
 

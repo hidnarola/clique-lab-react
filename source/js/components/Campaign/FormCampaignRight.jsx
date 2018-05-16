@@ -3,6 +3,12 @@ import { connect } from 'react-redux';
 import voca from 'voca';
 import dummyImg from 'img/site/img-06.jpg';
 import coverDummyImg from 'img/site/cover_dummy.jpg';
+import fbImg from 'img/site/facebook-01.png';
+import linkedImg from 'img/site/linkedin.png';
+import instaImg from 'img/site/instagram.png';
+import pinImg from 'img/site/pintrest.png';
+import twitterImg from 'img/site/twitter.png';
+
 class FormCampaignRight extends Component{
     
     constructor(props){
@@ -33,11 +39,21 @@ class FormCampaignRight extends Component{
     render(){
         
         let { wizardCampaignData } = this.props;
-        console.log(wizardCampaignData);
-        let {mediaFormat,hashTagStr,atTagStr,imgStr} = '';
-        let imgArr = []; 
+        let {industryName, mediaFormat,hashTagStr,atTagStr,imgStr} = '';
+        let imgArr = [];
+        let mediaImg = {
+            'facebook': fbImg,
+            'linkedin': linkedImg,
+            'instagram': instaImg,
+            'pinterest': pinImg,
+            'twitter': twitterImg,
+        };
 
         if(wizardCampaignData.values !== undefined){
+            
+            if(wizardCampaignData.values.industryName){
+                industryName = wizardCampaignData.values.industryName.value;
+            }
 
             if(wizardCampaignData.values.media_format){
                 mediaFormat = wizardCampaignData.values.media_format.value;
@@ -92,10 +108,9 @@ class FormCampaignRight extends Component{
                     }
                 </div>
                 <div className="create-campaign-r-summer d-flex">
-                    <h4>{(wizardCampaignData.values !== undefined) ? wizardCampaignData.values.campaignName:'' }
-                        <a >
-                            {/* <img src="images/facebook.jpg" alt="" /> */}
-                        </a>
+                    <h4>
+                        <b>{(wizardCampaignData.values !== undefined) ? wizardCampaignData.values.campaignName:'' }</b><br/><br />
+                        <a style={{"fontSize":"11px","fontWeight":"600"}}> <img src={mediaImg[`${industryName}`]} alt="" style={{"margin-top":"-2px","width":"15px"}}/> {industryName}</a>
                     </h4>
                     <h5>${(wizardCampaignData.values !== undefined) ? wizardCampaignData.values.how_much:'' }</h5>
                 </div>

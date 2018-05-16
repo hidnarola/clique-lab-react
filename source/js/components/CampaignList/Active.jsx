@@ -37,6 +37,7 @@ class Active extends Component {
             totalRecord: 1,
             page_name: 'Active',
 
+            is_stop: false,
             delete_alert: false,
             selected_id: null
         };
@@ -63,7 +64,8 @@ class Active extends Component {
             }
             this.setState({ 
                 delete_alert: false,
-                selected_id: null
+                selected_id: null,
+                is_stop: true,
             }) 
         }
 
@@ -78,7 +80,6 @@ class Active extends Component {
                 Lisitng of Active Campagin
     **********************************************/
         activeListing(obj){
-            
             return (
                 <li key={Math.random()}>
                     <div className="all-people-div">
@@ -114,8 +115,9 @@ class Active extends Component {
         
         componentDidUpdate(){
             const { isStop, dispatch } = this.props;
-            if(isStop===1){
-                this.setState({activePage: 1});
+            const { is_stop } = this.state;
+            if(isStop===1 && is_stop===true){
+                this.setState({activePage: 1, is_stop: false});
                 dispatch(getActiveCampaign({"page_size":12,"page_no":1}))
             }
         }

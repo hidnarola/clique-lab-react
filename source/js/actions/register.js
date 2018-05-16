@@ -1,6 +1,7 @@
 export const REGISTER_REQUEST = 'REGISTER_REQUEST';
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 export const REGISTER_ERROR = 'REGISTER_ERROR';
+export const RESET_VALUES_REGISTER = 'RESET_VALUES_REGISTER';
 
 // Fetch Country
 export const FETCH_REGISTER_COUNTRY_REQUEST = 'FETCH_REGISTER_COUNTRY_REQUEST';
@@ -29,6 +30,9 @@ export function registerError(error) {
     }
 }
 
+export function resetRegisterVal(data) {
+    return { type: RESET_VALUES_REGISTER, data:data }
+}
 
 //get country on registration page
 

@@ -10,7 +10,7 @@ const validate = values => {
     const errors = {};
     let images = [];
     if (!values.imagesNew || values.imagesNew.length===0) {
-        errors.imagesNew = 'This Field is Required';
+        errors.imagesNew = 'This field is required';
     }else {
         if((values.imagesNew).length > 0){
             let extensions = ["image/jpeg", "image/png", "image/jpg"];

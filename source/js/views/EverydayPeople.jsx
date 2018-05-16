@@ -226,7 +226,7 @@ const PlusAction2 = (props) => {
             <DropdownMenu className="dropdown-menu dropdown-menu-right">
                 <a className="dropdown-item cursor_pointer" onClick={() => { props.addToCart(); }}>Add to Cart</a>
                 <a className="dropdown-item cursor_pointer" onClick={() => { props.addGroup(); }}>Add user to Group</a>
-                <a className="dropdown-item cursor_pointer">Modify status and purchase</a>
+                <a className="dropdown-item cursor_pointer" onClick={() => { props.modifyStatusPurchase(); }}>Modify status and purchase</a>
             </DropdownMenu>
         </UncontrolledDropdown>
     );
@@ -384,7 +384,7 @@ const MoreFilterDropDown = (props) => {
 
                     <div className="morefilter-div">
                         <label htmlFor="">
-                            Linkedin Followers
+                            Linkedin Connections
                         </label>
                         <div className="range-wrapper">
                             <InputRange
@@ -416,7 +416,7 @@ const MoreFilterDropDown = (props) => {
                             onChange={(value) => props.parentMethod(value, "jobIndustryDrop")}
                             searchable={false} clearable={false} autosize={false}
                             options={jobIndustryArr}
-                            placeholder="Select Job Industry"
+                            placeholder="Select from Dropdown"
                         // onKeyDown={(e)=>{props.bckPress}}
                         />
                     </div>
@@ -432,13 +432,13 @@ const MoreFilterDropDown = (props) => {
                             onChange={(value) => props.parentMethod(value, "jobTitleDrop")}
                             searchable={false} clearable={false} autosize={false}
                             options={jobTitleArr}
-                            placeholder="Select Job Title"
+                            placeholder="Select from Dropdown"
                         />
                     </div>
 
                     <div className="morefilter-div">
                         <label htmlFor="">
-                            Year In Industry
+                            Year in the industry
                         </label>
                         <ReactSelect
                             className='dropdown-inr'
@@ -447,7 +447,7 @@ const MoreFilterDropDown = (props) => {
                             onChange={(value) => props.parentMethod(value, "yearInIndustry")}
                             searchable={false} clearable={false} autosize={false}
                             options={yearInIndustryArr}
-                            placeholder="Select Year in Industry"
+                            placeholder="Select from Dropdown"
                         />
                     </div>
 
@@ -462,13 +462,13 @@ const MoreFilterDropDown = (props) => {
                             onChange={(value) => props.parentMethod(value, "education")}
                             searchable={false} clearable={false} autosize={false}
                             options={educationArr}
-                            placeholder="Select Education"
+                            placeholder="Select from Dropdown"
                         />
                     </div>
 
                     <div className="morefilter-div">
                         <label htmlFor="">
-                            Language Spoken
+                            Language spoken
                         </label>
                         <ReactSelect
                             className='dropdown-inr'
@@ -477,7 +477,7 @@ const MoreFilterDropDown = (props) => {
                             onChange={(value) => props.parentMethod(value, "language")}
                             searchable={false} clearable={false} autosize={false}
                             options={languageArr}
-                            placeholder="Select Language"
+                            placeholder="Select from Dropdown"
                         />
                     </div>
                 </div>
@@ -494,7 +494,7 @@ const MoreFilterDropDown = (props) => {
                             onChange={(value) => props.parentMethod(value, "ethnicity")}
                             searchable={false} clearable={false} autosize={false}
                             options={ethnicityArr}
-                            placeholder="Select Ethnicity"
+                            placeholder="Select from Dropdown"
                         />
                     </div>
 
@@ -513,13 +513,13 @@ const MoreFilterDropDown = (props) => {
                                 { 'value': 'female', label: "Female" },
                                 { 'value': 'both', label: "Both" }
                             ]}
-                            placeholder="Select Sexual Orientation"
+                            placeholder="Select from Dropdown"
                         />
                     </div>
 
                     <div className="morefilter-div">
                         <label htmlFor="">
-                            Relationship Status
+                            Relationship status
                         </label>
                         <ReactSelect
                             className='dropdown-inr'
@@ -533,13 +533,13 @@ const MoreFilterDropDown = (props) => {
                                 { 'value': 'Single', label: "Single" }
                             ]}
 
-                            placeholder="Select Relationship"
+                            placeholder="Select from Dropdown"
                         />
                     </div>
 
                     <div className="morefilter-div">
                         <label htmlFor="">
-                            Music Taste
+                            Music tastes
                         </label>
                         <ReactSelect
                             className='dropdown-inr'
@@ -548,13 +548,13 @@ const MoreFilterDropDown = (props) => {
                             onChange={(value) => props.parentMethod(value, "musicTaste")}
                             searchable={false} clearable={false} autosize={false}
                             options={musicTasteArr}
-                            placeholder="Select Music Taste"
+                            placeholder="Select from Dropdown"
                         />
                     </div>
                 </div>
             </div>
             <div className="ftr-btn">
-                <button className="more-cancel-btn" onClick={() => props.toggle()} >Cencel</button>
+                <button className="more-cancel-btn" onClick={() => props.toggle()} >Cancel</button>
                 <button className="bdr-btn" onClick={() => props.applyMoreFilter()} >Apply</button>
             </div>
         </DropdownMenu>
@@ -579,6 +579,7 @@ class EverydayPeople extends Component {
             groupId: '',
             authorise_disabled: false,
             forceRefreshed: false,
+            modifyStatusPurchase: false,
             allDropDown: [
                 { 'dropdown': 'jobIndustryDrop', 'value': false },
                 { 'dropdown': 'jobTitleDrop', 'value': false },
@@ -737,6 +738,19 @@ class EverydayPeople extends Component {
         dispatch(addUserReq(data));
     }
 
+    modifyStatusPurchase = (camp_id, user_id) => {
+        const { dispatch, match } = this.props;
+        let data = {
+            'param1': 'cart',
+            'param2': {
+                'value': camp_id
+            },
+            'param3': user_id
+        }
+        this.setState({ modifyStatusPurchase: true });
+        dispatch(addUserReq(data));
+    }
+
     purchaseResult = () => {
         const { dispatch, match } = this.props;
         let { appliedFilter } = this.state;
@@ -798,6 +812,7 @@ class EverydayPeople extends Component {
                             <PlusAction2
                                 addToCart={() => { this.addToCart(obj.campaign_id, obj.user_id) }}
                                 addGroup={() => { this.addGroup(obj) }}
+                                modifyStatusPurchase={() => { this.modifyStatusPurchase(obj.campaign_id, obj.user_id) }}
                             />
                         </div>
                     </div>
@@ -899,7 +914,7 @@ class EverydayPeople extends Component {
 
     componentDidUpdate() {
         let { showDrop, userAdded, dispatch, inserted_group, group_status } = this.props;
-        let { is_inserted } = this.state
+        let { is_inserted, modifyStatusPurchase } = this.state
 
         if (showDrop) {
             this.child.toggle();
@@ -919,6 +934,11 @@ class EverydayPeople extends Component {
             console.log(group_status);
             console.log('=================================');
             this.saveResult(param1, param2, param3, param4, param5);
+        }
+        
+        if(modifyStatusPurchase){
+            this.setState({modifyStatusPurchase: false});
+            this.props.history.push(routeCodes.MY_CART);
         }
 
         if (userAdded) {
@@ -1308,7 +1328,6 @@ class EverydayPeople extends Component {
                     <h2>Create Group</h2>
                     <CreateGroupForm onSubmit={this.createGroupSubmit} submitDisabled={this.state.authorise_disabled} />
                 </Modal>
-
             </div>
         );
     }

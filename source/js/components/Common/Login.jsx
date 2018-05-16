@@ -53,7 +53,6 @@ class Login extends Component{
         let { submitAction,load} = this.state;
         if(submitAction && !loading){
             this.setState({submitAction: false})
-            
             if(error!==null){
                 this.setState({errorMsg: error},() => {
                     setTimeout(()=>{
@@ -69,8 +68,6 @@ class Login extends Component{
                 })
             }
         }
-       
-        
     }
     
     render(){
@@ -92,8 +89,8 @@ class Login extends Component{
             <div className="login-register-bg">
                 <div className="login-register-box">
                     <div className="form-logo d-flex">
-                        <a onClick={() => (this.props.history.push("/"))} className="cursor_pointer">
-                            <img src={LogoImg} alt="" />
+                        <a>
+                            <img src={LogoImg} alt="" onClick={() => (this.props.history.push("/"))} className="cursor_pointer" />
                         </a>
                     </div>
                     <div className="form-content d-flex">

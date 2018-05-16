@@ -1,5 +1,5 @@
 img{max-width:100%;}
-.form-content {height: 720px;}
+.form-content {height: 800px;}
 
 @media(max-width:1600px){
 	.full-width{max-width:1400px; padding:17px 20px;}
@@ -27,7 +27,7 @@ img{max-width:100%;}
 	.right-box-content {min-height:300px;}
 	.big-logo a img{max-width:75px;}
 	.dropdown-menu {padding:5px 15px !important;}
-	.dropdown-menu a.dropdown-item{ margin:8px 0; font-size:14px;}
+	.dropdown-menu a.dropdown-item{ margin:0px 0; font-size:14px;}
 	.databox-div-r {width: calc(100% - 245px); padding: 20px 20px 20px 0;}
 	.databox-div-r h3 big{font-size:16px;}
 	.databox-div-r h3 small{font-size:14px;}
@@ -130,7 +130,8 @@ img{max-width:100%;}
 
 @media (min-width:1025px) and (max-width:1600px){
 	.form-logo {height: 146px;}
-	.form-content {height: 590px;}
+	/* .form-content {height: 590px;} */
+	.form-content {height: 680px;}
 	.form-ftr {height:50px;}
 	.input-div input {font-size: 13px;padding: 5px 0 8px 0;}
 	.form-content form{ width:255px;}
@@ -181,7 +182,7 @@ img{max-width:100%;}
 	.step-process a {width: 16px; height: 16px;}
 	.step-process strong {width: 3px;}
 	.step-process {width: 24px;}
-	.dropdown-menu a.dropdown-item {margin:8px 0; font-size:13px;}
+	.dropdown-menu a.dropdown-item {margin:0px 0; font-size:13px;}
 	.everypeole-head-r>ul>li>a, .everypeole-head-l ul li a {font-size:12px; padding:4px 16px 4px; line-height:18px;}
 	.all-people-head a,
 	.all-people-head h3 {font-size:13px;}
