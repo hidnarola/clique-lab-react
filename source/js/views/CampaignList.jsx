@@ -36,6 +36,7 @@ class CampaignList extends Component {
 				</Switch> */}
 				{ curt_page==routeCodes.CAMPAIGNS && <CampaignActive />}
 				{ curt_page==routeCodes.CAMPAIGN_ACTIVE && <CampaignActive />}
+				{ curt_page==routeCodes.CAMPAIGN_ACTIVE+'/' && <CampaignActive />}
 				{ curt_page==routeCodes.CAMPAIGN_FUTURE && <CampaignFuture />}
 				{ curt_page==routeCodes.CAMPAIGN_PAST && <CampaignPast />}
 			</div>

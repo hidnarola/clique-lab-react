@@ -38,6 +38,7 @@ class Login extends Component{
     componentWillMount(){
         let { error,user,message,dispatch } = this.props;
         let { errorMsg } = this.state;
+        console.log(message);
         if (message!==null){
             this.setState({errorMsg: message},() => {
                 setTimeout(()=>{
@@ -53,7 +54,6 @@ class Login extends Component{
         let { submitAction,load} = this.state;
         if(submitAction && !loading){
             this.setState({submitAction: false})
-            
             if(error!==null){
                 this.setState({errorMsg: error},() => {
                     setTimeout(()=>{
@@ -69,8 +69,6 @@ class Login extends Component{
                 })
             }
         }
-       
-        
     }
     
     render(){
@@ -92,8 +90,8 @@ class Login extends Component{
             <div className="login-register-bg">
                 <div className="login-register-box">
                     <div className="form-logo d-flex">
-                        <a onClick={() => (this.props.history.push("/"))} className="cursor_pointer">
-                            <img src={LogoImg} alt="" />
+                        <a>
+                            <img src={LogoImg} alt="" onClick={() => (this.props.history.push("/"))} className="cursor_pointer" />
                         </a>
                     </div>
                     <div className="form-content d-flex">
@@ -114,15 +112,21 @@ class Login extends Component{
 }
 
 const mapStateToProps = (state) => {
-    const { login } = state;
-    const { forgotPass } = state;
+    const { login, forgotPass, register } = state;
+    let msg = '';
+    if(forgotPass.get('message')){
+        msg = forgotPass.get('message');
+    }
+    if(register.get('message')){
+        msg = register.get('message');
+    }
     return {
         loading: login.get('loading'),
         error: login.get('error'),
         user: login.get('user'),
         token: login.get('token'),
         refreshToken: login.get('refreshToken'),
-        message:forgotPass.get('message'),
+        message: msg,
     }
 }
 

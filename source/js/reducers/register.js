@@ -5,19 +5,23 @@ import {
             REGISTER_SUCCESS,
             FETCH_REGISTER_COUNTRY_REQUEST,
             FETCH_REGISTER_COUNTRY_SUCCESS,
-            FETCH_REGISTER_COUNTRY_ERROR
+            FETCH_REGISTER_COUNTRY_ERROR,
+            RESET_VALUES_REGISTER,
         } from "../actions/register";
 
 const initialState = Map({
     loading: false,
     error: null,
     user: null,
+    message: null,
+    status: 0,
     country: null,
 });
 
 const actionMap = {
     [REGISTER_REQUEST]: (state, action) => {
         return state.merge(Map({
+            ...initialState,
             loading: true,
             error: null,
             user: null
@@ -25,9 +29,12 @@ const actionMap = {
     },
     [REGISTER_SUCCESS]: (state, action) => {
         return state.merge(Map({
+            ...initialState,
             loading: false,
             error: null,
             user: true,
+            message: action.data.data.message,
+            status: action.data.data.status,
         }));
     },
     [REGISTER_ERROR]: (state, action) => {
@@ -39,6 +46,14 @@ const actionMap = {
             loading: false,
             error: error,
             user: JSON.stringify(action.data),
+        }));
+    },
+    [RESET_VALUES_REGISTER]:(state,action) => {        
+        if(action['data']){
+            // (action['data']['userAdded'] === false) ? resetObj['userAdded'] = false:'';            
+        }
+        return state.merge(Map({
+            errot: null
         }));
     },
 

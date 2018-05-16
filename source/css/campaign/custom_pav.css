@@ -107,6 +107,6 @@ td.fc-widget-content{ border:0;}
 .custom_modal_btn_close img { width: 15px; }
 
 .inspirations-img ul{ overflow: hidden; overflow-x:scroll; }
-.inspirations-img .custom_scrollbar::-webkit-scrollbar { height: 3px; }
+.inspirations-img .custom_scrollbar::-webkit-scrollbar { height: 5px; }
 .inspirations-img .custom_scrollbar::-webkit-scrollbar-track { box-shadow: inset 0 0 6px rgba(0,0,0,0.3); }
 .inspirations-img .custom_scrollbar::-webkit-scrollbar-thumb { background-color: #6772e5; outline: 1px solid #6772e5; }

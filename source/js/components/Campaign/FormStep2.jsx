@@ -13,27 +13,27 @@ const validate = values => {
     const errors = {};
     console.log(values);
     if (!values.call_to_action  || (values.call_to_action!==undefined && values.call_to_action.trim()=="")) {
-        errors.call_to_action = 'This Field is Required';
+        errors.call_to_action = 'This field is required';
     }
 
     if (!values.discount_code  || (values.discount_code!==undefined && values.discount_code.trim()=="")) {
-        errors.discount_code = 'This Field is Required';
+        errors.discount_code = 'This field is required';
     }
 
     if (!values.industryName || values.industryName.value==="") {
-        errors.industryName = 'This Field is Required';
+        errors.industryName = 'This field is required';
     }    
 
     if (!values.short_desc  || (values.short_desc!==undefined && values.short_desc.trim()=="")) {
-        errors.short_desc = 'This Field is Required';
+        errors.short_desc = 'This field is required';
     }
     
     if(!values.tagHash){
-        errors.tagHash = 'This Field is Required';
+        errors.tagHash = 'This field is required';
     }
 
     if(!values.tagAt){
-        errors.tagAt = 'This Field is Required';
+        errors.tagAt = 'This field is required';
     }
 
     return errors;

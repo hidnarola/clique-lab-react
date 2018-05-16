@@ -122,7 +122,7 @@ ul { padding: 0; }
 
   .festival-ftr-r.dropdown .dropdown-menu a{
     color: #595f6f !important;
-    font-weight:500;
+    font-weight:600;
   }
 
   .festival-ftr-r.dropdown .dropdown-menu a:hover{
@@ -159,7 +159,7 @@ ul { padding: 0; }
   .MoreFilterLi .dropdown-menu{ min-width:1030px; top:10px !important; left: 0px; will-change: transform; transform: inherit !important; padding:30px 20px !important;}
   .MoreFilterLi .dropdown-menu:after{ left:34%;}
   .morefilter-div{ margin:0 0 20px;}
-  .morefilter-div label{ font-size:15px; font-weight:600; color:#43458b; line-height:22px; display:block; margin:0 0 5px;}
+  .morefilter-div label{ font-size:13px; font-weight:600; color:#43458b; line-height:22px; display:block; margin:0 0 5px;}
   .Select-control:hover{box-shadow:none !important;}
   .all-people-content .dropdown-arrow { background: url(../assets/img/site/down-arrow-1.png) no-repeat 0 0 !important;}
   
@@ -184,7 +184,7 @@ ul { padding: 0; }
   .range-wrapper .input-range {margin:11px 0; display:inline-block;}
   body .input-range__track{ height:2px; background: rgba(178,178,189,.4);}
   body .input-range__track--active {background: #6772e5 !important;}
-  body .input-range__slider{margin-top:-9px; border:0; background: #6772e5 !important; }
+  body .input-range__slider{margin-top:-7px; border:0; background: #6772e5 !important; }
 
     .age-dropdown .dropdown-menu{ min-width:350px; padding:20px !important;}
     

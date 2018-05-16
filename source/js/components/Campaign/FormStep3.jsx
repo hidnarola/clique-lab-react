@@ -13,25 +13,25 @@ const validate = values => {
     const errors = {};
 
     if (!values.public_or_private || values.public_or_private.value==="") {
-        errors.public_or_private = 'This Field is Required';
+        errors.public_or_private = 'This field is required';
     }
 
     if(!values.media_format || values.media_format.value===""){
-        errors.media_format = 'This Field is Required';
+        errors.media_format = 'This field is required';
     }
 
     if(!values.location || (values.location!==undefined && values.location.trim()=="")){
-        errors.location = 'This Field is Required';
+        errors.location = 'This field is required';
     }
 
     if(!values.how_much){
-        errors.how_much = 'This Field is Required';
+        errors.how_much = 'This field is required';
     }else if(!validator.isFloat(values.how_much)){
         errors.how_much = 'Must be a number';
     }
 
     if(!values.currency || values.currency.value===""){
-        errors.currency = 'This Field is Required';
+        errors.currency = 'This field is required';
     }
 
     return errors;

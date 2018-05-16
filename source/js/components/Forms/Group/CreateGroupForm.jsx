@@ -14,7 +14,7 @@ const validate = values => {
     const errors = {};
 
     if (!values.images || values.images.length === 0) {
-        errors.images = 'This Field is Required';
+        errors.images = 'This field is required';
     } else {
         if ((values.images).length > 0) {
             let file_type = values.images[0].type;
@@ -25,7 +25,7 @@ const validate = values => {
         }
     }
     if (!values.group_name || !validator.matches(values.group_name, /^[A-Za-z_]/i)) {
-        errors.group_name = 'This Field is Required'
+        errors.group_name = 'This field is required'
     }
 
     return errors

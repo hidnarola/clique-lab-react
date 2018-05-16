@@ -10,9 +10,9 @@ import validator from 'validator';
 const validate = values => {
     const errors = {}
 
-    if (!values.username) { errors.username = 'This field is Required' }
-    if (!values.password) { errors.password = 'This field is Required' }
-    else if (values.password.length < 5) { errors.password = 'Must be more than 5 or more characters.' }
+    if (!values.username) { errors.username = 'This field is required' }
+    if (!values.password) { errors.password = 'This field is required' }
+    else if (values.password.length < 5) { errors.password = 'Must be more than 5 characters' }
     
     return errors
 }
@@ -54,13 +54,7 @@ class LoginForm extends Component {
         return (
             <div>
                 <div style={{ "margin": "0 32%" }}>
-                    {
-                        // (error && showError) ?
-                        // <Alert color="danger " isOpen={this.state.visible} toggle={this.onDismiss}>{error}</Alert>
-                        // :
-                        (newError) ? <Alert color="danger " isOpen={this.state.visible} toggle={this.onDismiss}>{newError}</Alert> : ''
-                  
-                    }
+                    {(newError) ? <Alert color="danger " isOpen={this.state.visible} toggle={this.onDismiss}>{newError}</Alert> : ''}
                 </div>
                 <form onSubmit={handleSubmit}>
                     <h3>Log In</h3>
@@ -70,8 +64,6 @@ class LoginForm extends Component {
                         <button type="submit" className="round-btn">Login</button>
                     </div>
                     <p>Forgot Password? <Link className="cursor_pointer" to="/forgot_password">Reset</Link></p>
-                           
-                    {/* <p>Forgot Password? <a className="cursor_pointer" onClick={this.resetLink}>Reset</a></p> */}
                 </form>
             </div>
         )

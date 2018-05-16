@@ -10,42 +10,41 @@ import { Alert } from 'reactstrap';
 
 const validate = values => {
     const errors = {}
-    console.log(values);
     if (!values.username || (values.username!==undefined && values.username.trim()=="")) {
-        errors.username = 'This field is Required'
+        errors.username = 'This field is required'
     }
 
     if (!values.fullname || (values.fullname!==undefined && values.fullname.trim()=="")) {
-        errors.fullname = 'This field is Required'
+        errors.fullname = 'This field is required'
     }
 
     if (!values.email || (values.email!==undefined && values.email.trim()=="")) {
-        errors.email = 'This field is Required'
+        errors.email = 'This field is required'
     } else if (validator.isEmail(values.email) === false) {
         errors.email = 'Enter valid email address'
     }
 
     if (!values.company || (values.company!==undefined && values.company.trim()=="")) {
-        errors.company = 'This field is Required'
+        errors.company = 'This field is required'
     }
     if (!values.country || JSON.stringify(values.country) == "{}") {
-        errors.country = 'This field is Required'
+        errors.country = 'This field is required'
     }
 
     if (!values.password || (values.password!==undefined && values.password.trim()=="")) {
-        errors.password = 'This field is Required'
+        errors.password = 'This field is required'
     } else if (values.password.length < 5) {
-        errors.password = 'Must be more than 5 or more characters.'
+        errors.password = 'Must be more than 5 characters'
     } 
 
     if (!values.repeatPassword || (values.repeatPassword!==undefined && values.repeatPassword.trim()=="")) {
-        errors.repeatPassword = 'This field is Required'
+        errors.repeatPassword = 'This field is required'
     } else if (values.password !== values.repeatPassword) {
         errors.repeatPassword = 'Please enter password same as above.'
     }
 
     if(!values.check1 || values.check1===''){
-        errors.check1 = 'Please accept the terms & condition.'
+        errors.check1 = 'Please accept the terms & condition'
     }
 
     return errors
@@ -117,14 +116,22 @@ class RegisterForm extends Component {
         this.state = {
             visible: true
         };
-      
         this.onDismiss = this.onDismiss.bind(this);
     }
 
-    onDismiss() {
-        this.setState({ visible: false });
-    }
+    onDismiss() { this.setState({ 'visible': false }); }
 
+    componentWillReceiveProps(nextProps) { 
+        if(this.state.visible === false && nextProps.newError === null){
+            this.setState({ 'visible': true });
+        }
+        if(nextProps.newError !== null){
+            this.setState({'showError':false});
+        }
+        if((nextProps.username) === undefined || ( (nextProps.password) === undefined)  || (nextProps.password.length < 5 ) ){
+            this.setState({'showError':true});
+        }
+    } 
       
     render(){
         const { handleSubmit, error, newError } = this.props;
@@ -134,14 +141,10 @@ class RegisterForm extends Component {
                 countryArr.push({'value':obj._id,label:obj.name});
             });
         }
-
-        if(newError!=='' || newError!==null){
-            setTimeout(() => { this.setState({visible: false}) }, 3000);
-        }
         return (
             <div>
                 <div style={{"margin":"0 32%"}}>
-                    {error && <strong>{error}</strong>}
+                    {/* {newError && <strong>{this.state.visible}</strong>} */}
                     {newError && <Alert color="danger " isOpen={this.state.visible} toggle={this.onDismiss}>{newError}</Alert>}
                 </div>
                 <form onSubmit={handleSubmit}>
