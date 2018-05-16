@@ -7,15 +7,10 @@ import {AfterReg} from '../Campaign/CommonCompo';
 class RegisterSecondStep extends Component{
     constructor(props){
         super(props);
-        this.state = {
-            page: 2
-        }
     }
-    changePage = (pageNo) => {
-        this.setState({page:pageNo});
-    }
+
     render(){
-        const { handleSubmit, pristine, previousPage, submitting,videoUrl } = this.props
+        const { handleSubmit, pristine, previousPage, submitting,videoUrl,lastVisitedPage } = this.props
         return(
             <section className="content">
                 <div className="container">
@@ -24,7 +19,7 @@ class RegisterSecondStep extends Component{
                             <a className="active"></a>
                             <a className="active"></a>
                         </div> */}
-                        <AfterReg currentPage="2" changePage={(i) => this.changePage(i)}/>
+                        <AfterReg lastVisitedPage={lastVisitedPage} currentPage="2" changePage={(i) => this.props.changePage(i)}/>
                         
                         <h2>Watch a tutorial video</h2>
                         <form onSubmit={handleSubmit}>

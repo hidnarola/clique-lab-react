@@ -33,9 +33,9 @@ export const AfterReg = (props) => {
     for (var i=1; i<=2; i++) {
         let newVar = i;
         if(i!==2){
-            lis.push(<a key={Math.random()} onClick={(i <= props.currentPage) ? (() => props.changePage(newVar +1)) : console.log('Can not redirect') } className={cx(" ",{"active":( (props.currentPage && props.currentPage == i) || (i < props.currentPage)) ? true:false},{"completed": (i < props.currentPage) ? true : false} )} ></a>);
+            lis.push(<a key={Math.random()} onClick={(i <= props.currentPage) ? (() => props.changePage(newVar)) : console.log('Can not redirect') } className={cx(" ",{"active":( (props.currentPage && props.currentPage == i) || (i < props.currentPage)) ? true:false},{"completed": (i < props.currentPage) ? true : false} )} ></a>);
         } else {
-            lis.push(<a key={Math.random()} onClick={(i < props.currentPage) ? (() => props.changePage(newVar)) : console.log('Can not redirect') } className={cx(" ",{"active":( (props.currentPage && props.currentPage == i) || (i < props.currentPage)) ? true:false},{"completed": (i < props.currentPage) ? true : false} )} ></a>);
+            lis.push(<a key={Math.random()} onClick={() => ((i-1) < props.currentPage) ? (() => props.changePage(newVar-1)) : (props.lastVisitedPage > props.currentPage) ? (() => props.changePage(newVar)) : console.log('Redirect..') } className={cx(" ",{"active":( (props.currentPage && props.currentPage == i) || (i < props.currentPage)) ? true:false},{"completed": (i < props.currentPage) ? true : false} )} ></a>);
         }
     }
     
