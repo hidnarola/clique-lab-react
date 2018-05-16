@@ -38,6 +38,7 @@ class Login extends Component{
     componentWillMount(){
         let { error,user,message,dispatch } = this.props;
         let { errorMsg } = this.state;
+        console.log(message);
         if (message!==null){
             this.setState({errorMsg: message},() => {
                 setTimeout(()=>{
@@ -111,15 +112,21 @@ class Login extends Component{
 }
 
 const mapStateToProps = (state) => {
-    const { login } = state;
-    const { forgotPass } = state;
+    const { login, forgotPass, register } = state;
+    let msg = '';
+    if(forgotPass.get('message')){
+        msg = forgotPass.get('message');
+    }
+    if(register.get('message')){
+        msg = register.get('message');
+    }
     return {
         loading: login.get('loading'),
         error: login.get('error'),
         user: login.get('user'),
         token: login.get('token'),
         refreshToken: login.get('refreshToken'),
-        message:forgotPass.get('message'),
+        message: msg,
     }
 }
 

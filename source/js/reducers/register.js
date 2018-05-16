@@ -13,12 +13,15 @@ const initialState = Map({
     loading: false,
     error: null,
     user: null,
+    message: null,
+    status: 0,
     country: null,
 });
 
 const actionMap = {
     [REGISTER_REQUEST]: (state, action) => {
         return state.merge(Map({
+            ...initialState,
             loading: true,
             error: null,
             user: null
@@ -26,9 +29,12 @@ const actionMap = {
     },
     [REGISTER_SUCCESS]: (state, action) => {
         return state.merge(Map({
+            ...initialState,
             loading: false,
             error: null,
             user: true,
+            message: action.data.data.message,
+            status: action.data.data.status,
         }));
     },
     [REGISTER_ERROR]: (state, action) => {
