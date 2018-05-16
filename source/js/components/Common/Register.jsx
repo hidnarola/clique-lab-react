@@ -108,7 +108,7 @@ class Register extends Component{
                         </p>
                     </div>
                 </div>                
-                <ModalPopUp onRef={ref => (this.child = ref)} contentBody={this.state.contentBody} closeButton="Close" />
+                <ModalPopUp onRef={ref => (this.child = ref)} contentBody={this.state.contentBody} header="Close" />
             </div>
         )
     }
