@@ -9,7 +9,6 @@ import {AfterReg} from '../Campaign/CommonCompo';
 const validate = values => {
     
     const errors = {};
-    console.log(values.images);
     if (!values.images || values.images.length===0) {
         errors.images = 'This field is required'
     }else {
@@ -55,12 +54,8 @@ class RegisterStepFirst extends Component{
         this.setState({ selectedOption });        
     }
 
-    changePage = (pageNo) => {
-        this.setState({page:pageNo});
-    }
-
     render(){
-        const { handleSubmit } = this.props;
+        const { handleSubmit, lastVisitedPage } = this.props;
         const { selectedOption,page } = this.state;
         const value = selectedOption && selectedOption.value;
 
@@ -70,7 +65,6 @@ class RegisterStepFirst extends Component{
                 newArr.push({value: obj._id, label: obj.name })
             })
         }
-        
         return(
             <section className="content">
                 <div className="container">
@@ -81,7 +75,7 @@ class RegisterStepFirst extends Component{
                         </div> */}
 
                         
-                        <AfterReg currentPage="1" changePage={(i) => this.changePage(i)}/>
+                        <AfterReg lastVisitedPage={lastVisitedPage} currentPage="1" changePage={(i) => this.props.changePage(i)}/>
                        
                         <h2>Industry Category</h2>
                         <form onSubmit={handleSubmit}>
@@ -118,7 +112,7 @@ class RegisterStepFirst extends Component{
                                     <Field
                                         name="description"                                        
                                         component={renderField}
-                                        placeholder="Please add description...."
+                                        placeholder="Description"
                                         className="input-wrap"
                                     />
                                 </div>

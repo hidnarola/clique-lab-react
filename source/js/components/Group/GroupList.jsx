@@ -174,7 +174,7 @@ class GroupList extends Component {
             loaderShow: false,
             is_inserted: 0,
             authorise_disabled: false,
-            groupId : '' //dm
+            groupId: '',
         };
 
         this.createGroupModal = this.createGroupModalOpen.bind(this);
@@ -265,8 +265,9 @@ class GroupList extends Component {
 
     addCampaign = (obj) => {
         const { dispatch } = this.props;
-        this.child.setSaveFor('campaign', obj._id);
-        dispatch(fetchDropDownReq({ "sendReqFor": "campaign", "uId": obj._id }));
+        this.setState({groupId: obj._id});
+        this.child.setSaveFor('add_to_campaign', null);
+        dispatch(fetchDropDownReq({ "sendReqFor": "add_to_campaign" }));
     }
 
     saveResult = (param1, param2, param3, param4, param5) => {

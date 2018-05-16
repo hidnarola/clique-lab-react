@@ -44,7 +44,6 @@ function fetchDropDownData(data){
 function addUserData(data){
     let newVar = reactLocalStorage.get('token', true);    
     let url = '';
-    
     // param1 -- Either Campaign Or Group 
     // param2 -- Either Campaign Id Or Group ID
     // Param3 -- Selected User Id

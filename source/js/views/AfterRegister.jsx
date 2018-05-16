@@ -15,6 +15,7 @@ class AfterRegister extends Component {
         this.previousPage = this.previousPage.bind(this);
         this.state = {
             page:1,
+            lastVisitedPage:1,
         };
         this.submitForm = this.submitForm.bind(this);
 
@@ -25,6 +26,9 @@ class AfterRegister extends Component {
     }
     
     nextPage() {
+        if(this.state.lastVisitedPage<(this.state.page + 1)){
+            this.setState({lastVisitedPage: this.state.page + 1});
+        }
         this.setState({ page: this.state.page + 1 });
     }
 
@@ -50,15 +54,16 @@ class AfterRegister extends Component {
         // <Redirect to={routeCodes.DASHBOARD} />
     }
 
-
     render() {
         const { onSubmit } = this.props;
-        const { page } = this.state;
+        const { page, lastVisitedPage } = this.state;
         
         return (
             <div className='afterRegister'>                
-                {page === 1 && <RegisterStepFirst onSubmit={this.nextPage} />}
-                {page === 2 && <RegisterStepSecond 
+                {page === 1 && <RegisterStepFirst onSubmit={this.nextPage} changePage={this.changePage} lastVisitedPage={lastVisitedPage} />}
+                {page === 2 && <RegisterStepSecond
+                                    lastVisitedPage={lastVisitedPage} 
+                                    changePage={(i) =>this.changePage(i)}
                                     previousPage={this.previousPage}
                                     onSubmit={this.submitForm} />}
             </div>

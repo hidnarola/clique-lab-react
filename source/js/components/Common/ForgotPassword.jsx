@@ -47,8 +47,8 @@ class ForgotPassword extends Component {
             <div className="login-register-bg">
                 <div className="login-register-box">
                     <div className="form-logo d-flex">
-                        <a onClick={() => (this.props.history.push("/"))} className="cursor_pointer">
-                            <img src={LogoImg} alt="" />
+                        <a>
+                            <img src={LogoImg} alt="" onClick={() => (this.props.history.push("/"))} className="cursor_pointer" />
                         </a>
                     </div>
                     <div className="form-content d-flex">

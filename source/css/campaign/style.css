@@ -115,7 +115,7 @@ filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='#c76eff', endC
 .category-select {margin:0 0 25px}
 .industry-r label{ margin:0 0 10px; padding:0; font-size:16px; color:#43458b; line-height:100%; font-weight:500; display:block;}
 .industry-r select{ border:2px solid #dcdfe5; padding:10px; line-height:36px; font-size:16px; color:#4f699d; font-weight:500; width:100%; background:#fff; border-radius:0;}
-.industry-description textarea{border:2px solid #dcdfe5; padding:10px; line-height:36px; font-size:16px; color:#4f699d; font-weight:500; height:204px; width:100%; border-radius:0; background:#fff; box-shadow:none !important;}
+.industry-description textarea{border:2px solid #dcdfe5; padding:10px; line-height:36px; font-size:16px; color:#4f699d; font-weight:500; height:168px; width:100%; border-radius:0; background:#fff; box-shadow:none !important;}
 
 .industry-btn{margin:90px 0 30px;}
 .industry-btn button{ border-radius:80px; line-height:26px; padding:10px; font-size:16px; font-weight:500; min-width:160px;}
