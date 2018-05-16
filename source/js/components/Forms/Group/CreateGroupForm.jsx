@@ -93,16 +93,16 @@ const FileField_Dropzone = (props) => {
                 {...input}
                 accept={accept ? accept : "image/jpeg, image/png, image/jpg, image/gif"}
                 onDrop={(filesToUpload, e) => {
-                    //console.log('drop before => ', isFileDropped);
+                    console.log('drop before => ', isFileDropped);
                     isFileDropped = true;
-                    //console.log('drop after => ', isFileDropped);
+                    console.log('drop after => ', isFileDropped);
                     input.onChange(filesToUpload)
                 }}
                 multiple={multiple ? multiple : false}
                 className={`${className}`}
 
                 onFileDialogCancel={() => {
-                    //console.log('cancel => ', isFileDropped);
+                    console.log('cancel => ', isFileDropped);
                     (!isFileDropped) ? input.onChange('') : console.log('dropped')
                 }}
             >
@@ -117,6 +117,7 @@ const FileField_Dropzone = (props) => {
                 </div>
             </Dropzone>
             {((!meta.valid || meta.visited) && meta.error && meta.submitFailed) && <span className="error-div">{meta.error}</span>}
+        
         </div>
     );
 }
