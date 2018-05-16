@@ -233,7 +233,8 @@ const PlusAction2 = (props) => {
 }
 
 const AgeDropDown = (props) => {
-    return (<UncontrolledDropdown>
+    // <UncontrolledDropdown>
+    return (<Dropdown isOpen={props.open} toggle={props.toggle}>
         <DropdownToggle caret >
             Age {" "} {props.currentVal.min}-{props.currentVal.max}
         </DropdownToggle>
@@ -259,7 +260,7 @@ const AgeDropDown = (props) => {
                 <button className="bdr-btn" onClick={() => props.setAgeFilter()} >Apply</button>
             </div>
         </DropdownMenu>
-    </UncontrolledDropdown>);
+    </Dropdown>);
 }
 
 const MoreFilterDropDown = (props) => {
@@ -579,6 +580,7 @@ class EverydayPeople extends Component {
             groupId: '',
             authorise_disabled: false,
             forceRefreshed: false,
+            groupForceRefreshed: false,
             modifyStatusPurchase: false,
             allDropDown: [
                 { 'dropdown': 'jobIndustryDrop', 'value': false },
@@ -615,16 +617,26 @@ class EverydayPeople extends Component {
             isGenderFilterSelected: false,
             isSortApply: false,
             isFilterApply: false,
-            more_filter_open: false,
+            more_filter_open:false,
+            age_filter_open:false,
         };
         // this.toggle = this.toggle.bind(this);  
         this.more_filter_toggle = this.more_filter_toggle.bind(this);
+        this.age_filter_toggle = this.age_filter_toggle.bind(this);
     }
 
-
-    more_filter_toggle() {
+    
+    more_filter_toggle()
+    {
         this.setState({
             more_filter_open: !this.state.more_filter_open
+        });
+    }
+ 
+    age_filter_toggle()
+    {
+        this.setState({
+            age_filter_open : !this.state.age_filter_open
         });
     }
 
@@ -869,12 +881,33 @@ class EverydayPeople extends Component {
     componentWillUpdate = (nextProps, nextState) => {
 
         const { dispatch, match } = nextProps;
-        const { forceRefreshed } = this.state;
+        const { forceRefreshed,groupForceRefreshed} = this.state;
 
-        if (forceRefreshed && !match.params.campaignId) {
+        //  if(forceRefreshed && !match.params.campaignId) {
+        //     this.setState({ groupId: '' });
+        //     if (match.params.grpId) {
+        //         this.setState({ groupId: match.params.grpId});
+        //     }
+
+        //     if (match.params.campaignId ) {
+        //         this.setState({ forceRefreshed: true });
+        //     }
+        
+        //     let arrayFilter = {
+        //         "page_size": this.state.perPageItem,
+        //         "page_no": 1,
+        //         groupId: match.params.grpId
+        //     }
+        //     this.filterSendReq(arrayFilter);
+        //     dispatch(moreFilterReq());
+        //     this.setState({ forceRefreshed: false });
+        // }
+
+        
+         if((forceRefreshed && !match.params.campaignId) || (groupForceRefreshed && !match.params.grpId)) {
             this.setState({ groupId: '' });
             if (match.params.grpId) {
-                this.setState({ groupId: match.params.grpId });
+                this.setState({ groupId: match.params.grpId,groupForceRefreshed: true });
             }
 
             if (match.params.campaignId) {
@@ -888,7 +921,7 @@ class EverydayPeople extends Component {
             }
             this.filterSendReq(arrayFilter);
             dispatch(moreFilterReq());
-            this.setState({ forceRefreshed: false });
+            this.setState({ forceRefreshed: false,groupForceRefreshed:false });
         }
 
     }
@@ -897,9 +930,11 @@ class EverydayPeople extends Component {
         const { dispatch, match } = this.props;
         this.setState({ groupId: '' });
         if (match.params.grpId) {
-            this.setState({ groupId: match.params.grpId });
+            //this.setState({ groupId: match.params.grpId});
+            this.setState({ groupId: match.params.grpId, groupForceRefreshed: true });
         }
         if (match.params.campaignId) {
+            //this.setState({ forceRefreshed: true });
             this.setState({ forceRefreshed: true });
         }
 
@@ -989,6 +1024,7 @@ class EverydayPeople extends Component {
         this.setState({ "activePage": 1 });
         this.filterSendReq(arrayFilter);
 
+        this.age_filter_toggle();
         // this.setState({isAgeFilterSelected:true});
     }
 
@@ -1166,6 +1202,8 @@ class EverydayPeople extends Component {
                                     parentMethod={(value) => { (value['min'] > 14) ? this.handleSLider(value, "ageRange") : ''; }}
                                     currentVal={allSliderArr['ageRange']['value']}
                                     setAgeFilter={() => { this.setAgeFilter() }}
+                                    open={this.state.age_filter_open}
+                                    toggle={this.age_filter_toggle}
                                 />
                             </li>
                             <li>
@@ -1259,13 +1297,17 @@ class EverydayPeople extends Component {
                         <h3>
 
                             {
-                                ((users.total !== undefined && filter_size === 0)) ?
+                                (match.path !== routeCodes.CAMPAIGN_INSPIRED_SUB) ?
+
+                                ((users.total !== undefined && filter_size === 0 )) ? 
                                     `All ( ${users.total} Results )`
-                                    : [
-                                        (users.total !== undefined && filter_size > 0) ?
-                                            `Filtered List ( ${users.total} Results )`
-                                            : ''
-                                    ]
+                                : [
+                                    (users.total !== undefined && filter_size > 0) ? 
+                                    `Filtered List ( ${users.total} Results )`
+                                    :''
+                                ]
+                                :
+                                null
 
                             }
                             {/* {
@@ -1303,7 +1345,7 @@ class EverydayPeople extends Component {
                             )
                     }
 
-                    {(users.total > 12) ?
+                    {(users.total > 12 &&  match.path !== routeCodes.CAMPAIGN_INSPIRED_SUB) ?
                         <Pagination
                             activePage={this.state.activePage}
                             totalItemsCount={users.total}
