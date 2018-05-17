@@ -47,7 +47,7 @@ class AfterRegister extends Component {
         const formData = new FormData();
         formData.append("industry_category", values.industryName.value);
         formData.append("industry_description", values.description);        
-        formData.append('avatar', values.images[0]);                         
+        formData.append('avatar', values.images[0]);
         dispatch(afterRegisterSend(formData));
         // window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`)
         this.props.history.push("/dashboard");

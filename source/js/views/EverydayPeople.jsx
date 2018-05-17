@@ -808,15 +808,21 @@ class EverydayPeople extends Component {
                         <div className="festival-head-l">
                             <span></span>
                             <h3>
-                                <big>{obj.name}</big>
-                                <small>Bondi Beach, Sydney, Australia</small>
+                                <big>{obj.user_name}</big>
+                                <small>{ obj.country!==undefined && obj.suburb+', '+obj.country.name}</small>
                             </h3>
                         </div>
-                        <div className="festival-head-r"><h3>$45.00</h3></div>
+                        <div className="festival-head-r"><h3>$ {(obj.price).toFixed(2)}</h3></div>
                     </div>
                     <div className="festival-img"><img src="http://placehold.it/450x215" alt="" /></div>
                     <div className="festival-body">
-                        <h2>Make up by morning. boyfriends happy, what a life I lead! <a href="javascript:void(0)">@thegrocer #morning #earlyriser #excited #sponsored</a></h2>
+                        <h2>
+                            {obj.campaign_description} &nbsp;
+                            <a href="javascript:void(0)">
+                                { (obj.at_tag).join(' ') } &nbsp;
+                                { (obj.hash_tag).join(' ') } 
+                            </a>
+                        </h2>
                     </div>
                     <div className="festival-ftr d-flex">
                         <div className="festival-ftr-l"><a href="javascript:void(0)"><i><img src={fbImg} alt="" /></i><strong>823M</strong></a></div>
