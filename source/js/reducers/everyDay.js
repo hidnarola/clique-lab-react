@@ -115,7 +115,7 @@ const actionMap = {
         }));
     },
 
-    [FETCH_DROPDOWN_SUCCESS]: (state, action) => {        
+    [FETCH_DROPDOWN_SUCCESS]: (state, action) => {   
         return state.merge(Map({
             loading: false,
             error: false,

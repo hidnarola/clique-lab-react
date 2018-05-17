@@ -270,8 +270,6 @@ const MoreFilterDropDown = (props) => {
     let languageArr = []; let ethnicityArr = [];
     let musicTasteArr = [];
 
-    //console.log('>>>>>>>>',props.moreFilterData);
-
     if (props.moreFilterData !== null) {
 
         props.moreFilterData.job_industry.map((obj) => {
@@ -329,7 +327,7 @@ const MoreFilterDropDown = (props) => {
                     <div className="morefilter-div">
                         <label htmlFor="">
                             Instagram Followers
-                        </label>
+                        </label>    
                         <div className="range-wrapper">
                             <InputRange
                                 maxValue={2500}
@@ -418,7 +416,6 @@ const MoreFilterDropDown = (props) => {
                             searchable={false} clearable={false} autosize={false}
                             options={jobIndustryArr}
                             placeholder="Select from Dropdown"
-                        // onKeyDown={(e)=>{props.bckPress}}
                         />
                     </div>
 
@@ -433,7 +430,7 @@ const MoreFilterDropDown = (props) => {
                             onChange={(value) => props.parentMethod(value, "jobTitleDrop")}
                             searchable={false} clearable={false} autosize={false}
                             options={jobTitleArr}
-                            placeholder="Select from Dropdown"
+                            placeholder="Type from Dropdown"
                         />
                     </div>
 
@@ -619,18 +616,50 @@ class EverydayPeople extends Component {
             isFilterApply: false,
             more_filter_open:false,
             age_filter_open:false,
+            isMoreFilterApply:false,
+            isAgeFilterApply:false,
+        
         };
         // this.toggle = this.toggle.bind(this);  
         this.more_filter_toggle = this.more_filter_toggle.bind(this);
         this.age_filter_toggle = this.age_filter_toggle.bind(this);
+
     }
 
-    
     more_filter_toggle()
-    {
+    {  
         this.setState({
-            more_filter_open: !this.state.more_filter_open
-        });
+            more_filter_open: !this.state.more_filter_open,
+        })
+        
+        if(this.state.isMoreFilterApply !== true)
+        {
+            this.setState({
+                allDropDown: [
+                    { 'dropdown': 'jobIndustryDrop', 'value': false },
+                    { 'dropdown': 'jobTitleDrop', 'value': false },
+                    { 'dropdown': 'yearInIndustry', 'value': false },
+                    { 'dropdown': 'education', 'value': false },
+                    { 'dropdown': 'language', 'value': false },
+                    { 'dropdown': 'ethnicity', 'value': false },
+                    { 'dropdown': 'sexualOrientation', 'value': false },
+                    { 'dropdown': 'relationship', 'value': false },
+                    { 'dropdown': 'musicTaste', 'value': false },
+                    
+                    { 'dropdown': 'genderDrop', 'value': false },
+                    { 'dropdown': 'sortDrop', 'value': { value: 1, label: "Name ASC" } },
+                ],
+                
+                allSliders: [
+                    { 'slider': 'facebook', 'value': { min: 0, max: 2500 } },
+                    { 'slider': 'instagram', 'value': { min: 0, max: 2500 } },
+                    { 'slider': 'twitter', 'value': { min: 0, max: 2500 } },
+                    { 'slider': 'pinterest', 'value': { min: 0, max: 2500 } },
+                    { 'slider': 'linkedin', 'value': { min: 0, max: 2500 } },
+                    { 'slider': 'ageRange', 'value': { min: 15, max: 65 } },
+                ]
+            })
+        }
     }
  
     age_filter_toggle()
@@ -927,6 +956,7 @@ class EverydayPeople extends Component {
     }
 
     componentWillMount() {
+        
         const { dispatch, match } = this.props;
         this.setState({ groupId: '' });
         if (match.params.grpId) {
@@ -1026,6 +1056,9 @@ class EverydayPeople extends Component {
 
         this.age_filter_toggle();
         // this.setState({isAgeFilterSelected:true});
+        this.setState({
+            isAgeFilterApply:true
+        })
     }
 
     applyMoreFilter = () => {
@@ -1112,10 +1145,12 @@ class EverydayPeople extends Component {
             "page_size": this.state.perPageItem,
             "page_no": 1
         }
-        this.setState({ "activePage": 1 });
+        this.setState({ 
+                        "activePage": 1,
+                        isMoreFilterApply:true,
+                        more_filter_open:false
+                    });
         this.filterSendReq(arrayFilter);
-
-        this.more_filter_toggle();
     }
 
     resetDropVal = () => {
@@ -1318,11 +1353,13 @@ class EverydayPeople extends Component {
                             } */}
 
                         </h3>
-                        {((match.params.campaignId === null || match.params.campaignId === undefined) && match.path !== routeCodes.CAMPAIGN_INSPIRED_SUB) &&
+                        {(this.state.isAgeFilterApply === true) ?
+                            ((match.params.campaignId === null || match.params.campaignId === undefined) && match.path !== routeCodes.CAMPAIGN_INSPIRED_SUB) &&
                             <a className="cursor_pointer" onClick={this.toggle}>
                                 <i className="fa fa-plus"></i>
                                 Save the results as a Group
                             </a>
+                            : null
                         }
                     </div>
                     {

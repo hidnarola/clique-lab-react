@@ -15,12 +15,15 @@ const validate = values => {
 
     if (!values.images || values.images.length === 0) {
         errors.images = 'This field is required';
+        console.log('cancelled');
     } else {
         if ((values.images).length > 0) {
+            console.log('file',values.images);
             let file_type = values.images[0].type;
             let extensions = ["image/jpeg", "image/png", "image/jpg"];
             if (extensions.indexOf(file_type) < 0) {
                 errors.images = 'File type not supported';
+                console.log('No suppeort')
             }
         }
     }
@@ -73,6 +76,8 @@ const FileField_Dropzone = (props) => {
     let filesArr = _.values(input.value);
     let images = [];
     let isFileDropped = false;
+    let msg = false;
+
     _.forEach(filesArr, (file, key) => {
         images.push(
             <div className="images-preview-wrapper" key={key}>
@@ -93,16 +98,15 @@ const FileField_Dropzone = (props) => {
                 {...input}
                 accept={accept ? accept : "image/jpeg, image/png, image/jpg, image/gif"}
                 onDrop={(filesToUpload, e) => {
-                    console.log('drop before => ', isFileDropped);
+                    //console.log('drop before => ', isFileDropped);
                     isFileDropped = true;
-                    console.log('drop after => ', isFileDropped);
+                    //console.log('drop after => ', isFileDropped);
                     input.onChange(filesToUpload)
                 }}
                 multiple={multiple ? multiple : false}
                 className={`${className}`}
-
                 onFileDialogCancel={() => {
-                    console.log('cancel => ', isFileDropped);
+                    //console.log('cancel => ', isFileDropped);
                     (!isFileDropped) ? input.onChange('') : console.log('dropped')
                 }}
             >
@@ -116,8 +120,8 @@ const FileField_Dropzone = (props) => {
                     }
                 </div>
             </Dropzone>
-            {((!meta.valid || meta.visited) && meta.error && meta.submitFailed) && <span className="error-div">{meta.error}</span>}
-        
+            {((!meta.valid || meta.visited) && meta.error && meta.submitFailed ) && <span className="error-div">{meta.error}</span>}
+            {/* {((meta.touched && meta.error)) && <span className="error-div">{meta.error}</span>} */}
         </div>
     );
 }
