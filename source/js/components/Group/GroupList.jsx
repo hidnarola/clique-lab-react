@@ -248,7 +248,7 @@ class GroupList extends Component {
         if (showDrop) {
             this.child.toggle();
         }
-
+        
         if (inserted_group != null && is_inserted == 1) {
             this.setState({ is_inserted: 0 });
             this.setState({ createGroupModalShow: false });
