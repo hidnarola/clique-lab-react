@@ -701,8 +701,9 @@ ul.fan-festival.h-view .festival-body {margin:0 0 50px;}
 
 .btn_add_all_results {min-width:160px;}
 
-.sort-date-btn .Select-multi-value-wrapper{display:inline-flex; width: 100%;}
+.sort-date-btn .Select-multi-value-wrapper{display:inline-flex; width: 100%; max-width: 155px; min-width: 155px;}
 .sort-date-btn .Select-placeholder,
-.sort-date-btn .Select-value{ padding:0 !important; transform:initial !important; position:relative !important;}
+.sort-date-btn .Select-value,
+.sort-date-btn .Select-value-label{ padding:0 12px 0 0 !important; transform:initial !important; position:relative !important; font-size:13px !important; font-weight:600 !important}
 .sort-date-btn .Select-multi-value-wrapper .Select-value + div,
 .sort-date-btn .Select-multi-value-wrapper .Select-placeholder + div{ width:0 !important;}
