@@ -49,6 +49,8 @@ export const FileField_Dropzone = (props) => {
     let filesArr = _.values(input.value);
     let images = [];
     
+    let isFileDropped = false;
+
     _.forEach(filesArr, (file, key) => {
         images.push(
             <div className="images-preview-wrapper" key={key}>
@@ -68,16 +70,21 @@ export const FileField_Dropzone = (props) => {
             <Dropzone
                 {...input}
                 accept={accept ? accept : "image/jpeg, image/png, image/jpg, image/gif"}
-                onDrop={(filesToUpload, e) => input.onChange(filesToUpload)}
+                // onDrop={(filesToUpload, e) => input.onChange(filesToUpload)}
+                onDrop={(filesToUpload, e) => {isFileDropped = true; input.onChange(filesToUpload)}}
                 multiple={multiple ? multiple : false}
                 className={ `${className}` }
+                onFileDialogCancel={() => {
+                    (!isFileDropped) ? input.onChange('') : console.log('dropped')
+                }}
             >
                 <div className="dropzone-image-preview-wrapper">
                     {(input.value && meta.error===undefined) && images}
                     {(!input.value || meta.error || images.length ===0 ) && <div className={ `custom_dropzone_div ${(meta.touched && meta.error) && 'drop_error_div'}` } style={{'width':'100% !important'}}>
                                 <img src={dropImg} /><br /><br />
                                 <p>Select or Drag Your image here</p>
-                                <button type="button" className={ `btn_drop_browse` }>Or Browse</button>
+                                {/* <button type="button" className={ `btn_drop_browse` }>Or Browse</button> */}
+                                    <span className={`btn btn_drop_browse`}>Or Browse</span>
                             </div>
                     }
                 </div>
@@ -85,7 +92,8 @@ export const FileField_Dropzone = (props) => {
             {
                 console.log(meta)
             }
-            {(meta.touched && meta.error) && <span className="error-div">{meta.error}</span>}
+            {(meta.touched && meta.error) && <span className="error-div">{meta.error}</span>} 
+            {/* {((!meta.valid || meta.visited) && meta.error && meta.submitFailed) && <span className="error-div">{meta.error}</span>} */}
         </div>
     );
 }
