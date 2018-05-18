@@ -19,7 +19,7 @@ const validate = values => {
     if(!values.media_format || values.media_format.value===""){
         errors.media_format = 'This field is required';
     }
-
+ 
     if(!values.location || (values.location!==undefined && values.location.trim()=="")){
         errors.location = 'This field is required';
     }
@@ -28,6 +28,10 @@ const validate = values => {
         errors.how_much = 'This field is required';
     }else if(!validator.isFloat(values.how_much)){
         errors.how_much = 'Must be a number';
+    }
+    else if(!validator.matches(values.how_much,/^[0-9]/))
+    {
+        errors.how_much = 'Must be a positive value';
     }
 
     if(!values.currency || values.currency.value===""){

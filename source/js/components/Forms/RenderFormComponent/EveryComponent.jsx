@@ -26,7 +26,7 @@ export const renderFieldDatePicker = ({ input, value, type, placeholder, default
             <div className={`input-wrap-2 ${touched && ((error && `txt_error_div`) || (warning && `txt_error_div`))}`}>
                 <DatePicker
                     {...input}                
-                    selected={input.value ? moment(input.value) : ''}
+                    selected={input.value ? moment(input.value) : null}
                     minDate={minDateVal}
                     dateFormat="YYYY-MM-DD"
                     placeholderText={placeholder}

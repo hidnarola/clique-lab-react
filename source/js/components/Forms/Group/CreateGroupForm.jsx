@@ -76,8 +76,7 @@ const FileField_Dropzone = (props) => {
     let filesArr = _.values(input.value);
     let images = [];
     let isFileDropped = false;
-    let msg = false;
-
+    
     _.forEach(filesArr, (file, key) => {
         images.push(
             <div className="images-preview-wrapper" key={key}>
@@ -98,15 +97,15 @@ const FileField_Dropzone = (props) => {
                 {...input}
                 accept={accept ? accept : "image/jpeg, image/png, image/jpg, image/gif"}
                 onDrop={(filesToUpload, e) => {
-                    //console.log('drop before => ', isFileDropped);
+                    console.log('drop before => ', isFileDropped);
                     isFileDropped = true;
-                    //console.log('drop after => ', isFileDropped);
+                    console.log('drop after => ', isFileDropped);
                     input.onChange(filesToUpload)
                 }}
                 multiple={multiple ? multiple : false}
                 className={`${className}`}
                 onFileDialogCancel={() => {
-                    //console.log('cancel => ', isFileDropped);
+                    console.log('cancel => ', isFileDropped);
                     (!isFileDropped) ? input.onChange('') : console.log('dropped')
                 }}
             >

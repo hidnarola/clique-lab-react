@@ -86,7 +86,7 @@ class AddToModal extends Component {
         let { selectedOption, saveFor, userId, filter } = this.state;
         if (selectedOption === '' || selectedOption === null) {
             jQuery('.add_grp_popup_select .Select-control').css("cssText", "border: 2px solid red !important");
-            jQuery('.add_grp_popup_select_errorMsg').html('This Field is Required');
+            jQuery('.add_grp_popup_select_errorMsg').html('This field is required');
         } else {
             this.props.saveResult(saveFor, selectedOption, userId, filter);
         }
@@ -1359,7 +1359,7 @@ class EverydayPeople extends Component {
                             } */}
 
                         </h3>
-                        {(this.state.isAgeFilterApply === true) ?
+                        {((this.state.isAgeFilterApply === true || this.state.isMoreFilterApply === true) ) ?
                             ((match.params.campaignId === null || match.params.campaignId === undefined) && match.path !== routeCodes.CAMPAIGN_INSPIRED_SUB) &&
                             <a className="cursor_pointer" onClick={this.toggle}>
                                 <i className="fa fa-plus"></i>
