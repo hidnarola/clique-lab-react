@@ -35,6 +35,7 @@ class Cart extends React.Component {
 			});
 			dispatch(getCheckoutList());
 		}
+		dispatch(resetVal({ 'userAdded': false }));
 	}
 
 	renderTr = (obj) => {

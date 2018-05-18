@@ -140,6 +140,7 @@ const actionMap = {
         }
         return state.merge(Map(resetObj));
     },
+    
     [FORCE_REFRESED]:(state,action) => {
         if(action['data']){
             // (action['data']['userAdded'] === false) ? resetObj['userAdded'] = false:'';

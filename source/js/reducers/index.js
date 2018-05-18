@@ -9,6 +9,7 @@ import groups from 'reducers/groups';
 import checkout from 'reducers/checkout';
 import purchasedPosts from 'reducers/purchasedPosts';
 import calendar from 'reducers/calendar';
+import analytics from 'reducers/analytics';
 import { reducer as formReducer } from 'redux-form'
 
 export default combineReducers({    
@@ -22,5 +23,6 @@ export default combineReducers({
     checkout,
     purchasedPosts,
     calendar,
+    analytics,
     form: formReducer
 });

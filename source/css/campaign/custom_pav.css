@@ -127,3 +127,15 @@ td.fc-widget-content{ border:0;}
 #eventPopover_modal .contents p .platform{ color: #bfc4ca !important; }
 #eventPopover_modal .contents p .days{ color:#6772e5b8 !important; float:right }
 #eventPopover_modal .contents .btn_add_user{ border: 2px solid #5e667bb3; padding: 6px 46px; border-radius: 3px; text-align: center; color: #5e667bb3;}
+
+.graph-img .y.axis,
+.graph-img .x.axis .tick line,
+.graph-img .x.axis path.domain {
+    display:none !important;
+}
+
+.graph-img .x.axis .tick text {
+    font-size: 14px;
+    font-weight: 500;
+    color: red;
+}

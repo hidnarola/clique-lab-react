@@ -53,13 +53,13 @@ class Past extends Component {
 
     componentWillMount(){
         const { dispatch } = this.props;
-        dispatch(getPastCampaign({"page_size":9,"page_no":1}))
+        dispatch(getPastCampaign({"page_size":12,"page_no":1}))
     }
 
     handlePageChange(pageNumber) {
         this.setState({activePage: pageNumber});
         const { dispatch } = this.props;
-        dispatch(getPastCampaign({"page_size":9,"page_no":pageNumber}))
+        dispatch(getPastCampaign({"page_size":12,"page_no":pageNumber}))
     }
 
     render() {
@@ -82,9 +82,9 @@ class Past extends Component {
                     }
                 </ul>
                 {
-                    (pastCampaign!==null && totalPastCampaign>9) && <Pagination 
+                    (pastCampaign!==null && totalPastCampaign>12) && <Pagination 
                             activePage={this.state.activePage} 
-                            itemsCountPerPage={6} 
+                            itemsCountPerPage={12} 
                             totalItemsCount={totalPastCampaign} 
                             pageRangeDisplayed={5} 
                             onChange={this.handlePageChange}

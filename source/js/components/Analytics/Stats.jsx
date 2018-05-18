@@ -1,22 +1,104 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import graph from 'img/site/graph.jpg';
+import { BarChart } from 'react-d3-components';
 
-import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem ,UncontrolledDropdown } from 'reactstrap';
+import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem, UncontrolledDropdown } from 'reactstrap';
 
 
 class Stats extends Component {
-    
-    constructor(props){
-        super(props);     
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            analytics: {
+                'avg_cost_per_purchase': 0,
+                'purchased_post': 0,
+                'applicants': 0,
+                'total_spend': 0,
+                'reach_total': 0,
+                'engage_total': 0,
+            }
+        }
+    }
+
+    // componentWillReceiveProps = (nextProps) => {
+    //     let analytics = nextProps.analyticsData;
+    //     console.log(nextProps.analyticsData);
+    //     this.setState({
+    //         analytics:{
+    //             'avg_cost_per_purchase': 0,
+    //             'purchased_post': 0,
+    //             'applicants': analytics.number_of_appplicants,
+    //             'total_spend': 0,
+    //             'reach_total': 0,
+    //             'engage_total': 0,
+    //         }
+    //     })
+    // }
+
+    renderLi = (obj) => {
+        return (
+            <ul className="d-flex" key={Math.random()}>
+                <li>
+                    <div className="average-box-inr">
+                        <h3>Average cost per purchase</h3>
+                        <h5 className="blue-color">$20,000</h5>
+                    </div>
+                </li>
+                <li>
+                    <div className="average-box-inr">
+                        <h3>Purchased posts</h3>
+                        <h5 className="blue-color">{obj.purchased_campaign}</h5>
+                    </div>
+                </li>
+                <li>
+                    <div className="average-box-inr">
+                        <h3>Applicants</h3>
+                        <h5 className="blue-color">{obj.number_of_appplicants}</h5>
+                    </div>
+                </li>
+                <li>
+                    <div className="average-box-inr">
+                        <h3>Total Spend</h3>
+                        <h5 className="blue-color">${obj.total_spent}</h5>
+                    </div>
+                </li>
+                <li>
+                    <div className="average-box-inr">
+                        <h3>Reach total</h3>
+                        <h5 className="blue-color">{obj.no_of_reach_total}</h5>
+                    </div>
+                </li>
+                <li>
+                    <div className="average-box-inr">
+                        <h3>Engagement total</h3>
+                        <h5 className="blue-color">{obj.total_no_of_engagement}</h5>
+                    </div>
+                </li>
+            </ul>
+        );
     }
 
     render() {
+        const { analyticsData } = this.props;
+        let data = [{
+            label: 'somethingA',
+            values: [{ x: 'JUN', y: 10, color: 'red' }, { x: 'JUL', y: 4 }, { x: 'AUG', y: 3 }]
+        }];
+        let chartSeries = [
+            {
+                field: 'frequency',
+                name: 'Frequency',
+                color: 'red'
+            }
+        ]
         return (
             <div className="analytics-body ">
                 <div className="content-box average-box">
-                    <ul className="d-flex">
-                        <li>
+
+                    {(analyticsData !== null) ? analyticsData.map((obj, index) => (this.renderLi(obj))) : ''}
+                    {/* <li>
                             <div className="average-box-inr">
                                 <h3>Average cost per purchase</h3>
                                 <h5 className="blue-color">$20,000</h5>
@@ -31,7 +113,7 @@ class Stats extends Component {
                         <li>
                             <div className="average-box-inr">
                                 <h3>Applicants</h3>
-                                <h5 className="blue-color">500</h5>
+                                <h5 className="blue-color">{analyticsData[0].number_of_appplicants}</h5>
                             </div>	
                         </li>
                         <li>
@@ -51,10 +133,10 @@ class Stats extends Component {
                                 <h3>Engagement total</h3>
                                 <h5 className="blue-color">6325</h5>
                             </div>	
-                        </li>
-                    </ul>
+                        </li> */}
+
                 </div>
-                
+
                 <div className="right-box">
                     <div className="right-box-head d-flex">
                         <div className="social-dropdown">
@@ -74,7 +156,17 @@ class Stats extends Component {
                         </div>
                     </div>
                     <div className="right-box-content d-flex">
-                        <div className="graph-img"><img src={graph} alt="" /></div>
+                        <div className="graph-img">
+                            <BarChart
+                                data={data}
+                                width={750}
+                                height={400}
+                                margin={{ top: 30, bottom: 50, left: 10, right: 50 }}
+                                categoricalColors= {d3.scale.category10()}
+                                chartSeries = {chartSeries}
+                            />
+                            <img src={graph} alt="" />
+                        </div>
                     </div>
                     <div className="right-box-btm">
                         <ul className="data-counter d-flex">
@@ -100,7 +192,7 @@ class Stats extends Component {
                     </div>
                 </div>
             </div>
-    
+
         );
     }
 }

@@ -27,7 +27,7 @@ img{max-width:100%;}
 	.right-box-content {min-height:300px;}
 	.big-logo a img{max-width:75px;}
 	.dropdown-menu {padding:5px 15px !important;}
-	.dropdown-menu a.dropdown-item{ margin:0px 0; font-size:14px;}
+	.dropdown-menu a.dropdown-item{ margin:6px 0; font-size:14px;}
 	.databox-div-r {width: calc(100% - 245px); padding: 20px 20px 20px 0;}
 	.databox-div-r h3 big{font-size:16px;}
 	.databox-div-r h3 small{font-size:14px;}
@@ -182,7 +182,7 @@ img{max-width:100%;}
 	.step-process a {width: 16px; height: 16px;}
 	.step-process strong {width: 3px;}
 	.step-process {width: 24px;}
-	.dropdown-menu a.dropdown-item {margin:0px 0; font-size:13px;}
+	.dropdown-menu a.dropdown-item {margin:6px 0; font-size:13px;}
 	.everypeole-head-r>ul>li>a, .everypeole-head-l ul li a {font-size:12px; padding:4px 16px 4px; line-height:18px;}
 	.all-people-head a,
 	.all-people-head h3 {font-size:13px;}

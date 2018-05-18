@@ -966,11 +966,9 @@ class EverydayPeople extends Component {
         const { dispatch, match } = this.props;
         this.setState({ groupId: '' });
         if (match.params.grpId) {
-            //this.setState({ groupId: match.params.grpId});
             this.setState({ groupId: match.params.grpId, groupForceRefreshed: true });
         }
         if (match.params.campaignId) {
-            //this.setState({ forceRefreshed: true });
             this.setState({ forceRefreshed: true });
         }
 
@@ -979,6 +977,7 @@ class EverydayPeople extends Component {
             "page_no": 1,
             groupId: match.params.grpId
         }
+        this.setState({ forceRefreshed: true });
         this.filterSendReq(arrayFilter);
         dispatch(moreFilterReq());
     }
@@ -1006,23 +1005,24 @@ class EverydayPeople extends Component {
             console.log('=================================');
             this.saveResult(param1, param2, param3, param4, param5);
         }
-        
+
         if(modifyStatusPurchase){
             this.setState({modifyStatusPurchase: false});
             this.props.history.push(routeCodes.MY_CART);
         }
 
         if (userAdded) {
-            alert('User Has been Added');
+            alert('User has been added');
             dispatch(resetVal({ 'userAdded': false }));
             dispatch(resetGroupVal());
         }
+
+        
     }
 
     componentWillUnmount() {
         const { dispatch } = this.props;
         dispatch(resetVal({ 'userListing': false }));
-
     }
 
     setAgeValue(value) {

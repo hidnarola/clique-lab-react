@@ -10,6 +10,7 @@ import groups from 'sagas/groups';
 import checkout from 'sagas/checkout';
 import purchasedPosts from 'sagas/purchasedPosts';
 import calendar from 'sagas/calendar';
+import analytics from 'sagas/analytics';
 
 
 export default function* rootSaga() {
@@ -24,5 +25,6 @@ export default function* rootSaga() {
     ...groups,
     ...checkout,
     ...calendar,
+    ...analytics,
   ]);
 }
