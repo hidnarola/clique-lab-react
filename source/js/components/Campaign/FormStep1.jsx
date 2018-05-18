@@ -63,7 +63,7 @@ class FormStep1 extends Component {
                                 placeholder="Campaign Name"
                                 isRequired="true"
                             />
-
+                            
                             <Field
                                 name="campaignStartDate"
                                 label="Date of Campaign Start"
