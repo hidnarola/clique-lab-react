@@ -279,7 +279,7 @@ class GroupList extends Component {
             param5: this.state.groupId
         }
         const { dispatch } = this.props;
-        dispatch(addUserReq(data));
+        dispatch(addUserReq(data))   
     }
 
     renderLi = (obj) => {

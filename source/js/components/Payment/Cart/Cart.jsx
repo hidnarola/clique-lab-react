@@ -39,15 +39,17 @@ class Cart extends React.Component {
 	}
 
 	renderTr = (obj) => {
+		console.log(">++>>",obj);
 		return (
 			<tr key={Math.random()}>
 				<td><img src={`${imgRoutes.CAMPAIGN_IMG_PATH}${obj.campaign.cover_image}`} alt="" /></td>
 				<td>
-					<b>{obj.campaign.name}</b><br />
+					{/* <b>{obj.campaign.name}</b><br /> */}
 					{obj.campaign.description}
 				</td>
-				<td>{obj.user.name}</td>
-				{/* <td>Facebook</td> */}
+				<td>{/*obj.user_name*/}</td>
+				<td>{obj.campaign.social_media_platform}</td>
+				
 				<td>${(obj.campaign.price).toFixed(2)}</td>
 				<td>
 					<a href="javascript:void(0)" onClick={() => this.removeCart(obj._id)}><img src={trashImg} alt="img" /></a>
@@ -73,7 +75,7 @@ class Cart extends React.Component {
 									<th style={{ "width": "14%" }}>Image Preview</th>
 									<th style={{ "width": "50%" }}>Text Description</th>
 									<th style={{ "width": "20%" }}>Person</th>
-									{/* <th style={{"width":"15%"}}>Flatform</th> */}
+									<th style={{"width":"15%"}}>Flatform</th>
 									<th style={{ "width": "11%" }}>Price</th>
 									<th> </th>
 								</tr>
