@@ -62,7 +62,7 @@ class AddToModal extends Component {
     }
 
     setSaveFor = (val, userId, filter = null) => {
-        this.setState({ saveFor: val, userId: userId, filter: filter });
+        this.setState({ saveFor: val, userId: userId, filter: filter});
     }
 
     toggle() {
@@ -753,11 +753,24 @@ class EverydayPeople extends Component {
     }
 
     addCampaign = (obj) => {
+        const { dispatch,dropdownList } = this.props;
+        this.child.setSaveFor('campaign', obj._id);
+        dispatch(fetchDropDownReq({ "sendReqFor": "campaign", "uId": obj._id }));
+        
+      
 
-        alert('No Data found');
-        // const { dispatch } = this.props;
-        // this.child.setSaveFor('campaign', obj._id);
+        // const { dispatch,dropdownList } = this.props;
         // dispatch(fetchDropDownReq({ "sendReqFor": "campaign", "uId": obj._id }));
+        
+        // if(dropdownList !== null)
+        // {
+        //     this.child.setSaveFor('campaign', obj._id);
+        // }
+        // else
+        // {
+        //     alert('No Data found');
+        //     this.test();
+        // }
     }
 
     addGroup = (obj) => {
@@ -965,6 +978,27 @@ class EverydayPeople extends Component {
             this.setState({ forceRefreshed: false, groupForceRefreshed: false });
         }
 
+    }
+
+    test()
+    {
+        const { dispatch, match } = this.props;
+        this.setState({ groupId: '' });
+        if (match.params.grpId) {
+            this.setState({ groupId: match.params.grpId, groupForceRefreshed: true });
+        }
+        if (match.params.campaignId) {
+            this.setState({ forceRefreshed: true });
+        }
+
+        let arrayFilter = {
+            "page_size": this.state.perPageItem,
+            "page_no": 1,
+            groupId: match.params.grpId
+        }
+        this.setState({ forceRefreshed: true });
+        this.filterSendReq(arrayFilter);
+        dispatch(moreFilterReq());
     }
 
     componentWillMount() {
@@ -1237,8 +1271,6 @@ class EverydayPeople extends Component {
         allSliderArr['ageRange'] = _.find(allSliders, function (o) { return o.slider == 'ageRange'; });
 
         // if (loading) { return (<div className="loader"></div>) }
-
-        console.log('Drop Downn:>>', this.props.dropdownList)
         return (
             <div className="every-people">
                 {(loading) ? <div className="loader" style={{ "zIndex": "999999999" }}></div> : ''}
@@ -1407,10 +1439,11 @@ class EverydayPeople extends Component {
 
                 </div>
 
-                <AddToModal onRef={ref => (this.child = ref)}
+                <AddToModal onRef={ref => (this.child = ref)} 
                     dropdownList={dropdownList}
                     resetDropVal={this.resetDropVal}
-                    saveResult={this.saveResult} />
+                    saveResult={this.saveResult} 
+                    />
 
                 <Modal isOpen={this.state.modal} toggle={this.toggle} id="group-popup" >
                     <button type="button" className="close" onClick={this.toggle}>
