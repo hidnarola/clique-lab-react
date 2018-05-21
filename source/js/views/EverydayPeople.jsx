@@ -757,7 +757,11 @@ class EverydayPeople extends Component {
         this.child.setSaveFor('campaign', obj._id);
         dispatch(fetchDropDownReq({ "sendReqFor": "campaign", "uId": obj._id }));
         
-      
+      if(dropdownList === null)
+      {
+          //alert('No Data found');
+          this.test();
+      }
 
         // const { dispatch,dropdownList } = this.props;
         // dispatch(fetchDropDownReq({ "sendReqFor": "campaign", "uId": obj._id }));
@@ -1056,8 +1060,7 @@ class EverydayPeople extends Component {
             dispatch(resetVal({ 'userAdded': false }));
             dispatch(resetGroupVal());
         }
-
-
+        
     }
 
     componentWillUnmount() {
