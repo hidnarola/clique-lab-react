@@ -21,6 +21,8 @@ class Future extends Component {
 
             delete_alert: false,
             selected_id: null,
+            del : 0
+
         };
         this.futureListing = this.futureListing.bind(this); 
         this.handlePageChange = this.handlePageChange.bind(this)  
@@ -41,7 +43,8 @@ class Future extends Component {
         }
         this.setState({ 
             delete_alert: false,
-            selected_id: null
+            selected_id: null,
+            del:1
         }) 
     }
 
@@ -82,10 +85,10 @@ class Future extends Component {
             </li>
         )
     }
-
+    
     componentWillMount(){
         const { dispatch } = this.props;
-        dispatch(getFutureCampaign({"page_size":9,"page_no":1}))
+        dispatch(getFutureCampaign({"page_size":9,"page_no":1}))   
     }
 
     handlePageChange(pageNumber) {
@@ -93,20 +96,26 @@ class Future extends Component {
         const { dispatch } = this.props;
         dispatch(getFutureCampaign({"page_size":9,"page_no":pageNumber}))
     }
-
+    
     componentDidUpdate(){
-        const { isDelete, dispatch } = this.props;
-        if(isDelete===1){
+        const { isDelete, dispatch,loading} = this.props;
+        console.log('Updated Props>>>>>',this.props);
+       // console.log('Updated state>>>>>',this.state.del);
+        const {del} = this.state;
+        if(isDelete === 1)
+        {
             dispatch(getFutureCampaign({"page_size":9,"page_no":1}))
         }
     }
-
-    render() {
-        let { futureCampaign, totalFutureCampaign, loading } = this.props;
-
-        if(loading) {
-            return (
-                <div className="loader"></div>
+        
+        render() {
+            let { futureCampaign, totalFutureCampaign, loading,status } = this.props;
+            console.log('Render Props>>>>>',this.props);
+           // console.log('Render State>>>>>',this.state.del);
+            
+            if(loading) {
+                return (
+                    <div className="loader"></div>
             )
         }
         return (
@@ -127,8 +136,8 @@ class Future extends Component {
                     </SweetAlert>
                 }
                 <ul className="all-people-ul d-flex">
-                    {
-                        (futureCampaign!==null) ? futureCampaign.map((obj,i) => (this.futureListing(obj))) : <div className="no_data_found"><img src={nodataImg} /></div>
+                    { 
+                        (futureCampaign!==null && status === 1 ) ? futureCampaign.map((obj,i) => (this.futureListing(obj))) : <div className="no_data_found"><img src={nodataImg} /></div>
                     }
                 </ul>
                 {

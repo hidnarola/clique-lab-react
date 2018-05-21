@@ -75,7 +75,7 @@ class AddToModal extends Component {
         this.setState({ selectedOption });
         if (selectedOption === null) {
             jQuery('.add_grp_popup_select .Select-control').css("cssText", "border: 2px solid red !important");
-            jQuery('.add_grp_popup_select_errorMsg').html('This Field is Required');
+            jQuery('.add_grp_popup_select_errorMsg').html('This field is required');
         } else {
             jQuery('.add_grp_popup_select .Select-control').css("cssText", "border: 2px solid rgb(220, 223, 229) !important");
             jQuery('.add_grp_popup_select_errorMsg').html('');
@@ -756,9 +756,11 @@ class EverydayPeople extends Component {
     }
 
     addCampaign = (obj) => {
-        const { dispatch } = this.props;
-        this.child.setSaveFor('campaign', obj._id);
-        dispatch(fetchDropDownReq({ "sendReqFor": "campaign", "uId": obj._id }));
+
+        alert('No Data found');
+        // const { dispatch } = this.props;
+        // this.child.setSaveFor('campaign', obj._id);
+        // dispatch(fetchDropDownReq({ "sendReqFor": "campaign", "uId": obj._id }));
     }
 
     addGroup = (obj) => {
@@ -810,7 +812,10 @@ class EverydayPeople extends Component {
                 <div className="all-people-div">
                     <div className="all-people-img">
                         <a >
+                            {(obj.image) ? <img src={`${imgRoutes.USER_IMG_PATH}${obj.image}`} alt="" />
+                            :
                             <img src={sampleImg} alt="" />
+                            }
                         </a>
                         <div className="plus-people dropdown">
                             <PlusAction
@@ -830,6 +835,7 @@ class EverydayPeople extends Component {
     }
 
     renderLi2 = (obj) => {
+        console.log("Cart-Data>>",obj);
         return (
             <li key={Math.random()}>
                 <div className="fan-festival-box">
@@ -857,7 +863,8 @@ class EverydayPeople extends Component {
                         <div className="festival-ftr-l"><a href="javascript:void(0)"><i><img src={fbImg} alt="" /></i><strong>823M</strong></a></div>
                         <div className="festival-ftr-r dropdown">
                             <PlusAction2
-                                addToCart={() => { this.addToCart(obj.campaign_id, obj.user_id) }}
+                                // addToCart={() => { this.addToCart(obj.campaign_id, obj.user_id) }}
+                                addToCart={() => { this.addToCart(obj.campaign_id, obj.applied_post_id) }}
                                 addGroup={() => { this.addGroup(obj) }}
                                 modifyStatusPurchase={() => { this.modifyStatusPurchase(obj.campaign_id, obj.user_id) }}
                             />
@@ -1232,6 +1239,7 @@ class EverydayPeople extends Component {
 
         // if (loading) { return (<div className="loader"></div>) }
 
+        console.log('Drop Downn:>>',this.props.dropdownList)
         return (
             <div className="every-people">
                 {(loading) ? <div className="loader" style={{ "zIndex": "999999999" }}></div> : ''}
