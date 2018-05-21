@@ -230,4 +230,4 @@ ul { padding: 0; }
 .everypeole-head .Select-control .Select-placeholder{line-height: 14px;}
 .everypeole-head .Select-control .Select-value-label{    vertical-align: top; line-height: 14px !important;}
 
-.more-cancel-btn{ border:0; padding: 10px;  line-height: 16px; min-width: 110px; text-align: center; font-size: 16px; color: #6772e5; border-radius: 2px; background: #fff; color:#525f7f; font-size:16px; font-weight:500;}
+.more-cancel-btn{ border:0; padding: 10px;  line-height: 16px; min-width: 110px; text-align: center; font-size: 14px; color: #6772e5; border-radius: 2px; background: #fff; color:#525f7f; font-weight:600;}

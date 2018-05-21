@@ -1,5 +1,9 @@
 .campaign_form_step2_dropdown .Select-control > .Select-arrow-zone{     top: 50%; right: 15px;}
 .campaign_form_step2_dropdown .Select-control{ border: 2px solid rgb(220, 223, 229) !important; }
+.campaign_form_step2_dropdown.txt_tag .Select-clear-zone,
+.campaign_form_step2_dropdown.txt_tag .Select-arrow-zone{
+    display: none;
+}
 
 #custom_calendar{
     background: #fff;
@@ -127,6 +131,47 @@ td.fc-widget-content{ border:0;}
 #eventPopover_modal .contents p .platform{ color: #bfc4ca !important; }
 #eventPopover_modal .contents p .days{ color:#6772e5b8 !important; float:right }
 #eventPopover_modal .contents .btn_add_user{ border: 2px solid #5e667bb3; padding: 6px 46px; border-radius: 3px; text-align: center; color: #5e667bb3;}
+
+/* Analytics Stats Filtration  */
+    .stats_age_dropdown { min-width:0px !important; }
+    .stats_age_dropdown .dropdown button.btn-secondary,
+    .stats_filter_li4 button.btn-secondary{ padding: 0 15px !important; border-radius: 3px !important; font-weight: 600 !important; }
+    .stats_age_dropdown .dropdown-menu,
+    .stats_filter_li4 .dropdown-menu{ padding:35px !important; }
+    .stats_age_dropdown .range-div{ width: 80px !important; }
+    .stats_age_dropdown .bdr-btn,
+    .stats_filter_li4 .bdr-btn{
+        border: 2px solid #6772e5;
+        padding: 8px;
+        line-height: 16px;
+        min-width: 90px;
+        text-align: center;
+        font-size: 13px;
+        border-radius: 2px;
+        font-weight: 600;
+    }
+    .stats_filter_li2,.stats_filter_li3{ min-width: 90px !important; }
+    .stats_gender_dropdown .Select-arrow-zone{ display:none; }
+    .stats_gender_dropdown .Select-control,
+    .stats_filter_li4 .Select-control{ 
+        padding:5px 10px; 
+        border-radius:3px; 
+    }
+    .stats_gender_dropdown .Select-placeholder,
+    .stats_gender_dropdown .Select-value,
+    .stats_filter_li4 .Select-placeholder{
+        text-overflow: initial !important; 
+    }
+
+    .stats_gender_dropdown .Select-placeholder,
+    .stats_gender_dropdown .Select-value .Select-value-label,
+    .stats_filter_li4 .Select-placeholder{ 
+        font-weight:600 !important; 
+    }
+
+    .stats_filter_li3 a{ font-size: 13px !important; line-height: 20px !important; font-weight: 600 !important; border-radius: 3px !important; }
+    .stats_filter_li4 .dropdown-menu:after{ left:30% !important; }
+    .btn_add_compare{ padding: 0 20px !important; line-height: 30px !important; font-weight: 600 !important; border-radius: 3px !important; }
 
 .graph-img .y.axis,
 .graph-img .x.axis .tick line,
