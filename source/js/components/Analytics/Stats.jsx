@@ -43,7 +43,7 @@ class Stats extends Component {
                 <li>
                     <div className="average-box-inr">
                         <h3>Average cost per purchase</h3>
-                        <h5 className="blue-color">$20,000</h5>
+                        <h5 className="blue-color">${obj.average_cost_per_purchase}</h5>
                     </div>
                 </li>
                 <li>

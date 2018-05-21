@@ -111,7 +111,7 @@ class FormStep2 extends Component{
                                 wrapperClass="select-wrap"
                                 placeholder="# tags"
                                 component={SelectField_ReactSelectMulti} 
-                                className="campaign_form_step2_dropdown "
+                                className="campaign_form_step2_dropdown txt_tag"
                                 isRequired="true"                               
                             />
 
@@ -122,7 +122,7 @@ class FormStep2 extends Component{
                                 wrapperClass="select-wrap"
                                 placeholder="@ tags"
                                 component={SelectField_ReactSelectMulti}  
-                                className="campaign_form_step2_dropdown " 
+                                className="campaign_form_step2_dropdown txt_tag" 
                                 isRequired="true"                             
                             />
 

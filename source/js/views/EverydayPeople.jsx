@@ -327,7 +327,7 @@ const MoreFilterDropDown = (props) => {
                     <div className="morefilter-div">
                         <label htmlFor="">
                             Instagram Followers
-                        </label>    
+                        </label>
                         <div className="range-wrapper">
                             <InputRange
                                 maxValue={2500}
@@ -614,11 +614,11 @@ class EverydayPeople extends Component {
             isGenderFilterSelected: false,
             isSortApply: false,
             isFilterApply: false,
-            more_filter_open:false,
-            age_filter_open:false,
-            isMoreFilterApply:false,
-            isAgeFilterApply:false,
-           
+            more_filter_open: false,
+            age_filter_open: false,
+            isMoreFilterApply: false,
+            isAgeFilterApply: false,
+
         };
         // this.toggle = this.toggle.bind(this);  
         this.more_filter_toggle = this.more_filter_toggle.bind(this);
@@ -626,14 +626,12 @@ class EverydayPeople extends Component {
 
     }
 
-    more_filter_toggle()
-    {  
+    more_filter_toggle() {
         this.setState({
             more_filter_open: !this.state.more_filter_open,
         })
-        
-        if(this.state.isMoreFilterApply !== true)
-        {
+
+        if (this.state.isMoreFilterApply !== true) {
             this.setState({
                 allDropDown: [
                     { 'dropdown': 'jobIndustryDrop', 'value': false },
@@ -645,11 +643,11 @@ class EverydayPeople extends Component {
                     { 'dropdown': 'sexualOrientation', 'value': false },
                     { 'dropdown': 'relationship', 'value': false },
                     { 'dropdown': 'musicTaste', 'value': false },
-                    
+
                     { 'dropdown': 'genderDrop', 'value': false },
                     { 'dropdown': 'sortDrop', 'value': { value: 1, label: "Name ASC" } },
                 ],
-                
+
                 allSliders: [
                     { 'slider': 'facebook', 'value': { min: 0, max: 2500 } },
                     { 'slider': 'instagram', 'value': { min: 0, max: 2500 } },
@@ -661,11 +659,10 @@ class EverydayPeople extends Component {
             })
         }
     }
- 
-    age_filter_toggle()
-    {
+
+    age_filter_toggle() {
         this.setState({
-            age_filter_open : !this.state.age_filter_open
+            age_filter_open: !this.state.age_filter_open
         });
     }
 
@@ -824,10 +821,12 @@ class EverydayPeople extends Component {
             <li key={Math.random()}>
                 <div className="all-people-div">
                     <div className="all-people-img">
-                        <a >
-                            {(obj.image) ? <img src={`${imgRoutes.USER_IMG_PATH}${obj.image}`} alt="" />
-                            :
-                            <img src={sampleImg} alt="" />
+                        <a>
+                            {
+                                (obj.is_image==0) ?
+                                    <img src={obj.image} style={{"height": "190px"}}/>
+                                :
+                                    <img src={imgRoutes.USER_IMG_PATH + obj.image} style={{"height": "190px"}}/>
                             }
                         </a>
                         <div className="plus-people dropdown">
@@ -848,7 +847,7 @@ class EverydayPeople extends Component {
     }
 
     renderLi2 = (obj) => {
-        console.log("Cart-Data>>",obj);
+        console.log("Cart-Data>>", obj);
         return (
             <li key={Math.random()}>
                 <div className="fan-festival-box">
@@ -857,7 +856,7 @@ class EverydayPeople extends Component {
                             <span></span>
                             <h3>
                                 <big>{obj.user_name}</big>
-                                <small>{ obj.country!==undefined && obj.suburb+', '+obj.country.name}</small>
+                                <small>{obj.country !== undefined && obj.suburb + ', ' + obj.country.name}</small>
                             </h3>
                         </div>
                         <div className="festival-head-r"><h3>$ {(obj.price).toFixed(2)}</h3></div>
@@ -867,8 +866,8 @@ class EverydayPeople extends Component {
                         <h2>
                             {obj.campaign_description} &nbsp;
                             <a href="javascript:void(0)">
-                                { (obj.at_tag).join(' ') } &nbsp;
-                                { (obj.hash_tag).join(' ') } 
+                                {(obj.at_tag).join(' ')} &nbsp;
+                                {(obj.hash_tag).join(' ')}
                             </a>
                         </h2>
                     </div>
@@ -936,7 +935,7 @@ class EverydayPeople extends Component {
     componentWillUpdate = (nextProps, nextState) => {
 
         const { dispatch, match } = nextProps;
-        const { forceRefreshed,groupForceRefreshed} = this.state;
+        const { forceRefreshed, groupForceRefreshed } = this.state;
 
         //  if(forceRefreshed && !match.params.campaignId) {
         //     this.setState({ groupId: '' });
@@ -947,7 +946,7 @@ class EverydayPeople extends Component {
         //     if (match.params.campaignId ) {
         //         this.setState({ forceRefreshed: true });
         //     }
-        
+
         //     let arrayFilter = {
         //         "page_size": this.state.perPageItem,
         //         "page_no": 1,
@@ -958,11 +957,11 @@ class EverydayPeople extends Component {
         //     this.setState({ forceRefreshed: false });
         // }
 
-        
-         if((forceRefreshed && !match.params.campaignId) || (groupForceRefreshed && !match.params.grpId)) {
+
+        if ((forceRefreshed && !match.params.campaignId) || (groupForceRefreshed && !match.params.grpId)) {
             this.setState({ groupId: '' });
             if (match.params.grpId) {
-                this.setState({ groupId: match.params.grpId,groupForceRefreshed: true });
+                this.setState({ groupId: match.params.grpId, groupForceRefreshed: true });
             }
 
             if (match.params.campaignId) {
@@ -976,7 +975,7 @@ class EverydayPeople extends Component {
             }
             this.filterSendReq(arrayFilter);
             dispatch(moreFilterReq());
-            this.setState({ forceRefreshed: false,groupForceRefreshed:false });
+            this.setState({ forceRefreshed: false, groupForceRefreshed: false });
         }
 
     }
@@ -1047,8 +1046,8 @@ class EverydayPeople extends Component {
             this.saveResult(param1, param2, param3, param4, param5);
         }
 
-        if(modifyStatusPurchase){
-            this.setState({modifyStatusPurchase: false});
+        if (modifyStatusPurchase) {
+            this.setState({ modifyStatusPurchase: false });
             this.props.history.push(routeCodes.MY_CART);
         }
 
@@ -1058,7 +1057,7 @@ class EverydayPeople extends Component {
             dispatch(resetGroupVal());
         }
 
-        
+
     }
 
     componentWillUnmount() {
@@ -1104,7 +1103,7 @@ class EverydayPeople extends Component {
         this.age_filter_toggle();
         // this.setState({isAgeFilterSelected:true});
         this.setState({
-            isAgeFilterApply:true
+            isAgeFilterApply: true
         })
     }
 
@@ -1192,11 +1191,11 @@ class EverydayPeople extends Component {
             "page_size": this.state.perPageItem,
             "page_no": 1
         }
-        this.setState({ 
-                        "activePage": 1,
-                        isMoreFilterApply:true,
-                        more_filter_open:false
-                    });
+        this.setState({
+            "activePage": 1,
+            isMoreFilterApply: true,
+            more_filter_open: false
+        });
         this.filterSendReq(arrayFilter);
     }
 
@@ -1272,7 +1271,6 @@ class EverydayPeople extends Component {
         allSliderArr['ageRange'] = _.find(allSliders, function (o) { return o.slider == 'ageRange'; });
 
         // if (loading) { return (<div className="loader"></div>) }
-
         return (
             <div className="every-people">
                 {(loading) ? <div className="loader" style={{ "zIndex": "999999999" }}></div> : ''}
@@ -1381,15 +1379,15 @@ class EverydayPeople extends Component {
                             {
                                 (match.path !== routeCodes.CAMPAIGN_INSPIRED_SUB) ?
 
-                                ((users.total !== undefined && filter_size === 0 )) ? 
-                                    `All ( ${users.total} Results )`
-                                : [
-                                    (users.total !== undefined && filter_size > 0) ? 
-                                    `Filtered List ( ${users.total} Results )`
-                                    :''
-                                ]
-                                :
-                                null
+                                    ((users.total !== undefined && filter_size === 0)) ?
+                                        `All ( ${users.total} Results )`
+                                        : [
+                                            (users.total !== undefined && filter_size > 0) ?
+                                                `Filtered List ( ${users.total} Results )`
+                                                : ''
+                                        ]
+                                    :
+                                    null
 
                             }
                             {/* {
@@ -1400,7 +1398,7 @@ class EverydayPeople extends Component {
                             } */}
 
                         </h3>
-                        {((this.state.isAgeFilterApply === true || this.state.isMoreFilterApply === true) ) ?
+                        {((this.state.isAgeFilterApply === true || this.state.isMoreFilterApply === true)) ?
                             ((match.params.campaignId === null || match.params.campaignId === undefined) && match.path !== routeCodes.CAMPAIGN_INSPIRED_SUB) &&
                             <a className="cursor_pointer" onClick={this.toggle}>
                                 <i className="fa fa-plus"></i>
@@ -1429,7 +1427,7 @@ class EverydayPeople extends Component {
                             )
                     }
 
-                    {(users.total > 12 &&  match.path !== routeCodes.CAMPAIGN_INSPIRED_SUB) ?
+                    {(users.total > 12 && match.path !== routeCodes.CAMPAIGN_INSPIRED_SUB) ?
                         <Pagination
                             activePage={this.state.activePage}
                             totalItemsCount={users.total}
