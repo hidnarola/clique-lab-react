@@ -56,7 +56,8 @@ class AddToModal extends Component {
             selectedOption: '',
             saveFor: '',
             userId: '',
-            filter: ''
+            filter: '',
+            isClick:true
         };
         this.toggle = this.toggle.bind(this);
         this.setSaveFor = this.setSaveFor.bind(this);
@@ -80,7 +81,9 @@ class AddToModal extends Component {
 
     toggle() {
         this.setState({
-            modal: !this.state.modal
+            modal: !this.state.modal,
+            //isClick:false
+            isClick:false
         });
     }
 
@@ -88,7 +91,7 @@ class AddToModal extends Component {
         this.setState({ selectedOption });
         if (selectedOption === null) {
             jQuery('.add_grp_popup_select .Select-control').css("cssText", "border: 2px solid red !important");
-            jQuery('.add_grp_popup_select_errorMsg').html('This Field is Required');
+            jQuery('.add_grp_popup_select_errorMsg').html('This field is required');
         } else {
             jQuery('.add_grp_popup_select .Select-control').css("cssText", "border: 2px solid rgb(220, 223, 229) !important");
             jQuery('.add_grp_popup_select_errorMsg').html('');
@@ -99,7 +102,7 @@ class AddToModal extends Component {
         let { selectedOption, saveFor, userId, filter } = this.state;
         if (selectedOption === '' || selectedOption === null) {
             jQuery('.add_grp_popup_select .Select-control').css("cssText", "border: 2px solid red !important");
-            jQuery('.add_grp_popup_select_errorMsg').html('This Field is Required');
+            jQuery('.add_grp_popup_select_errorMsg').html('This field is required');
         } else {
             this.props.saveResult(saveFor, selectedOption, userId, filter);
         }
@@ -175,6 +178,7 @@ class GroupList extends Component {
             is_inserted: 0,
             authorise_disabled: false,
             groupId: '',
+            isPluseClick:false
         };
 
         this.createGroupModal = this.createGroupModalOpen.bind(this);
@@ -197,7 +201,7 @@ class GroupList extends Component {
     toggle() {
         this.setState({
             //dropdownOpen: !this.state.dropdownOpen
-            createGroupModalShow: !this.state.createGroupModalShow
+            createGroupModalShow: !this.state.createGroupModalShow,
         });
     }
 
@@ -265,9 +269,14 @@ class GroupList extends Component {
 
     addCampaign = (obj) => {
         const { dispatch } = this.props;
-        this.setState({groupId: obj._id});
+        this.setState({
+                        groupId: obj._id
+                    });
+                    this.setState({isPluseClick : true});
         this.child.setSaveFor('add_to_campaign', null);
         dispatch(fetchDropDownReq({ "sendReqFor": "add_to_campaign" }));
+            
+        
     }
 
     saveResult = (param1, param2, param3, param4, param5) => {
@@ -283,13 +292,23 @@ class GroupList extends Component {
     }
 
     renderLi = (obj) => {
+
         return (
             <li key={Math.random()}>
                 <div className="all-people-div">
                     <div className="all-people-img">
+                    {
+                        (this.state.isPluseClick === false) ?
                         <Link className="cursor_pointer" to={`${routeCodes.LISTGROUPS}/${obj._id}/members`}>
                             <img className="grp_list_img" src={`${imgRoutes.GROUP_IMG_PATH}${obj.image}`} alt="" />
                         </Link>
+                        : (this.child.state.isClick === false) ?
+                        <Link className="cursor_pointer" to={`${routeCodes.LISTGROUPS}/${obj._id}/members`}>
+                            <img className="grp_list_img" src={`${imgRoutes.GROUP_IMG_PATH}${obj.image}`} alt="" />
+                        </Link>
+                        :
+                        <img className="grp_list_img" src={`${imgRoutes.GROUP_IMG_PATH}${obj.image}`} alt="" /> 
+                    }
                         <div className="plus-people dropdown">
                             <PlusAction
                                 addCampaign={() => { this.addCampaign(obj) }}

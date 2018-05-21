@@ -92,7 +92,7 @@ const FileField_Dropzone = (props) => {
             <label htmlFor={input.name} className={labelClass}>
                 {label} {meta.pristine && isRequired === "true" && <span className="error-div">*</span>}
             </label>
-
+            
             <Dropzone
                 {...input}
                 accept={accept ? accept : "image/jpeg, image/png, image/jpg, image/gif"}

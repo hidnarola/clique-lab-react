@@ -39,13 +39,13 @@ class Cart extends React.Component {
 	}
 
 	renderTr = (obj) => {
-		console.log(">++>>",obj);
+		console.log(">++>>",obj);	
 		return (
 			<tr key={Math.random()}>
-				<td><img src={`${imgRoutes.CAMPAIGN_IMG_PATH}${obj.campaign.cover_image}`} alt="" /></td>
+				<td><img src={`${imgRoutes.CAMPAIGN_POST_IMG_PATH}${obj.applied_post.image}`} alt="" /></td>
 				<td>
 					{/* <b>{obj.campaign.name}</b><br /> */}
-					{obj.campaign.description}
+					{obj.applied_post.desription}
 				</td>
 				<td>{/*obj.user_name*/}</td>
 				<td>{obj.campaign.social_media_platform}</td>

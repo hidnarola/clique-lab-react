@@ -756,9 +756,11 @@ class EverydayPeople extends Component {
     }
 
     addCampaign = (obj) => {
-        const { dispatch } = this.props;
-        this.child.setSaveFor('campaign', obj._id);
-        dispatch(fetchDropDownReq({ "sendReqFor": "campaign", "uId": obj._id }));
+
+        alert('No Data found');
+        // const { dispatch } = this.props;
+        // this.child.setSaveFor('campaign', obj._id);
+        // dispatch(fetchDropDownReq({ "sendReqFor": "campaign", "uId": obj._id }));
     }
 
     addGroup = (obj) => {
@@ -810,7 +812,10 @@ class EverydayPeople extends Component {
                 <div className="all-people-div">
                     <div className="all-people-img">
                         <a >
+                            {(obj.image) ? <img src={`${imgRoutes.USER_IMG_PATH}${obj.image}`} alt="" />
+                            :
                             <img src={sampleImg} alt="" />
+                            }
                         </a>
                         <div className="plus-people dropdown">
                             <PlusAction
@@ -1234,6 +1239,7 @@ class EverydayPeople extends Component {
 
         // if (loading) { return (<div className="loader"></div>) }
 
+        console.log('Drop Downn:>>',this.props.dropdownList)
         return (
             <div className="every-people">
                 {(loading) ? <div className="loader" style={{ "zIndex": "999999999" }}></div> : ''}
