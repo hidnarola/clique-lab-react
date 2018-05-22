@@ -200,7 +200,7 @@ export const renderPlaceAutoComplete = ({ getInputProps, suggestions, getSuggest
             placeholder: 'Write location',
             className: 'location-search-input',
             name: 'location',
-        })} placeholder={placeholder} className={`${((addressValue==='' && meta.error!='' && meta.touched) && `txt_error_div`)}`} />
+        })} placeholder={placeholder} name="location" className={`${((addressValue==='' && meta.error!='' && meta.touched) && `txt_error_div`)}`} />
         <div className="autocomplete-dropdown-container">
             {suggestions.map(suggestion => {
                 const className = suggestion.active ? 'suggestion-item--active' : 'suggestion-item';

@@ -22,6 +22,7 @@ const validate = values => {
         errors.media_format = 'This field is required';
     }
 
+    console.log('values >>> ',values);
     if (!values.location) {
         errors.location = 'This field is required';
     }
@@ -37,46 +38,9 @@ const validate = values => {
     if (!values.currency || values.currency.value === "") {
         errors.currency = 'This field is required';
     }
+    console.log('errors >>> ',errors);
     return errors;
 };
-
-class GoogleAC extends Component {
-    render() {
-        const { input, label, name, placeholder, isRequired, meta } = this.props;
-        return (
-            <div className="input-wrap">
-                <label>{label} {isRequired && <span className="error-div">*</span>}</label>
-                <PlacesAutocomplete
-                    value={input.value}
-                    name={name}
-                    onChange={(value) => input.onChange(value)}
-                    //onSelect={() => { console.log('Select') }}
-                >
-                    {({ getInputProps, suggestions, getSuggestionItemProps }) => (
-                        <div>
-                            <input {...getInputProps()} name={name} placeholder='Write location' className={cx('location-search-input ', { 'txt_error_div': (meta.touched && meta.error) ? true : false })} />
-                            {meta.touched && ((meta.error && <div className="error-div">{meta.error}</div>))}
-                            <div className="autocomplete-dropdown-container">
-                                {suggestions.map(suggestion => {
-                                    const className = suggestion.active ? 'suggestion-item--active' : 'suggestion-item';
-                                    // inline style for demonstration purpose
-                                    const style = suggestion.active
-                                        ? { backgroundColor: '#fafafa', cursor: 'pointer' }
-                                        : { backgroundColor: '#ffffff', cursor: 'pointer' };
-                                    return (
-                                        <div {...getSuggestionItemProps(suggestion, { className, style })} className="places_autocomplete_list" >
-                                            <span>{suggestion.description}</span>
-                                        </div>
-                                    )
-                                })}
-                            </div>
-                        </div>
-                    )}
-                </PlacesAutocomplete>
-            </div >
-        )
-    }
-}
 
 
 
@@ -137,15 +101,16 @@ class FormStep3 extends Component {
                                 isRequired="true"
                             />
 
-                            <Field
+                            {/* <Field
                                 name="location"
+                                type="text"
                                 label="Location"
-                                placeholder="Write location"
+                                component={renderFieldCampaign}
+                                placeholder="Write Location"
                                 isRequired="true"
-                                component={GoogleAC}
-                            />
+                            /> */}
 
-                            {/* <PlacesAutocomplete
+                            <PlacesAutocomplete
                                 value={this.state.address}
                                 onChange={this.handleChange}
                                 onSelect={this.handleSelect}
@@ -166,7 +131,7 @@ class FormStep3 extends Component {
                                         />
                                     </div>
                                 )}
-                            </PlacesAutocomplete> */}
+                            </PlacesAutocomplete>
 
                             <Field
                                 name="how_much"

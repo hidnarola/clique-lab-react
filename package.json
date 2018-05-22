@@ -63,6 +63,7 @@
     "webpack-dev-server": "^2.9.7"
   },
   "dependencies": {
+    "@synapsestudios/react-drop-n-crop": "^0.2.0",
     "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",
     "chart.js": "^2.7.2",
