@@ -818,7 +818,6 @@ class EverydayPeople extends Component {
 
     renderLi = (obj) => {
         let img = '';
-        console.log('Name=====>',obj.name,obj.is_image,obj.image);
         if (obj.is_image == 0){
             img = obj.image;
         } else {
