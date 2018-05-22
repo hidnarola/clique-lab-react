@@ -58,7 +58,7 @@ class LoginForm extends Component {
                 </div>
                 <form onSubmit={handleSubmit}>
                     <h3>Log In</h3>
-                    <Field name="username" type="text" component={renderField} placeholder="Email" displayError={showError}/>
+                    <Field name="username" type="text" component={renderField} placeholder="Email / Username" displayError={showError}/>
                     <Field name="password" type="password" component={renderField} placeholder="Password" displayError={showError}/>
                     <div className="submit-div">
                         <button type="submit" className="round-btn">Login</button>
