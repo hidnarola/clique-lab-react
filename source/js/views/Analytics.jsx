@@ -11,6 +11,8 @@ import { routeCodes } from 'constants/routes';
 import { getAnalytics } from '../actions/analytics';
 import { moreFilterReq } from '../actions/everyDay';
 
+import closeImg from 'img/site/close-icon.png';
+
 import ReactSelect from 'react-select';
 import InputRange from 'react-input-range';
 import _ from 'lodash';
@@ -382,12 +384,20 @@ class Analytics extends Component {
             isGenderFilterSelected: false,
             isSortApply: false,
             isFilterApply: false,
-            more_filter_open:false,
-            age_filter_open:false,
-            isMoreFilterApply:false,
-            isAgeFilterApply:false,
+            more_filter_open: false,
+            age_filter_open: false,
+            isMoreFilterApply: false,
+            isAgeFilterApply: false,
+
+            totalNoCompare: 1,
+            whichCompare: [],
+
+            age_filter_open2: false,
+            age_filter_open3: false,
         }
         this.age_filter_toggle = this.age_filter_toggle.bind(this);
+        this.age_filter_toggle2 = this.age_filter_toggle2.bind(this);
+        this.age_filter_toggle3 = this.age_filter_toggle3.bind(this);
         this.more_filter_toggle = this.more_filter_toggle.bind(this);
     }
 
@@ -505,18 +515,21 @@ class Analytics extends Component {
     }
 
     age_filter_toggle() {
-        this.setState({
-            age_filter_open: !this.state.age_filter_open
-        });
+        this.setState({ age_filter_open: !this.state.age_filter_open });
     }
-    
-    more_filter_toggle(){  
+    age_filter_toggle2() {
+        this.setState({ age_filter_open2: !this.state.age_filter_open2 });
+    }
+    age_filter_toggle3() {
+        this.setState({ age_filter_open3: !this.state.age_filter_open3 });
+    }
+
+    more_filter_toggle() {
         this.setState({
             more_filter_open: !this.state.more_filter_open,
         })
-        
-        if(this.state.isMoreFilterApply !== true)
-        {
+
+        if (this.state.isMoreFilterApply !== true) {
             this.setState({
                 allDropDown: [
                     { 'dropdown': 'jobIndustryDrop', 'value': false },
@@ -530,7 +543,7 @@ class Analytics extends Component {
                     { 'dropdown': 'musicTaste', 'value': false },
                     { 'dropdown': 'genderDrop', 'value': false },
                 ],
-                
+
                 allSliders: [
                     { 'slider': 'facebook', 'value': { min: 0, max: 2500 } },
                     { 'slider': 'instagram', 'value': { min: 0, max: 2500 } },
@@ -543,9 +556,41 @@ class Analytics extends Component {
         }
     }
 
+    /** 
+     * Name       : addCompare
+     * Desription : When click on ADD COMPARE new filter will add
+     * @author    : PAV
+     * @param     : ---
+     * @return    : ---
+     * 
+    */
+    addCompare = () => {
+        const { totalNoCompare, whichCompare } = this.state;
+        this.setState({ totalNoCompare: totalNoCompare + 1 });
+        if(whichCompare.length==0){
+            this.setState({ whichCompare : [2]});
+        } else {
+            if(whichCompare.indexOf(2) > -1){
+                this.setState({ whichCompare : [...whichCompare, 3]});
+            }  else {
+                this.setState({ whichCompare : [...whichCompare, 2]});
+            } 
+        }
+    }
+
+    removeCompare = (element) => {
+        const { totalNoCompare, whichCompare } = this.state;
+        const index = whichCompare.indexOf(element);
+        whichCompare.splice(index, 1);
+        this.setState({ 
+            totalNoCompare: totalNoCompare - 1,
+            whichCompare: whichCompare 
+        });
+    }
+
     render() {
         let { moreFilterData } = this.props;
-        const { analytics, allSliders, allDropDown } = this.state;
+        const { analytics, allSliders, allDropDown, totalNoCompare, whichCompare } = this.state;
 
         let allDropArr = [];
         let allSliderArr = [];
@@ -585,72 +630,184 @@ class Analytics extends Component {
                     {
                         curt_page == routeCodes.ANALYTICS_STATS &&
                         (
-                            <div className="everypeole-head d-flex">
-                                <div className="everypeole-head-l">
-                                    <ul>
-                                        <li className="age-dropdown stats_age_dropdown active">
-                                            <AgeDropDown
-                                                parentMethod={(value) => { (value['min'] > 14) ? this.handleSLider(value, "ageRange") : ''; }}
-                                                currentVal={allSliderArr['ageRange']['value']}
-                                                setAgeFilter={() => { this.setAgeFilter() }}
-                                                open={this.state.age_filter_open}
-                                                toggle={this.age_filter_toggle}
-                                            />
-                                        </li>
-                                        <li className="stats_filter_li2">
-                                            <ReactSelect
-                                                name="genderDrop"
-                                                value={genderDropArr.value}
-                                                onChange={(value) => this.handleChange(value, "genderDrop")}
-                                                searchable={false}
-                                                clearable={false}
-                                                autosize={false}
-                                                placeholder="Gender"
-                                                className='dropdown-inr stats_gender_dropdown'
-                                                options={[
-                                                    { value: 'male', label: 'Male' },
-                                                    { value: 'female', label: 'Female' },
-                                                ]}
-                                            />
-                                        </li>
-                                        <li className="stats_filter_li3"><a href="javascript:void(0)">Location</a></li>
-                                        <li>
-                                            <MoreFilterDropDown
-                                                parentMethod={(selectedOp, dropDownName) => this.handleChange(selectedOp, dropDownName)}
-                                                parentSliderMethod={(selectedOp, sliderName) => { (selectedOp['min'] >= 0) ? this.handleSLider(selectedOp, sliderName) : '' }}
-                                                allDropArr={allDropArr}
-                                                allSliderArr={allSliderArr}
-                                                moreFilterData={moreFilterData}
-                                                applyMoreFilter={() => { this.applyMoreFilter() }}
-                                                open={this.state.more_filter_open}
-                                                toggle={this.more_filter_toggle}
-                                            />
-                                        </li>
-                                    </ul>
+                            <div>
+                                <div className="everypeole-head d-flex">
+                                    <div className="everypeole-head-l">
+                                        <ul>
+                                            <li className="age-dropdown stats_age_dropdown active">
+                                                <AgeDropDown
+                                                    parentMethod={(value) => { (value['min'] > 14) ? this.handleSLider(value, "ageRange") : ''; }}
+                                                    currentVal={allSliderArr['ageRange']['value']}
+                                                    setAgeFilter={() => { this.setAgeFilter() }}
+                                                    open={this.state.age_filter_open}
+                                                    toggle={this.age_filter_toggle}
+                                                />
+                                            </li>
+                                            <li className="stats_filter_li2">
+                                                <ReactSelect
+                                                    name="genderDrop"
+                                                    value={genderDropArr.value}
+                                                    onChange={(value) => this.handleChange(value, "genderDrop")}
+                                                    searchable={false}
+                                                    clearable={false}
+                                                    autosize={false}
+                                                    placeholder="Gender"
+                                                    className='dropdown-inr stats_gender_dropdown'
+                                                    options={[
+                                                        { value: 'male', label: 'Male' },
+                                                        { value: 'female', label: 'Female' },
+                                                    ]}
+                                                />
+                                            </li>
+                                            <li className="stats_filter_li3"><a href="javascript:void(0)">Location</a></li>
+                                            <li>
+                                                <MoreFilterDropDown
+                                                    parentMethod={(selectedOp, dropDownName) => this.handleChange(selectedOp, dropDownName)}
+                                                    parentSliderMethod={(selectedOp, sliderName) => { (selectedOp['min'] >= 0) ? this.handleSLider(selectedOp, sliderName) : '' }}
+                                                    allDropArr={allDropArr}
+                                                    allSliderArr={allSliderArr}
+                                                    moreFilterData={moreFilterData}
+                                                    applyMoreFilter={() => { this.applyMoreFilter() }}
+                                                    open={this.state.more_filter_open}
+                                                    toggle={this.more_filter_toggle}
+                                                />
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div className="everypeole-head-r">
+                                        <ul>
+                                            <li>
+                                                {
+                                                    (totalNoCompare === 3) ? 
+                                                        <a className="btn_add_compare btn_disable"> Add Compare <i className="fa fa-plus"></i> </a>
+                                                    :
+                                                        <a className="btn_add_compare cursor_pointer" onClick={() => this.addCompare()}>Add Compare <i className="fa fa-plus"></i></a>    
+                                                }
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
-                                <div className="everypeole-head-r">
-                                    <ul>
-                                        <li><a className="btn_add_compare cursor_pointer">Add Compare <i className="fa fa-plus"></i></a></li>
-                                    </ul>
-                                </div>
+
+                                {
+                                    (totalNoCompare == 2 || (whichCompare.indexOf(2)>-1)) ?
+                                        <div className="everypeole-head d-flex" style={{ "border-bottom": "none", "padding": "0px" }}>
+                                            <div className="everypeole-head-l">
+                                                <ul>
+                                                    <li className="age-dropdown stats_age_dropdown active">
+                                                        <AgeDropDown
+                                                            parentMethod={(value) => { (value['min'] > 14) ? this.handleSLider(value, "ageRange") : ''; }}
+                                                            currentVal={allSliderArr['ageRange']['value']}
+                                                            setAgeFilter={() => { this.setAgeFilter() }}
+                                                            open={this.state.age_filter_open2}
+                                                            toggle={this.age_filter_toggle2}
+                                                        />
+                                                    </li>
+                                                    <li className="stats_filter_li2">
+                                                        <ReactSelect
+                                                            name="genderDrop"
+                                                            value={genderDropArr.value}
+                                                            onChange={(value) => this.handleChange(value, "genderDrop")}
+                                                            searchable={false}
+                                                            clearable={false}
+                                                            autosize={false}
+                                                            placeholder="Gender"
+                                                            className='dropdown-inr stats_gender_dropdown'
+                                                            options={[
+                                                                { value: 'male', label: 'Male' },
+                                                                { value: 'female', label: 'Female' },
+                                                            ]}
+                                                        />
+                                                    </li>
+                                                    <li className="stats_filter_li3"><a href="javascript:void(0)">Location</a></li>
+                                                    <li>
+                                                        <MoreFilterDropDown
+                                                            parentMethod={(selectedOp, dropDownName) => this.handleChange(selectedOp, dropDownName)}
+                                                            parentSliderMethod={(selectedOp, sliderName) => { (selectedOp['min'] >= 0) ? this.handleSLider(selectedOp, sliderName) : '' }}
+                                                            allDropArr={allDropArr}
+                                                            allSliderArr={allSliderArr}
+                                                            moreFilterData={moreFilterData}
+                                                            applyMoreFilter={() => { this.applyMoreFilter() }}
+                                                            open={this.state.more_filter_open}
+                                                            toggle={this.more_filter_toggle}
+                                                        />
+                                                    </li>
+                                                    <li>
+                                                        <img className="cursor_pointer btn_close_compare" src={closeImg} onClick={() => this.removeCompare(2)} />
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        : ''
+                                }
+                                {
+                                    (totalNoCompare == 3 || (whichCompare.indexOf(3)>-1)) ?
+                                        <div className="everypeole-head d-flex" style={{ "border-bottom": "none", "padding": "0px" }}>
+                                            <div className="everypeole-head-l">
+                                                <ul>
+                                                    <li className="age-dropdown stats_age_dropdown active">
+                                                        <AgeDropDown
+                                                            parentMethod={(value) => { (value['min'] > 14) ? this.handleSLider(value, "ageRange") : ''; }}
+                                                            currentVal={allSliderArr['ageRange']['value']}
+                                                            setAgeFilter={() => { this.setAgeFilter() }}
+                                                            open={this.state.age_filter_open3}
+                                                            toggle={this.age_filter_toggle3}
+                                                        />
+                                                    </li>
+                                                    <li className="stats_filter_li2">
+                                                        <ReactSelect
+                                                            name="genderDrop"
+                                                            value={genderDropArr.value}
+                                                            onChange={(value) => this.handleChange(value, "genderDrop")}
+                                                            searchable={false}
+                                                            clearable={false}
+                                                            autosize={false}
+                                                            placeholder="Gender"
+                                                            className='dropdown-inr stats_gender_dropdown'
+                                                            options={[
+                                                                { value: 'male', label: 'Male' },
+                                                                { value: 'female', label: 'Female' },
+                                                            ]}
+                                                        />
+                                                    </li>
+                                                    <li className="stats_filter_li3"><a href="javascript:void(0)">Location</a></li>
+                                                    <li>
+                                                        <MoreFilterDropDown
+                                                            parentMethod={(selectedOp, dropDownName) => this.handleChange(selectedOp, dropDownName)}
+                                                            parentSliderMethod={(selectedOp, sliderName) => { (selectedOp['min'] >= 0) ? this.handleSLider(selectedOp, sliderName) : '' }}
+                                                            allDropArr={allDropArr}
+                                                            allSliderArr={allSliderArr}
+                                                            moreFilterData={moreFilterData}
+                                                            applyMoreFilter={() => { this.applyMoreFilter() }}
+                                                            open={this.state.more_filter_open}
+                                                            toggle={this.more_filter_toggle}
+                                                        />
+                                                    </li>
+                                                    <li>
+                                                        <img className="cursor_pointer btn_close_compare" src={closeImg} onClick={() => this.removeCompare(3)} />
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        : ''
+                                    }
                             </div>
-                        )
-                    }
+                            )
+                        }
                 </div>
                 {curt_page == routeCodes.ANALYTICS_STATS && <Stats analyticsData={analytics} />}
                 {curt_page == routeCodes.ANALYTICS_DEMOGRAPHICS && <DemoGraphics />}
-            </div>
-        );
-    }
-}
-
-
+                </div>
+                );
+            }
+        }
+        
+        
 const mapStateToProps = (state) => {
-    const { analytics, everyDay } = state;
+    const {analytics, everyDay } = state;
     return {
-        loading: analytics.get('loading'),
-        analytics_data: analytics.get('analytics'),
-        moreFilterData: everyDay.get('moreFilterData'),
-    }
-}
-export default connect(mapStateToProps)(withRouter(Analytics));
+                    loading: analytics.get('loading'),
+                analytics_data: analytics.get('analytics'),
+                moreFilterData: everyDay.get('moreFilterData'),
+            }
+        }
+        export default connect(mapStateToProps)(withRouter(Analytics));

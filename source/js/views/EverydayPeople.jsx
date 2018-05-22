@@ -62,7 +62,7 @@ class AddToModal extends Component {
     }
 
     setSaveFor = (val, userId, filter = null) => {
-        this.setState({ saveFor: val, userId: userId, filter: filter});
+        this.setState({ saveFor: val, userId: userId, filter: filter });
     }
 
     toggle() {
@@ -815,18 +815,24 @@ class EverydayPeople extends Component {
     }
 
     renderLi = (obj) => {
+        let img = '';
+        if (obj.is_image == 0){
+            img = obj.image;
+        } else {
+            img = imgRoutes.USER_IMG_PATH + obj.image;
+        }
         return (
             <li key={Math.random()}>
                 <div className="all-people-div">
-                    <div className="all-people-img">
-                        <a>
+                    <div className="all-people-img" style={{ "background": "url('" + img + "') no-repeat 100%", "backgroundSize": "100%", "height": "190px" }}>
+                        {/* <a>
                             {
-                                (obj.is_image==0) ?
-                                    <img src={obj.image} style={{"height": "190px"}}/>
-                                :
-                                    <img src={imgRoutes.USER_IMG_PATH + obj.image} style={{"height": "190px"}}/>
+                                (obj.is_image == 0) ?
+                                    <img src={obj.image} style={{ "height": "190px" }} />
+                                    :
+                                    <img src={imgRoutes.USER_IMG_PATH + obj.image} style={{ "height": "190px" }} />
                             }
-                        </a>
+                        </a> */}
                         <div className="plus-people dropdown">
                             <PlusAction
                                 addCampaign={() => { this.addCampaign(obj) }}
@@ -978,8 +984,7 @@ class EverydayPeople extends Component {
 
     }
 
-    test()
-    {
+    test() {
         const { dispatch, match } = this.props;
         this.setState({ groupId: '' });
         if (match.params.grpId) {
@@ -1435,12 +1440,11 @@ class EverydayPeople extends Component {
 
                 </div>
 
-                <AddToModal onRef={ref => (this.child = ref)} 
+                <AddToModal onRef={ref => (this.child = ref)}
                     dropdownList={dropdownList}
                     resetDropVal={this.resetDropVal}
-                    saveResult={this.saveResult} 
-                    test={this.state.showCamp}
-                    />
+                    saveResult={this.saveResult}
+                />
 
                 <Modal isOpen={this.state.modal} toggle={this.toggle} id="group-popup" >
                     <button type="button" className="close" onClick={this.toggle}>

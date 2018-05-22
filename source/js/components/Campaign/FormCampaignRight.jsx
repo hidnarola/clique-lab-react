@@ -110,12 +110,12 @@ class FormCampaignRight extends Component{
                 <div className="create-campaign-r-summer d-flex">
                     <h4>
                         <b>{(wizardCampaignData.values !== undefined) ? wizardCampaignData.values.campaignName:'' }</b><br/><br />
-                        <a style={{"fontSize":"11px","fontWeight":"600"}}> <img src={mediaImg[`${industryName}`]} alt="" style={{"margin-top":"-2px","width":"15px"}}/> {industryName}</a>
+                        <a style={{"fontSize":"11px","fontWeight":"600"}}> <img src={mediaImg[`${industryName}`]} alt="" style={{"marginTop":"-2px","width":"15px"}}/> {industryName}</a>
                     </h4>
                     <h5>${(wizardCampaignData.values !== undefined) ? wizardCampaignData.values.how_much:'' }</h5>
                 </div>
                 <div className="create-campaign-r-responses">
-                    <p style={{"word-wrap": "break-word","min-height": "10em"}}>{(wizardCampaignData.values !== undefined) ? voca.truncate(wizardCampaignData.values.short_desc, 200):'' } </p>
+                    <p style={{"wordWrap": "breakWord","minHeight": "10em"}}>{(wizardCampaignData.values !== undefined) ? voca.truncate(wizardCampaignData.values.short_desc, 200):'' } </p>
                     <h6><i className="fa fa-heart"></i> 0 Responses</h6>
                 </div>
                 <div className="create-campaign-r-media-format">
