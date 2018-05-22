@@ -2,7 +2,7 @@ import { Map } from "immutable";
 import {  
         EVERY_DAY_REQUEST,EVERY_DAY_SUCCESS,EVERY_DAY_ERROR,
         MORE_FILTER_REQUEST, MORE_FILTER_SUCCESS, MORE_FILTER_ERROR,
-        FETCH_DROPDOWN_REQUEST,FETCH_DROPDOWN_SUCCESS,
+        FETCH_DROPDOWN_REQUEST,FETCH_DROPDOWN_SUCCESS,FETCH_DROPDOWN_ERROR,
         RESET_VALUES,FORCE_REFRESED,
         ADD_USER_ERROR,ADD_USER_REQUEST,ADD_USER_SUCCESS
        } from "../actions/everyDay";
@@ -123,6 +123,22 @@ const actionMap = {
             showDrop:true,
         }));
     }, 
+    
+    //By DM
+    [FETCH_DROPDOWN_ERROR]: (state, action) => {   
+        console.log('ERROROROROR>>>>',action);
+        let error = 'Server Error';
+        if (action.error && action.error.response) {
+            error = action.error.response.message;
+        }
+        return state.merge(Map({
+            loading: false,
+            error: null, // error
+            dropdownList:null,
+            showDrop:false,          
+        }));
+    }, 
+    
     
     //---------------------------------------------------------------------------------------
 

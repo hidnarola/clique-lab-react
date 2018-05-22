@@ -54,7 +54,7 @@ class AddToModal extends Component {
     }
 
     componentWillMount() {
-        this.props.onRef(undefined);
+        //this.props.onRef(undefined);
     }
 
     setDefaultVal = () => {
@@ -108,12 +108,14 @@ class AddToModal extends Component {
 
         return (
             <div>
+                {/* {(this.props.test === false) ? */}
                 <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} onClosed={this.props.resetDropVal} id="congratulations">
                     <div class="custom_modal_btn_close">
                         <img className="cursor_pointer" src={closeImg2} onClick={() => this.toggle()} />
                     </div>
                     <ModalBody>
                         <div className="terms-conditions">
+                            
                             <h2>Which Campaign/Group would you like to Offer the Selected People ? </h2>
                             <p>Please Select the Campaign/Group from the Dropdownlist,<br /> then click Accept and Continue.</p>
                             <div className="select-wrap">
@@ -129,9 +131,11 @@ class AddToModal extends Component {
                             </div>
                             <a href="javascript:void(0)" className="round-btn" onClick={this.saveResult}>Accept & Continue</a>
                         </div>
+                         
                     </ModalBody>
                 </Modal>
-            </div>
+             
+            </div>    
         );
     }
 }
@@ -618,6 +622,7 @@ class EverydayPeople extends Component {
             age_filter_open: false,
             isMoreFilterApply: false,
             isAgeFilterApply: false,
+            showCamp:false,
 
         };
         // this.toggle = this.toggle.bind(this);  
@@ -753,34 +758,23 @@ class EverydayPeople extends Component {
     }
 
     addCampaign = (obj) => {
-        const { dispatch,dropdownList } = this.props;
+        const { dispatch,dropdownList } = this.props;   
         this.child.setSaveFor('campaign', obj._id);
         dispatch(fetchDropDownReq({ "sendReqFor": "campaign", "uId": obj._id }));
-        
-      if(dropdownList === null)
-      {
-          //alert('No Data found');
-          this.test();
-      }
-
-        // const { dispatch,dropdownList } = this.props;
-        // dispatch(fetchDropDownReq({ "sendReqFor": "campaign", "uId": obj._id }));
-        
-        // if(dropdownList !== null)
-        // {
-        //     this.child.setSaveFor('campaign', obj._id);
-        // }
-        // else
-        // {
-        //     alert('No Data found');
-        //     this.test();
-        // }
+        if(this.props.dropdownList === null && this.props.loading === false) 
+        {
+            alert('There is no campaigns to add user.')
+        }    
     }
 
     addGroup = (obj) => {
         const { dispatch } = this.props;
         this.child.setSaveFor('group', obj._id);
         dispatch(fetchDropDownReq({ "sendReqFor": "group", "uId": obj._id }));
+        if(this.props.dropdownList === null && this.props.loading === false) 
+        {
+            alert('There is no groups to add user.')
+        }
     }
 
     addToCart = (camp_id, user_id) => {
@@ -1060,7 +1054,7 @@ class EverydayPeople extends Component {
             dispatch(resetVal({ 'userAdded': false }));
             dispatch(resetGroupVal());
         }
-        
+
     }
 
     componentWillUnmount() {
@@ -1241,7 +1235,6 @@ class EverydayPeople extends Component {
 
 
     render() {
-
         let { users, inspiredPosts, moreFilterData, dropdownList, loading, match } = this.props;
         const { allDropDown, allSliders } = this.state;
 
@@ -1446,6 +1439,7 @@ class EverydayPeople extends Component {
                     dropdownList={dropdownList}
                     resetDropVal={this.resetDropVal}
                     saveResult={this.saveResult} 
+                    test={this.state.showCamp}
                     />
 
                 <Modal isOpen={this.state.modal} toggle={this.toggle} id="group-popup" >

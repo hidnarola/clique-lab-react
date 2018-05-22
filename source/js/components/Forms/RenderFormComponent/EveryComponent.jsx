@@ -142,12 +142,13 @@ export const FileField_Dropzone_New = (props) => {
 }
 
 export const SelectField_ReactSelect = (props) => {
-    const { label, input, meta, wrapperClass, className, labelClass, placeholder, errorClass, initialValue, options ,isRequired} = props;
-    let val = '';
+    const { label, input, meta, selectedValue,wrapperClass, className, labelClass, placeholder, errorClass, initialValue, options ,isRequired} = props;
+    let val = 'public';
     if (input.value && Object.keys(input.value).length > 0) {
         val = input.value;
     } else if (initialValue) {
-        val = initialValue;
+        //val = initialValue;
+        val = val;
     }
     return (
         <div className={wrapperClass}>
@@ -162,6 +163,7 @@ export const SelectField_ReactSelect = (props) => {
                 onBlur={() => input.onBlur({ ...input.value })}
                 multi={false}
                 clearable={false}
+                selectedValue={selectedValue}
             />
             {meta.touched && ((meta.error && <span className={`error-div`}>{meta.error}</span>) || (meta.warning && <span className={`error-div`}>{meta.warning}</span>)) }
         </div>

@@ -63,7 +63,7 @@ class Dashboard extends Component {
                 <div className="right-btm">
                     <div className="right-box-btm-head d-flex">
                         <div className="post-dropdown">
-                            <a href="#" role="button" id="post-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Post <span>Most Liked</span> <i className="dropdown-arrow"></i> </a>
+                            <a href="#" role="button" id="post-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Posts <span>Most Liked</span> <i className="dropdown-arrow"></i> </a>
                             <div className="dropdown-menu" aria-labelledby="post-dropdown">
                                 <a className="dropdown-item" href="#">Most Liked</a>
                                 <a className="dropdown-item" href="#">Most Shared</a>

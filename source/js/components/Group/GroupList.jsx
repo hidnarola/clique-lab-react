@@ -361,6 +361,7 @@ class GroupList extends Component {
                 <div className="loader"></div>
             )
         }
+
         return (
             <div>
                 <div className="group-head d-flex">
@@ -390,7 +391,7 @@ class GroupList extends Component {
                                 </div>
                             </li>
                             <li className="create-group">
-                                <a className="cursor_pointer" onClick={this.createGroupModal}>Create Group</a>
+                                <a className="cursor_pointer" onClick={this.createGroupModal}>Authorise Group</a>
                             </li>
                         </ul>
                     </div>
@@ -439,9 +440,9 @@ class GroupList extends Component {
                         </ul>
                     </div>
                     {(
-                        groups !== null && <Pagination
+                        groups !== null && totalGrps > 6 &&<Pagination
                             activePage={this.state.activePage}
-                            itemsCountPerPage={12}
+                            itemsCountPerPage={12} // 12
                             totalItemsCount={totalGrps}
                             pageRangeDisplayed={5}
                             onChange={this.handlePageChange}
@@ -461,7 +462,7 @@ class GroupList extends Component {
                         <img src={closeImg} />
 
                     </button>
-                    <h2>Create Group</h2>
+                    <h2>Authorise Group</h2>
                     <CreateGroupForm onSubmit={this.createGroupSubmit.bind(this)} submitDisabled={this.state.authorise_disabled} />
                 </Modal>
             </div>

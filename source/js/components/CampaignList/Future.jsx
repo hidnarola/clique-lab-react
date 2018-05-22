@@ -102,10 +102,12 @@ class Future extends Component {
         console.log('Updated Props>>>>>',this.props);
        // console.log('Updated state>>>>>',this.state.del);
         const {del} = this.state;
-        if(isDelete === 1)
+        if(isDelete === 1 && del === 1)
         {
             dispatch(getFutureCampaign({"page_size":9,"page_no":1}))
+            this.setState({del:0});
         }
+
     }
         
         render() {

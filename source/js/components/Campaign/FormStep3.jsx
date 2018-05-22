@@ -58,7 +58,8 @@ class FormStep3 extends Component{
                             <Field        
                                 wrapperClass="select-wrap"
                                 name="public_or_private"       
-                                label="Public or Invite only"
+                                //label="Public or Invite only"
+                                label="Select Industry"
                                 labelClass="control-label"
                                 placeholder="Public or Invite only"
                                 component={SelectField_ReactSelect}
@@ -67,6 +68,7 @@ class FormStep3 extends Component{
                                     { value: 'public' , label :"Public"},
                                     { value: 'invite' , label :"Private"}                                    
                                 ]}
+                                selectedValue={[{ value: 'public' , label :"Public"}]}
                                 isRequired="true"                                             
                             />
 
@@ -97,7 +99,7 @@ class FormStep3 extends Component{
                             <Field
                                 name="how_much"
                                 type="text"
-                                label="How Much ?"
+                                label="How Much to Pay ?"
                                 component={renderFieldCampaign}
                                 placeholder="e.g. 20"
                                 isRequired="true"
@@ -106,13 +108,13 @@ class FormStep3 extends Component{
                             <Field        
                                 wrapperClass="select-wrap"
                                 name="currency"       
-                                label="How much to pay ( Currency )"
+                                label="How Much to Pay ( Currency ) ?"
                                 labelClass="control-label"
-                                placeholder="How much to pay ( Currency )"
+                                placeholder="How much to pay ?"
                                 component={SelectField_ReactSelect}
                                 options={[
                                     { value: '', label: 'Select Currency' },
-                                    { value: 'dollar' , label :"Dollar"}                                                                        
+                                    { value: 'dollar' , label :"Australian Dollar"}                                                                        
                                 ]}
                                 isRequired="true"
                                                                             

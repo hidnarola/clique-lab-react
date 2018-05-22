@@ -156,6 +156,7 @@ class Campaign extends Component {
                      />
 
                 <div>
+                {(this.props.loading === true) ? <div className="loader" style={{ "zIndex": "999999999" }}></div> : 
                     <Modal isOpen={this.state.modal} toggle={false} className={this.props.className} id="congratulations">
                         <ModalBody style={{"padding":"40px 80px 40px"}}>
                             <div className="terms-conditions">
@@ -165,6 +166,7 @@ class Campaign extends Component {
                             </div>
                         </ModalBody>
                     </Modal>
+                }
                 </div>
                 {/* <button onClick={() => this.childCampaign.toggle()}>fgjsofrhohoi</button> */}
             </div>
