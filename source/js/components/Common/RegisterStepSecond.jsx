@@ -25,8 +25,8 @@ class RegisterSecondStep extends Component{
                         <form onSubmit={handleSubmit}>
                             <div className="video-frame">
                             <Iframe url={videoUrl}
-                                width="450px"
-                                height="450px"
+                                width="100%"
+                                height="500px"
                                 id="myId"
                                 className="myClassname"
                                 display="initial"

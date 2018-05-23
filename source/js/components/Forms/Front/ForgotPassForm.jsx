@@ -7,10 +7,8 @@ import cx from 'classnames';
 
 const validate = values => {
     const errors = {}
-
-    if (!values.email) { errors.email = 'This Field is Required'; }
+    if (!values.email) { errors.email = 'This field is required'; }
     else if (validator.isEmail(values.email) === false) { errors.email = 'Enter valid email address'; }
-
     return errors;
 }
 

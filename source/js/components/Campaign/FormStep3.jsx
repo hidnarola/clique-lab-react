@@ -173,7 +173,7 @@ class FormStep3 extends Component {
                             <Field
                                 name="how_much"
                                 type="text"
-                                label="How Much to Pay ?"
+                                label="How Much to Pay "
                                 component={renderFieldCampaign}
                                 placeholder="e.g. 20"
                                 isRequired="true"
@@ -181,14 +181,14 @@ class FormStep3 extends Component {
 
                             <Field
                                 wrapperClass="select-wrap"
-                                name="currency"       
+                                name="currency"
                                 label="Currency"
                                 labelClass="control-label"
-                                placeholder="How much to pay ?"
+                                placeholder="Select currency"
                                 component={SelectField_ReactSelect}
                                 options={[
-                                    { value: '', label: 'Select Currency' },
-                                    { value: 'dollar' , label :"Australian Dollar"}                                                                        
+                                    { value: '', label: 'Select currency' },
+                                    { value: 'dollar' , label :"AUD"}                                                                        
                                 ]}
                                 isRequired="true"
 

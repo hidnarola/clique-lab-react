@@ -13,7 +13,7 @@ class LeftMenu extends Component {
         return (
             <div className="left-panel">
                 <div className="big-logo">
-                    <NavLink to={routeCodes.DASHBOARD}>
+                    <NavLink to={routeCodes.DASHBOARD} style={{"display":"contents"}}>
                         <img src={LogoImg} alt="" />
                     </NavLink>
                 </div>
