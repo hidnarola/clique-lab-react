@@ -14,6 +14,8 @@ const validate = values => {
 
     if (!values.campaignName || (values.campaignName !== undefined && values.campaignName.trim() == "")) {
         errors.campaignName = 'This field is required';
+    } else if(values.campaignName.length > 25){
+        errors.campaignName = 'Max. character length is 25';
     }
 
     if (!values.campaignStartDate) {

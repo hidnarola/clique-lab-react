@@ -24,7 +24,7 @@ const actionMap = {
         return state.merge(Map({
             loading: false,
             error: null,
-            allPosts: action.data.data.results.results,
+            allPosts: action.data.data.results.applied_post,
             total: action.data.data.results.total,
         }));
     },

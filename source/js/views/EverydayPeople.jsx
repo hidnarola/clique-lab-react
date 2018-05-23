@@ -627,7 +627,6 @@ class EverydayPeople extends Component {
         // this.toggle = this.toggle.bind(this);  
         this.more_filter_toggle = this.more_filter_toggle.bind(this);
         this.age_filter_toggle = this.age_filter_toggle.bind(this);
-
     }
 
     more_filter_toggle() {
@@ -848,32 +847,45 @@ class EverydayPeople extends Component {
     }
 
     renderLi2 = (obj) => {
-        console.log("Cart-Data>>", obj);
+        let mediaImg = {
+            'facebook': fbImg,
+            'linkedin': linkedImg,
+            'instagram': instaImg,
+            'pinterest': pinImg,
+            'twitter': twitterImg,
+        };
+        //image_1527067777875.jpg
         return (
             <li key={Math.random()}>
                 <div className="fan-festival-box">
                     <div className="festival-head d-flex">
                         <div className="festival-head-l">
-                            <span></span>
+                            <span>
+                                <img src={imgRoutes.USER_IMG_PATH+obj.user_avatar}/>
+                            </span>
                             <h3>
                                 <big>{obj.user_name}</big>
-                                <small>{obj.country !== undefined && obj.suburb + ', ' + obj.country.name}</small>
+                                {/* <small>{obj.country !== undefined && obj.suburb + ', ' + obj.country.name}</small> */}
+                                <small>{ obj.location!==undefined && obj.location }</small>
                             </h3>
                         </div>
                         <div className="festival-head-r"><h3>$ {(obj.price).toFixed(2)}</h3></div>
                     </div>
-                    <div className="festival-img"><img src="http://placehold.it/450x215" alt="" /></div>
+                    <div className="festival-img">
+                        {/* <img src="http://placehold.it/450x215" alt="" /> */}
+                        <img src={ imgRoutes.CAMPAIGN_POST_IMG_PATH+obj.applied_post_image } />
+                    </div>
                     <div className="festival-body">
                         <h2>
-                            {obj.campaign_description} &nbsp;
-                            <a href="javascript:void(0)">
-                                {(obj.at_tag).join(' ')} &nbsp;
-                                {(obj.hash_tag).join(' ')}
-                            </a>
+                            { obj.applied_post_description} &nbsp;
+                            {/* { (obj.at_tag) && (obj.at_tag).map(function(e){ return <a href='javascript:void(0)' >{'@'+e+' '}</a>; }) }
+                            { (obj.hash_tag) && (obj.hash_tag).map(function(e){ return <a href='javascript:void(0)' >{'#'+e+' '}</a>; }) } */}
                         </h2>
                     </div>
                     <div className="festival-ftr d-flex">
-                        <div className="festival-ftr-l"><a href="javascript:void(0)"><i><img src={fbImg} alt="" /></i><strong>823M</strong></a></div>
+                        <div className="festival-ftr-l">
+                            <a href="javascript:void(0)"><i><img src={mediaImg[obj.social_media_platform]} alt="" /></i><strong>0</strong></a>
+                        </div>
                         <div className="festival-ftr-r dropdown">
                             <PlusAction2
                                 // addToCart={() => { this.addToCart(obj.campaign_id, obj.user_id) }}
