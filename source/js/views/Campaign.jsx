@@ -38,7 +38,7 @@ class Campaign extends Component {
 
 
     nextPage() {
-        this.setState({ page: this.state.page + 1 });
+        this.setState({ page: this.state.page + 1 })
     }
 
     previousPage() {
