@@ -118,9 +118,8 @@ class Campaign extends Component {
     }
 
     render() {
-        const { onSubmit } = this.props;
+        const { onSubmit, loading } = this.props;
         const { page } = this.state;
-        
         return (
             <div className='Campaign'>                                 
                 {page === 1 && <FormStep1 onSubmit={this.nextPage} changePage={this.changePage}/>}

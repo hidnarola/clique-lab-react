@@ -63,11 +63,12 @@ class Future extends Component {
         var year = d.getFullYear();
         //month = (month<10) ? '0'+month : month;
         let date = day+' '+monthNames[month]+'-'+year;
+        let img = imgRoutes.CAMPAIGN_IMG_PATH + obj.cover_image;
         return (
             <li key={Math.random()}>
                 <div className="all-people-div">
-                    <div className="all-people-img">
-                        <img src={`${imgRoutes.CAMPAIGN_IMG_PATH}${obj.cover_image}`} alt="" className="campaign_list_img"/>
+                    <div className="all-people-img" style={{ "background": "url('" + img + "') no-repeat 100%", "background-size": "100%", "height": "190px", "width": "100%" }}>
+                        {/* <img src={`${imgRoutes.CAMPAIGN_IMG_PATH}${obj.cover_image}`} alt="" className="campaign_list_img"/> */}
                     </div>
                     <div className="all-people-content">
                         <h4>{obj.name}</h4>

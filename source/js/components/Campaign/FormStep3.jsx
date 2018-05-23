@@ -188,7 +188,7 @@ class FormStep3 extends Component {
                                 component={SelectField_ReactSelect}
                                 options={[
                                     { value: '', label: 'Select Currency' },
-                                    { value: 'dollar' , label :"Australian Dollar"}                                                                        
+                                    { value: 'dollar' , label :"AUD"}                                                                        
                                 ]}
                                 isRequired="true"
 

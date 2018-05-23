@@ -57,7 +57,7 @@ class AddToModal extends Component {
             saveFor: '',
             userId: '',
             filter: '',
-            isClick:true
+            isClick: true
         };
         this.toggle = this.toggle.bind(this);
         this.setSaveFor = this.setSaveFor.bind(this);
@@ -83,7 +83,7 @@ class AddToModal extends Component {
         this.setState({
             modal: !this.state.modal,
             //isClick:false
-            isClick:false
+            isClick: false
         });
     }
 
@@ -126,7 +126,7 @@ class AddToModal extends Component {
                 <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} onClosed={this.props.resetDropVal} id="congratulations">
                     {/* <ModalHeader toggle={this.toggle}> */}
                     <div class="custom_modal_btn_close">
-                        <img className="cursor_pointer" src={closeImg} onClick={() => this.toggle()}/>
+                        <img className="cursor_pointer" src={closeImg} onClick={() => this.toggle()} />
                     </div>
                     {/* </ModalHeader> */}
                     <ModalBody>
@@ -171,6 +171,7 @@ class GroupList extends Component {
         super(props);
         this.state = {
             createGroupModalShow: false,
+            messageModalPopup: false,
             dropdownOpen: false,
             activePage: 1,
             totalRecord: 1,
@@ -178,7 +179,7 @@ class GroupList extends Component {
             is_inserted: 0,
             authorise_disabled: false,
             groupId: '',
-            isPluseClick:false
+            isPluseClick: false,
         };
 
         this.createGroupModal = this.createGroupModalOpen.bind(this);
@@ -222,7 +223,7 @@ class GroupList extends Component {
     handlePageChange(pageNumber) {
         this.setState({ activePage: pageNumber });
         const { dispatch } = this.props;
-        const { selectedOption} = this.state;
+        const { selectedOption } = this.state;
         if (pageNumber !== this.state.activePage) {
             let newVar = {
                 "sort": [{ "field": selectedOption.column, "value": parseInt(selectedOption.value) }],
@@ -258,11 +259,13 @@ class GroupList extends Component {
         if (showDrop) {
             this.child.toggle();
         }
-        
+
         if (inserted_group != null && is_inserted == 1) {
-            this.setState({ is_inserted: 0 });
-            this.setState({ createGroupModalShow: false });
-            this.setState({ activePage: 1 });
+            this.setState({
+                is_inserted: 0,
+                createGroupModalShow: false,
+                activePage: 1
+            });
             dispatch(getGroups({ "page_size": 12, "page_no": 1 }));
         }
 
@@ -276,13 +279,11 @@ class GroupList extends Component {
     addCampaign = (obj) => {
         const { dispatch } = this.props;
         this.setState({
-                        groupId: obj._id
-                    });
-                    this.setState({isPluseClick : true});
+            groupId: obj._id
+        });
+        this.setState({ isPluseClick: true });
         this.child.setSaveFor('add_to_campaign', null);
         dispatch(fetchDropDownReq({ "sendReqFor": "add_to_campaign" }));
-            
-        
     }
 
     saveResult = (param1, param2, param3, param4, param5) => {
@@ -294,7 +295,7 @@ class GroupList extends Component {
             param5: this.state.groupId
         }
         const { dispatch } = this.props;
-        dispatch(addUserReq(data))   
+        dispatch(addUserReq(data))
     }
 
     renderLi = (obj) => {
@@ -303,18 +304,18 @@ class GroupList extends Component {
             <li key={Math.random()}>
                 <div className="all-people-div">
                     <div className="all-people-img">
-                    {
-                        (this.state.isPluseClick === false) ?
-                        <Link className="cursor_pointer" to={`${routeCodes.LISTGROUPS}/${obj._id}/members`}>
-                            <img className="grp_list_img" src={`${imgRoutes.GROUP_IMG_PATH}${obj.image}`} alt="" />
-                        </Link>
-                        : (this.child.state.isClick === false) ?
-                        <Link className="cursor_pointer" to={`${routeCodes.LISTGROUPS}/${obj._id}/members`}>
-                            <img className="grp_list_img" src={`${imgRoutes.GROUP_IMG_PATH}${obj.image}`} alt="" />
-                        </Link>
-                        :
-                        <img className="grp_list_img" src={`${imgRoutes.GROUP_IMG_PATH}${obj.image}`} alt="" /> 
-                    }
+                        {
+                            (this.state.isPluseClick === false) ?
+                                <Link className="cursor_pointer" to={`${routeCodes.LISTGROUPS}/${obj._id}/members`}>
+                                    <img className="grp_list_img" src={`${imgRoutes.GROUP_IMG_PATH}${obj.image}`} alt="" />
+                                </Link>
+                                : (this.child.state.isClick === false) ?
+                                    <Link className="cursor_pointer" to={`${routeCodes.LISTGROUPS}/${obj._id}/members`}>
+                                        <img className="grp_list_img" src={`${imgRoutes.GROUP_IMG_PATH}${obj.image}`} alt="" />
+                                    </Link>
+                                    :
+                                    <img className="grp_list_img" src={`${imgRoutes.GROUP_IMG_PATH}${obj.image}`} alt="" />
+                        }
                         <div className="plus-people dropdown">
                             <PlusAction
                                 addCampaign={() => { this.addCampaign(obj) }}
@@ -446,7 +447,7 @@ class GroupList extends Component {
                         </ul>
                     </div>
                     {(
-                        groups !== null && totalGrps > 6 &&<Pagination
+                        groups !== null && totalGrps > 6 && <Pagination
                             activePage={this.state.activePage}
                             itemsCountPerPage={12} // 12
                             totalItemsCount={totalGrps}
@@ -466,11 +467,19 @@ class GroupList extends Component {
                     <button type="button" className="close" onClick={this.createGroupModal}>
                         {/* <img src="/assets/img/site/close-2.png" /> */}
                         <img src={closeImg} />
-
                     </button>
                     <h2>Authorise Group</h2>
                     <CreateGroupForm onSubmit={this.createGroupSubmit.bind(this)} submitDisabled={this.state.authorise_disabled} />
                 </Modal>
+
+                {/* <Modal isOpen={true} toggle={this.toggle} className={this.props.className} className="alertMessagePopup"  id="congratulations" backdrop={true}>
+                    <ModalBody>
+                        <div className="terms-conditions">
+                            <h2>No users available in this group!</h2>
+                            <a className="round-btn cursor_pointer" href="javascript:void(0)" onClick={() => this.toggle()}>Ok</a>
+                        </div>
+                    </ModalBody>
+                </Modal> */}
             </div>
         );
     }
