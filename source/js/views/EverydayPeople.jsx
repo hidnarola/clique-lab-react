@@ -622,8 +622,7 @@ class EverydayPeople extends Component {
             age_filter_open: false,
             isMoreFilterApply: false,
             isAgeFilterApply: false,
-            showCamp: false,
-
+            showCamp: false
         };
         // this.toggle = this.toggle.bind(this);  
         this.more_filter_toggle = this.more_filter_toggle.bind(this);
@@ -635,7 +634,7 @@ class EverydayPeople extends Component {
         this.setState({
             more_filter_open: !this.state.more_filter_open,
         })
-
+        
         if (this.state.isMoreFilterApply !== true) {
             this.setState({
                 allDropDown: [
