@@ -231,7 +231,7 @@ class PurchasedPosts extends Component {
     }
 
     render() {
-        let { allPosts, total, loading, filename, dropdownList } = this.props;  
+        let { allPosts, total, loading, filename, dropdownList } = this.props;
         if(loading) { return ( <div className="loader"></div> ) }
         if(filename!==null){
             let path = imgRoutes.CAMPAIGN_IMG_ZIP_PATH+filename;
