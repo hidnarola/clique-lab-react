@@ -91,10 +91,10 @@ class FormStep2 extends Component{
                                 name="industryName"       
                                 label="Social media platforms"                             
                                 labelClass="control-label"
-                                placeholder="Main Muscle Group"
+                                placeholder="Social media platforms"
                                 component={SelectField_ReactSelect}
                                 options={[                                    
-                                    { value: '' , label :"Select Social Media"},
+                                    { value: '' , label :"Select social media"},
                                     { value: 'facebook' , label :"Facebook"},
                                     { value: 'instagram' , label :"Instagram"},
                                     { value: 'twitter' , label :"Twitter"},

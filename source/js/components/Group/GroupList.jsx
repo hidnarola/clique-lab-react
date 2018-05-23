@@ -222,8 +222,14 @@ class GroupList extends Component {
     handlePageChange(pageNumber) {
         this.setState({ activePage: pageNumber });
         const { dispatch } = this.props;
+        const { selectedOption} = this.state;
         if (pageNumber !== this.state.activePage) {
-            dispatch(getGroups({ "page_size": 12, "page_no": pageNumber }))
+            let newVar = {
+                "sort": [{ "field": selectedOption.column, "value": parseInt(selectedOption.value) }],
+                "page_size": 12,
+                "page_no": pageNumber
+            }
+            dispatch(getGroups(newVar))
         }
     }
 

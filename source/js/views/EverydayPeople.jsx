@@ -115,7 +115,7 @@ class AddToModal extends Component {
                     </div>
                     <ModalBody>
                         <div className="terms-conditions">
-                            
+
                             <h2>Which Campaign/Group would you like to Offer the Selected People ? </h2>
                             <p>Please Select the Campaign/Group from the Dropdownlist,<br /> then click Accept and Continue.</p>
                             <div className="select-wrap">
@@ -131,11 +131,11 @@ class AddToModal extends Component {
                             </div>
                             <a href="javascript:void(0)" className="round-btn" onClick={this.saveResult}>Accept & Continue</a>
                         </div>
-                         
+
                     </ModalBody>
                 </Modal>
-             
-            </div>    
+
+            </div>
         );
     }
 }
@@ -238,33 +238,33 @@ const PlusAction2 = (props) => {
 
 const AgeDropDown = (props) => {
     // <UncontrolledDropdown>
-    return (<Dropdown isOpen={props.open} toggle={props.toggle}>
-        <DropdownToggle caret >
-            Age {" "} {props.currentVal.min}-{props.currentVal.max}
-        </DropdownToggle>
-        <DropdownMenu>
+    return (
+        <Dropdown isOpen={props.open} toggle={props.toggle}>
+            <DropdownToggle caret >
+                Age{/* Age {" "} {props.currentVal.min}-{props.currentVal.max} */}
+            </DropdownToggle>
+            <DropdownMenu>
 
-            <div className="morefilter-div">
-                <label htmlFor="">
-                    Age Group
-                </label>
-                <div className="range-wrapper">
-                    <InputRange
-                        maxValue={65}
-                        minValue={15}
-                        value={props.currentVal}
-                        onChange={value => props.parentMethod(value)}
-                    />
-                    <div className="range-div">{props.currentVal.min}-{props.currentVal.max}</div>
+                <div className="morefilter-div">
+                    <label htmlFor="">
+                        Age Group
+                    </label>
+                    <div className="range-wrapper">
+                        <InputRange
+                            maxValue={65}
+                            minValue={15}
+                            value={props.currentVal}
+                            onChange={value => props.parentMethod(value)}
+                        />
+                        <div className="range-div">{props.currentVal.min}-{props.currentVal.max}</div>
+                    </div>
                 </div>
-            </div>
 
-
-            <div className="ftr-btn">
-                <button className="bdr-btn" onClick={() => props.setAgeFilter()} >Apply</button>
-            </div>
-        </DropdownMenu>
-    </Dropdown>);
+                <div className="ftr-btn">
+                    <button className="bdr-btn" onClick={() => props.setAgeFilter()} >Apply</button>
+                </div>
+            </DropdownMenu>
+        </Dropdown>);
 }
 
 const MoreFilterDropDown = (props) => {
@@ -306,7 +306,7 @@ const MoreFilterDropDown = (props) => {
 
     }
     // <UncontrolledDropdown className="MoreFilterLi">
-    return (<Dropdown isOpen={props.open} toggle={props.toggle} className="MoreFilterLi">
+    return (<Dropdown isOpen={props.open} toggle={props.toggle} className="MoreFilterLi stats_filter_li4">
         <DropdownToggle caret >
             More Filter {" "}
         </DropdownToggle>
@@ -622,7 +622,7 @@ class EverydayPeople extends Component {
             age_filter_open: false,
             isMoreFilterApply: false,
             isAgeFilterApply: false,
-            showCamp:false,
+            showCamp: false,
 
         };
         // this.toggle = this.toggle.bind(this);  
@@ -758,21 +758,19 @@ class EverydayPeople extends Component {
     }
 
     addCampaign = (obj) => {
-        const { dispatch,dropdownList } = this.props;   
+        const { dispatch, dropdownList } = this.props;
         this.child.setSaveFor('campaign', obj._id);
         dispatch(fetchDropDownReq({ "sendReqFor": "campaign", "uId": obj._id }));
-        if(this.props.dropdownList === null && this.props.loading === false) 
-        {
+        if (this.props.dropdownList === null && this.props.loading === false) {
             alert('There is no campaigns to add user.')
-        }    
+        }
     }
 
     addGroup = (obj) => {
         const { dispatch } = this.props;
         this.child.setSaveFor('group', obj._id);
         dispatch(fetchDropDownReq({ "sendReqFor": "group", "uId": obj._id }));
-        if(this.props.dropdownList === null && this.props.loading === false) 
-        {
+        if (this.props.dropdownList === null && this.props.loading === false) {
             alert('There is no groups to add user.')
         }
     }
@@ -816,7 +814,7 @@ class EverydayPeople extends Component {
 
     renderLi = (obj) => {
         let img = '';
-        if (obj.is_image == 0){
+        if (obj.is_image == 0) {
             img = obj.image;
         } else {
             img = imgRoutes.USER_IMG_PATH + obj.image;
@@ -1278,7 +1276,7 @@ class EverydayPeople extends Component {
                 <div className="everypeole-head d-flex">
                     <div className="everypeole-head-l">
                         <ul>
-                            <li className="dropdown age-dropdown active">
+                            <li className="dropdown age-dropdown stats_age_dropdown active">
                                 <AgeDropDown
                                     parentMethod={(value) => { (value['min'] > 14) ? this.handleSLider(value, "ageRange") : ''; }}
                                     currentVal={allSliderArr['ageRange']['value']}
@@ -1287,7 +1285,7 @@ class EverydayPeople extends Component {
                                     toggle={this.age_filter_toggle}
                                 />
                             </li>
-                            <li>
+                            <li className="stats_filter_li2">
                                 <ReactSelect
                                     name="genderDrop"
                                     value={genderDropArr.value}
@@ -1296,16 +1294,14 @@ class EverydayPeople extends Component {
                                     clearable={false}
                                     autosize={false}
                                     placeholder="Gender"
-                                    className='dropdown-inr'
+                                    className='dropdown-inr stats_gender_dropdown'
                                     options={[
                                         { value: 'male', label: 'Male' },
                                         { value: 'female', label: 'Female' },
                                     ]}
                                 />
                             </li>
-                            <li>
-                                <a >Location</a>
-                            </li>
+                            <li className="stats_filter_li3"><a href="javascript:void(0)">Location</a></li>
                             <li>
                                 <MoreFilterDropDown
                                     // parentMethod={(value) => this.setAgeValue(value,"str")}

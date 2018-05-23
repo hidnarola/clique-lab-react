@@ -57,11 +57,12 @@ class Future extends Component {
 
     futureListing(obj){
         let d = new Date(obj.start_date);
-        var month = d.getMonth() + 1;
+        var monthNames = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
+        var month = d.getMonth();
         var day = d.getDate();
         var year = d.getFullYear();
-        month = (month<10) ? '0'+month : month;
-        let date = year+'-'+month+'-'+day;
+        //month = (month<10) ? '0'+month : month;
+        let date = day+' '+monthNames[month]+'-'+year;
         return (
             <li key={Math.random()}>
                 <div className="all-people-div">
@@ -99,7 +100,6 @@ class Future extends Component {
     
     componentDidUpdate(){
         const { isDelete, dispatch,loading} = this.props;
-        console.log('Updated Props>>>>>',this.props);
        // console.log('Updated state>>>>>',this.state.del);
         const {del} = this.state;
         if(isDelete === 1 && del === 1)
@@ -112,7 +112,6 @@ class Future extends Component {
         
         render() {
             let { futureCampaign, totalFutureCampaign, loading,status } = this.props;
-            console.log('Render Props>>>>>',this.props);
            // console.log('Render State>>>>>',this.state.del);
             
             if(loading) {
