@@ -34,7 +34,7 @@ ul { padding: 0; }
 
 .input-div{margin:0 0 13px;}
 .input-div label{ display:block; margin:0 0 5px; font-weight:500;}
-.input-div input{ border:0; background:transparent; font-size:16px; color:#525f7f; padding:8px 0 10px 0; border-bottom:2px solid #cfcfd5; width:100%; font-weight:500; margin:0 0 8px;}
+.input-div input{ border:0; background:transparent; font-size:16px; color:#525f7f; padding:8px 0 10px 0; border-bottom:2px solid #cfcfd5; width:100%; font-weight:600; margin:0 0 8px;}
 
 .terms-conditions{ display:block; position:relative;}
 .terms-conditions h2{ margin:0 0 40px; padding:27px 0 40px; font-size:24px; line-height:100%; color:#6772e5; display:block; text-align:center; border-bottom:2px solid #e8e8e8; font-weight:600;}
@@ -161,7 +161,7 @@ ul { padding: 0; }
   .morefilter-div{ margin:0 0 20px;}
   .morefilter-div label{ font-size:13px; font-weight:600; color:#43458b; line-height:22px; display:block; margin:0 0 5px;}
   .Select-control:hover{box-shadow:none !important;}
-  .all-people-content .dropdown-arrow { background: url(../assets/img/site/down-arrow-1.png) no-repeat 0 0 !important;}
+  .all-people-content .dropdown-arrow { background:url(../assets/img/site/down-arrow-1.png) no-repeat 0 0 / 10px auto !important; transform:rotate(-180deg); width:10px; height:17px;}
   
   .dropdown-inr{ font-size:14px; font-weight: 500; color: #525f7f !important;}
   
@@ -231,3 +231,5 @@ ul { padding: 0; }
 .everypeole-head .Select-control .Select-value-label{    vertical-align: top; line-height: 14px !important;}
 
 .more-cancel-btn{ border:0; padding: 10px;  line-height: 16px; min-width: 110px; text-align: center; font-size: 14px; color: #6772e5; border-radius: 2px; background: #fff; color:#525f7f; font-weight:600;}
+.login_page .form-content {height:480px;    margin-bottom:60px;} 
+.forgot_pass_page .form-content {height:480px;    margin-bottom:60px;} 
