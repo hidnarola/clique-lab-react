@@ -854,7 +854,6 @@ class EverydayPeople extends Component {
             'pinterest': pinImg,
             'twitter': twitterImg,
         };
-        console.log(imgRoutes.CAMPAIGN_POST_IMG_PATH+'image_1527067777875.jpg');
         //image_1527067777875.jpg
         return (
             <li key={Math.random()}>
@@ -885,7 +884,7 @@ class EverydayPeople extends Component {
                     </div>
                     <div className="festival-ftr d-flex">
                         <div className="festival-ftr-l">
-                            <a href="javascript:void(0)"><i><img src={mediaImg[obj.social_media_platform]} alt="" /></i><strong>823M</strong></a>
+                            <a href="javascript:void(0)"><i><img src={mediaImg[obj.social_media_platform]} alt="" /></i><strong>0</strong></a>
                         </div>
                         <div className="festival-ftr-r dropdown">
                             <PlusAction2
