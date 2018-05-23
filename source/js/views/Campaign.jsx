@@ -6,13 +6,14 @@ import FormStep3 from '../components/Campaign/FormStep3';
 import FormStep4 from '../components/Campaign/FormStep4';
 import FormStep5 from '../components/Campaign/FormStep5';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import { Link } from 'react-router-dom';
+import { Link,Redirect } from 'react-router-dom';
 
 import ModalPopUp from '../components/Common/ModalPopUp';
 import { connect } from 'react-redux';
 import { createCampaign } from '../actions/campaign';
 import {routeCodes} from '../constants/routes';
 import {reset,initialize} from 'redux-form';
+import closeImg from 'img/site/close-2.png';
 
 class Campaign extends Component {
     
@@ -112,7 +113,11 @@ class Campaign extends Component {
             }
         }
     }
-    
+
+    closeModal() {
+        this.props.history.push('/every-day-people');
+    }
+
     changePage = (pageNo) => {
         this.setState({page:pageNo});
     }
@@ -157,7 +162,12 @@ class Campaign extends Component {
 
                 <div>
                 {(this.props.loading === true) ? <div className="loader" style={{ "zIndex": "999999999" }}></div> : 
-                    <Modal isOpen={this.state.modal} toggle={false} className={this.props.className} id="congratulations">
+                    <Modal isOpen={this.state.modal} toggle={false} className={this.props.className} id="congratulations" className={this.props.className}>
+                        <ModalHeader>
+                        <button type="button" className="close" onClick={this.closeModal.bind(this)}>
+                            <img src={closeImg} />
+                        </button>
+                        </ModalHeader>
                         <ModalBody style={{"padding":"40px 80px 40px"}}>
                             <div className="terms-conditions">
                                 <h2>Congratulations, your Campaign has been started!</h2>

@@ -73,7 +73,7 @@ class GoogleAC extends Component {
                         </div>
                     )}
                 </PlacesAutocomplete>
-            </div >
+            </div>
         )
     }
 }
@@ -182,7 +182,7 @@ class FormStep3 extends Component {
                             <Field
                                 wrapperClass="select-wrap"
                                 name="currency"       
-                                label="How Much to Pay ( Currency ) ?"
+                                label="Currency"
                                 labelClass="control-label"
                                 placeholder="How much to pay ?"
                                 component={SelectField_ReactSelect}
