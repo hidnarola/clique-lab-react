@@ -634,7 +634,7 @@ class EverydayPeople extends Component {
         this.setState({
             more_filter_open: !this.state.more_filter_open,
         })
-        
+
         if (this.state.isMoreFilterApply !== true) {
             this.setState({
                 allDropDown: [
@@ -760,18 +760,18 @@ class EverydayPeople extends Component {
         const { dispatch, dropdownList } = this.props;
         this.child.setSaveFor('campaign', obj._id);
         dispatch(fetchDropDownReq({ "sendReqFor": "campaign", "uId": obj._id }));
-        if (this.props.dropdownList === null && this.props.loading === false) {
-            alert('There is no campaigns to add user.')
-        }
+        // if (this.props.dropdownList === null && this.props.loading === false) {
+        //     alert('There is no campaigns to add user.')
+        // }
     }
 
     addGroup = (obj) => {
         const { dispatch } = this.props;
         this.child.setSaveFor('group', obj._id);
         dispatch(fetchDropDownReq({ "sendReqFor": "group", "uId": obj._id }));
-        if (this.props.dropdownList === null && this.props.loading === false) {
-            alert('There is no groups to add user.')
-        }
+        // if (this.props.dropdownList === null && this.props.loading === false) {
+        //     alert('There is no groups to add user.')
+        // }
     }
 
     addToCart = (camp_id, user_id) => {
@@ -1446,7 +1446,7 @@ class EverydayPeople extends Component {
                         {/* <img src="/assets/img/site/close-2.png" /> */}
                         <img src={closeImg2} />
                     </button>
-                    <h2>Create Group</h2>
+                    <h2>Authorise Group</h2>
                     <CreateGroupForm onSubmit={this.createGroupSubmit} submitDisabled={this.state.authorise_disabled} />
                 </Modal>
             </div>

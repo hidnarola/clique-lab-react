@@ -68,7 +68,7 @@ class Header extends Component{
                         <div className="hdr-cart">
                             <Link to={routeCodes.MY_CART}>
                                 <i className=""></i>
-                                <span>2</span>
+                                {/* <span>2</span> */}
                             </Link>
                             <div className="dropdown-menu dropdown-menu-right" aria-labelledby="cart-dropdown">
                                 <h3>Manage Orders</h3>

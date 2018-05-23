@@ -162,11 +162,11 @@ class Campaign extends Component {
                 <div>
                 {(this.props.loading === true) ? <div className="loader" style={{ "zIndex": "999999999" }}></div> : 
                     <Modal isOpen={this.state.modal} toggle={false} className={this.props.className} id="congratulations" className={this.props.className}>
-                        <ModalHeader>
+                        {/* <ModalHeader>
                         <button type="button" className="close" onClick={this.closeModal.bind(this)}>
                             <img src={closeImg} />
                         </button>
-                        </ModalHeader>
+                        </ModalHeader> */}
                         <ModalBody style={{"padding":"40px 80px 40px"}}>
                             <div className="terms-conditions">
                                 <h2>Congratulations, your Campaign has been started!</h2>

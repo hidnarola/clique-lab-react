@@ -47,7 +47,7 @@ class Cart extends React.Component {
 					{/* <b>{obj.campaign.name}</b><br /> */}
 					{obj.applied_post.desription}
 				</td>
-				<td>{/*obj.user_name*/}</td>
+				<td>{obj.user.name}</td>
 				<td>{obj.campaign.social_media_platform}</td>
 				
 				<td>${(obj.campaign.price).toFixed(2)}</td>

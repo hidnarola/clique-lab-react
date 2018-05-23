@@ -93,7 +93,7 @@ class Checkout extends Component {
                             <ModalFooter>
                                 <div className="submit-btn d-flex">
                                     <Link to={routeCodes.CAMPAIGN_PURCHASED_POSTS}>
-                                        <button type="button" className="round-btn next-btn">Purchased Post</button>
+                                        <button type="button" className="round-btn next-btn">Purchased Posts</button>
                                     </Link>
                                 </div>
                             </ModalFooter>

@@ -42,7 +42,7 @@ class ForgotPassForm extends Component{
                 </div>
                 <form onSubmit={handleSubmit}>
                     <h3>Reset Password</h3>
-                    <Field name="email" type="email" component={renderField} placeholder="Email-ID" />
+                    <Field name="email" type="email" component={renderField} placeholder="Email" />
                     <div className="submit-div">
                         <button type="submit" className="round-btn">Reset</button>
                     </div>

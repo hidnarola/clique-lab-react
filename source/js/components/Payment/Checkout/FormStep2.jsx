@@ -12,9 +12,9 @@ const validate = values => {
     if (!values.address1) {
         errors.address1 = 'This Field is Required';
     }
-    if (!values.address2) {
-        errors.address2 = 'This Field is Required';
-    }
+    // if (!values.address2) {
+    //     errors.address2 = 'This Field is Required';
+    // }
     if (!values.city) {
         errors.city = 'This Field is Required';
     }

@@ -13,7 +13,6 @@ import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-au
 const validate = values => {
 
     const errors = {};
-
     if (!values.public_or_private || values.public_or_private.value === "") {
         errors.public_or_private = 'This field is required';
     }
@@ -77,7 +76,6 @@ class GoogleAC extends Component {
         )
     }
 }
-
 
 
 class FormStep3 extends Component {
