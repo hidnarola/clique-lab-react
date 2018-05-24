@@ -52,7 +52,7 @@ let SelectField_ReactSelect5 = (props) => {
     } else {
         val = val
     }
-    //console.log('>>>>',selectedValue.value);
+    
     return (
         <div className={wrapperClass}>
             <label htmlFor={input.name} className={labelClass}>{label} {isRequired === "true" && <span className="error-div">*</span>}</label>
