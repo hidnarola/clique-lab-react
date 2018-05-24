@@ -762,7 +762,7 @@ class EverydayPeople extends Component {
 
         setTimeout(()=>{
             if (this.props.dropdownList === null && this.props.loading === false) {
-            alert('There is no campaigns to add people.')
+            alert('You don’t have a campaign yet.')
         }
         },2000)
     }
@@ -774,7 +774,7 @@ class EverydayPeople extends Component {
 
         setTimeout(()=>{
             if (this.props.dropdownList === null && this.props.loading === false) {
-                alert('There is no groups to add people.')
+                alert('‘You don’t have a group yet.')
             }
         },2000)
         
