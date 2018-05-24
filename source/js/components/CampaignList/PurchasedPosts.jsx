@@ -272,7 +272,7 @@ class PurchasedPosts extends Component {
                                                     <h3>$ {(obj.price).toFixed(2)}</h3>
                                                 </div>
                                             </div>
-                                            <div className="festival-img" style={{ "background": "url('"+imgUrl+"') no-repeat 100%","background-size": "100%","height": "215px","width": "100%"}}></div>
+                                            <div className="festival-img" style={{ "background": "url('"+imgUrl+"') no-repeat 100%","backgroundSize": "100%","height": "215px","width": "100%"}}></div>
                                             <div className="festival-body" style={{"min-height": "50px"}}>
                                                 <h2>{obj.applied_campaign.desription}</h2>
                                                 {/* <h2>Make up by morning. boyfriends happy, what a life I lead!

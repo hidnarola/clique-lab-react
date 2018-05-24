@@ -47,7 +47,7 @@ class Header extends Component{
             'Group\'s Members List': routeCodes.LISTGROUPS+'/'+match.params.grpId+'/members',
             'Campaigns (Active)': routeCodes.CAMPAIGN_ACTIVE,
             'Campaign\'s Submission List': routeCodes.CAMPAIGN_ACTIVE+'/'+match.params.campaignId,
-            'Campaigns (Futur)': routeCodes.CAMPAIGN_FUTURE,
+            'Campaigns (Future)': routeCodes.CAMPAIGN_FUTURE,
             'Campaigns (Past)': routeCodes.CAMPAIGN_PAST,
             'Inspired Submissions': routeCodes.CAMPAIGN_INSPIRED_SUB,
             'Purchased Posts': routeCodes.CAMPAIGN_PURCHASED_POSTS,

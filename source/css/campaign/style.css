@@ -290,7 +290,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#895cf2', end
 .process-point.active a{background:#6772e5;}
 .process-point.current a{background:#6772e5; position:relative;}
 .process-point.completed strong{background:#6772e5;}
-.step-process strong{width:4px; height:110px; background:#cad1dc; margin:0 auto; display:block;}
+.step-process strong{width:4px; height:80px; background:#cad1dc; margin:0 auto; display:block;}
 .process-point.current a:after{content:''; width: 18px; height: 18px; border-radius: 90px; position: absolute; top:0; left:0; background: #6772e5;}
 .process-point.current a:before{width:30px; height: 30px; border: 2px solid #6772e5; content: ''; position: absolute; top:-6px; left:-6px; border-radius: 60px; background:#fff;}
 
