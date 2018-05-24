@@ -1115,8 +1115,8 @@ class EverydayPeople extends Component {
             "page_size": this.state.perPageItem,
             "page_no": 1
         }
-        this.setState({ "activePage": 1 });
-        this.filterSendReq(arrayFilter);
+        //this.setState({ "activePage": 1 });
+        //this.filterSendReq(arrayFilter);
 
         this.age_filter_toggle();
         // this.setState({isAgeFilterSelected:true});
