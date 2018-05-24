@@ -75,7 +75,7 @@ export const FileField_Dropzone = (props) => {
                 multiple={multiple ? multiple : false}
                 className={`${className}`}
                 onFileDialogCancel={() => {
-                    (!isFileDropped) ? input.onChange('') : console.log('dropped')
+                    (!isFileDropped) ? input.onChange('') : ''
                 }}
             >
                 <div className="dropzone-image-preview-wrapper">
@@ -89,11 +89,7 @@ export const FileField_Dropzone = (props) => {
                     }
                 </div>
             </Dropzone>
-            {
-                console.log(meta)
-            }
             {(meta.touched && meta.error) && <span className="error-div">{meta.error}</span>}
-            {/* {((!meta.valid || meta.visited) && meta.error && meta.submitFailed) && <span className="error-div">{meta.error}</span>} */}
         </div>
     );
 }

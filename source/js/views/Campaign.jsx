@@ -75,7 +75,12 @@ class Campaign extends Component {
             // for (var x = 0; x < ins; x++) {
             //     fd.append("fileToUpload[]", document.getElementById('fileToUpload').files[x]);
             // }
-
+            let public_or_private = 'public';
+            if(values.public_or_private===undefined){
+                public_or_private = 'public';
+            }else{
+                public_or_private = values.public_or_private.value;
+            }
             const formData = new FormData();
 
             formData.append("name",values.campaignName);
@@ -86,7 +91,7 @@ class Campaign extends Component {
             formData.append("social_media_platform",values.industryName.value);
             formData.append("hash_tag",JSON.stringify(hashTagArr));
             formData.append("at_tag",JSON.stringify(atTagArr));
-            formData.append("privacy",values.public_or_private.value);
+            formData.append("privacy",public_or_private);
             formData.append("media_format",values.media_format.value);
             formData.append("location",values.location);
             formData.append("price",values.how_much);

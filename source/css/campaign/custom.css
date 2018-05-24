@@ -156,7 +156,7 @@ ul { padding: 0; }
   .Select.Select--single:hover .Select-arrow-zone {background: url(../assets/img/site/02.png) no-repeat 0 50%}*/
   .everypeole-head-l{position:relative;}
   .MoreFilterLi.dropdown{position:inherit;}
-  .MoreFilterLi .dropdown-menu{ min-width:1030px; top:10px !important; left: 0px; will-change: transform; transform: inherit !important; padding:30px 20px !important;}
+  .MoreFilterLi .dropdown-menu{ min-width:926px; top:10px !important; left: 0px; will-change: transform; transform: inherit !important; padding:30px 20px !important;}
   .MoreFilterLi .dropdown-menu:after{ left:34%;}
   .morefilter-div{ margin:0 0 20px;}
   .morefilter-div label{ font-size:13px; font-weight:600; color:#43458b; line-height:22px; display:block; margin:0 0 5px;}

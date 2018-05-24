@@ -14,14 +14,12 @@ import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-au
 const validate = values => {
 
     const errors = {};
-
     // if (!values.public_or_private || values.public_or_private.value === "") {
     //     errors.public_or_private = 'This field is required';
     // }
-
-    if (!values.public_or_private) {
-        errors.public_or_private = 'This field is required';
-    }
+    // if (!values.public_or_private) {
+    //     errors.public_or_private = 'This field is required';
+    // }
 
     if (!values.media_format || values.media_format.value === "") {
         errors.media_format = 'This field is required';
@@ -51,8 +49,7 @@ let SelectField_ReactSelect5 = (props) => {
     let val = 'public';
     if (input.value && Object.keys(input.value).length > 0) {
         val = input.value;
-    } else if (initialValue) {
-        //val = initialValue;
+    } else {
         val = val
     }
     //console.log('>>>>',selectedValue.value);
@@ -61,12 +58,12 @@ let SelectField_ReactSelect5 = (props) => {
             <label htmlFor={input.name} className={labelClass}>{label} {isRequired === "true" && <span className="error-div">*</span>}</label>
             <Select
                 {...input}
-                value={(val !== '') ? selectedValue.value : val}
+                value={val}
                 options={options}
                 className={`${className}${meta.touched && ((meta.error && ' txt_error_div') || (meta.warning && ' txt_error_div'))}`}
                 placeholder={placeholder}
                 onChange={(value) => input.onChange(value)}
-                onBlur={() => input.onBlur({ ...input.value })}
+                //onBlur={() => input.onBlur({ ...input.value })}
                 multi={false}
                 clearable={false}
                 selectedValue={selectedValue}
@@ -153,7 +150,6 @@ class FormStep3 extends Component {
                                 placeholder="Public or Invite only"
                                 component={SelectField_ReactSelect5}
                                 options={[
-                                    { value: '', label: 'Select Industry' },
                                     { value: 'public', label: "Public" },
                                     { value: 'invite', label: "Private" }
                                 ]}

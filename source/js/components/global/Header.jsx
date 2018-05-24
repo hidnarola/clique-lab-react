@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { routeCodes } from 'constants/routes';
+import { imgRoutes } from 'constants/img_path';
+import { reactLocalStorage } from 'reactjs-localstorage';
 import _ from 'lodash';
 
 class Header extends Component{
@@ -43,10 +45,10 @@ class Header extends Component{
             'Everyday People': routeCodes.EVERYDAYPEOPLE,
             'Groups': routeCodes.LISTGROUPS,
             'Group\'s Members List': routeCodes.LISTGROUPS+'/'+match.params.grpId+'/members',
-            'Campaigns (Active)': routeCodes.CAMPAIGN_ACTIVE,
-            'Campaign\'s Members List': routeCodes.CAMPAIGN_ACTIVE+'/'+match.params.campaignId,
-            'Campaigns (Future)': routeCodes.CAMPAIGN_FUTURE,
-            'Campaigns (Past)': routeCodes.CAMPAIGN_PAST,
+            'Campaigns': routeCodes.CAMPAIGN_ACTIVE,
+            'Campaign\'s Submission List': routeCodes.CAMPAIGN_ACTIVE+'/'+match.params.campaignId,
+            'Campaigns': routeCodes.CAMPAIGN_FUTURE,
+            'Campaigns': routeCodes.CAMPAIGN_PAST,
             'Inspired Submissions': routeCodes.CAMPAIGN_INSPIRED_SUB,
             'Purchased Posts': routeCodes.CAMPAIGN_PURCHASED_POSTS,
             'Calendar': routeCodes.CALENDAR,
@@ -60,6 +62,7 @@ class Header extends Component{
             'Checkout': routeCodes.CHECKOUT,
         }
         let page_name = (_.invert(page_name_Array))[this.props.history.location.pathname];
+        let user = JSON.parse(reactLocalStorage.get('user', true));
         return(
             <div className="right-hdr d-flex">
                 <h2>{ page_name }</h2>
@@ -87,7 +90,7 @@ class Header extends Component{
                                   toggle={this.toggle} >
                             <DropdownToggle caret>                                
                                 <a id="">
-                                    <span></span>
+                                <span style={{"background":"url('"+imgRoutes.PROMOTER_IMG_PATH+user.avatar+"') no-repeat 100%","background-size": "100%","height": "40px"}}></span>
                                     <i className=""></i>
                                 </a>
                             </DropdownToggle>
