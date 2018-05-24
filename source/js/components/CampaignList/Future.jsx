@@ -67,7 +67,7 @@ class Future extends Component {
         return (
             <li key={Math.random()}>
                 <div className="all-people-div">
-                    <div className="all-people-img" style={{ "background": "url('" + img + "') no-repeat 100%", "background-size": "100%", "height": "190px", "width": "100%" }}>
+                    <div className="all-people-img" style={{ "background": "url('" + img + "') no-repeat 100%", "backgroundSize": "100%", "height": "190px", "width": "100%" }}>
                         {/* <img src={`${imgRoutes.CAMPAIGN_IMG_PATH}${obj.cover_image}`} alt="" className="campaign_list_img"/> */}
                     </div>
                     <div className="all-people-content">

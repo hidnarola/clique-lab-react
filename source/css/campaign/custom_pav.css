@@ -6,6 +6,8 @@
 .campaign_form_step2_dropdown.txt_tag .Select-arrow-zone{
     display: none;
 }
+.Select--multi.has-value .Select-input{ vertical-align: top; }
+.Select--multi.has-value .Select-input input{ line-height: 20px; }
 
 #custom_calendar{
     background: #fff;
