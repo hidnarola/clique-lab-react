@@ -6,6 +6,7 @@ import { logout } from '../../actions/login';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { reactLocalStorage } from 'reactjs-localstorage';
 import { routeCodes } from 'constants/routes';
+import { imgRoutes } from 'constants/img_path';
 
 class Header2 extends Component {
     constructor(props) {
@@ -52,7 +53,7 @@ class Header2 extends Component {
                         <Dropdown direction='down' isOpen={this.state.dropdownOpen} toggle={this.toggle} >
                             <DropdownToggle caret>
                                 <a id="">
-                                    <span></span>
+                                    <span style={{"background":"url('"+imgRoutes.PROMOTER_IMG_PATH+user.avatar+"') no-repeat 100%","background-size": "100%","height": "40px"}}></span>
                                     <i className=""></i>
                                 </a>
                             </DropdownToggle>

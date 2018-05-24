@@ -192,7 +192,7 @@ td.fc-widget-content{ border:0;}
     }
 
     .stats_filter_li3 a{ font-size: 13px !important; line-height: 20px !important; font-weight: 600 !important; border-radius: 3px !important; }
-    .stats_filter_li4 .dropdown-menu:after{ left:30% !important; }
+    .stats_filter_li4 .dropdown-menu:after{ left:33% !important; }
     .stats_filter_li4 .Select-control{ border: 2px solid #b5b7be47 !important; }
     .stats_filter_li4 .Select-placeholder{ color: rgba(181, 183, 190,0.6) !important }
     .btn_add_compare{ padding: 0 20px !important; line-height: 30px !important; font-weight: 600 !important; border-radius: 3px !important; }
