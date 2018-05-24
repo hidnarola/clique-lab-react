@@ -180,7 +180,7 @@ class GroupList extends Component {
             authorise_disabled: false,
             groupId: '',
             isPluseClick: false,
-            sort_wise_pagination:''
+            sort_wise_pagination: ''
         };
 
         this.createGroupModal = this.createGroupModalOpen.bind(this);
@@ -224,7 +224,7 @@ class GroupList extends Component {
     handlePageChange(pageNumber) {
         this.setState({ activePage: pageNumber });
         const { dispatch } = this.props;
-        const {activePage,sort_wise_pagination} = this.state;
+        const { activePage, sort_wise_pagination } = this.state;
         // if (pageNumber !== this.state.activePage) {
         //     let newVar = {
         //         "sort": [{ "field": selectedOption.column, "value": parseInt(selectedOption.value) }],
@@ -233,17 +233,15 @@ class GroupList extends Component {
         //     }
         //     dispatch(getGroups(newVar))
         // }
-         if (pageNumber !== this.state.activePage) {
-            if(sort_wise_pagination === '')
-            {
+        if (pageNumber !== this.state.activePage) {
+            if (sort_wise_pagination === '') {
                 let newVar = {
                     "page_size": 12,
                     "page_no": pageNumber
                 }
                 dispatch(getGroups(newVar))
             }
-            else
-            {
+            else {
                 let newVar = {
                     "sort": [{ "field": sort_wise_pagination.column, "value": parseInt(sort_wise_pagination.value) }],
                     "page_size": 12,
@@ -252,20 +250,20 @@ class GroupList extends Component {
                 dispatch(getGroups(newVar))
             }
             // dispatch(getGroups(newVar))
-         }
+        }
     }
 
     handleSorting = (selectedOption) => {
         const { dispatch } = this.props;
         const { activePage } = this.state;
         // this.setState({ selectedOption });
-        this.setState({sort_wise_pagination:selectedOption});
+        this.setState({ sort_wise_pagination: selectedOption });
         let newVar = {
             "sort": [{ "field": selectedOption.column, "value": parseInt(selectedOption.value) }],
             "page_size": 12,
             "page_no": 1
         }
-        this.setState({activePage:1});
+        this.setState({ activePage: 1 });
         dispatch(getGroups(newVar));
     }
 
@@ -307,6 +305,12 @@ class GroupList extends Component {
         this.setState({ isPluseClick: true });
         this.child.setSaveFor('add_to_campaign', null);
         dispatch(fetchDropDownReq({ "sendReqFor": "add_to_campaign" }));
+        setTimeout(() => {
+            if (this.props.dropdownList === null && this.props.loading === false) {
+                alert('You don’t have a campaign yet.')
+            }
+        }, 2000)
+
     }
 
     saveResult = (param1, param2, param3, param4, param5) => {
@@ -327,18 +331,10 @@ class GroupList extends Component {
             <li key={Math.random()}>
                 <div className="all-people-div">
                     <div className="all-people-img">
-                        {
-                            (this.state.isPluseClick === false) ?
-                                <Link className="cursor_pointer" to={`${routeCodes.LISTGROUPS}/${obj._id}/members`}>
-                                    <img className="grp_list_img" src={`${imgRoutes.GROUP_IMG_PATH}${obj.image}`} alt="" />
-                                </Link>
-                                : (this.child.state.isClick === false) ?
-                                    <Link className="cursor_pointer" to={`${routeCodes.LISTGROUPS}/${obj._id}/members`}>
-                                        <img className="grp_list_img" src={`${imgRoutes.GROUP_IMG_PATH}${obj.image}`} alt="" />
-                                    </Link>
-                                    :
-                                    <img className="grp_list_img" src={`${imgRoutes.GROUP_IMG_PATH}${obj.image}`} alt="" />
-                        }
+                        <Link className="cursor_pointer" to={`${routeCodes.LISTGROUPS}/${obj._id}/members`}>
+                            <img className="grp_list_img" src={`${imgRoutes.GROUP_IMG_PATH}${obj.image}`} alt="" />
+                        </Link>
+
                         <div className="plus-people dropdown">
                             <PlusAction
                                 addCampaign={() => { this.addCampaign(obj) }}
@@ -392,6 +388,7 @@ class GroupList extends Component {
             )
         }
 
+        console.log('RPOSPSS>>>', this.props);
         return (
             <div>
                 <div className="group-head d-flex">
