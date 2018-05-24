@@ -180,6 +180,7 @@ class GroupList extends Component {
             authorise_disabled: false,
             groupId: '',
             isPluseClick: false,
+            sort_wise_pagination:''
         };
 
         this.createGroupModal = this.createGroupModalOpen.bind(this);
@@ -223,26 +224,48 @@ class GroupList extends Component {
     handlePageChange(pageNumber) {
         this.setState({ activePage: pageNumber });
         const { dispatch } = this.props;
-        const { selectedOption } = this.state;
-        if (pageNumber !== this.state.activePage) {
-            let newVar = {
-                "sort": [{ "field": selectedOption.column, "value": parseInt(selectedOption.value) }],
-                "page_size": 12,
-                "page_no": pageNumber
+        const {activePage,sort_wise_pagination} = this.state;
+        // if (pageNumber !== this.state.activePage) {
+        //     let newVar = {
+        //         "sort": [{ "field": selectedOption.column, "value": parseInt(selectedOption.value) }],
+        //         "page_size": 12,
+        //         "page_no": pageNumber
+        //     }
+        //     dispatch(getGroups(newVar))
+        // }
+         if (pageNumber !== this.state.activePage) {
+            if(sort_wise_pagination === '')
+            {
+                let newVar = {
+                    "page_size": 12,
+                    "page_no": pageNumber
+                }
+                dispatch(getGroups(newVar))
             }
-            dispatch(getGroups(newVar))
-        }
+            else
+            {
+                let newVar = {
+                    "sort": [{ "field": sort_wise_pagination.column, "value": parseInt(sort_wise_pagination.value) }],
+                    "page_size": 12,
+                    "page_no": pageNumber
+                }
+                dispatch(getGroups(newVar))
+            }
+            // dispatch(getGroups(newVar))
+         }
     }
 
     handleSorting = (selectedOption) => {
         const { dispatch } = this.props;
         const { activePage } = this.state;
-        this.setState({ selectedOption });
+        // this.setState({ selectedOption });
+        this.setState({sort_wise_pagination:selectedOption});
         let newVar = {
             "sort": [{ "field": selectedOption.column, "value": parseInt(selectedOption.value) }],
             "page_size": 12,
             "page_no": 1
         }
+        this.setState({activePage:1});
         dispatch(getGroups(newVar));
     }
 

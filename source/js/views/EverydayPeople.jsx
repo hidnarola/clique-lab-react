@@ -759,18 +759,25 @@ class EverydayPeople extends Component {
         const { dispatch, dropdownList } = this.props;
         this.child.setSaveFor('campaign', obj._id);
         dispatch(fetchDropDownReq({ "sendReqFor": "campaign", "uId": obj._id }));
-        // if (this.props.dropdownList === null && this.props.loading === false) {
-        //     alert('There is no campaigns to add user.')
-        // }
+
+        setTimeout(()=>{
+            if (this.props.dropdownList === null && this.props.loading === false) {
+            alert('There is no campaigns to add people.')
+        }
+        },2000)
     }
 
     addGroup = (obj) => {
         const { dispatch } = this.props;
         this.child.setSaveFor('group', obj._id);
         dispatch(fetchDropDownReq({ "sendReqFor": "group", "uId": obj._id }));
-        // if (this.props.dropdownList === null && this.props.loading === false) {
-        //     alert('There is no groups to add user.')
-        // }
+
+        setTimeout(()=>{
+            if (this.props.dropdownList === null && this.props.loading === false) {
+                alert('There is no groups to add people.')
+            }
+        },2000)
+        
     }
 
     addToCart = (camp_id, user_id) => {
