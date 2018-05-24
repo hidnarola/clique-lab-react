@@ -218,7 +218,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#895cf2', end
 
 .right-box-btm-head{ margin:0 0 30px;}
 .post-dropdown>a{ font-size:18px; color:#43458b; font-weight:500;}
-.post-dropdown>a:hover{text-decoration:none; color:#6772e5;}
+.post-dropdown>a:hover{text-decoration:none; }
 .post-dropdown>a span{color:#6772e5;}
 .dropdown-arrow{background: url(../assets/img/site/down-arrow-1.png) no-repeat 0 0; display: inline-block; vertical-align: top; width: 14px; height: 20px; margin-left: 6px;}
 .post-dropdown>a i{ margin-top:3px;}
