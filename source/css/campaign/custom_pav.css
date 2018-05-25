@@ -161,7 +161,7 @@ td.fc-widget-content{ border:0;}
     .stats_age_dropdown .dropdown button.btn-secondary,
     .stats_filter_li4 button.btn-secondary{ padding: 0 15px !important; border-radius: 3px !important; font-weight: 600 !important; }
     .stats_age_dropdown .dropdown-menu,
-    .stats_filter_li4 .dropdown-menu{ padding:35px !important; }
+    .stats_filter_li4 .dropdown-menu{ padding:50px !important; }
     .stats_age_dropdown .range-div{ width: 80px !important; }
     .stats_age_dropdown .bdr-btn,
     .stats_filter_li4 .bdr-btn{

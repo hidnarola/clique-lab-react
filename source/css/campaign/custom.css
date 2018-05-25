@@ -60,7 +60,7 @@ ul { padding: 0; }
 .error-div{ font-size:13px; color:red; font-weight:500; }
 .txt_error_div{ border: 2px solid red !important; }
 .drop_error_div{ border: 3px dotted red !important; }
-.Select-control {    border: 2px solid rgba(82, 95, 127, .2) !important; padding: 15px 20px; line-height: 26px; color: rgba(82, 95, 127, .5); font-size: 16px; font-weight: 500; width: 100%; border-radius: 2px;}
+.Select-control { border: 2px solid rgba(82, 95, 127, .2) !important; padding: 15px 20px; line-height: 26px; color: rgba(82, 95, 127, .5); font-size: 16px; font-weight: 500; width: 100%; border-radius:3px !important; }
 .Select-input > input {width:100% !important;}
 
 .select-wrap,
@@ -165,7 +165,7 @@ ul { padding: 0; }
   
   .dropdown-inr{ font-size:14px; font-weight: 500; color: #525f7f !important;}
   
-  .select-wrap .Select-control{padding:13px 30px 12px 15px;    line-height: 26px;}
+  .select-wrap .Select-control{padding:8px 30px 8px 15px; line-height: 26px; height:46px;}
   .Select {box-shadow:none !important;}
   .Select-control { border: 2px solid #dcdfe5; padding:5px 30px 5px 10px; line-height: 18px; font-weight: 500; color: #525f7f; background: transparent !important; height: 34px; border-radius: 0; font-size: 14px; box-shadow:none !important;  }
   .Select-arrow{display:none;}
@@ -173,15 +173,15 @@ ul { padding: 0; }
   .Select-input{ height:auto; padding:0;}
   .Select-placeholder, .Select--single > .Select-control .Select-value{padding:0 30px 0 15px; top: 50%; transform: translateY(-50%); margin:0; line-height:18px; font-weight: 500; color: #525f7f; font-size: 14px;}
   .Select.has-value.Select--single > .Select-control .Select-value .Select-value-label, 
-  .Select.has-value.is-pseudo-focused.Select--single > .Select-control .Select-value .Select-value-label{ line-height: 18px; font-weight: 500; color: #525f7f; font-size: 13px; padding-right: 20px;;}
+  .Select.has-value.is-pseudo-focused.Select--single > .Select-control .Select-value .Select-value-label{ font-weight: 500; color: #525f7f; font-size: 13px; padding-right: 20px;;}
   .everypeole-head-l ul li,
   .everypeole-head-r>ul>li{min-width:110px;}
   .morefilter-div .input-range__label--max,
   .morefilter-div .input-range__label--value,
   .morefilter-div .input-range__label--min{ display:none;}
   .range-wrapper{ position:relative; padding:0 130px 0 8px;}
-  .range-div{ border:2px solid rgba(207, 207, 213, .24); line-height:34px; position: absolute; top: 0; right: 0; text-align: center; font-size: 13px; color: #525f7f; font-weight: 500; width: 110px; background: #fff;}
-  .range-wrapper .input-range {margin:11px 0; display:inline-block;}
+  .range-div{ border:2px solid rgba(207, 207, 213, .24); line-height:30px; position: absolute; top: 0; right: 0; text-align: center; font-size: 13px; color: #525f7f; font-weight: 500; width: 110px; background: #fff;}
+  .range-wrapper .input-range {margin:5px 0; display:inline-block;}
   body .input-range__track{ height:2px; background: rgba(178,178,189,.4);}
   body .input-range__track--active {background: #6772e5 !important;}
   body .input-range__slider{margin-top:-7px; border:0; background: #6772e5 !important; }
@@ -216,20 +216,34 @@ ul { padding: 0; }
 .login-register-box .input-div{ margin: 0 0 20px}
 .input-div input{ margin:0;}
 .login-register-box .select-wrap.Select.select-wrap{margin: 0 0 0px; text-align: left}
-.login-register-box .select-wrap{text-align: left}
+.login-register-box .select-wrap{text-align: left; position: relative; }
+.form-content .select-wrap span.error-div { position: absolute; bottom: -18px; left: 0; font-size: 12px; color: red; font-weight: 500;}
 .login-register-box .Select.select-wrap.txt_error_div{ border:none !important; border-bottom:2px solid red !important; }
 .login-register-box .select-wrap  .Select-control{ color:#525f7f; font-size: 13px; padding: 5px 0 7px 0; border:0 !important; border-bottom: 2px solid #cfcfd5 !important; line-height:100%;     text-align: left;}
 .login-register-box .select-wrap .Select-placeholder, 
 .login-register-box .select-wrap .Select--single > .Select-control .Select-value{  line-height: 100%; padding:0; color:#757575; font-size:13px}
 .login-register-box .select-wrap .Select-input > input {padding: 0; font-size:13px;}
 .Select-menu-outer{ font-size:13px; color:#525f7f; text-align:left; font-weight:500;}
-.Select-menu-outer a{ padding:10px; font-weight:500;}
+.Select-menu-outer a{ padding:10px; font-weight:500; background:transparent !important; }
+.Select-menu-outer a:hover{color:#6772e5; background:transparent !important;}
 
 .Select-input input{ border:0; padding:0;}
 .everypeole-head .Select-control {border: 2px solid rgba(82, 95, 127, .5) !important;}
-.everypeole-head .Select-control .Select-placeholder{line-height: 14px;}
+.everypeole-head .Select-control .Select-placeholder{line-height: 14px; }
 .everypeole-head .Select-control .Select-value-label{    vertical-align: top; line-height: 14px !important;}
 
 .more-cancel-btn{ border:0; padding: 10px;  line-height: 16px; min-width: 110px; text-align: center; font-size: 14px; color: #6772e5; border-radius: 2px; background: #fff; color:#525f7f; font-weight:600;}
 .login_page .form-content {height:480px;    margin-bottom:60px;} 
-.forgot_pass_page .form-content {height:515px;    margin-bottom:60px;} 
+.forgot_pass_page .form-content {height:465px;    margin-bottom:60px;} 
+
+.select-wrap .Select-input input {border: 0; padding: 0; position: absolute; top: 50%; transform: translateY(-50%);}
+.morefilter-div .Select-control .Select-placeholder{    color: rgba(82, 95, 127, .5) !important; font-weight: 500 !important; font-size: 14px; font-family: 'Montserrat';}
+.everypeole-head .dropdown.show button.btn-secondary { border: 2px solid #6772e5 !important; color: #6772e5;}
+.form-content .select-wrap { margin-bottom:20px; }
+.login-register-box .select-wrap .Select-control{padding: 0 0 7px 0; height:34px; font-weight:600;}
+.login-register-box .select-wrap .Select-input > input,
+.login-register-box .select-wrap .Select-placeholder{ font-weight:600; font-size:13px;}
+
+.autocomplete-dropdown-container{ font-weight:600;}
+.images-preview-wrapper {border: 1px solid #eee; margin: 0 0 20px; text-align: center;}
+.everypeole-head .dropdown.show button.btn-secondary:hover {color: #fff;}
