@@ -14,10 +14,9 @@ const validate = values => {
     var regexp =  /^(?:(?:https?|ftp):\/\/)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/\S*)?$/; // fragment locater
     if (!values.call_to_action  || (values.call_to_action!==undefined && values.call_to_action.trim()=="")) {
         errors.call_to_action = 'This field is required';
-    } 
-    // else if(!regexp.test(values.call_to_action)) {
-    //     errors.call_to_action = 'Please enter valid URL';
-    // }
+    } else if(!regexp.test(values.call_to_action)) {
+        errors.call_to_action = 'Please enter valid URL';
+    }
 
     if (!values.discount_code  || (values.discount_code!==undefined && values.discount_code.trim()=="")) {
         errors.discount_code = 'This field is required';

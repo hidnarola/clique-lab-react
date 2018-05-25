@@ -35,6 +35,8 @@ const validate = values => {
         errors.how_much = 'Must be a number';
     } else if (!validator.matches(values.how_much, /^[0-9]/)) {
         errors.how_much = 'Must be a positive value';
+    } else if (values.how_much.length > 7) {
+        errors.how_much = 'Max. character length is 7';
     }
 
     if (!values.currency || values.currency.value === "") {

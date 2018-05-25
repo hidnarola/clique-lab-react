@@ -873,16 +873,13 @@ class EverydayPeople extends Component {
                             <h3>
                                 <big>{obj.user_name}</big>
                                 {/* <small>{obj.country !== undefined && obj.suburb + ', ' + obj.country.name}</small> */}
-                                <small>{ obj.location!==undefined && obj.location }</small>
+                                <small style={{"white-space":"nowrap","text-overflow": "ellipsis","overflow": "hidden","width": "245px"}}>{ obj.location!==undefined && obj.location }</small>
                             </h3>
                         </div>
                         <div className="festival-head-r"><h3>$ {(obj.price).toFixed(2)}</h3></div>
                     </div>
-                    <div className="festival-img">
-                        {/* <img src="http://placehold.it/450x215" alt="" /> */}
-                        <img src={ imgRoutes.CAMPAIGN_POST_IMG_PATH+obj.applied_post_image } />
-                    </div>
-                    <div className="festival-body">
+                    <div className="festival-img" style={{ "background": "url('"+imgRoutes.CAMPAIGN_POST_IMG_PATH+obj.applied_post_image+"') no-repeat 100%","backgroundSize": "100%","height": "215px","width": "100%"}}></div>
+                    <div className="festival-body" style={{"min-height": "50px"}} >
                         <h2>
                             { obj.applied_post_description} &nbsp;
                             {/* { (obj.at_tag) && (obj.at_tag).map(function(e){ return <a href='javascript:void(0)' >{'@'+e+' '}</a>; }) }
@@ -1115,8 +1112,8 @@ class EverydayPeople extends Component {
             "page_size": this.state.perPageItem,
             "page_no": 1
         }
-        //this.setState({ "activePage": 1 });
-        //this.filterSendReq(arrayFilter);
+        this.setState({ "activePage": 1 });
+        this.filterSendReq(arrayFilter);
 
         this.age_filter_toggle();
         // this.setState({isAgeFilterSelected:true});

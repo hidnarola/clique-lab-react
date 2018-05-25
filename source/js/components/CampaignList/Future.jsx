@@ -78,8 +78,8 @@ class Future extends Component {
                                 <h5>Start Date: <small>{date}</small></h5>
                                 <h5>Starts in <small>{obj.starts_in} days</small></h5>
                             </div>
-                            <div className="submission-div-r">
-                                <a className="cursor_pointer" onClick={this.showDeleteAlert.bind(this,obj._id)}><img src={trashImg} alt="" /></a>
+                            <div className="submission-div-r" style={{"lineHeight":"2.8em"}}>
+                                <a className="cursor_pointer" onClick={this.showDeleteAlert.bind(this,obj._id)}><img src={trashImg} alt="Delete" style={{"maxWidth":"80%"}}/></a>
                             </div>	
                         </div>
                     </div>

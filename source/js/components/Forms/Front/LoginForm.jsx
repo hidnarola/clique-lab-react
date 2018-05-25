@@ -63,7 +63,7 @@ class LoginForm extends Component {
                     <div className="submit-div">
                         <button type="submit" className="round-btn">Login</button>
                     </div>
-                    <p>Forgot Password? <Link className="cursor_pointer" to="/forgot_password">Reset</Link></p>
+                    <p>Forgot Password? <Link className="cursor_pointer" to="/forgot_password" style={{"textDecoration":"none"}}>Reset</Link></p>
                 </form>
             </div>
         )

@@ -55,7 +55,7 @@ class ForgotPassword extends Component {
                         <ForgotPassForm onSubmit={this.submitForm} newError={error} />
                     </div>
                     <div className="form-ftr">
-                        <p>Already have an account?<Link className="cursor_pointer" to="/login"> Login Here</Link></p>
+                        <p>Already have an account?<Link className="cursor_pointer" to="/login" style={{"textDecoration":"none"}}> Login Here</Link></p>
                     </div>
                 </div>
             </div>

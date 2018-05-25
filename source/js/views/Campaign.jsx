@@ -87,6 +87,7 @@ class Campaign extends Component {
             formData.append("start_date",values.campaignStartDate);
             formData.append("end_date",values.campaignEndDate);
             formData.append("call_to_action",values.call_to_action);
+            formData.append("discount_code",values.discount_code);
             formData.append("description",values.short_desc);
             formData.append("social_media_platform",values.industryName.value);
             formData.append("hash_tag",JSON.stringify(hashTagArr));
