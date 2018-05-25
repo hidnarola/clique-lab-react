@@ -774,7 +774,7 @@ class EverydayPeople extends Component {
 
         setTimeout(()=>{
             if (this.props.dropdownList === null && this.props.loading === false) {
-                alert('‘You don’t have a group yet.')
+                alert('You don’t have a group yet.')
             }
         },2000)
         

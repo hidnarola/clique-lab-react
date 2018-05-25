@@ -22,16 +22,21 @@ const renderField = ({ input, type, placeholder, meta: { touched, error } }) => 
 class ForgotPassForm extends Component{
     constructor(props){
         super(props);
-        this.state = { 'visible': true };
+        this.state = { 'visible': true,
+                        showError:false,
+                    };
         this.onDismiss = this.onDismiss.bind(this);
     }
+
     onDismiss() { this.setState({ 'visible': false }); }
+
     render(){
         const { handleSubmit, error, newError } = this.props
         return (
             <div>
                 <div style={{ "margin": "0 32%" }}>
-                    {(error) ?
+                    {  
+                         (error) ?
                         <Alert color="danger " isOpen={this.state.visible} toggle={this.onDismiss}>{error}</Alert>
                         :
                         (newError) ?

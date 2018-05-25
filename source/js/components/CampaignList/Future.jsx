@@ -96,7 +96,10 @@ class Future extends Component {
     handlePageChange(pageNumber) {
         this.setState({activePage: pageNumber});
         const { dispatch } = this.props;
-        dispatch(getFutureCampaign({"page_size":9,"page_no":pageNumber}))
+        if (pageNumber !== this.state.activePage) 
+        {
+            dispatch(getFutureCampaign({"page_size":12,"page_no":pageNumber}))
+        }
     }
     
     componentDidUpdate(){
@@ -143,9 +146,9 @@ class Future extends Component {
                     }
                 </ul>
                 {
-                    (futureCampaign!==null && totalFutureCampaign>9) && <Pagination 
+                    (futureCampaign!==null && totalFutureCampaign>12) && <Pagination 
                             activePage={this.state.activePage} 
-                            itemsCountPerPage={6} 
+                            itemsCountPerPage={12} 
                             totalItemsCount={totalFutureCampaign} 
                             pageRangeDisplayed={5} 
                             onChange={this.handlePageChange}

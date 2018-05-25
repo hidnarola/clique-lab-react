@@ -53,7 +53,9 @@ const actionMap = {
             // (action['data']['userAdded'] === false) ? resetObj['userAdded'] = false:'';            
         }
         return state.merge(Map({
-            errot: null
+            status: 0, // dm
+            message: null, // dm
+            //errot: null
         }));
     },
 

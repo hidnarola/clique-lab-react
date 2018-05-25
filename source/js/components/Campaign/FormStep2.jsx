@@ -111,7 +111,7 @@ class FormStep2 extends Component{
                                 name="tagHash"
                                 label="# tags"
                                 labelClass="control-label"
-                                wrapperClass="select-wrap"
+                                wrapperClass="select-wrap tag-1"
                                 placeholder="# tags"
                                 component={SelectField_ReactSelectMulti} 
                                 className="campaign_form_step2_dropdown txt_tag"
@@ -122,7 +122,7 @@ class FormStep2 extends Component{
                                 name="tagAt"
                                 label="@ tags"
                                 labelClass="control-label"
-                                wrapperClass="select-wrap"
+                                wrapperClass="select-wrap tag-2"
                                 placeholder="@ tags"
                                 component={SelectField_ReactSelectMulti}  
                                 className="campaign_form_step2_dropdown txt_tag" 

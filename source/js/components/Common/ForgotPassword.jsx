@@ -13,7 +13,8 @@ class ForgotPassword extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            passReset: true
+            passReset: true,
+            errorMsg: '',
         }
     }
 
@@ -28,6 +29,7 @@ class ForgotPassword extends Component {
     componentDidUpdate(){
         let { error, status, history } = this.props;
         let { passReset } = this.state;
+       
         if(status===1 && passReset){
             this.setState({passReset: false});
             history.push('/login');
@@ -35,6 +37,14 @@ class ForgotPassword extends Component {
         }
     }
 
+    componentWillReceiveProps(nextProps){
+        this.setState({errorMsg:nextProps.error},()=>{
+            setTimeout(()=>{
+                this.setState({errorMsg:''});
+            },3000)
+        });
+    }
+    
     render(){
         if(this.props.match.params.forgot_token!==undefined){
             if(this.props.match.params.forgot_token!==''){
@@ -42,6 +52,7 @@ class ForgotPassword extends Component {
             }
         }
         let { error } = this.props;
+        let {errorMsg} = this.state;
         
         return(
             <div className="login-register-bg">
@@ -52,7 +63,8 @@ class ForgotPassword extends Component {
                         </a>
                     </div>
                     <div className="form-content d-flex">
-                        <ForgotPassForm onSubmit={this.submitForm} newError={error} />
+                        {/* <ForgotPassForm onSubmit={this.submitForm} newError={error} /> */}
+                        <ForgotPassForm onSubmit={this.submitForm} newError={errorMsg} />
                     </div>
                     <div className="form-ftr">
                         <p>Already have an account?<Link className="cursor_pointer" to="/login"> Login Here</Link></p>

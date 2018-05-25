@@ -128,7 +128,10 @@ class Active extends Component {
         handlePageChange(pageNumber) {
             this.setState({activePage: pageNumber});
             const { dispatch } = this.props;
-            dispatch(getActiveCampaign({"page_size":12,"page_no":pageNumber}))
+            if (pageNumber !== this.state.activePage) 
+            {
+                dispatch(getActiveCampaign({"page_size":12,"page_no":pageNumber}))
+            }
         }
 
     /*********************************************

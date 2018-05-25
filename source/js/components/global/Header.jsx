@@ -63,11 +63,21 @@ class Header extends Component{
         }
         let page_name = (_.invert(page_name_Array))[this.props.history.location.pathname];
         let user = JSON.parse(reactLocalStorage.get('user', true));
+        let pg_name;
+
+        if(page_name === 'Campaigns (Active)' || page_name === 'Campaigns (Future)' || page_name === 'Campaigns (Past)') 
+        {
+            pg_name = 'Campaigns';
+        }
+        else
+        {
+            pg_name = page_name;
+        }
         return(
             <div className="right-hdr d-flex">
-                <h2>{ page_name }</h2>
+                {/* <h2>{ page_name }</h2> */}
+                <h2>{ pg_name }</h2>
                 <div className="right-hdr-r">
-                    
                         <div className="hdr-cart">
                             <Link to={routeCodes.MY_CART}>
                                 <i className=""></i>

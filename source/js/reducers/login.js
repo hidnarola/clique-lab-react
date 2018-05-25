@@ -6,7 +6,7 @@ const initialState = Map({
     error: null,
     user: null,
     token: null,
-    refreshToken: null
+    refreshToken: null,
 });
 
 const actionMap = {
@@ -72,8 +72,8 @@ const actionMap = {
     [RESET_VALUES_LOGIN]:(state,action) => {        
         if(action['data']){
             // (action['data']['userAdded'] === false) ? resetObj['userAdded'] = false:'';            
-        }
-        return state.merge(Map(resetObj));
+        }        
+        return state.merge(Map(resetObj)); 
     },
 };
 

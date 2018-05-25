@@ -101,6 +101,7 @@ class Register extends Component{
                     </div>
                     <div className="form-content d-flex">
                         <RegisterForm func={this.openModal} onSubmit={this.submitForm} countryList={this.props.country} newError={errorMsg} />                         
+                        {/* <RegisterForm func={this.openModal} onSubmit={this.submitForm} countryList={this.props.country}/>                          */}
                     </div>
                     <div className="form-ftr">
                         <p>Already have an account?{' '}

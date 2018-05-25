@@ -9,6 +9,9 @@ import LogoImg from 'img/common/logo.png';
 import LoginForm  from '../Forms/Front/LoginForm';
 import { login } from '../../actions/login';
 import { resetForgotVal } from '../../actions/forgotPass';
+//import { resetLoginVal } from '../../actions/login'; // dm
+import { resetRegisterVal } from '../../actions/register'; // dm
+
 import { routeCodes } from '../../constants/routes';
 import {SECRET_KEY} from '../../constants/usefulvar';
 import { Alert } from 'reactstrap';
@@ -35,7 +38,9 @@ class Login extends Component{
         dispatch(login(loginData));        
     }
 
+    //------pav
     componentWillMount(){
+        console.log('Will Mount>>>',this.props);
         let { error,user,message,dispatch } = this.props;
         let { errorMsg } = this.state;
         console.log(message);
@@ -44,10 +49,12 @@ class Login extends Component{
                 setTimeout(()=>{
                     this.setState({errorMsg: ''})
                     dispatch(resetForgotVal());
+                    dispatch(resetRegisterVal());
                 },3000);
             })
         }
     }
+
     componentDidUpdate(){
        // console.log('orporprorpo>>>',this.porps);
         let { message, loading, error } = this.props;
@@ -103,6 +110,7 @@ class Login extends Component{
                             <a className="cursor_pointer" onClick={() => (this.props.history.push("/register"))} style={{"color":"#6772e5"}}>
                                 Register Today
                             </a>
+                            {/* <a><Link className="cursor_pointer" to="/register">Register Today</Link></a> */}
                         </p>
                     </div>
                 </div>
