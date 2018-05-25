@@ -80,7 +80,7 @@ class Header extends Component{
                         (this.props.history.location.pathname===routeCodes.DASHBOARD) ?
                             <label>Hello <b style={{"font-weight":"600"}}>John Doe</b>, what would you like to do today?</label>
                         :
-                            page_name
+                            pg_name
                     }
                 </h2>
                 <div className="right-hdr-r">

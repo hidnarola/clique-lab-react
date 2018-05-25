@@ -38,7 +38,6 @@ class Login extends Component{
         dispatch(login(loginData));        
     }
 
-    //------pav
     componentWillMount(){
         console.log('Will Mount>>>',this.props);
         let { error,user,message,dispatch } = this.props;
@@ -54,6 +53,8 @@ class Login extends Component{
             })
         }
     }
+
+    
 
     componentDidUpdate(){
        // console.log('orporprorpo>>>',this.porps);

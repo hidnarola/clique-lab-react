@@ -247,3 +247,5 @@ ul { padding: 0; }
 .autocomplete-dropdown-container{ font-weight:600;}
 .images-preview-wrapper {border: 1px solid #eee; margin: 0 0 20px; text-align: center;}
 .everypeole-head .dropdown.show button.btn-secondary:hover {color: #fff;}
+
+.select-wrap.tag-2 .Select-input{padding: 0 0 0 6px;}
