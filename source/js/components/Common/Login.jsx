@@ -39,7 +39,6 @@ class Login extends Component{
     }
 
     componentWillMount(){
-        console.log('Will Mount>>>',this.props);
         let { error,user,message,dispatch } = this.props;
         let { errorMsg } = this.state;
         console.log(message);
@@ -53,8 +52,6 @@ class Login extends Component{
             })
         }
     }
-
-    
 
     componentDidUpdate(){
        // console.log('orporprorpo>>>',this.porps);
