@@ -70,8 +70,8 @@ const renderFieldCheckbox = ({ input, type, name,className,term_privacy,placehol
         <input {...input} placeholder={placeholder} type={type} className={className} id={newProp} />
         <label htmlFor="check1">
             I accept the
-            <a href="javascript:void(0)" onClick={() => term_privacy(this, 'TERMS')}> Terms & Conditions </a> and the
-            <a href="javascript:void(0)" onClick={() => term_privacy(this, 'PRIVACY')}> Privacy Policy </a>
+            <a href="javascript:void(0)" onClick={() => term_privacy(this, 'TERMS')} style={{"textDecoration":"none"}}> Terms & Conditions </a> and the
+            <a href="javascript:void(0)" onClick={() => term_privacy(this, 'PRIVACY')} style={{"textDecoration":"none"}}> Privacy Policy </a>
         </label>
         {touched && ((error && <span>{error}</span>) || (warning && <span>{warning}</span>))}
     </div>

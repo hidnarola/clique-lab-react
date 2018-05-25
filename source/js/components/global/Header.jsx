@@ -40,7 +40,7 @@ class Header extends Component{
         //console.log(routeCodes.CAMPAIGN_ACTIVE);
         // let page_name = (((this.props.history.location.pathname).replace('/','')).replace('-',' ')).replace('_',' ');
         let page_name_Array = {
-            'Dashboard': routeCodes.DASHBOARD,
+            'Hello John Doe, what would you like to do today?': routeCodes.DASHBOARD,
             'New Campaign': routeCodes.CAMPAIGN,
             'Everyday People': routeCodes.EVERYDAYPEOPLE,
             'Groups': routeCodes.LISTGROUPS,
@@ -75,8 +75,14 @@ class Header extends Component{
         }
         return(
             <div className="right-hdr d-flex">
-                {/* <h2>{ page_name }</h2> */}
-                <h2>{ pg_name }</h2>
+                <h2>
+                    {
+                        (this.props.history.location.pathname===routeCodes.DASHBOARD) ?
+                            <label>Hello <b style={{"font-weight":"600"}}>John Doe</b>, what would you like to do today?</label>
+                        :
+                            page_name
+                    }
+                </h2>
                 <div className="right-hdr-r">
                         <div className="hdr-cart">
                             <Link to={routeCodes.MY_CART}>
@@ -112,8 +118,8 @@ class Header extends Component{
                                     </Link>
                                     {page_name=='profile' && <img src="../assets/img/site/check-icon.png" alt="" />}
                                 </DropdownItem>
-                                <DropdownItem><span></span>Jacob Robinson</DropdownItem>
-                                <DropdownItem><i className="newaccount-icon"></i>New Account</DropdownItem>
+                                {/* <DropdownItem><span></span>Jacob Robinson</DropdownItem> */}
+                                {/* <DropdownItem><i className="newaccount-icon"></i>New Account</DropdownItem> */}
                                 {/* <DropdownItem divider /> */}
                                 <DropdownItem onClick={this.mylogout}>
                                     <i className="logout-icon"></i>
