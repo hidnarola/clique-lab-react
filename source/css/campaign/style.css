@@ -48,12 +48,16 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#895cf2', end
 .form-content h3{ margin:0 0 35px; padding:0; font-size:36px; color:#6762e5; font-weight:500;}
 .input-div{margin:0 0 13px;}
 .input-div labe{ display:block; margin:0 0 5px; font-weight:500;}
-.input-div input{ border:0; background:transparent; font-size:16px; color:#525f7f; padding:8px 0 18px 0; border-bottom:2px solid #cfcfd5; width:100%; font-weight:600; border-radius:0;}
+.input-div input{ border:0; background:transparent; font-size:16px; color:#525f7f; padding:8px 0 18px 0; border-bottom:2px solid #cfcfd5; width:100%; font-weight:600; border-radius:0; opacity:1;}
+::-webkit-input-placeholder { color: #525f7f;}
+::-moz-placeholder { color: #525f7f;}
+:-ms-input-placeholder {color: #525f7f;}
+:-moz-placeholder { color: #525f7f;}
 .submit-div{ margin:20px 0 35px; display:inline-block; vertical-align:top;}
 .form-content p{display:block; text-align:center; font-size:16px; color:#525f7f; line-height:100%; letter-spacing:0.01em; font-weight:500;}
 .form-content p a{ font-weight:600; color:#6772e5;}
 .form-ftr{ height:70px;}
-.form-ftr p{display:block; text-align:center; font-size:16px; color:#525f7f; line-height:100%; letter-spacing:0.01em; font-weight:500;}
+.form-ftr p{display:block; text-align:center; font-size:16px; color:#525f7f; line-height:100%; letter-spacing:0.01em; font-weight:600;}
 .form-ftr p a{ font-weight:600; color:#6772e5;}
 
 .accept-condition { margin:12px 0 0; display: inline-block; vertical-align: top;}
