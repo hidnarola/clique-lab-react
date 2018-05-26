@@ -8,6 +8,8 @@ export const FETCH_REGISTER_COUNTRY_REQUEST = 'FETCH_REGISTER_COUNTRY_REQUEST';
 export const FETCH_REGISTER_COUNTRY_SUCCESS = 'FETCH_REGISTER_COUNTRY_SUCCESS';
 export const FETCH_REGISTER_COUNTRY_ERROR = 'FETCH_REGISTER_COUNTRY_ERROR';
 
+export const RESET_REGISTER_FULL_STATE = 'RESET_REGISTER_FULL_STATE';
+
 
 export function register(userData) {
     return {
@@ -31,7 +33,7 @@ export function registerError(error) {
 }
 
 export function resetRegisterVal(data) {
-    return { type: RESET_VALUES_REGISTER, data:data }
+    return { type: RESET_VALUES_REGISTER, data: data }
 }
 
 //get country on registration page
@@ -53,6 +55,12 @@ export function countryError(error) {
     return {
         type: FETCH_REGISTER_COUNTRY_ERROR,
         error
+    }
+}
+
+export function resetRegisterFullState() {
+    return {
+        type: RESET_REGISTER_FULL_STATE
     }
 }
 

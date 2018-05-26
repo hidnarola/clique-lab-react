@@ -304,12 +304,31 @@ class GroupList extends Component {
         });
         this.setState({ isPluseClick: true });
         this.child.setSaveFor('add_to_campaign', null);
-        dispatch(fetchDropDownReq({ "sendReqFor": "add_to_campaign" }));
+        //dispatch(fetchDropDownReq({ "sendReqFor": "add_to_campaign" }));
+        
+        if(obj.total_member > 0)
+        {
+            dispatch(fetchDropDownReq({ "sendReqFor": "add_to_campaign" }));
+        }
+
         setTimeout(() => {
-            if (this.props.dropdownList === null && this.props.loading === false) {
-                alert('You don’t have a campaign yet.')
-            }
-        }, 2000)
+            // if (this.props.dropdownList === null && this.props.loading === false) {
+                //     alert('You don’t have a campaign yet.')
+                // }
+                //console.log('TOT_MEM:',obj.total_member);
+                if(obj.total_member < 1 &&  this.props.dropdownList === null)
+                {
+                    alert('You don’t have members in group yet.')
+                }
+                else if(obj.total_member < 1)
+                {
+                    alert('You don’t have members in group yet.')
+                }
+                else if(this.props.dropdownList === null && this.props.loading === false) {
+                    alert('You don’t have a campaign yet.')
+                }
+            },2000)
+            
 
     }
 
@@ -345,8 +364,9 @@ class GroupList extends Component {
                         <h4>{obj.name}</h4>
                         <div className="group-btm-btm d-flex">
                             <div className="group-btm-l">
-                                <h5>Members <strong>2343</strong> </h5>
-                                <h5>Power <strong>34.3k</strong> </h5>
+                                {/* <h5>Members <strong>2343</strong> </h5> */}
+                                <h5>Members <strong>{obj.total_member}</strong> </h5>
+                                <h5>Power <strong>{obj.social_power}</strong> </h5>
                             </div>
                             <div className="group-btm-r">
                                 <h5>Activity rate <strong>75%</strong></h5>
@@ -388,7 +408,7 @@ class GroupList extends Component {
             )
         }
 
-        console.log('RPOSPSS>>>', this.props);
+        //console.log('RPOSPSS>>>', this.props);
         return (
             <div>
                 <div className="group-head d-flex">

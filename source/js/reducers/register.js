@@ -1,13 +1,14 @@
 import { Map } from "immutable";
 import {
-            REGISTER_ERROR,
-            REGISTER_REQUEST,
-            REGISTER_SUCCESS,
-            FETCH_REGISTER_COUNTRY_REQUEST,
-            FETCH_REGISTER_COUNTRY_SUCCESS,
-            FETCH_REGISTER_COUNTRY_ERROR,
-            RESET_VALUES_REGISTER,
-        } from "../actions/register";
+    REGISTER_ERROR,
+    REGISTER_REQUEST,
+    REGISTER_SUCCESS,
+    FETCH_REGISTER_COUNTRY_REQUEST,
+    FETCH_REGISTER_COUNTRY_SUCCESS,
+    FETCH_REGISTER_COUNTRY_ERROR,
+    RESET_VALUES_REGISTER,
+    RESET_REGISTER_FULL_STATE,
+} from "../actions/register";
 
 const initialState = Map({
     loading: false,
@@ -48,8 +49,8 @@ const actionMap = {
             user: JSON.stringify(action.data),
         }));
     },
-    [RESET_VALUES_REGISTER]:(state,action) => {        
-        if(action['data']){
+    [RESET_VALUES_REGISTER]: (state, action) => {
+        if (action['data']) {
             // (action['data']['userAdded'] === false) ? resetObj['userAdded'] = false:'';            
         }
         return state.merge(Map({
@@ -60,7 +61,7 @@ const actionMap = {
     },
 
     // country
-    
+
     [FETCH_REGISTER_COUNTRY_REQUEST]: (state, action) => {
         return state.merge(Map({
             loading: true,
@@ -86,9 +87,9 @@ const actionMap = {
             country: JSON.stringify(action.data),
         }));
     },
-
-
-
+    [RESET_REGISTER_FULL_STATE]: (state, action) => {
+        return state.merge(initialState);
+    },
 
 };
 
