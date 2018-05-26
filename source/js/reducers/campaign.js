@@ -1,5 +1,6 @@
 import { Map } from "immutable";
 import { 
+    RESET_VALUES,
     CAMPAIGN_REQUEST, CAMPAIGN_SUCCESS, CAMPAIGN_ERROR,
     GET_ACTIVE_CAMPAIGN_REQUEST, GET_ACTIVE_CAMPAIGN_SUCCESS, GET_ACTIVE_CAMPAIGN_ERROR,
     GET_FUTURE_CAMPAIGN_REQUEST, GET_FUTURE_CAMPAIGN_SUCCESS, GET_FUTURE_CAMPAIGN_ERROR,
@@ -313,7 +314,19 @@ const actionMap = {
             filename: null,
             alertMessage: error
         }));
-    },    
+    },
+
+    [RESET_VALUES]:(state,action) => {
+        if(action['data']){
+            // (action['data']['userAdded'] === false) ? resetObj['userAdded'] = false:'';            
+        }
+        return state.merge(Map({
+            status: 0,
+            message: null,
+            futureCampaign: null,
+            totalFutureCampaign: 0,
+        }));
+    },
 
 };
 

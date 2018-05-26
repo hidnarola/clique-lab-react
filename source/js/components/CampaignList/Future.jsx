@@ -5,7 +5,7 @@ import nodataImg from 'img/site/nodata.png';
 import trashImg from 'img/site/trash-icon.png';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem ,UncontrolledDropdown } from 'reactstrap';
 import { withRouter } from 'react-router';
-import { getFutureCampaign, deleteCampaign } from '../../actions/campaign';
+import { getFutureCampaign, deleteCampaign, resetVal } from '../../actions/campaign';
 import Pagination from "react-js-pagination";
 import { imgRoutes } from '../../constants/img_path';
 import SweetAlert from "react-bootstrap-sweetalert";
@@ -104,10 +104,10 @@ class Future extends Component {
     
     componentDidUpdate(){
         const { isDelete, dispatch,loading} = this.props;
-       // console.log('Updated state>>>>>',this.state.del);
         const {del} = this.state;
         if(isDelete === 1 && del === 1)
         {
+            dispatch(resetVal(null));
             dispatch(getFutureCampaign({"page_size":9,"page_no":1}))
             this.setState({del:0});
         }

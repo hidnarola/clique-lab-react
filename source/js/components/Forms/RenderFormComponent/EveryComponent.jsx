@@ -14,7 +14,7 @@ import dropImg from 'img/site/canvas.png';
 export const renderFieldCampaign = ({ input, type, placeholder, label, isRequired, meta: { touched, error, warning, pristine } }) => (
     <div className={cx('input-wrap ', { 'custom-error': (touched && error) ? true : false })} >
         <label>{label} {pristine && isRequired === "true" && <span className="error-div">*</span>}</label>
-        <input {...input} placeholder={placeholder} type={type} className={`${touched && ((error && `txt_error_div`) || (warning && `txt_error_div`))}`} />
+        <input {...input} placeholder={placeholder} type={type} className={`${touched && ((error && `txt_error_div`) || (warning && `txt_error_div`))}`} autocomplete="off"/>
         {touched && ((error && <div className="error-div">{error}</div>) || (warning && <span>{warning}</span>))}
     </div>
 )
@@ -31,6 +31,7 @@ export const renderFieldDatePicker = ({ input, value, type, placeholder, default
                     dateFormat="YYYY-MM-DD"
                     placeholderText={placeholder}
                     className={className}
+                    autoComplete="off"
                 //value={input.value ? moment(input.value) : moment()}
                 />
                 <i className="">

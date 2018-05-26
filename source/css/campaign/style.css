@@ -48,13 +48,14 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#895cf2', end
 .form-content h3{ margin:0 0 35px; padding:0; font-size:36px; color:#6762e5; font-weight:500;}
 .input-div{margin:0 0 13px;}
 .input-div labe{ display:block; margin:0 0 5px; font-weight:500;}
+.select-wrap .Select-placeholder{color: #525f7f; opacity:1;}
 .input-div input{ border:0; background:transparent; font-size:16px; color:#525f7f; padding:8px 0 18px 0; border-bottom:2px solid #cfcfd5; width:100%; font-weight:600; border-radius:0; opacity:1;}
-::-webkit-input-placeholder { color: #525f7f;}
-::-moz-placeholder { color: #525f7f;}
-:-ms-input-placeholder {color: #525f7f;}
-:-moz-placeholder { color: #525f7f;}
+.input-div input::-webkit-input-placeholder { color: #525f7f; opacity:1;}
+.input-div input::-moz-placeholder { color: #525f7f; opacity:1;}
+.input-div input:-ms-input-placeholder {color: #525f7f; opacity:1;}
+.input-div input:-moz-placeholder { color: #525f7f; opacity:1;}
 .submit-div{ margin:20px 0 35px; display:inline-block; vertical-align:top;}
-.form-content p{display:block; text-align:center; font-size:16px; color:#525f7f; line-height:100%; letter-spacing:0.01em; font-weight:500;}
+.form-content p{display:block; text-align:center; font-size:14px; color:#525f7f; line-height:100%; letter-spacing:0.01em; font-weight:600;}
 .form-content p a{ font-weight:600; color:#6772e5;}
 .form-ftr{ height:70px;}
 .form-ftr p{display:block; text-align:center; font-size:16px; color:#525f7f; line-height:100%; letter-spacing:0.01em; font-weight:600;}
@@ -144,7 +145,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#895cf2', end
 .navigation-div{display:block;}
 .navigation-div ul{list-style:none; margin:0; padding:0;}
 .navigation-div ul li{ display:block; margin:0 0 4px;}
-.navigation-div ul li a{font-size:18px; color:#4f699d; font-weight:500; letter-spacing:.01em; padding:10px 0 10px 60px; line-height:20px; position:relative; display:block; border-radius:90px;}
+.navigation-div ul li a{font-size:16px; color:#4f699d; font-weight:500; letter-spacing:.01em; padding:10px 0 10px 60px; line-height:20px; position:relative; display:block; border-radius:90px;}
 .navigation-div ul li a i{position:absolute; top:50%; left:0; text-align:center; -webkit-transform:translateY(-50%); -moz-transform:translateY(-50%); transform:translateY(-50%); width:24px; height:24px; margin:0 18px; display:block;}
 .navigation-div ul li a:hover,
 .navigation-div ul li.active a{color:#fff; background:#6772e5; text-decoration:none;}
@@ -363,7 +364,7 @@ ul.all-people-ul li{ width:33.33%; padding:15px;}
 .plus-people>.dropdown>button{display:block;text-decoration:none; background:transparent !important; border:transparent !important; color:transparent !important; padding:0;}
 .plus-people .dropdown-toggle::after{display:none;}
 .dropdown button.dropdown-item{display:block; padding:0; font-weight:500; color: #212529; text-align: inherit; white-space: nowrap; background-color: transparent; border:0; font-size:14px; margin:8px 0;}
-.plus-people button img{ max-width:28px; }
+.plus-people button img{ max-width:28px; box-shadow:0 0 20px 0 rgba(0,0,0,.2); border-radius:80px;}
 .all-people-content{ border-radius:0 0 4px 4px; padding:22px;}
 .all-people-content button.btn{margin-left:auto; font-size:12px; color:#4f699d !important; font-weight:500; line-height:20px; display:block; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; background:transparent; border:transparent; padding:0;  }
 .btn-secondary:not(:disabled):not(.disabled).active, 
@@ -579,12 +580,12 @@ border-radius:4px; background:#fff;}
 
 .campaigns-links{ border-bottom: 1px solid #c8cfda; padding:0 0 30px; margin:0px 0 30px;}
 .campaigns-links.profile-head>ul>li {display: inline-block;margin:0 70px 0 0;}
-.submission-div{margin:8px 0 0;}
+.submission-div{margin:8px 0 0; align-items:center;}
 .submission-div h5{ font-size:18px; font-weight:500; color:#525f7f; line-height:20px; margin:0;}
 .submission-div h5 + h5{ margin-top:8px;}
 .submission-div h5 small{ color:#6772e5; font-size:18px; line-height:20px;}
 .submission-div h5 small{color:#6772e5; font-size:18px; line-height:20px; margin:0 0 0 auto; padding:0;}
-.submission-div-r{margin-left:auto;}
+.submission-div-r{margin-left:auto; margin-top:4px;}
 
 a.fill-btn{background:#6772e5; border:2px solid #6772e5; color:#fff; font-size:16px; line-height:36px; min-width:148px; border-radius:4px;
 font-weight:500; display: block; padding:0 25px;}
