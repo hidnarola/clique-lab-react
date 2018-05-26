@@ -1284,7 +1284,7 @@ class EverydayPeople extends Component {
 
         allSliderArr['ageRange'] = _.find(allSliders, function (o) { return o.slider == 'ageRange'; });
 
-        // if (loading) { return (<div className="loader"></div>) }
+        if (loading) { return (<div className="loader"></div>) }
         return (
             <div className="every-people">
                 {(loading) ? <div className="loader" style={{ "zIndex": "999999999" }}></div> : ''}

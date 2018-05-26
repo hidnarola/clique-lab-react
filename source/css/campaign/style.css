@@ -145,7 +145,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#895cf2', end
 .navigation-div{display:block;}
 .navigation-div ul{list-style:none; margin:0; padding:0;}
 .navigation-div ul li{ display:block; margin:0 0 4px;}
-.navigation-div ul li a{font-size:18px; color:#4f699d; font-weight:500; letter-spacing:.01em; padding:10px 0 10px 60px; line-height:20px; position:relative; display:block; border-radius:90px;}
+.navigation-div ul li a{font-size:16px; color:#4f699d; font-weight:500; letter-spacing:.01em; padding:10px 0 10px 60px; line-height:20px; position:relative; display:block; border-radius:90px;}
 .navigation-div ul li a i{position:absolute; top:50%; left:0; text-align:center; -webkit-transform:translateY(-50%); -moz-transform:translateY(-50%); transform:translateY(-50%); width:24px; height:24px; margin:0 18px; display:block;}
 .navigation-div ul li a:hover,
 .navigation-div ul li.active a{color:#fff; background:#6772e5; text-decoration:none;}
@@ -585,7 +585,7 @@ border-radius:4px; background:#fff;}
 .submission-div h5 + h5{ margin-top:8px;}
 .submission-div h5 small{ color:#6772e5; font-size:18px; line-height:20px;}
 .submission-div h5 small{color:#6772e5; font-size:18px; line-height:20px; margin:0 0 0 auto; padding:0;}
-.submission-div-r{margin-left:auto; margin-top:4px; line-height:}
+.submission-div-r{margin-left:auto; margin-top:4px;}
 
 a.fill-btn{background:#6772e5; border:2px solid #6772e5; color:#fff; font-size:16px; line-height:36px; min-width:148px; border-radius:4px;
 font-weight:500; display: block; padding:0 25px;}
