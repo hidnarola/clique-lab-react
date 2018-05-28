@@ -305,7 +305,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#895cf2', end
 .input-wrap{display:block; margin:0 0 24px;}
 .input-wrap label,
 .select-wrap label{display:block; padding:0 0 12px; margin:0; font-size:16px; font-weight:500; color:#43458b; line-height:100%;}
-.input-wrap input{border:2px solid rgba(82,95,127,.2); padding:12px 15px; line-height:18px; color:rgba(82,95,127,1); font-size:14px; font-weight:500; width:100%; border-radius:2px;}
+.input-wrap input{border:2px solid rgba(82,95,127,.2); padding:12px 15px; line-height:18px; color:#525f7f; font-size:14px; font-weight:500; width:100%; border-radius:2px;}
 
 .input-wrap-2{border:2px solid rgba(82,95,127,.2); padding:15px 60px 15px 20px; line-height:26px; color:rgba(82,95,127,1); font-size:16px; font-weight:500; width:100%; position:relative; border-radius:2px;}
 .input-wrap-2 input{ border:0; background:transparent;    padding: 14px 15px;}
