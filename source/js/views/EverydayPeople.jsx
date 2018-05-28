@@ -966,6 +966,26 @@ class EverydayPeople extends Component {
         );
     }
 
+    // test() {
+    //     const { dispatch, match } = this.props;
+    //     this.setState({ groupId: '' });
+    //     if (match.params.grpId) {
+    //         this.setState({ groupId: match.params.grpId, groupForceRefreshed: true });
+    //     }
+    //     if (match.params.campaignId) {
+    //         this.setState({ forceRefreshed: true });
+    //     }
+
+    //     let arrayFilter = {
+    //         "page_size": this.state.perPageItem,
+    //         "page_no": 1,
+    //         groupId: match.params.grpId
+    //     }
+    //     this.setState({ forceRefreshed: true });
+    //     this.filterSendReq(arrayFilter);
+    //     dispatch(moreFilterReq());
+    // }
+
     componentWillUpdate = (nextProps, nextState) => {
 
         const { dispatch, match } = nextProps;
@@ -1009,29 +1029,9 @@ class EverydayPeople extends Component {
             }
             this.filterSendReq(arrayFilter);
             dispatch(moreFilterReq());
-            this.setState({ forceRefreshed: false, groupForceRefreshed: false });
+             this.setState({ forceRefreshed: false, groupForceRefreshed: false });
         }
 
-    }
-
-    test() {
-        const { dispatch, match } = this.props;
-        this.setState({ groupId: '' });
-        if (match.params.grpId) {
-            this.setState({ groupId: match.params.grpId, groupForceRefreshed: true });
-        }
-        if (match.params.campaignId) {
-            this.setState({ forceRefreshed: true });
-        }
-
-        let arrayFilter = {
-            "page_size": this.state.perPageItem,
-            "page_no": 1,
-            groupId: match.params.grpId
-        }
-        this.setState({ forceRefreshed: true });
-        this.filterSendReq(arrayFilter);
-        dispatch(moreFilterReq());
     }
 
     componentWillMount() {
@@ -1050,7 +1050,7 @@ class EverydayPeople extends Component {
             "page_no": 1,
             groupId: match.params.grpId
         }
-        this.setState({ forceRefreshed: true });
+        //this.setState({ forceRefreshed: true });
         this.filterSendReq(arrayFilter);
         dispatch(moreFilterReq());
     }
@@ -1132,7 +1132,7 @@ class EverydayPeople extends Component {
         this.setState({ "activePage": 1 });
         this.filterSendReq(arrayFilter);
 
-        this.age_filter_toggle();
+         this.age_filter_toggle();
         // this.setState({isAgeFilterSelected:true});
         this.setState({
             isAgeFilterApply: true
