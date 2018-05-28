@@ -147,7 +147,7 @@ class FormStep3 extends Component {
                                 wrapperClass="select-wrap"
                                 name="public_or_private"       
                                 //label="Public or Invite only"
-                                label="Select Industry"
+                                label="Public or Invite only"
                                 labelClass="control-label"
                                 placeholder="Public or Invite only"
                                 component={SelectField_ReactSelect5}

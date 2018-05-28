@@ -342,7 +342,6 @@ const MoreFilterDropDown = (props) => {
                 </div>
             </DropdownMenu>
         </Dropdown>
-
     )
 }
 
@@ -351,34 +350,84 @@ class Analytics extends Component {
         super(props);
         this.state = {
             analytics: null,
-            allDropDown: [
-                { 'dropdown': 'jobIndustryDrop', 'value': false },
-                { 'dropdown': 'jobTitleDrop', 'value': false },
-                { 'dropdown': 'yearInIndustry', 'value': false },
-                { 'dropdown': 'education', 'value': false },
-                { 'dropdown': 'language', 'value': false },
-                { 'dropdown': 'ethnicity', 'value': false },
-                { 'dropdown': 'sexualOrientation', 'value': false },
-                { 'dropdown': 'relationship', 'value': false },
-                { 'dropdown': 'musicTaste', 'value': false },
-
-                { 'dropdown': 'genderDrop', 'value': false },
-                { 'dropdown': 'sortDrop', 'value': { value: 1, label: "Name ASC" } },
+            filter1: [
+                {
+                    allDropDown: [
+                        { 'dropdown': 'jobIndustryDrop', 'value': false },
+                        { 'dropdown': 'jobTitleDrop', 'value': false },
+                        { 'dropdown': 'yearInIndustry', 'value': false },
+                        { 'dropdown': 'education', 'value': false },
+                        { 'dropdown': 'language', 'value': false },
+                        { 'dropdown': 'ethnicity', 'value': false },
+                        { 'dropdown': 'sexualOrientation', 'value': false },
+                        { 'dropdown': 'relationship', 'value': false },
+                        { 'dropdown': 'musicTaste', 'value': false },
+                        { 'dropdown': 'genderDrop', 'value': false },
+                    ],
+                    allSliders: [
+                        { 'slider': 'facebook', 'value': { min: 0, max: 2500 } },
+                        { 'slider': 'instagram', 'value': { min: 0, max: 2500 } },
+                        { 'slider': 'twitter', 'value': { min: 0, max: 2500 } },
+                        { 'slider': 'pinterest', 'value': { min: 0, max: 2500 } },
+                        { 'slider': 'linkedin', 'value': { min: 0, max: 2500 } },
+                        { 'slider': 'ageRange', 'value': { min: 20, max: 100 } },
+                    ],
+                }
             ],
-
-            allSliders: [
-                { 'slider': 'facebook', 'value': { min: 0, max: 2500 } },
-                { 'slider': 'instagram', 'value': { min: 0, max: 2500 } },
-                { 'slider': 'twitter', 'value': { min: 0, max: 2500 } },
-                { 'slider': 'pinterest', 'value': { min: 0, max: 2500 } },
-                { 'slider': 'linkedin', 'value': { min: 0, max: 2500 } },
-                { 'slider': 'ageRange', 'value': { min: 20, max: 100 } },
+            filter2: [
+                {
+                    allDropDown: [
+                        { 'dropdown': 'jobIndustryDrop', 'value': false },
+                        { 'dropdown': 'jobTitleDrop', 'value': false },
+                        { 'dropdown': 'yearInIndustry', 'value': false },
+                        { 'dropdown': 'education', 'value': false },
+                        { 'dropdown': 'language', 'value': false },
+                        { 'dropdown': 'ethnicity', 'value': false },
+                        { 'dropdown': 'sexualOrientation', 'value': false },
+                        { 'dropdown': 'relationship', 'value': false },
+                        { 'dropdown': 'musicTaste', 'value': false },
+                        { 'dropdown': 'genderDrop', 'value': false },
+                    ],
+                    allSliders: [
+                        { 'slider': 'facebook', 'value': { min: 0, max: 2500 } },
+                        { 'slider': 'instagram', 'value': { min: 0, max: 2500 } },
+                        { 'slider': 'twitter', 'value': { min: 0, max: 2500 } },
+                        { 'slider': 'pinterest', 'value': { min: 0, max: 2500 } },
+                        { 'slider': 'linkedin', 'value': { min: 0, max: 2500 } },
+                        { 'slider': 'ageRange', 'value': { min: 20, max: 100 } },
+                    ],
+                }
+            ],
+            filter3: [
+                {
+                    allDropDown: [
+                        { 'dropdown': 'jobIndustryDrop', 'value': false },
+                        { 'dropdown': 'jobTitleDrop', 'value': false },
+                        { 'dropdown': 'yearInIndustry', 'value': false },
+                        { 'dropdown': 'education', 'value': false },
+                        { 'dropdown': 'language', 'value': false },
+                        { 'dropdown': 'ethnicity', 'value': false },
+                        { 'dropdown': 'sexualOrientation', 'value': false },
+                        { 'dropdown': 'relationship', 'value': false },
+                        { 'dropdown': 'musicTaste', 'value': false },
+                        { 'dropdown': 'genderDrop', 'value': false },
+                    ],
+                    allSliders: [
+                        { 'slider': 'facebook', 'value': { min: 0, max: 2500 } },
+                        { 'slider': 'instagram', 'value': { min: 0, max: 2500 } },
+                        { 'slider': 'twitter', 'value': { min: 0, max: 2500 } },
+                        { 'slider': 'pinterest', 'value': { min: 0, max: 2500 } },
+                        { 'slider': 'linkedin', 'value': { min: 0, max: 2500 } },
+                        { 'slider': 'ageRange', 'value': { min: 20, max: 100 } },
+                    ],
+                }
             ],
             appliedFilter: [
                 {
                     "filter": [] // {"field":"gender","type":"exact","value":"female"}
                 }
             ],
+            
             isMoreFilterSelected: false,
             isAgeFilterSelected: false,
             isGenderFilterSelected: false,
@@ -457,29 +506,34 @@ class Analytics extends Component {
             let arrayFilter = {
                 filter: filteredArr,
             }
-            console.log(arrayFilter);
-            // this.setState({ "activePage": 1 });
-            // this.filterSendReq(arrayFilter);
-        }
-
-        if (secondParam == 'sortDrop') {
-
-            let arrayFilter = {
-                filter: this.state.appliedFilter[0]['filter'],
-                "sort": [{ "field": "name", "value": parseInt(selectedOption['value']) }],
-                "page_size": this.state.perPageItem,
-                "page_no": 1
-            }
-            this.setState({ "activePage": 1 });
-            this.filterSendReq(arrayFilter);
         }
     }
 
-    handleSLider = (selectedOption, secondParam) => {
-        let { allSliders } = this.state;
-        let index = _.findIndex(allSliders, { slider: secondParam });
-        allSliders.splice(index, 1, { slider: secondParam, value: selectedOption });
-        this.setState({ allSliders: allSliders });
+    handleSLider = (selectedOption, secondParam, totalNoCompare) => {
+        if(totalNoCompare==1){
+            let { filter1 } = this.state;
+            let allSliders = filter1[0]['allSliders'];
+            let index = _.findIndex(allSliders, { slider: secondParam });
+            allSliders.splice(index, 1, { slider: secondParam, value: selectedOption });
+            this.setState({ allSliders: allSliders });
+        } else if(totalNoCompare==2){
+            let { filter2 } = this.state;
+            let allSliders = filter1[0]['allSliders'];
+            let index = _.findIndex(allSliders, { slider: secondParam });
+            allSliders.splice(index, 1, { slider: secondParam, value: selectedOption });
+            this.setState({ allSliders: allSliders });
+        } else if(totalNoCompare==3){
+            let { filter3 } = this.state;
+            let allSliders = filter1[0]['allSliders'];
+            let index = _.findIndex(allSliders, { slider: secondParam });
+            allSliders.splice(index, 1, { slider: secondParam, value: selectedOption });
+            this.setState({ allSliders: allSliders });
+        }
+        // let { filter1 } = this.state;
+        // let allSliders = filter1[0]['allSliders'];
+        // let index = _.findIndex(allSliders, { slider: secondParam });
+        // allSliders.splice(index, 1, { slider: secondParam, value: selectedOption });
+        // this.setState({ allSliders: allSliders });
     }
 
     setAgeFilter = () => {
@@ -636,7 +690,7 @@ class Analytics extends Component {
                                         <ul>
                                             <li className="age-dropdown stats_age_dropdown active">
                                                 <AgeDropDown
-                                                    parentMethod={(value) => { (value['min'] > 14) ? this.handleSLider(value, "ageRange") : ''; }}
+                                                    parentMethod={(value) => { (value['min'] > 14) ? this.handleSLider(value, "ageRange", 1) : ''; }}
                                                     currentVal={allSliderArr['ageRange']['value']}
                                                     setAgeFilter={() => { this.setAgeFilter() }}
                                                     open={this.state.age_filter_open}
@@ -690,12 +744,12 @@ class Analytics extends Component {
 
                                 {
                                     (totalNoCompare == 2 || (whichCompare.indexOf(2)>-1)) ?
-                                        <div className="everypeole-head d-flex" style={{ "border-bottom": "none", "padding": "0px" }}>
+                                        <div className="everypeole-head d-flex" style={{ "borderBottom": "none", "padding": "0px" }}>
                                             <div className="everypeole-head-l">
                                                 <ul>
                                                     <li className="age-dropdown stats_age_dropdown active">
                                                         <AgeDropDown
-                                                            parentMethod={(value) => { (value['min'] > 14) ? this.handleSLider(value, "ageRange") : ''; }}
+                                                            parentMethod={(value) => { (value['min'] > 14) ? this.handleSLider(value, "ageRange", 2) : ''; }}
                                                             currentVal={allSliderArr['ageRange']['value']}
                                                             setAgeFilter={() => { this.setAgeFilter() }}
                                                             open={this.state.age_filter_open2}
@@ -741,12 +795,12 @@ class Analytics extends Component {
                                 }
                                 {
                                     (totalNoCompare == 3 || (whichCompare.indexOf(3)>-1)) ?
-                                        <div className="everypeole-head d-flex" style={{ "border-bottom": "none", "padding": "0px" }}>
+                                        <div className="everypeole-head d-flex" style={{ "borderBottom": "none", "padding": "0px" }}>
                                             <div className="everypeole-head-l">
                                                 <ul>
                                                     <li className="age-dropdown stats_age_dropdown active">
                                                         <AgeDropDown
-                                                            parentMethod={(value) => { (value['min'] > 14) ? this.handleSLider(value, "ageRange") : ''; }}
+                                                            parentMethod={(value) => { (value['min'] > 14) ? this.handleSLider(value, "ageRange", 3) : ''; }}
                                                             currentVal={allSliderArr['ageRange']['value']}
                                                             setAgeFilter={() => { this.setAgeFilter() }}
                                                             open={this.state.age_filter_open3}
