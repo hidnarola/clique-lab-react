@@ -220,7 +220,7 @@ class FormStep3 extends Component {
                             <Field
                                 name="how_much"
                                 type="text"
-                                label="How Much to Pay "
+                                label="How Much to Pay (Currency) "
                                 component={renderFieldCurrency}
                                 placeholder="e.g. 20"
                                 isRequired="true"
