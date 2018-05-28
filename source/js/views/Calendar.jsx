@@ -26,7 +26,10 @@ class Calendar extends Component {
             modal: false,
             platform: 'all',
             calendarView: 'oneMonth',
-            autoViewRender: false
+            autoViewRender: false,
+            campaignDetails: [
+               
+            ]
         }
         this.toggle = this.toggle.bind(this);
     }
@@ -53,6 +56,7 @@ class Calendar extends Component {
             'pinterest': '#c8222c',
             'twitter': '#30c2fe',
         };
+
         // console.log('campaign_data',campaign_data);
         // console.log('getCampaign',getCampaign);
         // console.log('campaign_data.status',campaign_data.status);

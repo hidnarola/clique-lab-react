@@ -438,7 +438,7 @@ class GroupList extends Component {
                                 </div>
                             </li>
                             <li className="create-group">
-                                <a className="cursor_pointer" onClick={this.createGroupModal}>Authorise Group</a>
+                                <a className="cursor_pointer" onClick={this.createGroupModal}>Create Group</a>
                             </li>
                         </ul>
                     </div>
@@ -503,12 +503,12 @@ class GroupList extends Component {
                     saveResult={this.saveResult} />
 
                 {/* <Modal isOpen={this.state.createGroupModalShow} toggle={this.createGroupModalOpen} className={this.props.className} id="group-popup"> */}
-                <Modal isOpen={this.state.createGroupModalShow} toggle={this.toggle} className={this.props.className} id="group-popup" backdrop={false}>
+                <Modal isOpen={this.state.createGroupModalShow} toggle={this.toggle} className={this.props.className} id="group-popup">
                     <button type="button" className="close" onClick={this.createGroupModal}>
                         {/* <img src="/assets/img/site/close-2.png" /> */}
                         <img src={closeImg} />
                     </button>
-                    <h2>Authorise Group</h2>
+                    <h2>Create Group</h2>
                     <CreateGroupForm onSubmit={this.createGroupSubmit.bind(this)} submitDisabled={this.state.authorise_disabled} />
                 </Modal>
 

@@ -861,7 +861,6 @@ class EverydayPeople extends Component {
             'pinterest': pinImg,
             'twitter': twitterImg,
         };
-        //image_1527067777875.jpg
         return (
             <li key={Math.random()}>
                 <div className="fan-festival-box">
@@ -911,31 +910,49 @@ class EverydayPeople extends Component {
     }
 
     renderLi3 = (obj) => {
-        let img = imgRoutes.CAMPAIGN_IMG_PATH + obj.image;
-        if (!isImageExists(img)) {
-            img = 'http://placehold.it/465x300/ececec/525f7f?text=No Image Found';
+        let mediaImg = {
+            'facebook': fbImg,
+            'linkedin': linkedImg,
+            'instagram': instaImg,
+            'pinterest': pinImg,
+            'twitter': twitterImg,
+        };
+        let img = '';
+        if (obj.is_image == 0) {
+            img = obj.image;
+        } else {
+            img = imgRoutes.CAMPAIGN_INSPIRED_IMG_PATH + obj.image;
         }
+        let location = '';
+        if(obj.users.suburb!==undefined){ location = obj.users.suburb+', '; }
+        if(obj.users.country!==undefined){ location+= obj.users.country; }
         return (
             <li key={Math.random()}>
                 <div className="fan-festival-box d-flex">
-                    <div className="festival-img"><img src={img} alt="" /></div>
+                    <div className="festival-img" style={{ "background": "url('" + img + "') no-repeat 100%", "backgroundSize": "100%" }}>
+                        
+                    </div>
                     <div className="fan-festival-r">
                         <div className="festival-head d-flex">
                             <div className="festival-head-l">
-                                <span></span>
+                                <span>
+                                <img src={imgRoutes.USER_IMG_PATH+obj.users.image}/>
+                                </span>
                                 <h3>
                                     <big>{obj.users.name}</big>
-                                    <small>{obj.users.email}</small>
+                                    <small>{location}</small>
                                     {/* <small>Bondi Beach, Sydney, Australia</small> */}
                                 </h3>
                             </div>
                             <div className="festival-head-r"><h3>${(obj.price).toFixed(2)}</h3></div>
                         </div>
                         <div className="festival-body">
-                            <h2>Make up by morning. boyfriends happy, what a life I lead! <a href="">@thegrocer #morning #earlyriser #excited #sponsored</a></h2>
+                            <h2>{obj.text}</h2>
                         </div>
                         <div className="festival-ftr d-flex">
-                            <div className="festival-ftr-l"><a href=""><i><img src={fbImg} alt="" /></i><strong>823M</strong></a></div>
+                            <div className="festival-ftr-l">
+                                <a href="javascript:void(0)"><i><img src={mediaImg[obj.social_media_platform]} alt="" /></i><strong>0</strong></a>
+                            </div>
                             <div className="festival-ftr-r dropdown">
                                 <PlusAction2
                                     addToCart={() => { this.addToCart(obj._id, obj.users._id) }}
@@ -1428,7 +1445,7 @@ class EverydayPeople extends Component {
                             (
                                 match.path == routeCodes.CAMPAIGN_INSPIRED_SUB ?
                                     <ul className="fan-festival d-flex h-view">
-                                        {(inspiredPosts.status === 1 && inspiredPosts.data === '') ? inspiredPosts.data.map((obj, index) => (this.renderLi3(obj))) : <div className="no_data_found"><img src={nodataImg} /></div>}
+                                        {(inspiredPosts.status === 1 && inspiredPosts.data !== '') ?  inspiredPosts.data.map((obj, index) => (this.renderLi3(obj))) : <div className="no_data_found"><img src={nodataImg} /></div>}
                                     </ul>
 
                                     :
