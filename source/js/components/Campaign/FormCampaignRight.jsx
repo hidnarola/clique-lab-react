@@ -118,12 +118,12 @@ class FormCampaignRight extends Component {
                 for (let i = 0; i < Object.keys(wizardCampaignData.values.imagesNew).length; i++) {
                     imgArr.push(wizardCampaignData.values.imagesNew[i].preview)
                 }
-
-                let extensions = ["image/jpeg", "image/png", "image/jpg"];
+                
+                let extensions2 = ["image/jpeg", "image/png", "image/jpg"];
                 imgAllArr.push(wizardCampaignData.values.imagesNew)
                
                 _.forEach(imgAllArr[0], (file, key) => {
-                    if (extensions.indexOf(file.type) < 0) {
+                    if (extensions2.indexOf(file.type) < 0) {
                         imageReject.push(file.preview);
                     }
                     else
