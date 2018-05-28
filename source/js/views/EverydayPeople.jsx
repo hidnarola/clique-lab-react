@@ -925,7 +925,7 @@ class EverydayPeople extends Component {
         }
         let location = '';
         if(obj.users.suburb!==undefined){ location = obj.users.suburb+', '; }
-        if(obj.users.country!==undefined){ location+= obj.users.country; }
+        if(obj.users.country!==undefined){ location+= obj.users.country.name; }
         return (
             <li key={Math.random()}>
                 <div className="fan-festival-box d-flex">
