@@ -32,6 +32,7 @@ import {
     Button, Modal, ModalHeader, ModalBody, ModalFooter, Dropdown,
     DropdownToggle, DropdownMenu, DropdownItem, UncontrolledDropdown
 } from 'reactstrap';
+import cx from "classnames";
 import { select } from 'redux-saga/effects';
 
 class AddToModal extends Component {
@@ -110,7 +111,7 @@ class AddToModal extends Component {
             <div>
                 {/* {(this.props.test === false) ? */}
                 <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} onClosed={this.props.resetDropVal} id="congratulations">
-                    <div class="custom_modal_btn_close">
+                    <div className="custom_modal_btn_close">
                         <img className="cursor_pointer" src={closeImg2} onClick={() => this.toggle()} />
                     </div>
                     <ModalBody>
@@ -127,7 +128,7 @@ class AddToModal extends Component {
                                     options={dropArr}
                                     placeholder="Please select from the dropdown"
                                 />
-                                <label className="add_grp_popup_select_errorMsg" style={{ "color": "red", "margin-top": "5px", "text-align": "left" }}></label>
+                                <label className="add_grp_popup_select_errorMsg" style={{ "color": "red", "marginTop": "5px", "textAlign": "left" }}></label>
                             </div>
                             <a href="javascript:void(0)" className="round-btn" onClick={this.saveResult}>Accept & Continue</a>
                         </div>
@@ -200,6 +201,20 @@ const DropDownSocial = () => {
     );
 }
 
+const AddAllResults = (props) => {
+    return (
+        <Dropdown isOpen={props.open} toggle={props.toggle}>
+            <DropdownToggle caret>
+                Add All Results
+            </DropdownToggle>
+            <DropdownMenu>
+                <DropdownItem onClick={() => { props.addCampaign()}} > Add to Campaign </DropdownItem>
+                <DropdownItem onClick={() => { props.addGroup()}} > Add to Group </DropdownItem>
+            </DropdownMenu>
+        </Dropdown>
+    );
+}
+
 const PlusAction = (props) => {
     return (
         <UncontrolledDropdown>
@@ -241,7 +256,8 @@ const AgeDropDown = (props) => {
     return (
         <Dropdown isOpen={props.open} toggle={props.toggle}>
             <DropdownToggle caret >
-                Age{/* Age {" "} {props.currentVal.min}-{props.currentVal.max} */}
+                { (props.isAgeFilterApply===true) ? `${props.currentVal.min} - ${props.currentVal.max}` : 'Age' }
+                {/* Age {" "} {props.currentVal.min}-{props.currentVal.max} */}
             </DropdownToggle>
             <DropdownMenu>
 
@@ -620,6 +636,7 @@ class EverydayPeople extends Component {
             isFilterApply: false,
             more_filter_open: false,
             age_filter_open: false,
+            add_all_results_open: false,
             isMoreFilterApply: false,
             isAgeFilterApply: false,
             showCamp: false
@@ -627,6 +644,7 @@ class EverydayPeople extends Component {
         // this.toggle = this.toggle.bind(this);  
         this.more_filter_toggle = this.more_filter_toggle.bind(this);
         this.age_filter_toggle = this.age_filter_toggle.bind(this);
+        this.add_all_results_toggle = this.add_all_results_toggle.bind(this);
     }
 
     more_filter_toggle() {
@@ -666,6 +684,12 @@ class EverydayPeople extends Component {
     age_filter_toggle() {
         this.setState({
             age_filter_open: !this.state.age_filter_open
+        });
+    }
+
+    add_all_results_toggle() {
+        this.setState({
+            add_all_results_open: !this.state.add_all_results_open
         });
     }
 
@@ -760,11 +784,11 @@ class EverydayPeople extends Component {
         this.child.setSaveFor('campaign', obj._id);
         dispatch(fetchDropDownReq({ "sendReqFor": "campaign", "uId": obj._id }));
 
-        setTimeout(()=>{
+        setTimeout(() => {
             if (this.props.dropdownList === null && this.props.loading === false) {
-            alert('You don’t have a campaign yet.')
-        }
-        },2000)
+                alert('You don’t have a campaign yet.')
+            }
+        }, 2000)
     }
 
     addGroup = (obj) => {
@@ -772,12 +796,12 @@ class EverydayPeople extends Component {
         this.child.setSaveFor('group', obj._id);
         dispatch(fetchDropDownReq({ "sendReqFor": "group", "uId": obj._id }));
 
-        setTimeout(()=>{
+        setTimeout(() => {
             if (this.props.dropdownList === null && this.props.loading === false) {
                 alert('You don’t have a group yet.')
             }
-        },2000)
-        
+        }, 2000)
+
     }
 
     addToCart = (camp_id, user_id) => {
@@ -867,20 +891,20 @@ class EverydayPeople extends Component {
                     <div className="festival-head d-flex">
                         <div className="festival-head-l">
                             <span>
-                                <img src={imgRoutes.USER_IMG_PATH+obj.user_avatar}/>
+                                <img src={imgRoutes.USER_IMG_PATH + obj.user_avatar} />
                             </span>
                             <h3>
                                 <big>{obj.user_name}</big>
                                 {/* <small>{obj.country !== undefined && obj.suburb + ', ' + obj.country.name}</small> */}
-                                <small style={{"white-space":"nowrap","text-overflow": "ellipsis","overflow": "hidden","width": "245px"}}>{ obj.location!==undefined && obj.location }</small>
+                                <small style={{ "white-space": "nowrap", "text-overflow": "ellipsis", "overflow": "hidden", "width": "245px" }}>{obj.location !== undefined && obj.location}</small>
                             </h3>
                         </div>
                         <div className="festival-head-r"><h3>$ {(obj.price).toFixed(2)}</h3></div>
                     </div>
-                    <div className="festival-img" style={{ "background": "url('"+imgRoutes.CAMPAIGN_POST_IMG_PATH+obj.applied_post_image+"') no-repeat 100%","backgroundSize": "100%","height": "215px","width": "100%"}}></div>
-                    <div className="festival-body" style={{"min-height": "50px"}} >
+                    <div className="festival-img" style={{ "background": "url('" + imgRoutes.CAMPAIGN_POST_IMG_PATH + obj.applied_post_image + "') no-repeat 100%", "backgroundSize": "100%", "height": "215px", "width": "100%" }}></div>
+                    <div className="festival-body" style={{ "min-height": "50px" }} >
                         <h2>
-                            { obj.applied_post_description} &nbsp;
+                            {obj.applied_post_description} &nbsp;
                             {/* { (obj.at_tag) && (obj.at_tag).map(function(e){ return <a href='javascript:void(0)' >{'@'+e+' '}</a>; }) }
                             { (obj.hash_tag) && (obj.hash_tag).map(function(e){ return <a href='javascript:void(0)' >{'#'+e+' '}</a>; }) } */}
                         </h2>
@@ -924,19 +948,19 @@ class EverydayPeople extends Component {
             img = imgRoutes.CAMPAIGN_INSPIRED_IMG_PATH + obj.image;
         }
         let location = '';
-        if(obj.users.suburb!==undefined){ location = obj.users.suburb+', '; }
-        if(obj.users.country!==undefined){ location+= obj.users.country; }
+        if (obj.users.suburb !== undefined) { location = obj.users.suburb + ', '; }
+        if (obj.users.country !== undefined) { location += obj.users.country.name; }
         return (
             <li key={Math.random()}>
                 <div className="fan-festival-box d-flex">
                     <div className="festival-img" style={{ "background": "url('" + img + "') no-repeat 100%", "backgroundSize": "100%" }}>
-                        
+
                     </div>
                     <div className="fan-festival-r">
                         <div className="festival-head d-flex">
                             <div className="festival-head-l">
                                 <span>
-                                <img src={imgRoutes.USER_IMG_PATH+obj.users.image}/>
+                                    <img src={imgRoutes.USER_IMG_PATH + obj.users.image} />
                                 </span>
                                 <h3>
                                     <big>{obj.users.name}</big>
@@ -1029,7 +1053,7 @@ class EverydayPeople extends Component {
             }
             this.filterSendReq(arrayFilter);
             dispatch(moreFilterReq());
-             this.setState({ forceRefreshed: false, groupForceRefreshed: false });
+            this.setState({ forceRefreshed: false, groupForceRefreshed: false });
         }
 
     }
@@ -1132,7 +1156,7 @@ class EverydayPeople extends Component {
         this.setState({ "activePage": 1 });
         this.filterSendReq(arrayFilter);
 
-         this.age_filter_toggle();
+        this.age_filter_toggle();
         // this.setState({isAgeFilterSelected:true});
         this.setState({
             isAgeFilterApply: true
@@ -1308,11 +1332,12 @@ class EverydayPeople extends Component {
                 <div className="everypeole-head d-flex">
                     <div className="everypeole-head-l">
                         <ul>
-                            <li className="dropdown age-dropdown stats_age_dropdown active">
+                            <li className={cx('dropdown age-dropdown stats_age_dropdown ', { 'active': (this.state.isAgeFilterApply) ? true : false })} >
                                 <AgeDropDown
                                     parentMethod={(value) => { (value['min'] > 14) ? this.handleSLider(value, "ageRange") : ''; }}
                                     currentVal={allSliderArr['ageRange']['value']}
                                     setAgeFilter={() => { this.setAgeFilter() }}
+                                    isAgeFilterApply={ this.state.isAgeFilterApply }
                                     open={this.state.age_filter_open}
                                     toggle={this.age_filter_toggle}
                                 />
@@ -1378,9 +1403,14 @@ class EverydayPeople extends Component {
                                     {(
                                         match.path == routeCodes.CAMPAIGN_INSPIRED_SUB ? ''
                                             :
-                                            <li>
-
-                                                <ReactSelect
+                                            <li className="dropdown stats_age_dropdown add_all_results_dropdown">
+                                                <AddAllResults
+                                                    addCampaign={() => { this.saveBulkResult({value: "add_to_campaign", label: "Add to Campaign"}) }}
+                                                    addGroup={() => { this.saveBulkResult({ value: 'add_to_group', label: 'Add to Group' }) }}
+                                                    open={this.state.add_all_results_open}
+                                                    toggle={this.add_all_results_toggle}
+                                                />
+                                                {/* <ReactSelect
                                                     name="addAllResults"
                                                     // value={genderDropArr.value}
                                                     onChange={(value) => this.saveBulkResult(value)}
@@ -1393,7 +1423,7 @@ class EverydayPeople extends Component {
                                                         { value: 'add_to_campaign', label: 'Add to Campaign' },
                                                         { value: 'add_to_group', label: 'Add to Group' },
                                                     ]}
-                                                />
+                                                /> */}
                                             </li>
                                     )}
                                 </ul>
@@ -1445,7 +1475,7 @@ class EverydayPeople extends Component {
                             (
                                 match.path == routeCodes.CAMPAIGN_INSPIRED_SUB ?
                                     <ul className="fan-festival d-flex h-view">
-                                        {(inspiredPosts.status === 1 && inspiredPosts.data !== '') ?  inspiredPosts.data.map((obj, index) => (this.renderLi3(obj))) : <div className="no_data_found"><img src={nodataImg} /></div>}
+                                        {(inspiredPosts.status === 1 && inspiredPosts.data !== '') ? inspiredPosts.data.map((obj, index) => (this.renderLi3(obj))) : <div className="no_data_found"><img src={nodataImg} /></div>}
                                     </ul>
 
                                     :

@@ -14,12 +14,6 @@ import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-au
 const validate = values => {
 
     const errors = {};
-    // if (!values.public_or_private || values.public_or_private.value === "") {
-    //     errors.public_or_private = 'This field is required';
-    // }
-    // if (!values.public_or_private) {
-    //     errors.public_or_private = 'This field is required';
-    // }
 
     if (!values.media_format || values.media_format.value === "") {
         errors.media_format = 'This field is required';
@@ -47,14 +41,14 @@ const validate = values => {
 
 
 let SelectField_ReactSelect5 = (props) => {
-    const { label, input, meta, selectedValue,wrapperClass, className, labelClass, placeholder, errorClass, initialValue, options ,isRequired} = props;
+    const { label, input, meta, selectedValue, wrapperClass, className, labelClass, placeholder, errorClass, initialValue, options, isRequired } = props;
     let val = 'public';
     if (input.value && Object.keys(input.value).length > 0) {
         val = input.value;
     } else {
         val = val
     }
-    
+
     return (
         <div className={wrapperClass}>
             <label htmlFor={input.name} className={labelClass}>{label} {isRequired === "true" && <span className="error-div">*</span>}</label>
@@ -75,7 +69,48 @@ let SelectField_ReactSelect5 = (props) => {
     );
 }
 
+const SelectFieldCurrencyDrop = (props) => {
+    const { label, input, meta, selectedValue, wrapperClass, className, labelClass, placeholder, errorClass, initialValue, options, isRequired } = props;
+    let val = '';
+    if (input.value && Object.keys(input.value).length > 0) {
+        val = input.value;
+    } else if (initialValue) {
+        val = val;
+    }
+    return (
+            <Select
+                {...input}
+                value={val}
+                options={options}
+                className={`${className}${meta.touched && ((meta.error && ' txt_error_div') || (meta.warning && ' txt_error_div'))}`}
+                placeholder={placeholder}
+                onChange={(value) => input.onChange(value)}
+                onBlur={() => input.onBlur({ ...input.value })}
+                multi={false}
+                clearable={false}
+            />
+    );
+}
 
+const renderFieldCurrency = ({ input, type, placeholder, label, isRequired, meta: { touched, error, warning, pristine } }) => (
+    <div className={cx('input-wrap how-much', { 'custom-error': (touched && error) ? true : false })} >
+        <label>{label} {pristine && isRequired === "true" && <span className="error-div">*</span>}</label>
+        <div class="input-2 d-flex select-wrap">
+            <input {...input} placeholder={placeholder} type={type} className={`${touched && ((error && `txt_error_div`) || (warning && `txt_error_div`))}`} autocomplete="off" />
+            <Field
+                name="currency"
+                placeholder="Select currency"
+                component={SelectFieldCurrencyDrop}
+                options={[
+                    { value: '', label: 'Select currency' },
+                    { value: 'dollar', label: "AUD" }
+                ]}
+                isRequired="true"
+            />
+        </div>
+        {touched && ((error && <div className="error-div">{error}</div>) || (warning && <span>{warning}</span>))}
+    </div>
+)
 
 class GoogleAC extends Component {
     render() {
@@ -87,7 +122,7 @@ class GoogleAC extends Component {
                     value={input.value}
                     name={name}
                     onChange={(value) => input.onChange(value)}
-                    //onSelect={() => { console.log('Select') }}
+                //onSelect={() => { console.log('Select') }}
                 >
                     {({ getInputProps, suggestions, getSuggestionItemProps }) => (
                         <div>
@@ -145,7 +180,7 @@ class FormStep3 extends Component {
                             <h2>Step 3</h2>
                             <Field
                                 wrapperClass="select-wrap"
-                                name="public_or_private"       
+                                name="public_or_private"
                                 //label="Public or Invite only"
                                 label="Public or Invite only"
                                 labelClass="control-label"
@@ -155,8 +190,8 @@ class FormStep3 extends Component {
                                     { value: 'public', label: "Public" },
                                     { value: 'invite', label: "Private" }
                                 ]}
-                                selectedValue={{ value: 'public' , label :"Public"}}
-                                isRequired="true"                                             
+                                selectedValue={{ value: 'public', label: "Public" }}
+                                isRequired="true"
                             />
 
                             <Field
@@ -182,52 +217,29 @@ class FormStep3 extends Component {
                                 component={GoogleAC}
                             />
 
-                            {/* <PlacesAutocomplete
-                                value={this.state.address}
-                                onChange={this.handleChange}
-                                onSelect={this.handleSelect}
-                            >
-                                {({ getInputProps, suggestions, getSuggestionItemProps }) => (
-                                    <div>
-                                        <Field
-                                            getInputProps={getInputProps}
-                                            suggestions={suggestions}
-                                            getSuggestionItemProps={getSuggestionItemProps}
-                                            name="location"
-                                            type="text"
-                                            label="Location"
-                                            component={renderPlaceAutoComplete}
-                                            placeholder='Write location'
-                                            className='location-search-input'
-                                            isRequired="true"
-                                        />
-                                    </div>
-                                )}
-                            </PlacesAutocomplete> */}
-
                             <Field
                                 name="how_much"
                                 type="text"
-                                label="How Much to Pay "
-                                component={renderFieldCampaign}
+                                label="How Much to Pay (Currency) "
+                                component={renderFieldCurrency}
                                 placeholder="e.g. 20"
                                 isRequired="true"
                             />
 
-                            <Field
+                            {/* <Field
                                 wrapperClass="select-wrap"
                                 name="currency"
                                 label="Currency"
                                 labelClass="control-label"
                                 placeholder="Select currency"
-                                component={SelectField_ReactSelect}
+                                component={SelectFieldCurrencyDrop}
                                 options={[
                                     { value: '', label: 'Select currency' },
-                                    { value: 'dollar' , label :"AUD"}                                                                        
+                                    { value: 'dollar', label: "AUD" }
                                 ]}
                                 isRequired="true"
 
-                            />
+                            /> */}
 
                             <div className="submit-btn d-flex">
                                 <button type="button" onClick={previousPage} className="round-btn prev-btn">Previous</button>

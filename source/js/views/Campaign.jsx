@@ -75,6 +75,7 @@ class Campaign extends Component {
             // for (var x = 0; x < ins; x++) {
             //     fd.append("fileToUpload[]", document.getElementById('fileToUpload').files[x]);
             // }
+            console.log(values.imagesNew);
             let public_or_private = 'public';
             if(values.public_or_private===undefined){
                 public_or_private = 'public';
@@ -98,7 +99,12 @@ class Campaign extends Component {
             formData.append("price",values.how_much);
             formData.append("currency",values.currency.value);
             formData.append("cover_image",values.images[0]);
-            formData.append("board_image",values.imagesNew[0]);
+            if (values.imagesNew) {
+                _.forEach(values.imagesNew, (file) => {
+                    formData.append('board_image', file);
+                });
+            }
+            //formData.append("board_image",values.imagesNew);
             dispatch(createCampaign(formData))
             this.setState({isRedirect:true});
         });
