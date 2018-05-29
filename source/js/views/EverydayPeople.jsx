@@ -16,6 +16,7 @@ import instaImg from 'img/site/instagram.png';
 import nodataImg from 'img/site/nodata.png';
 import downarrowImg from 'img/site/down-arrow-1.png';
 import { Redirect, withRouter } from 'react-router';
+import { Field, reduxForm } from 'redux-form';
 
 import imgPlus from 'img/site/plus-01.png';
 import CreateGroupForm from '../components/Forms/Group/CreateGroupForm';
@@ -35,6 +36,7 @@ import {
 } from 'reactstrap';
 import cx from "classnames";
 import { select } from 'redux-saga/effects';
+import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 
 class AddToModal extends Component {
 
@@ -202,15 +204,73 @@ const DropDownSocial = () => {
     );
 }
 
+/**
+ * Add all results dropdown popup 
+ * @author  : PAV
+ * @param   : Props
+ * @return  : Html Render
+ *
+ **/
 const AddAllResults = (props) => {
     return (
         <Dropdown isOpen={props.open} toggle={props.toggle}>
             <DropdownToggle caret>
-                Add All Results &nbsp;&nbsp;&nbsp; <img src={downarrowImg} style={{width: "13px"}}/>
+                Add All Results &nbsp;&nbsp;&nbsp; <img src={downarrowImg} style={{ width: "13px" }} />
             </DropdownToggle>
             <DropdownMenu>
-                <DropdownItem onClick={() => { props.addCampaign()}} > Add to Campaign </DropdownItem>
-                <DropdownItem onClick={() => { props.addGroup()}} > Add to Group </DropdownItem>
+                <DropdownItem onClick={() => { props.addCampaign() }} > Add to Campaign </DropdownItem>
+                <DropdownItem onClick={() => { props.addGroup() }} > Add to Group </DropdownItem>
+            </DropdownMenu>
+        </Dropdown>
+    );
+}
+
+/**
+ * Location Filter dropdown popup
+ * @author  : PAV
+ * @param   : Props
+ * @return  : Html Render
+ *
+ **/
+const LocationDropDown = (props) => {
+    return (
+        <Dropdown isOpen={props.open} toggle={props.toggle}>
+            <DropdownToggle caret >
+                {(props.isLocationFilterApply === true && props.currentVal) ? `${props.appliedVal}` : 'Location'}
+            </DropdownToggle>
+            <DropdownMenu>
+
+                <div className="morefilter-div">
+                    <PlacesAutocomplete
+                        value={props.currentVal}
+                        name="location"
+                        onChange={value => props.onAddressType(value)}
+                    //onAddressType={(value) => this.setState({tempLocation: value})}
+                    >
+                        {({ getInputProps, suggestions, getSuggestionItemProps }) => (
+                            <div class="input-wrap">
+                                <label style={{margin:"0px"}}>Location</label>
+                                <input {...getInputProps()} name={name} placeholder='Write location' className={cx('location-search-input ')} />
+                                <div className="autocomplete-dropdown-container">
+                                    {suggestions.map(suggestion => {
+                                        const className = suggestion.active ? 'suggestion-item--active' : 'suggestion-item';
+                                        const style = suggestion.active
+                                            ? { backgroundColor: '#fafafa', cursor: 'pointer' }
+                                            : { backgroundColor: '#ffffff', cursor: 'pointer' };
+                                        return (
+                                            <div {...getSuggestionItemProps(suggestion, { className, style })} className="places_autocomplete_list" >
+                                                <span>{suggestion.description}</span>
+                                            </div>
+                                        )
+                                    })}
+                                </div>
+                            </div>
+                        )}
+                    </PlacesAutocomplete>
+                </div>
+                <div className="ftr-btn">
+                    <button className="bdr-btn" onClick={() => props.setLocationFilter()} >Apply</button>
+                </div>
             </DropdownMenu>
         </Dropdown>
     );
@@ -257,7 +317,7 @@ const AgeDropDown = (props) => {
     return (
         <Dropdown isOpen={props.open} toggle={props.toggle}>
             <DropdownToggle caret >
-                { (props.isAgeFilterApply===true) ? `${props.currentVal.min} - ${props.currentVal.max}` : 'Age' }
+                {(props.isAgeFilterApply === true) ? `${props.currentVal.min} - ${props.currentVal.max}` : 'Age'}
                 {/* Age {" "} {props.currentVal.min}-{props.currentVal.max} */}
             </DropdownToggle>
             <DropdownMenu>
@@ -322,7 +382,6 @@ const MoreFilterDropDown = (props) => {
         });
 
     }
-    // <UncontrolledDropdown className="MoreFilterLi">
     return (<Dropdown isOpen={props.open} toggle={props.toggle} className="MoreFilterLi stats_filter_li4">
         <DropdownToggle caret >
             More Filter {" "}
@@ -581,7 +640,6 @@ const MoreFilterDropDown = (props) => {
 
     )
 }
-{/* </UncontrolledDropdown>); */ }
 
 class EverydayPeople extends Component {
 
@@ -633,19 +691,37 @@ class EverydayPeople extends Component {
             isMoreFilterSelected: false,
             isAgeFilterSelected: false,
             isGenderFilterSelected: false,
-            isSortApply: false,
-            isFilterApply: false,
-            more_filter_open: false,
-            age_filter_open: false,
-            add_all_results_open: false,
-            isMoreFilterApply: false,
+
             isAgeFilterApply: false,
+            isFilterApply: false,
+            isSortApply: false,
+            isMoreFilterApply: false,
+
+            age_filter_open: false,
+            more_filter_open: false,
+            add_all_results_open: false,
+
+            address: '',
+            tempLocation: '',
+            isLocationFilterApply: false,
+            location_filter_open: false,
+
             showCamp: false
         };
-        // this.toggle = this.toggle.bind(this);  
-        this.more_filter_toggle = this.more_filter_toggle.bind(this);
+
+
         this.age_filter_toggle = this.age_filter_toggle.bind(this);
+        this.location_filter_toggle = this.location_filter_toggle.bind(this);
+        this.more_filter_toggle = this.more_filter_toggle.bind(this);
         this.add_all_results_toggle = this.add_all_results_toggle.bind(this);
+    }
+
+    onAddressType = (address) => { this.setState({ address }) }
+    onAddressSelect = (address) => {
+        geocodeByAddress(address)
+            .then(results => getLatLng(results[0]))
+            .then(latLng => console.log('Success', latLng))
+            .catch(error => console.error('Error', error))
     }
 
     more_filter_toggle() {
@@ -682,17 +758,9 @@ class EverydayPeople extends Component {
         }
     }
 
-    age_filter_toggle() {
-        this.setState({
-            age_filter_open: !this.state.age_filter_open
-        });
-    }
-
-    add_all_results_toggle() {
-        this.setState({
-            add_all_results_open: !this.state.add_all_results_open
-        });
-    }
+    age_filter_toggle() { this.setState({ age_filter_open: !this.state.age_filter_open }); }
+    location_filter_toggle() { this.setState({ location_filter_open: !this.state.location_filter_open }); }
+    add_all_results_toggle() { this.setState({ add_all_results_open: !this.state.add_all_results_open }); }
 
     filterSendReq = (data) => {
         const { dispatch, match } = this.props;
@@ -1158,9 +1226,48 @@ class EverydayPeople extends Component {
         this.filterSendReq(arrayFilter);
 
         this.age_filter_toggle();
-        // this.setState({isAgeFilterSelected:true});
         this.setState({
             isAgeFilterApply: true
+        })
+    }
+
+    setLocationFilter = (tempLocation) => {
+
+        const { allSliders, appliedFilter, allDropDown, address } = this.state;
+        const { dispatch } = this.props;
+        // console.log('Set filter >>',address);
+        // this.setState({ 
+        //     isLocationFilterApply: true,
+        //     address: tempLocation
+        // })
+        // return;
+        let locationFilterIndex = _.findIndex(appliedFilter[0]['filter'], function (o) { return o.field == 'location'; });
+        let filteredArr = appliedFilter[0]['filter'];
+        
+        // Check if age filter is applied or not...
+
+        if (locationFilterIndex === -1) {
+            filteredArr.push({ "field": "location", "type": "like", "value": tempLocation })
+            this.setState({ 'appliedFilter': [{ 'filter': filteredArr }] });
+        } else {
+            let arrIndex = _.findIndex(filteredArr, { "field": "location" });
+            filteredArr.splice(arrIndex, 1, { "field": "location", "type": "like", "value": tempLocation});
+            this.setState({ 'appliedFilter': [{ 'filter': filteredArr }] });
+        }
+
+        let sortDropArr = _.find(allDropDown, function (o) { return o.dropdown == 'sortDrop'; });
+        let arrayFilter = {
+            "filter": this.state.appliedFilter[0]['filter'],
+            "sort": [{ "field": "name", "value": parseInt(sortDropArr['value']['value']) }],
+            "page_size": this.state.perPageItem,
+            "page_no": 1
+        }
+        this.setState({ "activePage": 1 });
+        this.filterSendReq(arrayFilter);
+        this.location_filter_toggle();
+        this.setState({ 
+            isLocationFilterApply: true,
+            address: tempLocation
         })
     }
 
@@ -1338,7 +1445,7 @@ class EverydayPeople extends Component {
                                     parentMethod={(value) => { (value['min'] > 14) ? this.handleSLider(value, "ageRange") : ''; }}
                                     currentVal={allSliderArr['ageRange']['value']}
                                     setAgeFilter={() => { this.setAgeFilter() }}
-                                    isAgeFilterApply={ this.state.isAgeFilterApply }
+                                    isAgeFilterApply={this.state.isAgeFilterApply}
                                     open={this.state.age_filter_open}
                                     toggle={this.age_filter_toggle}
                                 />
@@ -1354,12 +1461,23 @@ class EverydayPeople extends Component {
                                     placeholder="Gender"
                                     className='dropdown-inr stats_gender_dropdown'
                                     options={[
+                                        { value: '', label: 'All' },
                                         { value: 'male', label: 'Male' },
                                         { value: 'female', label: 'Female' },
                                     ]}
                                 />
                             </li>
-                            <li className="stats_filter_li3"><a href="javascript:void(0)">Location</a></li>
+                            <li className={cx('dropdown age-dropdown stats_age_dropdown stats_filter_li3 ', { 'active': (this.state.isLocationFilterApply) ? true : false })}>
+                                <LocationDropDown
+                                    onAddressType={(value) => this.setState({tempLocation: value})}
+                                    currentVal={this.state.tempLocation}
+                                    appliedVal={this.state.address}
+                                    setLocationFilter={() => { this.setLocationFilter(this.state.tempLocation) }}
+                                    isLocationFilterApply={this.state.isLocationFilterApply}
+                                    open={this.state.location_filter_open}
+                                    toggle={this.location_filter_toggle}
+                                />
+                            </li>
                             <li>
                                 <MoreFilterDropDown
                                     // parentMethod={(value) => this.setAgeValue(value,"str")}
@@ -1406,7 +1524,7 @@ class EverydayPeople extends Component {
                                             :
                                             <li className="dropdown stats_age_dropdown add_all_results_dropdown">
                                                 <AddAllResults
-                                                    addCampaign={() => { this.saveBulkResult({value: "add_to_campaign", label: "Add to Campaign"}) }}
+                                                    addCampaign={() => { this.saveBulkResult({ value: "add_to_campaign", label: "Add to Campaign" }) }}
                                                     addGroup={() => { this.saveBulkResult({ value: 'add_to_group', label: 'Add to Group' }) }}
                                                     open={this.state.add_all_results_open}
                                                     toggle={this.add_all_results_toggle}
