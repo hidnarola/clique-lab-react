@@ -14,6 +14,7 @@ import pinImg from 'img/site/pintrest.png';
 import twitterImg from 'img/site/twitter.png';
 import instaImg from 'img/site/instagram.png';
 import nodataImg from 'img/site/nodata.png';
+import downarrowImg from 'img/site/down-arrow-1.png';
 import { Redirect, withRouter } from 'react-router';
 
 import imgPlus from 'img/site/plus-01.png';
@@ -205,7 +206,7 @@ const AddAllResults = (props) => {
     return (
         <Dropdown isOpen={props.open} toggle={props.toggle}>
             <DropdownToggle caret>
-                Add All Results
+                Add All Results &nbsp;&nbsp;&nbsp; <img src={downarrowImg} style={{width: "13px"}}/>
             </DropdownToggle>
             <DropdownMenu>
                 <DropdownItem onClick={() => { props.addCampaign()}} > Add to Campaign </DropdownItem>
