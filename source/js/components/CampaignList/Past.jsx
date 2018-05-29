@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import fakeImg from 'img/site/people-01.jpg';
-import nodataImg from 'img/site/nodata.png';
+import nodataImg from 'img/site/no_data/05.png';
 import trashImg from 'img/site/trash-icon.png';
 import downloadImg from 'img/site/download-icon.png';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem ,UncontrolledDropdown } from 'reactstrap';
@@ -42,9 +42,9 @@ class Past extends Component {
                             <div className="submission-div-l">
                                 <h5>Submissions :  <small>{obj.submissions}</small></h5>
                             </div>
-                            <div className="submission-div-r" style={{"marginTop":"-5px"}}>
+                            {/* <div className="submission-div-r" style={{"marginTop":"-5px"}}>
                                 <a href="javascript:void(0)" onClick={() => this.downloadImg(obj._id)}><img src={downloadImg} alt="Download" style={{"maxWidth":"80%"}}/></a>
-                            </div>	
+                            </div>	 */}
                         </div>
                     </div>
                 </div>
@@ -82,7 +82,13 @@ class Past extends Component {
             <div className="active-campaigns">
                 <ul className="all-people-ul d-flex">
                     {
-                        (pastCampaign!==null) ? pastCampaign.map((obj,i) => (this.pastListing(obj))) : <div className="no_data_found"><img src={nodataImg} /></div>
+                        (pastCampaign!==null) ? 
+                            pastCampaign.map((obj,i) => (this.pastListing(obj)))
+                        :
+                            <div className="no_data_found">
+                                <img src={nodataImg} />
+                                <p>No past campaigns.</p>
+                            </div>
                     }
                 </ul>
                 {

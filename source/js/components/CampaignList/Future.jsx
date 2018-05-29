@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import fakeImg from 'img/site/people-01.jpg';
-import nodataImg from 'img/site/nodata.png';
+import nodataImg from 'img/site/no_data/05.png';
 import trashImg from 'img/site/trash-icon.png';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem ,UncontrolledDropdown } from 'reactstrap';
 import { withRouter } from 'react-router';
@@ -142,7 +142,13 @@ class Future extends Component {
                 }
                 <ul className="all-people-ul d-flex">
                     { 
-                        (futureCampaign!==null && status === 1 ) ? futureCampaign.map((obj,i) => (this.futureListing(obj))) : <div className="no_data_found"><img src={nodataImg} /></div>
+                        (futureCampaign!==null && status === 1 ) ? 
+                            futureCampaign.map((obj,i) => (this.futureListing(obj)))
+                        :
+                            <div className="no_data_found">
+                                <img src={nodataImg} />
+                                <p>No future campaigns.</p>
+                            </div>
                     }
                 </ul>
                 {
