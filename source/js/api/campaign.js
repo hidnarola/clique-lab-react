@@ -46,7 +46,7 @@ function getActiveCampaignMembers(campaignId,data) {
 function purchaseAllResult(campaignId,data) {
     let headers = { 'x-access-token' : localStorage.getItem('token') }
     let filter = { 'filter': data.filter }
-    return postFormData(`promoter/campaign/${campaignId}/add_filtered_user_to_cart`,filter,headers);
+    return postFormData(`promoter/campaign/${campaignId}/add_filtered_applied_post_to_cart`,filter,headers);
 }
 
 export default {

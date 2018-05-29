@@ -165,6 +165,7 @@ td.fc-widget-content{ border:0;}
     .stats_age_dropdown .range-div{ width: 80px !important; }
     .stats_age_dropdown.active{ background-color: #6772e5; }
     .stats_age_dropdown.active .dropdown-toggle{ color:#fff !important;}
+    .stats_age_dropdown .dropdown-menu:after{ left: 11px; top:-15px}
 
     .stats_age_dropdown .bdr-btn,
     .stats_filter_li4 .bdr-btn{
@@ -196,8 +197,9 @@ td.fc-widget-content{ border:0;}
         font-weight:600 !important; 
     }
     .stats_filter_li3 .dropdown-menu{ padding:35px !important; }
+    .stats_filter_li3 .dropdown .dropdown-toggle{ white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 115px;}
     .stats_filter_li3 a{ font-size: 13px !important; line-height: 20px !important; font-weight: 600 !important; border-radius: 3px !important; }
-    .stats_filter_li4 .dropdown-menu:after{ left:33% !important; }
+    .stats_filter_li4 .dropdown-menu:after{ left:36% !important; }
     .stats_filter_li4 .Select-control{ border: 2px solid #b5b7be47 !important; }
     .stats_filter_li4 .Select-placeholder{ color: rgba(181, 183, 190,0.6) !important }
     .add_all_results_dropdown .dropdown-menu { padding:10px !important; top:5px !important; left:-9px !important;}

@@ -141,7 +141,7 @@ class PurchasedPosts extends Component {
     handlePageChange = (pageNumber) => {
         this.setState({ activePage: pageNumber });
         const { dispatch } = this.props;
-        dispatch(puchasedPostSend({ "page_size": 9, "page_no": pageNumber }));
+        dispatch(puchasedPostSend({ "page_size": 8, "page_no": pageNumber }));
     }
 
     componentWillMount() {
@@ -150,7 +150,7 @@ class PurchasedPosts extends Component {
         if (match.params.grpId) {
             this.setState({ groupId: match.params.grpId });
         }
-        dispatch(puchasedPostSend({ "page_size": 9, "page_no": 1 }));
+        dispatch(puchasedPostSend({ "page_size": 8, "page_no": 1 }));
     }
 
     downloadPost = (campaignId) => {
@@ -192,10 +192,6 @@ class PurchasedPosts extends Component {
             let param3 = null;
             let param4 = this.state.appliedFilter[0];
             let param5 = this.state.groupId;
-            // console.log('=================================');
-            // console.log(inserted_group);
-            // console.log(group_status);
-            // console.log('=================================');
             this.saveResult(param1, param2, param3, param4, param5);
         }
 
@@ -252,9 +248,6 @@ class PurchasedPosts extends Component {
                             (allPosts) ?
                                 allPosts.map((obj) => {
                                     let imgUrl = imgRoutes.CAMPAIGN_POST_IMG_PATH + obj.applied_campaign.image;
-                                    // if(!isImageExists(imgUrl)){
-                                    //     imgUrl = 'http://placehold.it/450x215/ececec/525f7f?text=No Image Found';
-                                    // }
                                     return (<li key={Math.random()}>
                                         <div className="fan-festival-box">
                                             <div className="festival-head d-flex">
@@ -264,7 +257,6 @@ class PurchasedPosts extends Component {
                                                     </span>
                                                     <h3>
                                                         <big>{obj.users.name}</big>
-                                                        {/* <small>{obj.country !== undefined && obj.suburb + ', ' + obj.country.name}</small> */}
                                                         <small>{obj.location !== undefined && obj.location}</small>
                                                     </h3>
                                                 </div>
@@ -272,16 +264,13 @@ class PurchasedPosts extends Component {
                                                     <h3>$ {(obj.price).toFixed(2)}</h3>
                                                 </div>
                                             </div>
-                                            <div className="festival-img" style={{ "background": "url('"+imgUrl+"') no-repeat 100%","backgroundSize": "100%","height": "215px","width": "100%"}}></div>
-                                            <div className="festival-body" style={{"min-height": "50px"}}>
+                                            <div className="festival-img" style={{ "background": "url('" + imgUrl + "') no-repeat 100%", "backgroundSize": "100%", "height": "215px", "width": "100%" }}></div>
+                                            <div className="festival-body" style={{ "min-height": "50px" }}>
                                                 <h2>{obj.applied_campaign.desription}</h2>
-                                                {/* <h2>Make up by morning. boyfriends happy, what a life I lead!
-                                                    <a href="">@thegrocer #morning #earlyriser #excited #sponsored</a>
-                                                </h2> */}
                                             </div>
                                             <div className="festival-ftr d-flex">
                                                 <div className="festival-ftr-l">
-                                                    <a href="">
+                                                    <a href="javascript:void(0)" style={{ cursor: "auto" }}>
                                                         <i><img src={mediaImg[obj.social_media_platform]} alt="" /></i>
                                                         <strong>0</strong>
                                                     </a>
@@ -300,10 +289,10 @@ class PurchasedPosts extends Component {
                         }
                     </ul>
 
-                    {(total > 9) ?
+                    {(total > 8) ?
                         <Pagination
                             activePage={this.state.activePage}
-                            itemsCountPerPage={9}
+                            itemsCountPerPage={8}
                             totalItemsCount={total}
                             pageRangeDisplayed={5}
                             onChange={this.handlePageChange}

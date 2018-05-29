@@ -250,7 +250,7 @@ const LocationDropDown = (props) => {
                     //onAddressType={(value) => this.setState({tempLocation: value})}
                     >
                         {({ getInputProps, suggestions, getSuggestionItemProps }) => (
-                            <div class="input-wrap">
+                            <div className="input-wrap">
                                 <label style={{margin:"0px"}}>Location</label>
                                 <input {...getInputProps()} name={name} placeholder='Write location' className={cx('location-search-input ')} />
                                 <div className="autocomplete-dropdown-container">
@@ -864,9 +864,8 @@ class EverydayPeople extends Component {
 
     addGroup = (obj) => {
         const { dispatch } = this.props;
-        this.child.setSaveFor('group', obj._id);
-        dispatch(fetchDropDownReq({ "sendReqFor": "group", "uId": obj._id }));
-
+        this.child.setSaveFor('group', obj.user_id);
+        dispatch(fetchDropDownReq({ "sendReqFor": "group", "uId": obj.user_id }));
         setTimeout(() => {
             if (this.props.dropdownList === null && this.props.loading === false) {
                 alert('You don’t have a group yet.')
@@ -967,7 +966,7 @@ class EverydayPeople extends Component {
                             <h3>
                                 <big>{obj.user_name}</big>
                                 {/* <small>{obj.country !== undefined && obj.suburb + ', ' + obj.country.name}</small> */}
-                                <small style={{ "white-space": "nowrap", "text-overflow": "ellipsis", "overflow": "hidden", "width": "245px" }}>{obj.location !== undefined && obj.location}</small>
+                                <small>{obj.location !== undefined && obj.location}</small>
                             </h3>
                         </div>
                         <div className="festival-head-r"><h3>$ {(obj.price).toFixed(2)}</h3></div>
@@ -982,7 +981,7 @@ class EverydayPeople extends Component {
                     </div>
                     <div className="festival-ftr d-flex">
                         <div className="festival-ftr-l">
-                            <a href="javascript:void(0)"><i><img src={mediaImg[obj.social_media_platform]} alt="" /></i><strong>0</strong></a>
+                            <a href="javascript:void(0)" style={{cursor:"auto"}}><i><img src={mediaImg[obj.social_media_platform]} alt="" /></i><strong>0</strong></a>
                         </div>
                         <div className="festival-ftr-r dropdown">
                             <PlusAction2
@@ -1046,7 +1045,7 @@ class EverydayPeople extends Component {
                         </div>
                         <div className="festival-ftr d-flex">
                             <div className="festival-ftr-l">
-                                <a href="javascript:void(0)"><i><img src={mediaImg[obj.social_media_platform]} alt="" /></i><strong>0</strong></a>
+                                <a href="javascript:void(0)" style={{cursor: "auto"}}><i><img src={mediaImg[obj.social_media_platform]} alt="" /></i><strong>0</strong></a>
                             </div>
                             <div className="festival-ftr-r dropdown">
                                 <PlusAction2
@@ -1291,11 +1290,11 @@ class EverydayPeople extends Component {
                 (o.field === 'job_industry') || (o.field === 'year_in_industry') || (o.field === 'education') ||
                 (o.field === 'language') || (o.field === 'ethnicity') || (o.field === 'interested_in') ||
                 (o.field === 'relationship_status') || (o.field === 'music_taste'
-                    // || (o.field === 'fb_friends') || 
-                    // (o.field === 'insta_followers') || 
-                    // (o.field === 'twitter_followers') || 
-                    // (o.field === 'pinterest_followers')|| 
-                    // (o.field === 'linkedin_connection')
+                    || (o.field === 'fb_friends') || 
+                    (o.field === 'insta_followers') || 
+                    (o.field === 'twitter_followers') || 
+                    (o.field === 'pinterest_followers')|| 
+                    (o.field === 'linkedin_connection')
                 )
             );
 
@@ -1308,17 +1307,17 @@ class EverydayPeople extends Component {
         console.log('====== exstingFilter ==========');
 
 
-        // allSliderArr.map((obj,index) => {
-        //     let fieldText = '';
-        //     switch (obj['slider']) {
-        //         case 'facebook': fieldText = 'fb_friends'; break;
-        //         case 'instagram': fieldText = 'insta_followers'; break;
-        //         case 'twitter': fieldText = 'twitter_followers'; break;
-        //         case 'pinterest': fieldText = 'pinterest_followers'; break;
-        //         case 'linkedin': fieldText = 'linkedin_connection'; break;
-        //     }
-        //     exstingFilterArr.push({"field":fieldText, "type":"between", "min_value":obj['value']['min'],"max_value":obj['value']['max']});
-        // });
+        allSliderArr.map((obj,index) => {
+            let fieldText = '';
+            switch (obj['slider']) {
+                case 'facebook': fieldText = 'fb_friends'; break;
+                case 'instagram': fieldText = 'insta_followers'; break;
+                case 'twitter': fieldText = 'twitter_followers'; break;
+                case 'pinterest': fieldText = 'pinterest_followers'; break;
+                case 'linkedin': fieldText = 'linkedin_connection'; break;
+            }
+            exstingFilterArr.push({"field":fieldText, "type":"between", "min_value":obj['value']['min'],"max_value":obj['value']['max']});
+        });
 
 
         allDropArr.map((obj) => {
@@ -1381,6 +1380,12 @@ class EverydayPeople extends Component {
             param5: this.state.groupId
         }
         const { dispatch } = this.props;
+        // console.log('1>>>>',param1)
+        // console.log('2>>>>',param2);
+        // console.log('3>>>>',param3);
+        // console.log('4>>>>',param4);
+        // console.log('5>>>>',param5);
+        // return;
         dispatch(addUserReq(data));
     }
 
