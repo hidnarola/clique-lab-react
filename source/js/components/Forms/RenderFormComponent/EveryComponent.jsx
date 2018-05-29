@@ -48,7 +48,8 @@ export const FileField_Dropzone = (props) => {
 
     const { label, input, meta, wrapperClass, className, labelClass, errorClass, accept, multiple, isRequired } = props;
     let filesArr = _.values(input.value);
-    let images = [];
+    //let images = [];
+    const images = [];
 
     let isFileDropped = false;
 

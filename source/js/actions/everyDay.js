@@ -18,11 +18,12 @@ export const ADD_USER_ERROR = 'ADD_USER_ERROR';
 
 export const FORCE_REFRESED = 'FORCE_REFRESED';
 
-// ----------------------------------------------------------------------
 
+// ----------------------------------------------------------------------
     export function sendReq(data) {
         return { type: EVERY_DAY_REQUEST, data:data }
     }
+
 
     export function everyDaySuccess(data) {
         return { type: EVERY_DAY_SUCCESS, data:data }
