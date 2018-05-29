@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { getActiveCampaign, stopCampaign } from '../../actions/campaign';
 import fakeImg from 'img/site/people-01.jpg';
 import { withRouter } from 'react-router'
-import nodataImg from 'img/site/nodata.png';
+import nodataImg from 'img/site/no_data/05.png';
 import plusImg from 'img/site/plus-01.png';
 import PropTypes from 'prop-types';
 import { imgRoutes } from '../../constants/img_path';
@@ -164,7 +164,13 @@ class Active extends Component {
                     }
                     <ul className="all-people-ul d-flex">
                         {
-                            (activeCampaign!==null) ? activeCampaign.map((obj,i) => (this.activeListing(obj))) : <div className="no_data_found"><img src={nodataImg} /></div>
+                            (activeCampaign!==null) ? 
+                                activeCampaign.map((obj,i) => (this.activeListing(obj))) 
+                            : 
+                                <div className="no_data_found">
+                                    <img src={nodataImg} />
+                                    <p>No active campaigns.</p>
+                                </div>
                         }
                     </ul>	
                     {

@@ -30,7 +30,12 @@ class LeftMenu extends Component {
         jQuery('.campToogleMenu_UL').css({ display: 'none' })
         if (history.location.pathname === routeCodes.CAMPAIGN_ACTIVE) {
             jQuery('.campToogleMenu_UL').css({ display: 'block' });
+        } else if (history.location.pathname === routeCodes.CAMPAIGN_FUTURE) {
+            jQuery('.campToogleMenu_UL').css({ display: 'block' });
+        } else if (history.location.pathname === routeCodes.CAMPAIGN_PAST) {
+            jQuery('.campToogleMenu_UL').css({ display: 'block' });
         }
+
     }
 
     render() {

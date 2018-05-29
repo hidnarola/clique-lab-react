@@ -13,7 +13,9 @@ import linkedImg from 'img/site/linkedin.png';
 import pinImg from 'img/site/pintrest.png';
 import twitterImg from 'img/site/twitter.png';
 import instaImg from 'img/site/instagram.png';
-import nodataImg from 'img/site/nodata.png';
+import nodataImg2 from 'img/site/no_data/04.png';
+import nodataImg from 'img/site/no_data/05.png';
+
 import downarrowImg from 'img/site/down-arrow-1.png';
 import { Redirect, withRouter } from 'react-router';
 import { Field, reduxForm } from 'redux-form';
@@ -1553,10 +1555,8 @@ class EverydayPeople extends Component {
                 <div className="all-people">
                     <div className="all-people-head d-flex">
                         <h3>
-
                             {
                                 (match.path !== routeCodes.CAMPAIGN_INSPIRED_SUB) ?
-
                                     ((users.total !== undefined && filter_size === 0)) ?
                                         `All ( ${users.total} Results )`
                                         : [
@@ -1566,15 +1566,7 @@ class EverydayPeople extends Component {
                                         ]
                                     :
                                     null
-
                             }
-                            {/* {
-                                (users.total !== undefined) ?
-                                    `Filtered List ( ${users.total} Results )`
-                                    :
-                                    `Filtered List ( ${inspiredPosts.total} Results )`
-                            } */}
-
                         </h3>
                         {((this.state.isAgeFilterApply === true || this.state.isMoreFilterApply === true)) ?
                             ((match.params.campaignId === null || match.params.campaignId === undefined) && match.path !== routeCodes.CAMPAIGN_INSPIRED_SUB) &&
@@ -1588,19 +1580,38 @@ class EverydayPeople extends Component {
                     {
                         (match.params.campaignId !== null && match.params.campaignId !== undefined) ?
                             <ul className="fan-festival d-flex">
-                                {(users.status === 1) ? users.data.map((obj, index) => (this.renderLi2(obj))) : <div className="no_data_found"><img src={nodataImg} /></div>}
+                                {
+                                    (users.status === 1) ? 
+                                        users.data.map((obj, index) => (this.renderLi2(obj)))
+                                    : 
+                                        (loading) ? ''
+                                        :
+                                        <div className="no_data_found"> <img src={nodataImg2} /> <p>No members available.</p> </div> 
+                                }
                             </ul>
                             :
                             (
                                 match.path == routeCodes.CAMPAIGN_INSPIRED_SUB ?
                                     <ul className="fan-festival d-flex h-view">
-                                        {(inspiredPosts.status === 1 && inspiredPosts.data !== '') ? inspiredPosts.data.map((obj, index) => (this.renderLi3(obj))) : <div className="no_data_found"><img src={nodataImg} /></div>}
+                                        {
+                                            (inspiredPosts.status === 1 && inspiredPosts.data !== '') ? 
+                                                inspiredPosts.data.map((obj, index) => (this.renderLi3(obj)))
+                                            : 
+                                                (loading) ? ''
+                                                :
+                                                <div className="no_data_found"> <img src={nodataImg} /> <p>No inspired submissions.</p> </div>
+                                        }
                                     </ul>
-
-                                    :
-
+                                :
                                     <ul className="all-people-ul d-flex">
-                                        {(users.status === 1) ? users.data.map((obj, index) => (this.renderLi(obj))) : <div className="no_data_found"><img src={nodataImg} /></div>}
+                                        {
+                                            (users.status === 1) ? 
+                                                users.data.map((obj, index) => (this.renderLi(obj)))
+                                            : 
+                                                (loading) ? ''
+                                                :
+                                                <div className="no_data_found"> <img src={nodataImg2} /> <p>No members available.</p> </div>
+                                        }
                                     </ul>
                             )
                     }
