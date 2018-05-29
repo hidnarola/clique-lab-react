@@ -52,7 +52,7 @@ const actionMap = {
                 status:action.data.data.status,
                 message:action.data.data.message,
                 data:(action.data.data.results.posts) ? action.data.data.results.posts :[],
-                total:(action.data.data.results.total) ? action.data.data.results.total :0
+                total:(action.data.data.results.total) ? action.data.data.results.total :0,
             },
         }));
     },

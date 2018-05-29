@@ -1058,7 +1058,7 @@ class EverydayPeople extends Component {
         }
 
     }
-
+    
     componentWillMount() {
 
         const { dispatch, match } = this.props;
@@ -1120,6 +1120,7 @@ class EverydayPeople extends Component {
     componentWillUnmount() {
         const { dispatch } = this.props;
         dispatch(resetVal({ 'userListing': false }));
+        //dispatch(resetVal(null));
     }
 
     setAgeValue(value) {
@@ -1480,7 +1481,7 @@ class EverydayPeople extends Component {
                                     </ul>
 
                                     :
-
+                                    
                                     <ul className="all-people-ul d-flex">
                                         {(users.status === 1) ? users.data.map((obj, index) => (this.renderLi(obj))) : <div className="no_data_found"><img src={nodataImg} /></div>}
                                     </ul>
