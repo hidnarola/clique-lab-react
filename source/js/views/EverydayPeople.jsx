@@ -2,7 +2,7 @@ import jQuery from 'jquery';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Pagination from "react-js-pagination";
-import { sendReq, moreFilterReq, fetchDropDownReq, resetVal, addUserReq, bulkUserReq, forceRefresh } from '../actions/everyDay';
+import { sendReq, moreFilterReq, fetchDropDownReq, resetVal, addUserReq, bulkUserReq, forceRefresh} from '../actions/everyDay';
 import { purchaseAll } from '../actions/campaign';
 import { getGroups, addGroups, resetGroupVal } from '../actions/groups';
 import sampleImg from 'img/site/400x218.png';

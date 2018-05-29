@@ -180,7 +180,8 @@ class GroupList extends Component {
             authorise_disabled: false,
             groupId: '',
             isPluseClick: false,
-            sort_wise_pagination: ''
+            sort_wise_pagination: '',
+            load:false
         };
 
         this.createGroupModal = this.createGroupModalOpen.bind(this);
@@ -190,7 +191,7 @@ class GroupList extends Component {
     }
 
     componentWillMount() {
-        const { dispatch } = this.props;
+        const { dispatch,loading } = this.props;
         dispatch(getGroups({ "page_size": 12, "page_no": 1 }))
     }
 
@@ -298,11 +299,18 @@ class GroupList extends Component {
     }
 
     addCampaign = (obj) => {
-        const { dispatch } = this.props;
+        const { dispatch,loading } = this.props;
         this.setState({
             groupId: obj._id
         });
         this.setState({ isPluseClick: true });
+        
+        this.setState({load:true},()=>{
+            setTimeout(()=>{
+                this.setState({load:false})
+            },300);
+        });
+
         this.child.setSaveFor('add_to_campaign', null);
         //dispatch(fetchDropDownReq({ "sendReqFor": "add_to_campaign" }));
         
@@ -327,7 +335,7 @@ class GroupList extends Component {
                 else if(this.props.dropdownList === null && this.props.loading === false) {
                     alert('You don’t have a campaign yet.')
                 }
-            },2000)
+            },1500)
             
 
     }
@@ -402,13 +410,12 @@ class GroupList extends Component {
         let { groups, totalGrps, loading, dropdownList } = this.props
         const { selectedOption } = this.state;
         const value = selectedOption && selectedOption.value;
-        if (loading) {
+        if (loading || this.state.load === true) {
             return (
                 <div className="loader"></div>
             )
         }
 
-        //console.log('RPOSPSS>>>', this.props);
         return (
             <div>
                 <div className="group-head d-flex">
