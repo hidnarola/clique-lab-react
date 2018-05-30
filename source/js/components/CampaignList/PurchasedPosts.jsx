@@ -162,12 +162,24 @@ class PurchasedPosts extends Component {
         const { dispatch } = this.props;
         this.child.setSaveFor('campaign', obj.users._id);
         dispatch(fetchDropDownReq({ "sendReqFor": "campaign", "uId": obj.users._id }));
+
+        setTimeout(() => {
+            if (this.props.dropdownList === null && this.props.loading === false) {
+                alert('You don’t have a campaign yet.')
+            }
+        }, 2000)
     }
 
     addGroup = (obj) => {
         const { dispatch } = this.props;
         this.child.setSaveFor('group', obj.users._id);
         dispatch(fetchDropDownReq({ "sendReqFor": "group", "uId": obj.users._id }));
+        
+        setTimeout(() => {
+            if (this.props.dropdownList === null && this.props.loading === false) {
+                alert('You don’t have a campaign yet.')
+            }
+        }, 2000)
     }
 
     toggle = () => {

@@ -38,7 +38,7 @@ const actionMap = {
         }));
     },
     [EVERY_DAY_SUCCESS]: (state, action) => {
-        //console.log(action); return;
+        
         return state.merge(Map({
             loading: false,
             error: false,
