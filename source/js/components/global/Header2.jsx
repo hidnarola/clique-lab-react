@@ -62,8 +62,8 @@ class Header2 extends Component {
                                     <span></span>
                                     <Link className="cursor_pointer" to={routeCodes.MY_PROFILE}> My Profile </Link>
                                 </DropdownItem>
-                                <DropdownItem><span></span>Jacob Robinson</DropdownItem>
-                                <DropdownItem><i className="newaccount-icon"></i>New Account</DropdownItem>
+                                {/* <DropdownItem><span></span>Jacob Robinson</DropdownItem>
+                                <DropdownItem><i className="newaccount-icon"></i>New Account</DropdownItem> */}
                                 <DropdownItem onClick={this.mylogout}>
                                     <i className="logout-icon"></i>
                                     Logout

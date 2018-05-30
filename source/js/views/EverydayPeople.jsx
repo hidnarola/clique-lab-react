@@ -1087,10 +1087,18 @@ class EverydayPeople extends Component {
     //     dispatch(moreFilterReq());
     // }
 
+
+    // componentWillReceiveProps = (prevProps,nextProps) => {
+      
+    //     console.log('prevProps>>',prevProps);
+    //     console.log('nextProps>>',nextProps);
+    // }
+    
+
     componentWillUpdate = (nextProps, nextState) => {
 
         const { dispatch, match } = nextProps;
-        const { forceRefreshed, groupForceRefreshed ,everyDayRefresh,inspirePageLoad} = this.state;
+        const { forceRefreshed, groupForceRefreshed ,everyDayRefresh,inspirePageLoad,allSliders} = this.state;
 
         //  if(forceRefreshed && !match.params.campaignId) {
         //     this.setState({ groupId: '' });
@@ -1152,6 +1160,11 @@ class EverydayPeople extends Component {
 
             this.setState({everyDayRefresh:true});
         }
+
+        // if(match.path === routeCodes.EVERYDAYPEOPLE)
+        // {
+        //     this.setState({isAgeFilterApply:false});
+        // }
     }
 
     componentWillMount() {
@@ -1184,7 +1197,7 @@ class EverydayPeople extends Component {
 
     componentDidUpdate() {
         let { showDrop, userAdded, dispatch, inserted_group, group_status } = this.props;
-        let { is_inserted, modifyStatusPurchase } = this.state
+        let { is_inserted, modifyStatusPurchase} = this.state
 
         if (showDrop) {
             this.child.toggle();
@@ -1216,7 +1229,7 @@ class EverydayPeople extends Component {
             dispatch(resetVal({ 'userAdded': false }));
             dispatch(resetGroupVal());
         }
-        
+
     }
 
     componentWillUnmount() {
@@ -1263,7 +1276,7 @@ class EverydayPeople extends Component {
         this.age_filter_toggle();
         this.setState({
             isAgeFilterApply: true
-        })
+        })    
     }
 
     setLocationFilter = (tempLocation) => {
@@ -1475,6 +1488,7 @@ class EverydayPeople extends Component {
         allSliderArr['ageRange'] = _.find(allSliders, function (o) { return o.slider == 'ageRange'; });
 
         // if (loading) { return (<div className="loader"></div>) }
+       
         return (
             <div className="every-people">
                 {(loading) ? <div className="loader" style={{ "zIndex": "999999999" }}></div> : ''}
