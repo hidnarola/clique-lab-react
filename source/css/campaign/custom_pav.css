@@ -53,6 +53,8 @@
     font-weight: 600;
 }
 
+.cart-table table.table tbody tr td{ font-size: 14px; }
+
 /* Not Found */
     .notfound-main-div{ padding:10em; text-align: center; width: 80%; margin: 0 10em; }
     .notfound-inner-box{ box-shadow: 0px 2px 10px 2px #ccc; background-color: #fbfbfb; border-radius: 5px; padding: 20px; }
@@ -166,6 +168,8 @@ td.fc-widget-content{ border:0;}
     .stats_age_dropdown.active{ background-color: #6772e5; }
     .stats_age_dropdown.active .dropdown-toggle{ color:#fff !important;}
     .stats_age_dropdown .dropdown-menu:after{ left: 11px; top:-15px}
+    .add_all_results_dropdown .dropdown-menu:after{ right: 5px; left: auto; top: -14px; }
+    .stats_filter_li3 .dropdown-menu:after{ left: 35px; top:-15px}
 
     .stats_age_dropdown .bdr-btn,
     .stats_filter_li4 .bdr-btn{

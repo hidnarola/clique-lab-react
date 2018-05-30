@@ -7,7 +7,7 @@ import cx from 'classnames';
 import Dropzone from 'react-dropzone';
 import { SubmissionError } from 'redux-form'
 import _ from 'lodash';
-
+// import dropImg from '../../../../assets/img/site/canvas.png';
 
 const validate = values => {
 
@@ -15,7 +15,6 @@ const validate = values => {
 
     if (!values.images || values.images.length === 0) {
         errors.images = 'This field is required';
-        console.log('cancelled');
     } else {
         if ((values.images).length > 0) {
             console.log('file',values.images);
@@ -23,7 +22,6 @@ const validate = values => {
             let extensions = ["image/jpeg", "image/png", "image/jpg"];
             if (extensions.indexOf(file_type) < 0) {
                 errors.images = 'File type not supported';
-                console.log('No suppeort')
             }
         }
     }

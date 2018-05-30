@@ -48,7 +48,7 @@ class Cart extends React.Component {
 					{obj.applied_post.desription}
 				</td>
 				<td>{obj.user.name}</td>
-				<td>{obj.campaign.social_media_platform}</td>
+				<td>{(obj.campaign.social_media_platform).toLowerCase()}</td>
 				
 				<td>${(obj.campaign.price).toFixed(2)}</td>
 				<td>
@@ -73,11 +73,11 @@ class Cart extends React.Component {
 							<thead>
 								<tr>
 									<th style={{ "width": "14%" }}>Image Preview</th>
-									<th style={{ "width": "50%" }}>Text Description</th>
+									<th style={{ "width": "40%" }}>Text Description</th>
 									<th style={{ "width": "20%" }}>Person</th>
-									<th style={{"width":"15%"}}>Flatform</th>
-									<th style={{ "width": "11%" }}>Price</th>
-									<th> </th>
+									<th style={{ "width": "10%" }}>Flatform</th>
+									<th style={{ "width": "10%" }}>Price</th>
+									<th style={{ "width": "5%" }}> </th>
 								</tr>
 							</thead>
 							<tbody>

@@ -261,6 +261,8 @@ img{max-width:100%;}
 	.checkout-r .cart-table {padding:0 0 0 20px;}
 	.checkout .cart-table>table.table {width: 100%;}
 	.right-hdr h2 strong {line-height:34px;}
+	.industry-l-box .custom_dropzone_div,
+	.industry-l-box .image-preview{height: 264px;}
 	
 }	
 
