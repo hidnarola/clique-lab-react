@@ -357,9 +357,10 @@ class GroupList extends Component {
             <li key={Math.random()}>
                 <div className="all-people-div">
                     <div className="all-people-img">
-                        <Link className="cursor_pointer" to={`${routeCodes.LISTGROUPS}/${obj._id}/members`}>
+                        <div className="cursor_pointer" onClick={() => this.props.history.push(`${routeCodes.LISTGROUPS}/${obj._id}/members`)} style={{ "background": "url('" + imgRoutes.GROUP_IMG_PATH+'/'+obj.image + "') no-repeat 100%", "backgroundSize": "100%", "height": "190px" }}></div>
+                        {/* <Link className="cursor_pointer" to={`${routeCodes.LISTGROUPS}/${obj._id}/members`}>
                             <img className="grp_list_img" src={`${imgRoutes.GROUP_IMG_PATH}${obj.image}`} alt="" />
-                        </Link>
+                        </Link> */}
 
                         <div className="plus-people dropdown">
                             <PlusAction

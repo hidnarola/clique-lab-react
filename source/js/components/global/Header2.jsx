@@ -46,7 +46,7 @@ class Header2 extends Component {
                         </NavLink>
                     </div>
                     <div className="hdr-user" style={{"display":"flex"}}>
-                        <a href="javascript:void(0)">
+                        <a>
                             <p>Welcome <strong>{user.username}</strong></p>
                         </a>
                         &nbsp;&nbsp;

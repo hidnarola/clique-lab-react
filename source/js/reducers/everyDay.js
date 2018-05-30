@@ -25,8 +25,11 @@ const initialState = Map({
     },
     moreFilterData:null,
     dropdownList:null,
-    showDrop:false,    
+    showDrop:false,
+
     userAdded:false,
+    userAddedMsg: null,
+    
     forceRefresh: false,
 });
 
@@ -182,17 +185,16 @@ const actionMap = {
             loading: false,
             error: false,
             userAdded:true,
+            userAddedMsg: action.data.message
         }));
     },
     [ADD_USER_ERROR]: (state, action) => {
         let error = 'Server Error';
-        if (action.error && action.error.response) {
-            error = action.error.response.message;
-        }
         return state.merge(Map({
             loading: false,
-            error: error,
-            userAdded:false
+            error: true,
+            userAdded: false,
+            userAddedMsg: action.error.response.data.message
         }));
     },
 };

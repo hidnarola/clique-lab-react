@@ -66,6 +66,8 @@ function addUserData(data) {
         url = `promoter/campaign/${data['param2']['value']}/add_user/${data['param3']}`;
     } else if (data['param1'] == 'cart') {
         url = `promoter/campaign/add_to_cart/${data['param2']['value']}/${data['param3']}`;
+    } else if (data['param1'] == 'inspired_submission') {
+        url = `promoter/inspired_submission/add_to_cart/${data['param2']['value']}`;
     } else {
         url = `promoter/group/${data['param2']['value']}/add_user/${data['param3']}`;
     }

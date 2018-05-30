@@ -868,7 +868,7 @@ class EverydayPeople extends Component {
 
     addGroup = (obj) => {
         const { dispatch } = this.props;
-        this.child.setSaveFor('group', obj.user_id);
+        this.child.setSaveFor('group', obj._id);
         dispatch(fetchDropDownReq({ "sendReqFor": "group", "uId": obj._id }));
         setTimeout(() => {
             if (this.props.dropdownList === null && this.props.loading === false) {
@@ -878,10 +878,10 @@ class EverydayPeople extends Component {
 
     }
 
-    addToCart = (camp_id, user_id) => {
+    addToCart = (camp_id, user_id, param1='cart') => {
         const { dispatch, match } = this.props;
         let data = {
-            'param1': 'cart',
+            'param1': param1,
             'param2': {
                 'value': camp_id
             },
@@ -1056,7 +1056,7 @@ class EverydayPeople extends Component {
                             </div>
                             <div className="festival-ftr-r dropdown">
                                 <PlusAction2
-                                    addToCart={() => { this.addToCart(obj._id, obj.users._id) }}
+                                    addToCart={() => { this.addToCart(obj._id, obj.users._id, 'inspired_submission') }}
                                     addGroup={() => { this.addGroup(obj) }}
                                 />
                             </div>
@@ -1196,8 +1196,8 @@ class EverydayPeople extends Component {
     }
 
     componentDidUpdate() {
-        let { showDrop, userAdded, dispatch, inserted_group, group_status } = this.props;
-        let { is_inserted, modifyStatusPurchase} = this.state
+        let { showDrop, userAdded, userAddedMsg, dispatch, inserted_group, group_status, error } = this.props;
+        let { is_inserted, modifyStatusPurchase } = this.state
 
         if (showDrop) {
             this.child.toggle();
@@ -1224,9 +1224,13 @@ class EverydayPeople extends Component {
             this.props.history.push(routeCodes.MY_CART);
         }
 
-        if (userAdded) {
-            alert('User has been added');
-            dispatch(resetVal({ 'userAdded': false }));
+        if (userAdded===true && error===false) {
+            alert(userAddedMsg);
+            dispatch(resetVal({ 'userAdded': false, 'userAddedMsg': null, 'error': null }));
+            dispatch(resetGroupVal());
+        } else if (userAdded===false && error===true) {
+            alert(userAddedMsg);
+            dispatch(resetVal({ 'userAdded': false, 'userAddedMsg': null, 'error': null }));
             dispatch(resetGroupVal());
         }
 
@@ -1716,6 +1720,7 @@ const mapStateToProps = (state) => {
         dropdownList: everyDay.get('dropdownList'),
         showDrop: everyDay.get('showDrop'),
         userAdded: everyDay.get('userAdded'),
+        userAddedMsg: everyDay.get('userAddedMsg'),
         forceRefresh: everyDay.get('forceRefresh')
     }
 }
