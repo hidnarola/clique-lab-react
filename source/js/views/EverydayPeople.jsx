@@ -2,7 +2,7 @@ import jQuery from 'jquery';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Pagination from "react-js-pagination";
-import { sendReq, moreFilterReq, fetchDropDownReq, resetVal, addUserReq, bulkUserReq, forceRefresh} from '../actions/everyDay';
+import { sendReq, moreFilterReq, fetchDropDownReq, resetVal, addUserReq, bulkUserReq, forceRefresh } from '../actions/everyDay';
 import { purchaseAll } from '../actions/campaign';
 import { getGroups, addGroups, resetGroupVal } from '../actions/groups';
 import sampleImg from 'img/site/400x218.png';
@@ -251,7 +251,7 @@ const LocationDropDown = (props) => {
                     >
                         {({ getInputProps, suggestions, getSuggestionItemProps }) => (
                             <div className="input-wrap">
-                                <label style={{margin:"0px"}}>Location</label>
+                                <label style={{ margin: "0px" }}>Location</label>
                                 <input {...getInputProps()} name={name} placeholder='Write location' className={cx('location-search-input ')} />
                                 <div className="autocomplete-dropdown-container">
                                     {suggestions.map(suggestion => {
@@ -865,7 +865,7 @@ class EverydayPeople extends Component {
     addGroup = (obj) => {
         const { dispatch } = this.props;
         this.child.setSaveFor('group', obj.user_id);
-        dispatch(fetchDropDownReq({ "sendReqFor": "group", "uId": obj.user_id }));
+        dispatch(fetchDropDownReq({ "sendReqFor": "group", "uId": obj._id }));
         setTimeout(() => {
             if (this.props.dropdownList === null && this.props.loading === false) {
                 alert('You don’t have a group yet.')
@@ -966,7 +966,7 @@ class EverydayPeople extends Component {
                             <h3>
                                 <big>{obj.user_name}</big>
                                 <small>
-                                    {obj.suburb!== undefined && obj.suburb + ', '}
+                                    {obj.suburb !== undefined && obj.suburb + ', '}
                                     {obj.country !== undefined && obj.country.name}
                                 </small>
                                 {/* <small>{obj.location !== undefined && obj.location}</small> */}
@@ -984,7 +984,7 @@ class EverydayPeople extends Component {
                     </div>
                     <div className="festival-ftr d-flex">
                         <div className="festival-ftr-l">
-                            <a href="javascript:void(0)" style={{cursor:"auto"}}><i><img src={mediaImg[obj.social_media_platform]} alt="" /></i><strong>0</strong></a>
+                            <a href="javascript:void(0)" style={{ cursor: "auto" }}><i><img src={mediaImg[obj.social_media_platform]} alt="" /></i><strong>0</strong></a>
                         </div>
                         <div className="festival-ftr-r dropdown">
                             <PlusAction2
@@ -1048,7 +1048,7 @@ class EverydayPeople extends Component {
                         </div>
                         <div className="festival-ftr d-flex">
                             <div className="festival-ftr-l">
-                                <a href="javascript:void(0)" style={{cursor: "auto"}}><i><img src={mediaImg[obj.social_media_platform]} alt="" /></i><strong>0</strong></a>
+                                <a href="javascript:void(0)" style={{ cursor: "auto" }}><i><img src={mediaImg[obj.social_media_platform]} alt="" /></i><strong>0</strong></a>
                             </div>
                             <div className="festival-ftr-r dropdown">
                                 <PlusAction2
@@ -1130,7 +1130,7 @@ class EverydayPeople extends Component {
         }
 
     }
-    
+
     componentWillMount() {
 
         const { dispatch, match } = this.props;
@@ -1248,7 +1248,7 @@ class EverydayPeople extends Component {
         // return;
         let locationFilterIndex = _.findIndex(appliedFilter[0]['filter'], function (o) { return o.field == 'location'; });
         let filteredArr = appliedFilter[0]['filter'];
-        
+
         // Check if age filter is applied or not...
 
         if (locationFilterIndex === -1) {
@@ -1256,7 +1256,7 @@ class EverydayPeople extends Component {
             this.setState({ 'appliedFilter': [{ 'filter': filteredArr }] });
         } else {
             let arrIndex = _.findIndex(filteredArr, { "field": "location" });
-            filteredArr.splice(arrIndex, 1, { "field": "location", "type": "like", "value": tempLocation});
+            filteredArr.splice(arrIndex, 1, { "field": "location", "type": "like", "value": tempLocation });
             this.setState({ 'appliedFilter': [{ 'filter': filteredArr }] });
         }
 
@@ -1270,7 +1270,7 @@ class EverydayPeople extends Component {
         this.setState({ "activePage": 1 });
         this.filterSendReq(arrayFilter);
         this.location_filter_toggle();
-        this.setState({ 
+        this.setState({
             isLocationFilterApply: true,
             address: tempLocation
         })
@@ -1294,10 +1294,10 @@ class EverydayPeople extends Component {
                 (o.field === 'job_industry') || (o.field === 'year_in_industry') || (o.field === 'education') ||
                 (o.field === 'language') || (o.field === 'ethnicity') || (o.field === 'interested_in') ||
                 (o.field === 'relationship_status') || (o.field === 'music_taste'
-                    || (o.field === 'fb_friends') || 
-                    (o.field === 'insta_followers') || 
-                    (o.field === 'twitter_followers') || 
-                    (o.field === 'pinterest_followers')|| 
+                    || (o.field === 'fb_friends') ||
+                    (o.field === 'insta_followers') ||
+                    (o.field === 'twitter_followers') ||
+                    (o.field === 'pinterest_followers') ||
                     (o.field === 'linkedin_connection')
                 )
             );
@@ -1311,7 +1311,7 @@ class EverydayPeople extends Component {
         console.log('====== exstingFilter ==========');
 
 
-        allSliderArr.map((obj,index) => {
+        allSliderArr.map((obj, index) => {
             let fieldText = '';
             switch (obj['slider']) {
                 case 'facebook': fieldText = 'fb_friends'; break;
@@ -1320,7 +1320,7 @@ class EverydayPeople extends Component {
                 case 'pinterest': fieldText = 'pinterest_followers'; break;
                 case 'linkedin': fieldText = 'linkedin_connection'; break;
             }
-            exstingFilterArr.push({"field":fieldText, "type":"between", "min_value":obj['value']['min'],"max_value":obj['value']['max']});
+            exstingFilterArr.push({ "field": fieldText, "type": "between", "min_value": obj['value']['min'], "max_value": obj['value']['max'] });
         });
 
 
@@ -1480,7 +1480,7 @@ class EverydayPeople extends Component {
                             </li>
                             <li className={cx('dropdown age-dropdown stats_age_dropdown stats_filter_li3 ', { 'active': (this.state.isLocationFilterApply) ? true : false })}>
                                 <LocationDropDown
-                                    onAddressType={(value) => this.setState({tempLocation: value})}
+                                    onAddressType={(value) => this.setState({ tempLocation: value })}
                                     currentVal={this.state.tempLocation}
                                     appliedVal={this.state.address}
                                     setLocationFilter={() => { this.setLocationFilter(this.state.tempLocation) }}
@@ -1577,25 +1577,27 @@ class EverydayPeople extends Component {
                                     null
                             }
                         </h3>
-                        {((this.state.isAgeFilterApply === true || this.state.isMoreFilterApply === true)) ?
-                            ((match.params.campaignId === null || match.params.campaignId === undefined) && match.path !== routeCodes.CAMPAIGN_INSPIRED_SUB) &&
-                            <a className="cursor_pointer" onClick={this.toggle}>
-                                <i className="fa fa-plus"></i>
-                                Save the results as a Group
-                            </a>
-                            : null
+                        {
+                            (this.state.isAgeFilterApply === true || this.state.isMoreFilterApply === true) ?
+                                ((match.params.campaignId === null || match.params.campaignId === undefined) && match.path !== routeCodes.CAMPAIGN_INSPIRED_SUB && users.status===1) ?
+                                    <a className="cursor_pointer" onClick={this.toggle}>
+                                        <i className="fa fa-plus"></i>
+                                        Save the results as a Group
+                                    </a>
+                                    : null
+                                : null
                         }
                     </div>
                     {
                         (match.params.campaignId !== null && match.params.campaignId !== undefined) ?
                             <ul className="fan-festival d-flex">
                                 {
-                                    (users.status === 1) ? 
+                                    (users.status === 1) ?
                                         users.data.map((obj, index) => (this.renderLi2(obj)))
-                                    : 
-                                        (loading) ? ''
                                         :
-                                        <div className="no_data_found"> <img src={nodataImg2} /> <p>No members available.</p> </div> 
+                                        (loading) ? ''
+                                            :
+                                            <div className="no_data_found"> <img src={nodataImg2} /> <p>No members available.</p> </div>
                                 }
                             </ul>
                             :
@@ -1603,23 +1605,23 @@ class EverydayPeople extends Component {
                                 match.path == routeCodes.CAMPAIGN_INSPIRED_SUB ?
                                     <ul className="fan-festival d-flex h-view">
                                         {
-                                            (inspiredPosts.status === 1 && inspiredPosts.data !== '') ? 
+                                            (inspiredPosts.status === 1 && inspiredPosts.data !== '') ?
                                                 inspiredPosts.data.map((obj, index) => (this.renderLi3(obj)))
-                                            : 
-                                                (loading) ? ''
                                                 :
-                                                <div className="no_data_found"> <img src={nodataImg} /> <p>No inspired submissions.</p> </div>
+                                                (loading) ? ''
+                                                    :
+                                                    <div className="no_data_found"> <img src={nodataImg} /> <p>No inspired submissions.</p> </div>
                                         }
                                     </ul>
-                                :
+                                    :
                                     <ul className="all-people-ul d-flex">
                                         {
-                                            (users.status === 1) ? 
+                                            (users.status === 1) ?
                                                 users.data.map((obj, index) => (this.renderLi(obj)))
-                                            : 
-                                                (loading) ? ''
                                                 :
-                                                <div className="no_data_found"> <img src={nodataImg2} /> <p>No members available.</p> </div>
+                                                (loading) ? ''
+                                                    :
+                                                    <div className="no_data_found"> <img src={nodataImg2} /> <p>No members available.</p> </div>
                                         }
                                     </ul>
                             )
@@ -1648,7 +1650,7 @@ class EverydayPeople extends Component {
                         {/* <img src="/assets/img/site/close-2.png" /> */}
                         <img src={closeImg2} />
                     </button>
-                    <h2>Authorise Group</h2>
+                    <h2>Create Group</h2>
                     <CreateGroupForm onSubmit={this.createGroupSubmit} submitDisabled={this.state.authorise_disabled} />
                 </Modal>
             </div>

@@ -48,7 +48,7 @@ class Cart extends React.Component {
 					{obj.applied_post.desription}
 				</td>
 				<td>{obj.user.name}</td>
-				<td>{obj.campaign.social_media_platform}</td>
+				<td>{(obj.campaign.social_media_platform).toLowerCase()}</td>
 				
 				<td>${(obj.campaign.price).toFixed(2)}</td>
 				<td>
