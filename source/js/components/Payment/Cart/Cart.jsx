@@ -12,12 +12,13 @@ class Cart extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			listAfterDel : true
+			listAfterDel : false
 		}
 	}
 
 	componentWillMount() {
 		const { dispatch } = this.props;
+		this.setState({listAfterDel:true})
 		dispatch(getCheckoutList());
 	}
 
@@ -30,12 +31,10 @@ class Cart extends React.Component {
 		const { dispatch, removeItems } = this.props;
 		const { listAfterDel } = this.state;
 		if(removeItems.status===1 && listAfterDel===true){
-			this.setState({
-				listAfterDel : false
-			});
+			this.setState({ listAfterDel : false });
 			dispatch(getCheckoutList());
 		}
-		dispatch(resetVal({ 'userAdded': false }));
+		dispatch(resetVal({'userAdded': false}));
 	}
 
 	renderTr = (obj) => {
@@ -82,22 +81,6 @@ class Cart extends React.Component {
 							</thead>
 							<tbody>
 								{(carts.status === 1) ? carts.data.map((obj, index) => (this.renderTr(obj))) : <tr><td colSpan="6"></td></tr>}
-								{/* <tr>
-									<td><a href=""><img src={`${pageImgRoutes.IMG_CART1}`} alt=""/></a></td>
-									<td><h3>I love the way this Jacket Looks @Streetwear #Gorgeous #Spon</h3></td>
-									<td>John Doe</td>
-									<td>Facebook</td>
-									<td>$320</td>
-									<td><a href=""><img src="../../assets/img/site/trash-icon.png" alt="img" /> </a></td>
-								</tr>
-								<tr>
-									<td><a href=""><img src="../../assets/img/site/cart-02.jpg" alt=""/></a></td>
-									<td><h3>I love the way this Jacket Looks @Streetwear #Gorgeous #Spon</h3></td>
-									<td>Angelina Smith</td>
-									<td>Facebook</td>
-									<td>$250</td>
-									<td><a href=""><img src="../../assets/img/site/trash-icon.png" alt="" /> </a></td>
-								</tr> */}
 							</tbody>
 							<tfoot>
 								<tr>
