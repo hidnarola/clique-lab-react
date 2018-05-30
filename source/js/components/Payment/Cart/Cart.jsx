@@ -73,11 +73,11 @@ class Cart extends React.Component {
 							<thead>
 								<tr>
 									<th style={{ "width": "14%" }}>Image Preview</th>
-									<th style={{ "width": "50%" }}>Text Description</th>
+									<th style={{ "width": "40%" }}>Text Description</th>
 									<th style={{ "width": "20%" }}>Person</th>
-									<th style={{"width":"15%"}}>Flatform</th>
-									<th style={{ "width": "11%" }}>Price</th>
-									<th> </th>
+									<th style={{ "width": "10%" }}>Flatform</th>
+									<th style={{ "width": "10%" }}>Price</th>
+									<th style={{ "width": "5%" }}> </th>
 								</tr>
 							</thead>
 							<tbody>

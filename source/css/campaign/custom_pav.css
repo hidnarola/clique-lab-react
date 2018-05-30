@@ -53,6 +53,8 @@
     font-weight: 600;
 }
 
+.cart-table table.table tbody tr td{ font-size: 14px; }
+
 /* Not Found */
     .notfound-main-div{ padding:10em; text-align: center; width: 80%; margin: 0 10em; }
     .notfound-inner-box{ box-shadow: 0px 2px 10px 2px #ccc; background-color: #fbfbfb; border-radius: 5px; padding: 20px; }
