@@ -7,7 +7,7 @@ import cx from 'classnames';
 import Dropzone from 'react-dropzone';
 import { SubmissionError } from 'redux-form'
 import _ from 'lodash';
-import dropImg from 'img/site/canvas.png';
+import dropImg from '../../../../assets/img/site/canvas.png';
 
 const validate = values => {
 
