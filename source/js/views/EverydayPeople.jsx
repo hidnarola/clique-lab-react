@@ -965,8 +965,11 @@ class EverydayPeople extends Component {
                             </span>
                             <h3>
                                 <big>{obj.user_name}</big>
-                                {/* <small>{obj.country !== undefined && obj.suburb + ', ' + obj.country.name}</small> */}
-                                <small>{obj.location !== undefined && obj.location}</small>
+                                <small>
+                                    {obj.suburb!== undefined && obj.suburb + ', '}
+                                    {obj.country !== undefined && obj.country.name}
+                                </small>
+                                {/* <small>{obj.location !== undefined && obj.location}</small> */}
                             </h3>
                         </div>
                         <div className="festival-head-r"><h3>$ {(obj.price).toFixed(2)}</h3></div>

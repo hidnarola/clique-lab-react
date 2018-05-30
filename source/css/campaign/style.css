@@ -593,7 +593,7 @@ a.fill-btn:hover{ background:transparent; color:#6772e5; text-decoration:none;}
 a.fill-btn-44{ line-height:40px;}
 
 ul.fan-festival{display:block; margin:0; padding:0; list-style:none; flex-wrap:wrap;}
-ul.fan-festival>li{ width:49%; padding:0 0 34px;}
+ul.fan-festival>li{ width:calc(50% - 15px); padding:0 0 30px;}
 ul.fan-festival li:nth-child(2n+2){margin-left:auto;}
 .fan-festival-box{ background:#fff; box-shadow:0 4px 24px 0 rgba(0,0,0,.1); border-radius:4px; padding:30px;}
 .festival-head{margin:0 0 15px;}
@@ -626,7 +626,7 @@ ul.fan-festival li:nth-child(2n+2){margin-left:auto;}
 
 .h-view .fan-festival-box{padding:0;}
 .fan-festival-r{ margin-left:auto; padding:88px 45px 45px; width:50%;}
-ul.fan-festival.h-view>li{width:100%;}
+ul.fan-festival.h-view>li{width:100%; padding-bottom:25px;}
 ul.fan-festival.h-view .festival-img {margin: 0;width: 50%;}
 ul.fan-festival.h-view .festival-head {margin:0 0 38px;}
 ul.fan-festival.h-view .festival-body {margin:0 0 50px;}
