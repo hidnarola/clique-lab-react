@@ -7,7 +7,7 @@ import cx from 'classnames';
 import Dropzone from 'react-dropzone';
 import { SubmissionError } from 'redux-form'
 import _ from 'lodash';
-import dropImg from '../../../../assets/img/site/canvas.png';
+// import dropImg from '../../../../assets/img/site/canvas.png';
 
 const validate = values => {
 
@@ -15,7 +15,6 @@ const validate = values => {
 
     if (!values.images || values.images.length === 0) {
         errors.images = 'This field is required';
-        console.log('cancelled');
     } else {
         if ((values.images).length > 0) {
             console.log('file',values.images);
@@ -23,7 +22,6 @@ const validate = values => {
             let extensions = ["image/jpeg", "image/png", "image/jpg"];
             if (extensions.indexOf(file_type) < 0) {
                 errors.images = 'File type not supported';
-                console.log('No suppeort')
             }
         }
     }
@@ -112,7 +110,7 @@ const FileField_Dropzone = (props) => {
                 <div className="dropzone-image-preview-wrapper">
                     {(input.value && meta.error === undefined) && images}
                     {((!input.value || meta.error || images.length === 0)) && <div className={`custom_dropzone_div ${(meta.touched && meta.error) && 'drop_error_div'}`} style={{ 'width': '100% !important' }}>
-                        <img src={dropImg} /><br /><br />
+                        {/* <img src={dropImg} /><br /><br /> */}
                         <p>Select or Drag Your image here</p>
                         <span className={`btn btn_drop_browse`}>Or Browse</span>
                     </div>

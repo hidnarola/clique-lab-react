@@ -257,7 +257,6 @@ class GroupList extends Component {
     handleSorting = (selectedOption) => {
         const { dispatch } = this.props;
         const { activePage } = this.state;
-        // this.setState({ selectedOption });
         this.setState({ sort_wise_pagination: selectedOption });
         let newVar = {
             "sort": [{ "field": selectedOption.column, "value": parseInt(selectedOption.value) }],
@@ -408,7 +407,8 @@ class GroupList extends Component {
 
     render() {
         let { groups, totalGrps, loading, dropdownList } = this.props
-        const { selectedOption } = this.state;
+        const { selectedOption, sort_wise_pagination } = this.state;
+
         const value = selectedOption && selectedOption.value;
         if (loading || this.state.load === true) {
             return (
@@ -427,7 +427,7 @@ class GroupList extends Component {
                                     groups !== null &&
                                     <ReactSelect
                                         name="form-field-name"
-                                        value={value}
+                                        value={sort_wise_pagination.value}
                                         onChange={this.handleSorting}
                                         searchable={false}
                                         clearable={false}
