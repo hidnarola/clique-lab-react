@@ -39,6 +39,7 @@ import {
 import cx from "classnames";
 import { select } from 'redux-saga/effects';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
+import validator from 'validator';
 
 class AddToModal extends Component {
 
@@ -235,10 +236,11 @@ const AddAllResults = (props) => {
  *
  **/
 const LocationDropDown = (props) => {
+    console.log('Props>>>',props);
     return (
         <Dropdown isOpen={props.open} toggle={props.toggle}>
             <DropdownToggle caret >
-                {(props.isLocationFilterApply === true && props.currentVal) ? `${props.appliedVal}` : 'Location'}
+                {(props.isLocationFilterApply === true && props.currentVal && props.locSelect === true) ? `${props.appliedVal}` : 'Location'}
             </DropdownToggle>
             <DropdownMenu>
 
@@ -710,6 +712,7 @@ class EverydayPeople extends Component {
             tempLocation: '',
             isLocationFilterApply: false,
             location_filter_open: false,
+            locSelect : true,
 
             showCamp: false
         };
@@ -1098,8 +1101,9 @@ class EverydayPeople extends Component {
     componentWillUpdate = (nextProps, nextState) => {
 
         const { dispatch, match } = nextProps;
-        const { forceRefreshed, groupForceRefreshed ,everyDayRefresh,inspirePageLoad,allSliders} = this.state;
+        const { forceRefreshed, groupForceRefreshed ,everyDayRefresh,inspirePageLoad} = this.state;
 
+        //console.log('New State>>>',allSliders);
         //  if(forceRefreshed && !match.params.campaignId) {
         //     this.setState({ groupId: '' });
         //     if (match.params.grpId) {
@@ -1145,6 +1149,10 @@ class EverydayPeople extends Component {
             dispatch(moreFilterReq());
             this.setState({ forceRefreshed: false, groupForceRefreshed: false ,everyDayRefresh:false});
             this.setState({inspirePageLoad:true});
+
+            // this.setState({ 
+            //                     allSliders: [{ 'slider': 'ageRange', 'value': { min: 15, max: 65 } }]
+            //              });
         }
         
         if(inspirePageLoad && match.path === routeCodes.CAMPAIGN_INSPIRED_SUB)
@@ -1285,7 +1293,7 @@ class EverydayPeople extends Component {
 
     setLocationFilter = (tempLocation) => {
 
-        const { allSliders, appliedFilter, allDropDown, address } = this.state;
+        const { allSliders, appliedFilter, allDropDown, address,locSelect } = this.state;
         const { dispatch } = this.props;
         // console.log('Set filter >>',address);
         // this.setState({ 
@@ -1293,6 +1301,19 @@ class EverydayPeople extends Component {
         //     address: tempLocation
         // })
         // return;
+
+        console.log('Address 1>>',address);
+        console.log('Location 2>>',tempLocation);
+        
+        //(!validator.matches(values.group_name, /^[A-Za-z_]/i)
+
+        // if(!validator.matches(tempLocation, /^[a-zA-z0-9_]/i))
+        // {
+        //     this.setState({locSelect:false});
+        // }
+
+        console('trime>>>',tempLocation.trime())
+
         let locationFilterIndex = _.findIndex(appliedFilter[0]['filter'], function (o) { return o.field == 'location'; });
         let filteredArr = appliedFilter[0]['filter'];
 
@@ -1317,10 +1338,28 @@ class EverydayPeople extends Component {
         this.setState({ "activePage": 1 });
         this.filterSendReq(arrayFilter);
         this.location_filter_toggle();
-        this.setState({
-            isLocationFilterApply: true,
-            address: tempLocation
-        })
+       
+        // this.setState({
+        //     isLocationFilterApply: true,
+        //     address: tempLocation,
+        // })
+
+        if(!validator.matches(tempLocation, /^[a-zA-z0-9_]/i))
+        {
+                    this.setState({
+                        isLocationFilterApply: true,
+                        address: tempLocation,
+                        locSelect:false
+                    })
+        }
+        else
+        {
+            this.setState({
+                isLocationFilterApply: true,
+                address: tempLocation,
+                locSelect:true
+            })
+        }
     }
 
     applyMoreFilter = () => {
@@ -1533,6 +1572,7 @@ class EverydayPeople extends Component {
                                     appliedVal={this.state.address}
                                     setLocationFilter={() => { this.setLocationFilter(this.state.tempLocation) }}
                                     isLocationFilterApply={this.state.isLocationFilterApply}
+                                    locSelect={this.state.locSelect}
                                     open={this.state.location_filter_open}
                                     toggle={this.location_filter_toggle}
                                 />
