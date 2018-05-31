@@ -236,7 +236,7 @@ const AddAllResults = (props) => {
  *
  **/
 const LocationDropDown = (props) => {
-    console.log('Props>>>',props);
+
     return (
         <Dropdown isOpen={props.open} toggle={props.toggle}>
             <DropdownToggle caret >
@@ -717,7 +717,6 @@ class EverydayPeople extends Component {
             tempLocation: '',
             isLocationFilterApply: false,
             location_filter_open: false,
-            locSelect : true,
 
             showCamp: false
         };
@@ -1543,7 +1542,6 @@ class EverydayPeople extends Component {
                                     appliedVal={this.state.address}
                                     setLocationFilter={() => { this.setLocationFilter(this.state.tempLocation) }}
                                     isLocationFilterApply={this.state.isLocationFilterApply}
-                                    locSelect={this.state.locSelect}
                                     open={this.state.location_filter_open}
                                     toggle={this.location_filter_toggle}
                                 />
