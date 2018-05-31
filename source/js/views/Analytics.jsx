@@ -350,6 +350,26 @@ class Analytics extends Component {
         super(props);
         this.state = {
             analytics: null,
+            allDropDown: [
+                { 'dropdown': 'jobIndustryDrop', 'value': false },
+                { 'dropdown': 'jobTitleDrop', 'value': false },
+                { 'dropdown': 'yearInIndustry', 'value': false },
+                { 'dropdown': 'education', 'value': false },
+                { 'dropdown': 'language', 'value': false },
+                { 'dropdown': 'ethnicity', 'value': false },
+                { 'dropdown': 'sexualOrientation', 'value': false },
+                { 'dropdown': 'relationship', 'value': false },
+                { 'dropdown': 'musicTaste', 'value': false },
+                { 'dropdown': 'genderDrop', 'value': false },
+            ],
+            allSliders: [
+                { 'slider': 'facebook', 'value': { min: 0, max: 2500 } },
+                { 'slider': 'instagram', 'value': { min: 0, max: 2500 } },
+                { 'slider': 'twitter', 'value': { min: 0, max: 2500 } },
+                { 'slider': 'pinterest', 'value': { min: 0, max: 2500 } },
+                { 'slider': 'linkedin', 'value': { min: 0, max: 2500 } },
+                { 'slider': 'ageRange', 'value': { min: 20, max: 100 } },
+            ],
             filter1: [
                 {
                     allDropDown: [
@@ -644,12 +664,41 @@ class Analytics extends Component {
 
     render() {
         let { moreFilterData } = this.props;
-        const { analytics, allSliders, allDropDown, totalNoCompare, whichCompare } = this.state;
+        const { analytics, allSliders, allDropDown, totalNoCompare, whichCompare, filter1, filter2, filter3 } = this.state;
 
-        let allDropArr = [];
-        let allSliderArr = [];
+        let allDropArr = [{
+            filter1:[],
+            filter2:[],
+            filter3:[]
+        }];
+        let allSliderArr = [{
+            filter1:[],
+            filter2:[],
+            filter3:[]
+        }];
+        //console.log(filter1[0].allSliders);
+        let filterName = '';
+        for(let i=1;i<=3;i++){
+            filterName = 'filter'+i;
+            allSliderArr[0][filterName]['ageRange'] = _.find(filterName[0].allSliders, function (o) { return o.slider == 'ageRange'; });
+            allSliderArr[0][filterName]['facebook'] = _.find(filterName[0].allSliders, function (o) { return o.slider == 'facebook'; });
+            allSliderArr[0][filterName]['instagram'] = _.find(filterName[0].allSliders, function (o) { return o.slider == 'instagram'; });
+            allSliderArr[0][filterName]['twitter'] = _.find(filterName[0].allSliders, function (o) { return o.slider == 'twitter'; });
+            allSliderArr[0][filterName]['pinterest'] = _.find(filterName[0].allSliders, function (o) { return o.slider == 'pinterest'; });
+            allSliderArr[0][filterName]['linkedin'] = _.find(filterName[0].allSliders, function (o) { return o.slider == 'linkedin'; });
+        
+            allDropArr['jobIndustryDrop'] = _.find(allDropDown, function (o) { return o.dropdown == 'jobIndustryDrop'; });
+            allDropArr['jobTitleDrop'] = _.find(allDropDown, function (o) { return o.dropdown == 'jobTitleDrop'; });
+            allDropArr['yearInIndustry'] = _.find(allDropDown, function (o) { return o.dropdown == 'yearInIndustry'; });
+            allDropArr['education'] = _.find(allDropDown, function (o) { return o.dropdown == 'education'; });
+            allDropArr['language'] = _.find(allDropDown, function (o) { return o.dropdown == 'language'; });
+            allDropArr['ethnicity'] = _.find(allDropDown, function (o) { return o.dropdown == 'ethnicity'; });
+            allDropArr['sexualOrientation'] = _.find(allDropDown, function (o) { return o.dropdown == 'sexualOrientation'; });
 
-        allSliderArr['ageRange'] = _.find(allSliders, function (o) { return o.slider == 'ageRange'; });
+            allDropArr['relationship'] = _.find(allDropDown, function (o) { return o.dropdown == 'relationship'; });
+            allDropArr['musicTaste'] = _.find(allDropDown, function (o) { return o.dropdown == 'musicTaste'; });
+        }
+        //allSliderArr['ageRange'] = _.find(allSliders, function (o) { return o.slider == 'ageRange'; });
         let genderDropArr = _.find(allDropDown, function (o) { return o.dropdown == 'genderDrop'; });
         allDropArr['jobIndustryDrop'] = _.find(allDropDown, function (o) { return o.dropdown == 'jobIndustryDrop'; });
         allDropArr['jobTitleDrop'] = _.find(allDropDown, function (o) { return o.dropdown == 'jobTitleDrop'; });
@@ -662,11 +711,11 @@ class Analytics extends Component {
         allDropArr['relationship'] = _.find(allDropDown, function (o) { return o.dropdown == 'relationship'; });
         allDropArr['musicTaste'] = _.find(allDropDown, function (o) { return o.dropdown == 'musicTaste'; });
 
-        allSliderArr['facebook'] = _.find(allSliders, function (o) { return o.slider == 'facebook'; });
-        allSliderArr['instagram'] = _.find(allSliders, function (o) { return o.slider == 'instagram'; });
-        allSliderArr['twitter'] = _.find(allSliders, function (o) { return o.slider == 'twitter'; });
-        allSliderArr['pinterest'] = _.find(allSliders, function (o) { return o.slider == 'pinterest'; });
-        allSliderArr['linkedin'] = _.find(allSliders, function (o) { return o.slider == 'linkedin'; });
+        // allSliderArr['facebook'] = _.find(allSliders, function (o) { return o.slider == 'facebook'; });
+        // allSliderArr['instagram'] = _.find(allSliders, function (o) { return o.slider == 'instagram'; });
+        // allSliderArr['twitter'] = _.find(allSliders, function (o) { return o.slider == 'twitter'; });
+        // allSliderArr['pinterest'] = _.find(allSliders, function (o) { return o.slider == 'pinterest'; });
+        // allSliderArr['linkedin'] = _.find(allSliders, function (o) { return o.slider == 'linkedin'; });
 
         let curt_page = this.props.history.location.pathname;
         if (curt_page == routeCodes.ANALYTICS) {

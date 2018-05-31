@@ -240,7 +240,7 @@ const LocationDropDown = (props) => {
     return (
         <Dropdown isOpen={props.open} toggle={props.toggle}>
             <DropdownToggle caret >
-                {(props.isLocationFilterApply === true && props.currentVal && props.locSelect === true) ? `${props.appliedVal}` : 'Location'}
+                {(props.isLocationFilterApply === true && props.currentVal && props.appliedVal!=='') ? `${props.appliedVal}` : 'Location'}
             </DropdownToggle>
             <DropdownMenu>
 
@@ -654,6 +654,11 @@ class EverydayPeople extends Component {
         this.state = {
             perPageItem: 12,
             modal: false,
+
+            messagePopup: false,
+            messagePopupSuccessMsg: null,
+            messagePopupErrorMsg: null,
+
             activePage: 1,
             loaderShow: false,
             is_inserted: 0,
@@ -661,8 +666,8 @@ class EverydayPeople extends Component {
             authorise_disabled: false,
             forceRefreshed: false,
             groupForceRefreshed: false,
-            everyDayRefresh:false,
-            inspirePageLoad:false,
+            everyDayRefresh: false,
+            inspirePageLoad: false,
             modifyStatusPurchase: false,
             allDropDown: [
                 { 'dropdown': 'jobIndustryDrop', 'value': false },
@@ -702,7 +707,7 @@ class EverydayPeople extends Component {
             isFilterApply: false,
             isSortApply: false,
             isMoreFilterApply: false,
-            isGenderFilterApply:false,
+            isGenderFilterApply: false,
 
             age_filter_open: false,
             more_filter_open: false,
@@ -834,7 +839,7 @@ class EverydayPeople extends Component {
             }
             this.setState({ "activePage": 1 });
             this.filterSendReq(arrayFilter);
-           
+
         }
 
         if (secondParam == 'sortDrop') {
@@ -864,7 +869,11 @@ class EverydayPeople extends Component {
 
         setTimeout(() => {
             if (this.props.dropdownList === null && this.props.loading === false) {
-                alert('You don’t have a campaign yet.')
+                this.setState({
+                    messagePopupSuccessMsg: null,
+                    messagePopupErrorMsg: 'No campaign found for given user'
+                });
+                this.messagePopupToggle();
             }
         }, 2000)
     }
@@ -875,13 +884,17 @@ class EverydayPeople extends Component {
         dispatch(fetchDropDownReq({ "sendReqFor": "group", "uId": obj._id }));
         setTimeout(() => {
             if (this.props.dropdownList === null && this.props.loading === false) {
-                alert('You don’t have a group yet.')
+                this.setState({
+                    messagePopupSuccessMsg: null,
+                    messagePopupErrorMsg: 'No group found for given user'
+                });
+                this.messagePopupToggle();
             }
         }, 2000)
 
     }
 
-    addToCart = (camp_id, user_id, param1='cart') => {
+    addToCart = (camp_id, user_id, param1 = 'cart') => {
         const { dispatch, match } = this.props;
         let data = {
             'param1': param1,
@@ -985,8 +998,6 @@ class EverydayPeople extends Component {
                     <div className="festival-body" style={{ "min-height": "50px" }} >
                         <h2>
                             {obj.applied_post_description} &nbsp;
-                            {/* { (obj.at_tag) && (obj.at_tag).map(function(e){ return <a href='javascript:void(0)' >{'@'+e+' '}</a>; }) }
-                            { (obj.hash_tag) && (obj.hash_tag).map(function(e){ return <a href='javascript:void(0)' >{'#'+e+' '}</a>; }) } */}
                         </h2>
                     </div>
                     <div className="festival-ftr d-flex">
@@ -995,7 +1006,6 @@ class EverydayPeople extends Component {
                         </div>
                         <div className="festival-ftr-r dropdown">
                             <PlusAction2
-                                // addToCart={() => { this.addToCart(obj.campaign_id, obj.user_id) }}
                                 addToCart={() => { this.addToCart(obj.campaign_id, obj.applied_post_id) }}
                                 addGroup={() => { this.addGroup(obj) }}
                                 modifyStatusPurchase={() => { this.modifyStatusPurchase(obj.campaign_id, obj.user_id) }}
@@ -1007,11 +1017,8 @@ class EverydayPeople extends Component {
         );
     }
 
-    toggle = () => {
-        this.setState({
-            modal: !this.state.modal
-        });
-    }
+    toggle = () => { this.setState({ modal: !this.state.modal }); }
+    messagePopupToggle = () => { this.setState({ messagePopup: !this.state.messagePopup }); }
 
     renderLi3 = (obj) => {
         let mediaImg = {
@@ -1092,16 +1099,16 @@ class EverydayPeople extends Component {
 
 
     // componentWillReceiveProps = (prevProps,nextProps) => {
-      
+
     //     console.log('prevProps>>',prevProps);
     //     console.log('nextProps>>',nextProps);
     // }
-    
+
 
     componentWillUpdate = (nextProps, nextState) => {
 
         const { dispatch, match } = nextProps;
-        const { forceRefreshed, groupForceRefreshed ,everyDayRefresh,inspirePageLoad} = this.state;
+        const { forceRefreshed, groupForceRefreshed, everyDayRefresh, inspirePageLoad, allSliders } = this.state;
 
         //console.log('New State>>>',allSliders);
         //  if(forceRefreshed && !match.params.campaignId) {
@@ -1126,7 +1133,7 @@ class EverydayPeople extends Component {
 
         if ((forceRefreshed && !match.params.campaignId) || (groupForceRefreshed && !match.params.grpId) || (everyDayRefresh && match.path !== routeCodes.CAMPAIGN_INSPIRED_SUB)) {
             this.setState({ groupId: '' });
-            
+
             if (match.params.grpId) {
                 this.setState({ groupId: match.params.grpId, groupForceRefreshed: true });
             }
@@ -1135,11 +1142,10 @@ class EverydayPeople extends Component {
                 this.setState({ forceRefreshed: true });
             }
 
-            if(match.path !== routeCodes.CAMPAIGN_INSPIRED_SUB)
-            {
-                this.setState({everyDayRefresh:true});
+            if (match.path !== routeCodes.CAMPAIGN_INSPIRED_SUB) {
+                this.setState({ everyDayRefresh: true });
             }
-          
+
             let arrayFilter = {
                 "page_size": this.state.perPageItem,
                 "page_no": 1,
@@ -1147,26 +1153,21 @@ class EverydayPeople extends Component {
             }
             this.filterSendReq(arrayFilter);
             dispatch(moreFilterReq());
-            this.setState({ forceRefreshed: false, groupForceRefreshed: false ,everyDayRefresh:false});
-            this.setState({inspirePageLoad:true});
-
-            // this.setState({ 
-            //                     allSliders: [{ 'slider': 'ageRange', 'value': { min: 15, max: 65 } }]
-            //              });
+            this.setState({ forceRefreshed: false, groupForceRefreshed: false, everyDayRefresh: false });
+            this.setState({ inspirePageLoad: true });
         }
-        
-        if(inspirePageLoad && match.path === routeCodes.CAMPAIGN_INSPIRED_SUB)
-        {
+
+        if (inspirePageLoad && match.path === routeCodes.CAMPAIGN_INSPIRED_SUB) {
             let arrayFilter = {
                 "page_size": this.state.perPageItem,
                 "page_no": 1,
-                 groupId: match.params.grpId
+                groupId: match.params.grpId
             }
             this.filterSendReq(arrayFilter);
             dispatch(moreFilterReq());
-            this.setState({inspirePageLoad : false});
+            this.setState({ inspirePageLoad: false });
 
-            this.setState({everyDayRefresh:true});
+            this.setState({ everyDayRefresh: true });
         }
 
         // if(match.path === routeCodes.EVERYDAYPEOPLE)
@@ -1176,7 +1177,6 @@ class EverydayPeople extends Component {
     }
 
     componentWillMount() {
-
         const { dispatch, match } = this.props;
         this.setState({ groupId: '' });
         if (match.params.grpId) {
@@ -1186,13 +1186,12 @@ class EverydayPeople extends Component {
             this.setState({ forceRefreshed: true });
         }
 
-        if(match.path === routeCodes.CAMPAIGN_INSPIRED_SUB)
-        {
-            this.setState({everyDayRefresh:true});
+        if (match.path === routeCodes.CAMPAIGN_INSPIRED_SUB) {
+            this.setState({ everyDayRefresh: true });
         }
-       
-        this.setState({inspirePageLoad:true});
-        
+
+        this.setState({ inspirePageLoad: true });
+
         let arrayFilter = {
             "page_size": this.state.perPageItem,
             "page_no": 1,
@@ -1232,12 +1231,20 @@ class EverydayPeople extends Component {
             this.props.history.push(routeCodes.MY_CART);
         }
 
-        if (userAdded===true && error===false) {
-            alert(userAddedMsg);
+        if (userAdded === true && error === false) {
+            this.setState({
+                messagePopupSuccessMsg: userAddedMsg,
+                messagePopupErrorMsg: null
+            });
+            this.messagePopupToggle();
             dispatch(resetVal({ 'userAdded': false, 'userAddedMsg': null, 'error': null }));
             dispatch(resetGroupVal());
-        } else if (userAdded===false && error===true) {
-            alert(userAddedMsg);
+        } else if (userAdded === false && error === true) {
+            this.setState({
+                messagePopupSuccessMsg: null,
+                messagePopupErrorMsg: userAddedMsg
+            });
+            this.messagePopupToggle();
             dispatch(resetVal({ 'userAdded': false, 'userAddedMsg': null, 'error': null }));
             dispatch(resetGroupVal());
         }
@@ -1288,76 +1295,40 @@ class EverydayPeople extends Component {
         this.age_filter_toggle();
         this.setState({
             isAgeFilterApply: true
-        })    
+        })
     }
 
     setLocationFilter = (tempLocation) => {
+        if(tempLocation==='' || (tempLocation!=='' && tempLocation.trim()!=='')){
+            const { allSliders, appliedFilter, allDropDown, address } = this.state;
+            const { dispatch } = this.props;
 
-        const { allSliders, appliedFilter, allDropDown, address,locSelect } = this.state;
-        const { dispatch } = this.props;
-        // console.log('Set filter >>',address);
-        // this.setState({ 
-        //     isLocationFilterApply: true,
-        //     address: tempLocation
-        // })
-        // return;
+            let locationFilterIndex = _.findIndex(appliedFilter[0]['filter'], function (o) { return o.field == 'location'; });
+            let filteredArr = appliedFilter[0]['filter'];
 
-        console.log('Address 1>>',address);
-        console.log('Location 2>>',tempLocation);
-        
-        //(!validator.matches(values.group_name, /^[A-Za-z_]/i)
+            // Check if age filter is applied or not...
+            if (locationFilterIndex === -1) {
+                filteredArr.push({ "field": "location", "type": "like", "value": tempLocation })
+                this.setState({ 'appliedFilter': [{ 'filter': filteredArr }] });
+            } else {
+                let arrIndex = _.findIndex(filteredArr, { "field": "location" });
+                filteredArr.splice(arrIndex, 1, { "field": "location", "type": "like", "value": tempLocation });
+                this.setState({ 'appliedFilter': [{ 'filter': filteredArr }] });
+            }
 
-        // if(!validator.matches(tempLocation, /^[a-zA-z0-9_]/i))
-        // {
-        //     this.setState({locSelect:false});
-        // }
-
-        console('trime>>>',tempLocation.trime())
-
-        let locationFilterIndex = _.findIndex(appliedFilter[0]['filter'], function (o) { return o.field == 'location'; });
-        let filteredArr = appliedFilter[0]['filter'];
-
-        // Check if age filter is applied or not...
-
-        if (locationFilterIndex === -1) {
-            filteredArr.push({ "field": "location", "type": "like", "value": tempLocation })
-            this.setState({ 'appliedFilter': [{ 'filter': filteredArr }] });
-        } else {
-            let arrIndex = _.findIndex(filteredArr, { "field": "location" });
-            filteredArr.splice(arrIndex, 1, { "field": "location", "type": "like", "value": tempLocation });
-            this.setState({ 'appliedFilter': [{ 'filter': filteredArr }] });
-        }
-
-        let sortDropArr = _.find(allDropDown, function (o) { return o.dropdown == 'sortDrop'; });
-        let arrayFilter = {
-            "filter": this.state.appliedFilter[0]['filter'],
-            "sort": [{ "field": "name", "value": parseInt(sortDropArr['value']['value']) }],
-            "page_size": this.state.perPageItem,
-            "page_no": 1
-        }
-        this.setState({ "activePage": 1 });
-        this.filterSendReq(arrayFilter);
-        this.location_filter_toggle();
-       
-        // this.setState({
-        //     isLocationFilterApply: true,
-        //     address: tempLocation,
-        // })
-
-        if(!validator.matches(tempLocation, /^[a-zA-z0-9_]/i))
-        {
-                    this.setState({
-                        isLocationFilterApply: true,
-                        address: tempLocation,
-                        locSelect:false
-                    })
-        }
-        else
-        {
+            let sortDropArr = _.find(allDropDown, function (o) { return o.dropdown == 'sortDrop'; });
+            let arrayFilter = {
+                "filter": this.state.appliedFilter[0]['filter'],
+                "sort": [{ "field": "name", "value": parseInt(sortDropArr['value']['value']) }],
+                "page_size": this.state.perPageItem,
+                "page_no": 1
+            }
+            this.setState({ "activePage": 1 });
+            this.filterSendReq(arrayFilter);
+            this.location_filter_toggle();
             this.setState({
                 isLocationFilterApply: true,
-                address: tempLocation,
-                locSelect:true
+                address: tempLocation
             })
         }
     }
@@ -1531,7 +1502,7 @@ class EverydayPeople extends Component {
         allSliderArr['ageRange'] = _.find(allSliders, function (o) { return o.slider == 'ageRange'; });
 
         // if (loading) { return (<div className="loader"></div>) }
-       
+
         return (
             <div className="every-people">
                 {(loading) ? <div className="loader" style={{ "zIndex": "999999999" }}></div> : ''}
@@ -1667,7 +1638,7 @@ class EverydayPeople extends Component {
                         </h3>
                         {
                             (this.state.isAgeFilterApply === true || this.state.isMoreFilterApply === true || this.state.isLocationFilterApply === true) ?
-                                ((match.params.campaignId === null || match.params.campaignId === undefined) && match.path !== routeCodes.CAMPAIGN_INSPIRED_SUB && users.status===1) ?
+                                ((match.params.campaignId === null || match.params.campaignId === undefined) && match.path !== routeCodes.CAMPAIGN_INSPIRED_SUB && users.status === 1) ?
                                     <a className="cursor_pointer" onClick={this.toggle}>
                                         <i className="fa fa-plus"></i>
                                         Save the results as a Group
@@ -1704,7 +1675,7 @@ class EverydayPeople extends Component {
                                     :
                                     <ul className="all-people-ul d-flex">
                                         {
-                                            (users.status === 1 && users.data !== undefined) ? 
+                                            (users.status === 1 && users.data !== undefined) ?
                                                 users.data.map((obj, index) => (this.renderLi(obj)))
                                                 :
                                                 (loading) ? ''
@@ -1740,6 +1711,29 @@ class EverydayPeople extends Component {
                     </button>
                     <h2>Create Group</h2>
                     <CreateGroupForm onSubmit={this.createGroupSubmit} submitDisabled={this.state.authorise_disabled} />
+                </Modal>
+
+                <Modal isOpen={this.state.messagePopup} toggle={this.messagePopupToggle} className={this.props.className} id="congratulations" style={{ width: "550px" }}>
+                    <div className="custom_modal_btn_close" style={{ padding: "15px 20px" }}>
+                        <img className="cursor_pointer" src={closeImg2} onClick={() => this.messagePopupToggle()} />
+                    </div>
+                    <ModalBody>
+                        {
+                            (this.state.messagePopupSuccessMsg) ?
+                                <div className="terms-conditions">
+                                    <h2>Operation successfully completed...! </h2>
+                                    <p>{this.state.messagePopupSuccessMsg}</p>
+                                    <a href="javascript:void(0)" className="round-btn" onClick={() => this.messagePopupToggle()}>Ok</a>
+                                </div>
+                            :
+                                <div className="terms-conditions">
+                                    <h2 style={{color : "red"}}>Opps something went wrong...! </h2>
+                                    <p>{this.state.messagePopupErrorMsg}</p>
+                                    <a href="javascript:void(0)" className="round-btn" onClick={() => this.messagePopupToggle()}>Ok</a>
+                                </div>
+                        }
+
+                    </ModalBody>
                 </Modal>
             </div>
         );
