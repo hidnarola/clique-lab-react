@@ -38,7 +38,7 @@ class Cart extends React.Component {
 	}
 
 	renderTr = (obj) => {
-		console.log(">++>>",obj);	
+		
 		return (
 			<tr key={Math.random()}>
 				<td><img src={`${imgRoutes.CAMPAIGN_POST_IMG_PATH}${obj.applied_post.image}`} alt="" /></td>
@@ -65,7 +65,8 @@ class Cart extends React.Component {
 				<div className="all-people-head">
 					<h3>Total {(carts.status === 1) ? (carts.data).length : 0} products in Cart</h3>
 				</div>
-				{carts.data === null ? <div className="no_data_found"><img src={nodataImg} /></div> :
+				{/* <img src={nodataImg} /> */}
+				{carts.data === null ? <div className="no_data_found"></div> :
 				<div className="analytics-body content-box">
 					<div className="cart-table">
 						<table className="table">

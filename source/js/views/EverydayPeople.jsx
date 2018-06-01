@@ -39,6 +39,7 @@ import {
 import cx from "classnames";
 import { select } from 'redux-saga/effects';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
+import validator from 'validator';
 
 class AddToModal extends Component {
 
@@ -231,6 +232,7 @@ const AddAllResults = (props) => {
  *
  **/
 const LocationDropDown = (props) => {
+
     return (
         <Dropdown isOpen={props.open} toggle={props.toggle}>
             <DropdownToggle caret >
@@ -1097,6 +1099,7 @@ class EverydayPeople extends Component {
         const { dispatch, match } = nextProps;
         const { forceRefreshed, groupForceRefreshed, everyDayRefresh, inspirePageLoad, allSliders } = this.state;
 
+        //console.log('New State>>>',allSliders);
         //  if(forceRefreshed && !match.params.campaignId) {
         //     this.setState({ groupId: '' });
         //     if (match.params.grpId) {

@@ -16,6 +16,7 @@ class CampaignList extends Component {
 
     render() {
 		let curt_page  = this.props.history.location.pathname;
+		console.log('path>>',this.props);
         return (
             <div className="profile-page">
 				<div className="profile-head d-flex campaigns-links">
@@ -34,7 +35,9 @@ class CampaignList extends Component {
 					<Route path={routeCodes.CAMPAIGN_FUTURE} component={CampaignFuture} />
 					<Route path={routeCodes.CAMPAIGN_PAST} component={CampaignPast} />
 				</Switch> */}
-				{ curt_page==routeCodes.CAMPAIGNS && <CampaignActive />}
+				{/* { curt_page==routeCodes.CAMPAIGNS && <CampaignActive />} */}
+				{ curt_page=='/campaigns' && this.props.history.push('/campaigns/active_list')}
+				{ curt_page=='/campaigns/' && this.props.history.push('/campaigns/active_list')}
 				{ curt_page==routeCodes.CAMPAIGN_ACTIVE && <CampaignActive />}
 				{ curt_page==routeCodes.CAMPAIGN_ACTIVE+'/' && <CampaignActive />}
 				{ curt_page==routeCodes.CAMPAIGN_FUTURE && <CampaignFuture />}
