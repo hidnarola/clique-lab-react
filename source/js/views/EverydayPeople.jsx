@@ -146,53 +146,49 @@ class AddToModal extends Component {
     }
 }
 
-const DropDownSocial = () => {
+const DropDownSocial = (userObj) => {
+    let followers, fb, linkd, insta, twit, pint = 0;
+    if(userObj.userObj.facebook!==undefined){ if(userObj.userObj.facebook.no_of_friends!==undefined){ fb = userObj.userObj.facebook.no_of_friends; }else{ fb=0; }}else { fb=0;}
+    if(userObj.userObj.instagram!==undefined){ if(userObj.userObj.instagram.no_of_friends!==undefined){ insta = userObj.userObj.instagram.no_of_friends; }else{ insta=0; }}else { insta=0;}
+    if(userObj.userObj.linkedin!==undefined){ if(userObj.userObj.linkedin.no_of_friends!==undefined){ linkd = userObj.userObj.linkedin.no_of_friends; }else{ linkd=0; }}else { linkd=0;}
+    if(userObj.userObj.pinterest!==undefined){ if(userObj.userObj.pinterest.no_of_friends!==undefined){ pint = userObj.userObj.pinterest.no_of_friends; }else{ pint=0; }}else { pint=0;}
+    if(userObj.userObj.twitter!==undefined){ if(userObj.userObj.twitter.no_of_friends!==undefined){ twit = userObj.userObj.twitter.no_of_friends; }else{ twit=0; }}else { twit=0;}
     return (
         <UncontrolledDropdown direction="up">
             <DropdownToggle caret>
-                1036 Follower
+                {fb + insta + linkd + pint + twit} Followers
                 <i className="dropdown-arrow"></i>
             </DropdownToggle>
             <DropdownMenu>
                 <ul>
                     <li>
-                        <a >
-                            <i>
-                                <img src={fbImg} alt="" />
-                            </i>
-                            <span>823</span>
+                        <a>
+                            <i><img src={fbImg}/></i>
+                            <span>{fb}</span>
                         </a>
                     </li>
                     <li>
-                        <a >
-                            <i>
-                                <img src={linkedImg} alt="" />
-                            </i>
-                            <span>1.1k</span>
+                        <a>
+                            <i><img src={linkedImg} /></i>
+                            <span>{linkd}</span>
                         </a>
                     </li>
                     <li>
-                        <a >
-                            <i>
-                                <img src={pinImg} alt="" />
-                            </i>
-                            <span>432</span>
+                        <a>
+                            <i><img src={pinImg} /></i>
+                            <span>{pint}</span>
                         </a>
                     </li>
                     <li>
-                        <a >
-                            <i>
-                                <img src={twitterImg} alt="" />
-                            </i>
-                            <span>240</span>
+                        <a>
+                            <i><img src={twitterImg} /></i>
+                            <span>{twit}</span>
                         </a>
                     </li>
                     <li>
-                        <a >
-                            <i>
-                                <img src={instaImg} alt="" />
-                            </i>
-                            <span>240</span>
+                        <a>
+                            <i><img src={instaImg} /></i>
+                            <span>{insta}</span>
                         </a>
                     </li>
                 </ul>
@@ -872,7 +868,7 @@ class EverydayPeople extends Component {
                 });
                 this.messagePopupToggle();
             }
-        }, 2000)
+        }, 1000)
     }
 
     addGroup = (obj) => {
@@ -887,7 +883,7 @@ class EverydayPeople extends Component {
                 });
                 this.messagePopupToggle();
             }
-        }, 2000)
+        }, 1000)
 
     }
 
@@ -939,14 +935,6 @@ class EverydayPeople extends Component {
             <li key={Math.random()}>
                 <div className="all-people-div">
                     <div className="all-people-img" style={{ "background": "url('" + img + "') no-repeat 100%", "backgroundSize": "100%", "height": "190px" }}>
-                        {/* <a>
-                            {
-                                (obj.is_image == 0) ?
-                                    <img src={obj.image} style={{ "height": "190px" }} />
-                                    :
-                                    <img src={imgRoutes.USER_IMG_PATH + obj.image} style={{ "height": "190px" }} />
-                            }
-                        </a> */}
                         <div className="plus-people dropdown">
                             <PlusAction
                                 addCampaign={() => { this.addCampaign(obj) }}
@@ -957,7 +945,9 @@ class EverydayPeople extends Component {
                     </div>
                     <div className="all-people-content d-flex">
                         <h4>{obj.name}</h4>
-                        <DropDownSocial />
+                        <DropDownSocial 
+                            userObj={obj}
+                        />
                     </div>
                 </div>
             </li>
