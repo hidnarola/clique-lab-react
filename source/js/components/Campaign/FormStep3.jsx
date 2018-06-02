@@ -42,6 +42,7 @@ const validate = values => {
 
 let SelectField_ReactSelect5 = (props) => {
     const { label, input, meta, selectedValue, wrapperClass, className, labelClass, placeholder, errorClass, initialValue, options, isRequired } = props;
+    //let val = 'public';
     let val = 'public';
     if (input.value && Object.keys(input.value).length > 0) {
         val = input.value;
@@ -59,7 +60,7 @@ let SelectField_ReactSelect5 = (props) => {
                 className={`${className}${meta.touched && ((meta.error && ' txt_error_div') || (meta.warning && ' txt_error_div'))}`}
                 placeholder={placeholder}
                 onChange={(value) => input.onChange(value)}
-                //onBlur={() => input.onBlur({ ...input.value })}
+                onBlur={() => input.onBlur({ ...input.value })}
                 multi={false}
                 clearable={false}
                 selectedValue={selectedValue}

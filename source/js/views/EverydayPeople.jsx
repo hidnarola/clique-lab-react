@@ -236,7 +236,7 @@ const LocationDropDown = (props) => {
     return (
         <Dropdown isOpen={props.open} toggle={props.toggle}>
             <DropdownToggle caret >
-                {(props.isLocationFilterApply === true && props.currentVal && props.appliedVal!=='') ? `${props.appliedVal}` : 'Location'}
+                {(props.isLocationFilterApply === true && props.currentVal && props.appliedVal !== '') ? `${props.appliedVal}` : 'Location'}
             </DropdownToggle>
             <DropdownMenu>
 
@@ -267,6 +267,7 @@ const LocationDropDown = (props) => {
                             </div>
                         )}
                     </PlacesAutocomplete>
+                    {props.appliedVal === '' ? <span style={{ "color": "red" }}>{props.msg}</span> : ''}
                 </div>
                 <div className="ftr-btn">
                     <button className="bdr-btn" onClick={() => props.setLocationFilter()} >Apply</button>
@@ -677,7 +678,8 @@ class EverydayPeople extends Component {
                 { 'dropdown': 'musicTaste', 'value': false },
 
                 { 'dropdown': 'genderDrop', 'value': false },
-                { 'dropdown': 'sortDrop', 'value': { value: 1, label: "Name ASC" } },
+                //{ 'dropdown': 'sortDrop', 'value': { value: 1, label: "Name ASC" } },
+                { 'dropdown': 'sortDrop', 'value': { value: 1, label: "Sort" } },
             ],
 
             allSliders: [
@@ -713,6 +715,7 @@ class EverydayPeople extends Component {
             tempLocation: '',
             isLocationFilterApply: false,
             location_filter_open: false,
+            locError: '',
 
             showCamp: false
         };
@@ -767,7 +770,7 @@ class EverydayPeople extends Component {
     }
 
     age_filter_toggle() { this.setState({ age_filter_open: !this.state.age_filter_open }); }
-    location_filter_toggle() { this.setState({ location_filter_open: !this.state.location_filter_open }); }
+    location_filter_toggle() { this.setState({ location_filter_open: !this.state.location_filter_open, locError: '' }); }
     add_all_results_toggle() { this.setState({ add_all_results_open: !this.state.add_all_results_open }); }
 
     filterSendReq = (data) => {
@@ -1086,13 +1089,45 @@ class EverydayPeople extends Component {
     //     dispatch(moreFilterReq());
     // }
 
+    resetPreviousFilter_on_page_change()
+    {
+        this.setState({
+                allDropDown: [
+                    { 'dropdown': 'jobIndustryDrop', 'value': false },
+                    { 'dropdown': 'jobTitleDrop', 'value': false },
+                    { 'dropdown': 'yearInIndustry', 'value': false },
+                    { 'dropdown': 'education', 'value': false },
+                    { 'dropdown': 'language', 'value': false },
+                    { 'dropdown': 'ethnicity', 'value': false },
+                    { 'dropdown': 'sexualOrientation', 'value': false },
+                    { 'dropdown': 'relationship', 'value': false },
+                    { 'dropdown': 'musicTaste', 'value': false },
 
-    // componentWillReceiveProps = (prevProps,nextProps) => {
+                    { 'dropdown': 'genderDrop', 'value': false },
+                    // { 'dropdown': 'sortDrop', 'value': { value: 1, label: "Name ASC" } },
+                    { 'dropdown': 'sortDrop', 'value': { value: 1, label: "Sort" } },
+                ],
 
-    //     console.log('prevProps>>',prevProps);
-    //     console.log('nextProps>>',nextProps);
-    // }
+                allSliders: [
+                    { 'slider': 'facebook', 'value': { min: 0, max: 2500 } },
+                    { 'slider': 'instagram', 'value': { min: 0, max: 2500 } },
+                    { 'slider': 'twitter', 'value': { min: 0, max: 2500 } },
+                    { 'slider': 'pinterest', 'value': { min: 0, max: 2500 } },
+                    { 'slider': 'linkedin', 'value': { min: 0, max: 2500 } },
+                    { 'slider': 'ageRange', 'value': { min: 15, max: 65 } },
+                ],
+                appliedFilter: [
+                                    {
+                                        "filter": [] // {"field":"gender","type":"exact","value":"female"}
+                                    }
+                                ],
+                isAgeFilterApply:false,
+                isLocationFilterApply:false,
+                tempLocation:'',
+                address:'',
 
+            });
+    }
 
     componentWillUpdate = (nextProps, nextState) => {
 
@@ -1144,6 +1179,10 @@ class EverydayPeople extends Component {
             dispatch(moreFilterReq());
             this.setState({ forceRefreshed: false, groupForceRefreshed: false, everyDayRefresh: false });
             this.setState({ inspirePageLoad: true });
+
+            // DM to clear all filter previously applied
+            this.resetPreviousFilter_on_page_change();
+
         }
 
         if (inspirePageLoad && match.path === routeCodes.CAMPAIGN_INSPIRED_SUB) {
@@ -1288,7 +1327,7 @@ class EverydayPeople extends Component {
     }
 
     setLocationFilter = (tempLocation) => {
-        if(tempLocation==='' || (tempLocation!=='' && tempLocation.trim()!=='')){
+        if (tempLocation === '' || (tempLocation !== '' && tempLocation.trim() !== '')) {
             const { allSliders, appliedFilter, allDropDown, address } = this.state;
             const { dispatch } = this.props;
 
@@ -1317,8 +1356,17 @@ class EverydayPeople extends Component {
             this.location_filter_toggle();
             this.setState({
                 isLocationFilterApply: true,
-                address: tempLocation
+                address: tempLocation,
             })
+            //this.resetPreviousFilter_on_page_change();
+        }
+        else {
+            this.setState({
+                isLocationFilterApply: false,
+                address: '',
+                locError: 'Please,Enter Valid location'
+            })
+            //this.resetPreviousFilter_on_page_change();
         }
     }
 
@@ -1534,6 +1582,7 @@ class EverydayPeople extends Component {
                                     isLocationFilterApply={this.state.isLocationFilterApply}
                                     open={this.state.location_filter_open}
                                     toggle={this.location_filter_toggle}
+                                    msg={this.state.locError}
                                 />
                             </li>
                             <li>
@@ -1570,7 +1619,7 @@ class EverydayPeople extends Component {
                                             searchable={false}
                                             clearable={false}
                                             autosize={false}
-                                            placeholder="Select"
+                                            placeholder="Sort"
                                             options={[
                                                 { value: '1', label: 'Name ASC' },
                                                 { value: '-1', label: 'Name DESC' },
@@ -1713,9 +1762,9 @@ class EverydayPeople extends Component {
                                     <p>{this.state.messagePopupSuccessMsg}</p>
                                     <a href="javascript:void(0)" className="round-btn" onClick={() => this.messagePopupToggle()}>Ok</a>
                                 </div>
-                            :
+                                :
                                 <div className="terms-conditions">
-                                    <h2 style={{color : "red"}}>Opps something went wrong...! </h2>
+                                    <h2 style={{ color: "red" }}>Opps something went wrong...! </h2>
                                     <p>{this.state.messagePopupErrorMsg}</p>
                                     <a href="javascript:void(0)" className="round-btn" onClick={() => this.messagePopupToggle()}>Ok</a>
                                 </div>
