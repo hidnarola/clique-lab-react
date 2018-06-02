@@ -84,9 +84,10 @@ class Active extends Component {
                 <li key={Math.random()}>
                     <div className="all-people-div">
                         <div className="all-people-img">
-                            <Link className="cursor_pointer" to={`${routeCodes.CAMPAIGN_ACTIVE}/${obj._id}`}>
+                        <div className="cursor_pointer" onClick={() => this.props.history.push(`${routeCodes.CAMPAIGN_ACTIVE}/${obj._id}`)} style={{ "background": "url('" + imgRoutes.CAMPAIGN_IMG_PATH+'/'+obj.cover_image + "') no-repeat 100%", "backgroundSize": "100%", "height": "190px" }}></div>
+                            {/* <Link className="cursor_pointer" to={`${routeCodes.CAMPAIGN_ACTIVE}/${obj._id}`}>
                                 <img src={`${imgRoutes.CAMPAIGN_IMG_PATH}${obj.cover_image}`} alt="" className="campaign_list_img" />
-                            </Link>
+                            </Link> */}
                             <PlusAction showDeleteAlert={this.showDeleteAlert} selectedId={obj._id}/>
                         </div>
                         <div className="all-people-content">
