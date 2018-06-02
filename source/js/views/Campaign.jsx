@@ -25,7 +25,8 @@ class Campaign extends Component {
             page: 1,
             contentBody: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
             modal: false,
-            submit_disabled: false
+            submit_disabled: false,
+            popUp:''
         };
         this.submitForm = this.submitForm.bind(this);
     }
@@ -105,7 +106,15 @@ class Campaign extends Component {
                 });
             }
             //formData.append("board_image",values.imagesNew);
-            dispatch(createCampaign(formData))
+
+            this.setState({popUp:public_or_private},()=>{
+                
+                //console.log('POPUP:>>>',this.state.popUp);
+                dispatch(createCampaign(formData))
+            });
+
+            //dispatch(createCampaign(formData))
+
             this.setState({isRedirect:true});
         });
     }
@@ -180,11 +189,19 @@ class Campaign extends Component {
                         </button>
                         </ModalHeader> */}
                         <ModalBody style={{"padding":"40px 80px 40px"}}>
+                            {(this.state.popUp === 'invite') ? 
                             <div className="terms-conditions">
                                 <h2>Congratulations, your Campaign has been started!</h2>
                                 <p>Lets go ahead and add some Everyday People to your Campaign.Click the button below to add people to your Campaign.You can add people at any time using the 'Everyday People' Navigation</p>
                                 <Link className="round-btn" to={routeCodes.EVERYDAYPEOPLE} >Select People</Link>
                             </div>
+                            :
+                            <div className="terms-conditions">
+                                <h2>Congratulation, your campaign has been started!</h2>
+                                <p>You can review all your campaigns on the Campaigns page.</p>
+                                <Link className="round-btn" to={routeCodes.CAMPAIGN_ACTIVE} >Campaigns</Link>
+                            </div>
+                            }
                         </ModalBody>
                     </Modal>
                 }

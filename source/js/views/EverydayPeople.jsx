@@ -149,11 +149,11 @@ class AddToModal extends Component {
 
 const DropDownSocial = (userObj) => {
     let followers, fb, linkd, insta, twit, pint = 0;
-    if(userObj.userObj.facebook!==undefined){ if(userObj.userObj.facebook.no_of_friends!==undefined){ fb = userObj.userObj.facebook.no_of_friends; }else{ fb=0; }}else { fb=0;}
-    if(userObj.userObj.instagram!==undefined){ if(userObj.userObj.instagram.no_of_friends!==undefined){ insta = userObj.userObj.instagram.no_of_friends; }else{ insta=0; }}else { insta=0;}
-    if(userObj.userObj.linkedin!==undefined){ if(userObj.userObj.linkedin.no_of_friends!==undefined){ linkd = userObj.userObj.linkedin.no_of_friends; }else{ linkd=0; }}else { linkd=0;}
-    if(userObj.userObj.pinterest!==undefined){ if(userObj.userObj.pinterest.no_of_friends!==undefined){ pint = userObj.userObj.pinterest.no_of_friends; }else{ pint=0; }}else { pint=0;}
-    if(userObj.userObj.twitter!==undefined){ if(userObj.userObj.twitter.no_of_friends!==undefined){ twit = userObj.userObj.twitter.no_of_friends; }else{ twit=0; }}else { twit=0;}
+    if (userObj.userObj.facebook !== undefined) { if (userObj.userObj.facebook.no_of_friends !== undefined) { fb = userObj.userObj.facebook.no_of_friends; } else { fb = 0; } } else { fb = 0; }
+    if (userObj.userObj.instagram !== undefined) { if (userObj.userObj.instagram.no_of_friends !== undefined) { insta = userObj.userObj.instagram.no_of_friends; } else { insta = 0; } } else { insta = 0; }
+    if (userObj.userObj.linkedin !== undefined) { if (userObj.userObj.linkedin.no_of_friends !== undefined) { linkd = userObj.userObj.linkedin.no_of_friends; } else { linkd = 0; } } else { linkd = 0; }
+    if (userObj.userObj.pinterest !== undefined) { if (userObj.userObj.pinterest.no_of_friends !== undefined) { pint = userObj.userObj.pinterest.no_of_friends; } else { pint = 0; } } else { pint = 0; }
+    if (userObj.userObj.twitter !== undefined) { if (userObj.userObj.twitter.no_of_friends !== undefined) { twit = userObj.userObj.twitter.no_of_friends; } else { twit = 0; } } else { twit = 0; }
     return (
         <UncontrolledDropdown direction="up">
             <DropdownToggle caret>
@@ -164,7 +164,7 @@ const DropDownSocial = (userObj) => {
                 <ul>
                     <li>
                         <a>
-                            <i><img src={fbImg}/></i>
+                            <i><img src={fbImg} /></i>
                             <span>{fb}</span>
                         </a>
                     </li>
@@ -267,7 +267,7 @@ const LocationDropDown = (props) => {
                             </div>
                         )}
                     </PlacesAutocomplete>
-                    {props.appliedVal === '' ? <span style={{ "color": "red" }}>{props.msg}</span> : ''}
+                    {/* {props.appliedVal === '' ? <span style={{ "color": "red" }}>{props.msg}</span> : ''} */}
                 </div>
                 <div className="ftr-btn">
                     <button className="bdr-btn" onClick={() => props.setLocationFilter()} >Apply</button>
@@ -769,7 +769,12 @@ class EverydayPeople extends Component {
         }
     }
 
-    age_filter_toggle() { this.setState({ age_filter_open: !this.state.age_filter_open }); }
+    age_filter_toggle() {
+        this.setState({
+            age_filter_open: !this.state.age_filter_open,
+        });
+    }
+
     location_filter_toggle() { this.setState({ location_filter_open: !this.state.location_filter_open, locError: '' }); }
     add_all_results_toggle() { this.setState({ add_all_results_open: !this.state.add_all_results_open }); }
 
@@ -950,7 +955,7 @@ class EverydayPeople extends Component {
                     </div>
                     <div className="all-people-content d-flex">
                         <h4>{obj.name}</h4>
-                        <DropDownSocial 
+                        <DropDownSocial
                             userObj={obj}
                         />
                     </div>
@@ -1089,44 +1094,43 @@ class EverydayPeople extends Component {
     //     dispatch(moreFilterReq());
     // }
 
-    resetPreviousFilter_on_page_change()
-    {
+    resetPreviousFilter_on_page_change() {
         this.setState({
-                allDropDown: [
-                    { 'dropdown': 'jobIndustryDrop', 'value': false },
-                    { 'dropdown': 'jobTitleDrop', 'value': false },
-                    { 'dropdown': 'yearInIndustry', 'value': false },
-                    { 'dropdown': 'education', 'value': false },
-                    { 'dropdown': 'language', 'value': false },
-                    { 'dropdown': 'ethnicity', 'value': false },
-                    { 'dropdown': 'sexualOrientation', 'value': false },
-                    { 'dropdown': 'relationship', 'value': false },
-                    { 'dropdown': 'musicTaste', 'value': false },
+            allDropDown: [
+                { 'dropdown': 'jobIndustryDrop', 'value': false },
+                { 'dropdown': 'jobTitleDrop', 'value': false },
+                { 'dropdown': 'yearInIndustry', 'value': false },
+                { 'dropdown': 'education', 'value': false },
+                { 'dropdown': 'language', 'value': false },
+                { 'dropdown': 'ethnicity', 'value': false },
+                { 'dropdown': 'sexualOrientation', 'value': false },
+                { 'dropdown': 'relationship', 'value': false },
+                { 'dropdown': 'musicTaste', 'value': false },
 
-                    { 'dropdown': 'genderDrop', 'value': false },
-                    // { 'dropdown': 'sortDrop', 'value': { value: 1, label: "Name ASC" } },
-                    { 'dropdown': 'sortDrop', 'value': { value: 1, label: "Sort" } },
-                ],
+                { 'dropdown': 'genderDrop', 'value': false },
+                // { 'dropdown': 'sortDrop', 'value': { value: 1, label: "Name ASC" } },
+                { 'dropdown': 'sortDrop', 'value': { value: 1, label: "Sort" } },
+            ],
 
-                allSliders: [
-                    { 'slider': 'facebook', 'value': { min: 0, max: 2500 } },
-                    { 'slider': 'instagram', 'value': { min: 0, max: 2500 } },
-                    { 'slider': 'twitter', 'value': { min: 0, max: 2500 } },
-                    { 'slider': 'pinterest', 'value': { min: 0, max: 2500 } },
-                    { 'slider': 'linkedin', 'value': { min: 0, max: 2500 } },
-                    { 'slider': 'ageRange', 'value': { min: 15, max: 65 } },
-                ],
-                appliedFilter: [
-                                    {
-                                        "filter": [] // {"field":"gender","type":"exact","value":"female"}
-                                    }
-                                ],
-                isAgeFilterApply:false,
-                isLocationFilterApply:false,
-                tempLocation:'',
-                address:'',
+            allSliders: [
+                { 'slider': 'facebook', 'value': { min: 0, max: 2500 } },
+                { 'slider': 'instagram', 'value': { min: 0, max: 2500 } },
+                { 'slider': 'twitter', 'value': { min: 0, max: 2500 } },
+                { 'slider': 'pinterest', 'value': { min: 0, max: 2500 } },
+                { 'slider': 'linkedin', 'value': { min: 0, max: 2500 } },
+                { 'slider': 'ageRange', 'value': { min: 15, max: 65 } },
+            ],
+            appliedFilter: [
+                {
+                    "filter": [] // {"field":"gender","type":"exact","value":"female"}
+                }
+            ],
+            isAgeFilterApply: false,
+            isLocationFilterApply: false,
+            tempLocation: '',
+            address: '',
 
-            });
+        });
     }
 
     componentWillUpdate = (nextProps, nextState) => {
@@ -1196,6 +1200,9 @@ class EverydayPeople extends Component {
             this.setState({ inspirePageLoad: false });
 
             this.setState({ everyDayRefresh: true });
+            
+            // DM to clear all filter previously applied
+            this.resetPreviousFilter_on_page_change();
         }
 
         // if(match.path === routeCodes.EVERYDAYPEOPLE)
@@ -1358,15 +1365,15 @@ class EverydayPeople extends Component {
                 isLocationFilterApply: true,
                 address: tempLocation,
             })
-            //this.resetPreviousFilter_on_page_change();
+
         }
         else {
             this.setState({
                 isLocationFilterApply: false,
                 address: '',
-                locError: 'Please,Enter Valid location'
+                //locError: 'Please,Enter Valid location'
             })
-            //this.resetPreviousFilter_on_page_change();
+            
         }
     }
 
@@ -1582,7 +1589,7 @@ class EverydayPeople extends Component {
                                     isLocationFilterApply={this.state.isLocationFilterApply}
                                     open={this.state.location_filter_open}
                                     toggle={this.location_filter_toggle}
-                                    msg={this.state.locError}
+                                    //msg={this.state.locError}
                                 />
                             </li>
                             <li>
