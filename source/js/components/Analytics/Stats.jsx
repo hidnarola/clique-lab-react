@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import graph from 'img/site/graph.jpg';
-import { BarChart } from 'react-d3-components';
+// import { BarChart } from 'react-d3-components';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'Recharts';
 
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem, UncontrolledDropdown } from 'reactstrap';
 
+class StackedBarChart extends Component {
+
+}
 
 class Stats extends Component {
-
     constructor(props) {
         super(props);
         this.state = {
@@ -22,20 +25,6 @@ class Stats extends Component {
         }
     }
 
-    // componentWillReceiveProps = (nextProps) => {
-    //     let analytics = nextProps.analyticsData;
-    //     console.log(nextProps.analyticsData);
-    //     this.setState({
-    //         analytics:{
-    //             'avg_cost_per_purchase': 0,
-    //             'purchased_post': 0,
-    //             'applicants': analytics.number_of_appplicants,
-    //             'total_spend': 0,
-    //             'reach_total': 0,
-    //             'engage_total': 0,
-    //         }
-    //     })
-    // }
 
     renderLi = (obj) => {
         return (
@@ -82,60 +71,133 @@ class Stats extends Component {
 
     render() {
         const { analyticsData } = this.props;
-        let data = [{
-            label: 'somethingA',
-            values: [{ x: 'JUN', y: 10, color: 'red' }, { x: 'JUL', y: 4 }, { x: 'AUG', y: 3 }]
-        }];
-        let chartSeries = [
-            {
-                field: 'frequency',
-                name: 'Frequency',
-                color: 'red'
-            }
+        let dummy_data = [
+            { name: 'JAN', compare1: 4000, compare2: 2400, compare3: 4000, amt: 2400 },
+            { name: 'FEB', compare1: 3000, compare2: 1398, compare3: 3000, amt: 2210 },
+            { name: 'MAR', compare1: 2000, compare2: 9800, compare3: 2000, amt: 2290 },
+            { name: 'APR', compare1: 2780, compare2: 3908, compare3: 2780, amt: 2000 },
+            { name: 'MAY', compare1: 1890, compare2: 4800, compare3: 1890, amt: 2181 },
+            { name: 'JUN', compare1: 2390, compare2: 3800, compare3: 2390, amt: 2500 },
+            { name: 'JUL', compare1: 3490, compare2: 4300, compare3: 3490, amt: 2100 },
+            { name: 'AUG', compare1: 4000, compare2: 2400, compare3: 4000, amt: 2400 },
+            { name: 'SEP', compare1: 3000, compare2: 1398, compare3: 3000, amt: 2210 },
+            { name: 'OCT', compare1: 2000, compare2: 9800, compare3: 2000, amt: 2290 },
+            { name: 'NOV', compare1: 2780, compare2: 3908, compare3: 2780, amt: 2000 },
+            { name: 'DEC', compare1: 1890, compare2: 4800, compare3: 1890, amt: 2181 },
+        ];
+
+        let compareColor = [
+            'blue-color',
+            'sky-color',
+            'pink-color'
         ]
+        // console.log(analyticsData);
         return (
             <div className="analytics-body ">
-                <div className="content-box average-box">
+                {(analyticsData !== null) &&
+                    <div className="content-box average-box">
+                        <ul className="d-flex">
+                            <li>
+                                <div className="average-box-inr">
+                                    <h3>Average cost per purchase</h3>
+                                    {
+                                        analyticsData.map((obj, index) => (
+                                            <h5 key={Math.random()} className={compareColor[index]}>{`$` + obj.average_cost_per_purchase}</h5>
+                                        ))
+                                    }
+                                </div>
+                            </li>
+                            <li>
+                                <div className="average-box-inr">
+                                    <h3>Purchased posts</h3>
+                                    {
+                                        analyticsData.map((obj, index) => (
+                                            <h5 key={Math.random()} className={compareColor[index]}>{`$` + obj.purchased_campaign}</h5>
+                                        ))
+                                    }
+                                </div>
+                            </li>
+                            <li>
+                                <div className="average-box-inr">
+                                    <h3>Applicants</h3>
+                                    {
+                                        analyticsData.map((obj, index) => (
+                                            <h5 key={Math.random()} className={compareColor[index]}>{`$` + obj.number_of_appplicants}</h5>
+                                        ))
+                                    }
+                                </div>
+                            </li>
+                            <li>
+                                <div className="average-box-inr">
+                                    <h3>Total Spend</h3>
+                                    {
+                                        analyticsData.map((obj, index) => (
+                                            <h5 key={Math.random()} className={compareColor[index]}>{`$` + obj.total_spent}</h5>
+                                        ))
+                                    }
+                                </div>
+                            </li>
+                            <li>
+                                <div className="average-box-inr">
+                                    <h3>Reach total</h3>
+                                    {
+                                        analyticsData.map((obj, index) => (
+                                            <h5 key={Math.random()} className={compareColor[index]}>{`$` + obj.no_of_reach_total}</h5>
+                                        ))
+                                    }
+                                </div>
+                            </li>
+                            <li>
+                                <div className="average-box-inr">
+                                    <h3>Engagement total</h3>
+                                    {
+                                        analyticsData.map((obj, index) => (
+                                            <h5 key={Math.random()} className={compareColor[index]}>{`$` + obj.total_no_of_engagement}</h5>
+                                        ))
+                                    }
+                                </div>
+                            </li>
+                        </ul>
 
-                    {(analyticsData !== null) ? analyticsData.map((obj, index) => (this.renderLi(obj))) : ''}
-                    {/* <li>
-                            <div className="average-box-inr">
-                                <h3>Average cost per purchase</h3>
-                                <h5 className="blue-color">$20,000</h5>
-                            </div>	
-                        </li>
-                        <li>
-                            <div className="average-box-inr">
-                                <h3>Purchased posts</h3>
-                                <h5 className="blue-color">3000</h5>
-                            </div>	
-                        </li>
-                        <li>
-                            <div className="average-box-inr">
-                                <h3>Applicants</h3>
-                                <h5 className="blue-color">{analyticsData[0].number_of_appplicants}</h5>
-                            </div>	
-                        </li>
-                        <li>
-                            <div className="average-box-inr">
-                                <h3>Total Spend</h3>
-                                <h5 className="blue-color">$56,000</h5>
-                            </div>	
-                        </li>
-                        <li>
-                            <div className="average-box-inr">
-                                <h3>Reach total</h3>
-                                <h5 className="blue-color">1,10,000</h5>
-                            </div>	
-                        </li>
-                        <li>
-                            <div className="average-box-inr">
-                                <h3>Engagement total</h3>
-                                <h5 className="blue-color">6325</h5>
-                            </div>	
-                        </li> */}
+                        {/* <li>
+                                <div className="average-box-inr">
+                                    <h3>Average cost per purchase</h3>
+                                    <h5 className="blue-color">$20,000</h5>
+                                </div>	
+                            </li>
+                            <li>
+                                <div className="average-box-inr">
+                                    <h3>Purchased posts</h3>
+                                    <h5 className="blue-color">3000</h5>
+                                </div>	
+                            </li>
+                            <li>
+                                <div className="average-box-inr">
+                                    <h3>Applicants</h3>
+                                    <h5 className="blue-color">{analyticsData[0].number_of_appplicants}</h5>
+                                </div>	
+                            </li>
+                            <li>
+                                <div className="average-box-inr">
+                                    <h3>Total Spend</h3>
+                                    <h5 className="blue-color">$56,000</h5>
+                                </div>	
+                            </li>
+                            <li>
+                                <div className="average-box-inr">
+                                    <h3>Reach total</h3>
+                                    <h5 className="blue-color">1,10,000</h5>
+                                </div>	
+                            </li>
+                            <li>
+                                <div className="average-box-inr">
+                                    <h3>Engagement total</h3>
+                                    <h5 className="blue-color">6325</h5>
+                                </div>	
+                            </li> */}
 
-                </div>
+                    </div>
+                }
 
                 <div className="right-box">
                     <div className="right-box-head d-flex">
@@ -157,15 +219,26 @@ class Stats extends Component {
                     </div>
                     <div className="right-box-content d-flex">
                         <div className="graph-img">
-                            <BarChart
+                            <BarChart width={900} height={500} data={dummy_data}
+                                margin={{ top: 30, right: 50, left: 10, bottom: 50 }}>
+                                {/* <CartesianGrid strokeDasharray="3 3" /> */}
+                                <XAxis dataKey="name" />
+                                {/* <YAxis /> */}
+                                <Tooltip />
+                                {/* <Legend /> */}
+                                <Bar dataKey="compare1" stackId="a" fill="#6772e6" />
+                                <Bar dataKey="compare2" stackId="a" fill="#83bff7" />
+                                <Bar dataKey="compare3" stackId="a" fill="#f783c3" />
+                            </BarChart>
+                            {/* <BarChart
                                 data={data}
                                 width={750}
                                 height={400}
                                 margin={{ top: 30, bottom: 50, left: 10, right: 50 }}
-                                categoricalColors= {d3.scale.category10()}
-                                chartSeries = {chartSeries}
-                            />
-                            <img src={graph} alt="" />
+                                categoricalColors={d3.scale.category10()}
+                                chartSeries={chartSeries}
+                            /> */}
+                            {/* <img src={graph} alt="" /> */}
                         </div>
                     </div>
                     <div className="right-box-btm">

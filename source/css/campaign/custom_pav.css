@@ -218,17 +218,25 @@ td.fc-widget-content{ border:0;}
     .btn_add_compare{ padding: 0 20px !important; line-height: 30px !important; font-weight: 600 !important; border-radius: 3px !important; }
 
     .btn_close_compare{width: 25px; margin-top: 2px;}
+    
     .graph-img .y.axis,
     .graph-img .x.axis .tick line,
     .graph-img .x.axis path.domain {
         display:none !important;
     }
 
-.graph-img .x.axis .tick text {
-    font-size: 14px;
-    font-weight: 500;
-    color: red;
-}
+    .graph-img .recharts-wrapper{ margin-bottom:-30px }
+    .graph-img .recharts-layer.recharts-cartesian-axis.recharts-xAxis.xAxis line,
+    .graph-img .recharts-layer.recharts-cartesian-axis-tick line{
+        display: none;
+    }
+    .graph-img .recharts-layer.recharts-cartesian-axis-tick text {
+        padding-top:10px;
+        /* font-family: Montserrat Semibold; */
+        font-size: 14px;
+        font-weight: 600;
+        color: #525f7f;
+    }
 
 .how-much .select-wrap{ margin-bottom:0;}
 .how-much .input-2 input { width:56%;}
