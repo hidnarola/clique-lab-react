@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import { BrowserRouter as Router, Link, Switch, Route, NavLink } from 'react-router-dom';
 import { routeCodes } from 'constants/routes';
 
-import { getAnalytics } from '../actions/analytics';
+import { getAnalytics, getSocialAnalytics } from '../actions/analytics';
 import { moreFilterReq } from '../actions/everyDay';
 
 import closeImg from 'img/site/close-icon.png';
@@ -350,26 +350,6 @@ class Analytics extends Component {
         super(props);
         this.state = {
             analytics: null,
-            allDropDown: [
-                { 'dropdown': 'jobIndustryDrop', 'value': false },
-                { 'dropdown': 'jobTitleDrop', 'value': false },
-                { 'dropdown': 'yearInIndustry', 'value': false },
-                { 'dropdown': 'education', 'value': false },
-                { 'dropdown': 'language', 'value': false },
-                { 'dropdown': 'ethnicity', 'value': false },
-                { 'dropdown': 'sexualOrientation', 'value': false },
-                { 'dropdown': 'relationship', 'value': false },
-                { 'dropdown': 'musicTaste', 'value': false },
-                { 'dropdown': 'genderDrop', 'value': false },
-            ],
-            allSliders: [
-                { 'slider': 'facebook', 'value': { min: 0, max: 2500 } },
-                { 'slider': 'instagram', 'value': { min: 0, max: 2500 } },
-                { 'slider': 'twitter', 'value': { min: 0, max: 2500 } },
-                { 'slider': 'pinterest', 'value': { min: 0, max: 2500 } },
-                { 'slider': 'linkedin', 'value': { min: 0, max: 2500 } },
-                { 'slider': 'ageRange', 'value': { min: 20, max: 100 } },
-            ],
             filter1: [
                 {
                     allDropDown: [
@@ -456,8 +436,6 @@ class Analytics extends Component {
             isSortApply: false,
             isFilterApply: false,
             
-            
-            isMoreFilterApply: false,
             isAgeFilterApply: false,
 
             totalNoCompare: 1,
@@ -470,6 +448,10 @@ class Analytics extends Component {
             more_filter_open: false,
             more_filter_open2: false,
             more_filter_open3: false,
+
+            isMoreFilterApply: false,
+            isMoreFilterApply2: false,
+            isMoreFilterApply3: false,
         }
         this.age_filter_toggle = this.age_filter_toggle.bind(this);
         this.age_filter_toggle2 = this.age_filter_toggle2.bind(this);
@@ -490,7 +472,16 @@ class Analytics extends Component {
                 ]
             }
         ];
+        let arrayFilter2 = [{
+            "start_date" :"2017-03-10",
+	        "end_date" : "2018-10-09",
+	        // "social_media_platform":"facebook",
+            "filter": [
+                []
+            ]
+        }];
         dispatch(getAnalytics(arrayFilter));
+        dispatch(getSocialAnalytics(arrayFilter2));
         dispatch(moreFilterReq());
     }
 
@@ -498,13 +489,23 @@ class Analytics extends Component {
     componentDidUpdate = (prevProps, prevState) => {
         const { analytics_data } = this.props;
         const { analytics } = this.state;
-        if (analytics === null) {
+        if (analytics !== analytics_data.data) {
             if (analytics_data.status === 1 && analytics_data.data !== null) {
                 this.setState({ analytics: analytics_data.data })
             }
         }
     }
 
+    /** 
+     * Name       : handleChange
+     * Desription : Handle all the chnages applied in dropdown filter
+     * @author    : PAV
+     * @param     : selectedOption >>> Value
+     *              secondParam >>> option name
+     *              totalNoCompare >>> number
+     * @return    : ---
+     * 
+    */
     handleChange = (selectedOption, secondParam, totalNoCompare) => {
         if (selectedOption === null) {
             return;
@@ -516,48 +517,113 @@ class Analytics extends Component {
             let allDropDown = filter1[0]['allDropDown'];
             let index = _.findIndex(allDropDown, { dropdown: secondParam });
             allDropDown.splice(index, 1, { dropdown: secondParam, value: selectedOption });
-            this.setState({ allDropDown: allDropDown });    
+            this.setState({ allDropDown: allDropDown });
+
+            if (secondParam == 'genderDrop') {
+                let dropDownIndex = _.findIndex(appliedFilter[0]['filter'], function (o) { return o.field == 'gender'; });
+                let filteredArr = appliedFilter[0]['filter'];
+                if (dropDownIndex === -1) {
+                    filteredArr.push({ "field": 'gender', "type": "exact", "value": selectedOption['value'] }, )
+                } else {
+                    let arrIndex = _.findIndex(filteredArr, { "field": 'gender' });
+                    filteredArr.splice(arrIndex, 1, { "field": 'gender', "type": "exact", "value": selectedOption['value'] });
+                }
+
+                this.setState({ 
+                    'appliedFilter': [{ 
+                        'filter': filteredArr,
+                        'filter2': this.state.appliedFilter[0]['filter2'],
+                        'filter3': this.state.appliedFilter[0]['filter3'],
+                    }] 
+                }, this.afterRemoveCompare);
+                let arrayFilter = {
+                    "filter": [
+                        this.state.appliedFilter[0]['filter'],
+                        this.state.appliedFilter[0]['filter2'],
+                        this.state.appliedFilter[0]['filter3'],
+                    ]
+                }
+               console.log(appliedFilter);
+                //this.filterSendReq(arrayFilter);
+            }
         } else if(totalNoCompare==2){
             let { appliedFilter, filter2 } = this.state;
             let allDropDown = filter2[0]['allDropDown'];
             let index = _.findIndex(allDropDown, { dropdown: secondParam });
             allDropDown.splice(index, 1, { dropdown: secondParam, value: selectedOption });
-            this.setState({ allDropDown: allDropDown });    
+            this.setState({ allDropDown: allDropDown });
+
+            if (secondParam == 'genderDrop') {
+                let dropDownIndex = _.findIndex(appliedFilter[0]['filter2'], function (o) { return o.field == 'gender'; });
+                let filteredArr = appliedFilter[0]['filter2'];
+                if (dropDownIndex === -1) {
+                    filteredArr.push({ "field": 'gender', "type": "exact", "value": selectedOption['value'] }, )
+                } else {
+                    let arrIndex = _.findIndex(filteredArr, { "field": 'gender' });
+                    filteredArr.splice(arrIndex, 1, { "field": 'gender', "type": "exact", "value": selectedOption['value'] });
+                }
+                this.setState({ 
+                    'appliedFilter': [{
+                        'filter': this.state.appliedFilter[0]['filter'],
+                        'filter2': filteredArr,
+                        'filter3': this.state.appliedFilter[0]['filter3'],
+                    }] 
+                }, this.afterRemoveCompare);
+                let arrayFilter = {
+                    "filter": [
+                        this.state.appliedFilter[0]['filter'],
+                        this.state.appliedFilter[0]['filter2'],
+                        this.state.appliedFilter[0]['filter3'],
+                    ]
+                }
+                console.log(appliedFilter);
+                //this.filterSendReq(arrayFilter);
+            }
         } else if(totalNoCompare==3){
             let { appliedFilter, filter3 } = this.state;
             let allDropDown = filter3[0]['allDropDown'];
             let index = _.findIndex(allDropDown, { dropdown: secondParam });
             allDropDown.splice(index, 1, { dropdown: secondParam, value: selectedOption });
-            this.setState({ allDropDown: allDropDown });    
+            this.setState({ allDropDown: allDropDown });
+
+            if (secondParam == 'genderDrop') {
+                let dropDownIndex = _.findIndex(appliedFilter[0]['filter3'], function (o) { return o.field == 'gender'; });
+                let filteredArr = appliedFilter[0]['filter3'];
+                if (dropDownIndex === -1) {
+                    filteredArr.push({ "field": 'gender', "type": "exact", "value": selectedOption['value'] }, )
+                } else {
+                    let arrIndex = _.findIndex(filteredArr, { "field": 'gender' });
+                    filteredArr.splice(arrIndex, 1, { "field": 'gender', "type": "exact", "value": selectedOption['value'] });
+                }
+                this.setState({ 
+                    'appliedFilter': [{
+                        'filter': this.state.appliedFilter[0]['filter'],
+                        'filter2': this.state.appliedFilter[0]['filter2'],
+                        'filter3': filteredArr,
+                    }] 
+                }, this.afterRemoveCompare);
+                let arrayFilter = {
+                    "filter": [
+                        this.state.appliedFilter[0]['filter'],
+                        this.state.appliedFilter[0]['filter2'],
+                        this.state.appliedFilter[0]['filter3'],
+                    ]
+                }
+               //console.log(appliedFilter);
+            }
         }
-
-        // let { appliedFilter, allDropDown } = this.state;
-        // let index = _.findIndex(allDropDown, { dropdown: secondParam });
-        // allDropDown.splice(index, 1, { dropdown: secondParam, value: selectedOption });
-        // this.setState({ allDropDown: allDropDown });
-
-        // if (secondParam == 'genderDrop') {
-        //     let dropDownIndex = _.findIndex(appliedFilter[0]['filter'], function (o) { return o.field == 'gender'; });
-        //     let filteredArr = appliedFilter[0]['filter'];
-
-        //     // Check if age filter is applied or not...
-        //     if (dropDownIndex === -1) {
-        //         filteredArr.push({ "field": 'gender', "type": "exact", "value": selectedOption['value'] }, )
-        //         this.setState({ 'appliedFilter': [{ 'filter': filteredArr }] });
-        //     } else {
-        //         let arrIndex = _.findIndex(filteredArr, { "field": 'gender' });
-        //         filteredArr.splice(arrIndex, 1, { "field": 'gender', "type": "exact", "value": selectedOption['value'] });
-        //         this.setState({ 'appliedFilter': [{ 'filter': filteredArr }] });
-        //     }
-
-        //     let sortDropArr = _.find(allDropDown, function (o) { return o.dropdown == 'sortDrop'; });
-
-        //     let arrayFilter = {
-        //         filter: filteredArr,
-        //     }
-        // }
     }
 
+    /** 
+     * Name       : handleSLider
+     * Desription : Handle all the events of range slider of filter
+     * @author    : PAV
+     * @param     : selectedOption >>> Value
+     *              secondParam >>> option name
+     *              totalNoCompare >>> number
+     * @return    : ---
+     * 
+    */
     handleSLider = (selectedOption, secondParam, totalNoCompare) => {
         if (totalNoCompare == 1) {
             let { filter1 } = this.state;
@@ -578,13 +644,16 @@ class Analytics extends Component {
             allSliders.splice(index, 1, { slider: secondParam, value: selectedOption });
             this.setState({ allSliders: allSliders });
         }
-        // let { filter1 } = this.state;
-        // let allSliders = filter1[0]['allSliders'];
-        // let index = _.findIndex(allSliders, { slider: secondParam });
-        // allSliders.splice(index, 1, { slider: secondParam, value: selectedOption });
-        // this.setState({ allSliders: allSliders });
     }
 
+    /** 
+     * Name       : setAgeFilter
+     * Desription : Whne click on APPLY button of age filter
+     * @author    : PAV
+     * @param     : totalBoCompare (Number)
+     * @return    : ---
+     * 
+    */
     setAgeFilter = (totalNoCompare) => {
         const { appliedFilter, filter1, filter2, filter3 } = this.state;
         const { dispatch } = this.props;
@@ -602,7 +671,7 @@ class Analytics extends Component {
                         'filter2': this.state.appliedFilter[0]['filter2'],
                         'filter3': this.state.appliedFilter[0]['filter3'],
                     }] 
-                });
+                },this.afterRemoveCompare);
             } else {
                 let arrIndex = _.findIndex(filteredArr, { "field": "age" });
                 filteredArr.splice(arrIndex, 1, { "field": "age", "type": "between", "min_value": ageVal['value']['min'], "max_value": ageVal['value']['max'] }, );
@@ -612,10 +681,9 @@ class Analytics extends Component {
                         'filter2': this.state.appliedFilter[0]['filter2'],
                         'filter3': this.state.appliedFilter[0]['filter3'],
                     }]
-                });
+                },this.afterRemoveCompare);
             }
-            this.age_filter_toggle1;
-            //let sortDropArr = _.find(allDropDown, function (o) { return o.dropdown == 'sortDrop'; });
+            this.age_filter_toggle();
         } else if(totalNoCompare==2){
             let allSliders = filter2[0]['allSliders'];
             let ageFilterIndex = _.findIndex(appliedFilter[0]['filter2'], function (o) { return o.field == 'age'; });
@@ -629,7 +697,7 @@ class Analytics extends Component {
                         'filter2': filteredArr,
                         'filter3': this.state.appliedFilter[0]['filter3'],
                     }] 
-                });
+                },this.afterRemoveCompare);
             } else {
                 let arrIndex = _.findIndex(filteredArr, { "field": "age" });
                 filteredArr.splice(arrIndex, 1, { "field": "age", "type": "between", "min_value": ageVal['value']['min'], "max_value": ageVal['value']['max'] }, );
@@ -639,10 +707,9 @@ class Analytics extends Component {
                         'filter2': filteredArr,
                         'filter3': this.state.appliedFilter[0]['filter3'],
                     }] 
-                });
+                },this.afterRemoveCompare);
             }
-            this.age_filter_toggle2;
-            //let sortDropArr = _.find(allDropDown, function (o) { return o.dropdown == 'sortDrop'; });
+            this.age_filter_toggle2();
         } else if(totalNoCompare==3){
             let allSliders = filter3[0]['allSliders'];
             let ageFilterIndex = _.findIndex(appliedFilter[0]['filter3'], function (o) { return o.field == 'age'; });
@@ -656,7 +723,7 @@ class Analytics extends Component {
                         'filter2': this.state.appliedFilter[0]['filter2'],
                         'filter3': filteredArr,
                     }] 
-                });
+                },this.afterRemoveCompare);
             } else {
                 let arrIndex = _.findIndex(filteredArr, { "field": "age" });
                 filteredArr.splice(arrIndex, 1, { "field": "age", "type": "between", "min_value": ageVal['value']['min'], "max_value": ageVal['value']['max'] }, );
@@ -666,173 +733,169 @@ class Analytics extends Component {
                         'filter2': this.state.appliedFilter[0]['filter2'],
                         'filter3': filteredArr,
                     }] 
-                });
+                },this.afterRemoveCompare);
             }
-            this.age_filter_toggle3;
-            //let sortDropArr = _.find(allDropDown, function (o) { return o.dropdown == 'sortDrop'; });
+            this.age_filter_toggle3();
         }
-        //let ageFilterIndex = _.findIndex(appliedFilter[0]['filter'], function (o) { return o.field == 'age'; });
-        //let ageVal = _.find(allSliders, function (o) { return o.slider == 'ageRange'; });
+    }
 
-        //let filteredArr = appliedFilter[0]['filter'];
-
-        // Check if age filter is applied or not...
-        // if (ageFilterIndex === -1) {
-        //     filteredArr.push({ "field": "age", "type": "between", "min_value": ageVal['value']['min'], "max_value": ageVal['value']['max'] })
-        //     this.setState({ 'appliedFilter': [{ 'filter': filteredArr }] });
-        // } else {
-        //     let arrIndex = _.findIndex(filteredArr, { "field": "age" });
-        //     filteredArr.splice(arrIndex, 1, { "field": "age", "type": "between", "min_value": ageVal['value']['min'], "max_value": ageVal['value']['max'] }, );
-        //     this.setState({ 'appliedFilter': [{ 'filter': filteredArr }] });
-        // }
-
-        // let sortDropArr = _.find(allDropDown, function (o) { return o.dropdown == 'sortDrop'; });
-        //console.log(this.state.appliedFilter);
-        let arrayFilter = {
-            "filter": [
-                this.state.appliedFilter[0]['filter'],
-                this.state.appliedFilter[0]['filter2'],
-                this.state.appliedFilter[0]['filter3'],
-            ]
+    /** 
+     * Name       : age_filter_toggle 1/2/3
+     * Desription : ---
+     * @author    : PAV
+     * @param     : ---
+     * @return    : ---
+     * 
+    */
+        age_filter_toggle() {
+            this.setState({ age_filter_open: !this.state.age_filter_open });
         }
-       
-        //this.filterSendReq(arrayFilter);
-        // this.setState({
-        //     isAgeFilterApply:true
-        // })
-    }
-
-    age_filter_toggle() {
-        this.setState({ age_filter_open: !this.state.age_filter_open });
-    }
-    age_filter_toggle2() {
-        this.setState({ age_filter_open2: !this.state.age_filter_open2 });
-    }
-    age_filter_toggle3() {
+        age_filter_toggle2() {
+            this.setState({ age_filter_open2: !this.state.age_filter_open2 });
+        }
+        age_filter_toggle3() {
         this.setState({ age_filter_open3: !this.state.age_filter_open3 });
     }
 
-    more_filter_toggle() {
-        this.setState({ more_filter_open: !this.state.more_filter_open })
-        if (this.state.isMoreFilterApply !== true) {
-            this.setState({
-                filter1: [
-                    {
-                        allDropDown: [
-                            { 'dropdown': 'jobIndustryDrop', 'value': false },
-                            { 'dropdown': 'jobTitleDrop', 'value': false },
-                            { 'dropdown': 'yearInIndustry', 'value': false },
-                            { 'dropdown': 'education', 'value': false },
-                            { 'dropdown': 'language', 'value': false },
-                            { 'dropdown': 'ethnicity', 'value': false },
-                            { 'dropdown': 'sexualOrientation', 'value': false },
-                            { 'dropdown': 'relationship', 'value': false },
-                            { 'dropdown': 'musicTaste', 'value': false },
-                            { 'dropdown': 'genderDrop', 'value': false },
-                        ],
+    /** 
+     * Name       : more_filter_toggle 1/2/3
+     * Desription : ---
+     * @author    : PAV
+     * @param     : ---
+     * @return    : ---
+     * 
+    */
+        more_filter_toggle() {
+            this.setState({ more_filter_open: !this.state.more_filter_open })
+            if (this.state.isMoreFilterApply !== true) {
+                this.setState({
+                    filter1: [
+                        {
+                            allDropDown: [
+                                { 'dropdown': 'jobIndustryDrop', 'value': false },
+                                { 'dropdown': 'jobTitleDrop', 'value': false },
+                                { 'dropdown': 'yearInIndustry', 'value': false },
+                                { 'dropdown': 'education', 'value': false },
+                                { 'dropdown': 'language', 'value': false },
+                                { 'dropdown': 'ethnicity', 'value': false },
+                                { 'dropdown': 'sexualOrientation', 'value': false },
+                                { 'dropdown': 'relationship', 'value': false },
+                                { 'dropdown': 'musicTaste', 'value': false },
+                                { 'dropdown': 'genderDrop', 'value': false },
+                            ],
 
-                        allSliders: [
-                            { 'slider': 'facebook', 'value': { min: 0, max: 2500 } },
-                            { 'slider': 'instagram', 'value': { min: 0, max: 2500 } },
-                            { 'slider': 'twitter', 'value': { min: 0, max: 2500 } },
-                            { 'slider': 'pinterest', 'value': { min: 0, max: 2500 } },
-                            { 'slider': 'linkedin', 'value': { min: 0, max: 2500 } },
-                            { 'slider': 'ageRange', 'value': { min: 20, max: 100 } },
-                        ]       
-                    }
-                ]
-            })
+                            allSliders: [
+                                { 'slider': 'facebook', 'value': { min: 0, max: 2500 } },
+                                { 'slider': 'instagram', 'value': { min: 0, max: 2500 } },
+                                { 'slider': 'twitter', 'value': { min: 0, max: 2500 } },
+                                { 'slider': 'pinterest', 'value': { min: 0, max: 2500 } },
+                                { 'slider': 'linkedin', 'value': { min: 0, max: 2500 } },
+                                { 'slider': 'ageRange', 'value': { min: 20, max: 100 } },
+                            ]       
+                        }
+                    ]
+                })
+            }
         }
-    }
+        more_filter_toggle2() {
+            this.setState({ more_filter_open2: !this.state.more_filter_open2 })
+            if (this.state.isMoreFilterApply !== true) {
+                this.setState({
+                    filter2: [
+                        {
+                            allDropDown: [
+                                { 'dropdown': 'jobIndustryDrop', 'value': false },
+                                { 'dropdown': 'jobTitleDrop', 'value': false },
+                                { 'dropdown': 'yearInIndustry', 'value': false },
+                                { 'dropdown': 'education', 'value': false },
+                                { 'dropdown': 'language', 'value': false },
+                                { 'dropdown': 'ethnicity', 'value': false },
+                                { 'dropdown': 'sexualOrientation', 'value': false },
+                                { 'dropdown': 'relationship', 'value': false },
+                                { 'dropdown': 'musicTaste', 'value': false },
+                                { 'dropdown': 'genderDrop', 'value': false },
+                            ],
 
-    more_filter_toggle2() {
-        this.setState({ more_filter_open2: !this.state.more_filter_open2 })
-        if (this.state.isMoreFilterApply !== true) {
-            this.setState({
-                filter2: [
-                    {
-                        allDropDown: [
-                            { 'dropdown': 'jobIndustryDrop', 'value': false },
-                            { 'dropdown': 'jobTitleDrop', 'value': false },
-                            { 'dropdown': 'yearInIndustry', 'value': false },
-                            { 'dropdown': 'education', 'value': false },
-                            { 'dropdown': 'language', 'value': false },
-                            { 'dropdown': 'ethnicity', 'value': false },
-                            { 'dropdown': 'sexualOrientation', 'value': false },
-                            { 'dropdown': 'relationship', 'value': false },
-                            { 'dropdown': 'musicTaste', 'value': false },
-                            { 'dropdown': 'genderDrop', 'value': false },
-                        ],
-
-                        allSliders: [
-                            { 'slider': 'facebook', 'value': { min: 0, max: 2500 } },
-                            { 'slider': 'instagram', 'value': { min: 0, max: 2500 } },
-                            { 'slider': 'twitter', 'value': { min: 0, max: 2500 } },
-                            { 'slider': 'pinterest', 'value': { min: 0, max: 2500 } },
-                            { 'slider': 'linkedin', 'value': { min: 0, max: 2500 } },
-                            { 'slider': 'ageRange', 'value': { min: 20, max: 100 } },
-                        ]       
-                    }
-                ]
-            })
+                            allSliders: [
+                                { 'slider': 'facebook', 'value': { min: 0, max: 2500 } },
+                                { 'slider': 'instagram', 'value': { min: 0, max: 2500 } },
+                                { 'slider': 'twitter', 'value': { min: 0, max: 2500 } },
+                                { 'slider': 'pinterest', 'value': { min: 0, max: 2500 } },
+                                { 'slider': 'linkedin', 'value': { min: 0, max: 2500 } },
+                                { 'slider': 'ageRange', 'value': { min: 20, max: 100 } },
+                            ]       
+                        }
+                    ]
+                })
+            }
         }
-    }
+        more_filter_toggle3() {
+            this.setState({ more_filter_open3: !this.state.more_filter_open3 })
+            if (this.state.isMoreFilterApply !== true) {
+                this.setState({
+                    filter3: [
+                        {
+                            allDropDown: [
+                                { 'dropdown': 'jobIndustryDrop', 'value': false },
+                                { 'dropdown': 'jobTitleDrop', 'value': false },
+                                { 'dropdown': 'yearInIndustry', 'value': false },
+                                { 'dropdown': 'education', 'value': false },
+                                { 'dropdown': 'language', 'value': false },
+                                { 'dropdown': 'ethnicity', 'value': false },
+                                { 'dropdown': 'sexualOrientation', 'value': false },
+                                { 'dropdown': 'relationship', 'value': false },
+                                { 'dropdown': 'musicTaste', 'value': false },
+                                { 'dropdown': 'genderDrop', 'value': false },
+                            ],
 
-    more_filter_toggle3() {
-        this.setState({ more_filter_open3: !this.state.more_filter_open3 })
-        if (this.state.isMoreFilterApply !== true) {
-            this.setState({
-                filter3: [
-                    {
-                        allDropDown: [
-                            { 'dropdown': 'jobIndustryDrop', 'value': false },
-                            { 'dropdown': 'jobTitleDrop', 'value': false },
-                            { 'dropdown': 'yearInIndustry', 'value': false },
-                            { 'dropdown': 'education', 'value': false },
-                            { 'dropdown': 'language', 'value': false },
-                            { 'dropdown': 'ethnicity', 'value': false },
-                            { 'dropdown': 'sexualOrientation', 'value': false },
-                            { 'dropdown': 'relationship', 'value': false },
-                            { 'dropdown': 'musicTaste', 'value': false },
-                            { 'dropdown': 'genderDrop', 'value': false },
-                        ],
-
-                        allSliders: [
-                            { 'slider': 'facebook', 'value': { min: 0, max: 2500 } },
-                            { 'slider': 'instagram', 'value': { min: 0, max: 2500 } },
-                            { 'slider': 'twitter', 'value': { min: 0, max: 2500 } },
-                            { 'slider': 'pinterest', 'value': { min: 0, max: 2500 } },
-                            { 'slider': 'linkedin', 'value': { min: 0, max: 2500 } },
-                            { 'slider': 'ageRange', 'value': { min: 20, max: 100 } },
-                        ]       
-                    }
-                ]
-            })
+                            allSliders: [
+                                { 'slider': 'facebook', 'value': { min: 0, max: 2500 } },
+                                { 'slider': 'instagram', 'value': { min: 0, max: 2500 } },
+                                { 'slider': 'twitter', 'value': { min: 0, max: 2500 } },
+                                { 'slider': 'pinterest', 'value': { min: 0, max: 2500 } },
+                                { 'slider': 'linkedin', 'value': { min: 0, max: 2500 } },
+                                { 'slider': 'ageRange', 'value': { min: 20, max: 100 } },
+                            ]       
+                        }
+                    ]
+                })
+            }
         }
-    }
 
+    /** 
+     * Name       : applyMoreFilter
+     * Desription : When click on APPLY button of More Filter Dropdown
+     * @author    : PAV
+     * @param     : totalNoCompare (Number)
+     * @return    : ---
+     * 
+    */
     applyMoreFilter = (totalNoCompare) => {
         const { allDropDown, allSliders, filter1, filter2, filter3, appliedFilter } = this.state;
         const { dispatch } = this.props;
-
-        // filterName = 'filter' + i;
-        // if(filterName=='filter1'){ 
-        //     stateAllSliders = filter1[0].allSliders,
-        //     stateAllDropDown = filter1[0].allDropDown
-        // } else if(filterName=='filter2'){ 
-        //     stateAllSliders = filter2[0].allSliders,
-        //     stateAllDropDown = filter2[0].allDropDown
-        // } else if(filterName=='filter3'){ 
-        //     stateAllSliders = filter3[0].allSliders,
-        //     stateAllDropDown = filter3[0].allDropDown
-        // }
-        let allDropArr = _.filter(allDropDown, function (o) { return ((o.dropdown !== 'sortDrop') && (o.dropdown !== 'genderDrop') && (o.value !== false)); });
+        let exstingFilter, allSliderArr, allDropArr, stateAllSliders, stateAllDropDown = '';
         
-        let allSliderArr = _.filter(allSliders, function (o) { return (o.slider !== 'ageRange'); });
         let filterExistingArr = [];
 
-        // let exstingFilter = Object.assign({},this.state.appliedFilter[0]['filter']);
-        let exstingFilter = this.state.appliedFilter[0]['filter'];
+        if(totalNoCompare==1){
+            exstingFilter = appliedFilter[0]['filter'];
+            stateAllSliders = filter1[0].allSliders;
+            stateAllDropDown = filter1[0].allDropDown;
+            allDropArr = _.filter(stateAllDropDown, function (o) { return ((o.dropdown !== 'sortDrop') && (o.dropdown !== 'genderDrop') && (o.value !== false)); });
+            allSliderArr = _.filter(stateAllSliders, function (o) { return (o.slider !== 'ageRange'); });
+        } else if(totalNoCompare==2){
+            exstingFilter = appliedFilter[0]['filter2'];
+            stateAllSliders = filter2[0].allSliders;
+            stateAllDropDown = filter2[0].allDropDown;
+            allDropArr = _.filter(stateAllDropDown, function (o) { return ((o.dropdown !== 'sortDrop') && (o.dropdown !== 'genderDrop') && (o.value !== false)); });
+            allSliderArr = _.filter(stateAllSliders, function (o) { return (o.slider !== 'ageRange'); });
+        } else if(totalNoCompare==3){
+            exstingFilter = appliedFilter[0]['filter3'];
+            stateAllSliders = filter3[0].allSliders;
+            stateAllDropDown = filter3[0].allDropDown;
+            allDropArr = _.filter(stateAllDropDown, function (o) { return ((o.dropdown !== 'sortDrop') && (o.dropdown !== 'genderDrop') && (o.value !== false)); });
+            allSliderArr = _.filter(stateAllSliders, function (o) { return (o.slider !== 'ageRange'); });
+        }
 
         _.remove(exstingFilter, function (o) {
             return (
@@ -851,7 +914,6 @@ class Analytics extends Component {
                     (o.field === 'linkedin_connection')
                 )
             );
-
         });
 
         const exstingFilterArr = Object.keys(exstingFilter).map(i => exstingFilter[i])
@@ -899,22 +961,46 @@ class Analytics extends Component {
         console.log(exstingFilterArr);
         console.log('====== last ==========');
 
-
-        this.setState({ 'appliedFilter': [{ 'filter': exstingFilterArr }] });
-
-        let sortDropArr = _.find(allDropDown, function (o) { return o.dropdown == 'sortDrop'; });
-        let arrayFilter = {
-            "filter": exstingFilterArr,
-            "sort": [{ "field": "name", "value": parseInt(sortDropArr['value']['value']) }],
-            "page_size": this.state.perPageItem,
-            "page_no": 1
+        if(totalNoCompare===1){
+            let tempFilter = '';
+            tempFilter = this.state.appliedFilter[0]['filter']
+            tempFilter.push(exstingFilterArr)
+            this.setState({ 
+                'appliedFilter': [{ 
+                    'filter': exstingFilterArr,
+                    'filter2': this.state.appliedFilter[0]['filter2'],
+                    'filter3': this.state.appliedFilter[0]['filter3'],
+                }],
+                isMoreFilterApply: true,
+                more_filter_open: false,
+            },this.afterRemoveCompare);
+        } else if(totalNoCompare===2){
+            let tempFilter = '';
+            tempFilter = this.state.appliedFilter[0]['filter2']
+            tempFilter.push(exstingFilterArr)
+            this.setState({ 
+                'appliedFilter': [{ 
+                    'filter': this.state.appliedFilter[0]['filter'],
+                    'filter2': exstingFilterArr,
+                    'filter3': this.state.appliedFilter[0]['filter3'],
+                }],
+                isMoreFilterApply2: true,
+                more_filter_open2: false,
+            },this.afterRemoveCompare);
+        } else if(totalNoCompare===3){
+            let tempFilter = '';
+            tempFilter = this.state.appliedFilter[0]['filter3']
+            tempFilter.push(exstingFilterArr)
+            this.setState({ 
+                'appliedFilter': [{ 
+                    'filter': this.state.appliedFilter[0]['filter'],
+                    'filter2': this.state.appliedFilter[0]['filter2'],
+                    'filter3': exstingFilterArr,
+                }],
+                isMoreFilterApply3: true,
+                more_filter_open3: false,
+            },this.afterRemoveCompare);
         }
-        this.setState({
-            "activePage": 1,
-            isMoreFilterApply: true,
-            more_filter_open: false
-        });
-        this.filterSendReq(arrayFilter);
     }
 
     /** 
@@ -929,16 +1015,24 @@ class Analytics extends Component {
         const { totalNoCompare, whichCompare } = this.state;
         this.setState({ totalNoCompare: totalNoCompare + 1 });
         if (whichCompare.length == 0) {
-            this.setState({ whichCompare: [2] });
+            this.setState({ whichCompare: [2] },this.afterRemoveCompare);
         } else {
             if (whichCompare.indexOf(2) > -1) {
-                this.setState({ whichCompare: [...whichCompare, 3] });
+                this.setState({ whichCompare: [...whichCompare, 3] },this.afterRemoveCompare);
             } else {
-                this.setState({ whichCompare: [...whichCompare, 2] });
+                this.setState({ whichCompare: [...whichCompare, 2] },this.afterRemoveCompare);
             }
         }
     }
 
+    /** 
+     * Name       : removeCompare
+     * Desription : When click on REMOVE COMPARE new filter will add
+     * @author    : PAV
+     * @param     : element (number)
+     * @return    : ---
+     * 
+    */
     removeCompare = (element) => {
         const { totalNoCompare, whichCompare, appliedFilter } = this.state;
         const index = whichCompare.indexOf(element);
@@ -948,25 +1042,70 @@ class Analytics extends Component {
             whichCompare: whichCompare,
         });
 
-        console.log(element);
         if(element==2){
-            alert(element);
             this.setState({
                 appliedFilter: [{ 
                     'filter': this.state.appliedFilter[0]['filter'],
+                    'filter2': [],
                     'filter3': this.state.appliedFilter[0]['filter3'],
                 }]
-            })
+            }, this.afterRemoveCompare)
         } else if(element==3){
             this.setState({
                 appliedFilter: [{ 
                     'filter': this.state.appliedFilter[0]['filter'],
                     'filter2': this.state.appliedFilter[0]['filter2'],
+                    'filter3': [] 
                 }]
-            })
+            }, this.afterRemoveCompare)
         }
         //console.log(whichCompare);
-        console.log(appliedFilter);
+    }
+
+    /** 
+     * Name       : afterRemoveCompare
+     * Desription : It will call after state change.
+     * @author    : PAV
+     * @param     : element (number)
+     * @return    : ---
+     * 
+    */
+    afterRemoveCompare = () => {
+        const { appliedFilter, totalNoCompare, whichCompare } = this.state;
+        const { dispatch } = this.props;
+
+        let arrayFilter = [{
+            "filter": [
+                this.state.appliedFilter[0]['filter'],
+                this.state.appliedFilter[0]['filter2'],
+                this.state.appliedFilter[0]['filter3'],
+            ]
+        }];
+
+        let arrayFilter2 = [{
+            "start_date" :"2017-03-10",
+	        "end_date" : "2018-10-09",
+	        "social_media_platform":"facebook",
+            "filter": [
+                this.state.appliedFilter[0]['filter'],
+                this.state.appliedFilter[0]['filter2'],
+                this.state.appliedFilter[0]['filter3'],
+            ]
+        }];
+
+        if(totalNoCompare==1){
+            arrayFilter[0].filter.splice(1,2);
+        }
+
+        if(totalNoCompare==2 && whichCompare.indexOf(2) > -1){
+            arrayFilter[0].filter.splice(2,1);
+        }
+        if(totalNoCompare==2 && whichCompare.indexOf(3) > -1){
+            arrayFilter[0].filter.splice(1,1);
+        }
+        console.log(arrayFilter);
+        dispatch(getAnalytics(arrayFilter));
+        dispatch(getSocialAnalytics(arrayFilter2));
     }
 
     render() {
@@ -983,7 +1122,6 @@ class Analytics extends Component {
             filter2: [],
             filter3: []
         }];
-        //console.log(filter1[0].allSliders);
         let filterName, stateAllSliders, stateAllDropDown = '';
 
         for (let i = 1; i <= 3; i++) {
@@ -1014,6 +1152,7 @@ class Analytics extends Component {
             allDropArr[0][filterName]['sexualOrientation'] = _.find(stateAllDropDown, function (o) { return o.dropdown == 'sexualOrientation'; });
             allDropArr[0][filterName]['relationship'] = _.find(stateAllDropDown, function (o) { return o.dropdown == 'relationship'; });
             allDropArr[0][filterName]['musicTaste'] = _.find(stateAllDropDown, function (o) { return o.dropdown == 'musicTaste'; });
+            allDropArr[0][filterName]['gender'] = _.find(stateAllDropDown, function (o) { return o.dropdown == 'genderDrop'; });
         }
 
         //allSliderArr['ageRange'] = _.find(allSliders, function (o) { return o.slider == 'ageRange'; });
@@ -1053,8 +1192,8 @@ class Analytics extends Component {
                                             <li className="stats_filter_li2">
                                                 <ReactSelect
                                                     name="genderDrop"
-                                                    value={genderDropArr.value}
-                                                    onChange={(value) => this.handleChange(value, "genderDrop")}
+                                                    value={allDropArr[0].filter1['gender'].value}
+                                                    onChange={(value) => this.handleChange(value, "genderDrop", 1)}
                                                     searchable={false}
                                                     clearable={false}
                                                     autosize={false}
@@ -1112,8 +1251,8 @@ class Analytics extends Component {
                                                     <li className="stats_filter_li2">
                                                         <ReactSelect
                                                             name="genderDrop"
-                                                            value={genderDropArr.value}
-                                                            onChange={(value) => this.handleChange(value, "genderDrop")}
+                                                            value={allDropArr[0].filter2['gender'].value}
+                                                            onChange={(value) => this.handleChange(value, "genderDrop", 2)}
                                                             searchable={false}
                                                             clearable={false}
                                                             autosize={false}
@@ -1163,8 +1302,8 @@ class Analytics extends Component {
                                                     <li className="stats_filter_li2">
                                                         <ReactSelect
                                                             name="genderDrop"
-                                                            value={genderDropArr.value}
-                                                            onChange={(value) => this.handleChange(value, "genderDrop")}
+                                                            value={allDropArr[0].filter3['gender'].value}
+                                                            onChange={(value) => this.handleChange(value, "genderDrop", 3)}
                                                             searchable={false}
                                                             clearable={false}
                                                             autosize={false}
