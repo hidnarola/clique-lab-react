@@ -16,6 +16,7 @@ import closeImg from 'img/site/close-icon.png';
 import ReactSelect from 'react-select';
 import InputRange from 'react-input-range';
 import _ from 'lodash';
+import moment from 'moment';
 import {
     Button, Modal, ModalHeader, ModalBody, ModalFooter, Dropdown,
     DropdownToggle, DropdownMenu, DropdownItem, UncontrolledDropdown
@@ -350,6 +351,7 @@ class Analytics extends Component {
         super(props);
         this.state = {
             analytics: null,
+            social_analytics: null,
             filter1: [
                 {
                     allDropDown: [
@@ -473,9 +475,9 @@ class Analytics extends Component {
             }
         ];
         let arrayFilter2 = [{
-            "start_date" :"2017-03-10",
-	        "end_date" : "2018-10-09",
-	        // "social_media_platform":"facebook",
+            "start_date" : moment(moment().format("YYYY-MM-DD")).subtract(3, 'months').format('YYYY-MM-DD'),
+            "end_date": moment().format("YYYY-MM-DD"),
+	        "social_media_platform":"twitter",
             "filter": [
                 []
             ]
@@ -487,11 +489,16 @@ class Analytics extends Component {
 
     // Component did update
     componentDidUpdate = (prevProps, prevState) => {
-        const { analytics_data } = this.props;
-        const { analytics } = this.state;
+        const { analytics_data, social_analytics_data } = this.props;
+        const { analytics, social_analytics } = this.state;
         if (analytics !== analytics_data.data) {
             if (analytics_data.status === 1 && analytics_data.data !== null) {
                 this.setState({ analytics: analytics_data.data })
+            }
+        }
+        if (social_analytics !== social_analytics_data.data) {
+            if (social_analytics_data.status === 1 && social_analytics_data.data !== null) {
+                this.setState({ social_analytics: social_analytics_data.data })
             }
         }
     }
@@ -543,7 +550,7 @@ class Analytics extends Component {
                         this.state.appliedFilter[0]['filter3'],
                     ]
                 }
-               console.log(appliedFilter);
+               //console.log(appliedFilter);
                 //this.filterSendReq(arrayFilter);
             }
         } else if(totalNoCompare==2){
@@ -576,7 +583,7 @@ class Analytics extends Component {
                         this.state.appliedFilter[0]['filter3'],
                     ]
                 }
-                console.log(appliedFilter);
+                //console.log(appliedFilter);
                 //this.filterSendReq(arrayFilter);
             }
         } else if(totalNoCompare==3){
@@ -1083,9 +1090,9 @@ class Analytics extends Component {
         }];
 
         let arrayFilter2 = [{
-            "start_date" :"2017-03-10",
-	        "end_date" : "2018-10-09",
-	        "social_media_platform":"facebook",
+            "start_date" : moment(moment().format("YYYY-MM-DD")).subtract(3, 'months').format('YYYY-MM-DD'),
+            "end_date": moment().format("YYYY-MM-DD"),
+	        "social_media_platform":"twitter",
             "filter": [
                 this.state.appliedFilter[0]['filter'],
                 this.state.appliedFilter[0]['filter2'],
@@ -1095,23 +1102,25 @@ class Analytics extends Component {
 
         if(totalNoCompare==1){
             arrayFilter[0].filter.splice(1,2);
+            arrayFilter2[0].filter.splice(1,2);
         }
 
         if(totalNoCompare==2 && whichCompare.indexOf(2) > -1){
             arrayFilter[0].filter.splice(2,1);
+            arrayFilter2[0].filter.splice(2,1);
         }
         if(totalNoCompare==2 && whichCompare.indexOf(3) > -1){
             arrayFilter[0].filter.splice(1,1);
+            arrayFilter2[0].filter.splice(1,1);
         }
-        console.log(arrayFilter);
         dispatch(getAnalytics(arrayFilter));
         dispatch(getSocialAnalytics(arrayFilter2));
     }
 
     render() {
-        let { moreFilterData } = this.props;
-        const { analytics, allSliders, allDropDown, totalNoCompare, whichCompare, filter1, filter2, filter3 } = this.state;
-
+        let { moreFilterData, loading } = this.props;
+        const { appliedFilter, analytics, social_analytics, allSliders, allDropDown, totalNoCompare, whichCompare, filter1, filter2, filter3 } = this.state;
+        //console.log('social>>>>',social_analytics);
         let allDropArr = [{
             filter1: [],
             filter2: [],
@@ -1164,6 +1173,7 @@ class Analytics extends Component {
             this.props.history.push(routeCodes.ANALYTICS_STATS);
         }
         //console.log(totalNoCompare,(whichCompare.indexOf(2) > -1));
+        if (loading) { return (<div className="loader"></div>) }
         return (
             <div>
                 <div className="analytics-head">
@@ -1340,7 +1350,7 @@ class Analytics extends Component {
                         )
                     }
                 </div>
-                {curt_page == routeCodes.ANALYTICS_STATS && <Stats analyticsData={analytics} />}
+                {curt_page == routeCodes.ANALYTICS_STATS && <Stats analyticsData={analytics} socialAnalyticsData={social_analytics} appliedFilter={appliedFilter} totalNoCompare={totalNoCompare} whichCompare={whichCompare} />}
                 {curt_page == routeCodes.ANALYTICS_DEMOGRAPHICS && <DemoGraphics />}
             </div>
         );
@@ -1353,6 +1363,7 @@ const mapStateToProps = (state) => {
     return {
         loading: analytics.get('loading'),
         analytics_data: analytics.get('analytics'),
+        social_analytics_data: analytics.get('social_analytics'),
         moreFilterData: everyDay.get('moreFilterData'),
     }
 }
