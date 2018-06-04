@@ -883,8 +883,22 @@ class EverydayPeople extends Component {
 
     addGroup = (obj) => {
         const { dispatch } = this.props;
-        this.child.setSaveFor('group', obj._id);
-        dispatch(fetchDropDownReq({ "sendReqFor": "group", "uId": obj._id }));
+        // original pav
+        //this.child.setSaveFor('group', obj._id);
+        //dispatch(fetchDropDownReq({ "sendReqFor": "group", "uId": obj._id }));
+ 
+        if((obj && obj.campaign_id && this.props.match.url === '/campaigns/active_list/'+obj.campaign_id) ||
+        this.props.match.url === '/campaigns/inspired_submission')
+        {
+            this.child.setSaveFor('group', obj.user_id);
+            dispatch(fetchDropDownReq({ "sendReqFor": "group", "uId": obj.user_id }));
+        }
+        else
+        {
+            this.child.setSaveFor('group', obj._id);
+            dispatch(fetchDropDownReq({ "sendReqFor": "group", "uId": obj._id }));
+        }
+      
         setTimeout(() => {
             if (this.props.dropdownList === null && this.props.loading === false) {
                 this.setState({
@@ -1329,7 +1343,7 @@ class EverydayPeople extends Component {
 
         this.age_filter_toggle();
         this.setState({
-            isAgeFilterApply: true
+            isAgeFilterApply: true,
         })
     }
 

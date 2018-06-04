@@ -32,9 +32,18 @@ class LeftMenu extends Component {
             jQuery('.campToogleMenu_UL').css({ display: 'block' });
         } else if (history.location.pathname === routeCodes.CAMPAIGN_FUTURE) {
             jQuery('.campToogleMenu_UL').css({ display: 'block' });
-        } else if (history.location.pathname === routeCodes.CAMPAIGN_PAST) {
+        } 
+        else if (history.location.pathname === routeCodes.CAMPAIGN_PAST) {
             jQuery('.campToogleMenu_UL').css({ display: 'block' });
         }
+        else if (history.location.pathname === routeCodes.CAMPAIGN_INSPIRED_SUB) {
+            jQuery('.campToogleMenu_UL').css({ display: 'block' });
+        }
+        else if (history.location.pathname === routeCodes.CAMPAIGN_PURCHASED_POSTS) {
+            jQuery('.campToogleMenu_UL').css({ display: 'block' });
+        }
+        
+        
 
     }
 
@@ -90,7 +99,7 @@ class LeftMenu extends Component {
                                 </li>
                                 <li>
                                     <NavLink activeClassName='active' className='Menu-link first_level' to={routeCodes.CAMPAIGN_PURCHASED_POSTS}>
-                                        Purchased Posts
+                                        Purchased posts
                                     </NavLink>
                                 </li>
                             </ul>
