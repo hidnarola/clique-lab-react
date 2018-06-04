@@ -32,11 +32,6 @@ const actionMap = {
         }));
     },
     [GET_ANALYTICS_SUCCESS]: (state, action) => {
-        // console.log('=======================================');
-        // console.log('REDUCERS >>>>>> ANALYTICS_SUCCESS');
-        // console.log(action);
-        // console.log('=======================================');
-        // return false;
         return state.merge(Map({
             ...initialState,
             loading: false,
@@ -73,7 +68,7 @@ const actionMap = {
     },
     [GET_SOCIAL_ANALYTICS_SUCCESS]: (state, action) => {
         // console.log('=======================================');
-        // console.log('REDUCERS >>>>>> ANALYTICS_SUCCESS');
+        // console.log('REDUCERS >>>>>> SOCIAL_ANALYTICS_SUCCESS');
         // console.log(action);
         // console.log('=======================================');
         // return false;

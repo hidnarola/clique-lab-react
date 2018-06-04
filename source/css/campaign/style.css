@@ -193,12 +193,20 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#895cf2', end
 .hdr-cart .dropdown-menu:after{left:auto;right:10px;}
 
 .right-box{ background:#fff; border-radius:6px; padding:70px 50px; margin:0 0 40px;}
-
-.right-box-head .dropdown-menu{ padding:15px 20px; margin:15px 0 0; background:#525f7f;}
+.right-box .dropdown-menu{ 
+  box-shadow: 0 0 30px 0 #52649c59;
+  transform: translate3d(0px, 0px, 0px) !important;
+  left:-33px !important;
+  font-weight:600;
+  font-size:13px;
+}
+.right-box .dropdown-menu .dropdown-item:hover{ color: #6772e5; }
+.analytics-body .right-box button i{ background: url(../assets/img/site/down-arrow-1.png) no-repeat 0 0 / 11px auto; width: 11px; height: 17px; margin-top: 2px;}
+/* .right-box-head .dropdown-menu{ padding:15px 20px; margin:15px 0 0; background:#525f7f;}
 .right-box-head .dropdown-menu:after {border-bottom: 40px solid #525f7f; left:auto; right:43px;top:-15px;}
 .right-box-head .dropdown-menu a{margin:0 0 8px; padding:0; font-weight:500; color:#fff;}
 .right-box-head .dropdown-menu a:last-child{ margin-bottom:0;}
-.right-box-head .dropdown-menu a:hover{ background:transparent; color:#999; text-decoration:none;}
+.right-box-head .dropdown-menu a:hover{ background:transparent; color:#999; text-decoration:none;} */
 .right-box-head a{color:#525f7f; font-size:16px; font-weight:500; position:relative;}
 .right-box-head a i{ background: url(../assets/img/site/down-arrow-1.png) no-repeat 0 0; display: inline-block; vertical-align: top; width: 14px; height: 20px; margin-left: 6px;}
 .right-box-head a:hover{color:#6772e5; text-decoration:none;}

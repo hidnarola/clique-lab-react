@@ -213,12 +213,17 @@ td.fc-widget-content{ border:0;}
     .add_all_results_dropdown .dropdown button.btn-secondary:hover{ background-color: transparent !important; color: #525f7f !important; border: 2px solid #9ca5b8 !important; }
     .add_all_results_dropdown .dropdown .dropdown-item:hover{ color:#6772e5 }
 
+/* ANALYTICS */
     .btn_add_compare.btn_disable{ cursor: no-drop; border: 2px solid #bcc3d0 !important; color: #bcc3d0 !important; }
     .btn_add_compare.btn_disable:hover{ background: transparent !important; color: #bcc3d0 !important; }
     .btn_add_compare{ padding: 0 20px !important; line-height: 30px !important; font-weight: 600 !important; border-radius: 3px !important; }
-
     .btn_close_compare{width: 25px; margin-top: 2px;}
     
+    .analytics-body .right-box-head a{ font-size: 13px; font-weight: 600;}
+    .timeing-dropdown .btn.btn-secondary,
+    .timeing-dropdown .btn.btn-secondary:active,
+    .social-dropdown .btn.btn-secondary,
+    .social-dropdown .btn.btn-secondary:active{ background-color: transparent; color:#525f7f; font-weight:600; font-size: 13px; padding:0px; border:none}
     .graph-img .y.axis,
     .graph-img .x.axis .tick line,
     .graph-img .x.axis path.domain {
@@ -232,11 +237,15 @@ td.fc-widget-content{ border:0;}
     }
     .graph-img .recharts-layer.recharts-cartesian-axis-tick text {
         padding-top:10px;
-        /* font-family: Montserrat Semibold; */
         font-size: 14px;
         font-weight: 600;
         color: #525f7f;
     }
+    .recharts-tooltip-wrapper { box-shadow: 0 0 30px 0 #52649c59; background: #fff; border-radius: 3px; padding: 10px; position:relative; z-index:100; width:80px; height:70px; text-align: left;}
+    .recharts-tooltip-wrapper .graph.custom-tooltip .label{  font-weight:600; font-size:14px; }
+    .recharts-tooltip-wrapper:after{content:''; width:0;height:0; border-left:10px solid transparent; border-right:10px solid transparent; border-top:10px solid #fff; position: absolute; top:100%; left:50%; transform:translateX(-50%);}
+    .graph-img svg>path {fill:transparent !important;}
+    .graph-img svg a path{fill:#6772e6 !important;}
 
 .how-much .select-wrap{ margin-bottom:0;}
 .how-much .input-2 input { width:56%;}
