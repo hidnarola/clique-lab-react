@@ -6,7 +6,7 @@ import _ from 'lodash';
 import Dropzone from 'react-dropzone';
 import dropImg from 'img/site/canvas.png';
 
-// import {FileField_Dropzone} from '../../components/Forms/RenderFormComponent/EveryComponent';
+import {renderFieldCampaign} from '../../components/Forms/RenderFormComponent/EveryComponent';
 
 const validate = values => {
     const errors = {};
@@ -35,57 +35,91 @@ const validate = values => {
     return errors;
 };
 
-const FileField_Dropzone = (props) => {
-    const { label, input, meta, wrapperClass, className, labelClass, errorClass, accept, multiple, isRequired } = props;
-    let filesArr = _.values(input.value);
-    let images = [];
-    let isFileDropped = false;
-    _.forEach(filesArr, (file, key) => {
-        images.push(
-            <div className="images-preview-wrapper" key={key}>
-                <div className="image-preview">
-                    <img src={file.preview} width={'560px'} height={'280px'} />
-                </div>
-            </div>
-        )
-    })
+class FileField_Dropzone extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            imageArr: []
+        }
+    }
+    removeImg = (key) => {
+        const { imageArr } = this.state;
+        imageArr.splice(key,1);
+    }
 
-    return (
-        <div className={wrapperClass}>
-            <label htmlFor={input.name} className={labelClass}>
-                {label} {isRequired === "true" && <span className="error-div">*</span>}
-            </label>
-
-            <Dropzone
-                {...input}
-                accept={accept ? accept : "image/jpeg, image/png, image/jpg, image/gif"}
-                onDrop={(filesToUpload, e) => { isFileDropped = true; input.onChange(filesToUpload) }}
-                multiple={multiple ? multiple : false}
-                className={`${className}`}
-                onFileDialogCancel={() => {
-                    (!isFileDropped) ? input.onChange('') : ''
-                }}
-            >
-                <div className="dropzone-image-preview-wrapper">
-                    <div className="custom_dropzone_div">
-                        <img src={dropImg} /><br /><br />
-                        <p>Select or Drag Your image here</p>
-                        <span className={`btn btn_drop_browse`}>Or Browse</span>
+    render() {
+        const { label, input, meta, wrapperClass, className, labelClass, errorClass, accept, multiple, isRequired, updateHiddenField } = this.props;
+        const { imageArr } = this.state; 
+        let filesArr = _.values(input.value);
+        let images = [];
+        //let tempImgs = [];
+        let isFileDropped = false;
+        _.forEach(filesArr, (file, key) => {
+            //tempImgs.push(file);
+            //onClick={() => this.removeImg(key)}
+            images.push(
+                <div className="images-preview-wrapper" key={key}>
+                    <div className="image-preview">
+                        <img src={file.preview} width={'560px'} height={'280px'}  />
                     </div>
                 </div>
-            </Dropzone>
-            <div className="uploaded_img">
-                {(input.value && meta.error === undefined) && images}
+            )
+        })
+
+        // if(tempImgs.length > 0 && tempImgs!==imageArr){
+        //     console.log('12');
+        //     document.getElementById('board_images').value = JSON.stringify(tempImgs);
+        //     //this.props.change('board_images',JSON.stringify(tempImgs));
+        //     updateHiddenField(JSON.stringify(tempImgs));
+        //     let tempI = tempImgs
+        //     tempImgs = [];
+        // }
+        
+        return (
+            <div className={wrapperClass}>
+                <label htmlFor={input.name} className={labelClass}>
+                    {label} {isRequired === "true" && <span className="error-div">*</span>}
+                </label>
+
+                <Dropzone
+                    {...input}
+                    accept={accept ? accept : "image/jpeg, image/png, image/jpg, image/gif"}
+                    onDrop={(filesToUpload, e) => { isFileDropped = true; input.onChange(filesToUpload) }}
+                    multiple={multiple ? multiple : false}
+                    className={`${className}`}
+                    onFileDialogCancel={() => {
+                        (!isFileDropped) ? input.onChange('') : ''
+                    }}
+                >
+                    <div className="dropzone-image-preview-wrapper">
+                        <div className="custom_dropzone_div">
+                            <img src={dropImg} /><br /><br />
+                            <p>Select or Drag Your image here</p>
+                            <span className={`btn btn_drop_browse`}>Or Browse</span>
+                        </div>
+                    </div>
+                </Dropzone>
+                <div className="uploaded_img">
+                    {(input.value && meta.error === undefined) && images}
+                </div>
+                {(meta.touched && meta.error) && <span className="error-div">{meta.error}</span>}
             </div>
-            {(meta.touched && meta.error) && <span className="error-div">{meta.error}</span>}
-        </div>
-    );
+        );
+    }
 }
 
 class FormStep5 extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            finalImage : []
+        }
     }
+
+    updateHiddenField =(data) =>{
+        this.props.change('board_images',data);
+    }
+        
     render() {
         const { handleSubmit, previousPage, submitDisabled } = this.props;
         return (
@@ -103,9 +137,19 @@ class FormStep5 extends Component {
                                     wrapperClass="form-group"
                                     placeholder="Images"
                                     component={FileField_Dropzone}
+                                    // updateHiddenField={this.updateHiddenField}
                                     multiple={true}
                                 />
                             </div>
+                            {/* <div className="input-wrap">
+                                <Field
+                                    name="board_images"
+                                    id="board_images"
+                                    type="hidden"
+                                    component={renderFieldCampaign}
+                                    placeholder="Campaign Name"
+                                />
+                            </div> */}
 
                             <div className="submit-btn d-flex">
                                 <button type="button" onClick={previousPage} className="round-btn prev-btn">Previous</button>

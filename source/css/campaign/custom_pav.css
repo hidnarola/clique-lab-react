@@ -243,7 +243,7 @@ td.fc-widget-content{ border:0;}
         font-weight: 600;
         color: #525f7f;
     }
-    .recharts-tooltip-wrapper { box-shadow: 0 0 30px 0 #52649c59; background: #fff; border-radius: 3px; padding: 10px; position:relative; z-index:100; width:80px; height:70px; text-align: left;}
+    .recharts-tooltip-wrapper { box-shadow: 0 0 30px 0 #52649c59; background: #fff; border-radius: 3px; padding: 10px; position:relative; z-index:100; width:80px; height:auto; text-align: left; left:-50px !important}
     .recharts-tooltip-wrapper .graph.custom-tooltip .label{  font-weight:600; font-size:14px; }
     .recharts-tooltip-wrapper:after{content:''; width:0;height:0; border-left:10px solid transparent; border-right:10px solid transparent; border-top:10px solid #fff; position: absolute; top:100%; left:50%; transform:translateX(-50%);}
     .graph-img svg>path {fill:transparent !important;}
