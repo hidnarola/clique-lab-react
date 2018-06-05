@@ -165,8 +165,10 @@ td.fc-widget-content{ border:0;}
     .stats_age_dropdown .dropdown-menu,
     .stats_filter_li4 .dropdown-menu{ padding:50px !important; }
     .stats_age_dropdown .range-div{ width: 80px !important; }
-    .stats_age_dropdown.active{ background-color: #6772e5; }
-    .stats_age_dropdown.active .dropdown-toggle{ color:#fff !important;}
+    .stats_age_dropdown.active,
+    .stats_filter_li4.active{ background-color: #6772e5; }
+    .stats_age_dropdown.active .dropdown-toggle,
+    .stats_filter_li4.active .dropdown-toggle{ color:#fff !important;}
     .stats_age_dropdown .dropdown-menu:after{ left: 11px; top:-15px}
     .add_all_results_dropdown .dropdown-menu:after{ right: 5px; left: auto; top: -14px; }
     .stats_filter_li3 .dropdown-menu:after{ left: 35px; top:-15px}

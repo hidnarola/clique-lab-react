@@ -3,7 +3,7 @@ import  {SERVER_BASE_URL} from './consts';
 export const publicPath = '/';
 
 export const imgRoutes = {
-    GROUP_IMG_PATH: `${SERVER_BASE_URL}uploads/group/`,
+    GROUP_IMG_PATH: `${SERVER_BASE_URL}uploads/group/325X220/`,
     USER_IMG_PATH: `${SERVER_BASE_URL}uploads/users/300X200/`,
     PROMOTER_IMG_PATH: `${SERVER_BASE_URL}uploads/promoter/80X80/`,
     CAMPAIGN_IMG_PATH: `${SERVER_BASE_URL}uploads/campaign/512X384/`,

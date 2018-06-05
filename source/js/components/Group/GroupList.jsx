@@ -312,6 +312,7 @@ class GroupList extends Component {
         });
 
         this.child.setSaveFor('add_to_campaign', null);
+        
         //dispatch(fetchDropDownReq({ "sendReqFor": "add_to_campaign" }));
         
         if(obj.total_member > 0)
@@ -342,7 +343,7 @@ class GroupList extends Component {
 
     saveResult = (param1, param2, param3, param4, param5) => {
         let data = {
-            param1,
+            param1:'add_to_campaign', // add by dm  #default param1 itself
             param2,
             param3,
             param4,

@@ -108,8 +108,6 @@ class Campaign extends Component {
             //formData.append("board_image",values.imagesNew);
 
             this.setState({popUp:public_or_private},()=>{
-                
-                //console.log('POPUP:>>>',this.state.popUp);
                 dispatch(createCampaign(formData))
             });
 

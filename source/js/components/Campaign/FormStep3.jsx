@@ -79,17 +79,17 @@ const SelectFieldCurrencyDrop = (props) => {
         val = val;
     }
     return (
-            <Select
-                {...input}
-                value={val}
-                options={options}
-                className={`${className}${meta.touched && ((meta.error && ' txt_error_div') || (meta.warning && ' txt_error_div'))}`}
-                placeholder={placeholder}
-                onChange={(value) => input.onChange(value)}
-                onBlur={() => input.onBlur({ ...input.value })}
-                multi={false}
-                clearable={false}
-            />
+        <Select
+            {...input}
+            value={val}
+            options={options}
+            className={`${className}${meta.touched && ((meta.error && ' txt_error_div') || (meta.warning && ' txt_error_div'))}`}
+            placeholder={placeholder}
+            onChange={(value) => input.onChange(value)}
+            onBlur={() => input.onBlur({ ...input.value })}
+            multi={false}
+            clearable={false}
+        />
     );
 }
 
