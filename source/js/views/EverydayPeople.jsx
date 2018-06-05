@@ -383,7 +383,7 @@ const MoreFilterDropDown = (props) => {
         });
 
     }
-    return (<Dropdown isOpen={props.open} toggle={props.toggle} className="MoreFilterLi stats_filter_li4">
+    return (<Dropdown isOpen={props.open} toggle={props.toggle} className={cx("MoreFilterLi stats_filter_li4",{ 'active': (props.isMoreFilterApply) ? true : false })}>
         <DropdownToggle caret >
             More Filter {" "}
         </DropdownToggle>
@@ -1617,6 +1617,7 @@ class EverydayPeople extends Component {
                                     applyMoreFilter={() => { this.applyMoreFilter() }}
                                     open={this.state.more_filter_open}
                                     toggle={this.more_filter_toggle}
+                                    isMoreFilterApply={this.state.isMoreFilterApply}
                                 />
                             </li>
                         </ul>
