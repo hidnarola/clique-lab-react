@@ -61,6 +61,8 @@ class Campaign extends Component {
     }
     
     submitForm(values){
+        console.log(JSON.parse(values.board_images));
+        return;
         this.setState({submit_disabled: true},() =>{
             const {dispatch} = this.props;
             let hashTagArr = [];
@@ -100,16 +102,16 @@ class Campaign extends Component {
             formData.append("price",values.how_much);
             formData.append("currency",values.currency.value);
             formData.append("cover_image",values.images[0]);
-            // if(JSON.parse(values.board_images)){
-            //     _.forEach(JSON.parse(values.board_images), (file) => {
-            //         formData.append('board_image', file);
-            //     });
-            // }
-            if (values.imagesNew) {
-                _.forEach(values.imagesNew, (file) => {
+            if(JSON.parse(values.board_images)){
+                _.forEach(JSON.parse(values.board_images), (file) => {
                     formData.append('board_image', file);
                 });
             }
+            // if (values.imagesNew) {
+            //     _.forEach(values.imagesNew, (file) => {
+            //         formData.append('board_image', file);
+            //     });
+            // }
             //formData.append("board_image",values.imagesNew);
 
             this.setState({popUp:public_or_private},()=>{

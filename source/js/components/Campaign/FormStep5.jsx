@@ -51,29 +51,31 @@ class FileField_Dropzone extends Component {
         const { label, input, meta, wrapperClass, className, labelClass, errorClass, accept, multiple, isRequired, updateHiddenField } = this.props;
         const { imageArr } = this.state; 
         let filesArr = _.values(input.value);
+        console.log('FileArr',filesArr);
         let images = [];
-        //let tempImgs = [];
+        let tempImgs = [];
         let isFileDropped = false;
+        if(filesArr.length > 0){
+            tempImgs.push(filesArr);
+        }
         _.forEach(filesArr, (file, key) => {
-            //tempImgs.push(file);
-            //onClick={() => this.removeImg(key)}
             images.push(
                 <div className="images-preview-wrapper" key={key}>
                     <div className="image-preview">
-                        <img src={file.preview} width={'560px'} height={'280px'}  />
+                        <img src={file.preview} width={'560px'} height={'280px'} onClick={() => this.removeImg(key)} />
                     </div>
                 </div>
             )
         })
 
-        // if(tempImgs.length > 0 && tempImgs!==imageArr){
-        //     console.log('12');
-        //     document.getElementById('board_images').value = JSON.stringify(tempImgs);
-        //     //this.props.change('board_images',JSON.stringify(tempImgs));
-        //     updateHiddenField(JSON.stringify(tempImgs));
-        //     let tempI = tempImgs
-        //     tempImgs = [];
-        // }
+        if(tempImgs.length > 0 && tempImgs!==imageArr){
+            document.getElementById('board_images').value = JSON.stringify(tempImgs);
+            //this.props.change('board_images',JSON.stringify(tempImgs));
+            console.log(JSON.stringify(tempImgs));
+            updateHiddenField(JSON.stringify(tempImgs));
+            let tempI = tempImgs
+            tempImgs = [];
+        }
         
         return (
             <div className={wrapperClass}>
@@ -137,11 +139,11 @@ class FormStep5 extends Component {
                                     wrapperClass="form-group"
                                     placeholder="Images"
                                     component={FileField_Dropzone}
-                                    // updateHiddenField={this.updateHiddenField}
+                                    updateHiddenField={this.updateHiddenField}
                                     multiple={true}
                                 />
                             </div>
-                            {/* <div className="input-wrap">
+                            <div className="input-wrap">
                                 <Field
                                     name="board_images"
                                     id="board_images"
@@ -149,7 +151,7 @@ class FormStep5 extends Component {
                                     component={renderFieldCampaign}
                                     placeholder="Campaign Name"
                                 />
-                            </div> */}
+                            </div>
 
                             <div className="submit-btn d-flex">
                                 <button type="button" onClick={previousPage} className="round-btn prev-btn">Previous</button>
