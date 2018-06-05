@@ -21,6 +21,7 @@ import ReactSelect from 'react-select';
 import nodataImg from 'img/site/nodata.png';
 import plusImg from 'img/site/plus-sign.png';
 import closeImg from 'img/site/close-2.png';
+import closeImg2 from 'img/site/close-2.png';
 
 
 const validate = values => {
@@ -181,7 +182,12 @@ class GroupList extends Component {
             groupId: '',
             isPluseClick: false,
             sort_wise_pagination: '',
-            load:false
+            load:false,
+
+            messagePopup: false,
+            messagePopupSuccessMsg: null,
+            messagePopupErrorMsg: null,
+
         };
 
         this.createGroupModal = this.createGroupModalOpen.bind(this);
@@ -207,6 +213,8 @@ class GroupList extends Component {
             createGroupModalShow: !this.state.createGroupModalShow,
         });
     }
+
+    messagePopupToggle = () => { this.setState({ messagePopup: !this.state.messagePopup }); }
 
     // createGroupSubmit = (values) => {
     createGroupSubmit(values) {
@@ -274,7 +282,7 @@ class GroupList extends Component {
     }
 
     componentDidUpdate() {
-        let { showDrop, userAdded, inserted_group, dispatch, group_status } = this.props;
+        let { showDrop, userAdded, inserted_group, dispatch, group_status,error } = this.props;
         let { is_inserted, activePage } = this.state;
 
         if (showDrop) {
@@ -291,10 +299,18 @@ class GroupList extends Component {
         }
 
         if (userAdded) {
-            alert('User Has been Added');
+            //alert('User Has been Added');
+
+            this.setState({
+                messagePopupSuccessMsg: 'Group has been added',
+                messagePopupErrorMsg: null
+            });
+            this.messagePopupToggle();
+
             dispatch(resetVal({ 'userAdded': false }));
             dispatch(resetGroupVal());
-        }
+        } 
+    
     }
 
     addCampaign = (obj) => {
@@ -321,20 +337,37 @@ class GroupList extends Component {
         }
 
         setTimeout(() => {
-            // if (this.props.dropdownList === null && this.props.loading === false) {
-                //     alert('You don’t have a campaign yet.')
-                // }
-                //console.log('TOT_MEM:',obj.total_member);
+
                 if(obj.total_member < 1 &&  this.props.dropdownList === null)
                 {
-                    alert('You don’t have members in group yet.')
+                    //alert('You don’t have members in group yet.')
+
+                    this.setState({
+                        messagePopupSuccessMsg: null,
+                        messagePopupErrorMsg: 'You don’t have members in group yet.'
+                    });
+                    this.messagePopupToggle();
+
                 }
                 else if(obj.total_member < 1)
                 {
-                    alert('You don’t have members in group yet.')
+                    //alert('You don’t have members in group yet.')
+
+                    this.setState({
+                        messagePopupSuccessMsg: null,
+                        messagePopupErrorMsg: 'You don’t have members in group yet.'
+                    });
+                    this.messagePopupToggle();
+
                 }
                 else if(this.props.dropdownList === null && this.props.loading === false) {
-                    alert('You don’t have a campaign yet.')
+                    //alert('You don’t have a campaign yet.')
+
+                    this.setState({
+                        messagePopupSuccessMsg: null,
+                        messagePopupErrorMsg: 'You don’t have a campaign yet.'
+                    });
+                    this.messagePopupToggle();
                 }
             },1500)
             
@@ -520,6 +553,29 @@ class GroupList extends Component {
                     </button>
                     <h2>Create Group</h2>
                     <CreateGroupForm onSubmit={this.createGroupSubmit.bind(this)} submitDisabled={this.state.authorise_disabled} />
+                </Modal>
+
+                {/* ---DM----- */}
+                <Modal isOpen={this.state.messagePopup} toggle={this.messagePopupToggle} className={this.props.className} id="congratulations" style={{ width: "550px" }}>
+                    <div className="custom_modal_btn_close" style={{ padding: "15px 20px" }}>
+                        <img className="cursor_pointer" src={closeImg2} onClick={() => this.messagePopupToggle()} />
+                    </div>
+                    <ModalBody>
+                        {
+                            (this.state.messagePopupSuccessMsg) ?
+                                <div className="terms-conditions">
+                                    <h2>Operation successfully completed...! </h2>
+                                    <p>{this.state.messagePopupSuccessMsg}</p>
+                                    <a href="javascript:void(0)" className="round-btn" onClick={() => this.messagePopupToggle()}>Ok</a>
+                                </div>
+                                :
+                                <div className="terms-conditions">
+                                    <h2 style={{ color: "red" }}>Opps something went wrong...! </h2>
+                                    <p>{this.state.messagePopupErrorMsg}</p>
+                                    <a href="javascript:void(0)" className="round-btn" onClick={() => this.messagePopupToggle()}>Ok</a>
+                                </div>
+                        }
+                    </ModalBody>
                 </Modal>
 
                 {/* <Modal isOpen={true} toggle={this.toggle} className={this.props.className} className="alertMessagePopup"  id="congratulations" backdrop={true}>

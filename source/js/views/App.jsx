@@ -64,7 +64,7 @@ class App extends Component {
         super(props);
     }
 
-    notify = (message) => {
+   /* notify = (message) => {
         toast.success(`${message} !`, {
             position: "top-right",
             autoClose: 4000,
@@ -74,12 +74,13 @@ class App extends Component {
             draggable: true,
         });
     }
+    */
 
     render() {
         const { alertMessage } = this.props;
         return (
             <div>
-                {(alertMessage !== null && this.notify(alertMessage))}
+                {/* {(alertMessage !== null && this.notify(alertMessage))}
                 <ToastContainer
                     position="top-right"
                     autoClose={4000}
@@ -91,7 +92,7 @@ class App extends Component {
                     draggable
                     pauseOnHover
                     transition={Slide}
-                />
+                /> */}
                 <Router>
                     <ScrollToTop>
                         <Switch>

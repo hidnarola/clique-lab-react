@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import jQuery from 'jquery';
 import img1 from 'img/big-img01.jpg';
 import fbImg from 'img/site/facebook-01.png';
 import linkedImg from 'img/site/linkedin.png';
@@ -7,6 +8,7 @@ import pinImg from 'img/site/pintrest.png';
 import twitterImg from 'img/site/twitter.png';
 import instaImg from 'img/site/instagram.png';
 import imgPlus from 'img/site/plus-01.png';
+import closeImg2 from 'img/site/close-2.png';
 import Pagination from "react-js-pagination";
 import { puchasedPostSend } from '../../actions/purchasedPosts';
 import { downloadCampaignImg } from '../../actions/campaign';
@@ -62,15 +64,32 @@ class AddToModal extends Component {
 
     handleChange = (selectedOption) => {
         this.setState({ selectedOption });
+
+        if (selectedOption === null) {
+            jQuery('.add_grp_popup_select .Select-control').css("cssText", "border: 2px solid red !important");
+            jQuery('.add_grp_popup_select_errorMsg').html('This field is required');
+        } else {
+            jQuery('.add_grp_popup_select .Select-control').css("cssText", "border: 2px solid rgb(220, 223, 229) !important");
+            jQuery('.add_grp_popup_select_errorMsg').html('');
+        }
     }
 
     saveResult = () => {
         let { selectedOption, saveFor, userId, filter } = this.state;
-        if (selectedOption === '') {
-            alert('Select the option');
+
+        // if (selectedOption === '') {
+        //     alert('Select the option');
+        // } else {
+        //     this.props.saveResult(saveFor, selectedOption, userId, filter);
+        // }
+
+        if (selectedOption === '' || selectedOption === null) {
+            jQuery('.add_grp_popup_select .Select-control').css("cssText", "border: 2px solid red !important");
+            jQuery('.add_grp_popup_select_errorMsg').html('This field is required');
         } else {
             this.props.saveResult(saveFor, selectedOption, userId, filter);
         }
+
     }
 
     render() {
@@ -94,14 +113,17 @@ class AddToModal extends Component {
                         <div className="terms-conditions">
                             <h2>Which Campaign/Group would you like to Offer the Selected People ? </h2>
                             <p>Please Select the Campaign/Group from the Dropdownlist,<br /> then click Accept and Continue.</p>
-                            <ReactSelect
-                                className='add_grp_popup_select campaign_form_step2_dropdown select-wrap'
-                                name="form-field-name"
-                                value={selectedOption}
-                                onChange={this.handleChange}
-                                options={dropArr}
-                                placeholder="Please select from the dropdown"
-                            />
+                            <div className="select-wrap">
+                                <ReactSelect
+                                    className='add_grp_popup_select campaign_form_step2_dropdown'
+                                    name="form-field-name"
+                                    value={selectedOption}
+                                    onChange={this.handleChange}
+                                    options={dropArr}
+                                    placeholder="Please select from the dropdown"
+                                />
+                                <label className="add_grp_popup_select_errorMsg" style={{ "color": "red", "marginTop": "5px", "textAlign": "left" }}></label>
+                            </div>
                             <a href="javascript:void(0)" className="round-btn" onClick={this.saveResult}>Accept & Continue</a>
                         </div>
                     </ModalBody>
@@ -135,6 +157,10 @@ class PurchasedPosts extends Component {
             modal: false,
             is_inserted: 0,
             groupId: '',
+
+            messagePopup: false,
+            messagePopupSuccessMsg: null,
+            messagePopupErrorMsg: null,
         }
     }
 
@@ -143,6 +169,8 @@ class PurchasedPosts extends Component {
         const { dispatch } = this.props;
         dispatch(puchasedPostSend({ "page_size": 8, "page_no": pageNumber }));
     }
+
+    messagePopupToggle = () => { this.setState({ messagePopup: !this.state.messagePopup }); }
 
     componentWillMount() {
         const { dispatch, match } = this.props;
@@ -165,7 +193,12 @@ class PurchasedPosts extends Component {
 
         setTimeout(() => {
             if (this.props.dropdownList === null && this.props.loading === false) {
-                alert('You don’t have a campaign yet.')
+                //alert('You don’t have a campaign yet.')
+                this.setState({
+                    messagePopupSuccessMsg: null,
+                    messagePopupErrorMsg: 'You don’t have a campaign yet.'
+                });
+                this.messagePopupToggle();
             }
         }, 2000)
     }
@@ -174,10 +207,15 @@ class PurchasedPosts extends Component {
         const { dispatch } = this.props;
         this.child.setSaveFor('group', obj.users._id);
         dispatch(fetchDropDownReq({ "sendReqFor": "group", "uId": obj.users._id }));
-        
+
         setTimeout(() => {
             if (this.props.dropdownList === null && this.props.loading === false) {
-                alert('You don’t have a campaign yet.')
+                //alert('You don’t have a campaign yet.')
+                this.setState({
+                    messagePopupSuccessMsg: null,
+                    messagePopupErrorMsg: 'You don’t have a group yet.'
+                });
+                this.messagePopupToggle();
             }
         }, 2000)
     }
@@ -208,7 +246,12 @@ class PurchasedPosts extends Component {
         }
 
         if (userAdded) {
-            alert('User Has been Added');
+            //alert('User Has been Added');
+            this.setState({
+                messagePopupSuccessMsg: 'User Has been Added',
+                messagePopupErrorMsg: null
+            });
+            this.messagePopupToggle();
             dispatch(resetVal({ 'userAdded': false }));
             dispatch(resetGroupVal());
         }
@@ -264,7 +307,7 @@ class PurchasedPosts extends Component {
                                         <div className="fan-festival-box">
                                             <div className="festival-head d-flex">
                                                 <div className="festival-head-l">
-                                                    <span style={{ "background":"url('"+imgRoutes.USER_IMG_PATH+obj.users.image+"')no-repeat 100%", "backgroundSize": "100%", "height": "50px" }}>
+                                                    <span style={{ "background": "url('" + imgRoutes.USER_IMG_PATH + obj.users.image + "')no-repeat 100%", "backgroundSize": "100%", "height": "50px" }}>
                                                         {/* <img src={imgRoutes.USER_IMG_PATH + obj.users.image} /> */}
                                                     </span>
                                                     <h3>
@@ -314,6 +357,29 @@ class PurchasedPosts extends Component {
                     dropdownList={dropdownList}
                     resetDropVal={this.resetDropVal}
                     saveResult={this.saveResult} />
+
+                {/* ---DM----- */}
+                <Modal isOpen={this.state.messagePopup} toggle={this.messagePopupToggle} className={this.props.className} id="congratulations" style={{ width: "550px" }}>
+                    <div className="custom_modal_btn_close" style={{ padding: "15px 20px" }}>
+                        <img className="cursor_pointer" src={closeImg2} onClick={() => this.messagePopupToggle()} />
+                    </div>
+                    <ModalBody>
+                        {
+                            (this.state.messagePopupSuccessMsg) ?
+                                <div className="terms-conditions">
+                                    <h2>Operation successfully completed...! </h2>
+                                    <p>{this.state.messagePopupSuccessMsg}</p>
+                                    <a href="javascript:void(0)" className="round-btn" onClick={() => this.messagePopupToggle()}>Ok</a>
+                                </div>
+                                :
+                                <div className="terms-conditions">
+                                    <h2 style={{ color: "red" }}>Opps something went wrong...! </h2>
+                                    <p>{this.state.messagePopupErrorMsg}</p>
+                                    <a href="javascript:void(0)" className="round-btn" onClick={() => this.messagePopupToggle()}>Ok</a>
+                                </div>
+                        }
+                    </ModalBody>
+                </Modal>
             </div>
 
         );
