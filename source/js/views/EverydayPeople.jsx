@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Pagination from "react-js-pagination";
 import { sendReq, moreFilterReq, fetchDropDownReq, resetVal, addUserReq, bulkUserReq, forceRefresh } from '../actions/everyDay';
-import { purchaseAll } from '../actions/campaign';
+import { purchaseAll, resetAlertMsg } from '../actions/campaign';
 import { getGroups, addGroups, resetGroupVal } from '../actions/groups';
 import sampleImg from 'img/site/400x218.png';
 import closeImg from 'img/site/close.png';
@@ -651,6 +651,7 @@ class EverydayPeople extends Component {
         this.state = {
             perPageItem: 12,
             modal: false,
+            load:false,
 
             messagePopup: false,
             messagePopupSuccessMsg: null,
@@ -773,6 +774,13 @@ class EverydayPeople extends Component {
         this.setState({
             age_filter_open: !this.state.age_filter_open,
         });
+
+        // if(this.state.isAgeFilterApply !== true)
+        // {
+        //     console.log('False..');
+        //     this.setState(allSliders[{ 'slider': 'ageRange', 'value': { min: 15, max: 65 } }])
+        //     //this.setState({ ageRange: { min: 15, max: 65 } });
+        // }
     }
 
     location_filter_toggle() { this.setState({ location_filter_open: !this.state.location_filter_open, locError: '' }); }
@@ -944,6 +952,12 @@ class EverydayPeople extends Component {
             'campaignId': match.params.campaignId
         };
         dispatch(purchaseAll(arrayFilter));
+
+        //dm
+        this.setState({
+            isPurchaseAll:true
+        });
+
         // this.setState({"activePage":1});
         // this.filterSendReq(arrayFilter);
     }
@@ -1141,6 +1155,7 @@ class EverydayPeople extends Component {
             ],
             isAgeFilterApply: false,
             isLocationFilterApply: false,
+            isMoreFilterApply:false,
             tempLocation: '',
             address: '',
 
@@ -1252,7 +1267,7 @@ class EverydayPeople extends Component {
     }
 
     componentDidUpdate() {
-        let { showDrop, userAdded, userAddedMsg, dispatch, inserted_group, group_status, error } = this.props;
+        let { showDrop, userAdded, userAddedMsg, dispatch, inserted_group, group_status, error,alertMessage } = this.props;
         let { is_inserted, modifyStatusPurchase } = this.state
 
         if (showDrop) {
@@ -1298,6 +1313,16 @@ class EverydayPeople extends Component {
             dispatch(resetGroupVal());
         }
 
+        if(alertMessage !== null)
+        {
+            //alert(alertMessage);
+            this.setState({
+                messagePopupSuccessMsg: alertMessage,
+                messagePopupErrorMsg: null
+            });
+            dispatch(resetAlertMsg());
+            this.messagePopupToggle();
+        }
     }
 
     componentWillUnmount() {
@@ -1339,12 +1364,17 @@ class EverydayPeople extends Component {
             "page_no": 1
         }
         this.setState({ "activePage": 1 });
-        this.filterSendReq(arrayFilter);
-
-        this.age_filter_toggle();
-        this.setState({
-            isAgeFilterApply: true,
+       // this.filterSendReq(arrayFilter);
+       
+       //this.age_filter_toggle();
+       
+       this.setState({
+           isAgeFilterApply: true,
+           age_filter_open:false,
         })
+        
+        this.filterSendReq(arrayFilter);
+        
     }
 
     setLocationFilter = (tempLocation) => {
@@ -1523,6 +1553,13 @@ class EverydayPeople extends Component {
             formData.append("image", values.images[0]);
             this.setState({ is_inserted: 1 });
             dispatch(addGroups(formData));
+            
+            /**[DM] Put loader when add filter result to group */
+            this.setState({load:true},()=>{
+                setTimeout(()=>{
+                    this.setState({load:false})
+                },10500);
+            });
         });
     }
 
@@ -1563,7 +1600,7 @@ class EverydayPeople extends Component {
 
         return (
             <div className="every-people">
-                {(loading) ? <div className="loader" style={{ "zIndex": "999999999" }}></div> : ''}
+                {(loading || this.state.load === true) ? <div className="loader" style={{ "zIndex": "999999999" }}></div> : ''}
                 <div className="everypeole-head d-flex">
                     <div className="everypeole-head-l">
                         <ul>
@@ -1762,7 +1799,7 @@ class EverydayPeople extends Component {
                     resetDropVal={this.resetDropVal}
                     saveResult={this.saveResult}
                 />
-
+                {/* {(this.props.loading === true) ? <div className="loader" style={{ "zIndex": "999999999" }}></div> :  */}
                 <Modal isOpen={this.state.modal} toggle={this.toggle} id="group-popup" >
                     <button type="button" className="close" onClick={this.toggle}>
                         {/* <img src="/assets/img/site/close-2.png" /> */}
@@ -1771,6 +1808,7 @@ class EverydayPeople extends Component {
                     <h2>Create Group</h2>
                     <CreateGroupForm onSubmit={this.createGroupSubmit} submitDisabled={this.state.authorise_disabled} />
                 </Modal>
+                {/* } */}
 
                 <Modal isOpen={this.state.messagePopup} toggle={this.messagePopupToggle} className={this.props.className} id="congratulations" style={{ width: "550px" }}>
                     <div className="custom_modal_btn_close" style={{ padding: "15px 20px" }}>
@@ -1801,7 +1839,7 @@ class EverydayPeople extends Component {
 }
 
 const mapStateToProps = (state) => {
-    const { everyDay, groups } = state;
+    const { everyDay, groups,campaign } = state;
     return {
         group_status: groups.get('status'),
         inserted_group: groups.get('inserted_group'),
@@ -1814,7 +1852,9 @@ const mapStateToProps = (state) => {
         showDrop: everyDay.get('showDrop'),
         userAdded: everyDay.get('userAdded'),
         userAddedMsg: everyDay.get('userAddedMsg'),
-        forceRefresh: everyDay.get('forceRefresh')
+        forceRefresh: everyDay.get('forceRefresh'),
+        alertMessage: campaign.get('alertMessage')//dm
+        
     }
 }
 

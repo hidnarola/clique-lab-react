@@ -36,6 +36,8 @@ export const PURCHASE_ALL_REQUEST = 'PURCHASE_ALL_REQUEST';
 export const PURCHASE_ALL_SUCCESS = 'PURCHASE_ALL_SUCCESS';
 export const PURCHASE_ALL_ERROR = 'PURCHASE_ALL_ERROR';
 
+export const  RESET_ALERT_MSG = 'RESET_ALERT_MSG';
+
 export function resetVal(data) { return { type: RESET_VALUES, data:data } }
 
 export function createCampaign(data) { return { type: CAMPAIGN_REQUEST, data } }
@@ -73,3 +75,5 @@ export function getActiveCampaignMemError(error) { return { type: GET_ACTIVE_CAM
 export function purchaseAll(data) { return { type: PURCHASE_ALL_REQUEST, data } }
 export function purchaseAllSuccess(data) { return { type: PURCHASE_ALL_SUCCESS, data } }
 export function purchaseAllError(error) { return { type: PURCHASE_ALL_ERROR, error } }
+
+export function resetAlertMsg() { return { type: RESET_ALERT_MSG } }
