@@ -26,7 +26,8 @@ class Campaign extends Component {
             contentBody: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
             modal: false,
             submit_disabled: false,
-            popUp:''
+            popUp:'',
+            multipleImages: [],
         };
         this.submitForm = this.submitForm.bind(this);
     }
@@ -76,7 +77,6 @@ class Campaign extends Component {
             // for (var x = 0; x < ins; x++) {
             //     fd.append("fileToUpload[]", document.getElementById('fileToUpload').files[x]);
             // }
-            console.log(values.imagesNew);
             let public_or_private = 'public';
             if(values.public_or_private===undefined){
                 public_or_private = 'public';
@@ -100,6 +100,11 @@ class Campaign extends Component {
             formData.append("price",values.how_much);
             formData.append("currency",values.currency.value);
             formData.append("cover_image",values.images[0]);
+            // if(JSON.parse(values.board_images)){
+            //     _.forEach(JSON.parse(values.board_images), (file) => {
+            //         formData.append('board_image', file);
+            //     });
+            // }
             if (values.imagesNew) {
                 _.forEach(values.imagesNew, (file) => {
                     formData.append('board_image', file);
@@ -165,8 +170,9 @@ class Campaign extends Component {
                 {page === 5 && <FormStep5
                                     changePage={(i) =>this.changePage(i) }
                                     previousPage={this.previousPage}
-                                    onSubmit={this.submitForm} 
-                                    submitDisabled={this.state.submit_disabled} />}
+                                    submitDisabled={this.state.submit_disabled} 
+                                    multipleImages={(value) => console.log(value)}
+                                    onSubmit={this.submitForm}  />}
 
                 <ModalPopUp 
                     onRef={ref => (this.childCampaign = ref)} 

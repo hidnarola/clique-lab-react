@@ -11,10 +11,10 @@ import filrUp from 'img/site/filrUp.jpg';
 import calendarImg from 'img/site/calendar-icon.jpg';
 import dropImg from 'img/site/canvas.png';
 
-export const renderFieldCampaign = ({ input, type, placeholder, label, isRequired, meta: { touched, error, warning, pristine } }) => (
+export const renderFieldCampaign = ({ input, type, placeholder, label, id, isRequired, meta: { touched, error, warning, pristine } }) => (
     <div className={cx('input-wrap ', { 'custom-error': (touched && error) ? true : false })} >
         <label>{label} {pristine && isRequired === "true" && <span className="error-div">*</span>}</label>
-        <input {...input} placeholder={placeholder} type={type} className={`${touched && ((error && `txt_error_div`) || (warning && `txt_error_div`))}`} autocomplete="off"/>
+        <input {...input} placeholder={placeholder} id={id} type={type} className={`${touched && ((error && `txt_error_div`) || (warning && `txt_error_div`))}`} autocomplete="off"/>
         {touched && ((error && <div className="error-div">{error}</div>) || (warning && <span>{warning}</span>))}
     </div>
 )
