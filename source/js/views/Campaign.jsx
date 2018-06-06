@@ -6,18 +6,18 @@ import FormStep3 from '../components/Campaign/FormStep3';
 import FormStep4 from '../components/Campaign/FormStep4';
 import FormStep5 from '../components/Campaign/FormStep5';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import { Link,Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 import ModalPopUp from '../components/Common/ModalPopUp';
 import { connect } from 'react-redux';
 import { createCampaign } from '../actions/campaign';
-import {routeCodes} from '../constants/routes';
-import {reset,initialize} from 'redux-form';
+import { routeCodes } from '../constants/routes';
+import { reset, initialize } from 'redux-form';
 import closeImg from 'img/site/close-2.png';
 
 class Campaign extends Component {
-    
-    constructor(props){
+
+    constructor(props) {
         super(props);
         this.nextPage = this.nextPage.bind(this);
         this.previousPage = this.previousPage.bind(this);
@@ -26,15 +26,15 @@ class Campaign extends Component {
             contentBody: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
             modal: false,
             submit_disabled: false,
-            popUp:'',
+            popUp: '',
             multipleImages: [],
         };
         this.submitForm = this.submitForm.bind(this);
     }
-    
+
     toggle() {
         this.setState({
-             modal: !this.state.modal
+            modal: !this.state.modal
         });
     }
 
@@ -47,95 +47,80 @@ class Campaign extends Component {
         this.setState({ page: this.state.page - 1 });
     }
 
-    componentWillUnmount(){
+    componentWillUnmount() {
         const { dispatch } = this.props;
-        dispatch(initialize('wizardCampaign',{}))
+        dispatch(initialize('wizardCampaign', {}))
         // dispatch(reset('wizardCampaign'));
     }
 
-    resetFormData()
-    {
+    resetFormData() {
         const { dispatch } = this.props;
-       dispatch(initialize('wizardCampaign',{}))
+        dispatch(initialize('wizardCampaign', {}))
         // dispatch(reset('wizardCampaign'));
     }
-    
-    submitForm(values){
-        console.log(JSON.parse(values.board_images));
-        return;
-        this.setState({submit_disabled: true},() =>{
-            const {dispatch} = this.props;
+
+    multipleImagesFun = (allImgs) => {
+        this.setState({ multipleImages: allImgs });
+    }
+
+    submitForm(values, actionGenerator, props) {
+        //console.log(this.state.multipleImages);
+        //console.log(JSON.parse(values.board_images));
+        //return;
+        this.setState({ submit_disabled: true }, () => {
+            const { dispatch } = this.props;
             let hashTagArr = [];
             let atTagArr = [];
-            
-            values.tagHash.map((obj,index)=>{
+
+            values.tagHash.map((obj, index) => {
                 hashTagArr.push(obj.value);
-            });        
-            values.tagAt.map((obj,index)=>{
+            });
+            values.tagAt.map((obj, index) => {
                 atTagArr.push(obj.value);
             });
-
-            // var ins = document.getElementById('fileToUpload').files.length;
-            // for (var x = 0; x < ins; x++) {
-            //     fd.append("fileToUpload[]", document.getElementById('fileToUpload').files[x]);
-            // }
             let public_or_private = 'public';
-            if(values.public_or_private===undefined){
+            if (values.public_or_private === undefined) {
                 public_or_private = 'public';
-            }else{
+            } else {
                 public_or_private = values.public_or_private.value;
             }
-            const formData = new FormData();
 
-            formData.append("name",values.campaignName);
-            formData.append("start_date",values.campaignStartDate);
-            formData.append("end_date",values.campaignEndDate);
-            formData.append("call_to_action",values.call_to_action);
-            formData.append("discount_code",values.discount_code);
-            formData.append("description",values.short_desc);
-            formData.append("social_media_platform",values.industryName.value);
-            formData.append("hash_tag",JSON.stringify(hashTagArr));
-            formData.append("at_tag",JSON.stringify(atTagArr));
-            formData.append("privacy",public_or_private);
-            formData.append("media_format",values.media_format.value);
-            formData.append("location",values.location);
-            formData.append("price",values.how_much);
-            formData.append("currency",values.currency.value);
-            formData.append("cover_image",values.images[0]);
-            if(JSON.parse(values.board_images)){
-                _.forEach(JSON.parse(values.board_images), (file) => {
+            const formData = new FormData();
+            formData.append("name", values.campaignName);
+            formData.append("start_date", values.campaignStartDate);
+            formData.append("end_date", values.campaignEndDate);
+            formData.append("call_to_action", values.call_to_action);
+            formData.append("discount_code", values.discount_code);
+            formData.append("description", values.short_desc);
+            formData.append("social_media_platform", values.industryName.value);
+            formData.append("hash_tag", JSON.stringify(hashTagArr));
+            formData.append("at_tag", JSON.stringify(atTagArr));
+            formData.append("privacy", public_or_private);
+            formData.append("media_format", values.media_format.value);
+            formData.append("location", values.location);
+            formData.append("price", values.how_much);
+            formData.append("currency", values.currency.value);
+            formData.append("cover_image", values.images[0]);
+            if (this.state.multipleImages) {
+                _.forEach(this.state.multipleImages, (file) => {
                     formData.append('board_image', file);
                 });
             }
-            // if (values.imagesNew) {
-            //     _.forEach(values.imagesNew, (file) => {
-            //         formData.append('board_image', file);
-            //     });
-            // }
-            //formData.append("board_image",values.imagesNew);
-
-            this.setState({popUp:public_or_private},()=>{
+            this.setState({ popUp: public_or_private }, () => {
                 dispatch(createCampaign(formData))
             });
-
-            //dispatch(createCampaign(formData))
-
-            this.setState({isRedirect:true});
+            this.setState({ isRedirect: true });
         });
     }
 
 
-    componentDidUpdate(){
+    componentDidUpdate() {
         const { campaign } = this.props;
-        if(campaign && this.state.isRedirect === true){
-            if(campaign['status']){
-                this.setState({isRedirect:false});
-                // dispatch(initialize('wizardCampaign',{}));
+        if (campaign && this.state.isRedirect === true) {
+            if (campaign['status']) {
+                this.setState({ isRedirect: false });
                 this.resetFormData();
                 this.toggle();
-                // setTimeout(()=>{
-                //     this.props.history.push(routeCodes.DASHBOARD)
-                // },1000)
             }
         }
     }
@@ -145,74 +130,68 @@ class Campaign extends Component {
     }
 
     changePage = (pageNo) => {
-        this.setState({page:pageNo});
+        this.setState({ page: pageNo });
     }
 
     render() {
         const { onSubmit, loading } = this.props;
         const { page } = this.state;
         return (
-            <div className='Campaign'>                                 
-                {page === 1 && <FormStep1 onSubmit={this.nextPage} changePage={this.changePage}/>}
+            <div className='Campaign'>
+                {page === 1 && <FormStep1 onSubmit={this.nextPage} changePage={this.changePage} />}
                 {page === 2 && <FormStep2
-                                    changePage={(i) =>this.changePage(i) }
-                                    previousPage={this.previousPage}
-                                    onSubmit={this.nextPage} />}
-                                
+                    changePage={(i) => this.changePage(i)}
+                    previousPage={this.previousPage}
+                    onSubmit={this.nextPage} />}
+
                 {page === 3 && <FormStep3
-                                    changePage={(i) =>this.changePage(i) }
-                                    previousPage={this.previousPage}
-                                    onSubmit={this.nextPage} />}
-                
+                    changePage={(i) => this.changePage(i)}
+                    previousPage={this.previousPage}
+                    onSubmit={this.nextPage} />}
+
                 {page === 4 && <FormStep4
-                                    changePage={(i) =>this.changePage(i) }
-                                    previousPage={this.previousPage}
-                                    onSubmit={this.nextPage} />}
+                    changePage={(i) => this.changePage(i)}
+                    previousPage={this.previousPage}
+                    onSubmit={this.nextPage} />}
 
                 {page === 5 && <FormStep5
-                                    changePage={(i) =>this.changePage(i) }
-                                    previousPage={this.previousPage}
-                                    submitDisabled={this.state.submit_disabled} 
-                                    multipleImages={(value) => console.log(value)}
-                                    onSubmit={this.submitForm}  />}
-
-                <ModalPopUp 
-                    onRef={ref => (this.childCampaign = ref)} 
+                    changePage={(i) => this.changePage(i)}
+                    previousPage={this.previousPage}
+                    submitDisabled={this.state.submit_disabled}
+                    multipleImagesFun={this.multipleImagesFun}
+                    prevImg={this.state.multipleImages}
+                    onSubmit={this.submitForm} />}
+                <ModalPopUp
+                    onRef={ref => (this.childCampaign = ref)}
                     contentBody={this.state.contentBody}
                     onClosed={() => {
-                            console.log('Closed');
-                            this.toggle
-                        }
+                        console.log('Closed');
+                        this.toggle
                     }
-                     />
+                    }
+                />
 
                 <div>
-                {(this.props.loading === true) ? <div className="loader" style={{ "zIndex": "999999999" }}></div> : 
-                    <Modal isOpen={this.state.modal} toggle={false} className={this.props.className} id="congratulations" className={this.props.className}>
-                        {/* <ModalHeader>
-                        <button type="button" className="close" onClick={this.closeModal.bind(this)}>
-                            <img src={closeImg} />
-                        </button>
-                        </ModalHeader> */}
-                        <ModalBody style={{"padding":"40px 80px 40px"}}>
-                            {(this.state.popUp === 'invite') ? 
-                            <div className="terms-conditions">
-                                <h2>Congratulations, your Campaign has been started!</h2>
-                                <p>Lets go ahead and add some Everyday People to your Campaign.Click the button below to add people to your Campaign.You can add people at any time using the 'Everyday People' Navigation</p>
-                                <Link className="round-btn" to={routeCodes.EVERYDAYPEOPLE} >Select People</Link>
-                            </div>
-                            :
-                            <div className="terms-conditions">
-                                <h2>Congratulation, your campaign has been started!</h2>
-                                <p>You can review all your campaigns on the Campaigns page.</p>
-                                <Link className="round-btn" to={routeCodes.CAMPAIGN_ACTIVE} >Campaigns</Link>
-                            </div>
-                            }
-                        </ModalBody>
-                    </Modal>
-                }
+                    {(this.props.loading === true) ? <div className="loader" style={{ "zIndex": "999999999" }}></div> :
+                        <Modal isOpen={this.state.modal} toggle={false} className={this.props.className} id="congratulations" className={this.props.className}>
+                            <ModalBody style={{ "padding": "40px 80px 40px" }}>
+                                {(this.state.popUp === 'invite') ?
+                                    <div className="terms-conditions">
+                                        <h2>Congratulations, your Campaign has been started!</h2>
+                                        <p>Lets go ahead and add some Everyday People to your Campaign.Click the button below to add people to your Campaign.You can add people at any time using the 'Everyday People' Navigation</p>
+                                        <Link className="round-btn" to={routeCodes.EVERYDAYPEOPLE} >Select People</Link>
+                                    </div>
+                                    :
+                                    <div className="terms-conditions">
+                                        <h2>Congratulation, your campaign has been started!</h2>
+                                        <p>You can review all your campaigns on the Campaigns page.</p>
+                                        <Link className="round-btn" to={routeCodes.CAMPAIGN_ACTIVE} >Campaigns</Link>
+                                    </div>
+                                }
+                            </ModalBody>
+                        </Modal>
+                    }
                 </div>
-                {/* <button onClick={() => this.childCampaign.toggle()}>fgjsofrhohoi</button> */}
             </div>
         );
     }
@@ -223,7 +202,7 @@ const mapStateToProps = (state) => {
     return {
         loading: campaign.get('loading'),
         error: campaign.get('error'),
-        campaign:campaign.get('campaign')
+        campaign: campaign.get('campaign')
     }
 }
 
