@@ -57,10 +57,6 @@ class FormStep4 extends Component {
                                     component={FileField_Dropzone}
                                     multiple={false}
                                 />
-                                {/* <DropNCrop 
-                                    onChange={this.handleChange} 
-                                    value={this.state} 
-                                /> */}
                             </div>
                             <div className="submit-btn d-flex">
                                 <button type="button" onClick={previousPage} className="round-btn prev-btn">Previous</button>
@@ -77,8 +73,8 @@ class FormStep4 extends Component {
 
 // export default FormStep1;
 export default reduxForm({
-    form: 'wizardCampaign', //                 <------ same form name
-    destroyOnUnmount: false, //        <------ preserve form data
-    forceUnregisterOnUnmount: true, // <------ unregister fields on unmount
+    form: 'wizardCampaign',
+    destroyOnUnmount: false,
+    forceUnregisterOnUnmount: true,
     validate,
 })(FormStep4);

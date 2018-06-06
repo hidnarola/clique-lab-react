@@ -78,7 +78,7 @@ class Header extends Component{
                 <h2>
                     {
                         (this.props.history.location.pathname===routeCodes.DASHBOARD) ?
-                            <label>Hello <b style={{"font-weight":"600"}}>{user.full_name}</b>, what would you like to do today?</label>
+                            <label>Hello <b style={{"fontWeight":"600"}}>{user.full_name}</b>, what would you like to do today?</label>
                         :
                             pg_name
                     }

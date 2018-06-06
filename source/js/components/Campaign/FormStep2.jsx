@@ -22,19 +22,19 @@ const validate = values => {
         errors.discount_code = 'This field is required';
     }
 
-    if (!values.industryName || values.industryName.value==="") {
-        errors.industryName = 'This field is required';
-    }    
-
     if (!values.short_desc  || (values.short_desc!==undefined && values.short_desc.trim()=="")) {
         errors.short_desc = 'This field is required';
     }
-    
-    if(!values.tagHash){
+
+    if (!values.industryName || (values.industryName!==undefined && values.industryName.value==="")) {
+        errors.industryName = 'This field is required';
+    }    
+
+    if(!values.tagHash || (values.tagHash!==undefined && values.tagHash=="")){
         errors.tagHash = 'This field is required';
     }
 
-    if(!values.tagAt){
+    if(!values.tagAt || (values.tagAt!==undefined && values.tagAt=="")){
         errors.tagAt = 'This field is required';
     }
 
@@ -145,8 +145,8 @@ class FormStep2 extends Component{
 
 // export default FormStep1;
 export default reduxForm({
-    form: 'wizardCampaign', //                 <------ same form name
-    destroyOnUnmount: false, //        <------ preserve form data
-    forceUnregisterOnUnmount: true, // <------ unregister fields on unmount
+    form: 'wizardCampaign',
+    destroyOnUnmount: false,
+    forceUnregisterOnUnmount: true,
     validate,
 })(FormStep2);
