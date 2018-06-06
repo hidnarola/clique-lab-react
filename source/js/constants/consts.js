@@ -6,7 +6,11 @@ export const LOCALSTORAGE_ROLE_KEY = 'role';
 export const USER_ROLE = 'fitassist-user';
 export const ADMIN_ROLE = 'firassist-admin';
 
-//  export const SERVER_BASE_URL = 'http://192.168.1.186:3200/api/';
-//export const SERVER_BASE_URL = 'http://13.55.64.183:3200/';
- export const SERVER_BASE_URL = 'https://dev.cliquelabs.com:3200/api/';
-// export const SERVER_BASE_URL = 'https://api.cliquelabs.com/';
+let base_url = 'https://dev.cliquelabs.com/api/';
+if(window.location.hostname=='dev.cliquelabs.com' || window.location.hostname=='localhost'){
+    base_url = 'https://dev.cliquelabs.com/api/';
+}else if(window.location.hostname=='app.cliquelabs.com'){
+    base_url = 'https://api.cliquelabs.com/';
+}
+
+export const SERVER_BASE_URL = base_url;

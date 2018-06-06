@@ -11,7 +11,6 @@ import deleteImg from 'img/site/delete-icon.png';
 const validate = values => {
     const errors = {};
     let images = [];
-    console.log('Validate',values.imagesNew);
     if (!values.imagesNew || values.imagesNew.length === 0) {
         errors.imagesNew = 'This field is required';
     } else {

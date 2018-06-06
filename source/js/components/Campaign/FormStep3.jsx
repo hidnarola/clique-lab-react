@@ -14,8 +14,8 @@ import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-au
 const validate = values => {
 
     const errors = {};
-
-    if (!values.media_format || values.media_format.value === "") {
+    console.log(values);
+    if (!values.media_format || (values.media_format!==undefined && values.media_format.value=="") || Object.keys(values.media_format).length===0) {
         errors.media_format = 'This field is required';
     }
 
@@ -33,7 +33,7 @@ const validate = values => {
         errors.how_much = 'Max. character length is 7';
     }
 
-    if (!values.currency || values.currency.value === "") {
+    if (!values.currency || (values.currency!==undefined && values.currency.value=="") || Object.keys(values.currency).length===0) {
         errors.currency = 'This field is required';
     }
     return errors;
@@ -42,7 +42,6 @@ const validate = values => {
 
 let SelectField_ReactSelect5 = (props) => {
     const { label, input, meta, selectedValue, wrapperClass, className, labelClass, placeholder, errorClass, initialValue, options, isRequired } = props;
-    //let val = 'public';
     let val = 'public';
     if (input.value && Object.keys(input.value).length > 0) {
         val = input.value;
@@ -79,17 +78,20 @@ const SelectFieldCurrencyDrop = (props) => {
         val = val;
     }
     return (
-        <Select
-            {...input}
-            value={val}
-            options={options}
-            className={`${className}${meta.touched && ((meta.error && ' txt_error_div') || (meta.warning && ' txt_error_div'))}`}
-            placeholder={placeholder}
-            onChange={(value) => input.onChange(value)}
-            onBlur={() => input.onBlur({ ...input.value })}
-            multi={false}
-            clearable={false}
-        />
+        <div className="select-wrap">
+            <Select
+                {...input}
+                value={val}
+                options={options}
+                className={`${className}${meta.touched && ((meta.error && ' txt_error_div') || (meta.warning && ' txt_error_div'))}`}
+                placeholder={placeholder}
+                onChange={(value) => input.onChange(value)}
+                onBlur={() => input.onBlur({ ...input.value })}
+                multi={false}
+                clearable={false}
+            />
+            {meta.touched && ((meta.error && <div className="error-div">{meta.error}</div>) || (meta.warning && <span>{meta.warning}</span>))}
+        </div>
     );
 }
 
@@ -123,7 +125,6 @@ class GoogleAC extends Component {
                     value={input.value}
                     name={name}
                     onChange={(value) => input.onChange(value)}
-                //onSelect={() => { console.log('Select') }}
                 >
                     {({ getInputProps, suggestions, getSuggestionItemProps }) => (
                         <div>
@@ -182,7 +183,6 @@ class FormStep3 extends Component {
                             <Field
                                 wrapperClass="select-wrap"
                                 name="public_or_private"
-                                //label="Public or Invite only"
                                 label="Public or Invite only"
                                 labelClass="control-label"
                                 placeholder="Public or Invite only"
@@ -226,21 +226,6 @@ class FormStep3 extends Component {
                                 placeholder="e.g. 20"
                                 isRequired="true"
                             />
-
-                            {/* <Field
-                                wrapperClass="select-wrap"
-                                name="currency"
-                                label="Currency"
-                                labelClass="control-label"
-                                placeholder="Select currency"
-                                component={SelectFieldCurrencyDrop}
-                                options={[
-                                    { value: '', label: 'Select currency' },
-                                    { value: 'dollar', label: "AUD" }
-                                ]}
-                                isRequired="true"
-
-                            /> */}
 
                             <div className="submit-btn d-flex">
                                 <button type="button" onClick={previousPage} className="round-btn prev-btn">Previous</button>
