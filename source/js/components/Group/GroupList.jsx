@@ -314,7 +314,7 @@ class GroupList extends Component {
     }
 
     addCampaign = (obj) => {
-        console.log('OBJ>>>',obj);
+        //console.log('OBJ>>>',obj);
         const { dispatch,loading } = this.props;
         this.setState({
             groupId: obj._id

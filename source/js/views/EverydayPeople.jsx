@@ -383,7 +383,7 @@ const MoreFilterDropDown = (props) => {
         });
 
     }
-    return (<Dropdown isOpen={props.open} toggle={props.toggle} className={cx("MoreFilterLi stats_filter_li4",{ 'active': (props.isMoreFilterApply) ? true : false })}>
+    return (<Dropdown isOpen={props.open} toggle={props.toggle} className={cx("MoreFilterLi stats_filter_li4", { 'active': (props.isMoreFilterApply) ? true : false })}>
         <DropdownToggle caret >
             More Filter {" "}
         </DropdownToggle>
@@ -651,7 +651,7 @@ class EverydayPeople extends Component {
         this.state = {
             perPageItem: 12,
             modal: false,
-            load:false,
+            load: false,
 
             messagePopup: false,
             messagePopupSuccessMsg: null,
@@ -775,12 +775,6 @@ class EverydayPeople extends Component {
             age_filter_open: !this.state.age_filter_open,
         });
 
-        // if(this.state.isAgeFilterApply !== true)
-        // {
-        //     console.log('False..');
-        //     this.setState(allSliders[{ 'slider': 'ageRange', 'value': { min: 15, max: 65 } }])
-        //     //this.setState({ ageRange: { min: 15, max: 65 } });
-        // }
     }
 
     location_filter_toggle() { this.setState({ location_filter_open: !this.state.location_filter_open, locError: '' }); }
@@ -894,19 +888,17 @@ class EverydayPeople extends Component {
         // original pav
         //this.child.setSaveFor('group', obj._id);
         //dispatch(fetchDropDownReq({ "sendReqFor": "group", "uId": obj._id }));
- 
-        if((obj && obj.campaign_id && this.props.match.url === '/campaigns/active_list/'+obj.campaign_id) ||
-        this.props.match.url === '/campaigns/inspired_submission')
-        {
+
+        if ((obj && obj.campaign_id && this.props.match.url === '/campaigns/active_list/' + obj.campaign_id) ||
+            this.props.match.url === '/campaigns/inspired_submission') {
             this.child.setSaveFor('group', obj.user_id);
             dispatch(fetchDropDownReq({ "sendReqFor": "group", "uId": obj.user_id }));
         }
-        else
-        {
+        else {
             this.child.setSaveFor('group', obj._id);
             dispatch(fetchDropDownReq({ "sendReqFor": "group", "uId": obj._id }));
         }
-      
+
         setTimeout(() => {
             if (this.props.dropdownList === null && this.props.loading === false) {
                 this.setState({
@@ -955,7 +947,7 @@ class EverydayPeople extends Component {
 
         //dm
         this.setState({
-            isPurchaseAll:true
+            isPurchaseAll: true
         });
 
         // this.setState({"activePage":1});
@@ -1155,7 +1147,7 @@ class EverydayPeople extends Component {
             ],
             isAgeFilterApply: false,
             isLocationFilterApply: false,
-            isMoreFilterApply:false,
+            isMoreFilterApply: false,
             tempLocation: '',
             address: '',
 
@@ -1229,7 +1221,7 @@ class EverydayPeople extends Component {
             this.setState({ inspirePageLoad: false });
 
             this.setState({ everyDayRefresh: true });
-            
+
             // DM to clear all filter previously applied
             this.resetPreviousFilter_on_page_change();
         }
@@ -1267,7 +1259,7 @@ class EverydayPeople extends Component {
     }
 
     componentDidUpdate() {
-        let { showDrop, userAdded, userAddedMsg, dispatch, inserted_group, group_status, error,alertMessage } = this.props;
+        let { showDrop, userAdded, userAddedMsg, dispatch, inserted_group, group_status, error, alertMessage } = this.props;
         let { is_inserted, modifyStatusPurchase } = this.state
 
         if (showDrop) {
@@ -1313,8 +1305,7 @@ class EverydayPeople extends Component {
             dispatch(resetGroupVal());
         }
 
-        if(alertMessage !== null)
-        {
+        if (alertMessage !== null) {
             //alert(alertMessage);
             this.setState({
                 messagePopupSuccessMsg: alertMessage,
@@ -1364,17 +1355,17 @@ class EverydayPeople extends Component {
             "page_no": 1
         }
         this.setState({ "activePage": 1 });
-       // this.filterSendReq(arrayFilter);
-       
-       //this.age_filter_toggle();
-       
-       this.setState({
-           isAgeFilterApply: true,
-           age_filter_open:false,
+        // this.filterSendReq(arrayFilter);
+
+        //this.age_filter_toggle();
+
+        this.setState({
+            isAgeFilterApply: true,
+            age_filter_open: false,
         })
-        
+
         this.filterSendReq(arrayFilter);
-        
+
     }
 
     setLocationFilter = (tempLocation) => {
@@ -1417,7 +1408,7 @@ class EverydayPeople extends Component {
                 address: '',
                 //locError: 'Please,Enter Valid location'
             })
-            
+
         }
     }
 
@@ -1476,11 +1467,12 @@ class EverydayPeople extends Component {
             switch (obj['dropdown']) {
                 case 'jobIndustryDrop': fieldText = 'job_industry'; fieldType = 'id'; break;
                 case 'yearInIndustry': fieldText = 'year_in_industry'; fieldType = 'exact'; break;
-                case 'education': fieldText = 'education'; fieldType = 'exact'; break;
+                // case 'education': fieldText = 'education'; fieldType = 'exact'; break;
+                case 'education': fieldText = 'education'; fieldType = 'id'; break;
 
                 case 'jobTitleDrop': fieldText = 'job_title'; fieldType = 'id'; break;
-                case 'language': fieldText = 'language'; fieldType = 'exact'; break;
-                case 'ethnicity': fieldText = 'ethnicity'; fieldType = 'exact'; break;
+                case 'language': fieldText = 'language'; fieldType = 'id'; break;
+                case 'ethnicity': fieldText = 'ethnicity'; fieldType = 'id'; break;
                 case 'sexualOrientation': fieldText = 'interested_in'; fieldType = 'exact'; break;
                 case 'relationship': fieldText = 'relationship_status'; fieldType = 'exact'; break;
                 case 'musicTaste': fieldText = 'music_taste'; fieldType = 'id'; break;
@@ -1553,12 +1545,12 @@ class EverydayPeople extends Component {
             formData.append("image", values.images[0]);
             this.setState({ is_inserted: 1 });
             dispatch(addGroups(formData));
-            
+
             /**[DM] Put loader when add filter result to group */
-            this.setState({load:true},()=>{
-                setTimeout(()=>{
-                    this.setState({load:false})
-                },10500);
+            this.setState({ load: true}, () => {
+                setTimeout(() => {
+                    this.setState({ load: false })
+                }, 8500);
             });
         });
     }
@@ -1640,7 +1632,7 @@ class EverydayPeople extends Component {
                                     isLocationFilterApply={this.state.isLocationFilterApply}
                                     open={this.state.location_filter_open}
                                     toggle={this.location_filter_toggle}
-                                    //msg={this.state.locError}
+                                //msg={this.state.locError}
                                 />
                             </li>
                             <li>
@@ -1839,7 +1831,7 @@ class EverydayPeople extends Component {
 }
 
 const mapStateToProps = (state) => {
-    const { everyDay, groups,campaign } = state;
+    const { everyDay, groups, campaign } = state;
     return {
         group_status: groups.get('status'),
         inserted_group: groups.get('inserted_group'),
@@ -1854,7 +1846,7 @@ const mapStateToProps = (state) => {
         userAddedMsg: everyDay.get('userAddedMsg'),
         forceRefresh: everyDay.get('forceRefresh'),
         alertMessage: campaign.get('alertMessage')//dm
-        
+
     }
 }
 
