@@ -17,7 +17,7 @@ const validate = values => {
         errors.images = 'This field is required';
     } else {
         if ((values.images).length > 0) {
-            console.log('file',values.images);
+            console.log('file>>>',values.images);
             let file_type = values.images[0].type;
             let extensions = ["image/jpeg", "image/png", "image/jpg"];
             if (extensions.indexOf(file_type) < 0) {
@@ -118,6 +118,7 @@ const FileField_Dropzone = (props) => {
                 </div>
             </Dropzone>
             {((!meta.valid || meta.visited) && meta.error && meta.submitFailed ) && <span className="error-div">{meta.error}</span>}
+            {/* {((meta.touched && meta.error)) && <span className="error-div">{meta.error}</span>} */}
             {/* {((meta.touched && meta.error)) && <span className="error-div">{meta.error}</span>} */}
         </div>
     );
