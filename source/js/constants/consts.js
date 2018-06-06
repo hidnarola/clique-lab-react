@@ -9,4 +9,4 @@ export const ADMIN_ROLE = 'firassist-admin';
 //  export const SERVER_BASE_URL = 'http://192.168.1.186:3200/api/';
 //export const SERVER_BASE_URL = 'http://13.55.64.183:3200/';
  export const SERVER_BASE_URL = 'https://dev.cliquelabs.com:3200/api/';
-
+// export const SERVER_BASE_URL = 'https://api.cliquelabs.com/';

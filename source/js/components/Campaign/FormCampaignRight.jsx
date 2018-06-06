@@ -39,13 +39,13 @@ class FormCampaignRight extends Component {
 
     render() {
 
-        let { wizardCampaignData } = this.props;
+        let { wizardCampaignData, existImages } = this.props;
         let { industryName, mediaFormat, hashTagStr, atTagStr, imgStr } = '';
         let imgArr = [];
         let imageReject = [];
         let imageAccept = [];
         let imgAllArr = [];
-        let moreImg  = 0;
+        let moreImg = 0;
         let mediaImg = {
             'facebook': fbImg,
             'linkedin': linkedImg,
@@ -55,7 +55,6 @@ class FormCampaignRight extends Component {
         };
 
         if (wizardCampaignData.values !== undefined) {
-
             if (wizardCampaignData.values.industryName) {
                 industryName = wizardCampaignData.values.industryName.value;
             }
@@ -89,52 +88,39 @@ class FormCampaignRight extends Component {
                 // }else{
                 //     imgStr = '';
                 // }
-    
-                if((wizardCampaignData.values.images).length > 0) 
-                {
+
+                if ((wizardCampaignData.values.images).length > 0) {
                     let file_type = wizardCampaignData.values.images[0].type;
                     let extensions = ["image/jpeg", "image/png", "image/jpg"];
-                    if (extensions.indexOf(file_type) < 0) 
-                    {
+                    if (extensions.indexOf(file_type) < 0) {
                         imgStr = '';
                     }
-                    else
-                    {
+                    else {
                         imgStr = wizardCampaignData.values.images[0].preview
                     }
-                } 
-                else 
-                {
+                }
+                else {
                     imgStr = '';
                 }
             }
 
-            if (wizardCampaignData.values.imagesNew) {
-                
-                // for (let i = 0; i < Object.keys(wizardCampaignData.values.imagesNew).length; i++) {
-                //     imgArr.push(wizardCampaignData.values.imagesNew[i].preview)
-                // }
-
-                for (let i = 0; i < Object.keys(wizardCampaignData.values.imagesNew).length; i++) {
-                    imgArr.push(wizardCampaignData.values.imagesNew[i].preview)
+            if (existImages) {
+                for (let i = 0; i < Object.keys(existImages).length; i++) {
+                    imgArr.push(existImages[i].preview)
                 }
-                
                 let extensions2 = ["image/jpeg", "image/png", "image/jpg"];
-                imgAllArr.push(wizardCampaignData.values.imagesNew)
-               
+                imgAllArr.push(existImages);
                 _.forEach(imgAllArr[0], (file, key) => {
                     if (extensions2.indexOf(file.type) < 0) {
                         imageReject.push(file.preview);
-                    }
-                    else
-                    {
+                    } else {
                         imageAccept.push(file.preview);
                     }
                 });
             }
         }
 
-       
+
         return (
             <div className="create-campaign-r">
                 <div className="create-campaign-r-head">
@@ -183,16 +169,16 @@ class FormCampaignRight extends Component {
                 {/* (wizardCampaignData.values !== undefined && imgArr.length > 0 ) ? */}
                 <div className="inspirations-img">
                     <h3><b>Inspirational Images</b></h3>
-                    {                       
-                        (wizardCampaignData.values !== undefined && imgArr.length === 0 ) ?
+                    {
+                        (existImages!== undefined && imgArr.length === 0) ?
                             this.dummyInspirationalImages() :
 
-                        (wizardCampaignData.values !== undefined && imgArr.length === imageAccept.length ) ?
-                            <ul className="custom_scrollbar">
-                                {imgArr.map((obj, index) => (this.renderImages(obj)))}
-                            </ul>
-                            : 
-                            this.dummyInspirationalImages()
+                            (existImages!== undefined && imgArr.length === imageAccept.length) ?
+                                <ul className="custom_scrollbar">
+                                    {imgArr.map((obj, index) => (this.renderImages(obj)))}
+                                </ul>
+                                :
+                                this.dummyInspirationalImages()
                     }
                 </div>
             </div>

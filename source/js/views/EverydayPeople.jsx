@@ -997,8 +997,8 @@ class EverydayPeople extends Component {
                 <div className="fan-festival-box">
                     <div className="festival-head d-flex">
                         <div className="festival-head-l">
-                            <span>
-                                <img src={imgRoutes.USER_IMG_PATH + obj.user_avatar} />
+                            <span style={{ "background": "url('" + imgRoutes.USER_IMG_PATH + obj.user_avatar + "')no-repeat 100%", "backgroundSize": "100%", "height": "50px" }}>
+                                {/* <img src={imgRoutes.USER_IMG_PATH + obj.user_avatar} /> */}
                             </span>
                             <h3>
                                 <big>{obj.user_name}</big>
@@ -1057,19 +1057,16 @@ class EverydayPeople extends Component {
         return (
             <li key={Math.random()}>
                 <div className="fan-festival-box d-flex">
-                    <div className="festival-img" style={{ "background": "url('" + img + "') no-repeat 100%", "backgroundSize": "100%" }}>
-
-                    </div>
+                    <div className="festival-img" style={{ "background": "url('" + img + "') no-repeat 100%", "backgroundSize": "100%" }}></div>
                     <div className="fan-festival-r">
                         <div className="festival-head d-flex">
                             <div className="festival-head-l">
-                                <span>
-                                    <img src={imgRoutes.USER_IMG_PATH + obj.users.image} />
+                                <span style={{ "background": "url('" + imgRoutes.USER_IMG_PATH + obj.users.image + "')no-repeat 100%", "backgroundSize": "100%", "height": "50px" }}>
+                                    {/* <img src={imgRoutes.USER_IMG_PATH + obj.users.image} /> */}
                                 </span>
                                 <h3>
                                     <big>{obj.users.name}</big>
                                     <small>{location}</small>
-                                    {/* <small>Bondi Beach, Sydney, Australia</small> */}
                                 </h3>
                             </div>
                             <div className="festival-head-r"><h3>${(obj.price).toFixed(2)}</h3></div>
