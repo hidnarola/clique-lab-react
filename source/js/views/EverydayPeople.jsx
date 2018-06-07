@@ -1287,7 +1287,8 @@ class EverydayPeople extends Component {
         if (userAdded === true && error === false) {
             this.setState({
                 messagePopupSuccessMsg: userAddedMsg,
-                messagePopupErrorMsg: null
+                messagePopupErrorMsg: null,
+                load:false
             });
             this.messagePopupToggle();
             dispatch(resetVal({ 'userAdded': false, 'userAddedMsg': null, 'error': null }));
@@ -1311,6 +1312,19 @@ class EverydayPeople extends Component {
             dispatch(resetAlertMsg());
             this.messagePopupToggle();
         }
+
+        // if(this.props.add_filter_to_group === 1)
+        // {
+        //     this.setState({load:false});
+        //     //dispatch(resetGroupVal());
+        // }
+        // if(userAdded === true)
+        // {
+        //     //dispatch(resetGroupVal());
+        //     this.setState({load:false});
+        // }
+
+        console.log('Yes i am calling')
     }
 
     componentWillUnmount() {
@@ -1544,17 +1558,28 @@ class EverydayPeople extends Component {
             dispatch(addGroups(formData));
 
             /**[DM] Put loader when add filter result to group */
-            this.setState({ load: true}, () => {
-                setTimeout(() => {
-                    this.setState({ load: false })
-                }, 8500);
-            });
+            // this.setState({ load: true}, () => {
+            //     setTimeout(() => {
+            //         this.setState({ load: false })
+            //     }, 8500);
+            // });
+            
+            if (this.props.add_filter_to_group === 0) {
+                this.setState({ load: true });
+            }
+            // if (this.props.add_filter_to_group === 1) {
+            //     this.setState({ load: false });
+            // }
+           
+            //dispatch(resetGroupVal());
         });
+
+
     }
 
 
     render() {
-        let { users, inspiredPosts, moreFilterData, dropdownList, loading, match } = this.props;
+        let { users, inspiredPosts, moreFilterData, dropdownList, loading, match, inserted_group } = this.props;
         const { allDropDown, allSliders } = this.state;
 
         let myObj = this.state.appliedFilter[0].filter;
@@ -1832,6 +1857,7 @@ const mapStateToProps = (state) => {
     return {
         group_status: groups.get('status'),
         inserted_group: groups.get('inserted_group'),
+        add_filter_to_group: groups.get('add_filter_to_group'),
         loading: everyDay.get('loading'),
         error: everyDay.get('error'),
         users: everyDay.get('users'),

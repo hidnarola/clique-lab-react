@@ -15,6 +15,7 @@ const initialState = Map({
     
     members: null,
     totalMembers: 0,
+    add_filter_to_group:0,
 });
 
 const actionMap = {
@@ -57,7 +58,8 @@ const actionMap = {
         return state.merge(Map({
             ...initialState,
             loading: true,
-            status:0
+            status:0,
+            add_filter_to_group:0, // dm
         }));
     },
     [ADD_GROUP_SUCCESS]: (state, action) => {
@@ -68,6 +70,7 @@ const actionMap = {
             inserted_group: action.data.data.group,
             status: action.data.data.status,
             message: action.data.data.message,
+           // add_filter_to_group:1, //dm
         }));
     },
     [ADD_GROUP_ERROR]: (state, action) => {
@@ -80,6 +83,7 @@ const actionMap = {
             error: error,
             status: true,
             message: action.data.data.message,
+            //add_filter_to_group:1, // dm
         }));
     },
     [GROUP_MEMBERS_REQUEST]: (state, action) => {
@@ -119,6 +123,7 @@ const actionMap = {
             inserted_group: null,
             status: 0,
             message: null,
+            add_filter_to_group:1 //dm
         }));
     },
 

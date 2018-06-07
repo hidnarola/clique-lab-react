@@ -302,7 +302,7 @@ class GroupList extends Component {
             //alert('User Has been Added');
 
             this.setState({
-                messagePopupSuccessMsg: 'Group has been added',
+                messagePopupSuccessMsg: 'User has been added',
                 messagePopupErrorMsg: null
             });
             this.messagePopupToggle();
