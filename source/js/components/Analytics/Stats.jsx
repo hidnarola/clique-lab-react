@@ -55,7 +55,7 @@ const SocialDropdown = (props) => {
 }
 
 class CustomTooltip extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
     }
     static propTypes = {
@@ -86,11 +86,11 @@ class CustomTooltip extends Component {
             const { payload, label, totalNoCompare, whichCompare } = this.props;
             return (
                 <div className="graph custom-tooltip">
-                    { (totalNoCompare===1) && <label className="label blue-color" style={{"marginBottom":"0px !important"}}>2520</label> }
-                    { (totalNoCompare == 2 && whichCompare.indexOf(2) > -1) && <div><label className="label blue-color" style={{"marginBottom":"0px !important"}}>2520</label><label className="label sky-color" style={{"marginBottom":"0px !important"}}>2520</label></div> }
-                    { (totalNoCompare == 2 && whichCompare.indexOf(3) > -1) && <div><label className="label blue-color" style={{"marginBottom":"0px !important"}}>2520</label><label className="label pink-color" style={{"marginBottom":"0px !important"}}>2520</label></div> }
-                    { (totalNoCompare == 3) && <div><label className="label blue-color" style={{"marginBottom":"0px !important"}}>2520</label><label className="label sky-color" style={{"marginBottom":"0px !important"}}>2520</label><label className="label pink-color" style={{"marginBottom":"0px !important"}}>2520</label></div> }
-                    
+                    {(totalNoCompare === 1) && <label className="label blue-color" style={{ "marginBottom": "0px !important" }}>2520</label>}
+                    {(totalNoCompare == 2 && whichCompare.indexOf(2) > -1) && <div><label className="label blue-color" style={{ "marginBottom": "0px !important" }}>2520</label><label className="label sky-color" style={{ "marginBottom": "0px !important" }}>2520</label></div>}
+                    {(totalNoCompare == 2 && whichCompare.indexOf(3) > -1) && <div><label className="label blue-color" style={{ "marginBottom": "0px !important" }}>2520</label><label className="label pink-color" style={{ "marginBottom": "0px !important" }}>2520</label></div>}
+                    {(totalNoCompare == 3) && <div><label className="label blue-color" style={{ "marginBottom": "0px !important" }}>2520</label><label className="label sky-color" style={{ "marginBottom": "0px !important" }}>2520</label><label className="label pink-color" style={{ "marginBottom": "0px !important" }}>2520</label></div>}
+
                 </div>
             );
         }
@@ -121,6 +121,7 @@ class Stats extends Component {
             likes_share_cmt: 'likes',
 
             isRender: 0,
+            isRenderChart: false,
             appliedFilter: null,
             currentAppliedFilter: null,
         }
@@ -139,7 +140,7 @@ class Stats extends Component {
 
     getDataMonthWise = (months) => {
         const { totalNoCompare, whichCompare, dispatch } = this.props;
-        const { appliedFilter,socialCurrentValue } = this.state;
+        const { appliedFilter, socialCurrentValue } = this.state;
         let start_date = '';
         let end_date = moment().format("YYYY-MM-DD");
         if (months == '3M') {
@@ -263,7 +264,7 @@ class Stats extends Component {
         if (social_analytics !== social_analytics_data.data) {
             if (social_analytics_data.status === 1 && social_analytics_data.data !== null) {
                 this.setState({
-                    isRender: 0, 
+                    isRender: 0,
                     social_analytics: social_analytics_data.data,
                     monthCurrentValue: social_analytics_data.data[0].length
                 })
@@ -299,14 +300,22 @@ class Stats extends Component {
     }
 
     like_share_comm = (value) => {
-        if(this.state.likes_share_cmt!==value){
+        if (this.state.likes_share_cmt !== value) {
             this.setState({ likes_share_cmt: value, isRender: 0 });
         }
-        
+
+    }
+
+    componentWillMount = () => {
+        const { appliedFilter, analyticsData, socialAnalyticsData } = this.props;
+        this.setState({
+            appliedFilter: appliedFilter,
+            social_analytics: socialAnalyticsData,
+        });
     }
 
     render() {
-        const { barChartData, isRender, social_analytics, likes_share_cmt } = this.state;
+        const { barChartData, isRender, social_analytics, likes_share_cmt, isRenderChart } = this.state;
         const { loading, analyticsData, socialAnalyticsData, totalNoCompare, whichCompare } = this.props;
         let monthArr = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
         let compareColor = ['blue-color', 'sky-color', 'pink-color'];
@@ -424,26 +433,27 @@ class Stats extends Component {
                                 margin={{ top: 30, right: 50, left: 10, bottom: 50 }}>
                                 {/* <CartesianGrid strokeDasharray="3 3" /> */}
                                 <XAxis dataKey="name" />
-    
+
                                 {/* <YAxis /> */}
                                 <Tooltip
                                     content={<CustomTooltip />}
                                     totalNoCompare={totalNoCompare}
                                     whichCompare={whichCompare}
-                                    position={{y: 350}}
+                                    position={{ y: 350 }}
                                 />
                                 {/* <Legend /> */}
                                 <Bar dataKey="compare1" stackId="a" fill="#6772e6" />
                                 <Bar dataKey="compare2" stackId="a" fill="#83bff7" />
                                 <Bar dataKey="compare3" stackId="a" fill="#f783c3" />
                             </BarChart>
+
                         </div>
                     </div>
                     <div className="right-box-btm">
                         <ul className="data-counter d-flex">
-                            <li> <a href="javascript:void(0)" className={cx({'active': (this.state.likes_share_cmt==='likes') ? true : false })} onClick={()=>{this.like_share_comm('likes')}}> <small>235</small><span>Likes</span> </a> </li>
-                            <li> <a href="javascript:void(0)" className={cx({'active': (this.state.likes_share_cmt==='shares') ? true : false })} onClick={()=>{this.like_share_comm('shares')}}> <small>26</small><span>Shares</span> </a> </li>
-                            <li> <a href="javascript:void(0)" className={cx({'active': (this.state.likes_share_cmt==='comments') ? true : false })} onClick={()=>{this.like_share_comm('comments')}}> <small>86</small><span>Comments</span> </a> </li>
+                            <li> <a href="javascript:void(0)" className={cx({ 'active': (this.state.likes_share_cmt === 'likes') ? true : false })} onClick={() => { this.like_share_comm('likes') }}> <small>235</small><span>Likes</span> </a> </li>
+                            <li> <a href="javascript:void(0)" className={cx({ 'active': (this.state.likes_share_cmt === 'shares') ? true : false })} onClick={() => { this.like_share_comm('shares') }}> <small>26</small><span>Shares</span> </a> </li>
+                            <li> <a href="javascript:void(0)" className={cx({ 'active': (this.state.likes_share_cmt === 'comments') ? true : false })} onClick={() => { this.like_share_comm('comments') }}> <small>86</small><span>Comments</span> </a> </li>
                         </ul>
                     </div>
                 </div>
@@ -452,7 +462,6 @@ class Stats extends Component {
         );
     }
 }
-
 
 const mapStateToProps = (state) => {
     const { analytics } = state;

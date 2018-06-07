@@ -11,7 +11,13 @@ function getSocialAnalytics(data) {
     return postFormData('promoter/get_social_analytics', data, headers);
 }
 
+function getDemoGraphics() {
+    let headers = { 'x-access-token' : localStorage.getItem('token') }
+    return postFormData('promoter/campaign/get_demographics', '', headers);
+}
+
 export default {
     getAnalytics,
-    getSocialAnalytics
+    getSocialAnalytics,
+    getDemoGraphics
 }
