@@ -1,7 +1,8 @@
 import { Map } from "immutable";
 import { 
     GET_ANALYTICS_REQUEST, GET_ANALYTICS_SUCCESS, GET_ANALYTICS_ERROR,
-    GET_SOCIAL_ANALYTICS_REQUEST, GET_SOCIAL_ANALYTICS_SUCCESS, GET_SOCIAL_ANALYTICS_ERROR
+    GET_SOCIAL_ANALYTICS_REQUEST, GET_SOCIAL_ANALYTICS_SUCCESS, GET_SOCIAL_ANALYTICS_ERROR,
+    GET_DEMO_GRAPHICS_REQUEST, GET_DEMO_GRAPHICS_SUCCESS, GET_DEMO_GRAPHICS_ERROR,
 } from "../actions/analytics";
 
 const initialState = Map({
@@ -16,7 +17,14 @@ const initialState = Map({
         status: 0,
         message: null,
         data: null,
+    },
+    demo_graphics: {
+        loading: false,
+        status: 0,
+        message: null,
+        data: null,
     }
+
 });
 
 const actionMap = {
@@ -83,6 +91,39 @@ const actionMap = {
         }));
     },
     [GET_SOCIAL_ANALYTICS_ERROR]: (state, action) => {
+        let error = 'Server Error';
+        if (action.error && action.error.response.data.message) {
+            error = action.error.response.data.message;
+        }
+        return state.merge(Map({
+            ...initialState,
+            loading: false,
+            error: error,
+            status: 0,
+        }));
+    },
+
+    [GET_DEMO_GRAPHICS_REQUEST]: (state, action) => {
+        return state.merge(Map({
+            demo_graphics: {
+                loading: true,
+                status: 0,
+                message: null,
+                data: null,
+            }
+        }));
+    },
+    [GET_DEMO_GRAPHICS_SUCCESS]: (state, action) => {
+        return state.merge(Map({
+            demo_graphics: {
+                loading: false,
+                status: action.data.data.status,
+                message: action.data.data.message,
+                data: action.data.data.results,
+            }
+        }));
+    },
+    [GET_DEMO_GRAPHICS_ERROR]: (state, action) => {
         let error = 'Server Error';
         if (action.error && action.error.response.data.message) {
             error = action.error.response.data.message;
