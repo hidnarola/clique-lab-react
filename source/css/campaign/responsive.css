@@ -181,7 +181,7 @@ img{max-width:100%;}
 	.navigation-div ul li a{padding:6px 0 6px 50px; font-size:14px;}
 	.navigation-div ul li a i{background-size:20px auto;}
 	.navigation-div ul li a:hover i, 
-	.navigation-div ul li.active a i {background-position:0 -18px;}
+	.navigation-div ul li.active a i {background-position:0 -20px;}
 	.big-logo {padding: 0 0 74px;}
 	.select-wrap select {padding: 11px 15px 11px 11px; font-size: 13px;}
 	.step-process a {width: 16px; height: 16px;}

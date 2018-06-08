@@ -18,7 +18,11 @@ const BtnAddNewPermission = () => {
 class MyProfile extends Component {
     constructor(props){
         super(props);
-    }
+	}
+	
+	profileSubmitForm = (values) => {
+		cosnoel.log('Values>>>>>',values);
+	}
 
     render() {
 		let curt_page  = this.props.history.location.pathname;
@@ -33,7 +37,7 @@ class MyProfile extends Component {
 					</ul>
 					{ curt_page==routeCodes.PERMISSION && <BtnAddNewPermission />}
 				</div>
-				{ curt_page==routeCodes.MY_PROFILE && <Profile />}
+				{ curt_page==routeCodes.MY_PROFILE && <Profile onSubmit={this.profileSubmitForm} />}
 				{ curt_page==routeCodes.PARTNERSHIP_PROGRAM && <PartnershipProg />}
 				{ curt_page==routeCodes.WALLET && <Wallet />}
 				{ curt_page==routeCodes.PERMISSION && <Permission />}
