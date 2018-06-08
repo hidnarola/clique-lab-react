@@ -14,4 +14,4 @@ if(window.location.hostname=='dev.cliquelabs.com' || window.location.hostname=='
 }
 
 export const SERVER_BASE_URL = base_url;
-// export const SERVER_BASE_URL = 'http://192.168.1.186:3200/api/';
+//export const SERVER_BASE_URL = 'http://192.168.1.186:3200/api/';

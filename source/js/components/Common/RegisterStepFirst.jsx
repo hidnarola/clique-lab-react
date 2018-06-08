@@ -33,7 +33,7 @@ const validate = values => {
 };
 
 const renderField = ({ input, type, placeholder, meta: { touched, error, warning } }) => (    
-    <div  className={cx('industry-description input-wrap',{'custom-error':(touched && error ) ? true:false })}>
+    <div className={cx('industry-description input-wrap',{'custom-error':(touched && error ) ? true:false })}>
         <label>Description</label>
         <textarea {...input} placeholder={placeholder}></textarea>
         {touched && ((error && <span className="error-div">{error}</span>))}

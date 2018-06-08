@@ -31,6 +31,7 @@ const initialState = Map({
     userAddedMsg: null,
     
     forceRefresh: false,
+    is_get_campaign : 0,
 });
 
 const actionMap = {
@@ -116,6 +117,7 @@ const actionMap = {
             loading: true,
             error: null,
             showDrop:false,
+            is_get_campaign:0
         }));
     },
 
@@ -125,6 +127,7 @@ const actionMap = {
             error: false,
             dropdownList:action.data,
             showDrop:true,
+            is_get_campaign:1
         }));
     }, 
     
@@ -139,7 +142,8 @@ const actionMap = {
             loading: false,
             error: null, // error
             dropdownList:null,
-            showDrop:false,          
+            showDrop:false,  
+            is_get_campaign:1        
         }));
     }, 
     
@@ -152,7 +156,8 @@ const actionMap = {
                 status:0,
                 message:null,
                 data:null,
-                total:0
+                total:0,
+                is_get_campaign:0
             };
         if(action['data']){
             (action['data']['userAdded'] === false) ? resetObj['userAdded'] = false:'';

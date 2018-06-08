@@ -17,10 +17,17 @@ class Header extends Component{
         
         this.toggle = this.toggle.bind(this);
         this.state = {
-          dropdownOpen: false
+          dropdownOpen: false,
+          pimg:'',
         };
     }
         
+    // componentDidMount = () => {
+    //     let user = JSON.parse(reactLocalStorage.get('user', true));
+    //     let profile_img = imgRoutes.PROMOTER_IMG_PATH+user.avatar;
+    //     this.setState({pimg:profile_img});
+    // }
+    
     mylogout(){        
         const { dispatch, history } = this.props;
         dispatch(logout());
@@ -107,6 +114,7 @@ class Header extends Component{
                             <DropdownToggle caret>                                
                                 <a id="">
                                 <span style={{"background":"url('"+imgRoutes.PROMOTER_IMG_PATH+user.avatar+"') no-repeat 100%","backgroundSize": "100%","height": "40px"}}></span>
+                                {/* <span style={{"background":"url('"+this.state.pimg+"') no-repeat 100%","backgroundSize": "100%","height": "40px"}}></span> */}
                                     <i className=""></i>
                                 </a>
                             </DropdownToggle>

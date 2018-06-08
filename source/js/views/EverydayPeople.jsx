@@ -1312,19 +1312,6 @@ class EverydayPeople extends Component {
             dispatch(resetAlertMsg());
             this.messagePopupToggle();
         }
-
-        // if(this.props.add_filter_to_group === 1)
-        // {
-        //     this.setState({load:false});
-        //     //dispatch(resetGroupVal());
-        // }
-        // if(userAdded === true)
-        // {
-        //     //dispatch(resetGroupVal());
-        //     this.setState({load:false});
-        // }
-
-        console.log('Yes i am calling')
     }
 
     componentWillUnmount() {
