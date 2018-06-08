@@ -36,19 +36,19 @@ const validate = values => {
 		errors.description = 'This Field is Required';
 	}
 
-	if (!values.images) {
-		errors.images = 'This Field is Required'
+	if (!values.avatar) {
+		errors.avatar = 'This Field is Required'
 	} else {
-		let file_type = values.images[0].type;
+		let file_type = values.avatar[0].type;
 		let extensions = ["image/jpeg", "image/png", "image/jpg"];
 		if (extensions.indexOf(file_type) < 0) {
-			errors.images = 'File type not supported'
+			errors.avatar = 'File type not supported'
 		}
 	}
 	return errors
 }
 
-const textField = ({ input, type, label, placeholder, meta: { touched, error } }) => (
+const textField = ({ input, type, label, placeholder, isDisabled, meta: { touched, error } }) => (
 	<div className={cx('input-wrap', { 'custom-error': (touched && error) ? true : false })}>
 		<label>{label}</label>
 		<input {...input} placeholder={placeholder} type={type} className={(touched && error) && `txt_error_div`} autoComplete="off"/>
@@ -137,6 +137,7 @@ let Profile = props => {
 						label="Username"
 						component={textField}
 						placeholder="Username"
+						isDisabled="true"
 					/>
 					<Field
 						name="email"
@@ -144,6 +145,7 @@ let Profile = props => {
 						label="Email"
 						component={textField}
 						placeholder="Email ID"
+						isDisabled="true"
 					/>
 					<Field
 						name="company"
@@ -165,7 +167,7 @@ let Profile = props => {
 				<div className="myprofile-r">
 					<div className="drag-drop">
 						<Field
-							name="images"
+							name="avatar"
 							label="Profile Logo"
 							labelClass="control-label"
 							wrapperClass="form-group"
