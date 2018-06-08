@@ -179,10 +179,7 @@ img{max-width:100%;}
 	.left-panel {padding:82px 0 0;}
 	.navigation-div ul {padding:0 0 0 13px;}
 	.navigation-div ul li a{padding:6px 0 6px 50px; font-size:14px;}
-	.navigation-div ul li a i{background-size:20px auto;}
-	.navigation-div ul li a:hover i, 
-	.navigation-div ul li.active a i {background-position:0 -18px;}
-	.big-logo {padding: 0 0 74px;}
+		.big-logo {padding: 0 0 74px;}
 	.select-wrap select {padding: 11px 15px 11px 11px; font-size: 13px;}
 	.step-process a {width: 16px; height: 16px;}
 	.step-process strong {width: 3px;}
@@ -339,8 +336,6 @@ background:-webkit-linear-gradient(-45deg, #c76eff 0%,#895cf2 100%);
 background:linear-gradient(135deg, #c76eff 0%,#895cf2 100%);
 filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='#c76eff', endColorstr='#895cf2',GradientType=1);}
 .nav-open .navigation-div ul li a{color:#fff;white-space:nowrap;}
-.nav-open .navigation-div ul li a i,
-.nav-open .navigation-div ul li a i{ background-position:0 -24px;}
 .right-hdr { display: block; padding:0 0 20px 140px; border-bottom: 1px solid #c8cfda; margin:0 0 20px;}
 .hdr-cart {margin-right:0;}
 

@@ -18,7 +18,7 @@ import { sendReq, moreFilterReq, fetchDropDownReq, resetVal, addUserReq, bulkUse
 import { getGroups, addGroups, resetGroupVal } from '../../actions/groups';
 import PropTypes from 'prop-types';
 import ReactSelect from 'react-select';
-import nodataImg from 'img/site/nodata.png';
+import nodataImg from 'img/site/no_data/04.png';
 import plusImg from 'img/site/plus-sign.png';
 import closeImg from 'img/site/close-2.png';
 import closeImg2 from 'img/site/close-2.png';
@@ -209,14 +209,12 @@ class GroupList extends Component {
 
     toggle() {
         this.setState({
-            //dropdownOpen: !this.state.dropdownOpen
             createGroupModalShow: !this.state.createGroupModalShow,
         });
     }
 
     messagePopupToggle = () => { this.setState({ messagePopup: !this.state.messagePopup }); }
 
-    // createGroupSubmit = (values) => {
     createGroupSubmit(values) {
         this.setState({ authorise_disabled: true }, () => {
             const { dispatch } = this.props;
@@ -234,14 +232,6 @@ class GroupList extends Component {
         this.setState({ activePage: pageNumber });
         const { dispatch } = this.props;
         const { activePage, sort_wise_pagination } = this.state;
-        // if (pageNumber !== this.state.activePage) {
-        //     let newVar = {
-        //         "sort": [{ "field": selectedOption.column, "value": parseInt(selectedOption.value) }],
-        //         "page_size": 12,
-        //         "page_no": pageNumber
-        //     }
-        //     dispatch(getGroups(newVar))
-        // }
         if (pageNumber !== this.state.activePage) {
             if (sort_wise_pagination === '') {
                 let newVar = {
@@ -249,8 +239,7 @@ class GroupList extends Component {
                     "page_no": pageNumber
                 }
                 dispatch(getGroups(newVar))
-            }
-            else {
+            } else {
                 let newVar = {
                     "sort": [{ "field": sort_wise_pagination.column, "value": parseInt(sort_wise_pagination.value) }],
                     "page_size": 12,
@@ -258,7 +247,6 @@ class GroupList extends Component {
                 }
                 dispatch(getGroups(newVar))
             }
-            // dispatch(getGroups(newVar))
         }
     }
 
@@ -300,13 +288,11 @@ class GroupList extends Component {
 
         if (userAdded) {
             //alert('User Has been Added');
-
             this.setState({
                 messagePopupSuccessMsg: 'user has been added to campaign',
                 messagePopupErrorMsg: null
             });
             this.messagePopupToggle();
-
             dispatch(resetVal({ 'userAdded': false }));
             dispatch(resetGroupVal());
         } 
@@ -314,55 +300,41 @@ class GroupList extends Component {
     }
 
     addCampaign = (obj) => {
-        //console.log('OBJ>>>',obj);
         const { dispatch,loading } = this.props;
-        this.setState({
-            groupId: obj._id
+        this.setState({ 
+            groupId: obj._id,
+            isPluseClick: true 
         });
-        this.setState({ isPluseClick: true });
-        
         this.setState({load:true},()=>{
             setTimeout(()=>{
                 this.setState({load:false})
             },300);
         });
-
         this.child.setSaveFor('add_to_campaign', null);
-        
-        //dispatch(fetchDropDownReq({ "sendReqFor": "add_to_campaign" }));
-        
-        if(obj.total_member > 0)
-        {
+        if(obj.total_member > 0) {
             dispatch(fetchDropDownReq({ "sendReqFor": "add_to_campaign" }));
         }
 
         setTimeout(() => {
 
-                if(obj.total_member < 1 &&  this.props.dropdownList === null)
-                {
+                if(obj.total_member < 1 &&  this.props.dropdownList === null){
                     //alert('You don’t have members in group yet.')
-
                     this.setState({
                         messagePopupSuccessMsg: null,
                         messagePopupErrorMsg: 'You don’t have members in group yet.'
                     });
                     this.messagePopupToggle();
 
-                }
-                else if(obj.total_member < 1)
-                {
+                } else if(obj.total_member < 1) {
                     //alert('You don’t have members in group yet.')
-
                     this.setState({
                         messagePopupSuccessMsg: null,
                         messagePopupErrorMsg: 'You don’t have members in group yet.'
                     });
                     this.messagePopupToggle();
 
-                }
-                else if(this.props.dropdownList === null && this.props.loading === false) {
+                } else if(this.props.dropdownList === null && this.props.loading === false) {
                     //alert('You don’t have a campaign yet.')
-
                     this.setState({
                         messagePopupSuccessMsg: null,
                         messagePopupErrorMsg: 'You don’t have a campaign yet.'
@@ -393,10 +365,6 @@ class GroupList extends Component {
                 <div className="all-people-div">
                     <div className="all-people-img">
                         <div className="cursor_pointer" onClick={() => this.props.history.push(`${routeCodes.LISTGROUPS}/${obj._id}/members`)} style={{ "background": "url('" + imgRoutes.GROUP_IMG_PATH+'/'+obj.image + "') no-repeat 100%", "backgroundSize": "100%", "height": "190px" }}></div>
-                        {/* <Link className="cursor_pointer" to={`${routeCodes.LISTGROUPS}/${obj._id}/members`}>
-                            <img className="grp_list_img" src={`${imgRoutes.GROUP_IMG_PATH}${obj.image}`} alt="" />
-                        </Link> */}
-
                         <div className="plus-people dropdown">
                             <PlusAction
                                 addCampaign={() => { this.addCampaign(obj) }}
@@ -407,7 +375,6 @@ class GroupList extends Component {
                         <h4>{obj.name}</h4>
                         <div className="group-btm-btm d-flex">
                             <div className="group-btm-l">
-                                {/* <h5>Members <strong>2343</strong> </h5> */}
                                 <h5>Members <strong>{obj.total_member}</strong> </h5>
                                 <h5>Power <strong>{obj.social_power}</strong> </h5>
                             </div>
@@ -418,26 +385,6 @@ class GroupList extends Component {
                     </div>
                 </div>
             </li>
-            // <li key={Math.random()}>
-            //     <div className="all-people-div">
-            //         <div className="all-people-img">
-            //             <a >
-            //                 <img src={sampleImg} alt="" />
-            //             </a>
-            //             <div className="plus-people dropdown">
-            //                 <PlusAction
-            //                     addCampaign={() => { this.addCampaign(obj) }}
-            //                     addGroup={() => { this.addGroup(obj) }}
-            //                     groupId={this.state.groupId}
-            //                 />
-            //             </div>
-            //         </div>
-            //         <div className="all-people-content d-flex">
-            //             <h4>{obj.name}</h4>
-            //             <DropDownSocial />
-            //         </div>
-            //     </div>
-            // </li>
         );
     }
 
@@ -489,44 +436,7 @@ class GroupList extends Component {
                 <div className="every-people">
                     <div className="all-people">
                         <ul className="all-people-ul d-flex">
-                            {(groups !== null) ? groups.map((obj, index) => (this.renderLi(obj))) : <div className="no_data_found"><img src={nodataImg} /></div>}
-                            {/* {
-                                (groups !== null) ?
-                                    groups.map(function (obj, i) {
-                                        return (
-                                            <li key={Math.random()}>
-                                                <div className="all-people-div">
-                                                    <div className="all-people-img">
-                                                        <Link className="cursor_pointer" to={`${routeCodes.LISTGROUPS}/${obj._id}/members`}>
-                                                            <img className="grp_list_img" src={`${imgRoutes.GROUP_IMG_PATH}${obj.image}`} alt="" />
-                                                        </Link>
-                                                        <div className="plus-people dropdown">
-                                                            <PlusAction
-                                                                addCampaign={() => { this.addCampaign(obj) }}
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                    <div className="group-btm-content">
-                                                        <h4>{obj.name}</h4>
-                                                        <div className="group-btm-btm d-flex">
-                                                            <div className="group-btm-l">
-                                                                <h5>Members <strong>2343</strong> </h5>
-                                                                <h5>Power <strong>34.3k</strong> </h5>
-                                                            </div>
-                                                            <div className="group-btm-r">
-                                                                <h5>Activity rate <strong>75%</strong></h5>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        )
-                                    })
-                                    :
-                                    <div className="no_data_found">
-                                        <img src={nodataImg} />
-                                    </div>
-                            } */}
+                            {(groups !== null) ? groups.map((obj, index) => (this.renderLi(obj))) : <div className="no_data_found"><img src={nodataImg} /> <p>No groups available.</p></div>}
                         </ul>
                     </div>
                     {(
@@ -545,17 +455,14 @@ class GroupList extends Component {
                     resetDropVal={this.resetDropVal}
                     saveResult={this.saveResult} />
 
-                {/* <Modal isOpen={this.state.createGroupModalShow} toggle={this.createGroupModalOpen} className={this.props.className} id="group-popup"> */}
                 <Modal isOpen={this.state.createGroupModalShow} toggle={this.toggle} className={this.props.className} id="group-popup">
                     <button type="button" className="close" onClick={this.createGroupModal}>
-                        {/* <img src="/assets/img/site/close-2.png" /> */}
                         <img src={closeImg} />
                     </button>
                     <h2>Create Group</h2>
                     <CreateGroupForm onSubmit={this.createGroupSubmit.bind(this)} submitDisabled={this.state.authorise_disabled} />
                 </Modal>
 
-                {/* ---DM----- */}
                 <Modal isOpen={this.state.messagePopup} toggle={this.messagePopupToggle} className={this.props.className} id="congratulations" style={{ width: "550px" }}>
                     <div className="custom_modal_btn_close" style={{ padding: "15px 20px" }}>
                         <img className="cursor_pointer" src={closeImg2} onClick={() => this.messagePopupToggle()} />
@@ -577,15 +484,6 @@ class GroupList extends Component {
                         }
                     </ModalBody>
                 </Modal>
-
-                {/* <Modal isOpen={true} toggle={this.toggle} className={this.props.className} className="alertMessagePopup"  id="congratulations" backdrop={true}>
-                    <ModalBody>
-                        <div className="terms-conditions">
-                            <h2>No users available in this group!</h2>
-                            <a className="round-btn cursor_pointer" href="javascript:void(0)" onClick={() => this.toggle()}>Ok</a>
-                        </div>
-                    </ModalBody>
-                </Modal> */}
             </div>
         );
     }

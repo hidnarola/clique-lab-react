@@ -1,4 +1,4 @@
-import React,{Component} from 'react'
+import React, { Component } from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import { Field, reduxForm } from 'redux-form'
 import { connect } from 'react-redux'
@@ -15,62 +15,60 @@ import Dropzone from 'react-dropzone';
 
 const validate = values => {
 	const errors = {}
-	
+
 	if (!values.name) {
-        errors.name = 'This Field is Required';
-    }
-
-    if (!values.username) {
-        errors.username = 'This Field is Required';
-    }
-
-    if (!values.email) {
-        errors.email = 'This Field is Required';
+		errors.name = 'This Field is Required';
 	}
-	
+
+	if (!values.username) {
+		errors.username = 'This Field is Required';
+	}
+
+	if (!values.email) {
+		errors.email = 'This Field is Required';
+	}
+
 	if (!values.company) {
-        errors.company = 'This Field is Required';
+		errors.company = 'This Field is Required';
 	}
 
-	if (!values.images) {
-        errors.images = 'This Field is Required'
-    }else {
-        let file_type = values.images[0].type;
-        let extensions = ["image/jpeg", "image/png", "image/jpg"];
-        if (extensions.indexOf(file_type) < 0) {
-            errors.images = 'File type not supported'
-       }
-    }
-	
-    return errors
+	if (!values.description) {
+		errors.description = 'This Field is Required';
+	}
+
+	if (!values.avatar) {
+		errors.avatar = 'This Field is Required'
+	} else {
+		let file_type = values.avatar[0].type;
+		let extensions = ["image/jpeg", "image/png", "image/jpg"];
+		if (extensions.indexOf(file_type) < 0) {
+			errors.avatar = 'File type not supported'
+		}
+	}
+	return errors
 }
 
-const textField = (
-    {input,type,label,placeholder,meta: { touched, error}}
-) => (
-		<div className={cx('input-wrap',{'custom-error':(touched && error ) ? true:false })}>
-			<label>{label}</label>
-			<input {...input} placeholder={placeholder} type={type} className={(touched && error) && `txt_error_div`} />    
-			{touched && ((error && <span className="error-div">{error}</span>))}    
-		</div>
-	)
+const textField = ({ input, type, label, placeholder, isDisabled, meta: { touched, error } }) => (
+	<div className={cx('input-wrap', { 'custom-error': (touched && error) ? true : false })}>
+		<label>{label}</label>
+		<input {...input} placeholder={placeholder} type={type} className={(touched && error) && `txt_error_div`} autoComplete="off"/>
+		{touched && ((error && <span className="error-div">{error}</span>))}
+	</div>
+)
 
-const textareaField = (
-	{input,label,placeholder,meta: { touched, error}}
-) => (
-		<div className={cx('input-wrap textarea-wrap',{'custom-error':(touched && error ) ? true:false })}>
-			<label>{label}</label>
-			<textarea {...input} placeholder={placeholder} className={(touched && error) && `txt_error_div`}></textarea>    
-			{touched && ((error && <span>{error}</span>))}    
-		</div>
-	)
+const textareaField = ({ input, label, placeholder, meta: { touched, error } }) => (
+	<div className={cx('input-wrap textarea-wrap', { 'custom-error': (touched && error) ? true : false })}>
+		<label>{label}</label>
+		<textarea {...input} placeholder={placeholder} className={(touched && error) && `txt_error_div`}></textarea>
+		{touched && ((error && <span className="error-div">{error}</span>))}
+	</div>
+)
 
 const FileField_Dropzone = (props) => {
-	const { label, input, meta, wrapperClass, className, labelClass, errorClass, accept, multiple } = props;
+	const { label, input, meta, wrapperClass, className, labelClass, errorClass, accept, multiple, isRequired } = props;
 	let filesArr = _.values(input.value);
 	let images = [];
-	let extensions = ["image/jpeg", "image/png", "image/jpg"];
-	let error_msg = '';
+	let isFileDropped = false;
 
 	_.forEach(filesArr, (file, key) => {
 		images.push(
@@ -84,74 +82,93 @@ const FileField_Dropzone = (props) => {
 
 	return (
 		<div className={wrapperClass}>
-			<label htmlFor={input.name} className={labelClass}>{label}</label>
+			<label htmlFor={input.name} className={labelClass}>
+				{label} {meta.pristine && isRequired === "true" && <span className="error-div">*</span>}
+			</label>
+
 			<Dropzone
 				{...input}
-				accept="image/*"
-				onDrop={(filesToUpload, e) => input.onChange(filesToUpload)}
-				multiple={false}
-				className={ `${className}` }
+				accept={accept ? accept : "image/jpeg, image/png, image/jpg, image/gif"}
+				onDrop={(filesToUpload, e) => {
+					console.log('drop before => ', isFileDropped);
+					isFileDropped = true;
+					console.log('drop after => ', isFileDropped);
+					input.onChange(filesToUpload)
+				}}
+				multiple={multiple ? multiple : false}
+				className={`${className}`}
+				onFileDialogCancel={() => {
+					console.log('cancel => ', isFileDropped);
+					(!isFileDropped) ? input.onChange('') : console.log('dropped')
+				}}
 			>
 				<div className="dropzone-image-preview-wrapper">
-					{(input.value && !meta.error) && images}
-					{(meta.error===undefined || meta.error) && <div className={ `custom_dropzone_div ${(meta.touched && meta.error) && 'drop_error_div'}` } style={{'width':'100%'}}>
-							<img src={dropImg} /><br /><br />
-							<p>Select or Drag Your image here</p>
-							<button type="button" className="btn_drop_browse">Or Browse</button>
-						</div>
+					{(input.value && meta.error === undefined) && images}
+					{((!input.value || meta.error || images.length === 0)) && <div className={`custom_dropzone_div ${(meta.touched && meta.error) && 'drop_error_div'}`} style={{ 'width': '100% !important' }}>
+						<img src={dropImg} /><br /><br />
+						<p>Select or Drag Your image here</p>
+						<span className={`btn btn_drop_browse`}>Or Browse</span>
+					</div>
 					}
-				</div> 
+				</div>
 			</Dropzone>
-			{(meta.touched && meta.error) && <span className="error-div">{meta.error}</span>}
+			{((!meta.valid || meta.visited) && meta.error && meta.submitFailed) && <span className="error-div">{meta.error}</span>}
 		</div>
 	);
 }
+
+
 let Profile = props => {
-	return(
+	const { handleSubmit, error, message, submitDisabled } = props
+	return (
 		<div className="profile-body content-box">
-			<form className="d-flex">
+			<form className="d-flex" onSubmit={handleSubmit}>
 				<div className="myprofile-l">
 					<Field
 						name="name"
 						type="text"
 						label="Name"
 						component={textField}
-						placeholder="Enter your name"
+						placeholder="Name"
 					/>
 					<Field
 						name="username"
 						type="text"
 						label="Username"
 						component={textField}
-						placeholder="Enter your username"
+						placeholder="Username"
+						isDisabled="true"
 					/>
 					<Field
 						name="email"
 						type="email"
 						label="Email"
 						component={textField}
-						placeholder="Enter your email"
+						placeholder="Email ID"
+						isDisabled="true"
 					/>
 					<Field
 						name="company"
 						type="text"
 						label="Company"
 						component={textField}
-						placeholder="Enter your company"
+						placeholder="Company"
 					/>
 					<Field
 						name="description"
 						label="Description"
 						component={textareaField}
-						placeholder="Enter description"
+						placeholder="Description"
 					/>
+					<div class="change-password">
+						<a href="javascript:void(0)" style={{ "fontWeight": "600" }}>Change Password</a>
+					</div>
 				</div>
 				<div className="myprofile-r">
 					<div className="drag-drop">
 						<Field
-							name="images"
+							name="avatar"
 							label="Profile Logo"
-							className="drag-drop"
 							labelClass="control-label"
 							wrapperClass="form-group"
 							placeholder="Images"
@@ -169,10 +186,10 @@ let Profile = props => {
 }
 
 let ProfileForm = reduxForm({
-    form: 'profileForm',
-    validate,
+	form: 'profileForm',
+	validate,
 })(Profile)
 
 export default connect(state => ({
-    
+
 }))(ProfileForm)
