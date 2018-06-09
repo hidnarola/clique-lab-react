@@ -26,17 +26,17 @@ const actionMap = {
         }));
     },
     [EDIT_PROFILE_SUCCESS]: (state, action) => {
-        console.log('===========================================');
-        console.log('              EDIT PROFLE SUCCESS          ');
-        console.log('===========================================');
-        console.log(action);
-        return;
+        // console.log('===========================================');
+        // console.log('              EDIT PROFLE SUCCESS          ');
+        // console.log('===========================================');
+        // console.log(action);
+        // return;
         return state.merge(Map({
             loading: false,
             edit_profile: {
-                status: 0,
-                message: null,
-                data: null,
+                status: action.data.data.status,
+                message: action.data.data.message,
+                data: action.data.data.promoter,
             },
         }));
     },
