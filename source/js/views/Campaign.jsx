@@ -139,21 +139,34 @@ class Campaign extends Component {
         if (loading) { return (<div className="loader"></div>) }
         return (
             <div className='Campaign'>
-                {page === 1 && <FormStep1 onSubmit={this.nextPage} changePage={this.changePage} />}
+                {page === 1 && <FormStep1 
+                    onSubmit={this.nextPage} changePage={this.changePage} 
+                    multipleImagesFun={this.multipleImagesFun}
+                    prevImg={this.state.multipleImages} 
+                />}
                 {page === 2 && <FormStep2
                     changePage={(i) => this.changePage(i)}
                     previousPage={this.previousPage}
-                    onSubmit={this.nextPage} />}
+                    onSubmit={this.nextPage} 
+                    multipleImagesFun={this.multipleImagesFun}
+                    prevImg={this.state.multipleImages} 
+                    />}
 
                 {page === 3 && <FormStep3
                     changePage={(i) => this.changePage(i)}
                     previousPage={this.previousPage}
-                    onSubmit={this.nextPage} />}
+                    onSubmit={this.nextPage}
+                    multipleImagesFun={this.multipleImagesFun}
+                    prevImg={this.state.multipleImages} 
+                     />}
 
                 {page === 4 && <FormStep4
                     changePage={(i) => this.changePage(i)}
                     previousPage={this.previousPage}
-                    onSubmit={this.nextPage} />}
+                    onSubmit={this.nextPage} 
+                    multipleImagesFun={this.multipleImagesFun}
+                    prevImg={this.state.multipleImages}  
+                    />}
 
                 {page === 5 && <FormStep5
                     changePage={(i) => this.changePage(i)}

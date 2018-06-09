@@ -718,7 +718,8 @@ class EverydayPeople extends Component {
             location_filter_open: false,
             locError: '',
 
-            showCamp: false
+            showCamp: false,
+            cnt:0,
         };
 
 
@@ -812,7 +813,7 @@ class EverydayPeople extends Component {
             return;
         }
         const { dispatch } = this.props;
-        let { appliedFilter } = this.state;
+        let { appliedFilter} = this.state;
 
         let allDropDown = this.state.allDropDown;
         let index = _.findIndex(allDropDown, { dropdown: secondParam });
@@ -1312,19 +1313,6 @@ class EverydayPeople extends Component {
             dispatch(resetAlertMsg());
             this.messagePopupToggle();
         }
-
-        // if(this.props.add_filter_to_group === 1)
-        // {
-        //     this.setState({load:false});
-        //     //dispatch(resetGroupVal());
-        // }
-        // if(userAdded === true)
-        // {
-        //     //dispatch(resetGroupVal());
-        //     this.setState({load:false});
-        // }
-
-        console.log('Yes i am calling')
     }
 
     componentWillUnmount() {

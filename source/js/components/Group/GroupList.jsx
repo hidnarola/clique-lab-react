@@ -289,7 +289,7 @@ class GroupList extends Component {
         if (userAdded) {
             //alert('User Has been Added');
             this.setState({
-                messagePopupSuccessMsg: 'User has been added',
+                messagePopupSuccessMsg: 'User has been added to campaign',
                 messagePopupErrorMsg: null
             });
             this.messagePopupToggle();
