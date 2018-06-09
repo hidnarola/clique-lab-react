@@ -8,6 +8,8 @@ import Dropzone from 'react-dropzone';
 import dropImg from 'img/site/canvas.png';
 import deleteImg from 'img/site/delete-icon.png';
 
+import FormStep4 from '../Campaign/FormStep4';
+
 const validate = values => {
     const errors = {};
     let images = [];
@@ -152,6 +154,7 @@ class FormStep5 extends Component {
                     <FormCampaignRight 
                         existImages = {this.state.allImages}
                     />
+                    
                 </div>
             </form>
         );

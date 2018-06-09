@@ -48,7 +48,7 @@ class FormStep1 extends Component {
     }
 
     render() {
-        const { handleSubmit } = this.props;
+        const { handleSubmit,prevImg } = this.props;
         return (
             <form onSubmit={handleSubmit}>
                 <div className="right-box create-campaign d-flex">
@@ -94,7 +94,9 @@ class FormStep1 extends Component {
                             </div>
                         </div>
                     </div>
-                    <FormCampaignRight />
+                    {/* <FormCampaignRight /> */}
+                    <FormCampaignRight existImages = {prevImg} />
+                    
                 </div>
             </form>
         );

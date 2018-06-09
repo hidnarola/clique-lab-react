@@ -50,7 +50,7 @@ class FormStep2 extends Component{
     }
 
     render(){
-        const { handleSubmit,previousPage } = this.props;
+        const { handleSubmit,previousPage,prevImg } = this.props;
 
         return(
             <form onSubmit={handleSubmit}>
@@ -136,7 +136,8 @@ class FormStep2 extends Component{
                         </div>
                     </div>
 
-                    <FormCampaignRight/>
+                    {/* <FormCampaignRight/> */}
+                    <FormCampaignRight existImages = {prevImg} />
                 </div>
             </form>
         );

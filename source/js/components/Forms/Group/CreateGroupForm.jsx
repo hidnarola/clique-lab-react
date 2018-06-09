@@ -17,7 +17,7 @@ const validate = values => {
         errors.images = 'This field is required';
     } else {
         if ((values.images).length > 0) {
-            console.log('file>>>',values.images);
+            console.log('file>>>', values.images);
             let file_type = values.images[0].type;
             let extensions = ["image/jpeg", "image/png", "image/jpg"];
             if (extensions.indexOf(file_type) < 0) {
@@ -74,7 +74,7 @@ const FileField_Dropzone = (props) => {
     let filesArr = _.values(input.value);
     let images = [];
     let isFileDropped = false;
-    
+
     _.forEach(filesArr, (file, key) => {
         images.push(
             <div className="images-preview-wrapper" key={key}>
@@ -90,7 +90,7 @@ const FileField_Dropzone = (props) => {
             <label htmlFor={input.name} className={labelClass}>
                 {label} {meta.pristine && isRequired === "true" && <span className="error-div">*</span>}
             </label>
-            
+
             <Dropzone
                 {...input}
                 accept={accept ? accept : "image/jpeg, image/png, image/jpg, image/gif"}
@@ -117,8 +117,8 @@ const FileField_Dropzone = (props) => {
                     }
                 </div>
             </Dropzone>
-            {((!meta.valid || meta.visited) && meta.error && meta.submitFailed ) && <span className="error-div">{meta.error}</span>}
-            {/* {((meta.touched && meta.error)) && <span className="error-div">{meta.error}</span>} */}
+            {((!meta.valid || meta.visited) && meta.error && meta.submitFailed) && <span className="error-div">{meta.error}</span>}
+
             {/* {((meta.touched && meta.error)) && <span className="error-div">{meta.error}</span>} */}
         </div>
     );
