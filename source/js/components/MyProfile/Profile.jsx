@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import { Field, reduxForm } from 'redux-form'
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router'
 import { SubmissionError } from 'redux-form'
 import { routeCodes } from '../../constants/routes';
@@ -12,6 +12,8 @@ import validator from 'validator';
 import cx from 'classnames';
 import dropImg from 'img/site/canvas.png';
 import Dropzone from 'react-dropzone';
+import { SelectField_ReactSelect } from '../../components/Forms/RenderFormComponent/EveryComponent';
+import { reactLocalStorage } from 'reactjs-localstorage';
 
 const validate = values => {
 	const errors = {}
@@ -20,13 +22,13 @@ const validate = values => {
 		errors.name = 'This Field is Required';
 	}
 
-	if (!values.username) {
-		errors.username = 'This Field is Required';
-	}
+	// if (!values.username) {
+	// 	errors.username = 'This Field is Required';
+	// }
 
-	if (!values.email) {
-		errors.email = 'This Field is Required';
-	}
+	// if (!values.email) {
+	// 	errors.email = 'This Field is Required';
+	// }
 
 	if (!values.company) {
 		errors.company = 'This Field is Required';
@@ -34,6 +36,10 @@ const validate = values => {
 
 	if (!values.description) {
 		errors.description = 'This Field is Required';
+	}
+
+	if (!values.industry_category || (values.industry_category!==undefined && values.industry_category.value=="") || Object.keys(values.industry_category).length===0) {
+        errors.industry_category = 'This field is required';
 	}
 
 	if (!values.avatar) {
@@ -48,18 +54,18 @@ const validate = values => {
 	return errors
 }
 
-const textField = ({ input, type, label, placeholder, isDisabled, meta: { touched, error } }) => (
+const textField = ({ input, type, label, placeholder, isReadOnly, isRequired, existValue, meta: { touched, error } }) => (
 	<div className={cx('input-wrap', { 'custom-error': (touched && error) ? true : false })}>
-		<label>{label}</label>
-		<input {...input} placeholder={placeholder} type={type} className={(touched && error) && `txt_error_div`} autoComplete="off"/>
+		<label>{label} {isRequired === "true" && <span className="error-div">*</span>}</label>
+		<input {...input} placeholder={placeholder} type={type} className={(touched && error) && `txt_error_div`} autoComplete="off" value={existValue} readonly={isReadOnly}/>
 		{touched && ((error && <span className="error-div">{error}</span>))}
 	</div>
 )
 
-const textareaField = ({ input, label, placeholder, meta: { touched, error } }) => (
+const textareaField = ({ input, label, placeholder, isRequired, existValue, meta: { touched, error } }) => (
 	<div className={cx('input-wrap textarea-wrap', { 'custom-error': (touched && error) ? true : false })}>
-		<label>{label}</label>
-		<textarea {...input} placeholder={placeholder} className={(touched && error) && `txt_error_div`}></textarea>
+		<label>{label} {isRequired === "true" && <span className="error-div">*</span>}</label>
+		<textarea {...input} placeholder={placeholder} className={(touched && error) && `txt_error_div`}>{existValue}</textarea>
 		{touched && ((error && <span className="error-div">{error}</span>))}
 	</div>
 )
@@ -117,79 +123,121 @@ const FileField_Dropzone = (props) => {
 	);
 }
 
+class Profile extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			industryArr: [],
+		}
+	}
 
-let Profile = props => {
-	const { handleSubmit, error, message, submitDisabled } = props
-	return (
-		<div className="profile-body content-box">
-			<form className="d-flex" onSubmit={handleSubmit}>
-				<div className="myprofile-l">
-					<Field
-						name="name"
-						type="text"
-						label="Name"
-						component={textField}
-						placeholder="Name"
-					/>
-					<Field
-						name="username"
-						type="text"
-						label="Username"
-						component={textField}
-						placeholder="Username"
-						isDisabled="true"
-					/>
-					<Field
-						name="email"
-						type="email"
-						label="Email"
-						component={textField}
-						placeholder="Email ID"
-						isDisabled="true"
-					/>
-					<Field
-						name="company"
-						type="text"
-						label="Company"
-						component={textField}
-						placeholder="Company"
-					/>
-					<Field
-						name="description"
-						label="Description"
-						component={textareaField}
-						placeholder="Description"
-					/>
-					<div class="change-password">
-						<a href="javascript:void(0)" style={{ "fontWeight": "600" }}>Change Password</a>
-					</div>
-				</div>
-				<div className="myprofile-r">
-					<div className="drag-drop">
+	render() {
+		const { handleSubmit, error, message, submitDisabled } = this.props;
+		const industryArr = [];
+		if (this.props.industryList) {
+			this.props.industryList.map((obj, index) => {
+				industryArr.push({ value: obj._id, label: obj.name })
+			})
+		}
+		return (
+			<div className="profile-body content-box">
+				<form className="d-flex" onSubmit={handleSubmit}>
+					<div className="myprofile-l">
 						<Field
-							name="avatar"
-							label="Profile Logo"
-							labelClass="control-label"
-							wrapperClass="form-group"
-							placeholder="Images"
-							component={FileField_Dropzone}
-							multiple={false}
+							name="name"
+							type="text"
+							label="Name"
+							component={textField}
+							placeholder="Name"
+							isRequired="true"
 						/>
+						<Field
+							name="username"
+							type="text"
+							label="Username"
+							component={textField}
+							placeholder="Username"
+							isReadOnly="true"
+							existValue={JSON.parse(localStorage.getItem('user')).username}
+						/>
+						<Field
+							name="email"
+							type="email"
+							label="Email"
+							component={textField}
+							existValue={JSON.parse(localStorage.getItem('user')).email}
+							placeholder="Email ID"
+							isReadOnly="true"
+						/>
+						<Field
+							name="company"
+							type="text"
+							label="Company"
+							component={textField}
+							placeholder="Company"
+							isRequired="true"
+						/>
+						{/* <ReactSelect
+                            className='dropdown-inr'
+                            name="industry_category"
+                            //value={props.allDropArr['industry_category']['value']}
+                            onChange={(value) => props.parentMethod(value, "industry_category")}
+                            searchable={false} clearable={false} autosize={false}
+                            options={this.state.industryArr}
+                            placeholder="Select industry category"
+                        /> */}
+						<Field
+							wrapperClass="select-wrap"
+							name="industry_category"
+							label="Industry Category"
+							labelClass="control-label"
+							placeholder="Select industry category"
+							component={SelectField_ReactSelect}
+							options={industryArr}
+							isRequired="true"
+						/>
+						<Field
+							name="description"
+							label="Description"
+							component={textareaField}
+							placeholder="Description"
+							isRequired="true"
+							existValue={JSON.parse(localStorage.getItem('user')).industry_description}
+						/>
+						<div className="change-password">
+							<a href="javascript:void(0)" style={{ "fontWeight": "600" }}>Change Password</a>
+						</div>
 					</div>
-					<div className="submit-btn">
-						<button type="submit" className="round-btn">Save</button>
+					<div className="myprofile-r">
+						<div className="drag-drop">
+							<Field
+								name="avatar"
+								label="Profile Logo"
+								labelClass="control-label"
+								wrapperClass="form-group"
+								placeholder="Images"
+								component={FileField_Dropzone}
+								multiple={false}
+							/>
+						</div>
+						<div className="submit-btn">
+							<button type="submit" className="round-btn">Save</button>
+						</div>
 					</div>
-				</div>
-			</form>
-		</div>
-	);
+				</form>
+			</div>
+		);
+	}
 }
 
-let ProfileForm = reduxForm({
+const mapStateToProps = (state) => {
+	const { afterRegister } = state;
+	return {
+		industryList: afterRegister.get('after_register_data').industryList,
+	}
+}
+
+export default connect(mapStateToProps)(reduxForm({
 	form: 'profileForm',
-	validate,
-})(Profile)
-
-export default connect(state => ({
-
-}))(ProfileForm)
+	validate
+})(Profile));

@@ -48,12 +48,54 @@
 .plus-people button img{ max-width:28px; margin: 5px 15px; }
 .Select--multi .Select-value{ margin-top:1px; }
 
-.cart-table table.table thead th{
-    font-size: 13px;
-    font-weight: 600;
-}
+/**************************************************************
+                            Checkout
+***************************************************************/                        
+    .cart-table table.table thead th{
+        font-size: 13px;
+        font-weight: 600;
+    }
+    .cart-table table.table tbody tr td{ font-size: 14px; }
+    .add_credit_card_popup .modal-body{ padding: 10px 60px 40px !important; }
+    #add_credit_card_form{ text-align: left; padding:10px 25px; }
+    #add_credit_card_form .input-wrap label{ font-weight: 600; }
+    #add_credit_card_form .submit-btn{ padding-top:15px; text-align:center}
+    #add_credit_card_form .submit-btn .round-btn{ min-width: 180px; }
+    #add_credit_card_form span{ font-size:13px; font-weight: 600; }
 
-.cart-table table.table tbody tr td{ font-size: 14px; }
+    #add_credit_card_form .calendar-container{ 
+        width: 275px;
+        padding: 4px;
+        background-color: #f3f3f3;
+        right:auto;
+        left:auto;
+        border: 2px solid #dcdfe5;
+    }
+    #add_credit_card_form #txt_card_date{
+        letter-spacing: 1px;
+    }
+    #add_credit_card_form .calendar-container .col_mp{
+        font-size: 15px;
+        font-weight: 500;
+        padding: 7px;
+    }
+    #add_credit_card_form .calendar-container .col_mp.selected_cell,
+    #add_credit_card_form .calendar-container .col_mp:hover {
+        background-color: #6772e5;
+    }
+    #add_credit_card_form .error_div{
+        background-color: #f443364a;
+        border: 1px solid red;
+        border-radius: 3px;
+        padding: 10px;
+        font-size: 13px;
+        color: #525f7f;
+        font-weight: 500;
+        display:none;
+    }
+    #add_credit_card_form .error_div ul{ margin-bottom: 0px; }
+    #add_credit_card_form .error_div ul li{ margin-left: 20px; }
+    
 
 /* Not Found */
     .notfound-main-div{ padding:10em; text-align: center; width: 80%; margin: 0 10em; }

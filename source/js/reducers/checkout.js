@@ -1,8 +1,11 @@
 import { Map } from "immutable";
-import {  
+import {
     GET_CHECKOUT_LIST_REQUEST, GET_CHECKOUT_LIST_SUCCESS, GET_CHECKOUT_LIST_ERROR,
     REMOVE_CART_ITEM_REQUEST, REMOVE_CART_ITEM_SUCCESS, REMOVE_CART_ITEM_ERROR,
+    ADD_CARD_REQUEST, ADD_CARD_SUCCESS, ADD_CARD_ERROR,
+    GET_CARD_LIST_REQUEST, GET_CARD_LIST_SUCCESS, GET_CARD_LIST_ERROR,
     CART_PAYMENT_REQUEST, CART_PAYMENT_SUCCESS, CART_PAYMENT_ERROR,
+    RESET_VALUES
 } from "../actions/Checkout";
 
 const initialState = Map({
@@ -16,11 +19,22 @@ const initialState = Map({
         status: 0,
         message: null,
     },
-    payment:{
+    addCards: {
+        status: 0,
+        message: null,
+        data: null,
+        error: null, 
+    },
+    cards: {
+        status: 0,
+        message: null,
+        data: null,
+    },
+    payment: {
         status: 0,
         message: null
     },
-    removeItems:{
+    removeItems: {
         status: 0,
         message: null
     }
@@ -31,7 +45,7 @@ const actionMap = {
         return state.merge(Map({
             ...initialState,
             loading: true,
-            error: null            
+            error: null
         }));
     },
     [GET_CHECKOUT_LIST_SUCCESS]: (state, action) => {
@@ -65,7 +79,7 @@ const actionMap = {
         return state.merge(Map({
             ...initialState,
             loading: true,
-            error: null            
+            error: null
         }));
     },
     [REMOVE_CART_ITEM_SUCCESS]: (state, action) => {
@@ -91,12 +105,78 @@ const actionMap = {
         }));
     },
 
+    [ADD_CARD_REQUEST]: (state, action) => {
+        return state.merge(Map({
+            ...initialState,
+            loading: true,
+            error: null
+        }));
+    },
+    [ADD_CARD_SUCCESS]: (state, action) => {
+        return state.merge(Map({
+            ...initialState,
+            loading: false,
+            error: false,
+            addCards: {
+                data: action.data.data.cards,
+                status: action.data.data.status,
+                message: action.data.data.message,
+            }
+        }));
+    },
+    [ADD_CARD_ERROR]: (state, action) => {
+        let error = 'Server Error';
+        if (action.error && action.error.response) {
+            error = action.error.response.data.message;
+        }
+        return state.merge(Map({
+            ...initialState,
+            loading: false,
+            addCards:{
+                status: 0,
+                message: null,
+                data: null,
+                error: error,
+            }
+        }));
+    },
+
+    [GET_CARD_LIST_REQUEST]: (state, action) => {
+        return state.merge(Map({
+            ...initialState,
+            loading: true,
+            error: null
+        }));
+    },
+    [GET_CARD_LIST_SUCCESS]: (state, action) => {
+        return state.merge(Map({
+            ...initialState,
+            loading: false,
+            error: false,
+            cards: {
+                data: action.data.data.cards,
+                status: action.data.data.status,
+                message: action.data.data.message,
+            }
+        }));
+    },
+    [GET_CARD_LIST_ERROR]: (state, action) => {
+        let error = 'Server Error';
+        if (action.error && action.error.response) {
+            error = action.error.response.message;
+        }
+        return state.merge(Map({
+            ...initialState,
+            loading: false,
+            error: null,
+        }));
+    },
 
     [CART_PAYMENT_REQUEST]: (state, action) => {
         return state.merge(Map({
             ...initialState,
             loading: true,
-            error: null            
+            error: null
         }));
     },
     [CART_PAYMENT_SUCCESS]: (state, action) => {
@@ -121,6 +201,28 @@ const actionMap = {
         }));
     },
 
+    [RESET_VALUES]:(state,action) => {
+        let resetObj = {};
+        let resetDataVal = {
+            status: 0,
+            message: null,
+            data: null,
+            error: null, 
+        }
+        //console.log(action);
+        if(action['data']){
+            (action['data']['addCard'] === false) ? resetObj['addCards'] = resetDataVal : '';            
+        }
+        console.log(resetObj);
+        // var newState = {};
+        // newState.addCards = {
+        //     status: 0,
+        //     message: null,
+        //     data: null,
+        //     error: null, 
+        // }
+        return state.merge(Map(resetObj));
+    },
 };
 
 export default function reducer(state = initialState, action = {}) {

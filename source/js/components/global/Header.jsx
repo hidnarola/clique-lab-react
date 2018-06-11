@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+import React, { Component } from 'react';
 import { logout } from '../../actions/login';
 import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -9,26 +9,26 @@ import { imgRoutes } from 'constants/img_path';
 import { reactLocalStorage } from 'reactjs-localstorage';
 import _ from 'lodash';
 
-class Header extends Component{
+class Header extends Component {
 
     constructor(props) {
         super(props);
         this.mylogout = this.mylogout.bind(this);
-        
+
         this.toggle = this.toggle.bind(this);
         this.state = {
-          dropdownOpen: false,
-          pimg:'',
+            dropdownOpen: false,
+            pimg: '',
         };
     }
-        
+
     // componentDidMount = () => {
     //     let user = JSON.parse(reactLocalStorage.get('user', true));
     //     let profile_img = imgRoutes.PROMOTER_IMG_PATH+user.avatar;
     //     this.setState({pimg:profile_img});
     // }
-    
-    mylogout(){        
+
+    mylogout() {
         const { dispatch, history } = this.props;
         dispatch(logout());
         // return <Redirect to="/" />
@@ -37,11 +37,11 @@ class Header extends Component{
 
     toggle() {
         this.setState({
-          dropdownOpen: !this.state.dropdownOpen
+            dropdownOpen: !this.state.dropdownOpen
         });
     }
 
-    render(){
+    render() {
         //console.log(this.props.history.location.pathname);
         let { match } = this.props;
         //console.log(routeCodes.CAMPAIGN_ACTIVE);
@@ -51,9 +51,9 @@ class Header extends Component{
             'New Campaign': routeCodes.CAMPAIGN,
             'Everyday People': routeCodes.EVERYDAYPEOPLE,
             'Groups': routeCodes.LISTGROUPS,
-            'Group\'s Members List': routeCodes.LISTGROUPS+'/'+match.params.grpId+'/members',
+            'Group\'s Members List': routeCodes.LISTGROUPS + '/' + match.params.grpId + '/members',
             'Campaigns (Active)': routeCodes.CAMPAIGN_ACTIVE,
-            'Campaign\'s Submission List': routeCodes.CAMPAIGN_ACTIVE+'/'+match.params.campaignId,
+            'Campaign\'s Submission List': routeCodes.CAMPAIGN_ACTIVE + '/' + match.params.campaignId,
             'Campaigns (Future)': routeCodes.CAMPAIGN_FUTURE,
             'Campaigns (Past)': routeCodes.CAMPAIGN_PAST,
             'Inspired submissions': routeCodes.CAMPAIGN_INSPIRED_SUB,
@@ -72,49 +72,46 @@ class Header extends Component{
         let user = JSON.parse(reactLocalStorage.get('user', true));
         let pg_name;
 
-        if(page_name === 'Campaigns (Active)' || page_name === 'Campaigns (Future)' || page_name === 'Campaigns (Past)') 
-        {
+        if (page_name === 'Campaigns (Active)' || page_name === 'Campaigns (Future)' || page_name === 'Campaigns (Past)') {
             pg_name = 'Campaigns';
         }
-        else
-        {
+        else {
             pg_name = page_name;
         }
-        return(
+        return (
             <div className="right-hdr d-flex">
                 <h2>
                     {
-                        (this.props.history.location.pathname===routeCodes.DASHBOARD) ?
-                            <label>Hello <b style={{"fontWeight":"600"}}>{user.full_name}</b>, what would you like to do today?</label>
-                        :
+                        (this.props.history.location.pathname === routeCodes.DASHBOARD) ?
+                            <label>Hello <b style={{ "fontWeight": "600" }}>{user.full_name}</b>, what would you like to do today?</label>
+                            :
                             pg_name
                     }
                 </h2>
                 <div className="right-hdr-r">
-                        <div className="hdr-cart">
-                            <Link to={routeCodes.MY_CART}>
-                                <i className=""></i>
-                                {/* <span>2</span> */}
-                            </Link>
-                            <div className="dropdown-menu dropdown-menu-right" aria-labelledby="cart-dropdown">
-                                <h3>Manage Orders</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+                    <div className="hdr-cart">
+                        <Link to={routeCodes.MY_CART}>
+                            <i className=""></i>
+                            {/* <span>2</span> */}
+                        </Link>
+                        <div className="dropdown-menu dropdown-menu-right" aria-labelledby="cart-dropdown">
+                            <h3>Manage Orders</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
                                     labore et dolore magna aliqua. Ut enim ad</p>
-                                <div className="cart-btm-dropdown">
-                                    <a href="">Got it</a>
-                                    <a href="">Previous</a>
-                                    <a href="">Next</a>
-                                </div>
+                            <div className="cart-btm-dropdown">
+                                <a href="">Got it</a>
+                                <a href="">Previous</a>
+                                <a href="">Next</a>
                             </div>
                         </div>
+                    </div>
 
                     <div className="hdr-user ">
-                        <Dropdown direction='down' isOpen={this.state.dropdownOpen} 
-                                  toggle={this.toggle} >
-                            <DropdownToggle caret>                                
+                        <Dropdown direction='down' isOpen={this.state.dropdownOpen}
+                            toggle={this.toggle} >
+                            <DropdownToggle caret>
                                 <a id="">
-                                <span style={{"background":"url('"+imgRoutes.PROMOTER_IMG_PATH+user.avatar+"') no-repeat 100%","backgroundSize": "100%","height": "40px"}}></span>
-                                {/* <span style={{"background":"url('"+this.state.pimg+"') no-repeat 100%","backgroundSize": "100%","height": "40px"}}></span> */}
+                                    <span style={{ "background": "url('" + imgRoutes.PROMOTER_IMG_PATH + user.avatar + "') 100% center / 100% no-repeat", "width": "40px" }}></span>
                                     <i className=""></i>
                                 </a>
                             </DropdownToggle>
@@ -124,7 +121,7 @@ class Header extends Component{
                                     <Link className="cursor_pointer" to={routeCodes.MY_PROFILE}>
                                         My Profile
                                     </Link>
-                                    {page_name=='profile' && <img src="../assets/img/site/check-icon.png" alt="" />}
+                                    {page_name == 'profile' && <img src="../assets/img/site/check-icon.png" alt="" />}
                                 </DropdownItem>
                                 {/* <DropdownItem><span></span>Jacob Robinson</DropdownItem> */}
                                 {/* <DropdownItem><i className="newaccount-icon"></i>New Account</DropdownItem> */}

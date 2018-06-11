@@ -150,7 +150,9 @@ export const SelectField_ReactSelect = (props) => {
     }
     return (
         <div className={wrapperClass}>
-            <label htmlFor={input.name} className={labelClass}>{label} {isRequired === "true" && <span className="error-div">*</span>}</label>
+            <label htmlFor={input.name} className={labelClass}>
+                {label}&nbsp;{isRequired === "true" && <span className="error-div"> *</span>}
+            </label>
             <Select
                 {...input}
                 value={val}
@@ -177,7 +179,7 @@ export const SelectField_ReactSelectMulti = (props) => {
     }
     return (
         <div className={wrapperClass}>
-            <label htmlFor={input.name} className={labelClass}>{label} {meta.pristine && isRequired === "true" && <span className="error-div">*</span>}</label>
+            <label htmlFor={input.name} className={labelClass}>{label} {meta.pristine && isRequired === "true" && <span className="error-div"> *</span>}</label>
             <Select.Creatable
                 {...input}
                 value={val}
