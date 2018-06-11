@@ -75,8 +75,8 @@ ul { padding: 0; }
 .Select.is-clearable .Select-menu-outer{border:2px solid rgba(82, 95, 127, .2) !important; box-shadow: none !important;}
 .Select--single{ border:0 !important;}*/
 
-.navigation-div ul li a:hover, 
-.navigation-div ul li a.active i{background-position:0 -18px;}
+.navigation-div ul li a.active i{ background-position:0 -20px; }
+.navigation-div ul li a:hover{background-position:0 -18px;}
 .create-campaign-r-img img{max-width:100%; min-width:280px; }
 /* .industry-l-box{ height:272px;} */
 .industry-l-box .form-group{     height: 100%; margin: 0; display: table;width: 100%;} 

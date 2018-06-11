@@ -122,7 +122,6 @@ class AddToModal extends Component {
                     </div>
                     <ModalBody>
                         <div className="terms-conditions">
-
                             <h2>Which Campaign/Group would you like to Offer the Selected People ? </h2>
                             <p>Please Select the Campaign/Group from the Dropdownlist,<br /> then click Accept and Continue.</p>
                             <div className="select-wrap">

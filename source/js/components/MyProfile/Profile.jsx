@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import { Field, reduxForm } from 'redux-form'
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router'
 import { SubmissionError } from 'redux-form'
 import { routeCodes } from '../../constants/routes';
