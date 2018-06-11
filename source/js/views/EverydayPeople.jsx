@@ -2,7 +2,7 @@ import jQuery from 'jquery';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Pagination from "react-js-pagination";
-import { sendReq, moreFilterReq, fetchDropDownReq, resetVal, addUserReq, bulkUserReq, forceRefresh } from '../actions/everyDay';
+import { sendReq, moreFilterReq, fetchDropDownReq, resetVal, addUserReq, bulkUserReq, forceRefresh, setTotal } from '../actions/everyDay';
 import { purchaseAll, resetAlertMsg } from '../actions/campaign';
 import { getGroups, addGroups, resetGroupVal } from '../actions/groups';
 import sampleImg from 'img/site/400x218.png';
@@ -719,7 +719,7 @@ class EverydayPeople extends Component {
             locError: '',
 
             showCamp: false,
-            cnt:0,
+            cnt: 0,
         };
 
 
@@ -729,7 +729,7 @@ class EverydayPeople extends Component {
         this.add_all_results_toggle = this.add_all_results_toggle.bind(this);
     }
 
-    onAddressType = (address) => { this.setState({ address }) }
+    onAddressType = (address) => { this.setState({ address })}
     onAddressSelect = (address) => {
         geocodeByAddress(address)
             .then(results => getLatLng(results[0]))
@@ -743,6 +743,10 @@ class EverydayPeople extends Component {
         })
 
         if (this.state.isMoreFilterApply !== true) {
+
+            const { allSliders } = this.state;
+            let ageVal = _.find(allSliders, function (o) { return o.slider == 'ageRange'; });
+
             this.setState({
                 allDropDown: [
                     { 'dropdown': 'jobIndustryDrop', 'value': false },
@@ -756,7 +760,8 @@ class EverydayPeople extends Component {
                     { 'dropdown': 'musicTaste', 'value': false },
 
                     { 'dropdown': 'genderDrop', 'value': false },
-                    { 'dropdown': 'sortDrop', 'value': { value: 1, label: "Name ASC" } },
+                    // { 'dropdown': 'sortDrop', 'value': { value: 1, label: "Name ASC" } },
+                    { 'dropdown': 'sortDrop', 'value': { value: 1, label: "Sort" } },
                 ],
 
                 allSliders: [
@@ -765,7 +770,8 @@ class EverydayPeople extends Component {
                     { 'slider': 'twitter', 'value': { min: 0, max: 2500 } },
                     { 'slider': 'pinterest', 'value': { min: 0, max: 2500 } },
                     { 'slider': 'linkedin', 'value': { min: 0, max: 2500 } },
-                    { 'slider': 'ageRange', 'value': { min: 15, max: 65 } },
+                    // { 'slider': 'ageRange', 'value': { min: 15, max: 65 } },
+                    { 'slider': 'ageRange', 'value': { min: ageVal['value']['min'], max: ageVal['value']['max'] } },
                 ]
             })
         }
@@ -776,9 +782,45 @@ class EverydayPeople extends Component {
             age_filter_open: !this.state.age_filter_open,
         });
 
+        if (this.state.isAgeFilterApply !== true) {
+
+            const { allSliders } = this.state;
+
+            let facebook = _.find(allSliders, function (o) { return o.slider == 'facebook'; });
+            let instagram = _.find(allSliders, function (o) { return o.slider == 'instagram'; });
+            let twitter = _.find(allSliders, function (o) { return o.slider == 'twitter'; });
+            let pinterest = _.find(allSliders, function (o) { return o.slider == 'pinterest'; });
+            let linkedin = _.find(allSliders, function (o) { return o.slider == 'linkedin'; });
+
+            this.setState({
+                allSliders: [
+                    { 'slider': 'facebook', 'value': { min: facebook['value']['min'], max: facebook['value']['max'] } },
+                    { 'slider': 'instagram', 'value': { min: instagram['value']['min'], max: instagram['value']['max'] } },
+                    { 'slider': 'twitter', 'value': { min: twitter['value']['min'], max: twitter['value']['max'] } },
+                    { 'slider': 'pinterest', 'value': { min: pinterest['value']['min'], max: pinterest['value']['max'] } },
+                    { 'slider': 'linkedin', 'value': { min: linkedin['value']['min'], max: linkedin['value']['max'] } },
+                    { 'slider': 'ageRange', 'value': { min: 15, max: 65 } },
+                ]
+            })
+        }
+
     }
 
-    location_filter_toggle() { this.setState({ location_filter_open: !this.state.location_filter_open, locError: '' }); }
+    location_filter_toggle() {
+
+        //let loc = this.state.tempLocation;
+
+        this.setState({
+            location_filter_open: !this.state.location_filter_open,
+        });
+        if(this.state.isLocationFilterApply !== true)
+        {
+                this.setState({
+                    tempLocation:''
+                })
+        }
+
+    }
     add_all_results_toggle() { this.setState({ add_all_results_open: !this.state.add_all_results_open }); }
 
     filterSendReq = (data) => {
@@ -813,7 +855,7 @@ class EverydayPeople extends Component {
             return;
         }
         const { dispatch } = this.props;
-        let { appliedFilter} = this.state;
+        let { appliedFilter } = this.state;
 
         let allDropDown = this.state.allDropDown;
         let index = _.findIndex(allDropDown, { dropdown: secondParam });
@@ -1191,6 +1233,7 @@ class EverydayPeople extends Component {
 
             if (match.path !== routeCodes.CAMPAIGN_INSPIRED_SUB) {
                 this.setState({ everyDayRefresh: true });
+                dispatch(setTotal())
             }
 
             let arrayFilter = {
@@ -1289,7 +1332,7 @@ class EverydayPeople extends Component {
             this.setState({
                 messagePopupSuccessMsg: userAddedMsg,
                 messagePopupErrorMsg: null,
-                load:false
+                load: false
             });
             this.messagePopupToggle();
             dispatch(resetVal({ 'userAdded': false, 'userAddedMsg': null, 'error': null }));
@@ -1368,7 +1411,8 @@ class EverydayPeople extends Component {
     }
 
     setLocationFilter = (tempLocation) => {
-        if (tempLocation === '' || (tempLocation !== '' && tempLocation.trim() !== '')) {
+        // if (tempLocation === '' || (tempLocation !== '' && tempLocation.trim() !== '')) {
+        if ((tempLocation !== '' && tempLocation.trim() !== '')) {
             const { allSliders, appliedFilter, allDropDown, address } = this.state;
             const { dispatch } = this.props;
 
@@ -1394,20 +1438,19 @@ class EverydayPeople extends Component {
             }
             this.setState({ "activePage": 1 });
             this.filterSendReq(arrayFilter);
-            this.location_filter_toggle();
+            //this.location_filter_toggle();
             this.setState({
                 isLocationFilterApply: true,
                 address: tempLocation,
+                location_filter_open:false,
             })
-
         }
         else {
             this.setState({
                 isLocationFilterApply: false,
                 address: '',
-                //locError: 'Please,Enter Valid location'
+                location_filter_open:true,
             })
-
         }
     }
 
@@ -1551,14 +1594,14 @@ class EverydayPeople extends Component {
             //         this.setState({ load: false })
             //     }, 8500);
             // });
-            
+
             if (this.props.add_filter_to_group === 0) {
                 this.setState({ load: true });
             }
             // if (this.props.add_filter_to_group === 1) {
             //     this.setState({ load: false });
             // }
-           
+
             //dispatch(resetGroupVal());
         });
 

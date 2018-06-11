@@ -277,7 +277,7 @@ class GroupList extends Component {
             this.child.toggle();
         }
 
-        if (inserted_group != null && is_inserted == 1) {
+        if (inserted_group !== null && is_inserted === 1) {
             this.setState({
                 is_inserted: 0,
                 createGroupModalShow: false,
@@ -389,11 +389,11 @@ class GroupList extends Component {
     }
 
     render() {
-        let { groups, totalGrps, loading, dropdownList } = this.props
+        let { groups, totalGrps, loading, dropdownList ,loading2} = this.props
         const { selectedOption, sort_wise_pagination } = this.state;
 
         const value = selectedOption && selectedOption.value;
-        if (loading || this.state.load === true) {
+        if (loading || this.state.load === true)  {
             return (
                 <div className="loader"></div>
             )

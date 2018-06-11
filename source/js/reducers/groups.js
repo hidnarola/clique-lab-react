@@ -60,6 +60,7 @@ const actionMap = {
             loading: true,
             status:0,
             add_filter_to_group:0, 
+            inserted_group:null
         }));
     },
     [ADD_GROUP_SUCCESS]: (state, action) => {
@@ -70,7 +71,7 @@ const actionMap = {
             inserted_group: action.data.data.group,
             status: action.data.data.status,
             message: action.data.data.message,
-           add_filter_to_group:1, 
+            add_filter_to_group:1, 
         }));
     },
     [ADD_GROUP_ERROR]: (state, action) => {

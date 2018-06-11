@@ -4,7 +4,8 @@ import {
         MORE_FILTER_REQUEST, MORE_FILTER_SUCCESS, MORE_FILTER_ERROR,
         FETCH_DROPDOWN_REQUEST,FETCH_DROPDOWN_SUCCESS,FETCH_DROPDOWN_ERROR,
         RESET_VALUES,FORCE_REFRESED,
-        ADD_USER_ERROR,ADD_USER_REQUEST,ADD_USER_SUCCESS
+        ADD_USER_ERROR,ADD_USER_REQUEST,ADD_USER_SUCCESS,
+        RESET_TOTAL
         
        } from "../actions/everyDay";
 
@@ -57,6 +58,7 @@ const actionMap = {
                 message:action.data.data.message,
                 data:(action.data.data.results.posts) ? action.data.data.results.posts :[],
                 total:(action.data.data.results.total) ? action.data.data.results.total :0,
+                
             },
         }));
     },
@@ -202,6 +204,18 @@ const actionMap = {
             userAddedMsg: action.error.response.data.message
         }));
     },
+
+    [RESET_TOTAL]: (state, action) => {
+        return state.merge(Map({
+            users: {
+                status:0, 
+                message:'', 
+                data:[],
+                total:0 // ony form inspire submission page to every day people
+            },
+        }));
+    },
+ 
 };
 
 export default function reducer(state = initialState, action = {}) {

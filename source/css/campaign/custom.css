@@ -186,7 +186,7 @@ ul { padding: 0; }
   .morefilter-div .input-range__label--min{ display:none;}
   .range-wrapper{ position:relative; padding:0 130px 0 8px;}
   .range-div{ border:2px solid rgba(207, 207, 213, .24); line-height:30px; position: absolute; top: 0; right: 0; text-align: center; font-size: 13px; color: #525f7f; font-weight: 500; width: 110px; background: #fff;}
-  .range-wrapper .input-range {margin:5px 0; display:inline-block;}
+  .range-wrapper .input-range {margin:10px 0 0 0; display:inline-block;}
   body .input-range__track{ height:2px; background: rgba(178,178,189,.4);}
   body .input-range__track--active {background: #6772e5 !important;}
   body .input-range__slider{margin-top:-7px; border:0; background: #6772e5 !important; }

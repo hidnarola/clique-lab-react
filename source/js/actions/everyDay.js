@@ -18,6 +18,9 @@ export const ADD_USER_ERROR = 'ADD_USER_ERROR';
 
 export const FORCE_REFRESED = 'FORCE_REFRESED';
 
+export const RESET_TOTAL = 'RESET_TOTAL'; // only for inpire submission page
+
+
 
 // ----------------------------------------------------------------------
     export function sendReq(data) {
@@ -91,5 +94,11 @@ export const FORCE_REFRESED = 'FORCE_REFRESED';
         return { type: FORCE_REFRESED, data:data }
     }
 // ----------------------------------------------------------------------
+
+/** DM only when traverse from inspire submission page to everyday people */
+export function setTotal()
+{
+    return { type: RESET_TOTAL}
+}
 
  

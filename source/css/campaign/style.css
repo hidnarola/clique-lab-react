@@ -31,6 +31,13 @@ a{color:#6772e5;}
 .dropdown-menu a:hover,
 .dropdown-menu a:focus{background:transparent;color:#6772e5; text-decoration:none;}
 
+.login-register-bg:after{ content:''; position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1; 
+background: #895cf2; /* Old browsers */
+background: -moz-linear-gradient(left, #895cf2 0%, #c76eff 50%); /* FF3.6-15 */
+background: -webkit-linear-gradient(left, #895cf2 0%,#c76eff 50%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to right, #895cf2 0%,#c76eff 50%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#895cf2', endColorstr='#c76eff',GradientType=1 ); /* IE6-9 */}
+
 .login-register-bg{padding:84px 101px;/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#895cf2+0,c76eff+99 */
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#895cf2+0,c76eff+50 */
 background: #895cf2; /* Old browsers */
@@ -622,7 +629,7 @@ ul.fan-festival li:nth-child(2n+2){margin-left:auto;}
 .festival-ftr-l a{display:block;}
 .festival-ftr-l a:hover{text-decoration:none;}
 .festival-ftr-l a i{display:inline-block; vertical-align:top; }
-.festival-ftr-l a i img{box-shadow:0 10px 24px 0 rgba(0,0,0,.1); border-radius:80px;}
+.festival-ftr-l a i img{box-shadow:0 10px 24px 0 rgba(0,0,0,.1); border-radius:80px; cursor: default}
 .festival-ftr-l a strong{font-size:16px; color:#525f7f; font-weight:600; line-height:28px; margin-left:10px;}
 .festival-ftr-r{margin-left:auto;}
 .festival-ftr-r a{display:block;}
