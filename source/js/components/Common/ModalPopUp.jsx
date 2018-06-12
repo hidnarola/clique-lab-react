@@ -1,5 +1,7 @@
 import React from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import closeImg from 'img/site/close-2.png';
+import closeImg2 from 'img/site/close-2.png';
 
 class ModalPopUp extends React.Component {
     
@@ -32,10 +34,14 @@ class ModalPopUp extends React.Component {
     }
 
     render() {
+
         return (
             <div id="terms-condition">
                 <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} 
                        id="terms-condition" {...this.props}>
+                    <button type="button" className="close" onClick={this.toggle}>
+                        <img src={closeImg} />
+                    </button>
                     <ModalBody>
                         <div dangerouslySetInnerHTML={this.createMarkup()} />
                     </ModalBody>                    

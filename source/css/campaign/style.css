@@ -452,8 +452,14 @@ ul.all-people-ul li{ width:33.33%; padding:15px;}
 #group-popup .input-wrap input{padding:12px 15px 11px; line-height:26px; border:2px solid #dcdfe5; border-radius:4px;}
 #group-popup .submit-btn{max-width:230px; margin:0 auto;}
 #group-popup .submit-btn button{width:100%;}
+
 #group-popup button.close{position:absolute; top:-45px; right:-55px; opacity:1;}
 #group-popup button.close svg{width:20px; height:20px; fill:#6772e5;}
+
+#terms-condition button.close{position:absolute; top:40px; right:70px; opacity:1;}
+#terms-condition button.close svg{width:20px; height:20px; fill:#6772e5;}
+
+
 
 .profile-head{display:block;}
 .profile-head>ul{list-style:none; margin:0; padding:0;}
