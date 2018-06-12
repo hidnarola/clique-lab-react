@@ -712,12 +712,12 @@ label.pink-color{ color: #f783c3; margin-bottom:0px !important }
 .checkout{padding:125px 45px; }
 .checkout-r .cart-table table.table tbody td:first-child a img{width:50px; height:50px;}
 .checkout-r .cart-table table.table tbody td h3{ font-size:14px; margin:0 0 10px;}
-.checkout-r .cart-table table.table tbody td h4{ font-size:14px; display:inline-block; vertical-align: top;}
+.checkout-r .cart-table table.table tbody td h4{ font-size:13px; display:inline-block; vertical-align: top;}
 .checkout-r .cart-table table.table tbody td,
 .checkout-r .cart-table table.table thead th{ padding:10px;}
 .checkout-r .cart-table {padding: 0 40px;}
 .checkout .step-process,
-.checkout .step-content {justify-content:initial;}
+.checkout .step-content {justify-content:center;}
 .checkout .cart-table>table.table{width:390px;}
 .checkout .cart-table .subtotal {width:200px; margin-right:20px;}
 .checkout .card-box {margin: 0 35px 35px 0;}

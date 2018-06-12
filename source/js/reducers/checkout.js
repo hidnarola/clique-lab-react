@@ -3,6 +3,8 @@ import {
     GET_CHECKOUT_LIST_REQUEST, GET_CHECKOUT_LIST_SUCCESS, GET_CHECKOUT_LIST_ERROR,
     REMOVE_CART_ITEM_REQUEST, REMOVE_CART_ITEM_SUCCESS, REMOVE_CART_ITEM_ERROR,
     ADD_CARD_REQUEST, ADD_CARD_SUCCESS, ADD_CARD_ERROR,
+    EDIT_CARD_REQUEST, EDIT_CARD_SUCCESS, EDIT_CARD_ERROR,
+    DELETE_CARD_REQUEST, DELETE_CARD_SUCCESS, DELETE_CARD_ERROR,
     GET_CARD_LIST_REQUEST, GET_CARD_LIST_SUCCESS, GET_CARD_LIST_ERROR,
     CART_PAYMENT_REQUEST, CART_PAYMENT_SUCCESS, CART_PAYMENT_ERROR,
     RESET_VALUES
@@ -25,10 +27,24 @@ const initialState = Map({
         data: null,
         error: null, 
     },
-    cards: {
+    editCards: {
         status: 0,
         message: null,
         data: null,
+        error: null, 
+    },
+    deleteCards:{
+        status: 0,
+        message: null,
+        data: null,
+        error: null, 
+    },
+    cards: {
+        loading: false,
+        status: 0,
+        message: null,
+        data: null,
+        error: null,
     },
     payment: {
         status: 0,
@@ -141,22 +157,95 @@ const actionMap = {
         }));
     },
 
-    [GET_CARD_LIST_REQUEST]: (state, action) => {
+    [EDIT_CARD_REQUEST]: (state, action) => {
         return state.merge(Map({
             ...initialState,
             loading: true,
             error: null
         }));
     },
-    [GET_CARD_LIST_SUCCESS]: (state, action) => {
+    [EDIT_CARD_SUCCESS]: (state, action) => {
         return state.merge(Map({
             ...initialState,
             loading: false,
             error: false,
+            editCards: {
+                data: action.data.data.cards,
+                status: action.data.data.status,
+                message: action.data.data.message,
+            }
+        }));
+    },
+    [EDIT_CARD_ERROR]: (state, action) => {
+        let error = 'Server Error';
+        if (action.error && action.error.response) {
+            error = action.error.response.data.message;
+        }
+        return state.merge(Map({
+            ...initialState,
+            loading: false,
+            editCards:{
+                status: 0,
+                message: null,
+                data: null,
+                error: error,
+            }
+        }));
+    },
+
+    [DELETE_CARD_REQUEST]: (state, action) => {
+        return state.merge(Map({
+            ...initialState,
+            loading: true,
+            error: null
+        }));
+    },
+    [DELETE_CARD_SUCCESS]: (state, action) => {
+        return state.merge(Map({
+            ...initialState,
+            loading: false,
+            error: false,
+            deleteCards: {
+                status: action.data.data.status,
+                message: action.data.data.message,
+            }
+        }));
+    },
+    [DELETE_CARD_ERROR]: (state, action) => {
+        let error = 'Server Error';
+        if (action.error && action.error.response) {
+            error = action.error.response.data.message;
+        }
+        return state.merge(Map({
+            ...initialState,
+            loading: false,
+            deleteCards:{
+                status: 0,
+                message: null,
+                data: null,
+                error: error,
+            }
+        }));
+    },
+
+    [GET_CARD_LIST_REQUEST]: (state, action) => {
+        return state.merge(Map({
+            ...initialState,
+            cards: {
+                loading: true,
+                error: null,
+            }
+        }));
+    },
+    [GET_CARD_LIST_SUCCESS]: (state, action) => {
+        return state.merge(Map({
+            ...initialState,
             cards: {
                 data: action.data.data.cards,
                 status: action.data.data.status,
                 message: action.data.data.message,
+                loading: false,
+                error: false,
             }
         }));
     },
@@ -167,8 +256,10 @@ const actionMap = {
         }
         return state.merge(Map({
             ...initialState,
-            loading: false,
-            error: null,
+            cards: {
+                loading: false,
+                error: null,
+            }
         }));
     },
 
@@ -211,7 +302,9 @@ const actionMap = {
         }
         //console.log(action);
         if(action['data']){
-            (action['data']['addCard'] === false) ? resetObj['addCards'] = resetDataVal : '';            
+            (action['data']['addCard'] === false) ? resetObj['addCards'] = resetDataVal : '';
+            (action['data']['deleteCard'] === false) ? resetObj['deleteCards'] = resetDataVal : '';
+            (action['data']['editCard'] === false) ? resetObj['editCards'] = resetDataVal : '';
         }
         console.log(resetObj);
         // var newState = {};

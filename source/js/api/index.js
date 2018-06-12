@@ -149,11 +149,14 @@ export const putFormData = (path, data, headers) => {
         method: 'PUT',
         url: url,
         data: data,
-        headers: headers
-    }).then(function (res) {
+        headers: headers,
+        validateStatus: function (status) {            
+            return status >= 200 && status < 300;
+        }
+    }).then(function (res) {        
         return res;
-    }).catch(function (err) {
-        return err.toString();
+    }).catch(function (err) {        
+        throw ApiError(err.toString(), err.response, 'REQUEST_FAILED');
     });
 };
 

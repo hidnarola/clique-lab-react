@@ -76,18 +76,16 @@ class Checkout extends Component {
 
     render() {
         const { page } = this.state;
-
         const { carts } = this.props;
-   
         return (
             <div>
                 {carts.data === null ? this.props.history.push(routeCodes.MY_CART) :
                 <div> 
-                    {/* {page === 1  && <FormStep1 onSubmit={this.nextPage} countryList={this.props.country} />}
+                    {page === 1  && <FormStep1 onSubmit={this.nextPage} countryList={this.props.country} />}
                     {page === 2  && <FormStep2 onSubmit={this.nextPage} previousPage={this.previousPage} />}
-                    {page === 3  && <FormStep3 onSubmit={this.submitForm} previousPage={this.previousPage} />} */}
+                    {page === 3  && <FormStep3 onSubmit={this.submitForm} previousPage={this.previousPage} />}
 
-                    <FormStep3 onSubmit={this.submitForm} previousPage={this.previousPage} />
+                    {/* <FormStep3 onSubmit={this.submitForm} previousPage={this.previousPage} /> */}
                     <div>
                         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
                             <ModalHeader toggle={this.toggle}>Payment Done</ModalHeader>
