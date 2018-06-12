@@ -307,7 +307,7 @@ class PurchasedPosts extends Component {
                                         <div className="fan-festival-box">
                                             <div className="festival-head d-flex">
                                                 <div className="festival-head-l">
-                                                    <span style={{ "background": "url('" + imgRoutes.USER_IMG_PATH + obj.users.image + "')no-repeat 100%", "backgroundSize": "100%", "height": "50px" }}>
+                                                    <span style={{ "background": "url('" + imgRoutes.USER_IMG_PATH + obj.users.image + "') center 0 / auto 50px no-repeat", "height": "50px" }}>
                                                         {/* <img src={imgRoutes.USER_IMG_PATH + obj.users.image} /> */}
                                                     </span>
                                                     <h3>
