@@ -9,6 +9,7 @@ import '../../../css/campaign/react-drop-n-crop.css';
 const validate = values => {
     const errors = {};
     if (!values.images || values.images.length === 0) {
+
         errors.images = 'This field is required';
     } else {
         if ((values.images).length > 0) {

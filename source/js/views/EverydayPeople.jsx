@@ -1528,7 +1528,6 @@ class EverydayPeople extends Component {
         console.log(exstingFilterArr);
         console.log('====== last ==========');
 
-
         this.setState({ 'appliedFilter': [{ 'filter': exstingFilterArr }] });
 
         let sortDropArr = _.find(allDropDown, function (o) { return o.dropdown == 'sortDrop'; });

@@ -61,6 +61,7 @@ class FileField_Dropzone extends Component {
                 </label>
                 <Dropzone
                     {...input}
+                    // {...input.value}
                     accept={accept ? accept : "image/jpeg, image/png, image/jpg, image/gif"}
                     onDrop={
                         (filesToUpload, e) => {

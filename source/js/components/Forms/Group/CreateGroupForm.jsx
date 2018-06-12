@@ -17,7 +17,8 @@ const validate = values => {
 
     if (!values.images || values.images.length === 0) {
         errors.images = 'This field is required';
-    } else {
+    }
+    else {
         if ((values.images).length > 0) {
             console.log('file>>>', values.images);
             let file_type = values.images[0].type;
@@ -27,6 +28,28 @@ const validate = values => {
             }
         }
     }
+
+    /*
+    if (!values.images) {
+        errors.images = 'This field is required';
+    }
+    else {
+        if ((values.images).length > 0 || (values.images).length === 0) {
+            console.log('file>>>', values.images);
+            if (values.images.length > 0) {
+                let file_type = values.images[0].type;
+                let extensions = ["image/jpeg", "image/png", "image/jpg"];
+                if (extensions.indexOf(file_type) < 0) {
+                    errors.images = 'File type not supported';
+                }
+            }
+            else {
+                errors.images = 'File type not supported';
+            }
+        }
+    }
+    */
+
     if (!values.group_name || !validator.matches(values.group_name, /^[A-Za-z_]/i)) {
         errors.group_name = 'This field is required'
     }
@@ -95,18 +118,20 @@ const FileField_Dropzone = (props) => {
 
             <Dropzone
                 {...input}
+                // {...input.value}
                 accept={accept ? accept : "image/jpeg, image/png, image/jpg, image/gif"}
                 onDrop={(filesToUpload, e) => {
                     console.log('drop before => ', isFileDropped);
                     isFileDropped = true;
                     console.log('drop after => ', isFileDropped);
-                    input.onChange(filesToUpload)
+                    input.onChange(filesToUpload);
                 }}
+
                 multiple={multiple ? multiple : false}
                 className={`${className}`}
                 onFileDialogCancel={() => {
                     console.log('cancel => ', isFileDropped);
-                    (!isFileDropped) ? input.onChange('') : console.log('dropped')
+                    ((!isFileDropped)) ? input.onChange('') : console.log('dropped')
                 }}
             >
                 <div className="dropzone-image-preview-wrapper">
