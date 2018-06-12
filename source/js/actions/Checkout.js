@@ -10,6 +10,14 @@ export const ADD_CARD_REQUEST = 'ADD_CARD_REQUEST';
 export const ADD_CARD_SUCCESS = 'ADD_CARD_SUCCESS';
 export const ADD_CARD_ERROR = 'ADD_CARD_ERROR';
 
+export const EDIT_CARD_REQUEST = 'EDIT_CARD_REQUEST';
+export const EDIT_CARD_SUCCESS = 'EDIT_CARD_SUCCESS';
+export const EDIT_CARD_ERROR = 'EDIT_CARD_ERROR';
+
+export const DELETE_CARD_REQUEST = 'DELETE_CARD_REQUEST';
+export const DELETE_CARD_SUCCESS = 'DELETE_CARD_SUCCESS';
+export const DELETE_CARD_ERROR = 'DELETE_CARD_ERROR';
+
 export const GET_CARD_LIST_REQUEST = 'GET_CARD_LIST_REQUEST';
 export const GET_CARD_LIST_SUCCESS = 'GET_CARD_LIST_SUCCESS';
 export const GET_CARD_LIST_ERROR = 'GET_CARD_LIST_ERROR';
@@ -31,6 +39,14 @@ export function removeCartItemsError(error) { return { type: REMOVE_CART_ITEM_ER
 export function addCard(data) { return { type: ADD_CARD_REQUEST, data } }
 export function addCardSuccess(data) { return { type: ADD_CARD_SUCCESS, data } }
 export function addCardError(error) { return { type: ADD_CARD_ERROR, error } }
+
+export function editCard(data) { return { type: EDIT_CARD_REQUEST, data } }
+export function editCardSuccess(data) { return { type: EDIT_CARD_SUCCESS, data } }
+export function editCardError(error) { return { type: EDIT_CARD_ERROR, error } }
+
+export function deleteCard(data) { return { type: DELETE_CARD_REQUEST, data } }
+export function deleteCardSuccess(data) { return { type: DELETE_CARD_SUCCESS, data } }
+export function deleteCardError(error) { return { type: DELETE_CARD_ERROR, error } }
 
 export function getCardList() { return { type: GET_CARD_LIST_REQUEST } }
 export function getCardListSuccess(data) { return { type: GET_CARD_LIST_SUCCESS, data } }

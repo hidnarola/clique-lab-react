@@ -253,8 +253,8 @@ img{max-width:100%;}
 	.demographics-body ul li i {display: inline-block; vertical-align: top; line-height: 32px; padding: 0 6px 0 0; font-size: 14px; }	
 	.cart-table {padding:20px;}
 	.checkout-r .cart-table table.table tbody td,
-	.checkout-r .cart-table table.table thead td {font-size: 14px; padding:6px;}
-	.checkout-r .cart-table table.table tbody td h3{font-size:13px;}
+	.checkout-r .cart-table table.table thead td {font-size: 12px; padding:6px;}
+	.checkout-r .cart-table table.table tbody td h3{font-size:12px;}
 	.checkout-r .cart-table {padding:0 0 0 20px;}
 	.checkout .cart-table>table.table {width: 100%;}
 	.right-hdr h2 strong {line-height:34px;}
