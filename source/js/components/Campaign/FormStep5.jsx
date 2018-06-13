@@ -93,7 +93,7 @@ class FileField_Dropzone extends Component {
                 </label>
                 <Dropzone
                     {...input}
-                    {...input.value}
+                    // {...input.value}
                     accept={accept ? accept : "image/jpeg, image/png, image/jpg, image/gif"}
                     onDrop={
                         (filesToUpload, e) => {
@@ -117,10 +117,7 @@ class FileField_Dropzone extends Component {
                         </div>
                     </div>
                 </Dropzone>
-                {/* {(input.value && meta.error === undefined) &&
-                    <div className="uploaded_img"> {images} </div>
-                } */}
-                {((input.value && meta.error === undefined) || (input.value && meta.error)) &&
+                {(input.value && meta.error === undefined) &&
                     <div className="uploaded_img"> {images} </div>
                 }
                 {(meta.touched && meta.error) && <span className="error-div">{meta.error}</span>}

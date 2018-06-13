@@ -921,7 +921,7 @@ class EverydayPeople extends Component {
                 });
                 this.messagePopupToggle();
             }
-        }, 1000)
+        }, 500) // 1000
     }
 
     addGroup = (obj) => {
@@ -948,7 +948,7 @@ class EverydayPeople extends Component {
                 });
                 this.messagePopupToggle();
             }
-        }, 1000)
+        }, 500)//1000
 
     }
 
