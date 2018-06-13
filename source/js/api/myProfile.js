@@ -6,6 +6,12 @@ function editProfile(data) {
     return postFormData('promoter/update_profile', data, headers);
 }
 
+function changePass(data) {
+    let headers = { 'x-access-token' : localStorage.getItem('token') }
+    return postFormData('promoter/change_password', data, headers);
+}
+
 export default {
     editProfile,
+    changePass 
 }

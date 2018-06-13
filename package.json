@@ -103,7 +103,7 @@
     "react-router-dom": "^4.2.2",
     "react-select": "^1.2.1",
     "react-tiny-popover": "^3.4.0",
-    "react-toastify": "^4.0.0-rc.5",
+    "react-toastify": "^4.1.0",
     "reactjs-localstorage": "0.0.6",
     "reactstrap": "^5.0.0-beta.3",
     "recharts": "^1.0.0-beta.10",

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { routeCodes } from 'constants/routes';
 import { imgRoutes } from '../../../constants/img_path';
 import { getCheckoutList, removeCartItems } from '../../../actions/Checkout';
-import { resetVal } from '../../../actions/everyDay';
+import { resetVal } from '../../../actions/Checkout';
 import trashImg from 'img/site/trash-icon.png';
 import nodataImg from 'img/site/nodata.png';
 
@@ -25,16 +25,17 @@ class Cart extends React.Component {
 	removeCart = (item_id) => {
 		const { dispatch } = this.props;
 		dispatch(removeCartItems(item_id));
+		this.setState({ listAfterDel : true });
 	}
 
 	componentDidUpdate(){
 		const { dispatch, removeItems } = this.props;
 		const { listAfterDel } = this.state;
 		if(removeItems.status===1 && listAfterDel===true){
-			this.setState({ listAfterDel : false });
 			dispatch(getCheckoutList());
+			dispatch(resetVal({'removeCart': false}));
+			this.setState({ listAfterDel : false });
 		}
-		dispatch(resetVal({'userAdded': false}));
 	}
 
 	renderTr = (obj) => {
