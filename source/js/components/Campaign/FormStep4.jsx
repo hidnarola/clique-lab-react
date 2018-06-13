@@ -8,6 +8,7 @@ import '../../../css/campaign/react-drop-n-crop.css';
 
 const validate = values => {
     const errors = {};
+    /*
     if (!values.images || values.images.length === 0) {
 
         errors.images = 'This field is required';
@@ -20,6 +21,28 @@ const validate = values => {
             }
         }
     }
+    */
+
+
+    if (!values.images) {
+        errors.images = 'This field is required';
+    }
+    else {
+        if ((values.images).length > 0 || (values.images).length === 0) {
+            console.log('file>>>', values.images);
+            if (values.images.length > 0) {
+                let file_type = values.images[0].type;
+                let extensions = ["image/jpeg", "image/png", "image/jpg"];
+                if (extensions.indexOf(file_type) < 0) {
+                    errors.images = 'File type not supported';
+                }
+            }
+            else {
+                errors.images = 'File type not supported';
+            }
+        }
+    }
+
     return errors;
 };
 
@@ -35,12 +58,12 @@ class FormStep4 extends Component {
         };
     }
 
-    handleChange = value =>{
+    handleChange = value => {
         this.setState(value);
     };
 
     render() {
-        const { handleSubmit, previousPage ,prevImg} = this.props;
+        const { handleSubmit, previousPage, prevImg } = this.props;
         return (
             <form onSubmit={handleSubmit}>
                 <div className="right-box create-campaign d-flex">
@@ -66,7 +89,7 @@ class FormStep4 extends Component {
                         </div>
                     </div>
                     {/* <FormCampaignRight/>*/}
-                    <FormCampaignRight existImages = {prevImg} />
+                    <FormCampaignRight existImages={prevImg} />
                 </div>
             </form>
         );
