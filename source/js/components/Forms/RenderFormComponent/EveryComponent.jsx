@@ -57,7 +57,7 @@ export const FileField_Dropzone = (props) => {
         images.push(
             <div className="images-preview-wrapper" key={key}>
                 <div className="image-preview">
-                    <img src={file.preview} width={'560px'} height={'280px'} />
+                    <img src={file.preview} />
                 </div>
             </div>
         )

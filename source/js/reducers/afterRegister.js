@@ -2,16 +2,21 @@ import { Map } from "immutable";
 
 import {
     AFTER_REGISTER_REQUEST, AFTER_REGISTER_SUCCESS, AFTER_REGISTER_ERROR,
-    AFTER_FETCH_DATA, AFTER_FETCH_DATA_SUCCESS ,AFTER_FETCH_DATA_ERROR
+    AFTER_FETCH_DATA, AFTER_FETCH_DATA_SUCCESS, AFTER_FETCH_DATA_ERROR
 } from '../actions/afterRegister';
 
 const initialState = Map({
     loading: false,
     error: null,
     user: null,
-    after_register_data:{
-        videoUrl:null,
-        industryList:null
+    after_reg: {
+        status: 0,
+        message: null,
+        data: null,
+    },
+    after_register_data: {
+        videoUrl: null,
+        industryList: null
     }
 });
 
@@ -20,7 +25,12 @@ const actionMap = {
         return state.merge(Map({
             loading: true,
             error: null,
-            user: null    
+            user: null,
+            after_reg: {
+                status: 0,
+                message: null,
+                data: null,
+            },      
         }));
     },
     [AFTER_REGISTER_SUCCESS]: (state, action) => {
@@ -28,6 +38,11 @@ const actionMap = {
             loading: false,
             error: null,
             user: true,
+            after_reg: {
+                status: action.data.data.status,
+                message: action.data.data.message,
+                data: action.data.data.promoter,
+            },
         }));
     },
     [AFTER_REGISTER_ERROR]: (state, action) => {
@@ -38,26 +53,26 @@ const actionMap = {
         return state.merge(Map({
             loading: false,
             error: null,
-            user: JSON.stringify(action.data),            
+            user: JSON.stringify(action.data),
         }));
     },
-    
+
     //-----------------------------------------------------------
 
     [AFTER_FETCH_DATA]: (state, action) => {
         return state.merge(Map({
             loading: true,
-            error: null            
+            error: null
         }));
     },
     [AFTER_FETCH_DATA_SUCCESS]: (state, action) => {
         return state.merge(Map({
             loading: false,
             error: null,
-            after_register_data:{
-                videoUrl:action.setting.value,
-                industryList:action.industryData.job_industry
-            }     
+            after_register_data: {
+                videoUrl: action.setting.value,
+                industryList: action.industryData.job_industry
+            }
         }));
     },
     [AFTER_FETCH_DATA_ERROR]: (state, action) => {
@@ -68,7 +83,7 @@ const actionMap = {
         return state.merge(Map({
             loading: false,
             error: null,
-            after_register_data: JSON.stringify(action.data),            
+            after_register_data: JSON.stringify(action.data),
         }));
     },
 };
