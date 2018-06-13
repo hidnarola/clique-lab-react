@@ -61,7 +61,6 @@ class MyProfile extends Component {
 		const { editProfileSubmit } = this.state;
 		const { edit_profile } = this.props;
 		if (editProfileSubmit && edit_profile.status == 1) {
-			console.log('New Data>>>',edit_profile.data);
 			let userSession = JSON.parse(localStorage.getItem('user'));
 			userSession.full_name = edit_profile.data.full_name;
 			userSession.company = edit_profile.data.company;
