@@ -728,7 +728,7 @@ class EverydayPeople extends Component {
         this.add_all_results_toggle = this.add_all_results_toggle.bind(this);
     }
 
-    onAddressType = (address) => { this.setState({ address })}
+    onAddressType = (address) => { this.setState({ address }) }
     onAddressSelect = (address) => {
         geocodeByAddress(address)
             .then(results => getLatLng(results[0]))
@@ -812,11 +812,10 @@ class EverydayPeople extends Component {
         this.setState({
             location_filter_open: !this.state.location_filter_open,
         });
-        if(this.state.isLocationFilterApply !== true)
-        {
-                this.setState({
-                    tempLocation:''
-                })
+        if (this.state.isLocationFilterApply !== true) {
+            this.setState({
+                tempLocation: ''
+            })
         }
 
     }
@@ -1441,14 +1440,14 @@ class EverydayPeople extends Component {
             this.setState({
                 isLocationFilterApply: true,
                 address: tempLocation,
-                location_filter_open:false,
+                location_filter_open: false,
             })
         }
         else {
             this.setState({
                 isLocationFilterApply: false,
                 address: '',
-                location_filter_open:true,
+                location_filter_open: true,
             })
         }
     }
@@ -1585,7 +1584,6 @@ class EverydayPeople extends Component {
             formData.append("image", values.images[0]);
             this.setState({ is_inserted: 1 });
             dispatch(addGroups(formData));
-
             /**[DM] Put loader when add filter result to group */
             // this.setState({ load: true}, () => {
             //     setTimeout(() => {
@@ -1640,10 +1638,9 @@ class EverydayPeople extends Component {
         allSliderArr['ageRange'] = _.find(allSliders, function (o) { return o.slider == 'ageRange'; });
 
         // if (loading) { return (<div className="loader"></div>) }
-
         return (
             <div className="every-people">
-                {(loading || this.state.load === true) ? <div className="loader" style={{ "zIndex": "999999999" }}></div> : ''}
+                {/* {(loading || this.state.load === true) ? <div className="loader" style={{ "zIndex": "999999999" }}></div> : ''} */}
                 <div className="everypeole-head d-flex">
                     <div className="everypeole-head-l">
                         <ul>
@@ -1758,84 +1755,86 @@ class EverydayPeople extends Component {
                         }
                     </div>
                 </div>
-
-                <div className="all-people">
-                    <div className="all-people-head d-flex">
-                        <h3>
-                            {
-                                (match.path !== routeCodes.CAMPAIGN_INSPIRED_SUB) ?
-                                    ((users.total !== undefined && filter_size === 0)) ?
-                                        `All ( ${users.total} Results )`
-                                        : [
-                                            (users.total !== undefined && filter_size > 0) ?
-                                                `Filtered List ( ${users.total} Results )`
-                                                : ''
-                                        ]
-                                    :
-                                    null
-                            }
-                        </h3>
-                        {
-                            (this.state.isAgeFilterApply === true || this.state.isMoreFilterApply === true || this.state.isLocationFilterApply === true) ?
-                                ((match.params.campaignId === null || match.params.campaignId === undefined) && match.path !== routeCodes.CAMPAIGN_INSPIRED_SUB && users.status === 1) ?
-                                    <a className="cursor_pointer" onClick={this.toggle}>
-                                        <i className="fa fa-plus"></i>
-                                        Save the results as a Group
-                                    </a>
-                                    : null
-                                : null
-                        }
-                    </div>
-                    {
-                        (match.params.campaignId !== null && match.params.campaignId !== undefined) ?
-                            <ul className="fan-festival d-flex">
-                                {
-                                    (users.status === 1) ?
-                                        users.data.map((obj, index) => (this.renderLi2(obj)))
-                                        :
-                                        (loading) ? ''
+                {
+                    (loading || this.state.load === true) ?
+                        <div className="loader" style={{ "zIndex": "999999999" }}></div>
+                        :
+                        <div className="all-people">
+                            <div className="all-people-head d-flex">
+                                <h3>
+                                    {
+                                        (match.path !== routeCodes.CAMPAIGN_INSPIRED_SUB) ?
+                                            ((users.total !== undefined && filter_size === 0)) ?
+                                                `All ( ${users.total} Results )`
+                                                : [
+                                                    (users.total !== undefined && filter_size > 0) ?
+                                                        `Filtered List ( ${users.total} Results )`
+                                                        : ''
+                                                ]
                                             :
-                                            <div className="no_data_found"> <img src={nodataImg2} /> <p>No members available.</p> </div>
+                                            null
+                                    }
+                                </h3>
+                                {
+                                    (this.state.isAgeFilterApply === true || this.state.isMoreFilterApply === true || this.state.isLocationFilterApply === true) ?
+                                        ((match.params.campaignId === null || match.params.campaignId === undefined) && match.path !== routeCodes.CAMPAIGN_INSPIRED_SUB && users.status === 1) ?
+                                            <a className="cursor_pointer" onClick={this.toggle}>
+                                                <i className="fa fa-plus"></i>
+                                                Save the results as a Group
+                                        </a>
+                                            : null
+                                        : null
                                 }
-                            </ul>
-                            :
-                            (
-                                match.path == routeCodes.CAMPAIGN_INSPIRED_SUB ?
-                                    <ul className="fan-festival d-flex h-view">
+                            </div>
+                            {
+                                (match.params.campaignId !== null && match.params.campaignId !== undefined) ?
+                                    <ul className="fan-festival d-flex">
                                         {
-                                            (inspiredPosts.status === 1 && inspiredPosts.data !== '') ?
-                                                inspiredPosts.data.map((obj, index) => (this.renderLi3(obj)))
-                                                :
-                                                (loading) ? ''
-                                                    :
-                                                    <div className="no_data_found"> <img src={nodataImg} /> <p>No inspired submissions.</p> </div>
-                                        }
-                                    </ul>
-                                    :
-                                    <ul className="all-people-ul d-flex">
-                                        {
-                                            (users.status === 1 && users.data !== undefined) ?
-                                                users.data.map((obj, index) => (this.renderLi(obj)))
+                                            (users.status === 1) ?
+                                                users.data.map((obj, index) => (this.renderLi2(obj)))
                                                 :
                                                 (loading) ? ''
                                                     :
                                                     <div className="no_data_found"> <img src={nodataImg2} /> <p>No members available.</p> </div>
                                         }
                                     </ul>
-                            )
-                    }
+                                    :
+                                    (
+                                        match.path == routeCodes.CAMPAIGN_INSPIRED_SUB ?
+                                            <ul className="fan-festival d-flex h-view">
+                                                {
+                                                    (inspiredPosts.status === 1 && inspiredPosts.data !== '') ?
+                                                        inspiredPosts.data.map((obj, index) => (this.renderLi3(obj)))
+                                                        :
+                                                        (loading) ? ''
+                                                            :
+                                                            <div className="no_data_found"> <img src={nodataImg} /> <p>No inspired submissions.</p> </div>
+                                                }
+                                            </ul>
+                                            :
+                                            <ul className="all-people-ul d-flex">
+                                                {
+                                                    (users.status === 1 && users.data !== undefined) ?
+                                                        users.data.map((obj, index) => (this.renderLi(obj)))
+                                                        :
+                                                        (loading) ? ''
+                                                            :
+                                                            <div className="no_data_found"> <img src={nodataImg2} /> <p>No members available.</p> </div>
+                                                }
+                                            </ul>
+                                    )
+                            }
 
-                    {(users.total > 12 && match.path !== routeCodes.CAMPAIGN_INSPIRED_SUB) ?
-                        <Pagination
-                            activePage={this.state.activePage}
-                            totalItemsCount={users.total}
-                            pageRangeDisplayed={5}
-                            onChange={this.handlePageChange}
-                            itemsCountPerPage={this.state.perPageItem}
-                        /> : ''}
-
-
-                </div>
+                            {(users.total > 12 && match.path !== routeCodes.CAMPAIGN_INSPIRED_SUB) ?
+                                <Pagination
+                                    activePage={this.state.activePage}
+                                    totalItemsCount={users.total}
+                                    pageRangeDisplayed={5}
+                                    onChange={this.handlePageChange}
+                                    itemsCountPerPage={this.state.perPageItem}
+                                /> : ''}
+                        </div>
+                }
 
                 <AddToModal onRef={ref => (this.child = ref)}
                     dropdownList={dropdownList}
