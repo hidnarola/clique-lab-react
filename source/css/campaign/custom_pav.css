@@ -47,7 +47,15 @@
 
 .plus-people button img{ max-width:28px; margin: 5px 15px; }
 .Select--multi .Select-value{ margin-top:1px; }
+.input-wrap input::placeholder,
+.textarea-wrap textarea::placeholder,
+.select-wrap .Select-placeholder{
+    color:#dcdfe5;
+}
 
+.alert-custom-tostify{ background-color:#f44336bd}
+.success-custom-tostify{ background:#6772e5 !important; color:#fff !important}
+.Toastify__close-button.Toastify__close-button--default{ color:#fff !important; margin:13px 6px !important; }
 /**************************************************************
                             Checkout
 ***************************************************************/                        
@@ -57,11 +65,11 @@
     }
     .cart-table table.table tbody tr td{ font-size: 14px; }
     .add_credit_card_popup .modal-body{ padding: 10px 60px 40px !important; }
-    #add_credit_card_form{ text-align: left; padding:10px 25px; }
-    #add_credit_card_form .input-wrap label{ font-weight: 600; }
-    #add_credit_card_form .submit-btn{ padding-top:15px; text-align:center}
-    #add_credit_card_form .submit-btn .round-btn{ min-width: 180px; }
-    #add_credit_card_form span{ font-size:13px; font-weight: 600; }
+    .popup_modal_form{ text-align: left; padding:10px 25px; }
+    .popup_modal_form .input-wrap label{ font-weight: 600; }
+    .popup_modal_form .submit-btn{ padding-top:15px; text-align:center}
+    .popup_modal_form .submit-btn .round-btn{ min-width: 180px; }
+    .popup_modal_form span{ font-size:13px; font-weight: 600; }
 
     #add_credit_card_form .calendar-container{ 
         width: 275px;
@@ -83,7 +91,7 @@
     #add_credit_card_form .calendar-container .col_mp:hover {
         background-color: #6772e5;
     }
-    #add_credit_card_form .error_div{
+    .popup_modal_form .error_div{
         background-color: #f443364a;
         border: 1px solid red;
         border-radius: 3px;
@@ -93,8 +101,8 @@
         font-weight: 500;
         display:none;
     }
-    #add_credit_card_form .error_div ul{ margin-bottom: 0px; }
-    #add_credit_card_form .error_div ul li{ margin-left: 20px; }
+    .popup_modal_form .error_div ul{ margin-bottom: 0px; }
+    .popup_modal_form .error_div ul li{ margin-left: 20px; }
     
 
 /* Not Found */

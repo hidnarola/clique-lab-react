@@ -64,17 +64,17 @@ class App extends Component {
         super(props);
     }
 
-   /* notify = (message) => {
-        toast.success(`${message} !`, {
-            position: "top-right",
-            autoClose: 4000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-        });
-    }
-    */
+    /* notify = (message) => {
+         toast.success(`${message} !`, {
+             position: "top-right",
+             autoClose: 4000,
+             hideProgressBar: true,
+             closeOnClick: true,
+             pauseOnHover: true,
+             draggable: true,
+         });
+     }
+     */
 
     render() {
         const { alertMessage } = this.props;
@@ -149,6 +149,19 @@ class App extends Component {
                         </Switch>
                     </ScrollToTop>
                 </Router>
+
+                <ToastContainer 
+                    position="top-right"
+                    autoClose={4000}
+                    hideProgressBar
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnVisibilityChange
+                    draggable
+                    pauseOnHover
+                    transition={Slide}
+                />
             </div>
         );
     }
