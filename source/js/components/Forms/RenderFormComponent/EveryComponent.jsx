@@ -70,8 +70,8 @@ export const FileField_Dropzone = (props) => {
             </label>
 
             <Dropzone
-                {...input}
-                // {...input.value}
+                // {...input}
+                {...input.value}
                 accept={accept ? accept : "image/jpeg, image/png, image/jpg, image/gif"}
                 //onDrop={(filesToUpload, e) => input.onChange(filesToUpload)}
                 onDrop={(filesToUpload, e) => { isFileDropped = true; input.onChange(filesToUpload) }}

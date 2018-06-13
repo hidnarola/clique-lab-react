@@ -14,7 +14,7 @@ import _ from 'lodash';
 const validate = values => {
 
     const errors = {};
-
+    /*
     if (!values.images || values.images.length === 0) {
         errors.images = 'This field is required';
     }
@@ -28,8 +28,9 @@ const validate = values => {
             }
         }
     }
+    */
 
-    /*
+    
     if (!values.images) {
         errors.images = 'This field is required';
     }
@@ -46,9 +47,10 @@ const validate = values => {
             else {
                 errors.images = 'File type not supported';
             }
+            
         }
     }
-    */
+    
 
     if (!values.group_name || !validator.matches(values.group_name, /^[A-Za-z_]/i)) {
         errors.group_name = 'This field is required'
@@ -117,8 +119,8 @@ const FileField_Dropzone = (props) => {
             </label>
 
             <Dropzone
-                {...input}
-                // {...input.value}
+                // {...input}
+                {...input.value}
                 accept={accept ? accept : "image/jpeg, image/png, image/jpg, image/gif"}
                 onDrop={(filesToUpload, e) => {
                     console.log('drop before => ', isFileDropped);
@@ -145,8 +147,6 @@ const FileField_Dropzone = (props) => {
                 </div>
             </Dropzone>
             {((!meta.valid || meta.visited) && meta.error && meta.submitFailed) && <span className="error-div">{meta.error}</span>}
-
-            {/* {((meta.touched && meta.error)) && <span className="error-div">{meta.error}</span>} */}
         </div>
     );
 }

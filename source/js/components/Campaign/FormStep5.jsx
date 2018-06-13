@@ -13,19 +13,51 @@ import FormStep4 from '../Campaign/FormStep4';
 const validate = values => {
     const errors = {};
     let images = [];
+    
     if (!values.imagesNew || values.imagesNew.length === 0) {
         errors.imagesNew = 'This field is required';
+        console.log('Calling 1');
     } else {
         if ((values.imagesNew).length > 0) {
             let extensions = ["image/jpeg", "image/png", "image/jpg"];
+            
             images.push(values.imagesNew);
             _.forEach(images[0], (file, key) => {
                 if (extensions.indexOf(file.type) < 0) {
                     errors.imagesNew = 'File type not supported';
+                    console.log('Calling 2');
                 }
             });
         }
     }
+    
+
+    // if (!values.imagesNew) {
+    //     errors.imagesNew = 'This field is required';
+    //     console.log('calling Eror');
+    // } else {
+    //     if ((values.imagesNew).length > 0 || values.imagesNew.length === 0) {
+    //         if(values.imagesNew.length > 0)
+    //         {
+    //             console.log('Calling 1');
+    //             let extensions = ["image/jpeg", "image/png", "image/jpg"];
+    //             images.push(values.imagesNew);
+    //             console.log('IMGES>>',images);
+    //             _.forEach(images[0], (file, key) => {
+    //                 if (extensions.indexOf(file.type) < 0) {
+    //                     errors.imagesNew = 'File type not supported';
+    //                     console.log('Calling 2');
+    //                 }
+    //             });
+    //         }
+    //         else
+    //         {
+    //             errors.imagesNew = 'File type not supported';
+    //             console.log('Calling 3');
+    //         }
+    //     }
+    // }
+
     return errors;
 };
 
@@ -61,7 +93,7 @@ class FileField_Dropzone extends Component {
                 </label>
                 <Dropzone
                     {...input}
-                    // {...input.value}
+                    {...input.value}
                     accept={accept ? accept : "image/jpeg, image/png, image/jpg, image/gif"}
                     onDrop={
                         (filesToUpload, e) => {
@@ -85,10 +117,14 @@ class FileField_Dropzone extends Component {
                         </div>
                     </div>
                 </Dropzone>
-                {(input.value && meta.error === undefined) &&
+                {/* {(input.value && meta.error === undefined) &&
+                    <div className="uploaded_img"> {images} </div>
+                } */}
+                {((input.value && meta.error === undefined) || (input.value && meta.error)) &&
                     <div className="uploaded_img"> {images} </div>
                 }
                 {(meta.touched && meta.error) && <span className="error-div">{meta.error}</span>}
+                {/* {((meta.touched && meta.error) || (!input.value && meta.touched && meta.error )) && <span className="error-div">{meta.error}</span>} */}
             </div>
         );
     }
