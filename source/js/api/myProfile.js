@@ -11,7 +11,19 @@ function changePass(data) {
     return postFormData('promoter/change_password', data, headers);
 }
 
+function getJoinedRef(data) {
+    let headers = { 'x-access-token' : localStorage.getItem('token') }
+    return postFormData('promoter/referral/referral_view', data, headers);
+}
+
+function getRevenueRef(data) {
+    let headers = { 'x-access-token' : localStorage.getItem('token') }
+    return postFormData('promoter/referral/referral_revenue', data, headers);
+}
+
 export default {
     editProfile,
-    changePass 
+    changePass,
+    getJoinedRef,
+    getRevenueRef,
 }
