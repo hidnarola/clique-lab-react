@@ -42,16 +42,20 @@ class LeftMenu extends Component {
         else if (history.location.pathname === routeCodes.CAMPAIGN_PURCHASED_POSTS) {
             jQuery('.campToogleMenu_UL').css({ display: 'block' });
         }
-        
-        
-
     }
+
+    componentWillMount = () => {
+        if (history.location.pathname === routeCodes.CAMPAIGN_PURCHASED_POSTS) {
+            jQuery('.campToogleMenu_UL').css({ display: 'block' });
+        }
+    }
+    
 
     render() {
         return (
             <div className="left-panel">
                 <div className="big-logo">
-                    <NavLink to={routeCodes.DASHBOARD} style={{ "display": "contents" }}>
+                    <NavLink to={routeCodes.DASHBOARD} style={{ "display": "contents" }} onClick={() => this.campToggleMenu('campToogleMenu_UL')}>
                         <img src={LogoImg} alt="" />
                     </NavLink>
                 </div>

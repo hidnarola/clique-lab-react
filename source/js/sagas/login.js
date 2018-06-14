@@ -21,12 +21,17 @@ function authenticateNew(){
 
             data = yield call(() => api.userLogin(loginData));
 
+            console.log("Promoter ==> ",JSON.stringify(data.promoter));
+            console.log('user before>>:',localStorage.getItem(LOCALSTORAGE_USER_ITEM_KEY));
+            
             let ciphertext = CryptoJS.AES.encrypt('promoter', SECRET_KEY);                        
             localStorage.setItem(LOCALSTORAGE_ROLE_KEY, encodedUserRole);
             localStorage.setItem(LOCALSTORAGE_USER_ITEM_KEY, JSON.stringify(data.promoter));
             localStorage.setItem(LOCALSTORAGE_TOKEN_ITEM_KEY, data.token);
             localStorage.setItem(LOCALSTORAGE_REFRESH_TOKEN_ITEM_KEY, data.refresh_token);
-            localStorage.setItem("role", ciphertext);            
+            localStorage.setItem("role", ciphertext);           
+            
+            console.log('user after>>:',localStorage.getItem(LOCALSTORAGE_USER_ITEM_KEY));
             // Decrypt 
             // var bytes  = CryptoJS.AES.decrypt(ciphertext.toString(), SECRET_KEY);
             // var plaintext = bytes.toString(CryptoJS.enc.Utf8);        

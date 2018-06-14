@@ -167,7 +167,9 @@ class PurchasedPosts extends Component {
     handlePageChange = (pageNumber) => {
         this.setState({ activePage: pageNumber });
         const { dispatch } = this.props;
-        dispatch(puchasedPostSend({ "page_size": 8, "page_no": pageNumber }));
+        if (pageNumber !== this.state.activePage) {
+            dispatch(puchasedPostSend({ "page_size": 8, "page_no": pageNumber }));
+        }
     }
 
     messagePopupToggle = () => { this.setState({ messagePopup: !this.state.messagePopup }); }
@@ -201,6 +203,10 @@ class PurchasedPosts extends Component {
                 this.messagePopupToggle();
             }
         }, 2000)
+
+        this.setState({
+            finalMsg : 'User has been added in '
+        })
     }
 
     addGroup = (obj) => {
@@ -227,7 +233,7 @@ class PurchasedPosts extends Component {
     }
 
     componentDidUpdate() {
-        let { showDrop, userAdded, dispatch, inserted_group, group_status } = this.props;
+        let { showDrop, userAdded, dispatch, inserted_group, group_status,userAddedMsg } = this.props;
         let { is_inserted } = this.state;
         if (showDrop) {
             this.child.toggle();
@@ -248,7 +254,8 @@ class PurchasedPosts extends Component {
         if (userAdded) {
             //alert('User Has been Added');
             this.setState({
-                messagePopupSuccessMsg: 'User Has been Added',
+                // messagePopupSuccessMsg: 'User Has been Added',
+                messagePopupSuccessMsg: userAddedMsg,
                 messagePopupErrorMsg: null
             });
             this.messagePopupToggle();
@@ -327,7 +334,16 @@ class PurchasedPosts extends Component {
                                                 <div className="festival-ftr-l">
                                                     <a href="javascript:void(0)" style={{ cursor: "auto" }}>
                                                         <i><img src={mediaImg[obj.social_media_platform]} alt="" /></i>
-                                                        <strong>0</strong>
+                                                        {/* <strong>0</strong> */}
+                                                        <strong>
+                                                        {
+                                                            obj.social_media_platform === 'facebook' ? obj.users.facebook.no_of_friends :
+                                                            obj.social_media_platform === 'linkedin' ? obj.users.linkedin.no_of_friends :
+                                                            obj.social_media_platform === 'instagram' ? obj.users.instagram.no_of_friends :
+                                                            obj.social_media_platform === 'pinterest' ? obj.users.pinterest.no_of_friends :
+                                                            obj.social_media_platform === 'twitter' ? obj.users.twitter.no_of_friends : ''
+                                                        }
+                                                        </strong>
                                                     </a>
                                                 </div>
                                                 <div className="festival-ftr-r dropdown">
@@ -402,7 +418,8 @@ const mapStateToProps = (state) => {
         dropdownList: everyDay.get('dropdownList'),
         showDrop: everyDay.get('showDrop'),
 
-        userAdded: everyDay.get('userAdded')
+        userAdded: everyDay.get('userAdded'),
+        userAddedMsg: everyDay.get('userAddedMsg'),
     }
 }
 
