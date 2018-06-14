@@ -45,6 +45,7 @@ class LeftMenu extends Component {
     }
 
     componentWillMount = () => {
+        const { history } = this.props;
         if (history.location.pathname === routeCodes.CAMPAIGN_PURCHASED_POSTS) {
             jQuery('.campToogleMenu_UL').css({ display: 'block' });
         }
