@@ -348,7 +348,7 @@ class FormStep3 extends Component {
                     <ModalBody>
                         <div className="terms-conditions">
                             <h2>Add Credit Card</h2>
-                            <form id="add_credit_card_form">
+                            <form id="add_credit_card_form" className="popup_modal_form">
                                 <div className="input-wrap">
                                     <label>Card Holder Name <span className="error-div"> *</span></label>
                                     <input type="text" name="txt_card_holder_name" id="txt_card_holder_name" placeholder="Name" value={txtCHN} onChange={(input) => this.onChange(input.target.name, input.target.value)} />
@@ -401,7 +401,7 @@ class FormStep3 extends Component {
                     <ModalBody>
                         <div className="terms-conditions">
                             <h2>Edit Credit Card</h2>
-                            <form id="add_credit_card_form">
+                            <form id="add_credit_card_form" className="popup_modal_form">
                                 <div className="input-wrap">
                                     <label>Card Holder Name <span className="error-div"> *</span></label>
                                     <input type="text" name="txt_card_holder_name_edit" id="txt_card_holder_name_edit" placeholder="Name" value={txtCHNedit} onChange={(input) => this.onChangeEdit(input.target.name, input.target.value)}/>

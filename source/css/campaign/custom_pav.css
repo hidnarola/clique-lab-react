@@ -299,6 +299,20 @@ td.fc-widget-content{ border:0;}
     .graph-img svg>path {fill:transparent !important;}
     .graph-img svg a path{fill:#6772e6 !important;}
 
+    .joined_ref_chart .recharts-layer.recharts-cartesian-axis-tick text tspan { font-size:10px; font-weight: bold }
+    .joined_ref_chart .recharts-layer.recharts-cartesian-axis-tick .recharts-cartesian-axis-tick-line,
+    .joined_ref_chart .recharts-layer.recharts-cartesian-axis.recharts-yAxis.yAxis .recharts-cartesian-axis-line{ display:none; }
+    .joined_ref_chart .chart_summary{ margin: 2em 3em 0; font-size: 12px; font-weight: 700; letter-spacing:1px;}
+    .joined_ref_chart .chart_summary .chart_heading{ color: #546180}
+    .joined_ref_chart .chart_summary .chart_data{ color: #6772e5; font-size:11px}
+
+    .revenue_ref_chart .recharts-layer.recharts-cartesian-axis-tick text tspan { font-size:10px; font-weight: bold }
+    .revenue_ref_chart .recharts-layer.recharts-cartesian-axis-tick .recharts-cartesian-axis-tick-line,
+    .revenue_ref_chart .recharts-layer.recharts-cartesian-axis.recharts-yAxis.yAxis .recharts-cartesian-axis-line{ display:none; }
+    .revenue_ref_chart .chart_summary{ margin: 2em 3em 0; font-size: 12px; font-weight: 700; letter-spacing:1px;}
+    .revenue_ref_chart .chart_summary .chart_heading{ color: #546180}
+    .revenue_ref_chart .chart_summary .chart_data{ color: #6772e5; font-size:11px}
+
 .how-much .select-wrap{ margin-bottom:0;}
 .how-much .input-2 input { width:56%;}
 .how-much .input-2 .select-wrap  { margin-left:auto; width:40%;}

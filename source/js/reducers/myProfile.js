@@ -2,6 +2,8 @@ import { Map } from "immutable";
 import { 
     EDIT_PROFILE_REQUEST, EDIT_PROFILE_SUCCESS, EDIT_PROFILE_ERROR,
     CHANGE_PASS_REQUEST, CHANGE_PASS_SUCCESS, CHANGE_PASS_ERROR,
+    GET_JOINED_REF_REQUEST, GET_JOINED_REF_SUCCESS, GET_JOINED_REF_ERROR,
+    GET_REVENUE_REF_REQUEST, GET_REVENUE_REF_SUCCESS, GET_REVENUE_REF_ERROR,
     RESET_VALUES
 } from "../actions/myProfile";
 
@@ -18,6 +20,18 @@ const initialState = Map({
         message: null,
         error: null,
     },
+    joined_ref:{
+        status: 0,
+        message: null,
+        data: null,
+        error: null,
+    },
+    revenue_ref:{
+        status: 0,
+        message: null,
+        data: null,
+        error: null,
+    }
 });
 
 const actionMap = {
@@ -62,7 +76,7 @@ const actionMap = {
         return state.merge(Map({
             loading: true,
             error: null,
-            edit_profile: {
+            change_pass: {
                 status: 0,
                 message: null,
                 error: null,
@@ -87,6 +101,78 @@ const actionMap = {
         return state.merge(Map({
             loading: false,
             change_pass: {
+                status: 0,
+                message: null,
+                error: error,
+            },
+        }));
+    },
+
+    [GET_JOINED_REF_REQUEST]: (state, action) => {
+        return state.merge(Map({
+            loading: true,
+            error: null,
+            joined_ref: {
+                status: 0,
+                message: null,
+                error: null,
+            },
+        }));
+    },
+    [GET_JOINED_REF_SUCCESS]: (state, action) => {
+        return state.merge(Map({
+            loading: false,
+            joined_ref: {
+                status: action.data.data.status,
+                message: action.data.data.message,
+                error: null,
+            },
+        }));
+    },
+    [GET_JOINED_REF_ERROR]: (state, action) => {
+        let error = 'Server Error';
+        if (action.error && action.error.response) {
+            error = action.error.response.data.message;
+        }
+        return state.merge(Map({
+            loading: false,
+            joined_ref: {
+                status: 0,
+                message: null,
+                error: error,
+            },
+        }));
+    },
+
+    [GET_REVENUE_REF_REQUEST]: (state, action) => {
+        return state.merge(Map({
+            loading: true,
+            error: null,
+            revenue_ref: {
+                status: 0,
+                message: null,
+                error: null,
+            },
+        }));
+    },
+    [GET_REVENUE_REF_SUCCESS]: (state, action) => {
+        return state.merge(Map({
+            loading: false,
+            revenue_ref: {
+                status: action.data.data.status,
+                message: action.data.data.message,
+                error: null,
+            },
+        }));
+    },
+    [GET_REVENUE_REF_ERROR]: (state, action) => {
+        let error = 'Server Error';
+        if (action.error && action.error.response) {
+            error = action.error.response.data.message;
+        }
+        return state.merge(Map({
+            loading: false,
+            revenue_ref: {
                 status: 0,
                 message: null,
                 error: error,
