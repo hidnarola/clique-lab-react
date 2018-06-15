@@ -267,7 +267,11 @@ const actionMap = {
         return state.merge(Map({
             ...initialState,
             loading: true,
-            error: null
+            error: null,
+            payment: { 
+                status: 0,
+                message: null,
+            } //by dm
         }));
     },
     [CART_PAYMENT_SUCCESS]: (state, action) => {

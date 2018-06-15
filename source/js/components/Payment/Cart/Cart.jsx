@@ -48,8 +48,8 @@ class Cart extends React.Component {
 					{obj.applied_post.desription}
 				</td>
 				<td>{obj.user.name}</td>
-				<td>{(obj.campaign.social_media_platform).toLowerCase()}</td>
-				
+				{/* <td>{(obj.campaign.social_media_platform).toLowerCase()}</td> */}
+				<td>{(obj.campaign.social_media_platform.charAt(0).toUpperCase() + obj.campaign.social_media_platform.slice(1))}</td>
 				<td>${(obj.campaign.price).toFixed(2)}</td>
 				<td>
 					<a href="javascript:void(0)" onClick={() => this.removeCart(obj._id)}><img src={trashImg} alt="img" /></a>

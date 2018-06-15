@@ -1060,7 +1060,19 @@ class EverydayPeople extends Component {
                     </div>
                     <div className="festival-ftr d-flex">
                         <div className="festival-ftr-l">
-                            <a href="javascript:void(0)" style={{ cursor: "auto" }}><i><img src={mediaImg[obj.social_media_platform]} alt="" /></i><strong>0</strong></a>
+                            <a href="javascript:void(0)" style={{ cursor: "auto" }}>
+                                <i><img src={mediaImg[obj.social_media_platform]} alt="" /></i>
+                                {/* <strong>0</strong> */}
+                                <strong>
+                                {
+                                    obj.social_media_platform === 'facebook' ? obj.facebook.no_of_friends :
+                                    obj.social_media_platform === 'linkedin' ? obj.linkedin.no_of_friends :
+                                    obj.social_media_platform === 'instagram' ? obj.instagram.no_of_friends :
+                                    obj.social_media_platform === 'pinterest' ? obj.pinterest.no_of_friends :
+                                    obj.social_media_platform === 'twitter' ? obj.twitter.no_of_friends : ''
+                                }
+                                </strong>
+                            </a>
                         </div>
                         <div className="festival-ftr-r dropdown">
                             <PlusAction2
@@ -1117,7 +1129,19 @@ class EverydayPeople extends Component {
                         </div>
                         <div className="festival-ftr d-flex">
                             <div className="festival-ftr-l">
-                                <a href="javascript:void(0)" style={{ cursor: "auto" }}><i><img src={mediaImg[obj.social_media_platform]} alt="" /></i><strong>0</strong></a>
+                                <a href="javascript:void(0)" style={{ cursor: "default" }}>
+                                    <i><img src={mediaImg[obj.social_media_platform]} alt="" /></i>
+                                    {/* <strong>0</strong> */}
+                                    <strong>
+                                    {
+                                        obj.social_media_platform === 'facebook' ? obj.users.facebook.no_of_friends :
+                                        obj.social_media_platform === 'linkedin' ? obj.users.linkedin.no_of_friends :
+                                        obj.social_media_platform === 'instagram' ? obj.users.instagram.no_of_friends :
+                                        obj.social_media_platform === 'pinterest' ? obj.users.pinterest.no_of_friends :
+                                        obj.social_media_platform === 'twitter' ? obj.users.twitter.no_of_friends : ''
+                                    }
+                                    </strong>
+                                </a>
                             </div>
                             <div className="festival-ftr-r dropdown">
                                 <PlusAction2

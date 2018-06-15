@@ -176,7 +176,7 @@ ul { padding: 0; }
   .Select-arrow{display:none;}
   .Select-control > .Select-arrow-zone{padding:0; background: url(../assets/img/site/down-arrow-1.png) no-repeat 0 0; display: inline-block; vertical-align: top; width: 14px; height: 20px; position: absolute;    right: 10px; top: 50%; -webkit-transform: translateY(-50%); -moz-transform: translateY(-50%); transform: translateY(-50%);}
   .Select-input{ height:auto; padding:0;}
-  .Select-placeholder, .Select--single > .Select-control .Select-value{padding:0 25px 0 15px; top: 50%; transform: translateY(-50%); margin:0; line-height:18px; font-weight: 500; color: #525f7f; font-size: 14px;}
+  .Select-placeholder, .Select--single > .Select-control .Select-value{padding:0 25px 0 15px; top: 50%; transform: translateY(-50%); margin:0; line-height:18px; font-weight: 500; color: #525f7f; font-size: 14px; display:flex; align-items:center;  }
   .Select.has-value.Select--single > .Select-control .Select-value .Select-value-label, 
   .Select.has-value.is-pseudo-focused.Select--single > .Select-control .Select-value .Select-value-label{ font-weight:500; color: #525f7f; font-size: 14px; padding-right: 20px;;}
   .everypeole-head-l ul li,
@@ -264,7 +264,7 @@ ul { padding: 0; }
 
 .Select-input input{ border:0; padding:0;}
 .everypeole-head .Select-control {border: 2px solid rgba(82, 95, 127, .5) !important;}
-.everypeole-head .Select-control .Select-placeholder{line-height: 14px; }
+.everypeole-head .Select-control .Select-placeholder{line-height: 16px; }
 .everypeole-head .Select-control .Select-value-label{    vertical-align: top; line-height: 14px !important;}
 
 .more-cancel-btn{ border:0; padding: 10px;  line-height: 16px; min-width: 110px; text-align: center; font-size: 14px; color: #6772e5; border-radius: 2px; background: #fff; color:#525f7f; font-weight:600;}

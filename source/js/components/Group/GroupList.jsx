@@ -379,7 +379,7 @@ class GroupList extends Component {
                                 <h5>Power <strong>{obj.social_power}</strong> </h5>
                             </div>
                             <div className="group-btm-r">
-                                <h5>Activity rate <strong>75%</strong></h5>
+                                <h5>Activity rate <strong>{obj.activity_rate}%</strong></h5>
                             </div>
                         </div>
                     </div>

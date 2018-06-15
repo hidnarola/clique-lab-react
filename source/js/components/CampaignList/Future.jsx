@@ -57,12 +57,14 @@ class Future extends Component {
 
     futureListing(obj){
         let d = new Date(obj.start_date);
-        var monthNames = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
+        //var monthNames = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
+         var monthNames = [ "Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec" ];
         var month = d.getMonth();
         var day = d.getDate();
         var year = d.getFullYear();
         //month = (month<10) ? '0'+month : month;
-        let date = day+' '+monthNames[month]+'-'+year;
+        // let date = day+' '+monthNames[month]+'-'+year;
+        let date = day+' '+monthNames[month]+' '+year;
         let img = imgRoutes.CAMPAIGN_IMG_PATH + obj.cover_image;
         return (
             <li key={Math.random()}>
