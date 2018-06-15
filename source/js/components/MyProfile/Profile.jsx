@@ -10,7 +10,7 @@ import { routeCodes } from '../../constants/routes';
 import { SelectField_ReactSelect } from '../../components/Forms/RenderFormComponent/EveryComponent';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Alert } from 'reactstrap';
 import { reactLocalStorage } from 'reactjs-localstorage';
-import { changePass, resetVal } from '../../actions/myProfile';
+import { changePass, resetValMyProfile } from '../../actions/myProfile';
 import { ToastContainer, toast, Slide } from 'react-toastify';
 import '../../../css/campaign/ReactToastify.css';
 
@@ -183,7 +183,7 @@ class Profile extends Component {
             txtNPASS: '',
             txtCPASS: '',
         })
-        dispatch(resetVal({ changePass: false }));
+        dispatch(resetValMyProfile({ changePass: false }));
 	}
 	onChangePassword = (element, value) => {
 		let { txtOPASS, txtNPASS, txtCPASS, changePasswordFormSubmit } = this.state;

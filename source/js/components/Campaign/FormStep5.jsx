@@ -13,24 +13,22 @@ import FormStep4 from '../Campaign/FormStep4';
 const validate = values => {
     const errors = {};
     let images = [];
-    
+
     if (!values.imagesNew || values.imagesNew.length === 0) {
         errors.imagesNew = 'This field is required';
-        console.log('Calling 1');
     } else {
         if ((values.imagesNew).length > 0) {
             let extensions = ["image/jpeg", "image/png", "image/jpg"];
-            
+
             images.push(values.imagesNew);
             _.forEach(images[0], (file, key) => {
                 if (extensions.indexOf(file.type) < 0) {
                     errors.imagesNew = 'File type not supported';
-                    console.log('Calling 2');
                 }
             });
         }
     }
-    
+
 
     // if (!values.imagesNew) {
     //     errors.imagesNew = 'This field is required';
@@ -78,7 +76,7 @@ class FileField_Dropzone extends Component {
             _.forEach(existImages, (file, key) => {
                 images.push(
                     <div className="images-preview-wrapper" key={key}>
-                        <div className="image-preview" style={{"position": "relative"}}>
+                        <div className="image-preview" style={{ "position": "relative" }}>
                             <img className="preview_img" src={file.preview} width={'560px'} height={'280px'} />
                             <img className="preview_img_del" src={deleteImg} onClick={() => this.props.removeImg(key)} />
                         </div>
@@ -106,7 +104,12 @@ class FileField_Dropzone extends Component {
                     multiple={multiple ? multiple : false}
                     className={`${className}`}
                     onFileDialogCancel={() => {
-                        (!isFileDropped) ? input.onChange('') : ''
+                        if(!isFileDropped){
+                            input.onChange(existImages)
+                            handleImagesSelection(existImages);
+                        }else{
+                            ''
+                        }
                     }}
                 >
                     <div className="dropzone-image-preview-wrapper">
@@ -117,10 +120,9 @@ class FileField_Dropzone extends Component {
                         </div>
                     </div>
                 </Dropzone>
-                {(input.value && meta.error === undefined) &&
-                    <div className="uploaded_img"> {images} </div>
-                }
-                {(meta.touched && meta.error) && <span className="error-div">{meta.error}</span>}
+                
+                <div className="uploaded_img"> {images} </div>
+                {(!meta.valid && meta.error && input.value) && <span className="error-div">{meta.error}</span>}
                 {/* {((meta.touched && meta.error) || (!input.value && meta.touched && meta.error )) && <span className="error-div">{meta.error}</span>} */}
             </div>
         );
@@ -135,17 +137,17 @@ class FormStep5 extends Component {
         }
     }
 
-    componentWillMount(){
+    componentWillMount() {
         const { prevImg } = this.props;
         this.setState({ allImages: prevImg });
     }
 
     removeImg = (key) => {
         const { allImages } = this.state;
-        const { multipleImagesFun } = this.props; 
+        const { multipleImagesFun } = this.props;
         let imgArr = allImages;
         imgArr.splice(key, 1);
-        this.props.change('imagesNew',imgArr);
+        this.props.change('imagesNew', imgArr);
         this.setState({ allImages: imgArr });
         multipleImagesFun(imgArr);
     }
@@ -185,10 +187,10 @@ class FormStep5 extends Component {
                             </div>
                         </div>
                     </div>
-                    <FormCampaignRight 
-                        existImages = {this.state.allImages}
+                    <FormCampaignRight
+                        existImages={this.state.allImages}
                     />
-                    
+
                 </div>
             </form>
         );
