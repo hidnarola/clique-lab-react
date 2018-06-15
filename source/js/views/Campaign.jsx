@@ -175,6 +175,7 @@ class Campaign extends Component {
                     multipleImagesFun={this.multipleImagesFun}
                     prevImg={this.state.multipleImages}
                     onSubmit={this.submitForm} />}
+                    
                 <ModalPopUp
                     onRef={ref => (this.childCampaign = ref)}
                     contentBody={this.state.contentBody}

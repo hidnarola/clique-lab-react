@@ -13,6 +13,7 @@ import validator from 'validator';
 import cx from 'classnames';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { addCard, editCard, deleteCard, getCardList, resetVal } from '../../actions/Checkout';
+import { addBank, deleteBank, getBankList, resetValMyProfile } from '../../actions/myProfile';
 import { Facebook, List, Code } from 'react-content-loader';
 import SweetAlert from "react-bootstrap-sweetalert";
 import MonthPickerInput from 'react-month-picker-input';
@@ -28,7 +29,6 @@ class Wallet extends Component {
         super(props);
         this.state = {
             addCreditCardModalShow: false,
-            editCreditCardModalShow: false,
             txtCHN: '',
             txtCN: '',
             txtCD: '',
@@ -36,28 +36,46 @@ class Wallet extends Component {
             creditCardFormSubmit: false,
             selectedCard: '',
 
-            delete_alert: false,
-            delete_selected_id: null,
-
+            editCreditCardModalShow: false,
             editCardId: '',
             txtCHNedit: '',
             txtCNedit: '',
             txtCDedit: '',
             txtCVVedit: '',
 
+            delete_alert: false,
+            delete_selected_id: null,
+            delete_bank_selected_id: null,
+
+            addBankModalShow: false,
+            txtBN: '',
+            txtAHN: '',
+            txtAN: '',
+            txtBSB: '',
+            BankFormSubmit: false,
+
+            editBankModalShow: false,
+            editBankId: '',
+            txtBNedit: '',
+            txtAHNedit: '',
+            txtANedit: '',
+            txtBSBedit: '',
+
             isRender: 0,
         }
         this.addCreditCardModal = this.addCreditCardModalOpen.bind(this);
+        this.addBankModal = this.addBankModalOpen.bind(this);
     }
 
     componentWillMount = () => {
         const { dispatch } = this.props;
         dispatch(getCardList());
+        dispatch(getBankList());
     }
     componentDidUpdate = () => {
-        const { handleSubmit, previousPage, cards, addCards, editCards, deleteCards, dispatch } = this.props;
+        const { handleSubmit, previousPage, cards, addCards, editCards, deleteCards, dispatch, addBank, deleteBank, bank } = this.props;
         const { txtCHN, txtCN, txtCD, txtCVV, txtCHNedit, txtCNedit, txtCDedit, txtCVVedit, isRender } = this.state;
-        if(isRender==1){
+        if (isRender == 1) {
             if (addCards.status === 0 && addCards.error != null) {
                 let error_msg = '';
                 error_msg = '<ul><li>' + addCards.error + '</li></ul>';
@@ -68,13 +86,13 @@ class Wallet extends Component {
                 dispatch(getCardList());
                 this.setState({ isRender: 0 });
             }
-    
+
             if (deleteCards.status === 1) {
                 dispatch(resetVal({ addCard: false, deleteCard: false, editCard: false }));
                 dispatch(getCardList());
                 this.setState({ isRender: 0 });
             }
-    
+
             if (editCards.status === 0 && editCards.error != null) {
                 let error_msg = '';
                 error_msg = '<ul><li>' + editCards.error + '</li></ul>';
@@ -83,6 +101,23 @@ class Wallet extends Component {
             } else if (editCards.status === 1) {
                 this.editCreditCardModaltoggle();
                 dispatch(getCardList());
+                this.setState({ isRender: 0 });
+            }
+
+            if (addBank.status === 0 && addBank.error != null) {
+                let error_msg = '';
+                error_msg = '<ul><li>' + addBank.error + '</li></ul>';
+                jQuery('.error_div').html(error_msg);
+                jQuery('.error_div').css({ display: "block" });
+            } else if (addBank.status === 1) {
+                this.addBankModaltoggle();
+                dispatch(getBankList());
+                this.setState({ isRender: 0 });
+            }
+
+            if (deleteBank.status === 1) {
+                dispatch(resetValMyProfile({ addBank: false, deleteBank: false }));
+                dispatch(getBankList());
                 this.setState({ isRender: 0 });
             }
         }
@@ -272,10 +307,124 @@ class Wallet extends Component {
         )
     }
 
+
+    // Add Bank
+    addBankModalOpen() { this.setState({ addBankModalShow: !this.state.addBankModalShow }); }
+    addBankModaltoggle() {
+        const { dispatch } = this.props;
+        this.setState({ addBankModalShow: !this.state.addBankModalShow });
+        this.setState({
+            txtBN: '',
+            txtAHN: '',
+            txtAN: '',
+            txtBSB: '',
+        })
+        dispatch(resetValMyProfile({ addBank: false, deleteBank: false }));
+    }
+    submitBank = () => {
+        const { dispatch } = this.props;
+        const { txtBN, txtAHN, txtAN, txtBSB } = this.state;
+        let isError = 0;
+        if (txtBN === '') {
+            jQuery('#txt_bank_name').css("cssText", "border: 2px solid red !important");
+            jQuery('.txt_bank_name_errorMsg').html('This field is required');
+            isError = 1;
+        }
+        if (txtAHN === '') {
+            jQuery('#txt_acc_holder_name').css("cssText", "border: 2px solid red !important");
+            jQuery('.txt_acc_holder_name_errorMsg').html('This field is required');
+            isError = 1;
+        }
+        if (txtAN === '') {
+            jQuery('#txt_acc_number').css("cssText", "border: 2px solid red !important");
+            jQuery('.txt_acc_number_errorMsg').html('This field is required');
+            isError = 1;
+        }
+        if (txtBSB === '') {
+            jQuery('#txt_bsb').css("cssText", "border: 2px solid red !important");
+            jQuery('.txt_bsb_errorMsg').html('This field is required');
+            isError = 1;
+        }
+
+        if (isError === 0) {
+            let data = {
+                "bank_name": txtBN,
+                "account_name": txtAHN,
+                "account_number": txtAN,
+                "bsb": txtBSB,
+            }
+            dispatch(addBank(data));
+            this.setState({ isRender: 1 });
+        }
+    }
+    onChangeBank = (element, value) => {
+        let { txtBN, txtAHN, txtAN, txtBSB, BankFormSubmit } = this.state;
+        if (element == 'txt_bank_name') { this.setState({ txtBN: value }) }
+        if (element == 'txt_acc_holder_name') { this.setState({ txtAHN: value }) }
+        if (element == 'txt_acc_number') { this.setState({ txtAN: value }) }
+        if (element == 'txt_bsb') { this.setState({ txtBSB: value }) }
+        if (value === '') {
+            jQuery('#' + element).css("cssText", "border: 2px solid red !important");
+            jQuery('.' + element + '_errorMsg').html('This field is required');
+        } else {
+            jQuery('#' + element).css("cssText", "border: 2px solid rgba(82, 95, 127, .2) !important");
+            jQuery('.' + element + '_errorMsg').html('');
+        }
+    }
+
+    // Delete Bank
+    deleteBank = (bankId) => {
+        this.setState({
+            delete_alert: true,
+            delete_bank_selected_id: bankId
+        });
+    }
+    deleteBankFunc = () => {
+        let { delete_bank_selected_id, delete_alert } = this.state;
+        if (delete_bank_selected_id !== null && delete_alert) {
+            const { dispatch } = this.props;
+            dispatch(deleteBank({ "bankId": delete_bank_selected_id }))
+            dispatch(resetValMyProfile({ addBank: false, deleteBank: false }));
+        }
+        this.setState({
+            delete_alert: false,
+            delete_bank_selected_id: null,
+            isRender: 1,
+        })
+    }
+    hideDeleteAlert = () => {
+        this.setState({
+            delete_alert: false,
+            delete_bank_selected_id: null
+        })
+    }
+
+
+    //Bank Lisitng
+    bankListDiv = (obj) => {
+        return (
+            <div className="card-box wallet-account-box" key={Math.random()}>
+                <div className="card-box-head d-flex">
+                    <i className="light-bg"></i>
+                    <div className="card-box-head-r">
+                        <a href="javascript:void(0)" onClick={() => this.deleteBank(obj.id)}><img src={deleteImg} alt="Delete" /></a>
+                    </div>
+                </div>
+                <h4>{obj.bank_name}</h4>
+                <h4><small>BSB</small> <strong>{obj.bsb}</strong></h4>
+                <h5><small>Account Name </small> <strong>{obj.account_holder_name}</strong></h5>
+                <h5><small>Account Number</small> <strong>{`********${obj.bank_Account_last4}`}</strong></h5>
+            </div>
+        )
+    }
+
     render() {
-        
-        const { handleSubmit, previousPage, cards, addCards, editCards, deleteCards, dispatch } = this.props;
-        const { txtCHN, txtCN, txtCD, txtCVV, txtCHNedit, txtCNedit, txtCDedit, txtCVVedit } = this.state;
+
+        const { handleSubmit, previousPage, cards, addCards, editCards, deleteCards, dispatch, bank } = this.props;
+        const {
+            txtCHN, txtCN, txtCD, txtCVV, txtCHNedit, txtCNedit, txtCDedit, txtCVVedit,
+            txtBN, txtAHN, txtAN, txtBSB, txtBNedit, txtAHNedit, txtANedit, txtBSBedit,
+        } = this.state;
         return (
             <div>
                 <div className="profile-body content-box wallet-page">
@@ -294,15 +443,15 @@ class Wallet extends Component {
                         {
                             (cards.loading === true) ?
                                 <div className="card-box">
-                                    {/* <Facebook /> */}
-                                    <Code /><Code />
+                                    <Facebook />
+                                    {/* <Code /><Code /> */}
                                 </div>
                                 :
                                 (cards.status == 1 && cards.data != null) &&
                                 cards.data.map((obj, index) => (this.cardListDiv(obj)))
                         }
                         <div className="card-box add-card-box">
-                            <a href="kavascript:void(0)" onClick={this.addCreditCardModal}>
+                            <a href="javascript:void(0)" onClick={this.addCreditCardModal}>
                                 <img src={plusImg} alt="" />
                                 <strong>Add Credit Card </strong>
                             </a>
@@ -310,7 +459,17 @@ class Wallet extends Component {
                     </div>
                     <div className="wallet-account">
                         <h3>Bank Account</h3>
-                        <div className="card-box wallet-account-box">
+                        {
+                            (bank.loading === true) ?
+                                <div className="card-box wallet-account-box">
+                                    < Facebook/>
+                                    {/* <Code /><Code /> */}
+                                </div>
+                                :
+                                (bank.status == 1 && bank.data != null) &&
+                                bank.data.map((obj, index) => (this.bankListDiv(obj)))
+                        }
+                        {/* <div className="card-box wallet-account-box">
                             <div className="card-box-head d-flex">
                                 <i className="light-bg"></i>
                                 <div className="card-box-head-r">
@@ -335,9 +494,9 @@ class Wallet extends Component {
                             <h4><small>BSB</small> <strong>564623</strong></h4>
                             <h5><small>Account Name </small> <strong>John Doe</strong></h5>
                             <h5><small>Account Number</small> <strong>*********65</strong></h5>
-                        </div>
+                        </div> */}
                         <div className="card-box add-card-box">
-                            <a href="" data-toggle="modal" data-target="#add-bankaccount">
+                            <a href="javascript:void(0)" onClick={this.addBankModal}>
                                 <img src={plusImg} alt="" />
                                 <strong>Add Bank Account</strong>
                             </a>
@@ -389,7 +548,7 @@ class Wallet extends Component {
                                     <td>$5000</td>
                                 </tr>
                                 <tr className="loadmore-btn">
-                                    <td colspan="4"><a href="" className="round-btn">Load more</a></td>
+                                    <td colSpan="4"><a href="" className="round-btn">Load more</a></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -500,6 +659,82 @@ class Wallet extends Component {
                     </ModalBody>
                 </Modal>
 
+                {/* Add Bank Modal */}
+                <Modal isOpen={this.state.addBankModalShow} toggle={this.addBankModaltoggle} className={this.props.className} id="congratulations" className="add_credit_card_popup" style={{ "width": "600px" }}>
+                    <div className="custom_modal_btn_close">
+                        <img className="cursor_pointer" src={closeImg2} onClick={() => this.addBankModaltoggle()} />
+                    </div>
+                    <ModalBody>
+                        <div className="terms-conditions">
+                            <h2>Add Bank Account</h2>
+                            <form id="add_bank_form" className="popup_modal_form">
+                                <div className="input-wrap">
+                                    <label>Bank Name <span className="error-div"> *</span></label>
+                                    <input type="text" name="txt_bank_name" id="txt_bank_name" placeholder="Bank Name" value={txtBN} onChange={(input) => this.onChangeBank(input.target.name, input.target.value)} />
+                                    <span className="txt_bank_name_errorMsg" style={{ "color": "red" }}></span>
+                                </div>
+                                <div className="input-wrap">
+                                    <label>Account holder Name <span className="error-div"> *</span></label>
+                                    <input type="text" name="txt_acc_holder_name" id="txt_acc_holder_name" placeholder="Name" value={txtAHN} onChange={(input) => this.onChangeBank(input.target.name, input.target.value)} />
+                                    <span className="txt_acc_holder_name_errorMsg" style={{ "color": "red" }}></span>
+                                </div>
+                                <div className="input-wrap">
+                                    <label>Account Number <span className="error-div"> *</span></label>
+                                    <input type="text" name="txt_acc_number" id="txt_acc_number" placeholder="Account Number" value={txtAN} onChange={(input) => this.onChangeBank(input.target.name, input.target.value)} />
+                                    <span className="txt_acc_number_errorMsg" style={{ "color": "red" }}></span>
+                                </div>
+                                <div className="input-wrap bsb-number">
+                                    <label>BSB <span className="error-div"> *</span></label>
+                                    <input type="text" name="txt_bsb" id="txt_bsb" placeholder="BSB bumber" value={txtBSB} onChange={(input) => this.onChangeBank(input.target.name, input.target.value)} />
+                                    <span className="txt_bsb_errorMsg" style={{ "color": "red" }}></span>
+                                </div>
+                                <div className="error_div"></div>
+                                <div className="submit-btn">
+                                    <button type="button" className="round-btn" onClick={() => this.submitBank()}>Save</button>
+                                </div>
+                            </form>
+                        </div>
+                    </ModalBody>
+                </Modal>
+
+                {/* Edit Bank Modal */}
+                <Modal isOpen={this.state.editBankModalShow} toggle={this.editBankModaltoggle} className={this.props.className} id="congratulations" className="edit_credit_card_popup" style={{ "width": "600px" }}>
+                    <div className="custom_modal_btn_close">
+                        <img className="cursor_pointer" src={closeImg2} onClick={() => this.editBankModaltoggle()} />
+                    </div>
+                    <ModalBody>
+                        <div className="terms-conditions">
+                            <h2>Edit Bank Account</h2>
+                            <form id="add_bank_form" className="popup_modal_form">
+                                <div className="input-wrap">
+                                    <label>Bank Name <span className="error-div"> *</span></label>
+                                    <input type="text" name="txt_bank_name" id="txt_bank_name" placeholder="Bank Name" value={txtBNedit} onChange={(input) => this.onChangeBank(input.target.name, input.target.value)} />
+                                    <span className="txt_bank_name_errorMsg" style={{ "color": "red" }}></span>
+                                </div>
+                                <div className="input-wrap">
+                                    <label>Account holder Name <span className="error-div"> *</span></label>
+                                    <input type="text" name="txt_acc_holder_name" id="txt_acc_holder_name" placeholder="Name" value={txtAHNedit} onChange={(input) => this.onChangeBank(input.target.name, input.target.value)} />
+                                    <span className="txt_acc_holder_no_errorMsg" style={{ "color": "red" }}></span>
+                                </div>
+                                <div className="input-wrap">
+                                    <label>Account Number <span className="error-div"> *</span></label>
+                                    <input type="text" name="txt_acc_number" id="txt_acc_number" placeholder="Account Number" value={txtANedit} onChange={(input) => this.onChangeBank(input.target.name, input.target.value)} />
+                                    <span className="txt_acc_holder_no_errorMsg" style={{ "color": "red" }}></span>
+                                </div>
+                                <div class="input-wrap bsb-number">
+                                    <label>BSB</label>
+                                    <input type="text" name="txt_bsb" id="txt_bsb" placeholder="BSB bumber" value={txtBSBedit} onChange={(input) => this.onChangeBank(input.target.name, input.target.value)} />
+                                    <span className="txt_bsb_errorMsg" style={{ "color": "red" }}></span>
+                                </div>
+                                <div className="error_div"></div>
+                                <div className="submit-btn">
+                                    <button type="button" className="round-btn" onClick={() => this.submitBank()}>Save</button>
+                                </div>
+                            </form>
+                        </div>
+                    </ModalBody>
+                </Modal>
+
 
                 {
                     this.state.delete_alert &&
@@ -510,19 +745,20 @@ class Wallet extends Component {
                         confirmBtnBsStyle="danger"
                         cancelBtnBsStyle="default"
                         title="Are you sure?"
-                        onConfirm={this.deleteCardFunc}
+                        onConfirm={this.state.delete_selected_id ? this.deleteCardFunc : this.deleteBankFunc}
                         onCancel={this.hideDeleteAlert}
                     >
                         You will not be able to recover this data !
                     </SweetAlert>
                 }
+
             </div>
         )
     }
 }
 
 const mapStateToProps = (state) => {
-    const { register, checkout } = state;
+    const { register, checkout, myProfile } = state;
     return {
         loading: checkout.get('loading'),
         error: checkout.get('error'),
@@ -530,6 +766,9 @@ const mapStateToProps = (state) => {
         addCards: checkout.get('addCards'),
         deleteCards: checkout.get('deleteCards'),
         editCards: checkout.get('editCards'),
+        bank: myProfile.get('bank'),
+        addBank: myProfile.get('addBank'),
+        deleteBank: myProfile.get('deleteBank'),
     }
 }
 

@@ -11,8 +11,50 @@ import { Alert } from 'reactstrap';
 import { reactLocalStorage } from 'reactjs-localstorage';
 import { getJoinedRef, getRevenueRef } from '../../actions/myProfile';
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, } from 'recharts';
+import PropTypes from 'prop-types';
 import validator from 'validator';
 import cx from 'classnames';
+
+class CustomTooltip extends Component {
+    constructor(props) {
+        super(props);
+    }
+    static propTypes = {
+        type: PropTypes.string,
+        payload: PropTypes.array,
+        label: PropTypes.string,
+    }
+
+    getIntroOfPage(label) {
+        if (label === 'Page A') {
+            return "Page A is about men's clothing";
+        } else if (label === 'Page B') {
+            return "Page B is about women's dress";
+        } else if (label === 'Page C') {
+            return "Page C is about women's bag";
+        } else if (label === 'Page D') {
+            return "Page D is about household goods";
+        } else if (label === 'Page E') {
+            return "Page E is about food";
+        } else if (label === 'Page F') {
+            return "Page F is about baby food";
+        }
+    }
+
+    render() {
+        const { active } = this.props;
+        if (active) {
+            const { payload, label, totalNoCompare, whichCompare } = this.props;
+            return (
+                <div className="graph custom-tooltip">
+                    <div><p className="label" style={{ "marginBottom": "0px !important" }}>${payload[0].value}</p><p className="label" style={{ "marginBottom": "0px !important" }}>Earned</p></div>
+                </div>
+            );
+        }
+
+        return null;
+    }
+}
 
 class PartnerShipProg extends Component {
     constructor(props) {
@@ -62,9 +104,12 @@ class PartnerShipProg extends Component {
                                 margin={{ top: 20, right: 10, left: -10, bottom: 5 }}>
                                 <CartesianGrid strokeDasharray="3 3" />
                                 <XAxis dataKey="name" type="category" />
-                                <YAxis type="number" />
+                                <YAxis type="number" domain={[0, 'dataMax + 50']}/>
+                                <Tooltip 
+                                    content={<CustomTooltip />}
+                                />
                                 <Tooltip />
-                                <Line dataKey="pv" stroke="#8884d8" />
+                                <Line dataKey="pv" stroke="#6772e5" />
                             </LineChart>
                         </div>
                         <div className="state-box revenue_ref_chart">
@@ -75,11 +120,16 @@ class PartnerShipProg extends Component {
                             {/* <img src="/assets/img/site/graph-03.png" alt="" /> */}
                             <BarChart width={400} height={200} data={data} barGap={7}
                                 margin={{ top: 20, right: 10, left: -10, bottom: 5 }}>
-                                <CartesianGrid strokeDasharray="3 3" />
+                                <CartesianGrid 
+                                    vertical={false}
+                                    strokeDasharray="3 3" 
+                                />
                                 <XAxis dataKey="name" type="category" />
-                                <YAxis type="number" />
-                                <Tooltip />
-                                <Bar dataKey='pv' fill='#8884d8' />
+                                <YAxis type="number" domain={[0, 'dataMax + 50']}/>
+                                <Tooltip 
+                                    content={<CustomTooltip />}
+                                />
+                                <Bar dataKey='pv' fill='#6772e5' barSize={17}/>
                             </BarChart>
                         </div>
                     </div>

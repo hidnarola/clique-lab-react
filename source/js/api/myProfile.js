@@ -21,9 +21,28 @@ function getRevenueRef(data) {
     return postFormData('promoter/referral/referral_revenue', data, headers);
 }
 
+function addBank(data) {
+    let headers = { 'x-access-token' : localStorage.getItem('token') }                                                                                                                                                                                                                                      
+    return postFormData(`promoter/wallet/add_bank_account`, data, headers);
+}
+
+function deleteBank(data) {
+    let bankId = data.bankId;
+    let headers = { 'x-access-token' : localStorage.getItem('token') }                                                                                                                                                                                                                                      
+    return deleteFormData(`promoter/wallet/bank_account/${bankId}`, '', headers);
+}
+
+function getBankList() {
+    let headers = { 'x-access-token' : localStorage.getItem('token') }                                                                                                                                                                                                                                         
+    return getFormData(`promoter/wallet/bank_account`, '', headers);
+}
+
 export default {
     editProfile,
     changePass,
     getJoinedRef,
     getRevenueRef,
+    addBank,
+    deleteBank,
+    getBankList
 }

@@ -299,12 +299,17 @@ td.fc-widget-content{ border:0;}
     .graph-img svg>path {fill:transparent !important;}
     .graph-img svg a path{fill:#6772e6 !important;}
 
+/* Partnership Program */
     .joined_ref_chart .recharts-layer.recharts-cartesian-axis-tick text tspan { font-size:10px; font-weight: bold }
     .joined_ref_chart .recharts-layer.recharts-cartesian-axis-tick .recharts-cartesian-axis-tick-line,
     .joined_ref_chart .recharts-layer.recharts-cartesian-axis.recharts-yAxis.yAxis .recharts-cartesian-axis-line{ display:none; }
     .joined_ref_chart .chart_summary{ margin: 2em 3em 0; font-size: 12px; font-weight: 700; letter-spacing:1px;}
     .joined_ref_chart .chart_summary .chart_heading{ color: #546180}
     .joined_ref_chart .chart_summary .chart_data{ color: #6772e5; font-size:11px}
+    .joined_ref_chart .recharts-tooltip-wrapper{ padding:0px !important; }
+    .joined_ref_chart .recharts-tooltip-wrapper .custom-tooltip{padding: 5px 15px; text-align: center; background:#525f7f; border-radius:3px; }
+    .joined_ref_chart .recharts-tooltip-wrapper .custom-tooltip p { color:#fff; font-size:9px !important; letter-spacing: 1px; margin-bottom: 0px; font-weight:500}
+    .joined_ref_chart .recharts-tooltip-wrapper::after{border-top: 10px solid #525f7f !important; }
 
     .revenue_ref_chart .recharts-layer.recharts-cartesian-axis-tick text tspan { font-size:10px; font-weight: bold }
     .revenue_ref_chart .recharts-layer.recharts-cartesian-axis-tick .recharts-cartesian-axis-tick-line,
@@ -312,7 +317,13 @@ td.fc-widget-content{ border:0;}
     .revenue_ref_chart .chart_summary{ margin: 2em 3em 0; font-size: 12px; font-weight: 700; letter-spacing:1px;}
     .revenue_ref_chart .chart_summary .chart_heading{ color: #546180}
     .revenue_ref_chart .chart_summary .chart_data{ color: #6772e5; font-size:11px}
-
+    .revenue_ref_chart svg>path {fill:transparent !important;}
+    .revenue_ref_chart svg a path{fill:#6772e6 !important;}
+    .revenue_ref_chart .recharts-tooltip-wrapper{ padding:0px !important; }
+    .revenue_ref_chart .recharts-tooltip-wrapper .custom-tooltip{padding: 5px 15px; text-align: center; background:#525f7f; border-radius:3px; }
+    .revenue_ref_chart .recharts-tooltip-wrapper .custom-tooltip p { color:#fff; font-size:9px !important; letter-spacing: 1px; margin-bottom: 0px; font-weight:500}
+    .revenue_ref_chart .recharts-tooltip-wrapper::after{border-top: 10px solid #525f7f !important; }
+    
 .how-much .select-wrap{ margin-bottom:0;}
 .how-much .input-2 input { width:56%;}
 .how-much .input-2 .select-wrap  { margin-left:auto; width:40%;}

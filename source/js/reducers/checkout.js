@@ -309,16 +309,11 @@ const actionMap = {
             (action['data']['addCard'] === false) ? resetObj['addCards'] = resetDataVal : '';
             (action['data']['deleteCard'] === false) ? resetObj['deleteCards'] = resetDataVal : '';
             (action['data']['editCard'] === false) ? resetObj['editCards'] = resetDataVal : '';
+            (action['data']['addBank'] === false) ? resetObj['addBank'] = resetDataVal : '';
+            (action['data']['deleteBank'] === false) ? resetObj['deleteBank'] = resetDataVal : '';
             (action['data']['removeCart'] === false) ? resetObj['removeItems'] = {status: 0, message: null} : '';
+            
         }
-        console.log(resetObj);
-        // var newState = {};
-        // newState.addCards = {
-        //     status: 0,
-        //     message: null,
-        //     data: null,
-        //     error: null, 
-        // }
         return state.merge(Map(resetObj));
     },
 };

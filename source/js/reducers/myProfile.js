@@ -4,6 +4,10 @@ import {
     CHANGE_PASS_REQUEST, CHANGE_PASS_SUCCESS, CHANGE_PASS_ERROR,
     GET_JOINED_REF_REQUEST, GET_JOINED_REF_SUCCESS, GET_JOINED_REF_ERROR,
     GET_REVENUE_REF_REQUEST, GET_REVENUE_REF_SUCCESS, GET_REVENUE_REF_ERROR,
+    ADD_BANK_REQUEST, ADD_BANK_SUCCESS, ADD_BANK_ERROR,
+    DELETE_BANK_REQUEST, DELETE_BANK_SUCCESS, DELETE_BANK_ERROR,
+    GET_BANK_LIST_REQUEST, GET_BANK_LIST_SUCCESS, GET_BANK_LIST_ERROR,
+
     RESET_VALUES
 } from "../actions/myProfile";
 
@@ -31,7 +35,26 @@ const initialState = Map({
         message: null,
         data: null,
         error: null,
-    }
+    },
+    addBank: {
+        status: 0,
+        message: null,
+        data: null,
+        error: null, 
+    },
+    deleteBank:{
+        status: 0,
+        message: null,
+        data: null,
+        error: null, 
+    },
+    bank: {
+        loading: false,
+        status: 0,
+        message: null,
+        data: null,
+        error: null,
+    },
 });
 
 const actionMap = {
@@ -180,10 +203,126 @@ const actionMap = {
         }));
     },
 
+    [ADD_BANK_REQUEST]: (state, action) => {
+        return state.merge(Map({
+            ...initialState,
+            loading: true,
+            error: null
+        }));
+    },
+    [ADD_BANK_SUCCESS]: (state, action) => {
+        // console.log('Action>>>>>>>>',action);
+        // return;
+        return state.merge(Map({
+            ...initialState,
+            loading: false,
+            error: false,
+            addBank: {
+                // data: action.data.data.cards,
+                status: action.data.data.status,
+                message: action.data.data.message,
+            }
+        }));
+    },
+    [ADD_BANK_ERROR]: (state, action) => {
+        let error = 'Server Error';
+        if (action.error && action.error.response) {
+            error = action.error.response.data.message;
+        }
+        return state.merge(Map({
+            ...initialState,
+            loading: false,
+            addBank:{
+                status: 0,
+                message: null,
+                data: null,
+                error: error,
+            }
+        }));
+    },
+
+    [DELETE_BANK_REQUEST]: (state, action) => {
+        return state.merge(Map({
+            ...initialState,
+            loading: true,
+            error: null
+        }));
+    },
+    [DELETE_BANK_SUCCESS]: (state, action) => {
+        return state.merge(Map({
+            ...initialState,
+            loading: false,
+            error: false,
+            deleteBank: {
+                status: action.data.data.status,
+                message: action.data.data.message,
+            }
+        }));
+    },
+    [DELETE_BANK_ERROR]: (state, action) => {
+        let error = 'Server Error';
+        if (action.error && action.error.response) {
+            error = action.error.response.data.message;
+        }
+        return state.merge(Map({
+            ...initialState,
+            loading: false,
+            deleteBank:{
+                status: 0,
+                message: null,
+                data: null,
+                error: error,
+            }
+        }));
+    },
+
+    [GET_BANK_LIST_REQUEST]: (state, action) => {
+        return state.merge(Map({
+            ...initialState,
+            bank: {
+                loading: true,
+                error: null,
+            }
+        }));
+    },
+    [GET_BANK_LIST_SUCCESS]: (state, action) => {
+        return state.merge(Map({
+            ...initialState,
+            bank: {
+                data: action.data.data.bank_account,
+                status: action.data.data.status,
+                message: action.data.data.message,
+                loading: false,
+                error: false,
+            }
+        }));
+    },
+    [GET_BANK_LIST_ERROR]: (state, action) => {
+        let error = 'Server Error';
+        if (action.error && action.error.response) {
+            error = action.error.response.message;
+        }
+        return state.merge(Map({
+            ...initialState,
+            bank: {
+                loading: false,
+                error: null,
+            }
+        }));
+    },
+
     [RESET_VALUES]:(state,action) => {
         let resetObj = {};
+        let resetDataVal = {
+            status: 0,
+            message: null,
+            data: null,
+            error: null, 
+        }
         if(action['data']){
             (action['data']['changePass'] === false) ? resetObj['change_pass'] = {status: 0, message: null, error: null} : '';
+            (action['data']['addBank'] === false) ? resetObj['addBank'] = resetDataVal : '';
+            (action['data']['deleteBank'] === false) ? resetObj['deleteBank'] = resetDataVal : '';
         }
         return state.merge(Map(resetObj));
     },
