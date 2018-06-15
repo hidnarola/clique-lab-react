@@ -50,9 +50,11 @@
 .input-wrap input::placeholder,
 .textarea-wrap textarea::placeholder,
 .select-wrap .Select-placeholder{
-    color:#dcdfe5;
+    color:#ccc;
+
 }
 
+.Select.has-value.Select--single > .Select-control .Select-value .Select-value-label{ font-weight:600 !important;}
 .alert-custom-tostify{ background-color:#f44336bd}
 .success-custom-tostify{ background:#6772e5 !important; color:#fff !important}
 .Toastify__close-button.Toastify__close-button--default{ color:#fff !important; margin:13px 6px !important; }
@@ -323,7 +325,7 @@ td.fc-widget-content{ border:0;}
     .revenue_ref_chart .recharts-tooltip-wrapper .custom-tooltip{padding: 5px 15px; text-align: center; background:#525f7f; border-radius:3px; }
     .revenue_ref_chart .recharts-tooltip-wrapper .custom-tooltip p { color:#fff; font-size:9px !important; letter-spacing: 1px; margin-bottom: 0px; font-weight:500}
     .revenue_ref_chart .recharts-tooltip-wrapper::after{border-top: 10px solid #525f7f !important; }
-    
+
 .how-much .select-wrap{ margin-bottom:0;}
 .how-much .input-2 input { width:56%;}
 .how-much .input-2 .select-wrap  { margin-left:auto; width:40%;}
