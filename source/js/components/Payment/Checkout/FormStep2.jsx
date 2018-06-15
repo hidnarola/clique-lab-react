@@ -9,23 +9,28 @@ const validate = values => {
     
     const errors = {};
 
-    if (!values.address1) {
-        errors.address1 = 'This Field is Required';
+    if (!values.address1 || !validator.matches(values.address1, /^[A-Za-z_]/i)) {
+        errors.address1 = 'This field is required';
     }
     // if (!values.address2) {
     //     errors.address2 = 'This Field is Required';
     // }
-    if (!values.city) {
-        errors.city = 'This Field is Required';
+    if (!values.city || !validator.matches(values.city, /^[A-Za-z_]/i)) {
+        errors.city = 'This field is required';
     }
     if (!values.state) {
-        errors.state = 'This Field is Required';
+        errors.state = 'This field is required';
     }
     if (!values.post_code) {
-        errors.post_code = 'This Field is Required';
+        errors.post_code = 'This field is required';
     }
+     else if (!validator.matches(values.post_code, /^[0-9]/)) {
+        errors.post_code = 'Must be a positive value';
+    } else if (values.post_code.length > 4) {
+        errors.post_code = 'Max. character length is 4';
+}
     
-    return errors;
+return errors;
 };
 
 const textField = (

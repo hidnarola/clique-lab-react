@@ -123,6 +123,15 @@ class FormStep3 extends Component {
             jQuery('.txt_card_holder_name_errorMsg').html('This field is required');
             isError = 1;
         }
+        else
+        {
+            if(!validator.matches(txtCHN, /^[A-Za-z_]/i))
+            {
+                jQuery('#txt_card_holder_name').css("cssText", "border: 2px solid red !important");
+                jQuery('.txt_card_holder_name_errorMsg').html('Must start with alphabet');
+                isError = 1;
+            }
+        }
         if (txtCN === '') {
             jQuery('#txt_card_number').css("cssText", "border: 2px solid red !important");
             jQuery('.txt_card_number_errorMsg').html('This field is required');
@@ -351,7 +360,7 @@ class FormStep3 extends Component {
                             <form id="add_credit_card_form" className="popup_modal_form">
                                 <div className="input-wrap">
                                     <label>Card Holder Name <span className="error-div"> *</span></label>
-                                    <input type="text" name="txt_card_holder_name" id="txt_card_holder_name" placeholder="Name" value={txtCHN} onChange={(input) => this.onChange(input.target.name, input.target.value)} />
+                                    <input type="text" name="txt_card_holder_name" id="txt_card_holder_name" placeholder="Name" value={txtCHN} onChange={(input) => this.onChange(input.target.name, input.target.value)}  autoFocus/>
                                     <span className="txt_card_holder_name_errorMsg" style={{ "color": "red" }}></span>
                                 </div>
                                 <div className="input-wrap">
