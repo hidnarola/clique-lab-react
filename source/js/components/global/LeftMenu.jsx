@@ -44,10 +44,12 @@ class LeftMenu extends Component {
         }
     }
 
-    componentWillMount = () => {
+    componentWillMount= () => {
         const { history } = this.props;
+        // jQuery('.campToogleMenu_UL').css({ display: 'none' })
         if (history.location.pathname === routeCodes.CAMPAIGN_PURCHASED_POSTS) {
             jQuery('.campToogleMenu_UL').css({ display: 'block' });
+            jQuery('.campToogleMenu_UL').slideToggle();
         }
     }
     

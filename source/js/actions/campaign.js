@@ -37,6 +37,7 @@ export const PURCHASE_ALL_SUCCESS = 'PURCHASE_ALL_SUCCESS';
 export const PURCHASE_ALL_ERROR = 'PURCHASE_ALL_ERROR';
 
 export const  RESET_ALERT_MSG = 'RESET_ALERT_MSG';
+export const  RESET_DOWNLOAD = 'RESET_DOWNLOAD';
 
 export function resetVal(data) { return { type: RESET_VALUES, data:data } }
 
@@ -77,3 +78,4 @@ export function purchaseAllSuccess(data) { return { type: PURCHASE_ALL_SUCCESS, 
 export function purchaseAllError(error) { return { type: PURCHASE_ALL_ERROR, error } }
 
 export function resetAlertMsg() { return { type: RESET_ALERT_MSG } }
+export function resetDownload() { return { type: RESET_DOWNLOAD } }

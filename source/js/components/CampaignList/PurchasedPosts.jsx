@@ -11,7 +11,7 @@ import imgPlus from 'img/site/plus-01.png';
 import closeImg2 from 'img/site/close-2.png';
 import Pagination from "react-js-pagination";
 import { puchasedPostSend } from '../../actions/purchasedPosts';
-import { downloadCampaignImg } from '../../actions/campaign';
+import { downloadCampaignImg,resetDownload} from '../../actions/campaign';
 import { isImageExists } from '../../constants/helper';
 import { imgRoutes } from '../../constants/img_path';
 import { sendReq, moreFilterReq, fetchDropDownReq, resetVal, addUserReq, bulkUserReq } from '../../actions/everyDay';
@@ -161,14 +161,17 @@ class PurchasedPosts extends Component {
             messagePopup: false,
             messagePopupSuccessMsg: null,
             messagePopupErrorMsg: null,
+            load:false,
         }
     }
 
     handlePageChange = (pageNumber) => {
+       
         this.setState({ activePage: pageNumber });
         const { dispatch } = this.props;
         if (pageNumber !== this.state.activePage) {
             dispatch(puchasedPostSend({ "page_size": 8, "page_no": pageNumber }));
+            dispatch(resetDownload());
         }
     }
 
@@ -190,6 +193,13 @@ class PurchasedPosts extends Component {
 
     addCampaign = (obj) => {
         const { dispatch } = this.props;
+
+        // this.setState({load:true},()=>{
+        //     setTimeout(()=>{
+        //         this.setState({load:false})
+        //     },300);
+        // })
+
         this.child.setSaveFor('campaign', obj.users._id);
         dispatch(fetchDropDownReq({ "sendReqFor": "campaign", "uId": obj.users._id }));
 
@@ -202,7 +212,7 @@ class PurchasedPosts extends Component {
                 });
                 this.messagePopupToggle();
             }
-        }, 2000)
+        }, 2000) //2000
 
         this.setState({
             finalMsg : 'User has been added in '
@@ -211,6 +221,14 @@ class PurchasedPosts extends Component {
 
     addGroup = (obj) => {
         const { dispatch } = this.props;
+
+        
+        // this.setState({load:true},()=>{
+        //     setTimeout(()=>{
+        //         this.setState({load:false})
+        //     },300);
+        // })
+
         this.child.setSaveFor('group', obj.users._id);
         dispatch(fetchDropDownReq({ "sendReqFor": "group", "uId": obj.users._id }));
 
@@ -223,7 +241,7 @@ class PurchasedPosts extends Component {
                 });
                 this.messagePopupToggle();
             }
-        }, 2000)
+        }, 2000)// 2000
     }
 
     toggle = () => {
@@ -267,6 +285,7 @@ class PurchasedPosts extends Component {
     componentWillUnmount() {
         const { dispatch } = this.props;
         dispatch(resetVal({ 'userListing': false }));
+        dispatch(resetDownload());
     }
 
     resetDropVal = () => {
@@ -291,6 +310,8 @@ class PurchasedPosts extends Component {
     render() {
         let { allPosts, total, loading, filename, dropdownList } = this.props;
         if (loading) { return (<div className="loader"></div>) }
+        // if (loading || this.state.load === true) { return (<div className="loader"></div>) }
+
         if (filename !== null) {
             let path = imgRoutes.CAMPAIGN_IMG_ZIP_PATH + filename;
             window.open(path);
@@ -332,7 +353,7 @@ class PurchasedPosts extends Component {
                                             </div>
                                             <div className="festival-ftr d-flex">
                                                 <div className="festival-ftr-l">
-                                                    <a href="javascript:void(0)" style={{ cursor: "auto" }}>
+                                                    <a href="javascript:void(0)" style={{ cursor: "default" }}>
                                                         <i><img src={mediaImg[obj.social_media_platform]} alt="" /></i>
                                                         {/* <strong>0</strong> */}
                                                         <strong>
@@ -369,6 +390,7 @@ class PurchasedPosts extends Component {
                             onChange={this.handlePageChange}
                         /> : ''}
                 </div>
+                    
                 <AddToModal onRef={ref => (this.child = ref)}
                     dropdownList={dropdownList}
                     resetDropVal={this.resetDropVal}

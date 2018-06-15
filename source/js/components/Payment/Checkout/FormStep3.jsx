@@ -361,7 +361,7 @@ class FormStep3 extends Component {
                                 </div>
                                 <div className="expiry-date d-flex">
                                     <div className="input-wrap select-wrap">
-                                        <label>Select Date <span className="error-div">&nbsp;*</span></label>
+                                        <label>Expiry Date <span className="error-div">&nbsp;*</span></label>
                                         <MonthPickerInput
                                             // year={2018}
                                             // month={1}

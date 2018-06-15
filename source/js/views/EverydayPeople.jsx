@@ -1060,7 +1060,7 @@ class EverydayPeople extends Component {
                     </div>
                     <div className="festival-ftr d-flex">
                         <div className="festival-ftr-l">
-                            <a href="javascript:void(0)" style={{ cursor: "auto" }}>
+                            <a href="javascript:void(0)" style={{ cursor: "default" }}>
                                 <i><img src={mediaImg[obj.social_media_platform]} alt="" /></i>
                                 {/* <strong>0</strong> */}
                                 <strong>

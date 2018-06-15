@@ -9,7 +9,7 @@ import {
     STOP_CAMPAIGN_REQUEST, STOP_CAMPAIGN_SUCCESS, STOP_CAMPAIGN_ERROR,
     DELETE_CAMPAIGN_REQUEST, DELETE_CAMPAIGN_SUCCESS, DELETE_CAMPAIGN_ERROR,
     GET_ACTIVE_CAMPAIGN_MEM_REQUEST, GET_ACTIVE_CAMPAIGN_MEM_SUCCESS, GET_ACTIVE_CAMPAIGN_MEM_ERROR,
-    PURCHASE_ALL_REQUEST, PURCHASE_ALL_SUCCESS, PURCHASE_ALL_ERROR,RESET_ALERT_MSG,
+    PURCHASE_ALL_REQUEST, PURCHASE_ALL_SUCCESS, PURCHASE_ALL_ERROR,RESET_ALERT_MSG,RESET_DOWNLOAD
 } from "../actions/campaign";
 
 const initialState = Map({
@@ -196,7 +196,12 @@ const actionMap = {
         }));
     },    
     
-
+    [RESET_DOWNLOAD]: (state, action) => {
+        return state.merge(Map({
+            filename: null,
+        }));
+    },    
+    
     [STOP_CAMPAIGN_REQUEST]: (state, action) => {
         return state.merge(Map({
             ...initialState,
