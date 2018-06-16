@@ -72,7 +72,12 @@ const actionMap = {
             after_register_data: {
                 videoUrl: action.setting.value,
                 industryList: action.industryData.job_industry
-            }
+            },
+            after_reg: {
+                status: 0,
+                message: null,
+                data: null,
+            },
         }));
     },
     [AFTER_FETCH_DATA_ERROR]: (state, action) => {

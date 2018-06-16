@@ -18,7 +18,6 @@ class AfterRegister extends Component {
             lastVisitedPage: 1,
         };
         this.submitForm = this.submitForm.bind(this);
-
     }
 
     changePage = (pageNo) => {
@@ -41,7 +40,7 @@ class AfterRegister extends Component {
         dispatch(industryFetch());
     }
 
-    submitForm(values) {
+    submitForm(values, actionGenerator, props) {
         const { dispatch } = this.props;
 
         const formData = new FormData();
