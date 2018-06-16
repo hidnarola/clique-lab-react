@@ -49,10 +49,15 @@
 .Select--multi .Select-value{ margin-top:1px; }
 .input-wrap input::placeholder,
 .textarea-wrap textarea::placeholder,
+.input-wrap textarea::placeholder,
 .select-wrap .Select-placeholder{
-    color:#ccc;
-
+    color:#908f8f;
 }
+
+.industry-r .Select .Select-placeholder{ color:#525f7f; font-weight:600 }
+.industry-r .industry-description textarea{ font-size: 15px; font-weight: 600; color: #525f7f !important;}
+.industry-r .industry-description textarea::placeholder{ color: #525f7f !important; }
+.industry-r .industry-description textarea::-moz-placeholder{ color: #525f7f !important; }
 
 .Select.has-value.Select--single > .Select-control .Select-value .Select-value-label{ font-weight:600 !important;}
 .alert-custom-tostify{ background-color:#f44336bd}
