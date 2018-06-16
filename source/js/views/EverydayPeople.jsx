@@ -1733,7 +1733,7 @@ class EverydayPeople extends Component {
                                     : ''
                                 :
                                 <ul>
-                                    <li>
+                                    <li style={{"minWidth":"140px"}}>
                                         <ReactSelect
                                             name="form-field-name"
                                             className='dropdown-inr'
