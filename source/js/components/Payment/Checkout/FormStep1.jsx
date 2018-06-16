@@ -10,22 +10,22 @@ const validate = values => {
     
     const errors = {};
 
-    if (!values.fullname) {
-        errors.fullname = 'This Field is Required';
+    if (!values.fullname || !validator.matches(values.fullname, /^[A-Za-z_]/i)) {
+        errors.fullname = 'This field is required';
     }
     if (!values.email) {
-        errors.email = 'This Field is Required'
+        errors.email = 'This field is required'
     }else  if(validator.isEmail(values.email) === false){
         errors.email = 'Enter valid email address'
     }
-    if (!values.companyname) {
-        errors.companyname = 'This Field is Required';
+    if (!values.companyname || !validator.matches(values.companyname, /^[A-Za-z_]/i)) {
+        errors.companyname = 'This field is required';
     }
-    if (!values.abn) {
-        errors.abn = 'This Field is Required';
+    if (!values.abn || !validator.matches(values.abn, /^[A-Za-z0-9_]/i)) {
+        errors.abn = 'This field is required';
     }
     if (!values.country) {
-        errors.country = 'This Field is Required';
+        errors.country = 'This field is required';
     }
     
     return errors;
