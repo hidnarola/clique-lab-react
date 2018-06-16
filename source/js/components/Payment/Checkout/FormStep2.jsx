@@ -9,28 +9,30 @@ const validate = values => {
     
     const errors = {};
 
-    if (!values.address1 || !validator.matches(values.address1, /^[A-Za-z_]/i)) {
+    if (!values.address1 || values.address1.trim() === ''){
         errors.address1 = 'This field is required';
     }
     // if (!values.address2) {
     //     errors.address2 = 'This Field is Required';
     // }
-    if (!values.city || !validator.matches(values.city, /^[A-Za-z_]/i)) {
+    if (!values.city || values.city.trim() === '') {
         errors.city = 'This field is required';
     }
-    if (!values.state) {
+    if (!values.state || values.state.value === '' || Object.keys(values.state).length === 0) {
         errors.state = 'This field is required';
     }
-    if (!values.post_code) {
+    if (!values.post_code || values.post_code.trim() === '') {
         errors.post_code = 'This field is required';
     }
-     else if (!validator.matches(values.post_code, /^[0-9]/)) {
+    /*
+    else if (!validator.matches(values.post_code, /^[0-9]/)) {
         errors.post_code = 'Must be a positive value';
-    } else if (values.post_code.length > 4) {
+    }else if (values.post_code.length > 4) {
         errors.post_code = 'Max. character length is 4';
-}
-    
-return errors;
+    }
+    */
+
+    return errors;
 };
 
 const textField = (

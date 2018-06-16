@@ -118,20 +118,12 @@ class FormStep3 extends Component {
         const { dispatch } = this.props;
         const { txtCHN, txtCN, txtCD, txtCVV } = this.state;
         let isError = 0;
-        if (txtCHN === '') {
+        if (txtCHN === '' || txtCHN.trim() === '') {
             jQuery('#txt_card_holder_name').css("cssText", "border: 2px solid red !important");
             jQuery('.txt_card_holder_name_errorMsg').html('This field is required');
             isError = 1;
         }
-        else
-        {
-            if(!validator.matches(txtCHN, /^[A-Za-z_]/i))
-            {
-                jQuery('#txt_card_holder_name').css("cssText", "border: 2px solid red !important");
-                jQuery('.txt_card_holder_name_errorMsg').html('Must start with alphabet');
-                isError = 1;
-            }
-        }
+        
         if (txtCN === '') {
             jQuery('#txt_card_number').css("cssText", "border: 2px solid red !important");
             jQuery('.txt_card_number_errorMsg').html('This field is required');
@@ -384,6 +376,7 @@ class FormStep3 extends Component {
                                                     this.onChange('txt_card_date', selectedMonth + '/' + selectedYear)
                                             }
                                             closeOnSelect={true}
+                                            onBlur={closeOnSelect}
                                         />
                                         <span className="txt_card_date_errorMsg" style={{ "color": "red" }}></span>
                                     </div>

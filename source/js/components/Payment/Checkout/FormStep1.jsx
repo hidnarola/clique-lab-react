@@ -10,7 +10,7 @@ const validate = values => {
     
     const errors = {};
 
-    if (!values.fullname || !validator.matches(values.fullname, /^[A-Za-z_]/i)) {
+    if (!values.fullname || values.fullname.trim() === '') {
         errors.fullname = 'This field is required';
     }
     if (!values.email) {
@@ -18,10 +18,10 @@ const validate = values => {
     }else  if(validator.isEmail(values.email) === false){
         errors.email = 'Enter valid email address'
     }
-    if (!values.companyname || !validator.matches(values.companyname, /^[A-Za-z_]/i)) {
+    if (!values.companyname || values.companyname.trim() === '') {
         errors.companyname = 'This field is required';
     }
-    if (!values.abn || !validator.matches(values.abn, /^[A-Za-z0-9_]/i)) {
+    if (!values.abn || values.abn.trim() === '') {
         errors.abn = 'This field is required';
     }
     if (!values.country) {
