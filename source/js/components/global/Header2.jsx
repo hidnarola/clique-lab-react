@@ -53,7 +53,7 @@ class Header2 extends Component {
                         <Dropdown direction='down' isOpen={this.state.dropdownOpen} toggle={this.toggle} >
                             <DropdownToggle caret>
                                 <a id="">
-                                    <span style={{"background":"url('"+imgRoutes.PROMOTER_IMG_PATH+user.avatar+"') 100% center / 100% no-repeat","width": "40px"}}></span>
+                                    <span style={{"background":"url('"+imgRoutes.ORG_PROMOTER_IMG_PATH+user.avatar+"') 100% center / 100% no-repeat","width": "40px"}}></span>
                                     <i className=""></i>
                                 </a>
                             </DropdownToggle>

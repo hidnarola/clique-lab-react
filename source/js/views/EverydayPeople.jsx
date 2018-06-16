@@ -345,7 +345,7 @@ const AgeDropDown = (props) => {
 }
 
 const MoreFilterDropDown = (props) => {
-
+    
     let jobIndustryArr = []; let jobTitleArr = [];
     let yearInIndustryArr = []; let educationArr = [];
     let languageArr = []; let ethnicityArr = [];
@@ -637,8 +637,8 @@ const MoreFilterDropDown = (props) => {
             </div>
         </DropdownMenu>
     </Dropdown>
-
     )
+    jQuery('.MoreFilterLi.stats_filter_li4 .dropdown-menu').css('width',jQuery('.right-panel').width()+'px !important');
 }
 
 class EverydayPeople extends Component {
@@ -1733,7 +1733,7 @@ class EverydayPeople extends Component {
                                     : ''
                                 :
                                 <ul>
-                                    <li>
+                                    <li style={{"minWidth":"140px"}}>
                                         <ReactSelect
                                             name="form-field-name"
                                             className='dropdown-inr'
