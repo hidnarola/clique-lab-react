@@ -26,7 +26,7 @@ const validate = values => {
     return errors;
 };
 
-const textField = ({ input, type, label, placeholder, meta: { touched, error } }) => (
+const textField = ({ input, type, label, placeholder,meta: { touched, error } }) => (
     <div className={cx('input-wrap', { 'custom-error': (touched && error) ? true : false })}>
         <input {...input} placeholder={placeholder} type={type} className={cx({ 'txt_error_div': (touched && error) })} />
         {touched && ((error && <span className="error-div">{error}</span>))}
@@ -114,6 +114,8 @@ class FormStep3 extends Component {
         })
         dispatch(resetVal({ addCard: false, deleteCard: false }));
     }
+
+
     submitCreditCard = () => {
         const { dispatch } = this.props;
         const { txtCHN, txtCN, txtCD, txtCVV } = this.state;
@@ -124,7 +126,7 @@ class FormStep3 extends Component {
             isError = 1;
         }
         
-        if (txtCN === '') {
+        if (txtCN === '' || txtCN.trim() === '') {
             jQuery('#txt_card_number').css("cssText", "border: 2px solid red !important");
             jQuery('.txt_card_number_errorMsg').html('This field is required');
             isError = 1;
@@ -300,9 +302,9 @@ class FormStep3 extends Component {
                     <div className="right-box create-campaign d-flex">
                         <div className="create-campaign-l d-flex">
                             <div className="step-process d-flex">
-                                <div className="process-point active completed"><a href=""></a><strong></strong></div>
-                                <div className="process-point active completed"><a href=""></a><strong></strong></div>
-                                <div className="process-point active"><a href=""></a></div>
+                                <div className="process-point active completed"><a href="javascript:void(0)"></a><strong></strong></div>
+                                <div className="process-point active completed"><a href="javascript:void(0)"></a><strong></strong></div>
+                                <div className="process-point active"><a href="javascript:void(0)"></a></div>
                             </div>
                             <div className="step-content d-flex">
                                 <h2>Step 3</h2>

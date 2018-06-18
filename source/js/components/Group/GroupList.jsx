@@ -188,6 +188,11 @@ class GroupList extends Component {
             messagePopupSuccessMsg: null,
             messagePopupErrorMsg: null,
 
+            namewise:'1',
+            datewise:'-1',
+            powerwise:'-1',
+            
+
         };
 
         this.createGroupModal = this.createGroupModalOpen.bind(this);
@@ -232,6 +237,23 @@ class GroupList extends Component {
         this.setState({ activePage: pageNumber });
         const { dispatch } = this.props;
         const { activePage, sort_wise_pagination } = this.state;
+
+        let selected_value;
+    
+        if(sort_wise_pagination.value === 'sort_by_name')
+        {
+            selected_value = 1;
+        }
+        else if(sort_wise_pagination.value === 'sort_by_date')
+        {
+            selected_value = -1;
+        }
+        else if(sort_wise_pagination.value === 'sort_by_power')
+        {
+            selected_value = -1; 
+        }
+
+
         if (pageNumber !== this.state.activePage) {
             if (sort_wise_pagination === '') {
                 let newVar = {
@@ -241,7 +263,8 @@ class GroupList extends Component {
                 dispatch(getGroups(newVar))
             } else {
                 let newVar = {
-                    "sort": [{ "field": sort_wise_pagination.column, "value": parseInt(sort_wise_pagination.value) }],
+                    // "sort": [{ "field": sort_wise_pagination.column, "value": parseInt(sort_wise_pagination.value) }],
+                    "sort": [{ "field": sort_wise_pagination.column, "value": parseInt(selected_value) }],
                     "page_size": 12,
                     "page_no": pageNumber
                 }
@@ -254,12 +277,30 @@ class GroupList extends Component {
         const { dispatch } = this.props;
         const { activePage } = this.state;
         this.setState({ sort_wise_pagination: selectedOption });
+        let selected_value;
+
+        if(selectedOption.value === 'sort_by_name')
+        {
+            selected_value = 1;
+        }
+        else if(selectedOption.value === 'sort_by_date')
+        {
+            selected_value = -1;
+            
+        }
+        else if(selectedOption.value === 'sort_by_power')
+        {
+            selected_value = -1; 
+        }
+        
         let newVar = {
-            "sort": [{ "field": selectedOption.column, "value": parseInt(selectedOption.value) }],
+            // "sort": [{ "field": selectedOption.column, "value": parseInt(selectedOption.value) }],
+            "sort": [{ "field": selectedOption.column, "value": parseInt(selected_value) }],
             "page_size": 12,
             "page_no": 1
         }
         this.setState({ activePage: 1 });
+
         dispatch(getGroups(newVar));
     }
 
@@ -333,7 +374,7 @@ class GroupList extends Component {
                     });
                     this.messagePopupToggle();
 
-                } else if(this.props.dropdownList === null && this.props.loading === false) {
+                } else if(this.props.dropdownList === null && this.props.loading === false && obj.total_member < 1 ) {
                     //alert('You don’t have a campaign yet.')
                     this.setState({
                         messagePopupSuccessMsg: null,
@@ -392,6 +433,7 @@ class GroupList extends Component {
         let { groups, totalGrps, loading, dropdownList ,loading2} = this.props
         const { selectedOption, sort_wise_pagination } = this.state;
 
+        const { namewise,datewise,powerwise} = this.state;
         const value = selectedOption && selectedOption.value;
         if (loading || this.state.load === true)  {
             return (
@@ -417,9 +459,15 @@ class GroupList extends Component {
                                         autosize={false}
                                         placeholder="Sort By Name"
                                         className="dropdown-inr"
+                                        // options={[
+                                        //     { value: '1', label: 'Sort By Name', column: 'name' },
+                                        //     { value: '-1', label: 'Sort By Date', column: 'created_at' },
+                                        //     { value: '-1', label: 'Sort By Power',column: 'social_power' },
+                                        // ]}
                                         options={[
-                                            { value: '1', label: 'Sort By Name', column: 'name' },
-                                            { value: '-1', label: 'Sort By Date', column: 'created_at' },
+                                            { value: 'sort_by_name', label: 'Sort By Name', column: 'name' },
+                                            { value: 'sort_by_date', label: 'Sort By Date', column: 'created_at' },
+                                            { value: 'sort_by_power', label: 'Sort By Power',column: 'social_power' },
                                         ]}
                                     />
                                 )}

@@ -162,16 +162,15 @@ class PurchasedPosts extends Component {
             messagePopupSuccessMsg: null,
             messagePopupErrorMsg: null,
             load:false,
+            isdownload:false,
         }
     }
 
     handlePageChange = (pageNumber) => {
-       
         this.setState({ activePage: pageNumber });
         const { dispatch } = this.props;
         if (pageNumber !== this.state.activePage) {
             dispatch(puchasedPostSend({ "page_size": 8, "page_no": pageNumber }));
-            dispatch(resetDownload());
         }
     }
 
@@ -189,6 +188,10 @@ class PurchasedPosts extends Component {
     downloadPost = (campaignId) => {
         const { dispatch } = this.props;
         dispatch(downloadCampaignImg(campaignId));
+
+        this.setState({
+            isdownload:true
+        })
     }
 
     addCampaign = (obj) => {
@@ -251,8 +254,8 @@ class PurchasedPosts extends Component {
     }
 
     componentDidUpdate() {
-        let { showDrop, userAdded, dispatch, inserted_group, group_status,userAddedMsg } = this.props;
-        let { is_inserted } = this.state;
+        let { showDrop, userAdded, dispatch, inserted_group, group_status,userAddedMsg,filename} = this.props;
+        let { is_inserted,isdownload } = this.state;
         if (showDrop) {
             this.child.toggle();
         }
@@ -280,6 +283,15 @@ class PurchasedPosts extends Component {
             dispatch(resetVal({ 'userAdded': false }));
             dispatch(resetGroupVal());
         }
+
+        if(filename && isdownload === true)
+        {
+            dispatch(resetDownload());
+            this.setState({
+                isdownload:false
+            });
+        }
+
     }
 
     componentWillUnmount() {

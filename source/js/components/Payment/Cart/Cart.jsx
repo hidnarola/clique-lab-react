@@ -6,7 +6,7 @@ import { imgRoutes } from '../../../constants/img_path';
 import { getCheckoutList, removeCartItems } from '../../../actions/Checkout';
 import { resetVal } from '../../../actions/Checkout';
 import trashImg from 'img/site/trash-icon.png';
-import nodataImg from 'img/site/nodata.png';
+import nodataImg from 'img/site/no_data/05.png';
 
 class Cart extends React.Component {
 	constructor(props) {
@@ -63,11 +63,20 @@ class Cart extends React.Component {
 		
 		return (
 			<div>
+				{(carts.status === 1 && (carts.data).length > 0 ) ?
 				<div className="all-people-head">
-					<h3>Total {(carts.status === 1) ? (carts.data).length : 0} products in Cart</h3>
+					{/* <h3>Total {(carts.status === 1 && (carts.data).length > 0 ) ? (carts.data).length : 0} products in Cart</h3> */}
+					<h3>Total {(carts.data).length} products in Cart</h3>
 				</div>
-				{/* <img src={nodataImg} /> */}
-				{carts.data === null ? <div className="no_data_found"></div> :
+				:
+				''
+				}
+				{/* {carts.data === null ? <div className="no_data_found"></div> : */}
+				{carts.data === null ? 
+				<div className="no_data_found">
+                                <img src={nodataImg} />
+                                <p>No product in cart.</p>
+                </div> :
 				<div className="analytics-body content-box">
 					<div className="cart-table">
 						<table className="table">

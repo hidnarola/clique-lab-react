@@ -24,6 +24,12 @@ const validate = values => {
     if (!values.abn || values.abn.trim() === '') {
         errors.abn = 'This field is required';
     }
+    else if (!validator.isNumeric(values.abn)) {
+        errors.abn = 'Must be a whole positive value';
+    }
+    else if (values.abn.length !== 11) {
+        errors.abn = 'Required exact 11 digit';
+    }
     if (!values.country) {
         errors.country = 'This field is required';
     }
@@ -32,10 +38,11 @@ const validate = values => {
 };
  
 const textField = (
-    { input, type, label, placeholder, meta: { touched, error } }
+    { input, type, label, placeholder,isRequired, meta: { touched, error,pristine } }
 ) => (
         <div className={cx('input-wrap', { 'custom-error': (touched && error) ? true : false })}>
-            <label>{label}</label>
+            {/* <label>{label}</label> */}
+            <label>{label} {pristine && isRequired === "true" && <span className="error-div">*</span>}</label>
             <input {...input} placeholder={placeholder} type={type} className={touched && ((error && `txt_error_div`))}/>
             {touched && ((error && <span className="error-div">{error}</span>))}
         </div>
@@ -61,9 +68,9 @@ class FormStep1 extends Component{
                 <div className="right-box create-campaign d-flex checkout">                
                     <div className="create-campaign-l d-flex">
                         <div className="step-process d-flex">
-                            <div className="process-point active"><a href=""></a><strong></strong></div>
-                            <div className="process-point"><a href=""></a><strong></strong></div>
-                            <div className="process-point"><a href=""></a></div>
+                            <div className="process-point active"><a href="javascript:void(0)"></a><strong></strong></div>
+                            <div className="process-point"><a href="javascript:void(0)"></a><strong></strong></div>
+                            <div className="process-point"><a href="javascript:void(0)"></a></div>
                         </div>
                         <div className="step-content d-flex">
                             <h2>Step 1</h2>                            
@@ -73,6 +80,7 @@ class FormStep1 extends Component{
                                 label="Full Name"
                                 component={textField}
                                 placeholder="Full Name"
+                                isRequired="true"
                             />
                             <Field
                                 name="email"
@@ -80,6 +88,7 @@ class FormStep1 extends Component{
                                 label="Email"
                                 component={textField}
                                 placeholder="Email"
+                                isRequired="true"
                             />
                             <Field
                                 name="companyname"
@@ -87,6 +96,7 @@ class FormStep1 extends Component{
                                 label="Company Name"
                                 component={textField}
                                 placeholder="Company Name"
+                                isRequired="true"
                             />
                             <Field
                                 name="abn"
@@ -94,6 +104,7 @@ class FormStep1 extends Component{
                                 label="ABN"
                                 component={textField}
                                 placeholder="ABN"
+                                isRequired="true"
                             />
                             <Field 
                                 className="campaign_form_step2_dropdown "
@@ -104,6 +115,7 @@ class FormStep1 extends Component{
                                 placeholder="Country"
                                 component={SelectField_ReactSelect}
                                 options={countryArr}
+                                isRequired="true"
                             />
                         
                             <div className="submit-btn d-flex">
