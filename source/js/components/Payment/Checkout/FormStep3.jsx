@@ -280,7 +280,7 @@ class FormStep3 extends Component {
                 <div className="card-box-ftr d-flex">
                     <p>Valid<br />Thru</p>
                     <h6>{('0' + obj.exp_month).slice(-2)} / {obj.exp_year}</h6>
-                    <div className="card-box-ftr-r"><img src={cardType[obj.brand]} alt={obj.brand} /></div>
+                    <div className="card-box-ftr-r"><img src={cardType[obj.brand]} alt={obj.brand} style={{"marginTop":"-5px","width":"90%"}}/></div>
                 </div>
             </div>
         )
