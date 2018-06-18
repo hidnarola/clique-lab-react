@@ -24,8 +24,8 @@ const validate = values => {
     if (!values.abn || values.abn.trim() === '') {
         errors.abn = 'This field is required';
     }
-    if (!values.country) {
-        errors.country = 'This field is required';
+    if (!values.country || JSON.stringify(values.country) == "{}") {
+        errors.country = 'This field is required'
     }
     
     return errors;

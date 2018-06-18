@@ -9,9 +9,7 @@ import { renderFieldCampaign, renderFieldDatePicker } from '../../components/For
 import { reset, initialize } from 'redux-form';
 
 const validate = values => {
-
     const errors = {};
-
     if (!values.campaignName || (values.campaignName !== undefined && values.campaignName.trim() == "")) {
         errors.campaignName = 'This field is required';
     } else if(values.campaignName.length > 25){
