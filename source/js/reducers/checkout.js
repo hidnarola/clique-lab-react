@@ -88,6 +88,14 @@ const actionMap = {
             ...initialState,
             loading: false,
             error: null,
+            carts: {
+                data: null,
+                subtotal: 0,
+                gst: 0,
+                total: 0,
+                status: 0,
+                message: error,
+            }
         }));
     },
 
