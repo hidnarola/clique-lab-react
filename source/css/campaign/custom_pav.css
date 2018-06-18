@@ -51,7 +51,7 @@
 .textarea-wrap textarea::placeholder,
 .input-wrap textarea::placeholder,
 .select-wrap .Select-placeholder{
-    color:#908f8f;
+    color:#a2a2a2;
 }
 
 .industry-r .Select .Select-placeholder{ color:#525f7f; font-weight:600 }

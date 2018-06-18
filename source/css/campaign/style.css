@@ -327,9 +327,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#895cf2', end
 .input-wrap-2 i{ height: auto; position: absolute; top:50%; right:14px; text-align: center; line-height: 100%; transform: translateY(-50%);}
 
 .select-wrap select{border:2px solid rgba(82,95,127,.2); padding:18px 20px 17px 20px; line-height:26px; color:rgba(82,95,127,1); font-size:16px; font-weight:500; width:100%; border-radius:2px;}
-.next-btn{margin-left:auto;}
-.prev-btn{ border:2px solid rgba(168,175,191,.5); color:rgba(168,175,191,.5); background:transparent; box-shadow:none;}
-.prev-btn:hover{ color:#fff; background:rgba(168,175,191,.5);}
+.round-btn.next-btn{margin-left:auto; padding: 9px 0; font-weight: 600;}
+.round-btn.prev-btn{ border:2px solid rgba(168,175,191,.5); color:rgba(168,175,191,.5); background:transparent; box-shadow:none; color: #61687a; padding: 9px 0; font-weight: 600;}
+.round-btn.prev-btn:hover{ color:#fff; background:rgba(168,175,191,.5);}
 
 .input-2 input{width:63%;}
 .input-2 select{width:30%; margin-left:auto;}
