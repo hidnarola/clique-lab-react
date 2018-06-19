@@ -304,7 +304,7 @@ class FormStep3 extends Component {
                             <div className="step-process d-flex">
                                 <div className="process-point active completed"><a href="javascript:void(0)"></a><strong></strong></div>
                                 <div className="process-point active completed"><a href="javascript:void(0)"></a><strong></strong></div>
-                                <div className="process-point active"><a href="javascript:void(0)"></a></div>
+                                <div className="process-point active current"><a href="javascript:void(0)"></a></div>
                             </div>
                             <div className="step-content d-flex">
                                 <h2>Step 3</h2>
@@ -335,7 +335,7 @@ class FormStep3 extends Component {
 
                                 <div className="submit-btn d-flex">
                                     <button type="button" onClick={previousPage} className="round-btn prev-btn">Previous</button>
-                                    <button type="submit" className="round-btn next-btn">Pay</button>
+                                    <button type="submit" className="round-btn next-btn btn_checkout_pay">Pay</button>
                                 </div>
                             </div>
                         </div>

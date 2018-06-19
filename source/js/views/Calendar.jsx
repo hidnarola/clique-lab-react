@@ -10,6 +10,7 @@ import {
 } from 'reactstrap';
 import _ from 'lodash';
 import ReactSelect from 'react-select';
+import { routeCodes } from '../constants/routes';
 import moment from 'moment';
 import fbImg from 'img/site/facebook-01.png';
 import linkedImg from 'img/site/linkedin.png';
@@ -255,7 +256,7 @@ class Calendar extends Component {
                                 <label className="days">7 days</label>
                             </p>
                             <p>
-                                <a className="cursor_pointer btn_add_user">Add user to campaign</a>
+                                <a className="cursor_pointer btn_add_user" onClick={() => this.props.history.push(routeCodes.EVERYDAYPEOPLE)}>Add user to campaign</a>
                             </p>
                         </div>
                     </ModalBody>

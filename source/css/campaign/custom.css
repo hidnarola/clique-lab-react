@@ -265,7 +265,7 @@ ul { padding: 0; }
 .Select-input input{ border:0; padding:0;}
 .everypeole-head .Select-control {border: 2px solid rgba(82, 95, 127, .5) !important;}
 .everypeole-head .Select-control .Select-placeholder{line-height: 16px; }
-.everypeole-head .Select-control .Select-value-label{    vertical-align: top; line-height: 14px !important;}
+.everypeole-head .Select-control .Select-value-label{    vertical-align: top; line-height: 15px !important;}
 
 .more-cancel-btn{ border:0; padding: 10px;  line-height: 16px; min-width: 110px; text-align: center; font-size: 14px; color: #6772e5; border-radius: 2px; background: #fff; color:#525f7f; font-weight:600;}
 .login_page .form-content {height:480px;    margin-bottom:60px;} 

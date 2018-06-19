@@ -108,7 +108,9 @@ class AddToModal extends Component {
         return (
             <div>
                 <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} onClosed={this.props.resetDropVal} id="congratulations">
-                    <ModalHeader toggle={this.toggle}></ModalHeader>
+                    <div className="custom_modal_btn_close" style={{ padding: "25px 30px" }}>
+                        <img className="cursor_pointer" src={closeImg2} onClick={() => this.toggle()} />
+                    </div>
                     <ModalBody>
                         <div className="terms-conditions">
                             <h2>Which Campaign/Group would you like to Offer the Selected People ? </h2>

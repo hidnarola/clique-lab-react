@@ -55,7 +55,7 @@ class FormStep2 extends Component{
                     <div className="create-campaign-l d-flex">
                         <div className="step-process d-flex">
                             <div className="process-point active completed"><a href="javascript:void(0)"></a><strong></strong></div>
-                            <div className="process-point active"><a href="javascript:void(0)"></a><strong></strong></div>
+                            <div className="process-point active current"><a href="javascript:void(0)"></a><strong></strong></div>
                             <div className="process-point"><a href="javascript:void(0)"></a></div>
                         </div>
                         <div className="step-content d-flex">
