@@ -61,7 +61,7 @@ const actionMap = {
         return state.merge(Map({
             ...initialState,
             loading: true,
-            error: null
+            error: null,
         }));
     },
     [GET_CHECKOUT_LIST_SUCCESS]: (state, action) => {
