@@ -40,14 +40,14 @@ class OrderDetails extends Component {
     renderTr = (obj) => {
         return (
             <tr key={Math.random()}>
-                <td><img src={`${imgRoutes.CAMPAIGN_POST_IMG_PATH}${obj.applied_post.image}`} alt="" style={{"width":"60px"}} /></td>
-                <td>
-                    <h3>I love the way this Jacket <br />Looks @Streetwear ...</h3>
-                    <h4>John Doe</h4>
-                    <h4>Facebook</h4>
+                <td><img src={`${imgRoutes.CAMPAIGN_POST_IMG_PATH}${obj.applied_post.image}`} alt="" style={{"width":"100px"}} /></td>
+                <td style={{verticalAlign:"top"}}>
+                    <h3>{obj.applied_post.desription.substring(0,55)+'...'}</h3>
+                    <h4>{obj.user.name}</h4>
+                    <h4>{(obj.campaign.social_media_platform.charAt(0).toUpperCase() + obj.campaign.social_media_platform.slice(1))}</h4>
                 </td>
                 <td>${(obj.campaign.price).toFixed(2)}</td>
-                <td> <a href="javascript:void(0)" onClick={() => this.removeCart(obj._id)}><img src={trashImg} alt="Delete" style={{"width": "15px","margin-top": "-5px"}}/></a> </td>
+                <td> <a href="javascript:void(0)" onClick={() => this.removeCart(obj._id)}><img src={trashImg} alt="Delete" style={{"width": "15px","marginTop": "-5px"}}/></a> </td>
             </tr>
         );
     }
