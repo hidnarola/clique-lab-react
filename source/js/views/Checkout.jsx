@@ -97,6 +97,7 @@ class Checkout extends Component {
     render() {
         const { page } = this.state;
         const { carts } = this.props;
+    
         return (
             <div>
                 <div>
@@ -117,8 +118,9 @@ class Checkout extends Component {
                                 </div>
                             </ModalFooter>
                         </Modal>
-                    </div>
+                    </div>   
                 </div>
+                }
             </div>
         )
     }

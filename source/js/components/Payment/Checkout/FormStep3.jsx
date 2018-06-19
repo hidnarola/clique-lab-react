@@ -56,6 +56,7 @@ class FormStep3 extends Component {
             txtCVVedit: '',
 
             isRender: 0,
+            disabled:''
         }
         this.addCreditCardModal = this.addCreditCardModalOpen.bind(this);
     }
@@ -78,6 +79,9 @@ class FormStep3 extends Component {
                 this.addCreditCardModaltoggle();
                 dispatch(getCardList());
                 this.setState({ isRender: 0 });
+                this.setState({
+                    disabled:''
+                })
             }
     
             if (deleteCards.status === 1) {
@@ -151,7 +155,10 @@ class FormStep3 extends Component {
                 'cvv': txtCVV
             }
             dispatch(addCard(data));
-            this.setState({ isRender:1 });            
+            this.setState({
+                disabled:'disabled'
+            })
+            this.setState({ isRender:1 });           
         }
     }
     onChange = (element, value) => {
@@ -307,7 +314,7 @@ class FormStep3 extends Component {
                                 <div className="process-point active current"><a href="javascript:void(0)"></a></div>
                             </div>
                             <div className="step-content d-flex">
-                                <h2>Step 3</h2>
+                                <h2 style={{"font-weight":"600"}}>Step 3</h2>
                                 <div className="wallet-card">
                                     {
                                         (cards.loading === true) ?
@@ -377,7 +384,8 @@ class FormStep3 extends Component {
                                                 (selectedYear, selectedMonth) =>
                                                     this.onChange('txt_card_date', selectedMonth + '/' + selectedYear)
                                             }
-                                            closeOnSelect={true}
+                                            closeOnSelect={true} 
+                                            
                                         />
                                         <span className="txt_card_date_errorMsg" style={{ "color": "red" }}></span>
                                     </div>
@@ -389,7 +397,7 @@ class FormStep3 extends Component {
                                 </div>
                                 <div className="error_div"></div>
                                 <div className="submit-btn">
-                                    <button type="button" className="round-btn" onClick={() => this.submitCreditCard()}>Authorise</button>
+                                    <button type="button" className="round-btn" onClick={() => this.submitCreditCard()} disabled={this.state.disabled}>Authorise</button>
                                 </div>
                             </form>
                         </div>

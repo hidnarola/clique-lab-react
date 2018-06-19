@@ -25,6 +25,7 @@ class OrderDetails extends Component {
     removeCart = (item_id) => {
         const { dispatch } = this.props;
         dispatch(removeCartItems(item_id));
+        this.setState({ listAfterDel : true }); // dm
     }
 
     componentDidUpdate() {
@@ -33,8 +34,9 @@ class OrderDetails extends Component {
         if (removeItems.status === 1 && listAfterDel === true) {
             this.setState({ listAfterDel: false });
             dispatch(getCheckoutList());
+            dispatch(resetVal({'removeCart': false})); // dm
         }
-        dispatch(resetVal({ 'userAdded': false }));
+        // dispatch(resetVal({ 'userAdded': false }));
     }
 
     renderTr = (obj) => {
