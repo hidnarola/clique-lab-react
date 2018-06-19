@@ -70,7 +70,7 @@
         font-size: 13px;
         font-weight: 600;
     }
-    .cart-table table.table tbody tr td{ font-size: 14px; }
+    .cart-table table.table tbody tr td{ font-size: 14px; font-weight:600 }
     .add_credit_card_popup .modal-body{ padding: 10px 60px 40px !important; }
     .popup_modal_form{ text-align: left; padding:10px 25px; }
     .popup_modal_form .input-wrap label{ font-weight: 600; }
@@ -346,3 +346,8 @@ tr.order_cart td img {margin-top:-10px}
 .checkout-r .cart-table table.table tbody td h3 {
     max-width: 150px;
 }
+.cart-table table.table tbody tr td:nth-child(6){ padding-right:0;text-align: right;}
+
+.btn_checkout_pay.round-btn{ margin-left:10px;}
+.round-btn.next-btn.btn_checkout_continue{ margin-left:0;}
+.cart-table table.table tbody tr td:nth-child(6) img{ max-width:16px;} 

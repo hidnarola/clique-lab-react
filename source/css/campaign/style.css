@@ -26,7 +26,7 @@ a{color:#6772e5;}
 .full-width{width:100%; max-width:1658px; margin:0 auto;}
 .container.small-container {max-width:1230px; width:100%; margin:0 auto;}
 
-.round-btn{background:#6772e5; border:2px solid #6772e5; color:#fff; font-size:16px; letter-spacing:0.01em; padding:13px 10px; line-height:20px;  border-radius:80px; min-width:160px; box-shadow:0 20px 30px 0 rgba(103,114,229,.2); font-weight:500; transition:ease-in-out .5s;}
+.round-btn{background:#6772e5; border:2px solid #6772e5; color:#fff; font-size:16px; letter-spacing:0.01em; padding:13px 10px; line-height:20px;  border-radius:80px; min-width:146px; box-shadow:0 20px 30px 0 rgba(103,114,229,.2); font-weight:500; transition:ease-in-out .5s;}
 .round-btn:hover{background:#fff; color:#6782e5;}
 .dropdown-menu a:hover,
 .dropdown-menu a:focus{background:transparent;color:#6772e5; text-decoration:none;}
@@ -167,7 +167,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#895cf2', end
 .navigation-div ul li a:hover i,
 .navigation-div ul li.active a i{ background-position:0 -20px;}
 
-.right-hdr{display:block; padding:0 0 22px; border-bottom:1px solid #c8cfda; margin:0 0 40px;}
+.right-hdr{display:block; padding:0 0 17px; border-bottom:1px solid #c8cfda; margin:0 0 27px;}
 .right-hdr h2{ margin:0; padding:0; font-weight:300; font-size:30px; color:#525f7f; line-height:50px;}
 .right-hdr h2 strong{ line-height:50px; font-weight:500;}
 .right-hdr-r{margin-left:auto; align-items:center; display:-ms-flex; display:-webkit-flex; display:flex;}
@@ -347,7 +347,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#895cf2', end
 #congratulations .modal-header{ border-bottom:none !important; }
 #congratulations.modal-dialog{ max-width:760px !important; }
 
-.everypeole-head{ padding:0 0 32px; margin:0 0 32px; border-bottom:1px solid rgba(82,95,127,.2);}
+.everypeole-head{ padding:0 0 27px; margin:0 0 27px; border-bottom:1px solid rgba(82,95,127,.2);}
 .everypeole-head-l ul{margin:0; padding:0; list-style:none;    display:inline-block; vertical-align: top;}
 .everypeole-head-l ul li{display:inline-block; vertical-align:top; margin:0 10px 0 0;}
 .everypeole-head-l ul li a{ border:2px solid rgba(82,95,127,.5); border-radius:2px; padding:10px 16px; line-height:20px; font-size:16px; color:#525f7f; font-weight:500; display:block;}
@@ -632,7 +632,7 @@ ul.fan-festival li:nth-child(2n+2){margin-left:auto;}
 .festival-body {margin:0 0 20px;}
 .festival-body h2{ font-size:18px; color:#525f7f; font-size:18px; line-height:normal; font-weight:500; display:block;}
 .festival-body h2 a{color:#6772e5;}
-.festival-ftr-l{margin:5px 0 0;}
+.festival-ftr-l{margin: 0;}
 .festival-ftr-l a{display:block;}
 .festival-ftr-l a:hover{text-decoration:none;}
 .festival-ftr-l a i{display:inline-block; vertical-align:top; }
@@ -640,7 +640,7 @@ ul.fan-festival li:nth-child(2n+2){margin-left:auto;}
 .festival-ftr-l a strong{font-size:16px; color:#525f7f; font-weight:600; line-height:28px; margin-left:10px;}
 .festival-ftr-r{margin-left:auto;}
 .festival-ftr-r a{display:block;}
-.festival-ftr-r a img{ width:38px; height:38px; border-radius:80px; box-shadow:0 10px 24px 0 rgba(0,0,0,.1);}
+.festival-ftr-r a img{ width:28px; height:28px; border-radius:80px; box-shadow:0 10px 24px 0 rgba(0,0,0,.1);}
 
 .festival-ftr-r  .dropdown-menu{right:0; left:auto !important; transform:translate(0) !important; bottom: 100% !important; top: auto !important; margin:0 0 20px; padding:15px 30px;}
 .festival-ftr-r .dropdown-menu:after {position: absolute; top:auto; left:auto; bottom: -20px; right: 0px; -webkit-transform: rotate(-180deg); -moz-transform: rotate(-180deg); transform: rotate(-180deg);}
@@ -701,19 +701,19 @@ label.pink-color{ color: #f783c3; margin-bottom:0px !important }
 .cart-table table.table tbody td h4{margin:0; padding:0; color:#525f7f; font-size:14px; font-weight:500;}
 .cart-table table.table tbody td h4 + h4{ margin-left:10px; padding-left:10px; border-left:2px solid #525f7f;}
 .cart-table table.table thead th,
-.cart-table table.table tbody td{vertical-align:middle;}
+.cart-table table.table tbody td{vertical-align:initial;}
 .cart-table table.table thead th + th,
 .cart-table table.table tbody td + td{ padding-left:15px;}
 .cart-table>table.table>tfoot>tr>td{text-align:right; background:rgba(79,105,157,.02); border:0; padding:52px 20px 44px 20px;}
 .cart-table .subtotal { width: 248px;margin-right: 0px;display: inline-block;vertical-align: top;}
 .cart-table .subtotal table{background-color:transparent !important; }
-.cart-table .subtotal table thead th{width:50%; padding:13px 30px; font-size:16px; color:#525f7f; font-weight:500; line-height:normal; border:0; text-align:left; border:0;}
+.cart-table .subtotal table thead th{width:50%; padding:10px 10px; font-size:16px; color:#525f7f; font-weight:500; line-height:normal; border:0; text-align:left; border:0;}
 .cart-table .subtotal table thead th:first-child{ text-align:right;}
 .cart-table .subtotal table tbody td{width:50%; padding:32px 30px 40px; font-size:16px; color:#525f7f; font-weight:500; line-height:normal; border:0; border-top:3px solid #f4f4f6; text-align:left;}
 .cart-table .subtotal table tbody td:last-child{color:#6772e5;}
 .cart-table .subtotal table tbody td:first-child{text-align:right;}
 .cart-table .subtotal table tfoot td{border:0; padding:0 10px;}
-.cart-table .subtotal table tfoot .round-btn{width:230px; display:block; text-align:center;}
+.cart-table .subtotal table tfoot .round-btn{width:200px; display:block; text-align:center; float:right}
 .cart-table .subtotal table tfoot .round-btn:hover{text-decoration:none;}
 .checkout-r{margin-left:auto; width:44%;}
 .checkout{padding:125px 45px; }
@@ -742,3 +742,6 @@ label.pink-color{ color: #f783c3; margin-bottom:0px !important }
 .sort-date-btn .Select-placeholder{ padding: 0 24px 0 0 !important; }
 .sort-date-btn .Select-multi-value-wrapper .Select-value + div,
 .sort-date-btn .Select-multi-value-wrapper .Select-placeholder + div{ width:0 !important;}
+
+.cart-table .subtotal table.table thead th + th, 
+.cart-table .subtotal table.table tbody td + td{ padding-left:25px; }

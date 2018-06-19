@@ -41,7 +41,7 @@ const textField = (
         <div className={cx('input-wrap', { 'custom-error': (touched && error) ? true : false })}>
             {/* <label>{label}</label> */}
             <label>{label} {pristine && isRequired === "true" && <span className="error-div">*</span>}</label>
-            <input {...input} placeholder={placeholder} type={type} className={touched && ((error && `txt_error_div`))} />
+            <input {...input} placeholder={placeholder} type={type} className={touched && ((error && `txt_error_div`))} autoComplete="off"/>
             {touched && ((error && <span className="error-div">{error}</span>))}
         </div>
     )
@@ -66,7 +66,7 @@ class FormStep1 extends Component {
                 <div className="right-box create-campaign d-flex checkout">
                     <div className="create-campaign-l d-flex">
                         <div className="step-process d-flex">
-                            <div className="process-point active"><a href="javascript:void(0)"></a><strong></strong></div>
+                            <div className="process-point active current"><a href="javascript:void(0)"></a><strong></strong></div>
                             <div className="process-point"><a href="javascript:void(0)"></a><strong></strong></div>
                             <div className="process-point"><a href="javascript:void(0)"></a></div>
                         </div>
@@ -118,7 +118,7 @@ class FormStep1 extends Component {
 
                             <div className="submit-btn d-flex">
                                 {/* <button type="submit" className="round-btn prev-btn">Previews</button> */}
-                                <button type="submit" className="round-btn next-btn">Next</button>
+                                <button type="submit" className="round-btn next-btn btn_checkout_continue">Continue</button>
                             </div>
                         </div>
                     </div>

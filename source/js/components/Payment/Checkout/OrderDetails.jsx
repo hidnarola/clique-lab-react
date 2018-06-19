@@ -49,7 +49,7 @@ class OrderDetails extends Component {
                     {/* <h4>John Doe</h4> */}
                     <h4>{obj.user.name}</h4>
                     {/* <h4>Facebook</h4> */}
-                    <h4>{obj.campaign.social_media_platform}</h4>
+                    <h4>{obj.campaign.social_media_platform.charAt(0).toUpperCase() + obj.campaign.social_media_platform.slice(1)}</h4>
                 </td>
                 <td>${(obj.campaign.price).toFixed(2)}</td>
                 <td> <a href="javascript:void(0)" onClick={() => this.removeCart(obj._id)}><img src={trashImg} alt="Delete" style={{"width": "15px","margin-top": "-5px"}}/></a> </td>
