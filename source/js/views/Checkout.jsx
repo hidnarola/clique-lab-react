@@ -95,9 +95,11 @@ class Checkout extends Component {
     render() {
         const { page } = this.state;
         const { carts } = this.props;
+    
         return (
             <div>
-                <div> 
+                {(carts.data === null) ? this.props.history.push(routeCodes.MY_CART) : 
+                <div>  
                     {page === 1  && <FormStep1 onSubmit={this.nextPage} countryList={this.props.country} />}
                     {page === 2  && <FormStep2 onSubmit={this.nextPage} previousPage={this.previousPage} />}
                     {page === 3  && <FormStep3 onSubmit={this.submitForm} previousPage={this.previousPage} />}
@@ -115,8 +117,9 @@ class Checkout extends Component {
                                 </div>
                             </ModalFooter>
                         </Modal>
-                    </div>
+                    </div>   
                 </div>
+                }
             </div>
         )
     }

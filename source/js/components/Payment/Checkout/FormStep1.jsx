@@ -24,9 +24,9 @@ const validate = values => {
     if (!values.abn || values.abn.trim() === '') {
         errors.abn = 'This field is required';
     } else if (!validator.isNumeric(values.abn)) {
-        errors.abn = 'Must be a whole positive value';
+        errors.abn = 'Please enter valid ABN';
     } else if (values.abn.length !== 11) {
-        errors.abn = 'Required exact 11 digit';
+        errors.abn = 'Required 11 digit';
     }
     if (!values.country || JSON.stringify(values.country) == "{}") {
         errors.country = 'This field is required'
@@ -71,7 +71,7 @@ class FormStep1 extends Component {
                             <div className="process-point"><a href="javascript:void(0)"></a></div>
                         </div>
                         <div className="step-content d-flex">
-                            <h2>Step 1</h2>
+                            <h2 style={{"font-weight":"600"}}>Step 1</h2>
                             <Field
                                 name="fullname"
                                 type="text"

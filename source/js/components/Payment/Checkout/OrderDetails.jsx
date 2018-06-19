@@ -25,6 +25,7 @@ class OrderDetails extends Component {
     removeCart = (item_id) => {
         const { dispatch } = this.props;
         dispatch(removeCartItems(item_id));
+        this.setState({ listAfterDel : true }); // dm
     }
 
     componentDidUpdate() {
@@ -33,18 +34,22 @@ class OrderDetails extends Component {
         if (removeItems.status === 1 && listAfterDel === true) {
             this.setState({ listAfterDel: false });
             dispatch(getCheckoutList());
+            dispatch(resetVal({'removeCart': false})); // dm
         }
-        dispatch(resetVal({ 'userAdded': false }));
+        // dispatch(resetVal({ 'userAdded': false }));
     }
 
     renderTr = (obj) => {
         return (
-            <tr key={Math.random()}>
+            <tr key={Math.random()} className="order_cart">
                 <td><img src={`${imgRoutes.CAMPAIGN_POST_IMG_PATH}${obj.applied_post.image}`} alt="" style={{"width":"60px"}} /></td>
                 <td>
-                    <h3>I love the way this Jacket <br />Looks @Streetwear ...</h3>
-                    <h4>John Doe</h4>
-                    <h4>Facebook</h4>
+                    {/* <h3>I love the way this Jacket <br />Looks @Streetwear ...</h3> */}
+                    <h3>{(obj.applied_post.desription).substring(0,40) + '...'}</h3>
+                    {/* <h4>John Doe</h4> */}
+                    <h4>{obj.user.name}</h4>
+                    {/* <h4>Facebook</h4> */}
+                    <h4>{obj.campaign.social_media_platform}</h4>
                 </td>
                 <td>${(obj.campaign.price).toFixed(2)}</td>
                 <td> <a href="javascript:void(0)" onClick={() => this.removeCart(obj._id)}><img src={trashImg} alt="Delete" style={{"width": "15px","margin-top": "-5px"}}/></a> </td>
