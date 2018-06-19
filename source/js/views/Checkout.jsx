@@ -19,12 +19,14 @@ class Checkout extends Component {
         super(props);
         this.state = {
             page : 1,
-            modal: false
+            modal: false,
+            isRender: 0
         }
         this.toggle = this.toggle.bind(this);
         this.nextPage = this.nextPage.bind(this);
         this.previousPage = this.previousPage.bind(this);
         this.submitForm = this.submitForm.bind(this);
+        
     }
 
     toggle() {
@@ -36,9 +38,6 @@ class Checkout extends Component {
     }
 
     submitForm(values){
-        //console.log(values);
-        //return;
-
         const { dispatch } = this.props;
         let data = {
             "name"          : values.fullname,
@@ -53,28 +52,38 @@ class Checkout extends Component {
             "credit_card"   : 'card_1AmK1vFryXXeEhDyOzO0c2qc',
         }
         dispatch(cartPaymentReq(data));
-
-        // this.setState({
-        //     modal : true
-        // })
     }
 
     nextPage(){ this.setState({ page : this.state.page + 1 }); }
     previousPage(){ this.setState({ page : this.state.page - 1 }); }
     componentWillMount(){
         const { dispatch } = this.props;
+        dispatch(getCheckoutList());
         dispatch(country());
-        //dispatch(getCheckoutList());
+        this.setState({
+            isRender: 1
+        })
     }
     
     componentDidUpdate(){
-        const { payment } = this.props;
-        const { modal } = this.state;
-        if(payment.status===1 && modal===false){
-            this.setState({ modal : true });
-        }else{
-            // Else Part
+        const { payment, carts } = this.props;
+        const { modal, isRender } = this.state;
+        if(isRender==1){
+            if(payment.status===1 && modal===false){
+                this.setState({ 
+                    modal : true, 
+                    isRender: 0
+                });
+            }
+            if(carts.data === null){
+                console.log(carts);
+                //this.props.history.push(routeCodes.MY_CART);
+                this.setState({
+                    isRender: 0
+                });
+            }
         }
+        
     }
 
     componentWillUnmount(){
@@ -88,7 +97,6 @@ class Checkout extends Component {
         const { carts } = this.props;
         return (
             <div>
-                {carts.data === null ? this.props.history.push(routeCodes.MY_CART) :
                 <div> 
                     {page === 1  && <FormStep1 onSubmit={this.nextPage} countryList={this.props.country} />}
                     {page === 2  && <FormStep2 onSubmit={this.nextPage} previousPage={this.previousPage} />}
@@ -108,9 +116,7 @@ class Checkout extends Component {
                             </ModalFooter>
                         </Modal>
                     </div>
-                    
                 </div>
-                }
             </div>
         )
     }

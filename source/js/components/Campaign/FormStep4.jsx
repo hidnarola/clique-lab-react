@@ -29,7 +29,6 @@ const validate = values => {
     }
     else {
         if ((values.images).length > 0 || (values.images).length === 0) {
-            console.log('file>>>', values.images);
             if (values.images.length > 0) {
                 let file_type = values.images[0].type;
                 let extensions = ["image/jpeg", "image/png", "image/jpg"];

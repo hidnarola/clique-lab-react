@@ -14,7 +14,6 @@ import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-au
 const validate = values => {
 
     const errors = {};
-    console.log(values);
     if (!values.media_format || (values.media_format!==undefined && values.media_format.value=="") || Object.keys(values.media_format).length===0) {
         errors.media_format = 'This field is required';
     }
