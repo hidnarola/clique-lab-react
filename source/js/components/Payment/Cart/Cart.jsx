@@ -6,7 +6,7 @@ import { imgRoutes } from '../../../constants/img_path';
 import { getCheckoutList, removeCartItems } from '../../../actions/Checkout';
 import { resetVal } from '../../../actions/Checkout';
 import trashImg from 'img/site/trash-icon.png';
-import nodataImg from 'img/site/no_data/05.png';
+import nodataImg from 'img/site/no_data/08.png';
 
 class Cart extends React.Component {
 	constructor(props) {

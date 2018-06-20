@@ -120,7 +120,6 @@ class Checkout extends Component {
                         </Modal>
                     </div>   
                 </div>
-                }
             </div>
         )
     }
