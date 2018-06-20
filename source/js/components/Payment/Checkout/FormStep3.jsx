@@ -384,8 +384,7 @@ class FormStep3 extends Component {
                                                 (selectedYear, selectedMonth) =>
                                                     this.onChange('txt_card_date', selectedMonth + '/' + selectedYear)
                                             }
-                                            closeOnSelect={true} 
-                                            
+                                            closeOnSelect={true}
                                         />
                                         <span className="txt_card_date_errorMsg" style={{ "color": "red" }}></span>
                                     </div>

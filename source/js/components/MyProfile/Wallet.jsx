@@ -585,8 +585,7 @@ class Wallet extends Component {
                                             }}
                                             value={new Date()}
                                             onChange={
-                                                (selectedYear, selectedMonth) =>
-                                                    this.onChange('txt_card_date', selectedMonth + '/' + selectedYear)
+                                                (selectedYear, selectedMonth) => this.onChange('txt_card_date', selectedMonth + '/' + selectedYear)
                                             }
                                             closeOnSelect={true}
                                         />
