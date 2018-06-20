@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import { Link } from 'react-router-dom';
+import { Link,Redirect } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { routeCodes } from 'constants/routes';
@@ -63,10 +63,20 @@ class Checkout extends Component {
             isRender: 1
         })
     }
-    componentWillUnmount() {
-        const { dispatch } = this.props;
-        dispatch(initialize('wizardCheckout', {}))
-    }
+    
+    // componentWillReceiveProps(prevProps) {
+    //     //console.log('Did Mounted',this.props);
+    //     //console.log('Did Mounted',prevProps);
+    //     // if(this.props.carts.data !== null && this.props.location.pathname !== '/checkout')
+    //     if(this.props.location.pathname === '/checkout' && prevProps.carts.data === null)
+    //     {
+    //         // return(
+    //         //     <Redirect to='/cart' />
+    //         // )
+    //         console.log('Must redirect...');
+    //     }
+    // }
+
     componentDidUpdate() {
         const { payment, carts } = this.props;
         const { modal, isRender } = this.state;
@@ -91,13 +101,12 @@ class Checkout extends Component {
     componentWillUnmount() {
         const { dispatch } = this.props;
         dispatch(reset('wizardCheckout'));
-        //dispatch(stopAsyncValidation(wizardCheckout, { clear: true }));
     }
 
     render() {
         const { page } = this.state;
         const { carts } = this.props;
-
+        
         return (
             <div>
                 <div>
