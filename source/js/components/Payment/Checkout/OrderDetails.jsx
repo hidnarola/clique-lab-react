@@ -65,7 +65,7 @@ class OrderDetails extends Component {
                                 <th colSpan="4">Your order</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody style={{"height":"18em","overflowY":"auto","width": "100%","display": "block"}} className="custom_scrollbar">
                             {(carts.status === 1) ? carts.data.map((obj, index) => (this.renderTr(obj))) : <tr><td colSpan="6"></td></tr>}
                         </tbody>
                         <tfoot>

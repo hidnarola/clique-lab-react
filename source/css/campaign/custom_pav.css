@@ -130,7 +130,7 @@ html, body, .loader, .loader>div, .login-register-bg, .login-register-box.login_
     body::-webkit-scrollbar-track { box-shadow: inset 0 0 6px rgba(0,0,0,0.3); }
     body::-webkit-scrollbar-thumb { background-color: #6772e5; outline: 1px solid #6772e5; }*/
 
-    .custom_scrollbar::-webkit-scrollbar { width: 0.1em; }
+    .custom_scrollbar::-webkit-scrollbar { width: 0.2em; }
     .custom_scrollbar::-webkit-scrollbar-track { box-shadow: inset 0 0 6px rgba(0,0,0,0.3); }
     .custom_scrollbar::-webkit-scrollbar-thumb { background-color: #6772e5; outline: 1px solid #6772e5; }
 
