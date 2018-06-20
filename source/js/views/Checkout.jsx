@@ -98,11 +98,11 @@ class Checkout extends Component {
         return (
             <div>
                 <div>
-                    {/* {page === 1 && <FormStep1 onSubmit={this.nextPage} countryList={this.props.country} />}
+                    {page === 1 && <FormStep1 onSubmit={this.nextPage} countryList={this.props.country} />}
                     {page === 2 && <FormStep2 onSubmit={this.nextPage} previousPage={this.previousPage} />}
-                    {page === 3 && <FormStep3 onSubmit={this.submitForm} previousPage={this.previousPage} />} */}
+                    {page === 3 && <FormStep3 onSubmit={this.submitForm} previousPage={this.previousPage} />}
 
-                    <FormStep3 onSubmit={this.submitForm} previousPage={this.previousPage} />
+                    {/* <FormStep3 onSubmit={this.submitForm} previousPage={this.previousPage} /> */}
                     <div>
                         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} id="congratulations" style={{ width: "550px" }}>
                             <div className="custom_modal_btn_close" style={{ padding: "15px 20px" }}></div>

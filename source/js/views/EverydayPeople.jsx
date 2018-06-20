@@ -15,6 +15,7 @@ import twitterImg from 'img/site/twitter.png';
 import instaImg from 'img/site/instagram.png';
 import nodataImg2 from 'img/site/no_data/04.png';
 import nodataImg from 'img/site/no_data/05.png';
+import noUserImg from 'img/site/no_data/no_user.png';
 
 import downarrowImg from 'img/site/down-arrow-1.png';
 import { Redirect, withRouter } from 'react-router';
@@ -345,7 +346,7 @@ const AgeDropDown = (props) => {
 }
 
 const MoreFilterDropDown = (props) => {
-    
+
     let jobIndustryArr = []; let jobTitleArr = [];
     let yearInIndustryArr = []; let educationArr = [];
     let languageArr = []; let ethnicityArr = [];
@@ -638,7 +639,7 @@ const MoreFilterDropDown = (props) => {
         </DropdownMenu>
     </Dropdown>
     )
-    jQuery('.MoreFilterLi.stats_filter_li4 .dropdown-menu').css('width',jQuery('.right-panel').width()+'px !important');
+    jQuery('.MoreFilterLi.stats_filter_li4 .dropdown-menu').css('width', jQuery('.right-panel').width() + 'px !important');
 }
 
 class EverydayPeople extends Component {
@@ -998,7 +999,7 @@ class EverydayPeople extends Component {
     renderLi = (obj) => {
         let img = '';
         if (obj.is_image == 0) {
-            img = obj.image;
+            img = noUserImg;
         } else {
             img = imgRoutes.USER_IMG_PATH + obj.image;
         }
@@ -1064,13 +1065,13 @@ class EverydayPeople extends Component {
                                 <i><img src={mediaImg[obj.social_media_platform]} alt="" /></i>
                                 {/* <strong>0</strong> */}
                                 <strong>
-                                {
-                                    obj.social_media_platform === 'facebook' ? obj.facebook.no_of_friends :
-                                    obj.social_media_platform === 'linkedin' ? obj.linkedin.no_of_friends :
-                                    obj.social_media_platform === 'instagram' ? obj.instagram.no_of_friends :
-                                    obj.social_media_platform === 'pinterest' ? obj.pinterest.no_of_friends :
-                                    obj.social_media_platform === 'twitter' ? obj.twitter.no_of_friends : ''
-                                }
+                                    {
+                                        obj.social_media_platform === 'facebook' ? obj.facebook.no_of_friends :
+                                            obj.social_media_platform === 'linkedin' ? obj.linkedin.no_of_friends :
+                                                obj.social_media_platform === 'instagram' ? obj.instagram.no_of_friends :
+                                                    obj.social_media_platform === 'pinterest' ? obj.pinterest.no_of_friends :
+                                                        obj.social_media_platform === 'twitter' ? obj.twitter.no_of_friends : ''
+                                    }
                                 </strong>
                             </a>
                         </div>
@@ -1100,7 +1101,7 @@ class EverydayPeople extends Component {
         };
         let img = '';
         if (obj.is_image == 0) {
-            img = obj.image;
+            img = noUserImg;
         } else {
             img = imgRoutes.CAMPAIGN_INSPIRED_IMG_PATH + obj.image;
         }
@@ -1133,13 +1134,13 @@ class EverydayPeople extends Component {
                                     <i><img src={mediaImg[obj.social_media_platform]} alt="" /></i>
                                     {/* <strong>0</strong> */}
                                     <strong>
-                                    {
-                                        obj.social_media_platform === 'facebook' ? obj.users.facebook.no_of_friends :
-                                        obj.social_media_platform === 'linkedin' ? obj.users.linkedin.no_of_friends :
-                                        obj.social_media_platform === 'instagram' ? obj.users.instagram.no_of_friends :
-                                        obj.social_media_platform === 'pinterest' ? obj.users.pinterest.no_of_friends :
-                                        obj.social_media_platform === 'twitter' ? obj.users.twitter.no_of_friends : ''
-                                    }
+                                        {
+                                            obj.social_media_platform === 'facebook' ? obj.users.facebook.no_of_friends :
+                                                obj.social_media_platform === 'linkedin' ? obj.users.linkedin.no_of_friends :
+                                                    obj.social_media_platform === 'instagram' ? obj.users.instagram.no_of_friends :
+                                                        obj.social_media_platform === 'pinterest' ? obj.users.pinterest.no_of_friends :
+                                                            obj.social_media_platform === 'twitter' ? obj.users.twitter.no_of_friends : ''
+                                        }
                                     </strong>
                                 </a>
                             </div>
@@ -1733,7 +1734,7 @@ class EverydayPeople extends Component {
                                     : ''
                                 :
                                 <ul>
-                                    <li style={{"minWidth":"140px"}}>
+                                    <li style={{ "minWidth": "140px" }}>
                                         <ReactSelect
                                             name="form-field-name"
                                             className='dropdown-inr'
@@ -1783,33 +1784,36 @@ class EverydayPeople extends Component {
                     (loading || this.state.load === true) ?
                         <div className="loader" style={{ "zIndex": "999999999" }}></div>
                         :
+
                         <div className="all-people">
-                            <div className="all-people-head d-flex">
-                                <h3>
+                            {(match.path !== routeCodes.CAMPAIGN_INSPIRED_SUB) &&
+                                <div className="all-people-head d-flex">
+                                    <h3>
+                                        {
+                                            (match.path !== routeCodes.CAMPAIGN_INSPIRED_SUB) ?
+                                                ((users.total !== undefined && filter_size === 0)) ?
+                                                    `All ( ${users.total} Results )`
+                                                    : [
+                                                        (users.total !== undefined && filter_size > 0) ?
+                                                            `Filtered List ( ${users.total} Results )`
+                                                            : ''
+                                                    ]
+                                                :
+                                                null
+                                        }
+                                    </h3>
                                     {
-                                        (match.path !== routeCodes.CAMPAIGN_INSPIRED_SUB) ?
-                                            ((users.total !== undefined && filter_size === 0)) ?
-                                                `All ( ${users.total} Results )`
-                                                : [
-                                                    (users.total !== undefined && filter_size > 0) ?
-                                                        `Filtered List ( ${users.total} Results )`
-                                                        : ''
-                                                ]
-                                            :
-                                            null
-                                    }
-                                </h3>
-                                {
-                                    (this.state.isAgeFilterApply === true || this.state.isMoreFilterApply === true || this.state.isLocationFilterApply === true) ?
-                                        ((match.params.campaignId === null || match.params.campaignId === undefined) && match.path !== routeCodes.CAMPAIGN_INSPIRED_SUB && users.status === 1) ?
-                                            <a className="cursor_pointer" onClick={this.toggle}>
-                                                <i className="fa fa-plus"></i>
-                                                Save the results as a Group
+                                        (this.state.isAgeFilterApply === true || this.state.isMoreFilterApply === true || this.state.isLocationFilterApply === true) ?
+                                            ((match.params.campaignId === null || match.params.campaignId === undefined) && match.path !== routeCodes.CAMPAIGN_INSPIRED_SUB && users.status === 1) ?
+                                                <a className="cursor_pointer" onClick={this.toggle}>
+                                                    <i className="fa fa-plus"></i>
+                                                    Save the results as a Group
                                         </a>
+                                                : null
                                             : null
-                                        : null
-                                }
-                            </div>
+                                    }
+                                </div>
+                            }
                             {
                                 (match.params.campaignId !== null && match.params.campaignId !== undefined) ?
                                     <ul className="fan-festival d-flex">

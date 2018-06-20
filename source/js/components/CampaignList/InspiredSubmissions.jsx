@@ -9,6 +9,7 @@ import pinImg from 'img/site/pintrest.png';
 import twitterImg from 'img/site/twitter.png';
 import instaImg from 'img/site/instagram.png';
 import imgPlus from 'img/site/plus-01.png';
+import noCampaignImg from 'img/site/no_data/no_campaign.png';
 
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem ,UncontrolledDropdown } from 'reactstrap';
 

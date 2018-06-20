@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getActiveCampaign, stopCampaign } from '../../actions/campaign';
 import fakeImg from 'img/site/people-01.jpg';
-import { withRouter } from 'react-router'
+import { withRouter } from 'react-router';
+import noCampaignImg from 'img/site/no_data/no_campaign.png';
 import nodataImg from 'img/site/no_data/05.png';
 import plusImg from 'img/site/plus-01.png';
 import PropTypes from 'prop-types';
@@ -80,14 +81,17 @@ class Active extends Component {
                 Lisitng of Active Campagin
     **********************************************/
         activeListing(obj){
+            let img = '';
+            if (obj.is_image == 0) {
+                img = noCampaignImg;
+            } else {
+                img = imgRoutes.CAMPAIGN_IMG_PATH+'/'+obj.cover_image;
+            }
             return (
                 <li key={Math.random()}>
                     <div className="all-people-div">
                         <div className="all-people-img">
-                        <div className="cursor_pointer" onClick={() => this.props.history.push(`${routeCodes.CAMPAIGN_ACTIVE}/${obj._id}`)} style={{ "background": "url('" + imgRoutes.CAMPAIGN_IMG_PATH+'/'+obj.cover_image + "') no-repeat 100%", "backgroundSize": "100%", "height": "190px" }}></div>
-                            {/* <Link className="cursor_pointer" to={`${routeCodes.CAMPAIGN_ACTIVE}/${obj._id}`}>
-                                <img src={`${imgRoutes.CAMPAIGN_IMG_PATH}${obj.cover_image}`} alt="" className="campaign_list_img" />
-                            </Link> */}
+                        <div className="cursor_pointer" onClick={() => this.props.history.push(`${routeCodes.CAMPAIGN_ACTIVE}/${obj._id}`)} style={{ "background": "url('" + img + "') no-repeat 100%", "backgroundSize": "100%", "height": "190px" }}></div>
                             <PlusAction showDeleteAlert={this.showDeleteAlert} selectedId={obj._id}/>
                         </div>
                         <div className="all-people-content">

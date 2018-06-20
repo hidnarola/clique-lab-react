@@ -655,7 +655,7 @@ ul.fan-festival li:nth-child(2n+2){margin-left:auto;}
 
 .h-view .fan-festival-box{padding:0;}
 .fan-festival-r{ margin-left:auto; padding:88px 45px 45px; width:50%;}
-ul.fan-festival.h-view>li{width:100%; padding-bottom:25px;}
+ul.fan-festival.h-view>li{width:100%; padding-bottom:25px; display:block !important;}
 ul.fan-festival.h-view .festival-img {margin: 0;width: 50%;}
 ul.fan-festival.h-view .festival-head {margin:0 0 38px;}
 ul.fan-festival.h-view .festival-body {margin:0 0 50px;}
