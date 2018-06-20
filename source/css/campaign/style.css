@@ -343,7 +343,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#895cf2', end
 
 #congratulations .modal-dialog{max-width:680  px;}
 #congratulations .modal-body{width:100%; border:0; padding:10px 80px 40px;}
-#congratulations .modal-content{ border:none !important; }
+#congratulations .modal-content{ border:none !important; border-radius:0.6rem }
 #congratulations .modal-header{ border-bottom:none !important; }
 #congratulations.modal-dialog{ max-width:760px !important; }
 

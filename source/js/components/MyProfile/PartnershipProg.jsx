@@ -89,7 +89,7 @@ class PartnerShipProg extends Component {
                 </div>
                 <div className='input-wrap'>
                     <label>Invite User</label>
-                    <input type="text" placeholder={`https://www.cliquelabs.com/?referal+id=` + userSession._id} value={`https://www.cliquelabs.com/?referal+id=` + userSession._id} readOnly="readonly" />
+                    <input type="text" placeholder={location.protocol + '//' + location.host + `?referal+id=` + userSession._id} value={location.protocol + '//' + location.host + `?referal+id=` + userSession._id} readOnly="readonly" />
                 </div>
                 <div className="partner-state">
                     <h3>State</h3>

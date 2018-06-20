@@ -42,10 +42,10 @@ class OrderDetails extends Component {
     renderTr = (obj) => {
         return (
             <tr key={Math.random()}>
-                <td><img src={`${imgRoutes.CAMPAIGN_POST_IMG_PATH}${obj.applied_post.image}`} alt="" style={{"width":"100px"}} /></td>
+                <td><img src={`${imgRoutes.CAMPAIGN_POST_IMG_PATH}${obj.applied_post.image}`} alt="" style={{"width":"60px"}} /></td>
                 <td style={{verticalAlign:"top"}}>
-                    <h3>{obj.applied_post.desription.substring(0,55)+'...'}</h3>
-                    <h4>{obj.user.name}</h4>
+                    <h3>{obj.applied_post.desription.substring(0,40)+'...'}</h3>
+                    <h4>{obj.user.name.substring(0,9)}</h4>
                     <h4>{(obj.campaign.social_media_platform.charAt(0).toUpperCase() + obj.campaign.social_media_platform.slice(1))}</h4>
                 </td>
                 <td>${(obj.campaign.price).toFixed(2)}</td>
