@@ -347,7 +347,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#895cf2', end
 #congratulations .modal-header{ border-bottom:none !important; }
 #congratulations.modal-dialog{ max-width:760px !important; }
 
-.everypeole-head{ padding:0 0 27px; margin:0 0 27px; border-bottom:1px solid rgba(82,95,127,.2);}
+.everypeole-head{ padding:0 0 27px; margin:0 0 27px; border-bottom:1px solid rgba(82,95,127,.2); position: relative;}
 .everypeole-head-l ul{margin:0; padding:0; list-style:none;    display:inline-block; vertical-align: top;}
 .everypeole-head-l ul li{display:inline-block; vertical-align:top; margin:0 10px 0 0;}
 .everypeole-head-l ul li a{ border:2px solid rgba(82,95,127,.5); border-radius:2px; padding:10px 16px; line-height:20px; font-size:16px; color:#525f7f; font-weight:500; display:block;}
@@ -521,7 +521,14 @@ ul.all-people-ul li{ width:33.33%; padding:15px;}
 .card-box-head i{width:14px; height:14px; border-radius:90px; display:block; border-radius:90px; margin:4px 0; background:#6772e5;}
 .card-box-head i.light-bg{background:#9393a3;}
 .card-box-head-r{margin-left:auto;}
-.card-box-head-r a{text-decoration:none; margin:0 0 0 8px;}
+.card-box-head-r a{text-decoration:none; margin:0 0 0 8px;     width: 20px; height: 22px; display: inline-block; vertical-align: middle;}
+.card-box-head-r a img{ display:none;}
+.card-box-head-r a:first-child{background:url(../assets/img/site/edit-icon.png) no-repeat 0 50%; }
+.card-box-head-r a:first-child:hover{background:url(../assets/img/site/edit-hover.png) no-repeat 0 50%; }
+
+.card-box-head-r a + a {background:url(../assets/img/site/delete-icon.png) no-repeat 0 50%; }
+.card-box-head-r a + a:hover{background:url(../assets/img/site/delete-hover.png) no-repeat 0 50%; }
+
 .wallet-balance{margin:0 0 45px;}
 .card-box-body{display:block; margin:0 0 12px;}
 .card-box-body h4{display:block; margin:0 0 5px; padding:0; font-size:18px; color:#525f7f; font-weight:600;}
@@ -615,7 +622,7 @@ a.fill-btn:hover{ background:transparent; color:#6772e5; text-decoration:none;}
 a.fill-btn-44{ line-height:40px;}
 
 ul.fan-festival{display:block; margin:0; padding:0; list-style:none; flex-wrap:wrap;}
-ul.fan-festival>li{ width:calc(50% - 15px); padding:0 0 30px;}
+ul.fan-festival>li{ width:calc(50% - 15px); padding:0 0 30px; display:-ms-flexbox!important; display:-webkit-box!important; display:flex!important; }
 ul.fan-festival li:nth-child(2n+2){margin-left:auto;}
 .fan-festival-box{ background:#fff; box-shadow:0 4px 24px 0 rgba(0,0,0,.1); border-radius:4px; padding:30px;}
 .festival-head{margin:0 0 15px;}
@@ -648,7 +655,7 @@ ul.fan-festival li:nth-child(2n+2){margin-left:auto;}
 
 .h-view .fan-festival-box{padding:0;}
 .fan-festival-r{ margin-left:auto; padding:88px 45px 45px; width:50%;}
-ul.fan-festival.h-view>li{width:100%; padding-bottom:25px;}
+ul.fan-festival.h-view>li{width:100%; padding-bottom:25px; display:block !important;}
 ul.fan-festival.h-view .festival-img {margin: 0;width: 50%;}
 ul.fan-festival.h-view .festival-head {margin:0 0 38px;}
 ul.fan-festival.h-view .festival-body {margin:0 0 50px;}
@@ -716,7 +723,7 @@ label.pink-color{ color: #f783c3; margin-bottom:0px !important }
 .cart-table .subtotal table tfoot .round-btn{width:200px; display:block; text-align:center; float:right}
 .cart-table .subtotal table tfoot .round-btn:hover{text-decoration:none;}
 .checkout-r{margin-left:auto; width:44%;}
-.checkout{padding:125px 45px; }
+.checkout{padding:105px 45px; }
 .checkout-r .cart-table table.table tbody td:first-child a img{width:50px; height:50px;}
 .checkout-r .cart-table table.table tbody td h3{ font-size:14px; margin:0 0 10px;}
 .checkout-r .cart-table table.table tbody td h4{ font-size:13px; display:inline-block; vertical-align: top;}
@@ -745,3 +752,6 @@ label.pink-color{ color: #f783c3; margin-bottom:0px !important }
 
 .cart-table .subtotal table.table thead th + th, 
 .cart-table .subtotal table.table tbody td + td{ padding-left:25px; }
+
+#txt_card_date{background-color:#fff; background-image: url(../assets/img/site/down-arrow-1.png); background-position:94% 50%; background-repeat:no-repeat;  background-size:12px auto;  display:block;  }
+

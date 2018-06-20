@@ -16,7 +16,6 @@ class CampaignList extends Component {
 
     render() {
 		let curt_page  = this.props.history.location.pathname;
-		console.log('path>>',this.props);
         return (
             <div className="profile-page">
 				<div className="profile-head d-flex campaigns-links">

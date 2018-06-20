@@ -4,7 +4,7 @@ import { Link,Redirect } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { routeCodes } from 'constants/routes';
-import { cartPaymentReq, getCheckoutList } from '../actions/Checkout';
+import { cartPaymentReq, getCheckoutList, resetVal } from '../actions/Checkout';
 import { country } from '../actions/register';
 
 import FormStep1 from '../components/Payment/Checkout/FormStep1';
@@ -50,6 +50,7 @@ class Checkout extends Component {
             "post_code": values.post_code,
             "credit_card": values.txt_card_id,
         }
+        this.setState({ isRender: 1 });
         dispatch(cartPaymentReq(data));
     }
 
@@ -59,9 +60,7 @@ class Checkout extends Component {
         const { dispatch } = this.props;
         dispatch(getCheckoutList());
         dispatch(country());
-        this.setState({
-            isRender: 1
-        })
+        this.setState({ isRender: 1 })
     }
     
     // componentWillReceiveProps(prevProps) {
@@ -78,10 +77,10 @@ class Checkout extends Component {
     // }
 
     componentDidUpdate() {
-        const { payment, carts } = this.props;
+        const { payment, carts, dispatch } = this.props;
         const { modal, isRender } = this.state;
         if (isRender == 1) {
-            if (payment.status === 1 && modal === false) {
+            if (payment.status === 1 && modal === false) {  
                 this.setState({
                     modal: true,
                     isRender: 0
@@ -90,9 +89,7 @@ class Checkout extends Component {
             if (carts.data === null) {
                 console.log(carts);
                 //this.props.history.push(routeCodes.MY_CART);
-                this.setState({
-                    isRender: 0
-                });
+                this.setState({ isRender: 0 });
             }
         }
 

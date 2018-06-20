@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import fakeImg from 'img/site/people-01.jpg';
+import noCampaignImg from 'img/site/no_data/no_campaign.png';
 import nodataImg from 'img/site/no_data/05.png';
 import trashImg from 'img/site/trash-icon.png';
 import downloadImg from 'img/site/download-icon.png';
@@ -29,7 +30,12 @@ class Past extends Component {
     }
 
     pastListing(obj){
-        let img = imgRoutes.CAMPAIGN_IMG_PATH + obj.cover_image;
+        let img = '';
+        if (obj.is_image == 0) {
+            img = noCampaignImg;
+        } else {
+            img = imgRoutes.CAMPAIGN_IMG_PATH+'/'+obj.cover_image;
+        }
         return (
             <li key={Math.random()}>
                 <div className="all-people-div">

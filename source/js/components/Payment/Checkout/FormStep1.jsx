@@ -71,7 +71,7 @@ class FormStep1 extends Component {
                             <div className="process-point"><a href="javascript:void(0)"></a></div>
                         </div>
                         <div className="step-content d-flex">
-                            <h2 style={{"font-weight":"600"}}>Step 1</h2>
+                            <h2 style={{"fontWeight":"600"}}>Step 1</h2>
                             <Field
                                 name="fullname"
                                 type="text"

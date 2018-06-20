@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import fakeImg from 'img/site/people-01.jpg';
 import nodataImg from 'img/site/no_data/05.png';
 import trashImg from 'img/site/trash-icon.png';
+import noCampaignImg from 'img/site/no_data/no_campaign.png';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem ,UncontrolledDropdown } from 'reactstrap';
 import { withRouter } from 'react-router';
 import { getFutureCampaign, deleteCampaign, resetVal } from '../../actions/campaign';
@@ -65,7 +66,12 @@ class Future extends Component {
         //month = (month<10) ? '0'+month : month;
         // let date = day+' '+monthNames[month]+'-'+year;
         let date = day+' '+monthNames[month]+' '+year;
-        let img = imgRoutes.CAMPAIGN_IMG_PATH + obj.cover_image;
+        let img = '';
+        if (obj.is_image == 0) {
+            img = noCampaignImg;
+        } else {
+            img = imgRoutes.CAMPAIGN_IMG_PATH+'/'+obj.cover_image;
+        }
         return (
             <li key={Math.random()}>
                 <div className="all-people-div">
