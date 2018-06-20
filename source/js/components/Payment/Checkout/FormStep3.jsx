@@ -306,7 +306,7 @@ class FormStep3 extends Component {
         return (
             <div>
                 <form onSubmit={handleSubmit}>
-                    <div className="right-box create-campaign d-flex">
+                    <div className="right-box create-campaign d-flex checkout">
                         <div className="create-campaign-l d-flex">
                             <div className="step-process d-flex">
                                 <div className="process-point active completed"><a href="javascript:void(0)"></a><strong></strong></div>
