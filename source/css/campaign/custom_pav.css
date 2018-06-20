@@ -1,5 +1,6 @@
-html, body, .loader, .loader>div, .login-register-bg, .login-register-box.login_page  { height:100%;}
-.login_page .form-content {    height: calc(100% - 251px); margin:0;}
+html, body, .loader, .loader>div, .login-register-bg, .login-register-box.login_page, .login-register-box.forgot_pass_page  { height:100%;}
+.login_page .form-content,
+.forgot_pass_page .form-content {    height: calc(100% - 251px); margin:0;}
 
 .campaign_form_step2_dropdown .Select-control > .Select-arrow-zone{top: 50%; right: 15px;}
 .campaign_form_step2_dropdown .Select-control{ border: 2px solid rgb(220, 223, 229) !important; }
