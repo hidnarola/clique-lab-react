@@ -62,6 +62,7 @@ class Wallet extends Component {
             txtBSBedit: '',
 
             isRender: 0,
+            disabled:'',
         }
         this.addCreditCardModal = this.addCreditCardModalOpen.bind(this);
         this.addBankModal = this.addBankModalOpen.bind(this);
@@ -81,10 +82,11 @@ class Wallet extends Component {
                 error_msg = '<ul><li>' + addCards.error + '</li></ul>';
                 jQuery('.error_div').html(error_msg);
                 jQuery('.error_div').css({ display: "block" });
+                this.setState({ disabled: '' });
             } else if (addCards.status === 1) {
                 this.addCreditCardModaltoggle();
                 dispatch(getCardList());
-                this.setState({ isRender: 0 });
+                this.setState({ isRender: 0,disabled:''});
             }
 
             if (deleteCards.status === 1) {
@@ -172,7 +174,7 @@ class Wallet extends Component {
                 'cvv': txtCVV
             }
             dispatch(addCard(data));
-            this.setState({ isRender: 1 });
+            this.setState({ isRender: 1,disabled:'disabled', });
         }
     }
     onChange = (element, value) => {
@@ -600,7 +602,7 @@ class Wallet extends Component {
                                 </div>
                                 <div className="error_div"></div>
                                 <div className="submit-btn">
-                                    <button type="button" className="round-btn" onClick={() => this.submitCreditCard()}>Authorise</button>
+                                    <button type="button" className="round-btn" onClick={() => this.submitCreditCard()} disabled={this.state.disabled}>Authorise</button>
                                 </div>
                             </form>
                         </div>

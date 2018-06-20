@@ -11,7 +11,7 @@ import FormStep1 from '../components/Payment/Checkout/FormStep1';
 import FormStep2 from '../components/Payment/Checkout/FormStep2';
 import FormStep3 from '../components/Payment/Checkout/FormStep3';
 
-import { reset, stopAsyncValidation } from 'redux-form';
+import { reset, stopAsyncValidation,stopSubmit } from 'redux-form';
 
 class Checkout extends Component {
 
@@ -98,6 +98,15 @@ class Checkout extends Component {
     componentWillUnmount() {
         const { dispatch } = this.props;
         dispatch(reset('wizardCheckout'));
+        //dispatch(actions.errors({}))
+        // dispatch(stopAsyncValidation('wizardCheckout', { clear: true }));
+
+        // dispatch({type: "@@redux-form/UPDATE_SYNC_ERRORS", meta: {form
+        //     :"wizardCheckout"}, payload:{error:undefined,syncErrors:{}}});
+
+        // dispatch(stopSubmit('wizardCheckout', {}));
+        //dispatch(actions.setErrors('createControl.createForm.form', null));
+        
     }
 
     render() {

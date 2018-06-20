@@ -75,11 +75,12 @@ class FormStep3 extends Component {
                 error_msg = '<ul><li>' + addCards.error + '</li></ul>';
                 jQuery('.error_div').html(error_msg);
                 jQuery('.error_div').css({ display: "block" });
+                this.setState({ disabled: '' });
             } else if (addCards.status === 1) {
                 this.addCreditCardModaltoggle();
                 dispatch(getCardList());
-                this.setState({ isRender: 0 });
-                this.setState({
+                this.setState({ 
+                    isRender: 0,
                     disabled:''
                 })
             }
@@ -156,9 +157,9 @@ class FormStep3 extends Component {
             }
             dispatch(addCard(data));
             this.setState({
-                disabled:'disabled'
-            })
-            this.setState({ isRender:1 });           
+                disabled:'disabled',
+                isRender:1 
+            });           
         }
     }
     onChange = (element, value) => {

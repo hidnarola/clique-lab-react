@@ -12,7 +12,7 @@
     import { connect } from 'react-redux';
     import { createCampaign } from '../actions/campaign';
     import { routeCodes } from '../constants/routes';
-    import { reset, initialize, untouch } from 'redux-form';
+    import { reset, initialize, untouch} from 'redux-form';
     import closeImg from 'img/site/close-2.png';
 
     class Campaign extends Component {
@@ -55,7 +55,7 @@
             const { dispatch } = this.props;
             // this.props.dispatch(untouch('wizardCampaign','call_to_action'));
             dispatch(initialize('wizardCampaign', {}))
-            
+
             // dispatch(reset('wizardCampaign'));
         }
 
