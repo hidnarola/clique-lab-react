@@ -97,7 +97,7 @@ class Checkout extends Component {
     render() {
         const { page } = this.state;
         const { carts } = this.props;
-    
+
         return (
             <div>
                 <div>
@@ -107,18 +107,17 @@ class Checkout extends Component {
 
                     {/* <FormStep3 onSubmit={this.submitForm} previousPage={this.previousPage} /> */}
                     <div>
-                        <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
-                            <ModalHeader toggle={this.toggle}>Payment Done</ModalHeader>
-                            <ModalBody>Thank you for your payment! Your order has been successfully placed.</ModalBody>
-                            <ModalFooter>
-                                <div className="submit-btn d-flex">
-                                    <Link to={routeCodes.CAMPAIGN_PURCHASED_POSTS}>
-                                        <button type="button" className="round-btn next-btn">Purchased Posts</button>
-                                    </Link>
+                        <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} id="congratulations" style={{ width: "550px" }}>
+                            <div className="custom_modal_btn_close" style={{ padding: "15px 20px" }}></div>
+                            <ModalBody>
+                                <div className="terms-conditions">
+                                    <h2>Payment Done</h2>
+                                    <p>Thank you for your payment! Your order has been successfully placed.</p>
+                                    <a href="javascript:void(0)" className="round-btn" onClick={() => this.props.history.push(routeCodes.CAMPAIGN_PURCHASED_POSTS)}>Purchased Posts</a>
                                 </div>
-                            </ModalFooter>
+                            </ModalBody>
                         </Modal>
-                    </div>   
+                    </div>
                 </div>
             </div>
         )

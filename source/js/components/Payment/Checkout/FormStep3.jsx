@@ -104,10 +104,10 @@ class FormStep3 extends Component {
     }
     
     // Add Credit Card
-    addCreditCardModalOpen() {
+    addCreditCardModalOpen = () => {
         this.setState({ addCreditCardModalShow: !this.state.addCreditCardModalShow });
     }
-    addCreditCardModaltoggle() {
+    addCreditCardModaltoggle = () => {
         const { dispatch } = this.props;
         this.setState({ addCreditCardModalShow: !this.state.addCreditCardModalShow });
         this.setState({
