@@ -1079,7 +1079,8 @@ class EverydayPeople extends Component {
                             <PlusAction2
                                 addToCart={() => { this.addToCart(obj.campaign_id, obj.applied_post_id) }}
                                 addGroup={() => { this.addGroup(obj) }}
-                                modifyStatusPurchase={() => { this.modifyStatusPurchase(obj.campaign_id, obj.user_id) }}
+                                // modifyStatusPurchase={() => { this.modifyStatusPurchase(obj.campaign_id, obj.user_id) }}
+                                modifyStatusPurchase={() => { this.modifyStatusPurchase(obj.campaign_id, obj.applied_post_id) }}
                             />
                         </div>
                     </div>
@@ -1148,6 +1149,7 @@ class EverydayPeople extends Component {
                                 <PlusAction2
                                     addToCart={() => { this.addToCart(obj._id, obj.users._id, 'inspired_submission') }}
                                     addGroup={() => { this.addGroup(obj) }}
+                                    modifyStatusPurchase={() => { this.modifyStatusPurchase(obj._id, obj.users._id) }}
                                 />
                             </div>
                         </div>
@@ -1346,12 +1348,12 @@ class EverydayPeople extends Component {
             this.saveResult(param1, param2, param3, param4, param5);
         }
 
-        if (modifyStatusPurchase) {
-            this.setState({ modifyStatusPurchase: false });
-            this.props.history.push(routeCodes.MY_CART);
-        }
+        // if (modifyStatusPurchase === true) {
+        //     this.setState({ modifyStatusPurchase: false });
+        //     this.props.history.push(routeCodes.MY_CART);
+        // }
 
-        if (userAdded === true && error === false) {
+        if (userAdded === true && error === false ) {
             this.setState({
                 messagePopupSuccessMsg: userAddedMsg,
                 messagePopupErrorMsg: null,
@@ -1360,6 +1362,12 @@ class EverydayPeople extends Component {
             this.messagePopupToggle();
             dispatch(resetVal({ 'userAdded': false, 'userAddedMsg': null, 'error': null }));
             dispatch(resetGroupVal());
+
+            if (modifyStatusPurchase === true) {
+                this.setState({ modifyStatusPurchase: false });
+                this.props.history.push(routeCodes.MY_CART);
+            }
+
         } else if (userAdded === false && error === true) {
             this.setState({
                 messagePopupSuccessMsg: null,
