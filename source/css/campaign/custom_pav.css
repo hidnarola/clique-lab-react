@@ -71,10 +71,12 @@ html, body, .loader, .loader>div, .login-register-bg, .login-register-box.login_
                             Checkout
 ***************************************************************/                        
     .cart-table table.table thead th{
-        font-size: 13px;
+        font-size: 0.8em;
         font-weight: 600;
+        white-space: nowrap;
     }
-    .cart-table table.table tbody tr td{ font-size: 13px; font-weight:600 }
+    .cart-table table.table tbody tr td{ font-size: 0.8em; font-weight:600 }
+    .cart-table table.table tbody tr td img{ width: 102px; }
     .add_credit_card_popup .modal-body{ padding: 10px 60px 40px !important; }
     .popup_modal_form{ text-align: left; padding:10px 25px; }
     .popup_modal_form .input-wrap label{ font-weight: 600; }
