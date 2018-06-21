@@ -76,16 +76,15 @@ class Wallet extends Component {
     componentDidUpdate = () => {
         const { handleSubmit, previousPage, cards, addCards, editCards, deleteCards, dispatch, addBank, deleteBank, bank } = this.props;
         const { txtCHN, txtCN, txtCD, txtCVV, txtCHNedit, txtCNedit, txtCDedit, txtCVVedit, isRender } = this.state;
-        if (isRender == 1) {
-            if (addCards.status === 0 && addCards.error != null) {
+        if (isRender === 1) {
+            if (addCards.status === 0 && addCards.error !== null) {
                 let error_msg = '';
                 error_msg = '<ul><li>' + addCards.error + '</li></ul>';
                 jQuery('.error_div').html(error_msg);
                 jQuery('.error_div').css({ display: "block" });
-                this.setState({ isRender: 0, disabled: '' });
             } else if (addCards.status === 1) {
                 this.addCreditCardModaltoggle();
-                this.setState({ isRender: 0, disabled: '' });
+                this.setState({ isRender: 0 });
                 dispatch(getCardList());
             }
 
@@ -142,7 +141,7 @@ class Wallet extends Component {
     }
     submitCreditCard = () => {
         const { dispatch } = this.props;
-        const { txtCHN, txtCN, txtCD, txtCVV, disabled } = this.state;
+        const { txtCHN, txtCN, txtCD, txtCVV } = this.state;
         let isError = 0;
         if (txtCHN === '') {
             jQuery('#txt_card_holder_name').css("cssText", "border: 2px solid red !important");
@@ -173,8 +172,8 @@ class Wallet extends Component {
                 'expiry_year': (txtCD.split('/')[0]).toString().slice(2),
                 'cvv': txtCVV
             }
-            this.setState({ isRender: 1, disabled: 'disabled' });
             dispatch(addCard(data));
+            this.setState({ isRender: 1 });
         }
     }
     onChange = (element, value) => {
@@ -601,7 +600,7 @@ class Wallet extends Component {
                                 </div>
                                 <div className="error_div"></div>
                                 <div className="submit-btn">
-                                    <button type="button" className="round-btn" onClick={() => this.submitCreditCard()} disabled={this.state.disabled}>Authorise</button>
+                                    <button type="button" className="round-btn" onClick={() => this.submitCreditCard()}>Authorise</button>
                                 </div>
                             </form>
                         </div>
