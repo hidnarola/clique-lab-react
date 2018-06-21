@@ -69,13 +69,14 @@ class FormStep3 extends Component {
     componentDidUpdate = () => {
         const { handleSubmit, previousPage, cards, addCards, editCards, deleteCards, dispatch } = this.props;
         const { txtCHN, txtCN, txtCD, txtCVV, txtCHNedit, txtCNedit, txtCDedit, txtCVVedit, isRender } = this.state;
-        if(isRender==1){
-            if (addCards.status === 0 && addCards.error != null) {
+        
+        if(isRender === 1){
+            if (addCards.status === 0 && addCards.error !== null) {
                 let error_msg = '';
                 error_msg = '<ul><li>' + addCards.error + '</li></ul>';
                 jQuery('.error_div').html(error_msg);
                 jQuery('.error_div').css({ display: "block" });
-                this.setState({ disabled: '' });
+                this.setState({ isRender: 0,disabled:''});
             } else if (addCards.status === 1) {
                 this.addCreditCardModaltoggle();
                 dispatch(getCardList());
