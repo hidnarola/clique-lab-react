@@ -21,6 +21,7 @@ class Cart extends React.Component {
 		this.setState({listAfterDel:true})
 		dispatch(getCheckoutList());
 	}
+	
 
 	removeCart = (item_id) => {
 		const { dispatch } = this.props;
