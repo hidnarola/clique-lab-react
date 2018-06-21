@@ -28,9 +28,7 @@ class Calendar extends Component {
             platform: 'all',
             calendarView: 'oneMonth',
             autoViewRender: false,
-            campaignDetails: [
-               
-            ]
+            campaignDetails: []
         }
         this.toggle = this.toggle.bind(this);
     }
@@ -72,6 +70,9 @@ class Calendar extends Component {
             });
             this.setState({ getCampaign: 1 });
             this.setState({ events: eventsArr });
+        } else if(getCampaign === 0 && campaign_data.status === 0 && campaign_data.message != null){
+            this.setState({ getCampaign: 1 });
+            this.setState({ events: '' });
         }
 
     }
@@ -148,18 +149,18 @@ class Calendar extends Component {
                                     clearable={false}
                                     autosize={false}
                                     placeholder="View by by Month"
-                                    className="dropdown-inr"
+                                    className="dropdown-inr calendar_sorting"
                                     options={[
-                                        { value: 'oneMonth', label: 'View by by Month' },
-                                        { value: 'quarter', label: 'View by by Quarter' },
-                                        { value: 'year', label: 'View by by Year' },
+                                        { value: 'oneMonth', label: 'View by' + '\xa0\xa0' + 'by Month' },
+                                        { value: 'quarter', label: 'View by' + '\xa0\xa0' + 'by Quarter' },
+                                        { value: 'year', label: 'View by' + '\xa0\xa0' + 'by Year' },
                                     ]}
                                 />
                             </li>
                         </ul>
                     </div>
                 </div>
-                
+
                 <FullCalendar
                     id="custom_calendar"
                     header={{
@@ -193,64 +194,30 @@ class Calendar extends Component {
                         }
                     }}
                     viewRender={
-                        // (view, element) => {
-                        //     this.viewRenderFunc(view.intervalStart.format(), view.intervalEnd.format());
-                        // }
                         function (view, element) {
-                            console.log(element);
-                            console.log('classname', element[0].className);
-                            console.log(view);
-                            //this.viewRenderFunc(view.intervalStart.format(), view.intervalEnd.format());
-                            console.log("The view's title is " + view.intervalStart.format());
-                            // console.log("The view's title is " + view.intervalEnd.format());
+                            // console.log(element);
+                            // console.log('classname', element[0].className);
+                            // console.log(view);
+                            // console.log("The view's title is " + view.intervalStart.format());
                         }
                     }
-                    // selectable={true}
-                    // selectHelper={true}
-                    // eventRender={
-                    //     function (event, element) {
-                    //         element.popover({
-                    //             animation: true,
-                    //             delay: 300,
-                    //             content: '<b>Inicio</b>:' + event.start + "<b>Fin</b>:" + event.end,
-                    //             trigger: 'hover'
-                    //         });
-                    //     }
-                    // }
-                // eventRender= {
-                //     function(event, element){
-                //         element.qtip({
-                //             // animation:true,
-                //             // delay: 300,
-                //             content: 'Campaign Name',
-                //             // trigger: 'hover'
-                //         });
-                //     }
-                // }
-                //defaultView= "week"
-                eventClick={
-                    (calEvent, jsEvent, view) => {
+                    eventClick={
+                        (calEvent, jsEvent, view) => {
                             console.log(calEvent);
-                            // <Popover
-                            //     id={calEvent.id}
-                            //     placement="right"
-                            //     positionLeft={200}
-                            //     positionTop={50}
-                            //     title="Popover right"
-                            // >
-                            //     And here's some <strong>amazing</strong> content. It's very engaging. right?
-                            // </Popover>
-                            this.setState({modal: true})
+                            let campDetails = {
+                                'name' : calEvent.title
+                            }
+                            this.setState({ 
+                                campaignDetails: campDetails,
+                                modal: true 
+                            })
+                        }
                     }
-                }
                 />
                 <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} id="eventPopover_modal">
-                    {/* <div class="custom_modal_btn_close">
-                        <img className="cursor_pointer" src={closeImg2} onClick={() => this.toggle()} />
-                    </div> */}
                     <ModalBody>
                         <div className="contents">
-                            <h2>Campaign name would be displayed here</h2>
+                            <h2>{this.state.campaignDetails.name}</h2>
                             <p>
                                 <label className="platform">Facebook</label>
                                 <label className="days">7 days</label>
@@ -261,12 +228,6 @@ class Calendar extends Component {
                         </div>
                     </ModalBody>
                 </Modal>
-                {/* {
-                    (events.length > 0) &&
-                    this.state.events.map((data, i) => {
-                        return <PopoverItem key={i} item={data} id={i} />;
-                    })
-                } */}
             </div>
         )
     }
