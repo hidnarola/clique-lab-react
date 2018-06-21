@@ -58,9 +58,11 @@ class Checkout extends Component {
     previousPage() { this.setState({ page: this.state.page - 1 }); }
     componentWillMount() {
         const { dispatch } = this.props;
+        
         dispatch(getCheckoutList());
-        dispatch(country());
         this.setState({ isRender: 1 })
+        dispatch(country());
+        
     }
     
     // componentWillReceiveProps(prevProps) {
@@ -86,10 +88,11 @@ class Checkout extends Component {
                     isRender: 0
                 });
             }
-            if (carts.data === null) {
-                console.log(carts);
-                //this.props.history.push(routeCodes.MY_CART);
-                this.setState({ isRender: 0 });
+            // console.log('carts>>>>>>>',carts);
+            if (carts.data === null && carts.message!==null) {
+                // console.log(carts);
+                this.props.history.push(routeCodes.MY_CART);
+                // this.setState({ isRender: 0 });
             }
         }
 

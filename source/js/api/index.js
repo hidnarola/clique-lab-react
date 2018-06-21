@@ -122,7 +122,7 @@ export const getFormData = (path, data, headers) => {
     }).then(function (res) {        
             return res;
     }).catch(function (err) {        
-        throw ApiError(err.toString(), null, 'REQUEST_FAILED');
+        throw ApiError(err.toString(), err.response, 'REQUEST_FAILED');
     });
 };
 

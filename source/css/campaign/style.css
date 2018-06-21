@@ -624,7 +624,7 @@ a.fill-btn-44{ line-height:40px;}
 ul.fan-festival{display:block; margin:0; padding:0; list-style:none; flex-wrap:wrap;}
 ul.fan-festival>li{ width:calc(50% - 15px); padding:0 0 30px; display:-ms-flexbox!important; display:-webkit-box!important; display:flex!important; }
 ul.fan-festival li:nth-child(2n+2){margin-left:auto;}
-.fan-festival-box{ background:#fff; box-shadow:0 4px 24px 0 rgba(0,0,0,.1); border-radius:4px; padding:30px;}
+.fan-festival-box{ background:#fff; box-shadow:0 4px 24px 0 rgba(0,0,0,.1); border-radius:4px; padding:30px; width:100% }
 .festival-head{margin:0 0 15px;}
 .festival-head-l span{ width:50px; height:50px; background:#ddd; display:inline-block; vertical-align:top; margin-right:13px; border-radius:90px;}
 .festival-head-l span img{ border-radius: 25px; }
@@ -708,7 +708,7 @@ label.pink-color{ color: #f783c3; margin-bottom:0px !important }
 .cart-table table.table tbody td h4{margin:0; padding:0; color:#525f7f; font-size:14px; font-weight:500;}
 .cart-table table.table tbody td h4 + h4{ margin-left:10px; padding-left:10px; border-left:2px solid #525f7f;}
 .cart-table table.table thead th,
-.cart-table table.table tbody td{vertical-align:initial;}
+.cart-table table.table tbody td{vertical-align:top;}
 /* .cart-table table.table thead th + th,
 .cart-table table.table tbody td + td{ padding-left:15px;} */
 .cart-table>table.table>tfoot>tr>td{text-align:right; background:rgba(79,105,157,.02); border:0; padding:52px 20px 44px 20px;}

@@ -301,7 +301,7 @@ class Wallet extends Component {
                 </div>
                 <div className="card-box-ftr d-flex">
                     <p>Valid<br />Thru</p>
-                    <h6>{('0' + obj.exp_month).slice(-2)} / {obj.exp_year}</h6>
+                    <h6>{('0' + obj.exp_month).slice(-2)} / {('0'+obj.exp_year).slice(-2)}</h6>
                     <div className="card-box-ftr-r"><img src={cardType[obj.brand]} alt={obj.brand} style={{ "marginTop": "-5px", "width": "90%" }} /></div>
                 </div>
             </div>

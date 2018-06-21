@@ -65,7 +65,6 @@ const actionMap = {
     [EVERY_DAY_ERROR]: (state, action) => {
                 
         let error = 'Server Error';
-
         if (action.error && action.error.response) {
             error = action.error.response.message;
         }

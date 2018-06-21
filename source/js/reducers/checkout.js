@@ -82,12 +82,12 @@ const actionMap = {
     [GET_CHECKOUT_LIST_ERROR]: (state, action) => {
         let error = 'Server Error';
         if (action.error && action.error.response) {
-            error = action.error.response.message;
+            error = action.error.response.data.message;
         }
         return state.merge(Map({
             ...initialState,
             loading: false,
-            error: null,
+            error: error,
             carts: {
                 data: null,
                 subtotal: 0,
