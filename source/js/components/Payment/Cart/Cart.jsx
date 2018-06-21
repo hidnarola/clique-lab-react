@@ -82,11 +82,11 @@ class Cart extends React.Component {
 						<table className="table">
 							<thead>
 								<tr>
-									<th style={{ "width": "14%" }}>Image Preview</th>
-									<th style={{ "width": "40%" }}>Text Description</th>
-									<th style={{ "width": "20%" }}>Person</th>
-									<th style={{ "width": "10%" }}>Flatform</th>
-									<th style={{ "width": "10%" }}>Price</th>
+									<th style={{ "width": "13%" }}>Image Preview</th>
+									<th style={{ "width": "42%" }}>Text Description</th>
+									<th style={{ "width": "18%" }}>Person</th>
+									<th style={{ "width": "12%" }}>Flatform</th>
+									<th style={{ "width": "13%" }}>Price</th>
 									<th style={{ "width": "5%" }}> </th>
 								</tr>
 							</thead>

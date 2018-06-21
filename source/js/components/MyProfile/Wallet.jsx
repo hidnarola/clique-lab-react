@@ -62,7 +62,7 @@ class Wallet extends Component {
             txtBSBedit: '',
 
             isRender: 0,
-            disabled:'',
+            disabled: '',
         }
         this.addCreditCardModal = this.addCreditCardModalOpen.bind(this);
         this.addBankModal = this.addBankModalOpen.bind(this);
@@ -82,11 +82,11 @@ class Wallet extends Component {
                 error_msg = '<ul><li>' + addCards.error + '</li></ul>';
                 jQuery('.error_div').html(error_msg);
                 jQuery('.error_div').css({ display: "block" });
-                this.setState({ disabled: '' });
+                this.setState({ isRender: 0, disabled: '' });
             } else if (addCards.status === 1) {
                 this.addCreditCardModaltoggle();
+                this.setState({ isRender: 0, disabled: '' });
                 dispatch(getCardList());
-                this.setState({ isRender: 0,disabled:''});
             }
 
             if (deleteCards.status === 1) {
@@ -142,7 +142,7 @@ class Wallet extends Component {
     }
     submitCreditCard = () => {
         const { dispatch } = this.props;
-        const { txtCHN, txtCN, txtCD, txtCVV } = this.state;
+        const { txtCHN, txtCN, txtCD, txtCVV, disabled } = this.state;
         let isError = 0;
         if (txtCHN === '') {
             jQuery('#txt_card_holder_name').css("cssText", "border: 2px solid red !important");
@@ -165,7 +165,7 @@ class Wallet extends Component {
             isError = 1;
         }
 
-        if (isError === 0) {
+        if (isError == 0) {
             let data = {
                 'card_holder_name': txtCHN,
                 'card_number': txtCN,
@@ -173,8 +173,8 @@ class Wallet extends Component {
                 'expiry_year': (txtCD.split('/')[0]).toString().slice(2),
                 'cvv': txtCVV
             }
+            this.setState({ isRender: 1, disabled: 'disabled' });
             dispatch(addCard(data));
-            this.setState({ isRender: 1,disabled:'disabled', });
         }
     }
     onChange = (element, value) => {
@@ -303,7 +303,7 @@ class Wallet extends Component {
                 <div className="card-box-ftr d-flex">
                     <p>Valid<br />Thru</p>
                     <h6>{('0' + obj.exp_month).slice(-2)} / {obj.exp_year}</h6>
-                    <div className="card-box-ftr-r"><img src={cardType[obj.brand]} alt={obj.brand} style={{"marginTop":"-5px","width":"90%"}}/></div>
+                    <div className="card-box-ftr-r"><img src={cardType[obj.brand]} alt={obj.brand} style={{ "marginTop": "-5px", "width": "90%" }} /></div>
                 </div>
             </div>
         )
@@ -464,7 +464,7 @@ class Wallet extends Component {
                         {
                             (bank.loading === true) ?
                                 <div className="card-box wallet-account-box">
-                                    < Facebook/>
+                                    < Facebook />
                                     {/* <Code /><Code /> */}
                                 </div>
                                 :

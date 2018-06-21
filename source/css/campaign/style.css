@@ -709,18 +709,18 @@ label.pink-color{ color: #f783c3; margin-bottom:0px !important }
 .cart-table table.table tbody td h4 + h4{ margin-left:10px; padding-left:10px; border-left:2px solid #525f7f;}
 .cart-table table.table thead th,
 .cart-table table.table tbody td{vertical-align:initial;}
-.cart-table table.table thead th + th,
-.cart-table table.table tbody td + td{ padding-left:15px;}
+/* .cart-table table.table thead th + th,
+.cart-table table.table tbody td + td{ padding-left:15px;} */
 .cart-table>table.table>tfoot>tr>td{text-align:right; background:rgba(79,105,157,.02); border:0; padding:52px 20px 44px 20px;}
 .cart-table .subtotal { width: 248px;margin-right: 0px;display: inline-block;vertical-align: top;}
 .cart-table .subtotal table{background-color:transparent !important; }
 .cart-table .subtotal table thead th{width:50%; padding:10px 10px; font-size:16px; color:#525f7f; font-weight:500; line-height:normal; border:0; text-align:left; border:0;}
 .cart-table .subtotal table thead th:first-child{ text-align:right;}
-.cart-table .subtotal table tbody td{width:50%; padding:32px 30px 40px; font-size:16px; color:#525f7f; font-weight:500; line-height:normal; border:0; border-top:3px solid #f4f4f6; text-align:left;}
+.cart-table .subtotal table tbody td{width:50%; padding:30px 10px; font-size:16px; color:#525f7f; font-weight:500; line-height:normal; border:0; border-top:3px solid #f4f4f6; text-align:left;}
 .cart-table .subtotal table tbody td:last-child{color:#6772e5;}
 .cart-table .subtotal table tbody td:first-child{text-align:right;}
 .cart-table .subtotal table tfoot td{border:0; padding:0 10px;}
-.cart-table .subtotal table tfoot .round-btn{width:200px; display:block; text-align:center; float:right}
+.cart-table .subtotal table tfoot .round-btn{width:185px; display:block; text-align:center; float:right}
 .cart-table .subtotal table tfoot .round-btn:hover{text-decoration:none;}
 .checkout-r{margin-left:auto; width:44%;}
 .checkout{padding:105px 45px; }
