@@ -43,7 +43,6 @@ class Calendar extends Component {
             'end_date': end_date,
         };
         dispatch(getCampaign(arrayFilter));
-        jQuery('.fc-day-number').removeAttr('data-goto');
     }
 
     componentDidUpdate() {

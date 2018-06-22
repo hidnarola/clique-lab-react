@@ -9,6 +9,8 @@ import twitterImg from 'img/site/twitter.png';
 import instaImg from 'img/site/instagram.png';
 import imgPlus from 'img/site/plus-01.png';
 import closeImg2 from 'img/site/close-2.png';
+import noCampaignImg from 'img/site/no_data/no_campaign.png';
+import noUserImg2 from 'img/site/no_data/no_user2.png';
 import Pagination from "react-js-pagination";
 import { puchasedPostSend } from '../../actions/purchasedPosts';
 import { downloadCampaignImg,resetDownload} from '../../actions/campaign';
@@ -344,12 +346,23 @@ class PurchasedPosts extends Component {
                         {
                             (allPosts) ?
                                 allPosts.map((obj) => {
-                                    let imgUrl = imgRoutes.CAMPAIGN_POST_IMG_PATH + obj.applied_campaign.image;
+                                    let user_avatar_img = '';
+                                    let applied_campaign_img = '';
+                                    if(obj.users.image==undefined){
+                                        user_avatar_img = noUserImg2;
+                                    }else{
+                                        user_avatar_img = imgRoutes.USER_IMG_PATH + obj.users.image;
+                                    }
+                                    if(obj.applied_campaign.image==undefined){
+                                        applied_campaign_img = noCampaignImg;
+                                    }else{
+                                        applied_campaign_img = imgRoutes.CAMPAIGN_POST_IMG_PATH + obj.applied_campaign.image;
+                                    }
                                     return (<li key={Math.random()}>
                                         <div className="fan-festival-box">
                                             <div className="festival-head d-flex">
                                                 <div className="festival-head-l">
-                                                    <span style={{ "background": "url('" + imgRoutes.USER_IMG_PATH + obj.users.image + "') center 0 / auto 50px no-repeat", "height": "50px" }}>
+                                                    <span style={{ "background": "url('" + user_avatar_img + "') center 0 / auto 50px no-repeat", "height": "50px" }}>
                                                         {/* <img src={imgRoutes.USER_IMG_PATH + obj.users.image} /> */}
                                                     </span>
                                                     <h3>
@@ -361,7 +374,7 @@ class PurchasedPosts extends Component {
                                                     <h3>$ {(obj.price).toFixed(2)}</h3>
                                                 </div>
                                             </div>
-                                            <div className="festival-img" style={{ "background": "url('" + imgUrl + "') no-repeat 100%", "backgroundSize": "100%", "height": "215px", "width": "100%" }}></div>
+                                            <div className="festival-img" style={{ "background": "url('" + applied_campaign_img + "') no-repeat 100%", "backgroundSize": "100%", "height": "215px", "width": "100%" }}></div>
                                             <div className="festival-body" style={{ "min-height": "50px" }}>
                                                 <h2>{obj.applied_campaign.desription}</h2>
                                             </div>
