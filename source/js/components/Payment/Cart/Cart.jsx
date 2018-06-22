@@ -7,6 +7,7 @@ import { getCheckoutList, removeCartItems } from '../../../actions/Checkout';
 import { resetVal } from '../../../actions/Checkout';
 import trashImg from 'img/site/trash-icon.png';
 import nodataImg from 'img/site/no_data/08.png';
+import noCampaignImg from 'img/site/no_data/no_campaign.png';
 
 class Cart extends React.Component {
 	constructor(props) {
@@ -40,10 +41,15 @@ class Cart extends React.Component {
 	}
 
 	renderTr = (obj) => {
-		
+		let applied_post_img = '';
+        if(obj.applied_post.image==undefined){
+            applied_post_img = noCampaignImg;
+        }else{
+            applied_post_img = imgRoutes.CAMPAIGN_POST_IMG_PATH + obj.applied_post.image;
+        }
 		return (
 			<tr key={Math.random()}>
-				<td><img src={`${imgRoutes.CAMPAIGN_POST_IMG_PATH}${obj.applied_post.image}`} alt="" /></td>
+				<td><img src={applied_post_img} alt="" /></td>
 				<td>
 					{/* <b>{obj.campaign.name}</b><br /> */}
 					{obj.applied_post.desription}
