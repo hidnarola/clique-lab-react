@@ -120,8 +120,7 @@ class FileField_Dropzone extends Component {
                         </div>
                     </div>
                 </Dropzone>
-                
-                <div className="uploaded_img"> {images} </div>
+                { images.length > 0 && <div className="uploaded_img"> {images} </div> }
                 {(!meta.valid && meta.error && input.value) && <span className="error-div">{meta.error}</span>}
                 {/* {((meta.touched && meta.error) || (!input.value && meta.touched && meta.error )) && <span className="error-div">{meta.error}</span>} */}
             </div>

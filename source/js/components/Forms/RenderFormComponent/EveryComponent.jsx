@@ -13,7 +13,7 @@ import dropImg from 'img/site/canvas.png';
 
 export const renderFieldCampaign = ({ input, type, placeholder, label, id, isRequired, meta: { touched, error, warning, pristine } }) => (
     <div className={cx('input-wrap ', { 'custom-error': (touched && error) ? true : false })} >
-        <label>{label} {pristine && isRequired === "true" && <span className="error-div">*</span>}</label>
+        <label>{label}</label>
         <input {...input} placeholder={placeholder} id={id} type={type} className={`${touched && ((error && `txt_error_div`) || (warning && `txt_error_div`))}`} autoComplete="off"/>
         {touched && ((error && <div className="error-div">{error}</div>) || (warning && <span>{warning}</span>))}
     </div>
@@ -22,7 +22,7 @@ export const renderFieldCampaign = ({ input, type, placeholder, label, id, isReq
 export const renderFieldDatePicker = ({ input, value, type, placeholder, defaultValue, label, minDateVal, maxDateVal, className, isRequired, meta: { touched, error, warning, pristine } }) => {
     return (
         <div className={cx('input-wrap', { 'custom-error': (touched && error) ? true : false }) + ' ' + className}>
-            <label>{label} {isRequired === "true" && <span className="error-div">*</span>}</label>
+            <label>{label}</label>
             <div className={`input-wrap-2 ${touched && ((error && `txt_error_div`) || (warning && `txt_error_div`))}`}>
                 <DatePicker
                     {...input}
@@ -66,7 +66,7 @@ export const FileField_Dropzone = (props) => {
     return (
         <div className={wrapperClass}>
             <label htmlFor={input.name} className={labelClass}>
-                {label} {isRequired === "true" && <span className="error-div">*</span>}
+                {label}
             </label>
 
             <Dropzone
@@ -152,7 +152,7 @@ export const SelectField_ReactSelect = (props) => {
     return (
         <div className={wrapperClass}>
             <label htmlFor={input.name} className={labelClass}>
-                {label}&nbsp;{isRequired === "true" && <span className="error-div"> *</span>}
+                {label}
             </label>
             <Select
                 {...input}
@@ -180,7 +180,7 @@ export const SelectField_ReactSelectMulti = (props) => {
     }
     return (
         <div className={wrapperClass}>
-            <label htmlFor={input.name} className={labelClass}>{label} {meta.pristine && isRequired === "true" && <span className="error-div"> *</span>}</label>
+            <label htmlFor={input.name} className={labelClass}>{label}</label>
             <Select.Creatable
                 {...input}
                 value={val}
@@ -197,7 +197,7 @@ export const SelectField_ReactSelectMulti = (props) => {
 
 export const renderPlaceAutoComplete = ({ getInputProps, suggestions, getSuggestionItemProps, type, placeholder, label, isRequired, meta, addressValue}) => (
     <div className={cx('input-wrap ', { 'custom-error': (addressValue==='' && meta.error!='' && meta.touched) ? true : false })} >
-        <label>{label} {meta.pristine && isRequired === "true" && <span className="error-div">*</span>}</label>
+        <label>{label}</label>
         <input {...getInputProps({
             placeholder: 'Write location',
             className: 'location-search-input',

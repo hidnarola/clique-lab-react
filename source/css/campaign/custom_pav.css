@@ -119,11 +119,23 @@ html, body, .loader, .loader>div, .login-register-bg, .login-register-box.login_
     
 
 /* Not Found */
-    .notfound-main-div{ padding:10em; text-align: center; width: 80%; margin: 0 10em; }
+    .notfound-main-div{ padding:3% 10%; text-align: center; width: 80%; margin: 0 10em; }
     .notfound-inner-box{ box-shadow: 0px 2px 10px 2px #ccc; background-color: #fbfbfb; border-radius: 5px; padding: 20px; }
     .notfound-inner-box h1,
     .notfound-inner-box h2{ font-family: inherit; }
     .notfound-inner-box h2{ font-size:22px; color:#b8b9c0 }
+    .notfound-main-div img{ margin-bottom:25px}
+    .notfound-main-div a{
+        padding: 12px 25px;
+        background: #fff;
+        font-weight: 600;
+        font-size: 20px;
+        border-radius: 25px;
+        color: #aeb0b3;
+        text-decoration: none;
+        box-shadow: inset 0 -1px 1px rgba(158, 164, 237, 0), 0 5px 0 rgba(103, 114, 229, 0), 0 6px 8px rgba(0, 0, 0, .35);
+    }
+    .notfound-main-div a:hover{ color: #6772e5 }
 
 /*****************************************************************
                         Custom Scroll

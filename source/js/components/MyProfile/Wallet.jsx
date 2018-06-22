@@ -475,32 +475,6 @@ class Wallet extends Component {
                                 (bank.status == 1 && bank.data != null) &&
                                 bank.data.map((obj, index) => (this.bankListDiv(obj)))
                         }
-                        {/* <div className="card-box wallet-account-box">
-                            <div className="card-box-head d-flex">
-                                <i className="light-bg"></i>
-                                <div className="card-box-head-r">
-                                    <a href=""><img src={editImg} alt="" /></a>
-                                    <a href=""><img src={deleteImg} alt="" /></a>
-                                </div>
-                            </div>
-                            <h4>Bank Australia</h4>
-                            <h4><small>BSB</small> <strong>564623</strong></h4>
-                            <h5><small>Account Name </small> <strong>John Doe</strong></h5>
-                            <h5><small>Account Number</small> <strong>*********65</strong></h5>
-                        </div>
-                        <div className="card-box wallet-account-box">
-                            <div className="card-box-head d-flex">
-                                <i></i>
-                                <div className="card-box-head-r">
-                                    <a href=""><img src={editImg} alt="" /></a>
-                                    <a href=""><img src={deleteImg} alt="" /></a>
-                                </div>
-                            </div>
-                            <h4>Bank Australia</h4>
-                            <h4><small>BSB</small> <strong>564623</strong></h4>
-                            <h5><small>Account Name </small> <strong>John Doe</strong></h5>
-                            <h5><small>Account Number</small> <strong>*********65</strong></h5>
-                        </div> */}
                         <div className="card-box add-card-box">
                             <a href="javascript:void(0)" onClick={this.addBankModal}>
                                 <img src={plusImg} alt="" />
@@ -570,18 +544,18 @@ class Wallet extends Component {
                             <h2>Add Credit Card</h2>
                             <form id="add_credit_card_form" className="popup_modal_form">
                                 <div className="input-wrap">
-                                    <label>Card Holder Name <span className="error-div"> *</span></label>
+                                    <label>Card Holder Name</label>
                                     <input type="text" name="txt_card_holder_name" id="txt_card_holder_name" placeholder="Name" value={txtCHN} onChange={(input) => this.onChange(input.target.name, input.target.value)} />
                                     <span className="txt_card_holder_name_errorMsg" style={{ "color": "red" }}></span>
                                 </div>
                                 <div className="input-wrap">
-                                    <label>Card Number <span className="error-div"> *</span></label>
+                                    <label>Card Number</label>
                                     <input type="text" name="txt_card_number" id="txt_card_number" placeholder="Card Number" value={txtCN} onChange={(input) => this.onChange(input.target.name, input.target.value)} />
                                     <span className="txt_card_number_errorMsg" style={{ "color": "red" }}></span>
                                 </div>
                                 <div className="expiry-date d-flex">
                                     <div className="input-wrap select-wrap">
-                                        <label>Select Date <span className="error-div">&nbsp;*</span></label>
+                                        <label>Select Date</label>
                                         <MonthPickerInput
                                             // year={2018}
                                             // month={1}
@@ -598,7 +572,7 @@ class Wallet extends Component {
                                         <span className="txt_card_date_errorMsg" style={{ "color": "red" }}></span>
                                     </div>
                                     <div className="input-wrap">
-                                        <label>CVV <span className="error-div"> *</span></label>
+                                        <label>CVV</label>
                                         <input type="password" name="txt_card_cvv" id="txt_card_cvv" placeholder="***" value={txtCVV} onChange={(input) => this.onChange(input.target.name, input.target.value)} />
                                         <span className="txt_card_cvv_errorMsg" style={{ "color": "red" }}></span>
                                     </div>
@@ -622,17 +596,17 @@ class Wallet extends Component {
                             <h2>Edit Credit Card</h2>
                             <form id="add_credit_card_form" className="popup_modal_form">
                                 <div className="input-wrap">
-                                    <label>Card Holder Name <span className="error-div"> *</span></label>
+                                    <label>Card Holder Name</label>
                                     <input type="text" name="txt_card_holder_name_edit" id="txt_card_holder_name_edit" placeholder="Name" value={txtCHNedit} onChange={(input) => this.onChangeEdit(input.target.name, input.target.value)} />
                                     <span className="txt_card_holder_name_edit_errorMsg" style={{ "color": "red" }}></span>
                                 </div>
                                 <div className="input-wrap">
-                                    <label>Card Number <span className="error-div"> *</span></label>
+                                    <label>Card Number</label>
                                     <input type="text" name="txt_card_number_edit" id="txt_card_number_edit" placeholder="Card Number" value={txtCNedit} readOnly="readonly" />
                                 </div>
                                 <div className="expiry-date d-flex">
                                     <div className="input-wrap select-wrap">
-                                        <label>Select Date <span className="error-div">&nbsp;*</span></label>
+                                        <label>Select Date</label>
                                         <MonthPickerInput
                                             year={txtCDedit.split('/')[1] - 0}
                                             month={(txtCDedit.split('/')[0] - 1)}
@@ -651,7 +625,7 @@ class Wallet extends Component {
                                         <span className="txt_card_date_edit_errorMsg" style={{ "color": "red" }}></span>
                                     </div>
                                     <div className="input-wrap">
-                                        <label>CVV <span className="error-div"> *</span></label>
+                                        <label>CVV</label>
                                         <input type="password" name="txt_card_cvv_edit" id="txt_card_cvv_edit" placeholder="***" value={txtCVVedit} readOnly="readonly" />
                                     </div>
                                 </div>
@@ -674,22 +648,22 @@ class Wallet extends Component {
                             <h2>Add Bank Account</h2>
                             <form id="add_bank_form" className="popup_modal_form">
                                 <div className="input-wrap">
-                                    <label>Bank Name <span className="error-div"> *</span></label>
+                                    <label>Bank Name</label>
                                     <input type="text" name="txt_bank_name" id="txt_bank_name" placeholder="Bank Name" value={txtBN} onChange={(input) => this.onChangeBank(input.target.name, input.target.value)} />
                                     <span className="txt_bank_name_errorMsg" style={{ "color": "red" }}></span>
                                 </div>
                                 <div className="input-wrap">
-                                    <label>Account holder Name <span className="error-div"> *</span></label>
+                                    <label>Account holder Name</label>
                                     <input type="text" name="txt_acc_holder_name" id="txt_acc_holder_name" placeholder="Name" value={txtAHN} onChange={(input) => this.onChangeBank(input.target.name, input.target.value)} />
                                     <span className="txt_acc_holder_name_errorMsg" style={{ "color": "red" }}></span>
                                 </div>
                                 <div className="input-wrap">
-                                    <label>Account Number <span className="error-div"> *</span></label>
+                                    <label>Account Number</label>
                                     <input type="text" name="txt_acc_number" id="txt_acc_number" placeholder="Account Number" value={txtAN} onChange={(input) => this.onChangeBank(input.target.name, input.target.value)} />
                                     <span className="txt_acc_number_errorMsg" style={{ "color": "red" }}></span>
                                 </div>
                                 <div className="input-wrap bsb-number">
-                                    <label>BSB <span className="error-div"> *</span></label>
+                                    <label>BSB</label>
                                     <input type="text" name="txt_bsb" id="txt_bsb" placeholder="BSB bumber" value={txtBSB} onChange={(input) => this.onChangeBank(input.target.name, input.target.value)} />
                                     <span className="txt_bsb_errorMsg" style={{ "color": "red" }}></span>
                                 </div>
@@ -712,17 +686,17 @@ class Wallet extends Component {
                             <h2>Edit Bank Account</h2>
                             <form id="add_bank_form" className="popup_modal_form">
                                 <div className="input-wrap">
-                                    <label>Bank Name <span className="error-div"> *</span></label>
+                                    <label>Bank Name</label>
                                     <input type="text" name="txt_bank_name" id="txt_bank_name" placeholder="Bank Name" value={txtBNedit} onChange={(input) => this.onChangeBank(input.target.name, input.target.value)} />
                                     <span className="txt_bank_name_errorMsg" style={{ "color": "red" }}></span>
                                 </div>
                                 <div className="input-wrap">
-                                    <label>Account holder Name <span className="error-div"> *</span></label>
+                                    <label>Account holder Name</label>
                                     <input type="text" name="txt_acc_holder_name" id="txt_acc_holder_name" placeholder="Name" value={txtAHNedit} onChange={(input) => this.onChangeBank(input.target.name, input.target.value)} />
                                     <span className="txt_acc_holder_no_errorMsg" style={{ "color": "red" }}></span>
                                 </div>
                                 <div className="input-wrap">
-                                    <label>Account Number <span className="error-div"> *</span></label>
+                                    <label>Account Number</label>
                                     <input type="text" name="txt_acc_number" id="txt_acc_number" placeholder="Account Number" value={txtANedit} onChange={(input) => this.onChangeBank(input.target.name, input.target.value)} />
                                     <span className="txt_acc_holder_no_errorMsg" style={{ "color": "red" }}></span>
                                 </div>

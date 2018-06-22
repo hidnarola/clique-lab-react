@@ -60,7 +60,7 @@ const validate = values => {
 
 const textField = ({ input, type, label, placeholder, isReadOnly, isRequired, existValue, meta: { touched, error } }) => (
 	<div className={cx('input-wrap', { 'custom-error': (touched && error) ? true : false })}>
-		<label>{label} {isRequired === "true" && <span className="error-div">*</span>}</label>
+		<label>{label}</label>
 		<input {...input} placeholder={placeholder} type={type} className={cx({ 'txt_error_div': (touched && error) ? true : false })} autoComplete="off" value={existValue} readOnly={isReadOnly} />
 		{touched && ((error && <span className="error-div">{error}</span>))}
 	</div>
@@ -68,7 +68,7 @@ const textField = ({ input, type, label, placeholder, isReadOnly, isRequired, ex
 
 const textareaField = ({ input, label, placeholder, isRequired, existValue, meta: { touched, error } }) => (
 	<div className={cx('input-wrap textarea-wrap', { 'custom-error': (touched && error) ? true : false })}>
-		<label>{label} {isRequired === "true" && <span className="error-div">*</span>}</label>
+		<label>{label}</label>
 		<textarea {...input} placeholder={placeholder} className={cx({ 'txt_error_div': (touched && error) ? true : false })}>{existValue}</textarea>
 		{touched && ((error && <span className="error-div">{error}</span>))}
 	</div>
@@ -93,7 +93,7 @@ const FileField_Dropzone = (props) => {
 	return (
 		<div className={wrapperClass}>
 			<label htmlFor={input.name} className={labelClass}>
-				{label} {meta.pristine && isRequired === "true" && <span className="error-div">*</span>}
+				{label}
 			</label>
 
 			<Dropzone
@@ -335,17 +335,17 @@ class Profile extends Component {
 							<h2>Change Password</h2>
 							<form id="edit_password_form" className="popup_modal_form">
 								<div className="input-wrap">
-									<label>Old Password <span className="error-div"> *</span></label>
+									<label>Old Password</label>
 									<input type="password" name="txt_old_password" id="txt_old_password" placeholder="Old Password" value={txtOPASS} onChange={(input) => this.onChangePassword(input.target.name, input.target.value)} />
 									<span className="txt_old_password_errorMsg" style={{ "color": "red" }}></span>
 								</div>
 								<div className="input-wrap">
-									<label>New Password <span className="error-div"> *</span></label>
+									<label>New Password</label>
 									<input type="password" name="txt_new_password" id="txt_new_password" placeholder="New Password" value={txtNPASS} onChange={(input) => this.onChangePassword(input.target.name, input.target.value)} />
 									<span className="txt_new_password_errorMsg" style={{ "color": "red" }}></span>
 								</div>
 								<div className="input-wrap">
-									<label>Confirm Password <span className="error-div"> *</span></label>
+									<label>Confirm Password</label>
 									<input type="password" name="txt_confirm_password" id="txt_confirm_password" placeholder="Confirm Password" value={txtCPASS} onChange={(input) => this.onChangePassword(input.target.name, input.target.value)} />
 									<span className="txt_confirm_password_errorMsg" style={{ "color": "red" }}></span>
 								</div>

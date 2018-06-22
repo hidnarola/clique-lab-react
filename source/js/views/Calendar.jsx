@@ -64,6 +64,8 @@ class Calendar extends Component {
                 eventsArr.push({
                     id: data._id,
                     title: data.name,
+                    social_platform: data.social_media_platform,
+                    days: Math.round(data.days),
                     start: data.start_date,
                     color: eventColor[data.social_media_platform]
                 });
@@ -205,7 +207,9 @@ class Calendar extends Component {
                         (calEvent, jsEvent, view) => {
                             console.log(calEvent);
                             let campDetails = {
-                                'name' : calEvent.title
+                                'name' : calEvent.title,
+                                'platform': calEvent.social_platform,
+                                'days': calEvent.days
                             }
                             this.setState({ 
                                 campaignDetails: campDetails,
@@ -219,8 +223,8 @@ class Calendar extends Component {
                         <div className="contents">
                             <h2>{this.state.campaignDetails.name}</h2>
                             <p>
-                                <label className="platform">Facebook</label>
-                                <label className="days">7 days</label>
+                                <label className="platform" style={{"textTransform":"capitalize"}}>{this.state.campaignDetails.platform}</label>
+                                <label className="days">{this.state.campaignDetails.days} days</label>
                             </p>
                             <p>
                                 <a className="cursor_pointer btn_add_user" onClick={() => this.props.history.push(routeCodes.EVERYDAYPEOPLE)}>Add user to campaign</a>

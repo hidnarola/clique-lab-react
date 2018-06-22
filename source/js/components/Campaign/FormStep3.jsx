@@ -50,7 +50,7 @@ let SelectField_ReactSelect5 = (props) => {
 
     return (
         <div className={wrapperClass}>
-            <label htmlFor={input.name} className={labelClass}>{label} {isRequired === "true" && <span className="error-div">*</span>}</label>
+            <label htmlFor={input.name} className={labelClass}>{label}</label>
             <Select
                 {...input}
                 value={val}
@@ -96,7 +96,7 @@ const SelectFieldCurrencyDrop = (props) => {
 
 const renderFieldCurrency = ({ input, type, placeholder, label, isRequired, meta: { touched, error, warning, pristine } }) => (
     <div className={cx('input-wrap how-much', { 'custom-error': (touched && error) ? true : false })} >
-        <label>{label} {pristine && isRequired === "true" && <span className="error-div">*</span>}</label>
+        <label>{label}</label>
         <div class="input-2 d-flex select-wrap">
             <input {...input} placeholder={placeholder} type={type} className={`${touched && ((error && `txt_error_div`) || (warning && `txt_error_div`))}`} autocomplete="off" />
             <Field
@@ -119,7 +119,7 @@ class GoogleAC extends Component {
         const { input, label, name, placeholder, isRequired, meta } = this.props;
         return (
             <div className="input-wrap">
-                <label>{label} {isRequired && <span className="error-div">*</span>}</label>
+                <label>{label}</label>
                 <PlacesAutocomplete
                     value={input.value}
                     name={name}
