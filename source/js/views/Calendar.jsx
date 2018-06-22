@@ -178,7 +178,7 @@ class Calendar extends Component {
                     //     right: 'month,basicWeek,basicDay'
                     // }}
                     defaultDate={Date.now()}
-                    navLinks={true}
+                    // navLinks={true}
                     editable={false}
                     eventLimit={false}
                     events={this.state.events}
