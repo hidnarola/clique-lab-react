@@ -223,7 +223,7 @@ class Calendar extends Component {
                         <div className="contents">
                             <h2>{this.state.campaignDetails.name}</h2>
                             <p>
-                                <label className="platform">{(this.state.campaignDetails.platform.charAt(0).toUpperCase() + this.state.campaignDetails.platform.slice(1))}</label>
+                                <label className="platform" style={{"textTransform":"capitalize"}}>{this.state.campaignDetails.platform}</label>
                                 <label className="days">{this.state.campaignDetails.days} days</label>
                             </p>
                             <p>

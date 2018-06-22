@@ -1,9 +1,10 @@
+import jQuery from 'jquery';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { routeCodes } from '../constants/routes';
-
+import pageNotFoundImg from 'img/site/no_data/Page_Not_Found.png';
 // This component is used for Server rendering
 // When you want to return 40x http statuses
 const RouteStatus = ({ code, children }) => (
@@ -13,7 +14,6 @@ const RouteStatus = ({ code, children }) => (
         if (staticContext) {
           staticContext.status = code; // eslint-disable-line no-param-reassign
         }
-
         return children;
       }
     }
@@ -26,15 +26,15 @@ RouteStatus.propTypes = {
 };
 
 export default class NotFound extends Component {
+  componentWillMount(){
+    //jQuery('body').css('background-color','#6772e5')
+  }
   render() {
     return (
       <RouteStatus code={ 404 }>
         <div className="notfound-main-div">
-          <div class="notfound-inner-box">
-            <h1>Ooops... Error 404</h1>
-            <h2>Sorry, but the page you are looking for dosen't exist.</h2>
-            <Link to={routeCodes.DASHBOARD}>Back to home page</Link>
-          </div>
+            <img src={pageNotFoundImg} />
+            <Link to={routeCodes.DASHBOARD}>BACK TO HOME</Link>
         </div>
       </RouteStatus>
     );
