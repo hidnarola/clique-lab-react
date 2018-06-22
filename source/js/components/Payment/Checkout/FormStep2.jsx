@@ -39,7 +39,7 @@ const textField = (
     { input, type, label, placeholder,isRequired, meta: { touched, error, pristine } }
 ) => (
         <div className={cx('input-wrap', { 'custom-error': (touched && error) ? true : false })}>
-            <label>{label} {pristine && isRequired === "true" && <span className="error-div">*</span>}</label>
+            <label>{label}</label>
             <input {...input} placeholder={placeholder} type={type} className={touched && ((error && `txt_error_div`))}/>
             {touched && ((error && <span className="error-div">{error}</span>))}
         </div>

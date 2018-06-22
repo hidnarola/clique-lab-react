@@ -352,9 +352,10 @@ td.fc-widget-content{ border:0;}
     .revenue_ref_chart .recharts-tooltip-wrapper::after{border-top: 10px solid #525f7f !important; }
 
 .how-much .select-wrap{ margin-bottom:0;}
+.how-much .select-wrap .error-div{ position: absolute; }
 .how-much .input-2 input { width:56%;}
 .how-much .input-2 .select-wrap  { margin-left:auto; width:40%;}
-.select-wrap .error-div{position: absolute; }
+/* .select-wrap .error-div{position: absolute; } */
 .how-much .select-wrap div .Select-control { position: relative !important; }
 .no_data_found{ text-align:center;    display: inline-block; margin: 100px 0 0;}
 .no_data_found img{ width:100px; }
