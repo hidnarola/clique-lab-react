@@ -270,6 +270,7 @@ class FormStep3 extends Component {
     
     // Credit Card Lisitng
     cardListDiv = (obj) => {
+        console.log('Data>>',obj);
         let cardType = {
             'MasterCard': mastercardImg,
             'Visa': visaImg

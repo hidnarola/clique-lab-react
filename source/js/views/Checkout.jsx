@@ -60,33 +60,25 @@ class Checkout extends Component {
         const { dispatch } = this.props;
         
         dispatch(getCheckoutList());
+
         this.setState({ isRender: 1 })
+
         dispatch(country());
         
     }
     
-    // componentWillReceiveProps(prevProps) {
-    //     //console.log('Did Mounted',this.props);
-    //     //console.log('Did Mounted',prevProps);
-    //     // if(this.props.carts.data !== null && this.props.location.pathname !== '/checkout')
-    //     if(this.props.location.pathname === '/checkout' && prevProps.carts.data === null)
-    //     {
-    //         // return(
-    //         //     <Redirect to='/cart' />
-    //         // )
-    //         console.log('Must redirect...');
-    //     }
-    // }
 
     componentDidUpdate() {
         const { payment, carts, dispatch } = this.props;
         const { modal, isRender } = this.state;
-        if (isRender == 1) {
+        if (isRender === 1) {
             if (payment.status === 1 && modal === false) {  
                 this.setState({
                     modal: true,
                     isRender: 0
                 });
+                
+                dispatch(resetVal({ payment: false}));
             }
             // console.log('carts>>>>>>>',carts);
             if (carts.data === null && carts.message!==null) {
@@ -101,6 +93,7 @@ class Checkout extends Component {
     componentWillUnmount() {
         const { dispatch } = this.props;
         dispatch(reset('wizardCheckout'));
+
         //dispatch(actions.errors({}))
         // dispatch(stopAsyncValidation('wizardCheckout', { clear: true }));
 

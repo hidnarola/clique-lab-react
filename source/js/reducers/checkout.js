@@ -321,7 +321,8 @@ const actionMap = {
             (action['data']['deleteBank'] === false) ? resetObj['deleteBank'] = resetDataVal : '';
             (action['data']['removeCart'] === false) ? resetObj['removeItems'] = {status: 0, message: null} : '';
             (action['data']['carts'] === false) ? resetObj['carts'] = { data: null, subtotal: 0, gst: 0, total: 0, status: 0, message: null, } : '';
-            (action['data']['payment'] === false) ? resetObj['carts'] = { status: 0, message: null } : '';
+            // (action['data']['payment'] === false) ? resetObj['carts'] = { status: 0, message: null } : '';
+            (action['data']['payment'] === false) ? resetObj['payment'] = { status: 0, message: null } : '';
         }
         return state.merge(Map(resetObj));
     },
