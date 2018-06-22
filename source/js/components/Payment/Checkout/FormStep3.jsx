@@ -77,6 +77,7 @@ class FormStep3 extends Component {
                 jQuery('.error_div').html(error_msg);
                 jQuery('.error_div').css({ display: "block" });
                 this.setState({ isRender: 0,disabled:''});
+                dispatch(resetVal({ addCard: false}));
             } else if (addCards.status === 1) {
                 this.addCreditCardModaltoggle();
                 dispatch(getCardList());
