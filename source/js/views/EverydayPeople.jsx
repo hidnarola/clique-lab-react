@@ -16,6 +16,8 @@ import instaImg from 'img/site/instagram.png';
 import nodataImg2 from 'img/site/no_data/04.png';
 import nodataImg from 'img/site/no_data/05.png';
 import noUserImg from 'img/site/no_data/no_user.png';
+import noCampaignImg from 'img/site/no_data/no_campaign.png';
+import noUserImg2 from 'img/site/no_data/no_user2.png';
 
 import downarrowImg from 'img/site/down-arrow-1.png';
 import { Redirect, withRouter } from 'react-router';
@@ -1034,12 +1036,24 @@ class EverydayPeople extends Component {
             'pinterest': pinImg,
             'twitter': twitterImg,
         };
+        let user_avatar_img = '';
+        let applied_post_img = '';
+        if(obj.user_avatar==undefined){
+            user_avatar_img = noUserImg2;
+        }else{
+            user_avatar_img = imgRoutes.USER_IMG_PATH + obj.user_avatar;
+        }
+        if(obj.applied_post_image==undefined){
+            applied_post_img = noCampaignImg;
+        }else{
+            applied_post_img = imgRoutes.CAMPAIGN_POST_IMG_PATH + obj.applied_post_image;
+        }
         return (
             <li key={Math.random()}>
                 <div className="fan-festival-box">
                     <div className="festival-head d-flex">
                         <div className="festival-head-l">
-                            <span style={{ "background": "url('" + imgRoutes.USER_IMG_PATH + obj.user_avatar + "') center 0 / auto 50px no-repeat", "height": "50px" }}>
+                            <span style={{ "background": "url('" + user_avatar_img + "') center 0 / auto 50px no-repeat", "height": "50px" }}>
                                 {/* <img src={imgRoutes.USER_IMG_PATH + obj.user_avatar} /> */}
                             </span>
                             <h3>
@@ -1053,7 +1067,7 @@ class EverydayPeople extends Component {
                         </div>
                         <div className="festival-head-r"><h3>$ {(obj.price).toFixed(2)}</h3></div>
                     </div>
-                    <div className="festival-img" style={{ "background": "url('" + imgRoutes.CAMPAIGN_POST_IMG_PATH + obj.applied_post_image + "') no-repeat 100%", "backgroundSize": "100%", "height": "215px", "width": "100%" }}></div>
+                    <div className="festival-img" style={{ "background": "url('" + applied_post_img + "') no-repeat 100%", "backgroundSize": "100%", "height": "215px", "width": "100%" }}></div>
                     <div className="festival-body" style={{ "min-height": "50px" }} >
                         <h2>
                             {obj.applied_post_description} &nbsp;

@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import jQuery from 'jquery';
+import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import ReactDOM from 'react-dom';
@@ -42,6 +43,7 @@ class Calendar extends Component {
             'end_date': end_date,
         };
         dispatch(getCampaign(arrayFilter));
+        jQuery('.fc-day-number').removeAttr('data-goto');
     }
 
     componentDidUpdate() {

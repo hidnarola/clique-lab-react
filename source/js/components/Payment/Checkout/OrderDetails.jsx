@@ -7,6 +7,7 @@ import { getCheckoutList, removeCartItems } from '../../../actions/Checkout';
 import { resetVal } from '../../../actions/everyDay';
 import trashImg from 'img/site/trash-icon.png';
 import nodataImg from 'img/site/nodata.png';
+import noCampaignImg from 'img/site/no_data/no_campaign.png';
 
 class OrderDetails extends Component {
     constructor(props) {
@@ -25,24 +26,30 @@ class OrderDetails extends Component {
     removeCart = (item_id) => {
         const { dispatch } = this.props;
         dispatch(removeCartItems(item_id));
-        this.setState({ listAfterDel : true }); // dm
+        this.setState({ listAfterDel : true });
     }
 
     componentDidUpdate() {
         const { dispatch, removeItems } = this.props;
         const { listAfterDel } = this.state;
         if (removeItems.status === 1 && listAfterDel === true) {
-            this.setState({ listAfterDel: false });
             dispatch(getCheckoutList());
-            dispatch(resetVal({'removeCart': false})); // dm
+            dispatch(resetVal({'removeCart': false})); 
+            this.setState({ listAfterDel: false });
         }
         // dispatch(resetVal({ 'userAdded': false }));
     }
 
     renderTr = (obj) => {
+        let applied_post_img = '';
+        if(obj.applied_post.image==undefined){
+            applied_post_img = noCampaignImg;
+        }else{
+            applied_post_img = imgRoutes.CAMPAIGN_POST_IMG_PATH + obj.applied_post.image;
+        }
         return (
             <tr key={Math.random()}>
-                <td><img src={`${imgRoutes.CAMPAIGN_POST_IMG_PATH}${obj.applied_post.image}`} alt="" style={{"width":"60px"}} /></td>
+                <td><img src={applied_post_img} alt="" style={{"width":"60px"}} /></td>
                 <td style={{verticalAlign:"top"}}>
                     <h3>{obj.applied_post.desription.substring(0,40)+'...'}</h3>
                     <h4>{obj.user.name.substring(0,9)}</h4>
