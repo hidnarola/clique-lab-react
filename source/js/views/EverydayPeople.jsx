@@ -5,7 +5,7 @@ import Pagination from "react-js-pagination";
 import { sendReq, moreFilterReq, fetchDropDownReq, resetVal, addUserReq, bulkUserReq, forceRefresh, setTotal } from '../actions/everyDay';
 import { purchaseAll, resetAlertMsg } from '../actions/campaign';
 import { getGroups, addGroups, resetGroupVal } from '../actions/groups';
-import {modifyStatusReq} from '../actions/Checkout';
+import { modifyStatusReq, getCheckoutList } from '../actions/Checkout';
 import sampleImg from 'img/site/400x218.png';
 import closeImg from 'img/site/close.png';
 import closeImg2 from 'img/site/close-2.png';
@@ -1107,7 +1107,11 @@ class EverydayPeople extends Component {
     }
 
     toggle = () => { this.setState({ modal: !this.state.modal }); }
-    messagePopupToggle = () => { this.setState({ messagePopup: !this.state.messagePopup }); }
+    messagePopupToggle = () => { 
+        const { dispatch } = this.props;
+        this.setState({ messagePopup: !this.state.messagePopup });
+        dispatch(getCheckoutList());
+    }
 
     renderLi3 = (obj) => {
         let mediaImg = {
@@ -1883,8 +1887,7 @@ class EverydayPeople extends Component {
                                     )
                             }
 
-                            {/* {(users.total > 12) ? */}
-                            {(users.total > 12 && match.path !== routeCodes.CAMPAIGN_INSPIRED_SUB) ?
+                            {(users.total > 12) ?
                                 <Pagination
                                     activePage={this.state.activePage}
                                     totalItemsCount={users.total}

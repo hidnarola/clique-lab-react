@@ -13,39 +13,28 @@ class Header extends Component {
 
     constructor(props) {
         super(props);
-        this.mylogout = this.mylogout.bind(this);
-
-        this.toggle = this.toggle.bind(this);
         this.state = {
             dropdownOpen: false,
             pimg: '',
         };
-    }
 
-    // componentDidMount = () => {
-    //     let user = JSON.parse(reactLocalStorage.get('user', true));
-    //     let profile_img = imgRoutes.PROMOTER_IMG_PATH+user.avatar;
-    //     this.setState({pimg:profile_img});
-    // }
+        this.mylogout = this.mylogout.bind(this);
+        this.toggle = this.toggle.bind(this);
+
+    }
 
     mylogout() {
         const { dispatch, history } = this.props;
         dispatch(logout());
-        // return <Redirect to="/" />
         history.push('/');
     }
 
     toggle() {
-        this.setState({
-            dropdownOpen: !this.state.dropdownOpen
-        });
+        this.setState({ dropdownOpen: !this.state.dropdownOpen });
     }
 
     render() {
-        //console.log(this.props.history.location.pathname);
-        let { match } = this.props;
-        //console.log(routeCodes.CAMPAIGN_ACTIVE);
-        // let page_name = (((this.props.history.location.pathname).replace('/','')).replace('-',' ')).replace('_',' ');
+        let { match, carts } = this.props;
         let page_name_Array = {
             'Hello John Doe, what would you like to do today?': routeCodes.DASHBOARD,
             'New Campaign': routeCodes.CAMPAIGN,
@@ -92,7 +81,8 @@ class Header extends Component {
                     <div className="hdr-cart">
                         <Link to={routeCodes.MY_CART}>
                             <i className=""></i>
-                            {/* <span>2</span> */}
+                            {carts.data !== null && <span>{carts.data.length}</span>}
+
                         </Link>
                         <div className="dropdown-menu dropdown-menu-right" aria-labelledby="cart-dropdown">
                             <h3>Manage Orders</h3>
@@ -118,9 +108,7 @@ class Header extends Component {
                             <DropdownMenu right>
                                 <DropdownItem>
                                     <span></span>
-                                    <Link className="cursor_pointer" to={routeCodes.MY_PROFILE}>
-                                        My Profile
-                                    </Link>
+                                    <Link className="cursor_pointer" to={routeCodes.MY_PROFILE}> My Profile </Link>
                                     {page_name == 'profile' && <img src="../assets/img/site/check-icon.png" alt="" />}
                                 </DropdownItem>
                                 {/* <DropdownItem><span></span>Jacob Robinson</DropdownItem> */}
@@ -139,4 +127,10 @@ class Header extends Component {
     }
 }
 
-export default withRouter(connect()(Header));
+const mapStateToProps = (state) => {
+    const { checkout } = state;
+    return {
+        carts: checkout.get('carts'),
+    }
+}
+export default withRouter(connect(mapStateToProps)(Header));

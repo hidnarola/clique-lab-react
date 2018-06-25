@@ -352,14 +352,21 @@ td.fc-widget-content{ border:0;}
     .revenue_ref_chart .recharts-tooltip-wrapper::after{border-top: 10px solid #525f7f !important; }
 
 .how-much .select-wrap{ margin-bottom:0;}
+.how-much .select-wrap .error-div{ position: absolute; }
 .how-much .input-2 input { width:56%;}
 .how-much .input-2 .select-wrap  { margin-left:auto; width:40%;}
-.select-wrap .error-div{position: absolute; }
+/* .select-wrap .error-div{position: absolute; } */
 .how-much .select-wrap div .Select-control { position: relative !important; }
 .no_data_found{ text-align:center;    display: inline-block; margin: 100px 0 0;}
 .no_data_found img{ width:100px; }
 .no_data_found p{ display:block; color: #4f699d; font-size: 24px; line-height: 100%; font-weight: 500; margin: 15px 0 0; padding:0;}
-.alert-danger{ font-weight:400; }
+.alert-danger{ 
+    font-weight:400;
+    font-size: 13px;
+    text-align: justify;
+    font-size: 13px;
+}
+.alert-dismissible{ padding-right:1.3em; }
 
 /* order details page right section [DM]*/
 tr.order_cart td img {margin-top:-10px}
@@ -371,4 +378,3 @@ tr.order_cart td img {margin-top:-10px}
 .btn_checkout_pay.round-btn{ margin-left:10px;}
 .round-btn.next-btn.btn_checkout_continue{ margin-left:0;}
 .cart-table table.table tbody tr td:nth-child(6) img{ max-width:16px;} 
-

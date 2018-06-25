@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 6.016 10.016">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+      }
+    </style>
+  </defs>
+  <path id="ic_cal_back" class="cls-1" d="M955.377,737.728l-3.791-3.791a1.017,1.017,0,0,1,0-1.875l3.79-3.79a.955.955,0,0,1,1.351,1.351L953.351,733l3.377,3.377a.955.955,0,0,1-1.351,1.351Z" transform="translate(-950.992 -727.992)"/>
+</svg>

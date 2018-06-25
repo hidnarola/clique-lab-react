@@ -40,7 +40,7 @@ const textField = (
 ) => (
         <div className={cx('input-wrap', { 'custom-error': (touched && error) ? true : false })}>
             {/* <label>{label}</label> */}
-            <label>{label} {pristine && isRequired === "true" && <span className="error-div">*</span>}</label>
+            <label>{label}</label>
             <input {...input} placeholder={placeholder} type={type} className={touched && ((error && `txt_error_div`))} autoComplete="off"/>
             {touched && ((error && <span className="error-div">{error}</span>))}
         </div>
@@ -66,9 +66,9 @@ class FormStep1 extends Component {
                 <div className="right-box create-campaign d-flex checkout">
                     <div className="create-campaign-l d-flex">
                         <div className="step-process d-flex">
-                            <div className="process-point active current"><a href="javascript:void(0)"></a><strong></strong></div>
-                            <div className="process-point"><a href="javascript:void(0)"></a><strong></strong></div>
-                            <div className="process-point"><a href="javascript:void(0)"></a></div>
+                            <div className="process-point active current"><a href="javascript:void(0)" style={{"cursor":"auto"}}></a><strong></strong></div>
+                            <div className="process-point"><a href="javascript:void(0)" style={{"cursor":"auto"}}></a><strong></strong></div>
+                            <div className="process-point"><a href="javascript:void(0)" style={{"cursor":"auto"}}></a></div>
                         </div>
                         <div className="step-content d-flex">
                             <h2 style={{"fontWeight":"600"}}>Step 1</h2>

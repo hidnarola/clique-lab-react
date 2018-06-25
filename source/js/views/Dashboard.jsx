@@ -5,6 +5,7 @@ import img1 from "img/site/img-01.jpg";
 import img2 from "img/site/img-02.jpg";
 import img3 from "img/site/img-03.jpg";
 import img4 from "img/site/img-04.jpg";
+import { getCheckoutList } from '../actions/Checkout';
 
 class Dashboard extends Component {
     
@@ -12,8 +13,12 @@ class Dashboard extends Component {
         super(props);
     }
 
+    componentWillMount(){
+        const { dispatch } = this.props;
+        dispatch(getCheckoutList());
+    }
+
     render() {
-        
         return (
             <div className='dashboard-page'>
                 <div className="right-box">
@@ -193,6 +198,12 @@ class Dashboard extends Component {
     }
 }
 
-export default connect(state => ({
-    
-}))(Dashboard)
+const mapStateToProps = (state) => {
+	const { checkout } = state;
+	return {
+		loading: checkout.get('loading'),
+		error: checkout.get('error'),
+		carts: checkout.get('carts'),
+	}
+}
+export default connect(mapStateToProps)(Dashboard)

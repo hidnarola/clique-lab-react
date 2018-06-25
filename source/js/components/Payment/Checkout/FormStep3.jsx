@@ -313,9 +313,9 @@ class FormStep3 extends Component {
                     <div className="right-box create-campaign d-flex checkout">
                         <div className="create-campaign-l d-flex">
                             <div className="step-process d-flex">
-                                <div className="process-point active completed"><a href="javascript:void(0)"></a><strong></strong></div>
-                                <div className="process-point active completed"><a href="javascript:void(0)"></a><strong></strong></div>
-                                <div className="process-point active current"><a href="javascript:void(0)"></a></div>
+                                <div className="process-point active completed"><a href="javascript:void(0)" style={{"cursor":"auto"}}></a><strong></strong></div>
+                                <div className="process-point active completed"><a href="javascript:void(0)" style={{"cursor":"auto"}}></a><strong></strong></div>
+                                <div className="process-point active current"><a href="javascript:void(0)" style={{"cursor":"auto"}}></a></div>
                             </div>
                             <div className="step-content d-flex">
                                 <h2 style={{"font-weight":"600"}}>Step 3</h2>
@@ -364,18 +364,18 @@ class FormStep3 extends Component {
                             <h2>Add Credit Card</h2>
                             <form id="add_credit_card_form" className="popup_modal_form">
                                 <div className="input-wrap">
-                                    <label>Card Holder Name <span className="error-div"> *</span></label>
+                                    <label>Card Holder Name</label>
                                     <input type="text" name="txt_card_holder_name" id="txt_card_holder_name" placeholder="Name" value={txtCHN} onChange={(input) => this.onChange(input.target.name, input.target.value)}  autoFocus/>
                                     <span className="txt_card_holder_name_errorMsg" style={{ "color": "red" }}></span>
                                 </div>
                                 <div className="input-wrap">
-                                    <label>Card Number <span className="error-div"> *</span></label>
+                                    <label>Card Number</label>
                                     <input type="text" name="txt_card_number" id="txt_card_number" placeholder="Card Number" value={txtCN} onChange={(input) => this.onChange(input.target.name, input.target.value)} />
                                     <span className="txt_card_number_errorMsg" style={{ "color": "red" }}></span>
                                 </div>
                                 <div className="expiry-date d-flex">
                                     <div className="input-wrap select-wrap">
-                                        <label>Expiry Date <span className="error-div">&nbsp;*</span></label>
+                                        <label>Expiry Date</label>
                                         <MonthPickerInput
                                             // year={2018}
                                             // month={1}
@@ -393,7 +393,7 @@ class FormStep3 extends Component {
                                         <span className="txt_card_date_errorMsg" style={{ "color": "red" }}></span>
                                     </div>
                                     <div className="input-wrap">
-                                        <label>CVV <span className="error-div"> *</span></label>
+                                        <label>CVV</label>
                                         <input type="password" name="txt_card_cvv" id="txt_card_cvv" placeholder="***" value={txtCVV} onChange={(input) => this.onChange(input.target.name, input.target.value)} />
                                         <span className="txt_card_cvv_errorMsg" style={{ "color": "red" }}></span>
                                     </div>
@@ -417,17 +417,17 @@ class FormStep3 extends Component {
                             <h2>Edit Credit Card</h2>
                             <form id="add_credit_card_form" className="popup_modal_form">
                                 <div className="input-wrap">
-                                    <label>Card Holder Name <span className="error-div"> *</span></label>
+                                    <label>Card Holder Name</label>
                                     <input type="text" name="txt_card_holder_name_edit" id="txt_card_holder_name_edit" placeholder="Name" value={txtCHNedit} onChange={(input) => this.onChangeEdit(input.target.name, input.target.value)}/>
                                     <span className="txt_card_holder_name_edit_errorMsg" style={{ "color": "red" }}></span>
                                 </div>
                                 <div className="input-wrap">
-                                    <label>Card Number <span className="error-div"> *</span></label>
+                                    <label>Card Number</label>
                                     <input type="text" name="txt_card_number_edit" id="txt_card_number_edit" placeholder="Card Number" value={txtCNedit} readOnly="readonly"/>
                                 </div>
                                 <div className="expiry-date d-flex">
                                     <div className="input-wrap select-wrap">
-                                        <label>Select Date <span className="error-div">&nbsp;*</span></label>
+                                        <label>Select Date</label>
                                         <MonthPickerInput
                                             year={txtCDedit.split('/')[1]-0}
                                             month={(txtCDedit.split('/')[0]-1)}
@@ -446,7 +446,7 @@ class FormStep3 extends Component {
                                         <span className="txt_card_date_edit_errorMsg" style={{ "color": "red" }}></span>
                                     </div>
                                     <div className="input-wrap">
-                                        <label>CVV <span className="error-div"> *</span></label>
+                                        <label>CVV</label>
                                         <input type="password" name="txt_card_cvv_edit" id="txt_card_cvv_edit" placeholder="***" value={txtCVVedit} readOnly="readonly"/>
                                     </div>
                                 </div>
