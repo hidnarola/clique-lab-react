@@ -92,7 +92,13 @@ class Checkout extends Component {
 
     componentWillUnmount() {
         const { dispatch } = this.props;
-        dispatch(reset('wizardCheckout'));
+
+        dispatch(reset('wizardCheckout',{}));
+
+        // dispatch({type:"@@redux-form/BLUR",payload:"undefiend"})
+
+        // dispatch(reset('wizardCheckout2'));
+        // dispatch(reset('wizardCheckout3'));
 
         //dispatch(actions.errors({}))
         // dispatch(stopAsyncValidation('wizardCheckout', { clear: true }));
@@ -107,6 +113,7 @@ class Checkout extends Component {
 
     render() {
         const { page } = this.state;
+        
         const { carts } = this.props;
         
         return (
@@ -134,6 +141,7 @@ class Checkout extends Component {
         )
     }
 }
+
 
 const mapStateToProps = (state) => {
     const { register, checkout } = state;

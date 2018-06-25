@@ -7,7 +7,7 @@ import {
     DELETE_CARD_REQUEST, DELETE_CARD_SUCCESS, DELETE_CARD_ERROR,
     GET_CARD_LIST_REQUEST, GET_CARD_LIST_SUCCESS, GET_CARD_LIST_ERROR,
     CART_PAYMENT_REQUEST, CART_PAYMENT_SUCCESS, CART_PAYMENT_ERROR,
-    RESET_VALUES
+    RESET_VALUES,MODIFY_STATUS_RESET,MODIFY_STATUS_REQUEST
 } from "../actions/Checkout";
 
 const initialState = Map({
@@ -53,7 +53,8 @@ const initialState = Map({
     removeItems: {
         status: 0,
         message: null
-    }
+    },
+    modify_status_purchase : false
 });
 
 const actionMap = {
@@ -326,6 +327,22 @@ const actionMap = {
         }
         return state.merge(Map(resetObj));
     },
+
+
+
+    [MODIFY_STATUS_REQUEST]: (state, action) => {
+        return state.merge(Map({
+            modify_status_purchase:true
+        }));
+    },
+    [MODIFY_STATUS_RESET]: (state, action) => {
+        return state.merge(Map({
+            modify_status_purchase:false
+        }));
+    },
+
+
+
 };
 
 export default function reducer(state = initialState, action = {}) {

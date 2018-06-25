@@ -55,7 +55,7 @@
             const { dispatch } = this.props;
             // this.props.dispatch(untouch('wizardCampaign','call_to_action'));
             dispatch(initialize('wizardCampaign', {}))
-
+            
             // dispatch(reset('wizardCampaign'));
         }
 

@@ -3,11 +3,16 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { routeCodes } from 'constants/routes';
 import { imgRoutes } from '../../../constants/img_path';
-import { getCheckoutList, removeCartItems } from '../../../actions/Checkout';
+// import { getCheckoutList, removeCartItems } from '../../../actions/Checkout';
+import { getCheckoutList, removeCartItems,modifyStatusReset} from '../../../actions/Checkout';
+
 import { resetVal } from '../../../actions/Checkout';
 import trashImg from 'img/site/trash-icon.png';
 import nodataImg from 'img/site/no_data/08.png';
 import noCampaignImg from 'img/site/no_data/no_campaign.png';
+
+import { ToastContainer, toast, Slide } from 'react-toastify';
+import '../../../../css/campaign/ReactToastify.css';
 
 class Cart extends React.Component {
 	constructor(props) {
@@ -31,13 +36,24 @@ class Cart extends React.Component {
 	}
 
 	componentDidUpdate(){
-		const { dispatch, removeItems } = this.props;
+		const { dispatch, removeItems, modifyStatusPurchase } = this.props;
 		const { listAfterDel } = this.state;
 		if(removeItems.status===1 && listAfterDel===true){
 			dispatch(getCheckoutList());
 			dispatch(resetVal({'removeCart': false}));
 			this.setState({ listAfterDel : false });
 		}
+
+		if(modifyStatusPurchase === true)
+		{
+			toast.success('Campaign has been added in cart', {
+				className: 'success-custom-tostify'
+			});
+
+			dispatch(modifyStatusReset());
+			
+		}
+		
 	}
 
 	renderTr = (obj) => {
@@ -66,7 +82,13 @@ class Cart extends React.Component {
 	}
 
 	render() {
-		const { carts } = this.props;
+		const { carts,loading } = this.props;
+
+		if (loading )  {
+            return (
+                <div className="loader"></div>
+            )
+        }
 		
 		return (
 			<div>
@@ -147,7 +169,9 @@ const mapStateToProps = (state) => {
 		loading: checkout.get('loading'),
 		error: checkout.get('error'),
 		carts: checkout.get('carts'),
-		removeItems: checkout.get('removeItems')
+		removeItems: checkout.get('removeItems'),
+
+		modifyStatusPurchase: checkout.get('modify_status_purchase')
 	}
 }
 

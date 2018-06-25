@@ -5,6 +5,7 @@ import Pagination from "react-js-pagination";
 import { sendReq, moreFilterReq, fetchDropDownReq, resetVal, addUserReq, bulkUserReq, forceRefresh, setTotal } from '../actions/everyDay';
 import { purchaseAll, resetAlertMsg } from '../actions/campaign';
 import { getGroups, addGroups, resetGroupVal } from '../actions/groups';
+import {modifyStatusReq} from '../actions/Checkout';
 import sampleImg from 'img/site/400x218.png';
 import closeImg from 'img/site/close.png';
 import closeImg2 from 'img/site/close-2.png';
@@ -1009,6 +1010,8 @@ class EverydayPeople extends Component {
             <li key={Math.random()}>
                 <div className="all-people-div">
                     <div className="all-people-img" style={{ "background": "url('" + img + "') no-repeat 100%", "backgroundSize": "100%", "height": "190px" }}>
+                    {/* <div className="all-people-img" > */}
+                        {/* <img src={img} style={{"height": "190px"}}/> */}
                         <div className="plus-people dropdown">
                             <PlusAction
                                 addCampaign={() => { this.addCampaign(obj) }}
@@ -1374,11 +1377,16 @@ class EverydayPeople extends Component {
                 load: false
             });
             this.messagePopupToggle();
+
             dispatch(resetVal({ 'userAdded': false, 'userAddedMsg': null, 'error': null }));
             dispatch(resetGroupVal());
 
             if (modifyStatusPurchase === true) {
                 this.setState({ modifyStatusPurchase: false });
+
+                dispatch(modifyStatusReq()); 
+                // dispatch(modifyStatusReq({'msg': userAddedMsg})); 
+
                 this.props.history.push(routeCodes.MY_CART);
             }
 
@@ -1875,6 +1883,7 @@ class EverydayPeople extends Component {
                                     )
                             }
 
+                            {/* {(users.total > 12) ? */}
                             {(users.total > 12 && match.path !== routeCodes.CAMPAIGN_INSPIRED_SUB) ?
                                 <Pagination
                                     activePage={this.state.activePage}
@@ -1931,7 +1940,7 @@ class EverydayPeople extends Component {
 }
 
 const mapStateToProps = (state) => {
-    const { everyDay, groups, campaign } = state;
+    const { everyDay, groups, campaign,checkout } = state;
     return {
         group_status: groups.get('status'),
         inserted_group: groups.get('inserted_group'),
@@ -1946,7 +1955,8 @@ const mapStateToProps = (state) => {
         userAdded: everyDay.get('userAdded'),
         userAddedMsg: everyDay.get('userAddedMsg'),
         forceRefresh: everyDay.get('forceRefresh'),
-        alertMessage: campaign.get('alertMessage')//dm
+        alertMessage: campaign.get('alertMessage'),//dm
+        modifyStatusPurchase: checkout.get('modify_status_purchase')//dm
 
     }
 }

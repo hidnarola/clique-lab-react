@@ -28,6 +28,11 @@ export const CART_PAYMENT_ERROR = 'CART_PAYMENT_ERROR';
 
 export const RESET_VALUES = 'RESET_VALUES';
 
+
+export const MODIFY_STATUS_REQUEST = 'MODIFY_STATUS_REQUEST';
+export const MODIFY_STATUS_RESET = 'MODIFY_STATUS_RESET';
+
+
 export function getCheckoutList() { return { type: GET_CHECKOUT_LIST_REQUEST } }
 export function getCheckoutListSuccess(data) { return { type: GET_CHECKOUT_LIST_SUCCESS, data } }
 export function getCheckoutListError(error) { return { type: GET_CHECKOUT_LIST_ERROR, error } }
@@ -57,3 +62,8 @@ export function cartPaymentSuccess(data) { return { type: CART_PAYMENT_SUCCESS, 
 export function cartPaymentError(error) { return { type: CART_PAYMENT_ERROR, error } }
 
 export function resetVal(data) { return { type: RESET_VALUES, data:data } }
+
+
+export function modifyStatusReq() { return { type: MODIFY_STATUS_REQUEST} }
+export function modifyStatusReset() { return { type: MODIFY_STATUS_RESET} }
+

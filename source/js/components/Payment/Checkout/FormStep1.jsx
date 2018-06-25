@@ -137,3 +137,4 @@ export default reduxForm({
     forceUnregisterOnUnmount: true, // <------ unregister fields on unmount
     validate,
 })(FormStep1);
+

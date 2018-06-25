@@ -375,7 +375,9 @@ ul.all-people-ul li{ width:33.33%; padding:15px;}
 .all-people-div{ background:#fff; border-radius:4px; box-shadow:0 4px 24px 0 rgba(0,0,0,.1); overflow:hidden;position: relative;}
 .all-people-img{position:relative;}
 .all-people-img>button{display:block; padding:0; background:transparent; border:transparent; color:transparent;}
+
 .all-people-img  img{border-radius:4px 4px 0 0;}
+
 .plus-people{position:absolute; top:28px; right:28px;}
 .plus-people>.dropdown>button{display:block;text-decoration:none; background:transparent !important; border:transparent !important; color:transparent !important; padding:0;}
 .plus-people .dropdown-toggle::after{display:none;}
