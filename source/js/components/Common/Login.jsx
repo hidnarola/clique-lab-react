@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React,{Component} from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router'
@@ -6,20 +6,20 @@ import { SubmissionError } from 'redux-form';
 import { reactLocalStorage } from 'reactjs-localstorage';
 import CryptoJS from 'crypto-js';
 import LogoImg from 'img/common/logo.png';
-import LoginForm from '../Forms/Front/LoginForm';
+import LoginForm  from '../Forms/Front/LoginForm';
 import { login } from '../../actions/login';
 import { resetForgotVal } from '../../actions/forgotPass';
 //import { resetLoginVal } from '../../actions/login'; // dm
 import { resetRegisterVal } from '../../actions/register'; // dm
 
 import { routeCodes } from '../../constants/routes';
-import { SECRET_KEY } from '../../constants/usefulvar';
+import {SECRET_KEY} from '../../constants/usefulvar';
 import { Alert } from 'reactstrap';
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
-class Login extends Component {
-    constructor(props) {
+class Login extends Component{    
+    constructor(props){
         super(props);
         this.state = {
             redirectToReferrer: false,
@@ -34,72 +34,72 @@ class Login extends Component {
             login_id: values.username,
             password: values.password,
         }
-        this.setState({ submitAction: true })
-        dispatch(login(loginData));
+        this.setState({submitAction: true})
+        dispatch(login(loginData));        
     }
 
-    componentWillMount() {
-        let { error, user, message, dispatch } = this.props;
+    componentWillMount(){
+        let { error,user,message,dispatch } = this.props;
         let { errorMsg } = this.state;
         console.log(message);
-        if (message !== null) {
-            this.setState({ errorMsg: message }, () => {
-                // setTimeout(() => {
-                //     this.setState({ errorMsg: '' })
-                //     dispatch(resetForgotVal());
-                //     dispatch(resetRegisterVal());
-                // }, 3000);
+        if (message!==null){
+            this.setState({errorMsg: message},() => {
+                setTimeout(()=>{
+                    this.setState({errorMsg: ''})
+                    dispatch(resetForgotVal());
+                    dispatch(resetRegisterVal());
+                },3000);
             })
         }
     }
 
-    componentDidUpdate() {
-        // console.log('orporprorpo>>>',this.porps);
+    componentDidUpdate(){
+       // console.log('orporprorpo>>>',this.porps);
         let { message, loading, error } = this.props;
-        let { submitAction, load } = this.state;
-        if (submitAction && !loading) {
-            this.setState({ submitAction: false })
-            if (error !== null) {
-                this.setState({ errorMsg: error }, () => {
-                    setTimeout(() => {
-                        this.setState({ errorMsg: '' })
-                    }, 3000);
+        let { submitAction,load} = this.state;
+        if(submitAction && !loading){
+            this.setState({submitAction: false})
+            if(error!==null){
+                this.setState({errorMsg: error},() => {
+                    setTimeout(()=>{
+                        this.setState({errorMsg: ''})
+                    },3000);
                 })
-            }
-            else if (message !== null) {
-                this.setState({ errorMsg: message }, () => {
-                    setTimeout(() => {
-                        this.setState({ errorMsg: '' })
-                    }, 3000);
+            } 
+            else if (message!==null){
+                this.setState({errorMsg: message},() => {
+                    setTimeout(()=>{
+                        this.setState({errorMsg: ''})
+                    },3000);
                 })
             }
         }
     }
-
-    render() {
-
-        let { error, user, message } = this.props;
-        let { errorMsg, load } = this.state;
+    
+    render(){
+      
+        let { error,user,message} = this.props;
+        let { errorMsg,load } = this.state;
         let token = localStorage.getItem('token');
         let usrObj = reactLocalStorage.getObject('user');
-        if (Object.keys(usrObj).length > 0) {
+        if (Object.keys(usrObj).length>0){
             console.log(usrObj.first_login);
-            if (usrObj.first_login === true) {
-                console.log('Redirect', '1');
+            if(usrObj.first_login===true){
+                console.log('Redirect','1');
                 this.props.history.push(routeCodes.AFTERREGISTER);
                 //return <Redirect to={routeCodes.AFTERREGISTER} />;
-            } else if (usrObj.first_login === false) {
-                console.log('Redirect', '2');
+            }else if(usrObj.first_login===false){
+                console.log('Redirect','2');
                 this.props.history.push(routeCodes.DASHBOARD);
                 //return <Redirect to={routeCodes.DASHBOARD} />;
             } else {
-                console.log('Redirect', '3');
+                console.log('Redirect','3');
                 this.props.history.push(routeCodes.AFTERREGISTER);
                 //return <Redirect to={routeCodes.AFTERREGISTER} />;
             }
         }
 
-        return (
+        return(
             <div className="login-register-bg">
                 <div className="login-register-box login_page">
                     <div className="form-logo d-flex">
@@ -113,7 +113,7 @@ class Login extends Component {
                     <div className="form-ftr">
                         <p>
                             Don't have an account? {' '}
-                            <a className="cursor_pointer" onClick={() => (this.props.history.push("/register"))} style={{ "color": "#6772e5" }}>
+                            <a className="cursor_pointer" onClick={() => (this.props.history.push("/register"))} style={{"color":"#6772e5"}}>
                                 Register Today
                             </a>
                             {/* <a><Link className="cursor_pointer" to="/register">Register Today</Link></a> */}
@@ -128,10 +128,10 @@ class Login extends Component {
 const mapStateToProps = (state) => {
     const { login, forgotPass, register } = state;
     let msg = '';
-    if (forgotPass.get('message')) {
+    if(forgotPass.get('message')){
         msg = forgotPass.get('message');
     }
-    if (register.get('message')) {
+    if(register.get('message')){
         msg = register.get('message');
     }
     return {
