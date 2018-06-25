@@ -170,9 +170,9 @@ img{max-width:100%;}
 	.input-wrap-2 i img {max-width:20px;}
 	.hdr-user>a>span {width: 34px; height:34px; margin:0;}
 	.hdr-user>a>i {line-height:34px; height: 34px; background-size: 10px auto; width: 10px; margin-left:3px;}
-	.hdr-cart>a>i {background:url(../assets/img/site/cart-icon.png) no-repeat 0 0; height: 18px; background-size:28px auto; width:28px;}
+	.hdr-cart>a>i {background:url(../assets/img/site/svg/cart.svg) no-repeat 0 0; height: 18px; width:28px;}
 	.hdr-user>a {line-height:40px;}
-	.hdr-cart>a>span {font-size:13px; bottom:6px; right:0; width:16px; height:16px; font-size:11px; line-height:16px;}
+	.hdr-cart>a>span {font-size:13px; bottom:-5px; right:0; width:16px; height:16px; font-size:11px; line-height:16px;}
 	.hdr-cart>a>span:before{ width:20px; height:20px; border:2px solid  rgba(103,114,229,.2); left:-2px; top:-2px;}
 	.hdr-cart {margin-right:16px;}
 	.big-logo a img {max-width: 73px;}

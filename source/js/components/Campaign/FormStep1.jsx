@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import FormCampaignRight from './FormCampaignRight';
 import { CommonCompo } from './CommonCompo';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, change } from 'redux-form';
 import DatePicker from 'react-datepicker';
 import validator from 'validator';
 import moment from 'moment';

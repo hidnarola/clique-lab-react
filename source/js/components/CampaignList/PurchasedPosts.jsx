@@ -144,7 +144,7 @@ const PlusAction = (props) => {
                 <a className="cursor_pointer"><img src={imgPlus} alt="" /></a>
             </DropdownToggle>
             <DropdownMenu className="dropdown-menu dropdown-menu-right">
-                <a className="dropdown-item" href={imgRoutes.CAMPAIGN_POST_IMG_PATH + props.objData.applied_campaign.image} download /*onClick={() => { props.downloadPost(); }}*/ >Download</a>
+                <a className="dropdown-item" href="javascript:void(0)" onClick={() => { props.downloadPost(); }} >Download</a>
                 <a className="dropdown-item" href="javascript:void(0)" onClick={() => { props.addGroup(); }} >Add user to Group</a>
                 <a className="dropdown-item" href="javascript:void(0)" onClick={() => { props.addCampaign(); }} >Add user to Campaign</a>
             </DropdownMenu>
@@ -397,7 +397,7 @@ class PurchasedPosts extends Component {
                                                 <div className="festival-ftr-r dropdown">
                                                     <PlusAction
                                                         objData = {obj}
-                                                        downloadPost={() => { this.downloadPost(obj._id) }}
+                                                        downloadPost={() => { this.downloadPost(obj.applied_campaign._id) }}
                                                         addCampaign={() => { this.addCampaign(obj) }}
                                                         addGroup={() => { this.addGroup(obj) }}
                                                     />

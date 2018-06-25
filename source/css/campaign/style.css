@@ -188,9 +188,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#895cf2', end
 
 .hdr-cart{display:inline-block; vertical-align:top; margin-right:10px;}
 .hdr-cart>a{display:block;position:relative;}
-.hdr-cart>a>i{background:url(../assets/img/site/cart-icon.png) no-repeat 0 0;display:block; width:40px; height:25px;}
+.hdr-cart>a>i{background:url(../assets/img/site/svg/cart.svg) no-repeat 0 0;display:block; width:40px; height:25px;}
 .hdr-cart>a>span:before{content:''; background:transparent; position:absolute; top:-4px; left:-4px; width:28px; height:28px; border:4px solid  rgba(103,114,229,.2); border-radius:80px; z-index:-1;}
-.hdr-cart>a>span{position:absolute; width:20px; height:20px; background:#6772e5; text-align:center; line-height:20px; color:#fff; font-size:14px; font-weight:500; border-radius:80px; display:block; bottom:8px; right:3px;}
+.hdr-cart>a>span{position:absolute; width:20px; height:20px; background:#6772e5; text-align:center; line-height:20px; color:#fff; font-size:14px; font-weight:500; border-radius:80px; display:block; bottom:-5px; right:3px;}
 .hdr-cart h3{margin:0; padding:0 0 36px; font-size:24px; color:#6772e5; font-weight:500;}
 .hdr-cart p{margin:0; padding:0 0 30px; font-size:16px; color:#525f7f; font-weight:500; letter-spacing:.01em;}
 .hdr-cart .dropdown-menu {width:386px;margin:22px 0 0 0;}
