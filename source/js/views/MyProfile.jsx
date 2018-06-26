@@ -33,7 +33,10 @@ class MyProfile extends Component {
 		}
 	}
 
-	messagePopupToggle = () => { this.setState({ messagePopup: !this.state.messagePopup }); }
+	messagePopupToggle = () => { 
+		this.setState({ messagePopup: !this.state.messagePopup }); 
+		this.props.history.push(routeCodes.MY_PROFILE);
+	}
 	componentWillMount = () => {
 		const { dispatch } = this.props;
 		dispatch(industryFetch());
