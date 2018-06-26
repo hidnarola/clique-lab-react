@@ -62,11 +62,14 @@ html, body, .loader, .loader>div, .login-register-bg, .login-register-box.login_
 .industry-r .industry-description textarea{ font-size: 15px; font-weight: 600; color: #525f7f !important;}
 .industry-r .industry-description textarea::placeholder{ color: #525f7f !important; }
 .industry-r .industry-description textarea::-moz-placeholder{ color: #525f7f !important; }
-
+.myprofile-r .dropzone-image-preview-wrapper{padding: 10px; border: 2px dashed #d4d4de; height: 300px; text-align: center; }
+.myprofile-r .images-preview-wrapper{ border:none; margin:0px; }
 .Select.has-value.Select--single > .Select-control .Select-value .Select-value-label{ font-weight:600 !important;}
 .alert-custom-tostify{ background-color:#f44336bd}
 .success-custom-tostify{ background:#6772e5 !important; color:#fff !important}
 .Toastify__close-button.Toastify__close-button--default{ color:#fff !important; margin:13px 6px !important; }
+
+
 /**************************************************************
                             Checkout
 ***************************************************************/                        

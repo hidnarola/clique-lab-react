@@ -146,8 +146,8 @@ export const SelectField_ReactSelect = (props) => {
     if (input.value && Object.keys(input.value).length > 0) {
         val = input.value;
     } else if (initialValue) {
-        //val = initialValue;
-        val = val;
+        val = initialValue;
+        // val = val;
     }
     return (
         <div className={wrapperClass}>
