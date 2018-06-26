@@ -81,7 +81,7 @@ class Header extends Component {
                     <div className="hdr-cart">
                         <Link to={routeCodes.MY_CART}>
                             <i className=""></i>
-                            {carts.data !== null && <span>{carts.data.length}</span>}
+                            {/* {carts.data !== null && <span>{carts.data.length}</span>} */}
 
                         </Link>
                         <div className="dropdown-menu dropdown-menu-right" aria-labelledby="cart-dropdown">
@@ -127,10 +127,10 @@ class Header extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
-    const { checkout } = state;
-    return {
-        carts: checkout.get('carts'),
-    }
-}
-export default withRouter(connect(mapStateToProps)(Header));
+// const mapStateToProps = (state) => {
+//     const { checkout } = state;
+//     return {
+//         carts: checkout.get('carts'),
+//     }
+// }
+export default withRouter(connect()(Header));

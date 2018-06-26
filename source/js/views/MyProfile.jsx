@@ -44,13 +44,24 @@ class MyProfile extends Component {
 		const { dispatch } = this.props;
 		const { editProfileSubmit } = this.state;
 		const formData = new FormData();
+		let ind_cat_value = '';
+		if(values.industry_category.value===undefined){
+			ind_cat_value = values.industry_category;
+		}else{
+			ind_cat_value = values.industry_category.value;
+		}
+
+		if(values.avatar!==undefined){
+			formData.append("avatar", values.avatar[0]);
+		}
+		
 		formData.append("name", values.name);
 		// formData.append("username", values.username);
 		// formData.append("email", values.email);
 		formData.append("company", values.company);
-		formData.append("industry_category", values.industry_category.value);
+		formData.append("industry_category", ind_cat_value);
 		formData.append("industry_description", values.description);
-		formData.append("avatar", values.avatar[0]);
+		
 		dispatch(editProfile(formData));
 		if (editProfileSubmit === false) {
 			this.setState({ editProfileSubmit: true })
