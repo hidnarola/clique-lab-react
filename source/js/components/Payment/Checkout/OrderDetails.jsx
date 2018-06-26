@@ -40,22 +40,57 @@ class OrderDetails extends Component {
         // dispatch(resetVal({ 'userAdded': false }));
     }
 
+    // renderTr = (obj) => {
+    //     let applied_post_img = '';
+    //     if(obj.applied_post.image==undefined){
+    //         applied_post_img = noCampaignImg;
+    //     }else{
+    //         applied_post_img = imgRoutes.CAMPAIGN_POST_IMG_PATH + obj.applied_post.image;
+    //     }
+    //     return (
+    //         <tr key={Math.random()}>
+    //             <td><img src={applied_post_img} alt="" style={{"width":"60px"}} /></td>
+    //             <td style={{verticalAlign:"top"}}>
+    //                 <h3>{obj.applied_post.desription.substring(0,40)+'...'}</h3>
+    //                 <h4>{obj.user.name.substring(0,9)}</h4>
+    //                 <h4>{(obj.campaign.social_media_platform.charAt(0).toUpperCase() + obj.campaign.social_media_platform.slice(1))}</h4>
+    //             </td>
+    //             <td>${(obj.campaign.price).toFixed(2)}</td>
+    //             <td> <a href="javascript:void(0)" onClick={() => this.removeCart(obj._id)}><img src={trashImg} alt="Delete" style={{"width": "15px","marginTop": "-5px"}}/></a> </td>
+    //         </tr>
+    //     );
+    // }
+
     renderTr = (obj) => {
-        let applied_post_img = '';
-        if(obj.applied_post.image==undefined){
-            applied_post_img = noCampaignImg;
-        }else{
-            applied_post_img = imgRoutes.CAMPAIGN_POST_IMG_PATH + obj.applied_post.image;
-        }
+       let post_img = '';
+		if (obj.applied_post) {
+			if (obj.applied_post.image == undefined) {
+				post_img= noCampaignImg;
+			} else {
+				post_img = imgRoutes.CAMPAIGN_POST_IMG_PATH + obj.applied_post.image;
+			}
+		}
+		else if(obj.inspired_post)
+		{
+			if (obj.inspired_post.image == undefined) {
+				post_img = noCampaignImg;
+			} else {
+				post_img = imgRoutes.CAMPAIGN_INSPIRED_IMG_PATH + obj.inspired_post.image;
+			}
+		}
         return (
             <tr key={Math.random()}>
-                <td><img src={applied_post_img} alt="" style={{"width":"60px"}} /></td>
+                <td><img src={post_img} alt="" style={{"width":"60px"}} /></td>
                 <td style={{verticalAlign:"top"}}>
-                    <h3>{obj.applied_post.desription.substring(0,40)+'...'}</h3>
+                    <h3>{obj.applied_post ? obj.applied_post.desription.substring(0,40)+'...' : obj.inspired_post.text.substring(0,40)+'...'}</h3>
                     <h4>{obj.user.name.substring(0,9)}</h4>
-                    <h4>{(obj.campaign.social_media_platform.charAt(0).toUpperCase() + obj.campaign.social_media_platform.slice(1))}</h4>
+                    <h4>{
+                        obj.applied_post ? (obj.campaign.social_media_platform.charAt(0).toUpperCase() + obj.campaign.social_media_platform.slice(1)) : 
+                        obj.inspired_post.social_media_platform.charAt(0).toUpperCase() +obj.inspired_post.social_media_platform.slice(1)
+                        }
+                    </h4>
                 </td>
-                <td>${(obj.campaign.price).toFixed(2)}</td>
+                <td>${obj.applied_post ? (obj.campaign.price).toFixed(2) : (obj.inspired_post.price).toFixed(2)}</td>
                 <td> <a href="javascript:void(0)" onClick={() => this.removeCart(obj._id)}><img src={trashImg} alt="Delete" style={{"width": "15px","marginTop": "-5px"}}/></a> </td>
             </tr>
         );

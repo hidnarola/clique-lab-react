@@ -968,10 +968,12 @@ class EverydayPeople extends Component {
         dispatch(addUserReq(data));
     }
 
-    modifyStatusPurchase = (camp_id, user_id) => {
+    // modifyStatusPurchase = (camp_id, user_id) => {
+    modifyStatusPurchase = (camp_id, user_id, param1 = '') => {
         const { dispatch, match } = this.props;
         let data = {
-            'param1': 'cart',
+            // 'param1': 'cart',
+            'param1': param1,
             'param2': {
                 'value': camp_id
             },
@@ -1097,7 +1099,8 @@ class EverydayPeople extends Component {
                                 addToCart={() => { this.addToCart(obj.campaign_id, obj.applied_post_id) }}
                                 addGroup={() => { this.addGroup(obj) }}
                                 // modifyStatusPurchase={() => { this.modifyStatusPurchase(obj.campaign_id, obj.user_id) }}
-                                modifyStatusPurchase={() => { this.modifyStatusPurchase(obj.campaign_id, obj.applied_post_id) }}
+                                // modifyStatusPurchase={() => { this.modifyStatusPurchase(obj.campaign_id, obj.applied_post_id) }}
+                                modifyStatusPurchase={() => { this.modifyStatusPurchase(obj.campaign_id, obj.applied_post_id,'cart') }}
                             />
                         </div>
                     </div>
@@ -1170,7 +1173,8 @@ class EverydayPeople extends Component {
                                 <PlusAction2
                                     addToCart={() => { this.addToCart(obj._id, obj.users._id, 'inspired_submission') }}
                                     addGroup={() => { this.addGroup(obj) }}
-                                    modifyStatusPurchase={() => { this.modifyStatusPurchase(obj._id, obj.users._id) }}
+                                    // modifyStatusPurchase={() => { this.modifyStatusPurchase(obj._id, obj.users._id) }}
+                                    modifyStatusPurchase={() => { this.modifyStatusPurchase(obj._id, obj.users._id,'inspired_submission') }}
                                 />
                             </div>
                         </div>

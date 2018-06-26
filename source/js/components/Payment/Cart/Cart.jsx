@@ -45,7 +45,7 @@ class Cart extends React.Component {
 		}
 
 		if (modifyStatusPurchase === true) {
-			toast.success('Campaign has been added in cart', {
+			toast.success('Post has been added in cart', {
 				className: 'success-custom-tostify'
 			});
 
