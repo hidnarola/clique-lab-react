@@ -1124,7 +1124,15 @@ class EverydayPeople extends Component {
             'pinterest': pinImg,
             'twitter': twitterImg,
         };
+        let user_img = '';
         let img = '';
+
+        if(obj.users.image === undefined){
+            user_img = noUserImg2;
+        }else{
+            user_img = imgRoutes.USER_IMG_PATH + obj.users.image;
+        }
+
         if (obj.is_image == 0) {
             img = noUserImg;
         } else {
@@ -1140,7 +1148,7 @@ class EverydayPeople extends Component {
                     <div className="fan-festival-r">
                         <div className="festival-head d-flex">
                             <div className="festival-head-l">
-                                <span style={{ "background": "url('" + imgRoutes.USER_IMG_PATH + obj.users.image + "') center 0 / auto 50px no-repeat", "height": "50px" }}>
+                                <span style={{ "background": "url('" + user_img + "') center 0 / auto 50px no-repeat", "height": "50px" }}>
                                     {/* <img src={imgRoutes.USER_IMG_PATH + obj.users.image} /> */}
                                 </span>
                                 <h3>
@@ -1391,17 +1399,15 @@ class EverydayPeople extends Component {
 
             if (modifyStatusPurchase === true) {
                 this.setState({ modifyStatusPurchase: false });
-
                 dispatch(modifyStatusReq()); 
-                // dispatch(modifyStatusReq({'msg': userAddedMsg})); 
-
                 this.props.history.push(routeCodes.MY_CART);
             }
 
         } else if (userAdded === false && error === true) {
             this.setState({
                 messagePopupSuccessMsg: null,
-                messagePopupErrorMsg: userAddedMsg
+                messagePopupErrorMsg: userAddedMsg,
+                load: false // now
             });
             this.messagePopupToggle();
             dispatch(resetVal({ 'userAdded': false, 'userAddedMsg': null, 'error': null }));

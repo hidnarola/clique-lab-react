@@ -162,6 +162,10 @@ const actionMap = {
             };
         if(action['data']){
             (action['data']['userAdded'] === false) ? resetObj['userAdded'] = false:'';
+
+            (action['data']['userAddedMsg'] === null) ? resetObj['userAddedMsg'] = null:''; //
+            (action['data']['error'] === null) ? resetObj['error'] = null:''; //
+            
             (action['data']['userListing'] === false) ? resetObj['users']=resetUserVal:'';
         }
         return state.merge(Map(resetObj));
@@ -183,7 +187,8 @@ const actionMap = {
         return state.merge(Map({
             loading: true,
             error: null,
-            userAdded:false
+            userAdded:false,
+            userAddedMsg: null,
         }));
     },
     [ADD_USER_SUCCESS]: (state, action) => {
