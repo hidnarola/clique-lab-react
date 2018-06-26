@@ -5,6 +5,11 @@ function userRegister(data) {
     return postFormData('promoter_signup', data);
 }
 
+function emailReSend(data) {
+    return postFormData('resend_email', data);
+}
+
+
 function afterRegisterUpdate(data){
     let newVar = reactLocalStorage.get('token', true);
     return postFormData('promoter/update_profile', data, 
@@ -45,5 +50,6 @@ export default {
     afterRegisterUpdate,
     fetchIndustry,
     fetchSetting,
-    getCountry
+    getCountry,
+    emailReSend
 }

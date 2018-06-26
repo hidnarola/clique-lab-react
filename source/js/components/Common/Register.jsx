@@ -6,7 +6,7 @@ import { TERMS, PRIVACY } from '../../constants/pages';
 import RegisterForm from '../../components/Forms/Front/RegisterForm';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { register, country, resetRegisterVal, resetRegisterFullState } from '../../actions/register';
+import { register, country, resetRegisterVal, resetRegisterFullState,setEmail} from '../../actions/register';
 import { Redirect } from 'react-router-dom';
 import { routeCodes } from '../../constants/routes';
 import { getFormSyncErrors } from 'redux-form';
@@ -37,6 +37,7 @@ class Register extends Component {
         }
         this.setState({ submitAction: true });
         dispatch(register(userData));
+        dispatch(setEmail(values.email));
     }
 
     componentWillMount = () => {

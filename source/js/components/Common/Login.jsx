@@ -41,14 +41,13 @@ class Login extends Component{
     componentWillMount(){
         let { error,user,message,dispatch } = this.props;
         let { errorMsg } = this.state;
-        console.log(message);
         if (message!==null){
             this.setState({errorMsg: message},() => {
-                setTimeout(()=>{
-                    this.setState({errorMsg: ''})
-                    dispatch(resetForgotVal());
-                    dispatch(resetRegisterVal());
-                },3000);
+                // setTimeout(()=>{
+                //     this.setState({errorMsg: ''})
+                //     dispatch(resetForgotVal());
+                //     dispatch(resetRegisterVal());
+                // },3000);
             })
         }
     }

@@ -3,6 +3,12 @@ export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 export const REGISTER_ERROR = 'REGISTER_ERROR';
 export const RESET_VALUES_REGISTER = 'RESET_VALUES_REGISTER';
 
+export const SET_EMAIL = 'SET_EMAIL';
+
+export const RE_SEND_EMAIL_REQUEST = 'RE_SEND_EMAIL_REQUEST';
+export const RE_SEND_EMAIL_SUCCESS = 'RE_SEND_EMAIL_SUCCESS';
+export const RE_SEND_EMAIL_ERROR = 'RE_SEND_EMAIL_ERROR';
+
 // Fetch Country
 export const FETCH_REGISTER_COUNTRY_REQUEST = 'FETCH_REGISTER_COUNTRY_REQUEST';
 export const FETCH_REGISTER_COUNTRY_SUCCESS = 'FETCH_REGISTER_COUNTRY_SUCCESS';
@@ -63,4 +69,22 @@ export function resetRegisterFullState() {
         type: RESET_REGISTER_FULL_STATE
     }
 }
+
+
+
+export function setEmail(data) {
+    return {
+        type: SET_EMAIL,
+        data
+    }
+}
+
+export function reSendEmail(data) {
+    return {
+        type: RE_SEND_EMAIL_REQUEST,
+        data
+    }
+}
+
+
 

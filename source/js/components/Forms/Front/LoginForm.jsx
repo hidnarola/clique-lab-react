@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { Field, reduxForm, formValueSelector } from 'redux-form'
 import { connect } from 'react-redux'
 import { Link, NavLink, Redirect } from 'react-router-dom';
+
+import { reSendEmail } from '../../../actions/register';//
+
 import cx from 'classnames';
 import { Alert } from 'reactstrap';
 import { reset } from 'redux-form';
@@ -33,8 +36,18 @@ class LoginForm extends Component {
             control: false
         };
         this.onDismiss = this.onDismiss.bind(this);
+        this.saveEmail = this.saveEmail.bind(this);
     }
     onDismiss() { this.setState({ 'visible': false }); }
+
+    saveEmail()
+    {
+        const { dispatch,emailId} = this.props;
+        let re_email = {
+            "email":emailId 
+        }
+        dispatch(reSendEmail(re_email));
+    }
 
     componentWillReceiveProps(nextProps) {
         if (this.state.visible === false && nextProps.newError === null) {
@@ -46,7 +59,14 @@ class LoginForm extends Component {
         if ((nextProps.username) === undefined || ((nextProps.password) === undefined) || (nextProps.password.length < 5)) {
             this.setState({ 'showError': true });
         }
+        // this.props.dispatch(getEmail());
     }
+
+    // componentDidUpdate()
+    // {
+    //     this.props.dispatch(getEmail());
+    // }
+
 
     render() {
         const { showError } = this.state;
@@ -61,7 +81,7 @@ class LoginForm extends Component {
                                     newError == 'Promoter registered successfully' ?
                                         <div>
                                             Just one more step!<br /><br />
-                                            We have sent you an email that will allow you to login to Clique. If you didn't receive it, <a href="">click HERE</a> and we will resend the email link. We cannot wait to have you onboard
+                                            We have sent you an email that will allow you to login to Clique. If you didn't receive it, <a href="javascript:void(0)" onClick={this.saveEmail}>click HERE</a> and we will resend the email link. We cannot wait to have you onboard
                                         </div>
                                     : newError
                                 }
@@ -83,10 +103,19 @@ class LoginForm extends Component {
     }
 }
 
-LoginForm = reduxForm({
-    form: 'contact',
-    validate,
-})(LoginForm)
+/** -------changes after----- */
+const mapStateToProps = (state) => {
+	const {register} = state;
+	return {
+		emailId : register.get('email_id')
+	}
+}
+
+/**------------Before-------------- */
+// LoginForm = reduxForm({
+//     form: 'contact',
+//     validate,
+// })(LoginForm)
 
 
 const selector = formValueSelector('contact') // <-- same as form name
@@ -101,4 +130,12 @@ LoginForm = connect(
     }
 )(LoginForm)
 
-export default LoginForm
+//export default LoginForm
+
+
+/** Change After */
+export default connect(mapStateToProps)(reduxForm({
+	form: 'contact',
+	validate
+})(LoginForm));
+
