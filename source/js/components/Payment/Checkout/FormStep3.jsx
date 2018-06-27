@@ -180,7 +180,8 @@ class FormStep3 extends Component {
     }
 
     // Edit Credit Card
-    editCreditCardModalOpen(cardDetails) {
+    editCreditCardModalOpen(e,cardDetails) {
+        e.stopPropagation();
         this.setState({ 
             editCreditCardModalShow: !this.state.editCreditCardModalShow,
             editCardId: cardDetails.id,
@@ -189,6 +190,7 @@ class FormStep3 extends Component {
             txtCDedit: cardDetails.exp_month+'/'+cardDetails.exp_year,
             txtCVVedit: '***'
         });
+        
         
     }
     editCreditCardModaltoggle() {
@@ -242,7 +244,8 @@ class FormStep3 extends Component {
     }
 
     // Delete Credit Card
-    deleteCard = (cardId) => {
+    deleteCard = (e,cardId) => {
+        e.stopPropagation();
         this.setState({
             delete_alert: true,
             delete_selected_id: cardId
@@ -254,6 +257,7 @@ class FormStep3 extends Component {
             const { dispatch } = this.props;
             dispatch(deleteCard({ "cardId": delete_selected_id }))
             dispatch(resetVal({ addCard: false, deleteCard: false }));
+            // this.props.change('txt_card_id', ''); // dm
         }
         this.setState({
             delete_alert: false,
@@ -270,7 +274,7 @@ class FormStep3 extends Component {
     
     // Credit Card Lisitng
     cardListDiv = (obj) => {
-        console.log('Data>>',obj);
+        // console.log('Data>>',obj);
         let cardType = {
             'MasterCard': mastercardImg,
             'Visa': visaImg
@@ -280,8 +284,8 @@ class FormStep3 extends Component {
                 <div className="card-box-head d-flex">
                     <i className="light-bg"></i>
                     <div className="card-box-head-r">
-                        <a href="javascript:void(0)" onClick={()=> this.editCreditCardModalOpen(obj)}><img src={editImg} alt="Edit" /></a>
-                        <a href="javascript:void(0)" onClick={() => this.deleteCard(obj.id)}><img src={deleteImg} alt="Delete" /></a>
+                        <a href="javascript:void(0)" onClick={(e) => this.editCreditCardModalOpen(e,obj)}><img src={editImg} alt="Edit" /></a>
+                        <a href="javascript:void(0)" onClick={(e) => this.deleteCard(e,obj.id)}><img src={deleteImg} alt="Delete" /></a>
                     </div>
                 </div>
                 <div className="card-box-body">
