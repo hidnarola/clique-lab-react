@@ -968,10 +968,12 @@ class EverydayPeople extends Component {
         dispatch(addUserReq(data));
     }
 
-    modifyStatusPurchase = (camp_id, user_id) => {
+    // modifyStatusPurchase = (camp_id, user_id) => {
+    modifyStatusPurchase = (camp_id, user_id, param1 = '') => {
         const { dispatch, match } = this.props;
         let data = {
-            'param1': 'cart',
+            // 'param1': 'cart',
+            'param1': param1,
             'param2': {
                 'value': camp_id
             },
@@ -1097,7 +1099,8 @@ class EverydayPeople extends Component {
                                 addToCart={() => { this.addToCart(obj.campaign_id, obj.applied_post_id) }}
                                 addGroup={() => { this.addGroup(obj) }}
                                 // modifyStatusPurchase={() => { this.modifyStatusPurchase(obj.campaign_id, obj.user_id) }}
-                                modifyStatusPurchase={() => { this.modifyStatusPurchase(obj.campaign_id, obj.applied_post_id) }}
+                                // modifyStatusPurchase={() => { this.modifyStatusPurchase(obj.campaign_id, obj.applied_post_id) }}
+                                modifyStatusPurchase={() => { this.modifyStatusPurchase(obj.campaign_id, obj.applied_post_id,'cart') }}
                             />
                         </div>
                     </div>
@@ -1121,7 +1124,15 @@ class EverydayPeople extends Component {
             'pinterest': pinImg,
             'twitter': twitterImg,
         };
+        let user_img = '';
         let img = '';
+
+        if(obj.users.image === undefined){
+            user_img = noUserImg2;
+        }else{
+            user_img = imgRoutes.USER_IMG_PATH + obj.users.image;
+        }
+
         if (obj.is_image == 0) {
             img = noUserImg;
         } else {
@@ -1137,7 +1148,7 @@ class EverydayPeople extends Component {
                     <div className="fan-festival-r">
                         <div className="festival-head d-flex">
                             <div className="festival-head-l">
-                                <span style={{ "background": "url('" + imgRoutes.USER_IMG_PATH + obj.users.image + "') center 0 / auto 50px no-repeat", "height": "50px" }}>
+                                <span style={{ "background": "url('" + user_img + "') center 0 / auto 50px no-repeat", "height": "50px" }}>
                                     {/* <img src={imgRoutes.USER_IMG_PATH + obj.users.image} /> */}
                                 </span>
                                 <h3>
@@ -1170,7 +1181,8 @@ class EverydayPeople extends Component {
                                 <PlusAction2
                                     addToCart={() => { this.addToCart(obj._id, obj.users._id, 'inspired_submission') }}
                                     addGroup={() => { this.addGroup(obj) }}
-                                    modifyStatusPurchase={() => { this.modifyStatusPurchase(obj._id, obj.users._id) }}
+                                    // modifyStatusPurchase={() => { this.modifyStatusPurchase(obj._id, obj.users._id) }}
+                                    modifyStatusPurchase={() => { this.modifyStatusPurchase(obj._id, obj.users._id,'inspired_submission') }}
                                 />
                             </div>
                         </div>
@@ -1387,17 +1399,15 @@ class EverydayPeople extends Component {
 
             if (modifyStatusPurchase === true) {
                 this.setState({ modifyStatusPurchase: false });
-
                 dispatch(modifyStatusReq()); 
-                // dispatch(modifyStatusReq({'msg': userAddedMsg})); 
-
                 this.props.history.push(routeCodes.MY_CART);
             }
 
         } else if (userAdded === false && error === true) {
             this.setState({
                 messagePopupSuccessMsg: null,
-                messagePopupErrorMsg: userAddedMsg
+                messagePopupErrorMsg: userAddedMsg,
+                load: false // now
             });
             this.messagePopupToggle();
             dispatch(resetVal({ 'userAdded': false, 'userAddedMsg': null, 'error': null }));
