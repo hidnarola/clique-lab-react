@@ -7,6 +7,7 @@ import {
     ADD_BANK_REQUEST, ADD_BANK_SUCCESS, ADD_BANK_ERROR, addBankSuccess, addBankError,
     DELETE_BANK_REQUEST, DELETE_BANK_SUCCESS, DELETE_BANK_ERROR, deleteBankSuccess, deleteBankError,
     GET_BANK_LIST_REQUEST, GET_BANK_LIST_SUCCESS, GET_BANK_LIST_ERROR, getBankListSuccess, getBankListError,
+    GET_WALLET_BAL_REQUEST, GET_WALLET_BAL_SUCCESS, GET_WALLET_BAL_ERROR, getWalletBalSuccess, getWalletBalError,
 } from '../actions/myProfile';
 import api from '../api/myProfile';
 
@@ -55,33 +56,43 @@ function getRevenueRef() {
     };
 }
 
-function addBankFunc(){
-    return function* (action){
-        try{
+function addBankFunc() {
+    return function* (action) {
+        try {
             let data = yield call(() => api.addBank(action.data));
             yield put(addBankSuccess(data));
-        } catch(error){
+        } catch (error) {
             yield put(addBankError(error));
         }
     }
 }
-function deleteBankFunc(){
-    return function* (action){
-        try{
+function deleteBankFunc() {
+    return function* (action) {
+        try {
             let data = yield call(() => api.deleteBank(action.data));
             yield put(deleteBankSuccess(data));
-        } catch(error){
+        } catch (error) {
             yield put(deleteBankError(error));
         }
     }
 }
-function getBankListFunc(){
-    return function* (action){
-        try{
+function getBankListFunc() {
+    return function* (action) {
+        try {
             let data = yield call(() => api.getBankList());
             yield put(getBankListSuccess(data));
-        } catch(error){
+        } catch (error) {
             yield put(getBankListError(error));
+        }
+    }
+}
+function getWalletBalFunc() {
+    return function* (action) {
+        try {
+            let data = yield call(() => api.getWalletBal());
+            yield put(getWalletBalSuccess(data));
+        } catch (error) {
+            yield put(getWalletBalError(error));
         }
     }
 }
@@ -93,14 +104,16 @@ export const getRevenueRefConst = getRevenueRef();
 export const addBankConst = addBankFunc();
 export const deleteBankConst = deleteBankFunc();
 export const getBankListConst = getBankListFunc();
+export const getWalletBalConst = getWalletBalFunc();
+
 export function* editProfileWatcher() { yield takeLatest(EDIT_PROFILE_REQUEST, editProfileConst); }
 export function* changePassWatcher() { yield takeLatest(CHANGE_PASS_REQUEST, changePassConst); }
 export function* getJoinedRefWatcher() { yield takeLatest(GET_JOINED_REF_REQUEST, getJoinedRefConst); }
 export function* getRevenueRefWatcher() { yield takeLatest(GET_REVENUE_REF_REQUEST, getRevenueRefConst); }
-
 export function* addBankWatcher() { yield takeLatest(ADD_BANK_REQUEST, addBankConst); }
 export function* deleteBankWatcher() { yield takeLatest(DELETE_BANK_REQUEST, deleteBankConst); }
 export function* getBankListWatcher() { yield takeLatest(GET_BANK_LIST_REQUEST, getBankListConst); }
+export function* getWalletBalWatcher() { yield takeLatest(GET_WALLET_BAL_REQUEST, getWalletBalConst); }
 
 export default [
     editProfileWatcher(),
@@ -109,5 +122,6 @@ export default [
     getRevenueRefWatcher(),
     addBankWatcher(),
     deleteBankWatcher(),
-    getBankListWatcher()
+    getBankListWatcher(),
+    getWalletBalWatcher()
 ];

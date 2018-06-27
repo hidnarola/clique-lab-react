@@ -7,6 +7,7 @@ import {
     ADD_BANK_REQUEST, ADD_BANK_SUCCESS, ADD_BANK_ERROR,
     DELETE_BANK_REQUEST, DELETE_BANK_SUCCESS, DELETE_BANK_ERROR,
     GET_BANK_LIST_REQUEST, GET_BANK_LIST_SUCCESS, GET_BANK_LIST_ERROR,
+    GET_WALLET_BAL_REQUEST, GET_WALLET_BAL_SUCCESS, GET_WALLET_BAL_ERROR,
 
     RESET_VALUES
 } from "../actions/myProfile";
@@ -49,6 +50,13 @@ const initialState = Map({
         error: null, 
     },
     bank: {
+        loading: false,
+        status: 0,
+        message: null,
+        data: null,
+        error: null,
+    },
+    wallet_balance: {
         loading: false,
         status: 0,
         message: null,
@@ -310,6 +318,42 @@ const actionMap = {
             }
         }));
     },
+
+    [GET_WALLET_BAL_REQUEST]: (state, action) => {
+        return state.merge(Map({
+            ...initialState,
+            wallet_balance: {
+                loading: true,
+                error: null,
+            }
+        }));
+    },
+    [GET_WALLET_BAL_SUCCESS]: (state, action) => {
+        return state.merge(Map({
+            ...initialState,
+            wallet_balance: {
+                data: action.data.data.balance,
+                status: action.data.data.status,
+                message: action.data.data.message,
+                loading: false,
+                error: false,
+            }
+        }));
+    },
+    [GET_WALLET_BAL_ERROR]: (state, action) => {
+        let error = 'Server Error';
+        if (action.error && action.error.response) {
+            error = action.error.response.message;
+        }
+        return state.merge(Map({
+            ...initialState,
+            wallet_balance: {
+                loading: false,
+                error: null,
+            }
+        }));
+    },
+
 
     [RESET_VALUES]:(state,action) => {
         let resetObj = {};

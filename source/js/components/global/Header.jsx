@@ -107,7 +107,7 @@ class Header extends Component {
                             </DropdownToggle>
                             <DropdownMenu right>
                                 <DropdownItem>
-                                    <span></span>
+                                    <span style={{ "background": "url('" + imgRoutes.ORG_PROMOTER_IMG_PATH + user.avatar + "') 100% center / 100% no-repeat"}}></span>
                                     <Link className="cursor_pointer" to={routeCodes.MY_PROFILE}> My Profile </Link>
                                     {page_name == 'profile' && <img src="../assets/img/site/check-icon.png" alt="" />}
                                 </DropdownItem>
