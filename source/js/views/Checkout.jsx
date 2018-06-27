@@ -51,8 +51,8 @@ class Checkout extends Component {
             "credit_card": values.txt_card_id,
         }
         this.setState({ isRender: 1 });
-        console.log('CheckOut Data>>>',data);
-        //dispatch(cartPaymentReq(data));
+        //console.log('CheckOut Data>>>',data);
+        dispatch(cartPaymentReq(data));
     }
 
     nextPage() { this.setState({ page: this.state.page + 1 }); }
