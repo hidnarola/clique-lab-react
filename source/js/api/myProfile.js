@@ -37,6 +37,11 @@ function getBankList() {
     return getFormData(`promoter/wallet/bank_account`, '', headers);
 }
 
+function getWalletBal() {
+    let headers = { 'x-access-token' : localStorage.getItem('token') }                                                                                                                                                                                                                                         
+    return getFormData(`promoter/wallet/balance`, '', headers);
+}
+
 export default {
     editProfile,
     changePass,
@@ -44,5 +49,6 @@ export default {
     getRevenueRef,
     addBank,
     deleteBank,
-    getBankList
+    getBankList,
+    getWalletBal,
 }

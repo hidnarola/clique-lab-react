@@ -13,7 +13,7 @@ import validator from 'validator';
 import cx from 'classnames';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { addCard, editCard, deleteCard, getCardList, resetVal } from '../../actions/Checkout';
-import { addBank, deleteBank, getBankList, resetValMyProfile } from '../../actions/myProfile';
+import { addBank, deleteBank, getBankList, getWalletBal, resetValMyProfile } from '../../actions/myProfile';
 import { Facebook, List, Code } from 'react-content-loader';
 import SweetAlert from "react-bootstrap-sweetalert";
 import MonthPickerInput from 'react-month-picker-input';
@@ -70,6 +70,7 @@ class Wallet extends Component {
 
     componentWillMount = () => {
         const { dispatch } = this.props;
+        dispatch(getWalletBal());
         dispatch(getCardList());
         dispatch(getBankList());
     }
@@ -82,13 +83,13 @@ class Wallet extends Component {
                 error_msg = '<ul><li>' + addCards.error + '</li></ul>';
                 jQuery('.error_div').html(error_msg);
                 jQuery('.error_div').css({ display: "block" });
-                this.setState({ isRender: 0,disabled:''});
-                dispatch(resetVal({ addCard: false}));
+                this.setState({ isRender: 0, disabled: '' });
+                dispatch(resetVal({ addCard: false }));
             } else if (addCards.status === 1) {
                 this.addCreditCardModaltoggle();
-                this.setState({ 
+                this.setState({
                     isRender: 0,
-                    disabled:''
+                    disabled: ''
                 })
                 dispatch(getCardList());
             }
@@ -178,7 +179,7 @@ class Wallet extends Component {
                 'cvv': txtCVV
             }
             dispatch(addCard(data));
-            this.setState({ isRender: 1,disabled:'disabled' });
+            this.setState({ isRender: 1, disabled: 'disabled' });
         }
     }
     onChange = (element, value) => {
@@ -306,7 +307,7 @@ class Wallet extends Component {
                 </div>
                 <div className="card-box-ftr d-flex">
                     <p>Valid<br />Thru</p>
-                    <h6>{('0' + obj.exp_month).slice(-2)} / {('0'+obj.exp_year).slice(-2)}</h6>
+                    <h6>{('0' + obj.exp_month).slice(-2)} / {('0' + obj.exp_year).slice(-2)}</h6>
                     <div className="card-box-ftr-r"><img src={cardType[obj.brand]} alt={obj.brand} style={{ "marginTop": "-5px", "width": "90%" }} /></div>
                 </div>
             </div>
@@ -426,7 +427,7 @@ class Wallet extends Component {
 
     render() {
 
-        const { handleSubmit, previousPage, cards, addCards, editCards, deleteCards, dispatch, bank } = this.props;
+        const { handleSubmit, previousPage, cards, addCards, editCards, deleteCards, dispatch, bank, wallet_balance } = this.props;
         const {
             txtCHN, txtCN, txtCD, txtCVV, txtCHNedit, txtCNedit, txtCDedit, txtCVVedit,
             txtBN, txtAHN, txtAN, txtBSB, txtBNedit, txtAHNedit, txtANedit, txtBSBedit,
@@ -436,13 +437,22 @@ class Wallet extends Component {
                 <div className="profile-body content-box wallet-page">
                     <div className="wallet-balance">
                         <h3>Balance</h3>
-                        <div className="wallet-balance-box">
-                            <h4>
-                                <strong>$4300</strong>
-                                <small>Current Balance</small>
-                            </h4>
-                            <button type="submit" className="round-btn">Withdrawal</button>
-                        </div>
+                        {
+                            (wallet_balance.loading === true) ?
+                                <div className="wallet-balance-box">
+                                    <Code />
+                                </div>
+                                :
+                                (wallet_balance.status == 1 && wallet_balance.data != null) &&
+                                <div className="wallet-balance-box">
+                                    <h4>
+                                        <strong>${wallet_balance.data}</strong>
+                                        <small>Current Balance</small>
+                                    </h4>
+                                    <button type="submit" className="round-btn">Withdrawal</button>
+                                </div>
+                        }
+
                     </div>
                     <div className="wallet-card">
                         <h3>Credit Card</h3>
@@ -741,6 +751,7 @@ const mapStateToProps = (state) => {
     return {
         loading: checkout.get('loading'),
         error: checkout.get('error'),
+        wallet_balance: myProfile.get('wallet_balance'),
         cards: checkout.get('cards'),
         addCards: checkout.get('addCards'),
         deleteCards: checkout.get('deleteCards'),

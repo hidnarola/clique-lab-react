@@ -26,6 +26,10 @@ export const GET_BANK_LIST_REQUEST = 'GET_BANK_LIST_REQUEST';
 export const GET_BANK_LIST_SUCCESS = 'GET_BANK_LIST_SUCCESS';
 export const GET_BANK_LIST_ERROR = 'GET_BANK_LIST_ERROR';
 
+export const GET_WALLET_BAL_REQUEST = 'GET_WALLET_BAL_REQUEST';
+export const GET_WALLET_BAL_SUCCESS = 'GET_WALLET_BAL_SUCCESS';
+export const GET_WALLET_BAL_ERROR = 'GET_WALLET_BAL_ERROR';
+
 export const RESET_VALUES = 'RESET_VALUES';
 export const RESET_ALERT_MSG = 'RESET_ALERT_MSG';
 
@@ -56,6 +60,10 @@ export function deleteBankError(error) { return { type: DELETE_BANK_ERROR, error
 export function getBankList() { return { type: GET_BANK_LIST_REQUEST } }
 export function getBankListSuccess(data) { return { type: GET_BANK_LIST_SUCCESS, data } }
 export function getBankListError(error) { return { type: GET_BANK_LIST_ERROR, error } }
+
+export function getWalletBal() { return { type: GET_WALLET_BAL_REQUEST } }
+export function getWalletBalSuccess(data) { return { type: GET_WALLET_BAL_SUCCESS, data } }
+export function getWalletBalError(error) { return { type: GET_WALLET_BAL_ERROR, error } }
 
 export function resetValMyProfile(data) { return { type: RESET_VALUES, data:data } }
 export function resetAlertMsg() { return { type: RESET_ALERT_MSG } }
