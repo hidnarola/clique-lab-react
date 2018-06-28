@@ -10,6 +10,8 @@ import { withRouter } from 'react-router';
 import { getPastCampaign, downloadCampaignImg } from '../../actions/campaign';
 import Pagination from "react-js-pagination";
 import { imgRoutes } from '../../constants/img_path';
+import { routeCodes } from '../../constants/routes';
+
 
 class Past extends Component {
     
@@ -39,8 +41,9 @@ class Past extends Component {
         return (
             <li key={Math.random()}>
                 <div className="all-people-div">
-                    <div className="all-people-img" style={{ "background": "url('" + img + "') no-repeat 100%", "backgroundSize": "100%", "height": "190px", "width": "100%" }}>
+                    <div className="cursor_pointer" onClick={() => this.props.history.push(`${routeCodes.CAMPAIGN_PAST}/${obj._id}`)} style={{ "background": "url('" + img + "') no-repeat 100%", "backgroundSize": "100%", "height": "190px", "width": "100%" }}>
                         {/* <img src={`${imgRoutes.CAMPAIGN_IMG_PATH}${obj.cover_image}`} alt="" className="campaign_list_img" /> */}
+                        {/* all-people-img */}
                     </div>
                     <div className="all-people-content">
                         <h4>{obj.name}</h4>

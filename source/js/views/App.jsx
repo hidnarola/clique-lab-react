@@ -121,7 +121,11 @@ class App extends Component {
                             <PrivateRoute exact path={routeCodes.CAMPAIGN_ACTIVE} component={CampaignList} showHeader={true} />
                             <PrivateRoute path={`${routeCodes.CAMPAIGN_ACTIVE}/:campaignId`} component={EverydayPeople} showHeader={true} />
                             <PrivateRoute path={routeCodes.CAMPAIGN_FUTURE} component={CampaignList} showHeader={true} />
-                            <PrivateRoute path={routeCodes.CAMPAIGN_PAST} component={CampaignList} showHeader={true} />
+                            <PrivateRoute exact path={routeCodes.CAMPAIGN_PAST} component={CampaignList} showHeader={true} />
+
+                            {/* DM */}
+                            <PrivateRoute path={`${routeCodes.CAMPAIGN_PAST}/:pastCampaignId`} component={EverydayPeople} showHeader={true} />
+
                             {/* <PrivateRoute path={routeCodes.CAMPAIGN_INSPIRED_SUB} component={CampaignInspiredSub} showHeader={true} /> */}
                             <PrivateRoute path={routeCodes.CAMPAIGN_INSPIRED_SUB} component={EverydayPeople} showHeader={true} />
                             <PrivateRoute path={routeCodes.CAMPAIGN_PURCHASED_POSTS} component={CampaignPurchasedPosts} showHeader={true} />

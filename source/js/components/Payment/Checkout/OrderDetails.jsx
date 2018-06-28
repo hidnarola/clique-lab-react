@@ -77,7 +77,7 @@ class OrderDetails extends Component {
 			} else {
 				post_img = imgRoutes.CAMPAIGN_INSPIRED_IMG_PATH + obj.inspired_post.image;
 			}
-		}
+        }
         return (
             <tr key={Math.random()}>
                 <td><img src={post_img} alt="" style={{"width":"60px"}} /></td>

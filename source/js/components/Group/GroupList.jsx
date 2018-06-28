@@ -23,7 +23,6 @@ import plusImg from 'img/site/plus-sign.png';
 import closeImg from 'img/site/close-2.png';
 import closeImg2 from 'img/site/close-2.png';
 
-
 const validate = values => {
     const errors = {}
     return errors
@@ -203,7 +202,7 @@ class GroupList extends Component {
 
     componentWillMount() {
         const { dispatch,loading } = this.props;
-        dispatch(getGroups({ "page_size": 12, "page_no": 1 }))
+        dispatch(getGroups({ "page_size": 12, "page_no": 1 }));
     }
 
     createGroupModalOpen() {

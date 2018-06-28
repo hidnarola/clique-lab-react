@@ -43,6 +43,7 @@ class Header extends Component {
             'Group\'s Members List': routeCodes.LISTGROUPS + '/' + match.params.grpId + '/members',
             'Campaigns (Active)': routeCodes.CAMPAIGN_ACTIVE,
             'Campaign\'s Submission List': routeCodes.CAMPAIGN_ACTIVE + '/' + match.params.campaignId,
+            'Past Campaign\'s Submission List': routeCodes.CAMPAIGN_PAST + '/' + match.params.pastCampaignId,
             'Campaigns (Future)': routeCodes.CAMPAIGN_FUTURE,
             'Campaigns (Past)': routeCodes.CAMPAIGN_PAST,
             'Inspired submissions': routeCodes.CAMPAIGN_INSPIRED_SUB,
@@ -64,6 +65,10 @@ class Header extends Component {
         if (page_name === 'Campaigns (Active)' || page_name === 'Campaigns (Future)' || page_name === 'Campaigns (Past)') {
             pg_name = 'Campaigns';
         }
+        else if(page_name === 'Campaign\'s Submission List' || page_name === 'Past Campaign\'s Submission List')
+        {
+            pg_name = 'Campaign\'s Submission List';
+        } 
         else {
             pg_name = page_name;
         }

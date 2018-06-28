@@ -23,6 +23,9 @@ export const routeCodes = {
     CAMPAIGN_INSPIRED_SUB: `${publicPath}campaigns/inspired_submission`,
     CAMPAIGN_PURCHASED_POSTS: `${publicPath}campaigns/purchased_posts`,
 
+    
+
+
     // Analytics
     ANALYTICS:`${publicPath}analytics`,
     ANALYTICS_STATS:`${publicPath}analytics/stats`,

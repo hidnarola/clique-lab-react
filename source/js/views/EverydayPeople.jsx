@@ -666,6 +666,7 @@ class EverydayPeople extends Component {
             groupId: '',
             authorise_disabled: false,
             forceRefreshed: false,
+            pastRefreshed: false,
             groupForceRefreshed: false,
             everyDayRefresh: false,
             inspirePageLoad: false,
@@ -829,6 +830,7 @@ class EverydayPeople extends Component {
         const { dispatch, match } = this.props;
         data['groupId'] = match.params.grpId;
         data['campaignId'] = match.params.campaignId;
+        data['pastCampaignId'] = match.params.pastCampaignId; // dm
         data['inspired'] = (match.path == routeCodes.CAMPAIGN_INSPIRED_SUB) ? true : false;
         dispatch(sendReq(data));
     }
@@ -852,9 +854,8 @@ class EverydayPeople extends Component {
 
     handleChange = (selectedOption, secondParam) => {
 
-        if(secondParam === 'genderDrop')
-        {
-            this.setState({isGenderFilterSelected : true});
+        if (secondParam === 'genderDrop') {
+            this.setState({ isGenderFilterSelected: true });
         }
         if (selectedOption === null) {
             return;
@@ -1015,7 +1016,7 @@ class EverydayPeople extends Component {
             <li key={Math.random()}>
                 <div className="all-people-div">
                     <div className="all-people-img" style={{ "background": "url('" + img + "') no-repeat 100%", "backgroundSize": "100%", "height": "190px" }}>
-                    {/* <div className="all-people-img" > */}
+                        {/* <div className="all-people-img" > */}
                         {/* <img src={img} style={{"height": "190px"}}/> */}
                         <div className="plus-people dropdown">
                             <PlusAction
@@ -1046,14 +1047,14 @@ class EverydayPeople extends Component {
         };
         let user_avatar_img = '';
         let applied_post_img = '';
-        if(obj.user_avatar==undefined){
+        if (obj.user_avatar == undefined) {
             user_avatar_img = noUserImg2;
-        }else{
+        } else {
             user_avatar_img = imgRoutes.USER_IMG_PATH + obj.user_avatar;
         }
-        if(obj.applied_post_image==undefined){
+        if (obj.applied_post_image == undefined) {
             applied_post_img = noCampaignImg;
-        }else{
+        } else {
             applied_post_img = imgRoutes.CAMPAIGN_POST_IMG_PATH + obj.applied_post_image;
         }
         return (
@@ -1098,13 +1099,15 @@ class EverydayPeople extends Component {
                             </a>
                         </div>
                         <div className="festival-ftr-r dropdown">
+                            {(this.props.match.params.pastCampaignId) ? '':
                             <PlusAction2
                                 addToCart={() => { this.addToCart(obj.campaign_id, obj.applied_post_id) }}
                                 addGroup={() => { this.addGroup(obj) }}
                                 // modifyStatusPurchase={() => { this.modifyStatusPurchase(obj.campaign_id, obj.user_id) }}
                                 // modifyStatusPurchase={() => { this.modifyStatusPurchase(obj.campaign_id, obj.applied_post_id) }}
-                                modifyStatusPurchase={() => { this.modifyStatusPurchase(obj.campaign_id, obj.applied_post_id,'cart') }}
+                                modifyStatusPurchase={() => { this.modifyStatusPurchase(obj.campaign_id, obj.applied_post_id, 'cart') }}
                             />
+                            }
                         </div>
                     </div>
                 </div>
@@ -1113,7 +1116,7 @@ class EverydayPeople extends Component {
     }
 
     toggle = () => { this.setState({ modal: !this.state.modal }); }
-    messagePopupToggle = () => { 
+    messagePopupToggle = () => {
         const { dispatch } = this.props;
         this.setState({ messagePopup: !this.state.messagePopup });
         dispatch(getCheckoutList());
@@ -1130,9 +1133,9 @@ class EverydayPeople extends Component {
         let user_img = '';
         let img = '';
 
-        if(obj.users.image === undefined){
+        if (obj.users.image === undefined) {
             user_img = noUserImg2;
-        }else{
+        } else {
             user_img = imgRoutes.USER_IMG_PATH + obj.users.image;
         }
 
@@ -1185,7 +1188,7 @@ class EverydayPeople extends Component {
                                     addToCart={() => { this.addToCart(obj._id, obj.users._id, 'inspired_submission') }}
                                     addGroup={() => { this.addGroup(obj) }}
                                     // modifyStatusPurchase={() => { this.modifyStatusPurchase(obj._id, obj.users._id) }}
-                                    modifyStatusPurchase={() => { this.modifyStatusPurchase(obj._id, obj.users._id,'inspired_submission') }}
+                                    modifyStatusPurchase={() => { this.modifyStatusPurchase(obj._id, obj.users._id, 'inspired_submission') }}
                                 />
                             </div>
                         </div>
@@ -1249,16 +1252,16 @@ class EverydayPeople extends Component {
             isAgeFilterApply: false,
             isLocationFilterApply: false,
             isMoreFilterApply: false,
+            isGenderFilterSelected: false,
             tempLocation: '',
             address: '',
-
         });
     }
 
     componentWillUpdate = (nextProps, nextState) => {
 
         const { dispatch, match } = nextProps;
-        const { forceRefreshed, groupForceRefreshed, everyDayRefresh, inspirePageLoad, allSliders } = this.state;
+        const { forceRefreshed, pastRefreshed,groupForceRefreshed, everyDayRefresh, inspirePageLoad, allSliders } = this.state;
 
         //console.log('New State>>>',allSliders);
         //  if(forceRefreshed && !match.params.campaignId) {
@@ -1281,15 +1284,22 @@ class EverydayPeople extends Component {
         //     this.setState({ forceRefreshed: false });
         // }
 
-        if ((forceRefreshed && !match.params.campaignId) || (groupForceRefreshed && !match.params.grpId) || (everyDayRefresh && match.path !== routeCodes.CAMPAIGN_INSPIRED_SUB)) {
+        // if((forceRefreshed && !match.params.campaignId) || (groupForceRefreshed && !match.params.grpId) || (everyDayRefresh && match.path !== routeCodes.CAMPAIGN_INSPIRED_SUB)) {
+        if((forceRefreshed && !match.params.campaignId) || (pastRefreshed && !match.params.pastCampaignId) || (groupForceRefreshed && !match.params.grpId) || (everyDayRefresh && match.path !== routeCodes.CAMPAIGN_INSPIRED_SUB)) {
+
             this.setState({ groupId: '' });
 
             if (match.params.grpId) {
                 this.setState({ groupId: match.params.grpId, groupForceRefreshed: true });
             }
 
+            // if (match.params.campaignId) {
             if (match.params.campaignId) {
                 this.setState({ forceRefreshed: true });
+            }
+
+            if (match.params.pastCampaignId) {
+                this.setState({pastRefreshed:true});
             }
 
             if (match.path !== routeCodes.CAMPAIGN_INSPIRED_SUB) {
@@ -1304,14 +1314,14 @@ class EverydayPeople extends Component {
             }
             this.filterSendReq(arrayFilter);
             dispatch(moreFilterReq());
-            this.setState({ forceRefreshed: false, groupForceRefreshed: false, everyDayRefresh: false });
+            // this.setState({ forceRefreshed: false, groupForceRefreshed: false, everyDayRefresh: false }); 
+            this.setState({ forceRefreshed: false, groupForceRefreshed: false, everyDayRefresh: false, pastRefreshed: false });
             this.setState({ inspirePageLoad: true });
 
             // DM to clear all filter previously applied
             this.resetPreviousFilter_on_page_change();
-
         }
-
+        
         if (inspirePageLoad && match.path === routeCodes.CAMPAIGN_INSPIRED_SUB) {
             let arrayFilter = {
                 "page_size": this.state.perPageItem,
@@ -1340,8 +1350,13 @@ class EverydayPeople extends Component {
         if (match.params.grpId) {
             this.setState({ groupId: match.params.grpId, groupForceRefreshed: true });
         }
-        if (match.params.campaignId) {
+        // if (match.params.campaignId) {
+        if (match.params.campaignId ) {
             this.setState({ forceRefreshed: true });
+        }
+        
+        if (match.params.pastCampaignId) {
+            this.setState({ pastRefreshed: true });
         }
 
         if (match.path === routeCodes.CAMPAIGN_INSPIRED_SUB) {
@@ -1389,7 +1404,7 @@ class EverydayPeople extends Component {
         //     this.props.history.push(routeCodes.MY_CART);
         // }
 
-        if (userAdded === true && error === false ) {
+        if (userAdded === true && error === false) {
             this.setState({
                 messagePopupSuccessMsg: userAddedMsg,
                 messagePopupErrorMsg: null,
@@ -1402,7 +1417,7 @@ class EverydayPeople extends Component {
 
             if (modifyStatusPurchase === true) {
                 this.setState({ modifyStatusPurchase: false });
-                dispatch(modifyStatusReq()); 
+                dispatch(modifyStatusReq());
                 this.props.history.push(routeCodes.MY_CART);
             }
 
@@ -1410,7 +1425,7 @@ class EverydayPeople extends Component {
             this.setState({
                 messagePopupSuccessMsg: null,
                 messagePopupErrorMsg: userAddedMsg,
-                load: false // now
+                load: false 
             });
             this.messagePopupToggle();
             dispatch(resetVal({ 'userAdded': false, 'userAddedMsg': null, 'error': null }));
@@ -1710,6 +1725,8 @@ class EverydayPeople extends Component {
         allSliderArr['ageRange'] = _.find(allSliders, function (o) { return o.slider == 'ageRange'; });
 
         // if (loading) { return (<div className="loader"></div>) }
+
+        console.log('Props++>>>', this.props);
         return (
             <div className="every-people">
                 {/* {(loading || this.state.load === true) ? <div className="loader" style={{ "zIndex": "999999999" }}></div> : ''} */}
@@ -1780,34 +1797,35 @@ class EverydayPeople extends Component {
                                     </div>
                                     : ''
                                 :
-                                <ul>
-                                    <li style={{ "minWidth": "140px" }}>
-                                        <ReactSelect
-                                            name="form-field-name"
-                                            className='dropdown-inr'
-                                            value={sortDropArr.value}
-                                            onChange={(value) => this.handleChange(value, "sortDrop")}
-                                            searchable={false}
-                                            clearable={false}
-                                            autosize={false}
-                                            placeholder="Sort"
-                                            options={[
-                                                { value: '1', label: 'Name ASC' },
-                                                { value: '-1', label: 'Name DESC' },
-                                            ]}
-                                        />
-                                    </li>
-                                    {(
-                                        match.path == routeCodes.CAMPAIGN_INSPIRED_SUB ? ''
-                                            :
-                                            <li className="dropdown stats_age_dropdown add_all_results_dropdown">
-                                                <AddAllResults
-                                                    addCampaign={() => { this.saveBulkResult({ value: "add_to_campaign", label: "Add to Campaign" }) }}
-                                                    addGroup={() => { this.saveBulkResult({ value: 'add_to_group', label: 'Add to Group' }) }}
-                                                    open={this.state.add_all_results_open}
-                                                    toggle={this.add_all_results_toggle}
-                                                />
-                                                {/* <ReactSelect
+                                (match.params.pastCampaignId) ? '' : // dm
+                                    <ul>
+                                        <li style={{ "minWidth": "140px" }}>
+                                            <ReactSelect
+                                                name="form-field-name"
+                                                className='dropdown-inr'
+                                                value={sortDropArr.value}
+                                                onChange={(value) => this.handleChange(value, "sortDrop")}
+                                                searchable={false}
+                                                clearable={false}
+                                                autosize={false}
+                                                placeholder="Sort"
+                                                options={[
+                                                    { value: '1', label: 'Name ASC' },
+                                                    { value: '-1', label: 'Name DESC' },
+                                                ]}
+                                            />
+                                        </li>
+                                        {(
+                                            match.path == routeCodes.CAMPAIGN_INSPIRED_SUB ? ''
+                                                :
+                                                <li className="dropdown stats_age_dropdown add_all_results_dropdown">
+                                                    <AddAllResults
+                                                        addCampaign={() => { this.saveBulkResult({ value: "add_to_campaign", label: "Add to Campaign" }) }}
+                                                        addGroup={() => { this.saveBulkResult({ value: 'add_to_group', label: 'Add to Group' }) }}
+                                                        open={this.state.add_all_results_open}
+                                                        toggle={this.add_all_results_toggle}
+                                                    />
+                                                    {/* <ReactSelect
                                                     name="addAllResults"
                                                     // value={genderDropArr.value}
                                                     onChange={(value) => this.saveBulkResult(value)}
@@ -1821,9 +1839,9 @@ class EverydayPeople extends Component {
                                                         { value: 'add_to_group', label: 'Add to Group' },
                                                     ]}
                                                 /> */}
-                                            </li>
-                                    )}
-                                </ul>
+                                                </li>
+                                        )}
+                                    </ul>
                         }
                     </div>
                 </div>
@@ -1855,14 +1873,14 @@ class EverydayPeople extends Component {
                                                 <a className="cursor_pointer" onClick={this.toggle}>
                                                     <i className="fa fa-plus"></i>
                                                     Save the results as a Group
-                                        </a>
+                                                </a>
                                                 : null
                                             : null
                                     }
                                 </div>
                             }
                             {
-                                (match.params.campaignId !== null && match.params.campaignId !== undefined) ?
+                                ((match.params.campaignId !== null && match.params.campaignId !== undefined) || (match.params.pastCampaignId !== null && match.params.pastCampaignId !== undefined) ) ?
                                     <ul className="fan-festival d-flex">
                                         {
                                             (users.status === 1) ?
@@ -1956,7 +1974,7 @@ class EverydayPeople extends Component {
 }
 
 const mapStateToProps = (state) => {
-    const { everyDay, groups, campaign,checkout } = state;
+    const { everyDay, groups, campaign, checkout } = state;
     return {
         group_status: groups.get('status'),
         inserted_group: groups.get('inserted_group'),
