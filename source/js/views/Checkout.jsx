@@ -51,6 +51,7 @@ class Checkout extends Component {
             "credit_card": values.txt_card_id,
         }
         this.setState({ isRender: 1 });
+        //console.log('CheckOut Data>>>',data);
         dispatch(cartPaymentReq(data));
     }
 
@@ -80,6 +81,7 @@ class Checkout extends Component {
                 
                 dispatch(resetVal({ payment: false}));
             }
+            
             // console.log('carts>>>>>>>',carts);
             if (carts.data === null && carts.message!==null) {
                 // console.log(carts);

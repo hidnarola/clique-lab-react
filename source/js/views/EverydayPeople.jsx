@@ -850,7 +850,10 @@ class EverydayPeople extends Component {
 
     handleChange = (selectedOption, secondParam) => {
 
-        console.log('>>', selectedOption);
+        if(secondParam === 'genderDrop')
+        {
+            this.setState({isGenderFilterSelected : true});
+        }
         if (selectedOption === null) {
             return;
         }
@@ -1721,7 +1724,7 @@ class EverydayPeople extends Component {
                                     toggle={this.age_filter_toggle}
                                 />
                             </li>
-                            <li className="stats_filter_li2">
+                            <li className="stats_filter_li2" className={cx('stats_filter_li2', { 'active': (this.state.isGenderFilterSelected) ? true : false })} >
                                 <ReactSelect
                                     name="genderDrop"
                                     value={genderDropArr.value}
