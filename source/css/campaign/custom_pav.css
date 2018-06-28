@@ -70,21 +70,27 @@ html, body, .loader, .loader>div, .login-register-bg, .login-register-box.login_
 .Toastify__close-button.Toastify__close-button--default{ color:#fff !important; margin:13px 6px !important; }
 
 /**************************************************************
+                        Transaction History
+**************************************************************/
+.transactions-body .table thead tr th { font-weight: 600 }
+.transactions-body .table td { padding-left:30px; font-size: 15px; }
+/**************************************************************
                             My Profile
 **************************************************************/
-#congratulations.program_faq_modal.modal-dialog{ max-width: 1200px !important; }
-#congratulations.program_faq_modal .modal-heading{ font-size:22px; }
-#congratulations.program_faq_modal .body-content{ text-align: left; }
-.program_faq_modal .body-content .accordion{ border:none; }
-.program_faq_modal .body-content .accordion__item{ padding: 15px 0 }
-.program_faq_modal .body-content .accordion__item .accordion__title h6{ font-size:15px; font-weight:600; color:#43458b }
-.program_faq_modal .body-content .accordion__item .accordion__title{
-    padding: 18px 0;
-}
-.program_faq_modal .body-content .accordion__item .accordion__body{ padding: 0; }
-#congratulations.program_faq_modal .body-content .accordion__item .accordion__body p{ font-size:13px; margin-bottom:15px}
-.program_faq_modal .body-content .accordion__item .accordion__title,
-.program_faq_modal .body-content .accordion__item .accordion__title:hover{ background-color: #fff }
+    #congratulations.program_faq_modal.modal-dialog{ max-width: 1200px !important; }
+    #congratulations.program_faq_modal .modal-heading{ font-size:22px; }
+    #congratulations.program_faq_modal .body-content{ text-align: left; }
+    .program_faq_modal .body-content .accordion{ border:none; }
+    .program_faq_modal .body-content .accordion__item{ padding: 15px 0 }
+    .program_faq_modal .body-content .accordion__item .accordion__title h6{ font-size:15px; font-weight:600; color:#43458b }
+    .program_faq_modal .body-content .accordion__item .accordion__title{
+        padding: 18px 0;
+    }
+    .program_faq_modal .body-content .accordion__item .accordion__body{ padding: 0; }
+    #congratulations.program_faq_modal .body-content .accordion__item .accordion__body p{ font-size:13px; margin-bottom:15px}
+    .program_faq_modal .body-content .accordion__item .accordion__title,
+    .program_faq_modal .body-content .accordion__item .accordion__title:hover{ background-color: #fff }
+    
 /**************************************************************
                             Checkout
 ***************************************************************/                        
@@ -99,7 +105,8 @@ html, body, .loader, .loader>div, .login-register-bg, .login-register-box.login_
     .checkout-r .cart-table .subtotal table thead th { padding: 15px 15px 5px 25px !important }
     .add_credit_card_popup .modal-body{ padding: 10px 60px 40px !important; }
     .popup_modal_form{ text-align: left; padding:10px 25px; }
-    .popup_modal_form .input-wrap label{ font-weight: 600; }
+    .popup_modal_form .input-wrap label,
+    .popup_modal_form .select-wrap label,{ font-weight: 600; }
     .popup_modal_form .submit-btn{ padding-top:15px; text-align:center}
     .popup_modal_form .submit-btn .round-btn{ min-width: 180px; }
     .popup_modal_form span{ font-size:13px; font-weight: 600; }

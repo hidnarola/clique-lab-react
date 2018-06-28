@@ -13,8 +13,12 @@ import validator from 'validator';
 import cx from 'classnames';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { addCard, editCard, deleteCard, getCardList, resetVal } from '../../actions/Checkout';
-import { addBank, deleteBank, getBankList, getWalletBal, resetValMyProfile } from '../../actions/myProfile';
-import { Facebook, List, Code } from 'react-content-loader';
+import { addBank, deleteBank, getBankList, getWalletBal, walletWithdraw, getTransactionHistory, resetValMyProfile } from '../../actions/myProfile';
+import ContentLoader, { Facebook, List, Code } from 'react-content-loader';
+import { imgRoutes } from '../../constants/img_path';
+import { ToastContainer, toast, Slide } from 'react-toastify';
+import '../../../css/campaign/ReactToastify.css';
+import ReactSelect from 'react-select';
 import SweetAlert from "react-bootstrap-sweetalert";
 import MonthPickerInput from 'react-month-picker-input';
 import editImg from 'img/site/edit-icon.png';
@@ -61,6 +65,16 @@ class Wallet extends Component {
             txtANedit: '',
             txtBSBedit: '',
 
+            withdrawModalShow: false,
+            selectedBank: '',
+            txtAMT: '',
+            txtBANK: '',
+
+            transaction_page_no: 1,
+            transaction_page_size: 5,
+            transaction_search_params: '',
+            transaction_load_more: 1,
+
             isRender: 0,
             disabled: '',
         }
@@ -73,9 +87,11 @@ class Wallet extends Component {
         dispatch(getWalletBal());
         dispatch(getCardList());
         dispatch(getBankList());
+        dispatch(getTransactionHistory({ page_no: this.state.transaction_page_no, page_size: this.state.transaction_page_size }));
     }
+
     componentDidUpdate = () => {
-        const { handleSubmit, previousPage, cards, addCards, editCards, deleteCards, dispatch, addBank, deleteBank, bank } = this.props;
+        const { handleSubmit, previousPage, cards, addCards, editCards, deleteCards, dispatch, addBank, deleteBank, bank, transaction_history, wallet_withdraw } = this.props;
         const { txtCHN, txtCN, txtCD, txtCVV, txtCHNedit, txtCNedit, txtCDedit, txtCVVedit, isRender } = this.state;
         if (isRender === 1) {
             if (addCards.status === 0 && addCards.error !== null) {
@@ -126,6 +142,16 @@ class Wallet extends Component {
                 dispatch(resetValMyProfile({ addBank: false, deleteBank: false }));
                 dispatch(getBankList());
                 this.setState({ isRender: 0 });
+            }
+
+            if (wallet_withdraw.status === 1) {
+                dispatch(resetValMyProfile({ addBank: false, deleteBank: false }));
+                this.withdrawModaltoggle();
+                dispatch(getWalletBal());
+                this.setState({ isRender: 0, disabled: '' });
+                toast.success('Withdraw has been successfully done', {
+					className: 'success-custom-tostify'
+                });
             }
         }
     }
@@ -314,7 +340,6 @@ class Wallet extends Component {
         )
     }
 
-
     // Add Bank
     addBankModalOpen() { this.setState({ addBankModalShow: !this.state.addBankModalShow }); }
     addBankModaltoggle() {
@@ -406,14 +431,14 @@ class Wallet extends Component {
         })
     }
 
-
-    //Bank Lisitng
+    // Bank Lisitng
     bankListDiv = (obj) => {
         return (
             <div className="card-box wallet-account-box" key={Math.random()}>
                 <div className="card-box-head d-flex">
                     <i className="light-bg"></i>
                     <div className="card-box-head-r">
+                        <a href="javascript:void(0)" style={{ display: "none" }}><img src={editImg} alt="Edit" /></a>
                         <a href="javascript:void(0)" onClick={() => this.deleteBank(obj.id)}><img src={deleteImg} alt="Delete" /></a>
                     </div>
                 </div>
@@ -425,13 +450,104 @@ class Wallet extends Component {
         )
     }
 
-    render() {
+    // Withdraw Balance
+    withdrawModalOpen() { this.setState({ withdrawModalShow: !this.state.withdrawModalShow }); }
+    withdrawModaltoggle() {
+        this.setState({ 
+            withdrawModalShow: !this.state.withdrawModalShow,
+            txtAMT: '',
+            txtBANK: '',
+        });
+    }
+    submitWithDraw = () => {
+        const { dispatch } = this.props;
+        const { txtAMT, txtBANK } = this.state;
+        let isError = 0;
+        if (txtAMT === '') {
+            jQuery('#txt_withdraw_amount').css("cssText", "border: 2px solid red !important");
+            jQuery('.txt_withdraw_amount_errorMsg').html('This field is required');
+            isError = 1;
+        }
+        if (txtBANK === '') {
+            jQuery('.txt_withdraw_bank .Select-control').css("cssText", "border: 2px solid red !important");
+            jQuery('.txt_withdraw_bank_errorMsg').html('This field is required');
+            isError = 1;
+        }
+        if (isError == 0) {
+            let data = {
+                'amount': txtAMT,
+                'bank_account': txtBANK.value,
+            }
+            dispatch(walletWithdraw(data));
+            this.setState({ isRender: 1, disabled: 'disabled' });
+        }
+    }
+    onWithDrawChange = (element, value) => {
+        let { txtAMT, txtBANK } = this.state;
+        if (element == 'txt_withdraw_amount') { this.setState({ txtAMT: value }) }
+        if (element == 'txt_withdraw_bank') { this.setState({ txtBANK: value }) }
+        if (value === '') {
+            if (element == 'txt_withdraw_amount') { jQuery('#' + element).css("cssText", "border: 2px solid red !important"); }
+            else { jQuery('.' + element + ' .Select-control').css("cssText", "border: 2px solid red !important"); }
+            jQuery('.' + element + '_errorMsg').html('This field is required');
+        } else {
+            if (element == 'txt_withdraw_amount') { jQuery('#' + element).css("cssText", "border: 2px solid rgba(82, 95, 127, .2) !important"); }
+            else { jQuery('.' + element + ' .Select-control').css("cssText", "border: 2px solid rgba(82, 95, 127, .2) !important"); }
+            jQuery('.' + element + '_errorMsg').html('');
+        }
+    }
 
-        const { handleSubmit, previousPage, cards, addCards, editCards, deleteCards, dispatch, bank, wallet_balance } = this.props;
+    // Transaction History
+    transactionSearch = () => {
+        const { dispatch } = this.props;
+        let search_param = jQuery('#txt_transaction_search').val();
+        this.setState({
+            transaction_search_params: search_param,
+            transaction_load_more: 1
+        });
+        dispatch(getTransactionHistory({ page_no: this.state.transaction_page_no, page_size: this.state.transaction_page_size, search: search_param }));
+    }
+    transactionHistoryTR = (obj) => {
+        return (
+            <tr key={Math.random()}>
+                <td>{obj.campaign_description}</td>
+                <td>{obj.brand}</td>
+                <td>
+                    <div style={{ "background": "url('" + imgRoutes.CAMPAIGN_POST_IMG_PATH + obj.image + "') no-repeat 100%", "backgroundSize": "100%", "height": "75px", "width": "100px" }}></div>
+                </td>
+                <td>${obj.price.toFixed(2)}</td>
+            </tr>
+        )
+    }
+    handleChange = (e) => {
+        this.setState({ [e.target.name]: e.target.value })
+    }
+    transactionLoadMore = () => {
+        const { dispatch } = this.props;
+        const { transaction_load_more, transaction_page_no, transaction_page_size, transaction_search_params } = this.state;
+        let load_more = transaction_load_more + 1;
+        let page_size = load_more * transaction_page_size;
+        this.setState({ transaction_load_more: load_more })
+        dispatch(getTransactionHistory({ page_no: this.state.transaction_page_no, page_size: page_size, search: transaction_search_params }));
+    }
+
+    render() {
+        const { handleSubmit, previousPage, cards, addCards, editCards, deleteCards, dispatch, bank, wallet_balance, transaction_history } = this.props;
         const {
             txtCHN, txtCN, txtCD, txtCVV, txtCHNedit, txtCNedit, txtCDedit, txtCVVedit,
             txtBN, txtAHN, txtAN, txtBSB, txtBNedit, txtAHNedit, txtANedit, txtBSBedit,
+            txtAMT, txtBANK, selectedBank,
+            transaction_load_more, transaction_page_size
         } = this.state;
+        let dropArr = [];
+        if (this.props.bank.data !== null) {
+            let resultStatus = this.props.bank.status;
+            if (resultStatus === 1) {
+                this.props.bank.data.map((obj, index) => {
+                    dropArr.push({ value: obj.id, label: obj.bank_name });
+                });
+            }
+        }
         return (
             <div>
                 <div className="profile-body content-box wallet-page">
@@ -449,7 +565,7 @@ class Wallet extends Component {
                                         <strong>${wallet_balance.data}</strong>
                                         <small>Current Balance</small>
                                     </h4>
-                                    <button type="submit" className="round-btn">Withdrawal</button>
+                                    <button type="button" className="round-btn" onClick={() => this.withdrawModalOpen()}>Withdrawal</button>
                                 </div>
                         }
 
@@ -498,48 +614,55 @@ class Wallet extends Component {
                     <div className="d-flex">
                         <h2>Transactions History</h2>
                         <form>
-                            <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
-                            <button type="submit"></button>
+                            <input
+                                className="form-control mr-sm-2"
+                                type="search"
+                                placeholder="Search"
+                                id="txt_transaction_search"
+                                name="transaction_search_params"
+                                aria-label="Search"
+                                value={this.state.transaction_search_params}
+                                onChange={this.handleChange}
+                                autoComplete="off"
+                            />
+                            <button type="button" onClick={() => this.transactionSearch()}></button>
                         </form>
                     </div>
                     <div className="content-box transactions-body">
                         <table className="table">
                             <thead>
                                 <tr>
-                                    <th>Campaign name</th>
-                                    <th>Brand</th>
-                                    <th>Submitted Image</th>
-                                    <th>Cost</th>
+                                    <th width="60%">Campaign name</th>
+                                    <th width="10%">Brand</th>
+                                    <th width="18%">Submitted Image</th>
+                                    <th width="12%">Cost</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>I love the way this Jacket Looks @Streetwear #Gorgeous #Spon</td>
-                                    <td>Adidas</td>
-                                    <td><img src="images/img-11.png" alt="" /></td>
-                                    <td>$3420</td>
-                                </tr>
-                                <tr>
-                                    <td>Lit lyfe with my Friends @Streetwear #Yes #Spon</td>
-                                    <td>Reebok</td>
-                                    <td><img src="images/img-12.png" alt="" /></td>
-                                    <td>$5000</td>
-                                </tr>
-                                <tr>
-                                    <td>I love the way this Jacket Looks @Streetwear #Gorgeous #Spon</td>
-                                    <td>Adidas</td>
-                                    <td><img src="images/img-11.png" alt="" /></td>
-                                    <td>$3420</td>
-                                </tr>
-                                <tr>
-                                    <td>Lit lyfe with my Friends @Streetwear #Yes #Spon</td>
-                                    <td>Reebok</td>
-                                    <td><img src="images/img-12.png" alt="" /></td>
-                                    <td>$5000</td>
-                                </tr>
-                                <tr className="loadmore-btn">
-                                    <td colSpan="4"><a href="" className="round-btn">Load more</a></td>
-                                </tr>
+                                {
+                                    (transaction_history.status == 1 && transaction_history.data != null) ?
+                                        transaction_history.data.map((obj, index) => (this.transactionHistoryTR(obj)))
+                                        //window.scrollTo(0, document.body.scrollHeight);
+                                        :
+                                        (transaction_history.loading !== true) &&
+                                            <tr>
+                                                <td colSpan="4" style={{"textAlign": "center", "padding": "30px"}}>
+                                                    <h4 style={{"fontSize": "30px", "fontWeight": "600", "color": "#ddd"}}>No Data Available</h4>
+                                                </td>
+                                            </tr>
+                                }
+                                {
+                                    (transaction_history.loading === true)  &&
+                                    <Facebook />
+                                }
+                                {
+                                    (transaction_history.total > (transaction_load_more * transaction_page_size)) &&
+                                    <tr className="loadmore-btn">
+                                        <td colSpan="4">
+                                            <a href="javascript:void(0)" className="round-btn" onClick={() => this.transactionLoadMore()} >Load more</a>
+                                        </td>
+                                    </tr>
+                                }
                             </tbody>
                         </table>
                     </div>
@@ -710,7 +833,7 @@ class Wallet extends Component {
                                     <input type="text" name="txt_acc_number" id="txt_acc_number" placeholder="Account Number" value={txtANedit} onChange={(input) => this.onChangeBank(input.target.name, input.target.value)} />
                                     <span className="txt_acc_holder_no_errorMsg" style={{ "color": "red" }}></span>
                                 </div>
-                                <div class="input-wrap bsb-number">
+                                <div className="input-wrap bsb-number">
                                     <label>BSB</label>
                                     <input type="text" name="txt_bsb" id="txt_bsb" placeholder="BSB bumber" value={txtBSBedit} onChange={(input) => this.onChangeBank(input.target.name, input.target.value)} />
                                     <span className="txt_bsb_errorMsg" style={{ "color": "red" }}></span>
@@ -718,6 +841,41 @@ class Wallet extends Component {
                                 <div className="error_div"></div>
                                 <div className="submit-btn">
                                     <button type="button" className="round-btn" onClick={() => this.submitBank()}>Save</button>
+                                </div>
+                            </form>
+                        </div>
+                    </ModalBody>
+                </Modal>
+
+                {/* Withdraw Modal */}
+                <Modal isOpen={this.state.withdrawModalShow} toggle={this.withdrawModaltoggle} className={this.props.className} id="congratulations" className="withdraw_popup" style={{ "width": "500px" }}>
+                    <div className="custom_modal_btn_close">
+                        <img className="cursor_pointer" src={closeImg2} onClick={() => this.withdrawModaltoggle()} />
+                    </div>
+                    <ModalBody>
+                        <div className="terms-conditions">
+                            <h2>Withdraw</h2>
+                            <form id="add_credit_card_form" className="popup_modal_form">
+                                <div className="input-wrap">
+                                    <label>Amount</label>
+                                    <input type="text" name="txt_withdraw_amount" id="txt_withdraw_amount" placeholder="Amount" value={txtAMT} onChange={(input) => this.onWithDrawChange(input.target.name, input.target.value)} />
+                                    <span className="txt_withdraw_amount_errorMsg" style={{ "color": "red" }}></span>
+                                </div>
+                                <div className="select-wrap">
+                                    <label>Bank</label>
+                                    <ReactSelect
+                                        className='txt_withdraw_bank campaign_form_step2_dropdown '
+                                        name="txt_withdraw_bank"
+                                        value={txtBANK}
+                                        onChange={(value) => this.onWithDrawChange("txt_withdraw_bank", value)}
+                                        options={dropArr}
+                                        placeholder="Select Bank"
+                                    />
+                                    <label className="txt_withdraw_bank_errorMsg" style={{ "color": "red", "marginTop": "5px", "textAlign": "left", 'fontWeight': "600" }}></label>
+                                </div>
+                                <div className="error_div"></div>
+                                <div className="submit-btn">
+                                    <button type="button" className="round-btn" onClick={() => this.submitWithDraw()} disabled={this.state.disabled}>Authorise</button>
                                 </div>
                             </form>
                         </div>
@@ -752,6 +910,7 @@ const mapStateToProps = (state) => {
         loading: checkout.get('loading'),
         error: checkout.get('error'),
         wallet_balance: myProfile.get('wallet_balance'),
+        wallet_withdraw: myProfile.get('wallet_withdraw'),
         cards: checkout.get('cards'),
         addCards: checkout.get('addCards'),
         deleteCards: checkout.get('deleteCards'),
@@ -759,6 +918,7 @@ const mapStateToProps = (state) => {
         bank: myProfile.get('bank'),
         addBank: myProfile.get('addBank'),
         deleteBank: myProfile.get('deleteBank'),
+        transaction_history: myProfile.get('transaction_history'),
     }
 }
 

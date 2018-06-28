@@ -8,6 +8,8 @@ import {
     DELETE_BANK_REQUEST, DELETE_BANK_SUCCESS, DELETE_BANK_ERROR, deleteBankSuccess, deleteBankError,
     GET_BANK_LIST_REQUEST, GET_BANK_LIST_SUCCESS, GET_BANK_LIST_ERROR, getBankListSuccess, getBankListError,
     GET_WALLET_BAL_REQUEST, GET_WALLET_BAL_SUCCESS, GET_WALLET_BAL_ERROR, getWalletBalSuccess, getWalletBalError,
+    WALLET_WITHDRAW_REQUEST, WALLET_WITHDRAW_SUCCESS, WALLET_WITHDRAW_ERROR, walletWithdrawSuccess, walletWithdrawError,
+    GET_TRANSACTION_HISTORY_REQUEST, GET_TRANSACTION_HISTORY_SUCCESS, GET_TRANSACTION_HISTORY_ERROR, getTransactionHistorySuccess, getTransactionHistoryError,
 } from '../actions/myProfile';
 import api from '../api/myProfile';
 
@@ -96,6 +98,26 @@ function getWalletBalFunc() {
         }
     }
 }
+function walletWithdrawFunc() {
+    return function* (action) {
+        try {
+            let data = yield call(() => api.walletWithdraw(action.data));
+            yield put(walletWithdrawSuccess(data));
+        } catch (error) {
+            yield put(walletWithdrawError(error));
+        }
+    }
+}
+function transactionHistoryFunc() {
+    return function* (action) {
+        try {
+            let data = yield call(() => api.getTransactionHistory(action.data));
+            yield put(getTransactionHistorySuccess(data));
+        } catch (error) {
+            yield put(getTransactionHistoryError(error));
+        }
+    }
+}
 
 export const editProfileConst = editProfile();
 export const changePassConst = changePass();
@@ -105,6 +127,8 @@ export const addBankConst = addBankFunc();
 export const deleteBankConst = deleteBankFunc();
 export const getBankListConst = getBankListFunc();
 export const getWalletBalConst = getWalletBalFunc();
+export const walletWithdrawConst = walletWithdrawFunc();
+export const getTransactionHistoryConst = transactionHistoryFunc();
 
 export function* editProfileWatcher() { yield takeLatest(EDIT_PROFILE_REQUEST, editProfileConst); }
 export function* changePassWatcher() { yield takeLatest(CHANGE_PASS_REQUEST, changePassConst); }
@@ -114,6 +138,8 @@ export function* addBankWatcher() { yield takeLatest(ADD_BANK_REQUEST, addBankCo
 export function* deleteBankWatcher() { yield takeLatest(DELETE_BANK_REQUEST, deleteBankConst); }
 export function* getBankListWatcher() { yield takeLatest(GET_BANK_LIST_REQUEST, getBankListConst); }
 export function* getWalletBalWatcher() { yield takeLatest(GET_WALLET_BAL_REQUEST, getWalletBalConst); }
+export function* walletWithdrawWatcher() { yield takeLatest(WALLET_WITHDRAW_REQUEST, walletWithdrawConst); }
+export function* getTransactionHistoryWatcher() { yield takeLatest(GET_TRANSACTION_HISTORY_REQUEST, getTransactionHistoryConst); }
 
 export default [
     editProfileWatcher(),
@@ -123,5 +149,7 @@ export default [
     addBankWatcher(),
     deleteBankWatcher(),
     getBankListWatcher(),
-    getWalletBalWatcher()
+    getWalletBalWatcher(),
+    walletWithdrawWatcher(),
+    getTransactionHistoryWatcher(),
 ];

@@ -8,6 +8,8 @@ import {
     DELETE_BANK_REQUEST, DELETE_BANK_SUCCESS, DELETE_BANK_ERROR,
     GET_BANK_LIST_REQUEST, GET_BANK_LIST_SUCCESS, GET_BANK_LIST_ERROR,
     GET_WALLET_BAL_REQUEST, GET_WALLET_BAL_SUCCESS, GET_WALLET_BAL_ERROR,
+    WALLET_WITHDRAW_REQUEST, WALLET_WITHDRAW_SUCCESS, WALLET_WITHDRAW_ERROR,
+    GET_TRANSACTION_HISTORY_REQUEST, GET_TRANSACTION_HISTORY_SUCCESS, GET_TRANSACTION_HISTORY_ERROR,
 
     RESET_VALUES
 } from "../actions/myProfile";
@@ -63,6 +65,21 @@ const initialState = Map({
         data: null,
         error: null,
     },
+    wallet_withdraw: {
+        loading: false,
+        status: 0,
+        message: null,
+        data: null,
+        error: null,
+    },
+    transaction_history: {
+        loading: false,
+        status: 0,
+        message: null,
+        total: 0,
+        data: null,
+        error: null,
+    }
 });
 
 const actionMap = {
@@ -354,6 +371,76 @@ const actionMap = {
         }));
     },
 
+    [WALLET_WITHDRAW_REQUEST]: (state, action) => {
+        return state.merge(Map({
+            ...initialState,
+            wallet_withdraw: {
+                loading: true,
+                error: null,
+            }
+        }));
+    },
+    [WALLET_WITHDRAW_SUCCESS]: (state, action) => {
+        return state.merge(Map({
+            ...initialState,
+            wallet_withdraw: {
+                data: action.data.data.balance,
+                status: action.data.data.status,
+                message: action.data.data.message,
+                loading: false,
+                error: false,
+            }
+        }));
+    },
+    [WALLET_WITHDRAW_ERROR]: (state, action) => {
+        let error = 'Server Error';
+        if (action.error && action.error.response) {
+            error = action.error.response.message;
+        }
+        return state.merge(Map({
+            ...initialState,
+            wallet_withdraw: {
+                loading: false,
+                error: null,
+            }
+        }));
+    },
+
+    [GET_TRANSACTION_HISTORY_REQUEST]: (state, action) => {
+        return state.merge(Map({
+            ...initialState,
+            transaction_history: {
+                loading: true,
+                error: null,
+            }
+        }));
+    },
+    [GET_TRANSACTION_HISTORY_SUCCESS]: (state, action) => {
+        return state.merge(Map({
+            ...initialState,
+            transaction_history: {
+                data: action.data.data.results.transaction,
+                status: action.data.data.status,
+                message: action.data.data.message,
+                total: action.data.data.results.total,
+                loading: false,
+                error: false,
+            }
+        }));
+    },
+    [GET_TRANSACTION_HISTORY_ERROR]: (state, action) => {
+        let error = 'Server Error';
+        if (action.error && action.error.response) {
+            error = action.error.response.message;
+        }
+        return state.merge(Map({
+            ...initialState,
+            transaction_history: {
+                loading: false,
+                error: null,
+            }
+        }));
+    },
 
     [RESET_VALUES]:(state,action) => {
         let resetObj = {};
