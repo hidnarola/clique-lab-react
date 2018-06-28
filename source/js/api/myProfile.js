@@ -42,6 +42,16 @@ function getWalletBal() {
     return getFormData(`promoter/wallet/balance`, '', headers);
 }
 
+function walletWithdraw(data) {
+    let headers = { 'x-access-token' : localStorage.getItem('token') }                                                                                                                                                                                                                                      
+    return postFormData(`promoter/wallet/withdraw`, data, headers);
+}
+
+function getTransactionHistory(data) {
+    let headers = { 'x-access-token' : localStorage.getItem('token') }                                                                                                                                                                                                                                      
+    return postFormData(`promoter/transaction`, data, headers);
+}
+
 export default {
     editProfile,
     changePass,
@@ -51,4 +61,6 @@ export default {
     deleteBank,
     getBankList,
     getWalletBal,
+    walletWithdraw,
+    getTransactionHistory,
 }

@@ -141,10 +141,8 @@ class AddToModal extends Component {
                             </div>
                             <a href="javascript:void(0)" className="round-btn" onClick={this.saveResult}>Accept & Continue</a>
                         </div>
-
                     </ModalBody>
                 </Modal>
-
             </div>
         );
     }

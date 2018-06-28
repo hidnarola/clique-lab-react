@@ -30,6 +30,14 @@ export const GET_WALLET_BAL_REQUEST = 'GET_WALLET_BAL_REQUEST';
 export const GET_WALLET_BAL_SUCCESS = 'GET_WALLET_BAL_SUCCESS';
 export const GET_WALLET_BAL_ERROR = 'GET_WALLET_BAL_ERROR';
 
+export const WALLET_WITHDRAW_REQUEST = 'WALLET_WITHDRAW_REQUEST';
+export const WALLET_WITHDRAW_SUCCESS = 'WALLET_WITHDRAW_SUCCESS';
+export const WALLET_WITHDRAW_ERROR = 'WALLET_WITHDRAW_ERROR';
+
+export const GET_TRANSACTION_HISTORY_REQUEST = 'GET_TRANSACTION_HISTORY_REQUEST';
+export const GET_TRANSACTION_HISTORY_SUCCESS = 'GET_TRANSACTION_HISTORY_SUCCESS';
+export const GET_TRANSACTION_HISTORY_ERROR = 'GET_TRANSACTION_HISTORY_ERROR';
+
 export const RESET_VALUES = 'RESET_VALUES';
 export const RESET_ALERT_MSG = 'RESET_ALERT_MSG';
 
@@ -64,6 +72,14 @@ export function getBankListError(error) { return { type: GET_BANK_LIST_ERROR, er
 export function getWalletBal() { return { type: GET_WALLET_BAL_REQUEST } }
 export function getWalletBalSuccess(data) { return { type: GET_WALLET_BAL_SUCCESS, data } }
 export function getWalletBalError(error) { return { type: GET_WALLET_BAL_ERROR, error } }
+
+export function walletWithdraw(data) { return { type: WALLET_WITHDRAW_REQUEST, data } }
+export function walletWithdrawSuccess(data) { return { type: WALLET_WITHDRAW_SUCCESS, data } }
+export function walletWithdrawError(error) { return { type: WALLET_WITHDRAW_ERROR, error } }
+
+export function getTransactionHistory(data) { return { type: GET_TRANSACTION_HISTORY_REQUEST, data } }
+export function getTransactionHistorySuccess(data) { return { type: GET_TRANSACTION_HISTORY_SUCCESS, data } }
+export function getTransactionHistoryError(error) { return { type: GET_TRANSACTION_HISTORY_ERROR, error } }
 
 export function resetValMyProfile(data) { return { type: RESET_VALUES, data:data } }
 export function resetAlertMsg() { return { type: RESET_ALERT_MSG } }
