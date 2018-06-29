@@ -63,7 +63,8 @@ const actionMap = {
         return state.merge(Map({
             status: 0, 
             message: null, 
-            //errot: null
+            //errot: null,
+            error:null,
         }));
     },
 

@@ -62,10 +62,15 @@ class LoginForm extends Component {
         // this.props.dispatch(getEmail());
     }
 
-    // componentDidUpdate()
-    // {
-    //     this.props.dispatch(getEmail());
-    // }
+
+/**  Dm now comment */
+//     newError == 'Promoter registered successfully' ?
+//     <div>
+//         Just one more step!<br /><br />
+//         We have sent you an email that will allow you to login to Clique. If you didn't receive it, <a href="javascript:void(0)" onClick={this.saveEmail}>click HERE</a> and we will resend the email link. We cannot wait to have you onboard
+//     </div>
+// : newError
+
 
 
     render() {
@@ -78,12 +83,7 @@ class LoginForm extends Component {
                         (newError) ?
                             <Alert color="danger " isOpen={this.state.visible} toggle={this.onDismiss}>
                                 {
-                                    newError == 'Promoter registered successfully' ?
-                                        <div>
-                                            Just one more step!<br /><br />
-                                            We have sent you an email that will allow you to login to Clique. If you didn't receive it, <a href="javascript:void(0)" onClick={this.saveEmail}>click HERE</a> and we will resend the email link. We cannot wait to have you onboard
-                                        </div>
-                                    : newError
+                                   newError
                                 }
                             </Alert>
                             : ''

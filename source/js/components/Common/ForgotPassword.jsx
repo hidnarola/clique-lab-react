@@ -7,6 +7,7 @@ import { Link, Redirect } from 'react-router-dom';
 import { forgotPass, resetForgotVal } from '../../actions/forgotPass';
 import ForgotPassForm from '../Forms/Front/ForgotPassForm';
 import PropTypes from 'prop-types';
+import { ToastContainer, toast, Slide } from 'react-toastify';
 
 
 class ForgotPassword extends Component {
@@ -38,11 +39,14 @@ class ForgotPassword extends Component {
     }
 
     componentWillReceiveProps(nextProps){
-        this.setState({errorMsg:nextProps.error},()=>{
-            setTimeout(()=>{
-                this.setState({errorMsg:''});
-            },3000)
+        toast.success(nextProps.error, {
+            className: 'success-custom-tostify',
         });
+        // this.setState({errorMsg:nextProps.error},()=>{
+        //     setTimeout(()=>{
+        //         this.setState({errorMsg:''});
+        //     },3000)
+        // });
     }
     
     render(){

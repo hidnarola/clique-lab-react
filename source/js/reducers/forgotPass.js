@@ -71,6 +71,8 @@ const actionMap = {
         return state.merge(Map({
             status: 0,
             message: null,
+            error:null,
+            loading:false
         }));
     },
 };

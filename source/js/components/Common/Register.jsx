@@ -6,10 +6,12 @@ import { TERMS, PRIVACY } from '../../constants/pages';
 import RegisterForm from '../../components/Forms/Front/RegisterForm';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { register, country, resetRegisterVal, resetRegisterFullState,setEmail} from '../../actions/register';
+import { register, country, resetRegisterVal, resetRegisterFullState, setEmail } from '../../actions/register';
 import { Redirect } from 'react-router-dom';
 import { routeCodes } from '../../constants/routes';
 import { getFormSyncErrors } from 'redux-form';
+
+import { ToastContainer, toast, Slide } from 'react-toastify';
 
 class Register extends Component {
 
@@ -44,12 +46,18 @@ class Register extends Component {
         let { dispatch, error, user } = this.props;
         let { errorMsg } = this.state;
         if (error !== null) {
-            this.setState({ errorMsg: error }, () => {
-                setTimeout(() => {
-                    this.setState({ errorMsg: '' })
-                    dispatch(resetRegisterVal());
-                }, 3000);
-            })
+
+            toast.success(error, {
+                className: 'success-custom-tostify',
+            });
+
+            // this.setState({ errorMsg: error }, () => {
+            //     setTimeout(() => {
+            //         this.setState({ errorMsg: '' })
+            //         dispatch(resetRegisterVal());
+            //     }, 3000);
+            // })
+            dispatch(resetRegisterVal());
         }
         dispatch(country());
     }
@@ -61,18 +69,28 @@ class Register extends Component {
         if (submitAction && !loading) {
             this.setState({ submitAction: false })
             if (error !== null) {
-                this.setState({ errorMsg: error }, () => {
-                    setTimeout(() => {
-                        this.setState({ errorMsg: '' })
-                    }, 3000);
-                })
+
+                toast.success(error, {
+                    className: 'success-custom-tostify',
+                });
+
+                // this.setState({ errorMsg: error }, () => {
+                //     setTimeout(() => {
+                //         this.setState({ errorMsg: '' })
+                //     }, 3000);
+                // })
             }
             else if (message !== null) {
-                this.setState({ errorMsg: message }, () => {
-                    setTimeout(() => {
-                        this.setState({ errorMsg: '' })
-                    }, 3000);
-                })
+
+                toast.success(message, {
+                    className: 'success-custom-tostify',
+                });
+
+                // this.setState({ errorMsg: message }, () => {
+                //     setTimeout(() => {
+                //         this.setState({ errorMsg: '' })
+                //     }, 3000);
+                // })
             }
         }
     }

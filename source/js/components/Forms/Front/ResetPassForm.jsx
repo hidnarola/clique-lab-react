@@ -11,8 +11,8 @@ const validate = values => {
     if (!values.password) { errors.password = 'This field is required'; }
     else if (values.password.length < 5) { errors.password = 'Must be more than 5 characters'; }
 
-    if (!values.repeatPassword) { errors.password = 'This field is required'; }
-    else if (values.password !== values.repeatPassword) { errors.password = 'Password should be match'; }
+    if (!values.repeatPassword) { errors.repeatPassword = 'This field is required'; }
+    else if (values.password !== values.repeatPassword) { errors.repeatPassword = 'Password should be match'; }
 
     return errors;
 }
