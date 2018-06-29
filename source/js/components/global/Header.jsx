@@ -29,6 +29,10 @@ class Header extends Component {
         history.push('/');
     }
 
+    myProfile = () => {
+        this.props.history.push(routeCodes.MY_PROFILE);
+    }
+
     toggle() {
         this.setState({ dropdownOpen: !this.state.dropdownOpen });
     }
@@ -62,16 +66,11 @@ class Header extends Component {
         let user = JSON.parse(reactLocalStorage.get('user', true));
         let pg_name;
 
-        if (page_name === 'Campaigns (Active)' || page_name === 'Campaigns (Future)' || page_name === 'Campaigns (Past)') {
-            pg_name = 'Campaigns';
-        }
-        else if(page_name === 'Campaign\'s Submission List' || page_name === 'Past Campaign\'s Submission List')
-        {
-            pg_name = 'Campaign\'s Submission List';
-        } 
-        else {
-            pg_name = page_name;
-        }
+        if (page_name === 'Campaigns (Active)' || page_name === 'Campaigns (Future)' || page_name === 'Campaigns (Past)') { pg_name = 'Campaigns'; }
+        else if(page_name === 'Campaign\'s Submission List' || page_name === 'Past Campaign\'s Submission List'){ pg_name = 'Campaign\'s Submission List'; } 
+        else if (page_name === 'Profile (Partnership Program)' || page_name === 'Profile (Wallet)' || page_name === 'Profile (Permission)') { pg_name = 'Profile'; }
+        else if (page_name === 'Analytics (Stats)' || page_name === 'Analytics (DemoGraphics)') { pg_name = 'Analytics'; }
+        else { pg_name = page_name; }
         return (
             <div className="right-hdr d-flex">
                 <h2>
@@ -86,7 +85,7 @@ class Header extends Component {
                     <div className="hdr-cart">
                         <Link to={routeCodes.MY_CART}>
                             <i className=""></i>
-                            {/* {carts.data !== null && <span>{carts.data.length}</span>} */}
+                            {carts.data !== null && <span>{carts.data.length}</span>}
 
                         </Link>
                         <div className="dropdown-menu dropdown-menu-right" aria-labelledby="cart-dropdown">
@@ -111,10 +110,10 @@ class Header extends Component {
                                 </a>
                             </DropdownToggle>
                             <DropdownMenu right>
-                                <DropdownItem>
+                                <DropdownItem onClick={() => this.myProfile()}>
                                     <span style={{ "background": "url('" + imgRoutes.ORG_PROMOTER_IMG_PATH + user.avatar + "') 100% center / 100% no-repeat"}}></span>
-                                    <Link className="cursor_pointer" to={routeCodes.MY_PROFILE}> My Profile </Link>
-                                    {page_name == 'profile' && <img src="../assets/img/site/check-icon.png" alt="" />}
+                                    <a href="javascript:void(0)" className="cursor_pointer"> My Profile </a>
+                                    {/* {page_name == 'profile' && <img src="../assets/img/site/check-icon.png" alt="" />} */}
                                 </DropdownItem>
                                 {/* <DropdownItem><span></span>Jacob Robinson</DropdownItem> */}
                                 {/* <DropdownItem><i className="newaccount-icon"></i>New Account</DropdownItem> */}
@@ -132,10 +131,10 @@ class Header extends Component {
     }
 }
 
-// const mapStateToProps = (state) => {
-//     const { checkout } = state;
-//     return {
-//         carts: checkout.get('carts'),
-//     }
-// }
-export default withRouter(connect()(Header));
+const mapStateToProps = (state) => {
+    const { checkout } = state;
+    return {
+        carts: checkout.get('carts'),
+    }
+}
+export default withRouter(connect(mapStateToProps)(Header));

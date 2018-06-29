@@ -82,17 +82,17 @@ class Login extends Component{
         let token = localStorage.getItem('token');
         let usrObj = reactLocalStorage.getObject('user');
         if (Object.keys(usrObj).length>0){
-            console.log(usrObj.first_login);
+            // console.log(usrObj.first_login);
             if(usrObj.first_login===true){
-                console.log('Redirect','1');
+                // console.log('Redirect','1');
                 this.props.history.push(routeCodes.AFTERREGISTER);
                 //return <Redirect to={routeCodes.AFTERREGISTER} />;
             }else if(usrObj.first_login===false){
-                console.log('Redirect','2');
+                // console.log('Redirect','2');
                 this.props.history.push(routeCodes.DASHBOARD);
                 //return <Redirect to={routeCodes.DASHBOARD} />;
             } else {
-                console.log('Redirect','3');
+                // console.log('Redirect','3');
                 this.props.history.push(routeCodes.AFTERREGISTER);
                 //return <Redirect to={routeCodes.AFTERREGISTER} />;
             }

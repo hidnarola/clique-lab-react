@@ -57,7 +57,6 @@ class Register extends Component {
     componentDidUpdate() {
         let { message, loading, error } = this.props;
         let { submitAction, load } = this.state;
-        console.log(error);
         if (submitAction && !loading) {
             this.setState({ submitAction: false })
             if (error !== null) {
