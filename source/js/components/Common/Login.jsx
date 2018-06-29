@@ -50,6 +50,12 @@ class Login extends Component {
             "email":emailId 
         }
         dispatch(reSendEmail(re_email));
+
+        setTimeout(()=>{
+            toast.success('Email is send to your email id', {
+                className: 'success-custom-tostify',
+            });
+        },5000)
     }
 
     submitForm = (values) => {
