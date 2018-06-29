@@ -139,10 +139,10 @@ class App extends Component {
                             <PrivateRoute path={`${routeCodes.ANALYTICS_DEMOGRAPHICS}`} component={Analytics} showHeader={true} />
 
                             {/* Profile */}
-                            <PrivateRoute path={routeCodes.MY_PROFILE} component={MyProfile} showHeader={true} />
-                            <PrivateRoute path={routeCodes.PARTNERSHIP_PROGRAM} component={MyProfile} showHeader={true} />
-                            <PrivateRoute path={routeCodes.WALLET} component={MyProfile} showHeader={true} />
-                            <PrivateRoute path={routeCodes.PERMISSION} component={MyProfile} showHeader={true} />
+                            <PrivateRoute exact path={routeCodes.MY_PROFILE} component={MyProfile} showHeader={true} />
+                            <PrivateRoute exact path={routeCodes.PARTNERSHIP_PROGRAM} component={MyProfile} showHeader={true} />
+                            <PrivateRoute exact path={routeCodes.WALLET} component={MyProfile} showHeader={true} />
+                            <PrivateRoute exact path={routeCodes.PERMISSION} component={MyProfile} showHeader={true} />
 
                             {/* Payment */}
                             <PrivateRoute path={routeCodes.MY_CART} component={Cart} showHeader={true} />

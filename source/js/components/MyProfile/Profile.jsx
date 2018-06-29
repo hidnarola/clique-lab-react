@@ -20,8 +20,8 @@ import closeImg2 from 'img/site/close-2.png';
 
 const validate = values => {
 	const errors = {}
-	if (!values.name) {
-		errors.name = 'This Field is Required';
+	if (!values.name || values.name.trim() === '') {
+		errors.name = 'This field is required';
 	}
 
 	// if (!values.username) {
@@ -32,15 +32,16 @@ const validate = values => {
 	// 	errors.email = 'This Field is Required';
 	// }
 
-	if (!values.company) {
-		errors.company = 'This Field is Required';
+	if (!values.company || values.company.trim() === '') {
+		errors.company = 'This field is required';
 	}
 
-	if (!values.description) {
-		errors.description = 'This Field is Required';
+	if (!values.description || values.description.trim() === '') {
+		errors.description = 'This field is required';
 	}
 
-	if (!values.industry_category || (values.industry_category !== undefined && values.industry_category.value == "") || Object.keys(values.industry_category).length === 0) {
+	// if (!values.industry_category || (values.industry_category !== undefined && values.industry_category.value == "") || Object.keys(values.industry_category).length === 0) {
+	if (!values.industry_category || values.industry_category.value === undefined) {
 		errors.industry_category = 'This field is required';
 	}
 
@@ -82,7 +83,7 @@ const FileField_Dropzone = (props) => {
 		images.push(
 			<div className="images-preview-wrapper" key={key}>
 				<div className="image-preview">
-					<img src={file.preview} width={'560px'} height={'280px'} />
+					<img src={file.preview} width={'auto'} height={'200px'} />
 				</div>
 			</div>
 		)
@@ -111,7 +112,7 @@ const FileField_Dropzone = (props) => {
 						(input.value && meta.error === undefined) ?
 							images
 							:
-							existImage && <img src={existImage} />
+							existImage && <img src={existImage} style={{"width":"auto", "height":"200px" }}/>
 					}
 					{((!input.value || meta.error || images.length === 0)) && existImage === '' && <div className={`custom_dropzone_div ${(meta.touched && meta.error) && 'drop_error_div'}`} style={{ 'width': '100% !important' }}>
 						<img src={dropImg} /><br /><br />
@@ -213,7 +214,11 @@ class Profile extends Component {
 			jQuery('#txt_new_password').css("cssText", "border: 2px solid red !important");
 			jQuery('.txt_new_password_errorMsg').html('This field is required');
 			isError = 1;
-		}
+		} else if (txtNPASS.length < 5) {
+			jQuery('#txt_new_password').css("cssText", "border: 2px solid red !important");
+			jQuery('.txt_new_password_errorMsg').html('Must be more than 5 characters');
+			isError = 1;
+		} 
 		if (txtCPASS === '') {
 			jQuery('#txt_confirm_password').css("cssText", "border: 2px solid red !important");
 			jQuery('.txt_confirm_password_errorMsg').html('This field is required');

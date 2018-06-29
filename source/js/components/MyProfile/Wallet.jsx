@@ -150,7 +150,7 @@ class Wallet extends Component {
                 dispatch(getWalletBal());
                 this.setState({ isRender: 0, disabled: '' });
                 toast.success('Withdraw has been successfully done', {
-					className: 'success-custom-tostify'
+                    className: 'success-custom-tostify'
                 });
             }
         }
@@ -175,22 +175,22 @@ class Wallet extends Component {
         const { dispatch } = this.props;
         const { txtCHN, txtCN, txtCD, txtCVV } = this.state;
         let isError = 0;
-        if (txtCHN === '') {
+        if (txtCHN === '' || txtCHN.trim() === '') {
             jQuery('#txt_card_holder_name').css("cssText", "border: 2px solid red !important");
             jQuery('.txt_card_holder_name_errorMsg').html('This field is required');
             isError = 1;
         }
-        if (txtCN === '') {
+        if (txtCN === '' || txtCN.trim() === '') {
             jQuery('#txt_card_number').css("cssText", "border: 2px solid red !important");
             jQuery('.txt_card_number_errorMsg').html('This field is required');
             isError = 1;
         }
-        if (txtCD === '') {
+        if (txtCD === '' || txtCD.trim() === '') {
             jQuery('#txt_card_date').css("cssText", "border: 2px solid red !important");
             jQuery('.txt_card_date_errorMsg').html('This field is required');
             isError = 1;
         }
-        if (txtCVV === '') {
+        if (txtCVV === '' || txtCW.trim() === '') {
             jQuery('#txt_card_cvv').css("cssText", "border: 2px solid red !important");
             jQuery('.txt_card_cvv_errorMsg').html('This field is required');
             isError = 1;
@@ -214,7 +214,7 @@ class Wallet extends Component {
         if (element == 'txt_card_number') { this.setState({ txtCN: value }) }
         if (element == 'txt_card_date') { this.setState({ txtCD: value }) }
         if (element == 'txt_card_cvv') { this.setState({ txtCVV: value }) }
-        if (value === '') {
+        if (value === '' || value.trim() === '') {
             jQuery('#' + element).css("cssText", "border: 2px solid red !important");
             jQuery('.' + element + '_errorMsg').html('This field is required');
         } else {
@@ -251,7 +251,7 @@ class Wallet extends Component {
         let { txtCHNedit, txtCNedit, txtCDedit, txtCVVedit } = this.state;
         if (element == 'txt_card_holder_name_edit') { this.setState({ txtCHNedit: value }) }
         if (element == 'txt_card_date_edit') { this.setState({ txtCDedit: value }) }
-        if (value === '') {
+        if (value === '' || value.trim() === '') {
             jQuery('#' + element).css("cssText", "border: 2px solid red !important");
             jQuery('.' + element + '_errorMsg').html('This field is required');
         } else {
@@ -263,12 +263,12 @@ class Wallet extends Component {
         const { dispatch } = this.props;
         const { editCardId, txtCHNedit, txtCNedit, txtCDedit, txtCVVedit } = this.state;
         let isError = 0;
-        if (txtCHNedit === '') {
+        if (txtCHNedit === '' || txtCHNedit.trim() === '') {
             jQuery('#txt_card_holder_name_edit').css("cssText", "border: 2px solid red !important");
             jQuery('.txt_card_holder_name_errorMsg').html('This field is required');
             isError = 1;
         }
-        if (txtCDedit === '') {
+        if (txtCDedit === '' || txtCDedit.trim() === '') {
             jQuery('#txt_card_date_edit').css("cssText", "border: 2px solid red !important");
             jQuery('.txt_card_date_edit_errorMsg').html('This field is required');
             isError = 1;
@@ -319,7 +319,7 @@ class Wallet extends Component {
             'Visa': visaImg
         };
         return (
-            <div className="card-box" key={Math.random()} onClick={() => this.selecteCreditCard(obj.id)} id={'card_box_' + obj.id}>
+            <div className="card-box" key={Math.random()} id={'card_box_' + obj.id}>
                 <div className="card-box-head d-flex">
                     <i className="light-bg"></i>
                     <div className="card-box-head-r">
@@ -357,22 +357,22 @@ class Wallet extends Component {
         const { dispatch } = this.props;
         const { txtBN, txtAHN, txtAN, txtBSB } = this.state;
         let isError = 0;
-        if (txtBN === '') {
+        if (txtBN === '' || txtBN.trim() === '') {
             jQuery('#txt_bank_name').css("cssText", "border: 2px solid red !important");
             jQuery('.txt_bank_name_errorMsg').html('This field is required');
             isError = 1;
         }
-        if (txtAHN === '') {
+        if (txtAHN === '' || txtAHN.trim() === '') {
             jQuery('#txt_acc_holder_name').css("cssText", "border: 2px solid red !important");
             jQuery('.txt_acc_holder_name_errorMsg').html('This field is required');
             isError = 1;
         }
-        if (txtAN === '') {
+        if (txtAN === '' || txtAN.trim() === '') {
             jQuery('#txt_acc_number').css("cssText", "border: 2px solid red !important");
             jQuery('.txt_acc_number_errorMsg').html('This field is required');
             isError = 1;
         }
-        if (txtBSB === '') {
+        if (txtBSB === '' || txtBSB.trim() === '') {
             jQuery('#txt_bsb').css("cssText", "border: 2px solid red !important");
             jQuery('.txt_bsb_errorMsg').html('This field is required');
             isError = 1;
@@ -395,7 +395,7 @@ class Wallet extends Component {
         if (element == 'txt_acc_holder_name') { this.setState({ txtAHN: value }) }
         if (element == 'txt_acc_number') { this.setState({ txtAN: value }) }
         if (element == 'txt_bsb') { this.setState({ txtBSB: value }) }
-        if (value === '') {
+        if (value === '' || value.trim() === '') {
             jQuery('#' + element).css("cssText", "border: 2px solid red !important");
             jQuery('.' + element + '_errorMsg').html('This field is required');
         } else {
@@ -436,7 +436,9 @@ class Wallet extends Component {
         return (
             <div className="card-box wallet-account-box" key={Math.random()}>
                 <div className="card-box-head d-flex">
-                    <i className="light-bg"></i>
+                    {
+                        (obj.default === true) ? <i></i> : <i className="light-bg"></i>
+                    }
                     <div className="card-box-head-r">
                         <a href="javascript:void(0)" style={{ display: "none" }}><img src={editImg} alt="Edit" /></a>
                         <a href="javascript:void(0)" onClick={() => this.deleteBank(obj.id)}><img src={deleteImg} alt="Delete" /></a>
@@ -453,7 +455,7 @@ class Wallet extends Component {
     // Withdraw Balance
     withdrawModalOpen() { this.setState({ withdrawModalShow: !this.state.withdrawModalShow }); }
     withdrawModaltoggle() {
-        this.setState({ 
+        this.setState({
             withdrawModalShow: !this.state.withdrawModalShow,
             txtAMT: '',
             txtBANK: '',
@@ -463,9 +465,13 @@ class Wallet extends Component {
         const { dispatch } = this.props;
         const { txtAMT, txtBANK } = this.state;
         let isError = 0;
-        if (txtAMT === '') {
+        if (txtAMT === '' || txtAMT.trim() === '') {
             jQuery('#txt_withdraw_amount').css("cssText", "border: 2px solid red !important");
             jQuery('.txt_withdraw_amount_errorMsg').html('This field is required');
+            isError = 1;
+        } else if (txtAMT <= 0 || isNaN(txtAMT)) {
+            jQuery('#txt_withdraw_amount').css("cssText", "border: 2px solid red !important");
+            jQuery('.txt_withdraw_amount_errorMsg').html('Please enter proper value');
             isError = 1;
         }
         if (txtBANK === '') {
@@ -486,7 +492,7 @@ class Wallet extends Component {
         let { txtAMT, txtBANK } = this.state;
         if (element == 'txt_withdraw_amount') { this.setState({ txtAMT: value }) }
         if (element == 'txt_withdraw_bank') { this.setState({ txtBANK: value }) }
-        if (value === '') {
+        if (value === '' || value === null) {
             if (element == 'txt_withdraw_amount') { jQuery('#' + element).css("cssText", "border: 2px solid red !important"); }
             else { jQuery('.' + element + ' .Select-control').css("cssText", "border: 2px solid red !important"); }
             jQuery('.' + element + '_errorMsg').html('This field is required');
@@ -617,7 +623,7 @@ class Wallet extends Component {
                             <input
                                 className="form-control mr-sm-2"
                                 type="search"
-                                placeholder="Search"
+                                placeholder="Search transactions"
                                 id="txt_transaction_search"
                                 name="transaction_search_params"
                                 aria-label="Search"
@@ -645,14 +651,14 @@ class Wallet extends Component {
                                         //window.scrollTo(0, document.body.scrollHeight);
                                         :
                                         (transaction_history.loading !== true) &&
-                                            <tr>
-                                                <td colSpan="4" style={{"textAlign": "center", "padding": "30px"}}>
-                                                    <h4 style={{"fontSize": "30px", "fontWeight": "600", "color": "#ddd"}}>No Data Available</h4>
-                                                </td>
-                                            </tr>
+                                        <tr>
+                                            <td colSpan="4" style={{ "textAlign": "center", "padding": "30px" }}>
+                                                <h4 style={{ "fontSize": "30px", "fontWeight": "600", "color": "#ddd" }}>No Data Available</h4>
+                                            </td>
+                                        </tr>
                                 }
                                 {
-                                    (transaction_history.loading === true)  &&
+                                    (transaction_history.loading === true) &&
                                     <Facebook />
                                 }
                                 {
@@ -871,7 +877,7 @@ class Wallet extends Component {
                                         options={dropArr}
                                         placeholder="Select Bank"
                                     />
-                                    <label className="txt_withdraw_bank_errorMsg" style={{ "color": "red", "marginTop": "5px", "textAlign": "left", 'fontWeight': "600" }}></label>
+                                    <span className="txt_withdraw_bank_errorMsg" style={{ "color": "red", "marginTop": "5px", "textAlign": "left", 'fontWeight': "600" }}></span>
                                 </div>
                                 <div className="error_div"></div>
                                 <div className="submit-btn">

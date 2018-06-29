@@ -62,7 +62,6 @@ class Login extends Component {
         let { error, user, message, dispatch } = this.props;
         let { errorMsg } = this.state;
         if (message !== null) {
-
             if (message === 'Promoter registered successfully') {
                 toast.success('Just one more step!' + <br /> + 'We have sent you an email that will allow you to login to Clique. If you didn\'t' + 'receive it,' + <a href="javascript:void(0)" onClick={this.saveEmail}>click HERE</a> + 'and we will resend the email link. We cannot wait to have you onboard',
                     {
@@ -130,22 +129,23 @@ class Login extends Component {
         let token = localStorage.getItem('token');
         let usrObj = reactLocalStorage.getObject('user');
         if (Object.keys(usrObj).length > 0) {
-            console.log(usrObj.first_login);
+            // console.log(usrObj.first_login);
             if (usrObj.first_login === true) {
-                console.log('Redirect', '1');
+                // console.log('Redirect', '1');
                 this.props.history.push(routeCodes.AFTERREGISTER);
                 //return <Redirect to={routeCodes.AFTERREGISTER} />;
             } else if (usrObj.first_login === false) {
-                console.log('Redirect', '2');
+                // console.log('Redirect', '2');
                 this.props.history.push(routeCodes.DASHBOARD);
                 //return <Redirect to={routeCodes.DASHBOARD} />;
             } else {
-                console.log('Redirect', '3');
+                // console.log('Redirect', '3');
+                // console.log('121');
                 this.props.history.push(routeCodes.AFTERREGISTER);
                 //return <Redirect to={routeCodes.AFTERREGISTER} />;
             }
         }
-
+        
         return (
             <div className="login-register-bg">
                 <div className="login-register-box login_page">
