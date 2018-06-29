@@ -469,7 +469,7 @@ class Wallet extends Component {
             jQuery('#txt_withdraw_amount').css("cssText", "border: 2px solid red !important");
             jQuery('.txt_withdraw_amount_errorMsg').html('This field is required');
             isError = 1;
-        } else if (txtAMT < 0 || isNaN(txtAMT)) {
+        } else if (txtAMT <= 0 || isNaN(txtAMT)) {
             jQuery('#txt_withdraw_amount').css("cssText", "border: 2px solid red !important");
             jQuery('.txt_withdraw_amount_errorMsg').html('Please enter proper value');
             isError = 1;
