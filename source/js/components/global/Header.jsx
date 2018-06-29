@@ -8,6 +8,7 @@ import { routeCodes } from 'constants/routes';
 import { imgRoutes } from 'constants/img_path';
 import { reactLocalStorage } from 'reactjs-localstorage';
 import _ from 'lodash';
+import checkImg from 'img/site/check-icon.png';
 
 class Header extends Component {
 
@@ -112,8 +113,7 @@ class Header extends Component {
                             <DropdownMenu right>
                                 <DropdownItem onClick={() => this.myProfile()}>
                                     <span style={{ "background": "url('" + imgRoutes.ORG_PROMOTER_IMG_PATH + user.avatar + "') 100% center / 100% no-repeat"}}></span>
-                                    <a href="javascript:void(0)" className="cursor_pointer"> My Profile </a>
-                                    {/* {page_name == 'profile' && <img src="../assets/img/site/check-icon.png" alt="" />} */}
+                                    <a href="javascript:void(0)" className="cursor_pointer"> My Profile {pg_name == 'Profile' && <img src={checkImg} alt="" />}</a>
                                 </DropdownItem>
                                 {/* <DropdownItem><span></span>Jacob Robinson</DropdownItem> */}
                                 {/* <DropdownItem><i className="newaccount-icon"></i>New Account</DropdownItem> */}

@@ -447,7 +447,7 @@ class Wallet extends Component {
                 <h4>{obj.bank_name}</h4>
                 <h4><small>BSB</small> <strong>{obj.bsb}</strong></h4>
                 <h5><small>Account Name </small> <strong>{obj.account_holder_name}</strong></h5>
-                <h5><small>Account Number</small> <strong>{`********${obj.bank_Account_last4}`}</strong></h5>
+                <h5><small>Account Number</small> <strong>{`********${("0"+obj.bank_Account_last4).slice(-2)}`}</strong></h5>
             </div>
         )
     }
