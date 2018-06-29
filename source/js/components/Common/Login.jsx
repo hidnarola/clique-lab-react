@@ -18,7 +18,18 @@ import { Alert } from 'reactstrap';
 
 import { ToastContainer, toast, Slide } from 'react-toastify';
 
+import { reSendEmail } from '../../actions/register';
+
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
+
+const CustomToastMsg = (props) => {
+    return (
+        <div>
+            Just one more step!<br /><br />
+            We have sent you an email that will allow you to login to Clique. If you didn't receive it, <a href="javascript:void(0)" style={{"color": "#ffc800","textDecoration": "underline", "fontWeight": "500", "fontStyle": "italic"}} onClick={props.rsend}>click HERE</a> and we will resend the email link. We cannot wait to have you onboard
+        </div>
+    )
+}
 
 class Login extends Component {
     constructor(props) {
@@ -28,6 +39,17 @@ class Login extends Component {
             submitAction: false,
             errorMsg: '',
         };
+        this.saveEmail = this.saveEmail.bind(this); 
+    }
+
+    /// now 
+    saveEmail()
+    {
+        const { dispatch,emailId} = this.props;
+        let re_email = {
+            "email":emailId 
+        }
+        dispatch(reSendEmail(re_email));
     }
 
     submitForm = (values) => {
@@ -63,14 +85,13 @@ class Login extends Component {
         let { errorMsg } = this.state;
         if (message !== null) {
             if (message === 'Promoter registered successfully') {
-                toast.success('Just one more step!' + <br /> + 'We have sent you an email that will allow you to login to Clique. If you didn\'t' + 'receive it,' + <a href="javascript:void(0)" onClick={this.saveEmail}>click HERE</a> + 'and we will resend the email link. We cannot wait to have you onboard',
+                toast.success(<CustomToastMsg rsend = {this.saveEmail}/>,
                     {
                         className: 'success-custom-tostify',
                         autoClose: false,
-                        closeOnClick:false,
+                        closeOnClick: false,
                     });
-            }
-            else if (message) {
+            } else if (message) {
                 toast.success(message, {
                     className: 'success-custom-tostify',
                 });
@@ -145,7 +166,7 @@ class Login extends Component {
                 //return <Redirect to={routeCodes.AFTERREGISTER} />;
             }
         }
-        
+
         return (
             <div className="login-register-bg">
                 <div className="login-register-box login_page">
@@ -188,6 +209,7 @@ const mapStateToProps = (state) => {
         token: login.get('token'),
         refreshToken: login.get('refreshToken'),
         message: msg,
+        emailId : register.get('email_id')////
     }
 }
 
