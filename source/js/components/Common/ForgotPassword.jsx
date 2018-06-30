@@ -39,9 +39,12 @@ class ForgotPassword extends Component {
     }
 
     componentWillReceiveProps(nextProps){
-        toast.success(nextProps.error, {
-            className: 'success-custom-tostify',
-        });
+        if (! toast.isActive(this.toastId)) {
+            this.toastId =  toast.success(nextProps.error, {
+                    className: 'success-custom-tostify',
+                 });
+          }
+
         // this.setState({errorMsg:nextProps.error},()=>{
         //     setTimeout(()=>{
         //         this.setState({errorMsg:''});

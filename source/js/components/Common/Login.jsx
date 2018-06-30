@@ -42,7 +42,6 @@ class Login extends Component {
         this.saveEmail = this.saveEmail.bind(this); 
     }
 
-    /// now 
     saveEmail()
     {
         const { dispatch,emailId} = this.props;
@@ -120,13 +119,16 @@ class Login extends Component {
 
     componentDidUpdate() {
         let { message, loading, error, dispatch } = this.props;
-        let { submitAction, load } = this.state;
+        let { submitAction, load} = this.state;
         if (submitAction && !loading) {
             this.setState({ submitAction: false })
+            
             if (error !== null) {
-                toast.success(error, {
-                    className: 'success-custom-tostify',
-                });
+                if (! toast.isActive(this.toastId)) {
+                    this.toastId =  toast.success(error, {
+                            className: 'success-custom-tostify',
+                         });
+                  }
                 dispatch(resetForgotVal());
                 // this.setState({errorMsg: error},() => {
                 //     setTimeout(()=>{
