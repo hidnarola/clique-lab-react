@@ -10,10 +10,11 @@ import instaImg from 'img/site/instagram.png';
 import imgPlus from 'img/site/plus-01.png';
 import closeImg2 from 'img/site/close-2.png';
 import noCampaignImg from 'img/site/no_data/no_campaign.png';
+
 import noUserImg2 from 'img/site/no_data/no_user2.png';
 import Pagination from "react-js-pagination";
 import { puchasedPostSend } from '../../actions/purchasedPosts';
-import { downloadCampaignImg,resetDownload} from '../../actions/campaign';
+import { downloadCampaignImg, resetDownload } from '../../actions/campaign';
 import { isImageExists } from '../../constants/helper';
 import { imgRoutes } from '../../constants/img_path';
 import { sendReq, moreFilterReq, fetchDropDownReq, resetVal, addUserReq, bulkUserReq } from '../../actions/everyDay';
@@ -165,8 +166,8 @@ class PurchasedPosts extends Component {
             messagePopup: false,
             messagePopupSuccessMsg: null,
             messagePopupErrorMsg: null,
-            load:false,
-            isdownload:false,
+            load: false,
+            isdownload: false,
         }
     }
 
@@ -189,12 +190,26 @@ class PurchasedPosts extends Component {
         dispatch(puchasedPostSend({ "page_size": 8, "page_no": 1 }));
     }
 
-    downloadPost = (campaignId) => {
+    downloadPost = (obj) => {
         const { dispatch } = this.props;
-        dispatch(downloadCampaignImg(campaignId));
+        let id = '';
+        let key = '';
+        
+        if(obj.applied_post)
+        {
+            id = obj.applied_post._id;
+            key = 'applied';
+        }
+        else
+        {
+            id = obj.inspired_post._id;
+            key = 'inspired';
+        }
+
+        dispatch(downloadCampaignImg({id: id ,key: key}));
 
         this.setState({
-            isdownload:true
+            isdownload: true
         })
     }
 
@@ -207,8 +222,8 @@ class PurchasedPosts extends Component {
         //     },300);
         // })
 
-        this.child.setSaveFor('campaign', obj.users._id);
-        dispatch(fetchDropDownReq({ "sendReqFor": "campaign", "uId": obj.users._id }));
+        this.child.setSaveFor('campaign', obj.user._id);
+        dispatch(fetchDropDownReq({ "sendReqFor": "campaign", "uId": obj.user._id }));
 
         setTimeout(() => {
             if (this.props.dropdownList === null && this.props.loading === false) {
@@ -222,22 +237,22 @@ class PurchasedPosts extends Component {
         }, 2000) //2000
 
         this.setState({
-            finalMsg : 'User has been added in '
+            finalMsg: 'User has been added in '
         })
     }
 
     addGroup = (obj) => {
         const { dispatch } = this.props;
 
-        
+
         // this.setState({load:true},()=>{
         //     setTimeout(()=>{
         //         this.setState({load:false})
         //     },300);
         // })
 
-        this.child.setSaveFor('group', obj.users._id);
-        dispatch(fetchDropDownReq({ "sendReqFor": "group", "uId": obj.users._id }));
+        this.child.setSaveFor('group', obj.user._id);
+        dispatch(fetchDropDownReq({ "sendReqFor": "group", "uId": obj.user._id }));
 
         setTimeout(() => {
             if (this.props.dropdownList === null && this.props.loading === false) {
@@ -258,8 +273,8 @@ class PurchasedPosts extends Component {
     }
 
     componentDidUpdate() {
-        let { showDrop, userAdded, dispatch, inserted_group, group_status,userAddedMsg,filename} = this.props;
-        let { is_inserted,isdownload } = this.state;
+        let { showDrop, userAdded, dispatch, inserted_group, group_status, userAddedMsg, filename } = this.props;
+        let { is_inserted, isdownload } = this.state;
         if (showDrop) {
             this.child.toggle();
         }
@@ -288,11 +303,10 @@ class PurchasedPosts extends Component {
             dispatch(resetGroupVal());
         }
 
-        if(filename && isdownload === true)
-        {
+        if (filename && isdownload === true) {
             dispatch(resetDownload());
             this.setState({
-                isdownload:false
+                isdownload: false
             });
         }
 
@@ -323,6 +337,119 @@ class PurchasedPosts extends Component {
         dispatch(addUserReq(data));
     }
 
+
+    renderPost = (obj) => {
+
+        let social_media = '';
+        let social_media_platform = '';
+
+        /** ---------------- Social media images ---------- */
+        let mediaImg = {
+            'facebook': fbImg,
+            'linkedin': linkedImg,
+            'instagram': instaImg,
+            'pinterest': pinImg,
+            'twitter': twitterImg,
+        };
+
+        if(obj.applied_post)
+        {
+            social_media = obj.campaign.social_media_platform
+        }
+        else
+        {
+            social_media = obj.inspired_post.social_media_platform
+        }
+
+        /** ---------------- Social media platform counter ---------- */
+
+        if(obj.applied_post)
+        {
+            social_media_platform = obj.campaign.social_media_platform;
+        }
+        else
+        {
+            social_media_platform = obj.inspired_post.social_media_platform;
+        }
+
+
+        /** ---------------- post images & user images ---------- */
+        let avatar_img = '';
+        let post_img = '';
+
+        if (obj.applied_post) {
+            if (obj.applied_post.image === undefined) {
+                post_img = noCampaignImg;
+            }
+            else {
+                post_img = imgRoutes.CAMPAIGN_POST_IMG_PATH + obj.applied_post.image;
+            }
+        }
+        else if (obj.inspired_post) {
+            if (obj.inspired_post.image === undefined) {
+                post_img = noCampaignImg;
+            }
+            else {
+                post_img = imgRoutes.CAMPAIGN_INSPIRED_IMG_PATH + obj.inspired_post.image;
+            }
+        }
+
+        if (obj.user.image == undefined) {
+            avatar_img = noUserImg2;
+        } else {
+            avatar_img = imgRoutes.USER_IMG_PATH + obj.user.image;
+        }
+
+        return (<li key={Math.random()}>
+            <div className="fan-festival-box">
+                <div className="festival-head d-flex">
+                    <div className="festival-head-l">
+                        <span style={{ "background": "url('" + avatar_img + "') center 0 / auto 50px no-repeat", "height": "50px" }}>
+                            {/* <img src={imgRoutes.USER_IMG_PATH + obj.users.image} /> */}
+                        </span>
+                        <h3>
+                            <big>{obj.user.name}</big>
+                            <small>{obj.user.suburb !== undefined && obj.user.suburb}</small>
+                        </h3>
+                    </div>
+                    <div className="festival-head-r">
+                        <h3>$ {(obj.applied_post) ? (obj.campaign.price).toFixed(2) : (obj.inspired_post.price).toFixed(2)}</h3>
+                    </div>
+                </div>
+                <div className="festival-img" style={{ "background": "url('" + post_img + "') no-repeat 100%", "backgroundSize": "100%", "height": "215px", "width": "100%" }}></div>
+                <div className="festival-body" style={{ "min-height": "50px" }}>
+                    <h2>{(obj.applied_post) ? obj.applied_post.desription : obj.inspired_post.text}</h2>
+                </div>
+                <div className="festival-ftr d-flex">
+                    <div className="festival-ftr-l">
+                        <a href="javascript:void(0)" style={{ cursor: "default" }}>
+                            <i><img src={mediaImg[social_media]} alt="" /></i>
+                            {/* <strong>0</strong> */}
+                            <strong>
+                                {
+                                    social_media_platform === 'facebook' ? obj.user.facebook.no_of_friends :
+                                    social_media_platform === 'linkedin' ? obj.user.linkedin.no_of_friends :
+                                    social_media_platform === 'instagram' ? obj.user.instagram.no_of_friends :
+                                    social_media_platform === 'pinterest' ? obj.user.pinterest.no_of_friends :
+                                    social_media_platform === 'twitter' ? obj.user.twitter.no_of_friends : ''
+                                }
+                            </strong>
+                        </a>
+                    </div>
+                    <div className="festival-ftr-r dropdown">
+                        <PlusAction
+                            objData={obj}
+                            // downloadPost={() => { this.downloadPost(obj.applied_campaign._id) }}
+                            downloadPost={() => { this.downloadPost(obj) }}
+                            addCampaign={() => { this.addCampaign(obj) }}
+                            addGroup={() => { this.addGroup(obj) }}
+                        />
+                    </div>
+                </div>
+            </div>
+        </li>)
+    }
+
     render() {
         let { allPosts, total, loading, filename, dropdownList } = this.props;
         if (loading) { return (<div className="loader"></div>) }
@@ -332,80 +459,12 @@ class PurchasedPosts extends Component {
             let path = imgRoutes.CAMPAIGN_IMG_ZIP_PATH + filename;
             window.open(path);
         }
-        let mediaImg = {
-            'facebook': fbImg,
-            'linkedin': linkedImg,
-            'instagram': instaImg,
-            'pinterest': pinImg,
-            'twitter': twitterImg,
-        };
         return (
             <div className="every-people">
                 <div className="all-people">
                     <ul className="fan-festival d-flex">
                         {
-                            (allPosts) ?
-                                allPosts.map((obj) => {
-                                    let user_avatar_img = '';
-                                    let applied_campaign_img = '';
-                                    if(obj.users.image==undefined){
-                                        user_avatar_img = noUserImg2;
-                                    }else{
-                                        user_avatar_img = imgRoutes.USER_IMG_PATH + obj.users.image;
-                                    }
-                                    if(obj.applied_campaign.image==undefined){
-                                        applied_campaign_img = noCampaignImg;
-                                    }else{
-                                        applied_campaign_img = imgRoutes.CAMPAIGN_POST_IMG_PATH + obj.applied_campaign.image;
-                                    }
-                                    return (<li key={Math.random()}>
-                                        <div className="fan-festival-box">
-                                            <div className="festival-head d-flex">
-                                                <div className="festival-head-l">
-                                                    <span style={{ "background": "url('" + user_avatar_img + "') center 0 / auto 50px no-repeat", "height": "50px" }}>
-                                                        {/* <img src={imgRoutes.USER_IMG_PATH + obj.users.image} /> */}
-                                                    </span>
-                                                    <h3>
-                                                        <big>{obj.users.name}</big>
-                                                        <small>{obj.location !== undefined && obj.location}</small>
-                                                    </h3>
-                                                </div>
-                                                <div className="festival-head-r">
-                                                    <h3>$ {(obj.price).toFixed(2)}</h3>
-                                                </div>
-                                            </div>
-                                            <div className="festival-img" style={{ "background": "url('" + applied_campaign_img + "') no-repeat 100%", "backgroundSize": "100%", "height": "215px", "width": "100%" }}></div>
-                                            <div className="festival-body" style={{ "min-height": "50px" }}>
-                                                <h2>{obj.applied_campaign.desription}</h2>
-                                            </div>
-                                            <div className="festival-ftr d-flex">
-                                                <div className="festival-ftr-l">
-                                                    <a href="javascript:void(0)" style={{ cursor: "default" }}>
-                                                        <i><img src={mediaImg[obj.social_media_platform]} alt="" /></i>
-                                                        {/* <strong>0</strong> */}
-                                                        <strong>
-                                                        {
-                                                            obj.social_media_platform === 'facebook' ? obj.users.facebook.no_of_friends :
-                                                            obj.social_media_platform === 'linkedin' ? obj.users.linkedin.no_of_friends :
-                                                            obj.social_media_platform === 'instagram' ? obj.users.instagram.no_of_friends :
-                                                            obj.social_media_platform === 'pinterest' ? obj.users.pinterest.no_of_friends :
-                                                            obj.social_media_platform === 'twitter' ? obj.users.twitter.no_of_friends : ''
-                                                        }
-                                                        </strong>
-                                                    </a>
-                                                </div>
-                                                <div className="festival-ftr-r dropdown">
-                                                    <PlusAction
-                                                        objData = {obj}
-                                                        downloadPost={() => { this.downloadPost(obj.applied_campaign._id) }}
-                                                        addCampaign={() => { this.addCampaign(obj) }}
-                                                        addGroup={() => { this.addGroup(obj) }}
-                                                    />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>)
-                                }) : ""
+                            (allPosts) ? allPosts.map((obj, index) => (this.renderPost(obj))) : ""
                         }
                     </ul>
 
@@ -418,7 +477,7 @@ class PurchasedPosts extends Component {
                             onChange={this.handlePageChange}
                         /> : ''}
                 </div>
-                    
+
                 <AddToModal onRef={ref => (this.child = ref)}
                     dropdownList={dropdownList}
                     resetDropVal={this.resetDropVal}
