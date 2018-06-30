@@ -66,8 +66,8 @@ class PartnerShipProg extends Component {
         }
     }
 
-    partnershipFAQModalshowOpen() { this.setState({ partnershipFAQModalshow: !this.state.partnershipFAQModalshow }); }
-    partnershipFAQModaltoggle() { this.setState({ partnershipFAQModalshow: !this.state.partnershipFAQModalshow }); }
+    partnershipFAQModalshowOpen = () => { this.setState({ partnershipFAQModalshow: !this.state.partnershipFAQModalshow }); }
+    partnershipFAQModaltoggle = () => { this.setState({ partnershipFAQModalshow: !this.state.partnershipFAQModalshow }); }
     componentWillMount = () => {
         const { dispatch } = this.props;
         let data = {

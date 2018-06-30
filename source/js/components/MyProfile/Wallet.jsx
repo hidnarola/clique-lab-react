@@ -157,10 +157,10 @@ class Wallet extends Component {
     }
 
     // Add Credit Card
-    addCreditCardModalOpen() {
+    addCreditCardModalOpen = () => {
         this.setState({ addCreditCardModalShow: !this.state.addCreditCardModalShow });
     }
-    addCreditCardModaltoggle() {
+    addCreditCardModaltoggle = () => {
         const { dispatch } = this.props;
         this.setState({ addCreditCardModalShow: !this.state.addCreditCardModalShow });
         this.setState({
@@ -190,7 +190,7 @@ class Wallet extends Component {
             jQuery('.txt_card_date_errorMsg').html('This field is required');
             isError = 1;
         }
-        if (txtCVV === '' || txtCW.trim() === '') {
+        if (txtCVV === '' || txtCVV.trim() === '') {
             jQuery('#txt_card_cvv').css("cssText", "border: 2px solid red !important");
             jQuery('.txt_card_cvv_errorMsg').html('This field is required');
             isError = 1;
@@ -224,7 +224,7 @@ class Wallet extends Component {
     }
 
     // Edit Credit Card
-    editCreditCardModalOpen(cardDetails) {
+    editCreditCardModalOpen = (cardDetails) => {
         this.setState({
             editCreditCardModalShow: !this.state.editCreditCardModalShow,
             editCardId: cardDetails.id,
@@ -235,7 +235,7 @@ class Wallet extends Component {
         });
 
     }
-    editCreditCardModaltoggle() {
+    editCreditCardModaltoggle = () => {
         const { dispatch } = this.props;
         this.setState({
             editCreditCardModalShow: !this.state.editCreditCardModalShow,
@@ -313,7 +313,7 @@ class Wallet extends Component {
     }
 
     // Credit Card Lisitng
-    cardListDiv = (obj) => {
+    cardListDiv = (obj, index) => {
         let cardType = {
             'MasterCard': mastercardImg,
             'Visa': visaImg
@@ -321,7 +321,10 @@ class Wallet extends Component {
         return (
             <div className="card-box" key={Math.random()} id={'card_box_' + obj.id}>
                 <div className="card-box-head d-flex">
-                    <i className="light-bg"></i>
+                    {
+                        (index === 0) ? <i></i> : <i className="light-bg"></i>
+                    }
+                    
                     <div className="card-box-head-r">
                         <a href="javascript:void(0)" onClick={() => this.editCreditCardModalOpen(obj)}><img src={editImg} alt="Edit" /></a>
                         <a href="javascript:void(0)" onClick={() => this.deleteCard(obj.id)}><img src={deleteImg} alt="Delete" /></a>
@@ -341,8 +344,8 @@ class Wallet extends Component {
     }
 
     // Add Bank
-    addBankModalOpen() { this.setState({ addBankModalShow: !this.state.addBankModalShow }); }
-    addBankModaltoggle() {
+    addBankModalOpen = () => { this.setState({ addBankModalShow: !this.state.addBankModalShow }); }
+    addBankModaltoggle = () => {
         const { dispatch } = this.props;
         this.setState({ addBankModalShow: !this.state.addBankModalShow });
         this.setState({
@@ -453,8 +456,8 @@ class Wallet extends Component {
     }
 
     // Withdraw Balance
-    withdrawModalOpen() { this.setState({ withdrawModalShow: !this.state.withdrawModalShow }); }
-    withdrawModaltoggle() {
+    withdrawModalOpen = () => { this.setState({ withdrawModalShow: !this.state.withdrawModalShow }); }
+    withdrawModaltoggle = () => {
         this.setState({
             withdrawModalShow: !this.state.withdrawModalShow,
             txtAMT: '',
@@ -586,7 +589,7 @@ class Wallet extends Component {
                                 </div>
                                 :
                                 (cards.status == 1 && cards.data != null) &&
-                                cards.data.map((obj, index) => (this.cardListDiv(obj)))
+                                cards.data.map((obj, index) => (this.cardListDiv(obj, index)))
                         }
                         <div className="card-box add-card-box">
                             <a href="javascript:void(0)" onClick={this.addCreditCardModal}>
@@ -630,6 +633,7 @@ class Wallet extends Component {
                                 value={this.state.transaction_search_params}
                                 onChange={this.handleChange}
                                 autoComplete="off"
+                                style={{"paddingRight":"20px"}}
                             />
                             <button type="button" onClick={() => this.transactionSearch()}></button>
                         </form>

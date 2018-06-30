@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import graph from 'img/site/graph.jpg';
 import downarrowImg from 'img/site/down-arrow-1.png';
 import moment from 'moment';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Area, position } from 'recharts';
+import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Area, position } from 'recharts';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem, UncontrolledDropdown } from 'reactstrap';
 import { getSocialAnalytics } from '../../actions/analytics';
 import PropTypes from 'prop-types';
@@ -427,26 +427,27 @@ class Stats extends Component {
                         </div>
                     </div>
                     <div className="right-box-content d-flex">
-                        <div className="graph-img">
-                            <BarChart width={900} height={500} data={barChartData}
-                                //onMouseMove={this.onChartMouseMove}
-                                margin={{ top: 30, right: 50, left: 10, bottom: 50 }}>
-                                {/* <CartesianGrid strokeDasharray="3 3" /> */}
-                                <XAxis dataKey="name" />
+                        <div className="graph-img" style={{ width: 'auto', height: '500px'}}>
+                            <ResponsiveContainer>
+                                <BarChart data={barChartData}
+                                    //onMouseMove={this.onChartMouseMove}
+                                    margin={{ top: 30, right: 50, left: 10, bottom: 50 }}>
+                                    {/* <CartesianGrid strokeDasharray="3 3" /> */}
+                                    <XAxis dataKey="name" />
 
-                                {/* <YAxis /> */}
-                                <Tooltip
-                                    content={<CustomTooltip />}
-                                    totalNoCompare={totalNoCompare}
-                                    whichCompare={whichCompare}
-                                    position={{ y: 350 }}
-                                />
-                                {/* <Legend /> */}
-                                <Bar dataKey="compare1" stackId="a" fill="#6772e6" />
-                                <Bar dataKey="compare2" stackId="a" fill="#83bff7" />
-                                <Bar dataKey="compare3" stackId="a" fill="#f783c3" />
-                            </BarChart>
-
+                                    {/* <YAxis /> */}
+                                    <Tooltip
+                                        content={<CustomTooltip />}
+                                        totalNoCompare={totalNoCompare}
+                                        whichCompare={whichCompare}
+                                        position={{ y: 350 }}
+                                    />
+                                    {/* <Legend /> */}
+                                    <Bar dataKey="compare1" stackId="a" fill="#6772e6" />
+                                    <Bar dataKey="compare2" stackId="a" fill="#83bff7" />
+                                    <Bar dataKey="compare3" stackId="a" fill="#f783c3" />
+                                </BarChart>
+                            </ResponsiveContainer>
                         </div>
                     </div>
                     <div className="right-box-btm">

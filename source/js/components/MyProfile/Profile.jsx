@@ -175,10 +175,10 @@ class Profile extends Component {
 	}
 
 	// -- Change Password
-	changePasswordModalOpen() {
+	changePasswordModalOpen = () => {
 		this.setState({ changePasswordModalShow: !this.state.changePasswordModalShow });
 	}
-	changePasswordModaltoggle() {
+	changePasswordModaltoggle = () => {
 		const { dispatch } = this.props
 		this.setState({ changePasswordModalShow: !this.state.changePasswordModalShow });
 		this.setState({
