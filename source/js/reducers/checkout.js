@@ -290,7 +290,15 @@ const actionMap = {
             payment: {
                 status: action.data.data.status,
                 message: action.data.data.message,
-            }
+            },
+            carts: { // empty cart after payment done
+                data: null,
+                subtotal: 0,
+                gst: 0,
+                total: 0,
+                status: 0,
+                message: null,
+            },
         }));
     },
     [CART_PAYMENT_ERROR]: (state, action) => {

@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form'
 import { Link } from 'react-router-dom';
 import { Alert } from 'reactstrap';
@@ -19,37 +19,44 @@ const renderField = ({ input, type, placeholder, meta: { touched, error } }) => 
     </div>
 )
 
-class ForgotPassForm extends Component{
-    constructor(props){
+class ForgotPassForm extends Component {
+    constructor(props) {
         super(props);
-        this.state = { 'visible': true,
-                        showError:false,
-                    };
+        this.state = {
+            'visible': true,
+            showError: false,
+        };
         this.onDismiss = this.onDismiss.bind(this);
     }
 
     onDismiss() { this.setState({ 'visible': false }); }
 
-    render(){
-        const { handleSubmit, error, newError } = this.props
+    render() {
+        const { handleSubmit, error, newError, mybtn } = this.props
         return (
             <div>
                 <div style={{ "margin": "0 32%" }}>
-                    {  
-                         (error) ?
-                        <Alert color="danger " isOpen={this.state.visible} toggle={this.onDismiss}>{error}</Alert>
-                        :
-                        (newError) ?
-                            <Alert color="danger " isOpen={this.state.visible} toggle={this.onDismiss}>{newError}</Alert>
+                    {
+                        (error) ?
+                            <Alert color="danger " isOpen={this.state.visible} toggle={this.onDismiss}>{error}</Alert>
                             :
-                            ''
+                            (newError) ?
+                                <Alert color="danger " isOpen={this.state.visible} toggle={this.onDismiss}>{newError}</Alert>
+                                :
+                                ''
                     }
                 </div>
                 <form onSubmit={handleSubmit}>
                     <h3>Reset Password</h3>
                     <Field name="email" type="email" component={renderField} placeholder="Email" />
                     <div className="submit-div">
-                        <button type="submit" className="round-btn">Reset</button>
+                        {
+                            (mybtn === 'reset') ?
+                                <button type="submit" className="round-btn">Reset</button> :
+                                <button className="round-btn" disabled="disabled">Wait</button>
+                        }
+                        {/* <button type="submit" className="round-btn">Reset</button> */}
+
                     </div>
                 </form>
             </div>

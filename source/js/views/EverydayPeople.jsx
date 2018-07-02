@@ -1003,7 +1003,7 @@ class EverydayPeople extends Component {
         // this.filterSendReq(arrayFilter);
     }
 
-    renderLi = (obj) => {
+    renderLi = (obj,index) => {
         let img = '';
         if (obj.is_image == 0) {
             img = noUserImg;
@@ -1011,7 +1011,8 @@ class EverydayPeople extends Component {
             img = imgRoutes.USER_IMG_PATH + obj.image;
         }
         return (
-            <li key={Math.random()}>
+            // <li key={Math.random()}>
+            <li key={index}>
                 <div className="all-people-div">
                     <div className="all-people-img" style={{ "background": "url('" + img + "') no-repeat 100%", "backgroundSize": "100%", "height": "190px" }}>
                         {/* <div className="all-people-img" > */}
@@ -1723,8 +1724,6 @@ class EverydayPeople extends Component {
         allSliderArr['ageRange'] = _.find(allSliders, function (o) { return o.slider == 'ageRange'; });
 
         // if (loading) { return (<div className="loader"></div>) }
-
-        console.log('Props++>>>', this.props);
         return (
             <div className="every-people">
                 {/* {(loading || this.state.load === true) ? <div className="loader" style={{ "zIndex": "999999999" }}></div> : ''} */}

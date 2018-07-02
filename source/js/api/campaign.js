@@ -24,7 +24,6 @@ function getPastCampaign(data) {
 }
 
 function downloadCampaignImg(data) {
-    console.log('key>>',data);
     let headers = { 'x-access-token' : localStorage.getItem('token') }
     return getFormData(`promoter/campaign/${data.key}/${data.id}/download`, '', headers);
 }
