@@ -398,10 +398,10 @@ class GroupList extends Component {
         dispatch(addUserReq(data))
     }
 
-    renderLi = (obj) => {
-
+    renderLi = (obj,index) => {
         return (
-            <li key={Math.random()}>
+            // <li key={Math.random()}>
+            <li key={index}>
                 <div className="all-people-div">
                     <div className="all-people-img">
                         <div className="cursor_pointer" onClick={() => this.props.history.push(`${routeCodes.LISTGROUPS}/${obj._id}/members`)} style={{ "background": "url('" + imgRoutes.GROUP_IMG_PATH+'/'+obj.image + "') no-repeat 100%", "backgroundSize": "100%", "height": "190px" }}></div>
@@ -431,8 +431,7 @@ class GroupList extends Component {
     render() {
         let { groups, totalGrps, loading, dropdownList ,loading2} = this.props
         const { selectedOption, sort_wise_pagination } = this.state;
-
-        const { namewise,datewise,powerwise} = this.state;
+        const { namewise,datewise,powerwise} = this.state;  
         const value = selectedOption && selectedOption.value;
         if (loading || this.state.load === true)  {
             return (

@@ -16,6 +16,8 @@ class ForgotPassword extends Component {
         this.state = {
             passReset: true,
             errorMsg: '',
+            mybtn:'reset',
+            sendData:false,
         }
     }
 
@@ -25,12 +27,21 @@ class ForgotPassword extends Component {
             email: values.email,
         }
         dispatch(forgotPass(forgotData));
+        this.setState({sendData:true});
     }
 
     componentDidUpdate(){
-        let { error, status, history } = this.props;
-        let { passReset } = this.state;
+        let { error, status, history,loading } = this.props;
+        let { passReset,mybtn,sendData } = this.state;
        
+        if(sendData && loading)
+        {
+            this.setState({
+                mybtn:'wait',
+                sendData:false,
+            })
+        }
+        
         if(status===1 && passReset){
             this.setState({passReset: false});
             history.push('/login');
@@ -39,6 +50,14 @@ class ForgotPassword extends Component {
     }
 
     componentWillReceiveProps(nextProps){
+
+        if(nextProps.error)
+        {
+            this.setState({
+                mybtn:'reset',
+            })
+        }
+
         if (! toast.isActive(this.toastId)) {
             this.toastId =  toast.success(nextProps.error, {
                     className: 'success-custom-tostify',
@@ -71,7 +90,7 @@ class ForgotPassword extends Component {
                     </div>
                     <div className="form-content d-flex">
                         {/* <ForgotPassForm onSubmit={this.submitForm} newError={error} /> */}
-                        <ForgotPassForm onSubmit={this.submitForm} newError={errorMsg} />
+                        <ForgotPassForm onSubmit={this.submitForm} newError={errorMsg} mybtn = {this.state.mybtn}/>
                     </div>
                     <div className="form-ftr">
                         <p>Already have an account?<Link className="cursor_pointer" to="/login" style={{"textDecoration":"none"}}> Login here.</Link></p>

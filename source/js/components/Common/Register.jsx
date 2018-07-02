@@ -20,6 +20,8 @@ class Register extends Component {
         this.state = {
             contentBody: null,
             submitAction: false,
+            sendData:false,
+            mybtn:'reg',
         }
         this.openModal = this.openModal.bind(this);
     }
@@ -37,7 +39,7 @@ class Register extends Component {
             "country": values.country.value,
             "password": values.password
         }
-        this.setState({ submitAction: true });
+        this.setState({ submitAction: true,sendData:true });
         dispatch(register(userData));
         dispatch(setEmail(values.email));
     }
@@ -62,9 +64,19 @@ class Register extends Component {
         dispatch(country());
     }
 
+
     componentDidUpdate() {
         let { message, loading, error } = this.props;
-        let { submitAction, load } = this.state;
+        let { submitAction, load ,sendData} = this.state;
+        
+        if(sendData && loading)
+        {
+            this.setState({
+                mybtn:'wait',
+                sendData:false,
+            })
+        }
+
         if (submitAction && !loading) {
             this.setState({ submitAction: false })
             if (error !== null) {
@@ -72,6 +84,10 @@ class Register extends Component {
                 toast.success(error, {
                     className: 'success-custom-tostify',
                 });
+
+                this.setState({
+                    mybtn:'reg'
+                })
 
                 // this.setState({ errorMsg: error }, () => {
                 //     setTimeout(() => {
@@ -105,7 +121,8 @@ class Register extends Component {
 
     render() {
         let { user, fetchedErrors, error } = this.props;
-        let { errorMsg } = this.state;
+        let { errorMsg,mybtn } = this.state;
+ 
         if (user) {
             return <Redirect to={routeCodes.LOGIN} />;
         }
@@ -118,7 +135,7 @@ class Register extends Component {
                         </a>
                     </div>
                     <div className="form-content d-flex">
-                        <RegisterForm func={this.openModal} onSubmit={this.submitForm} countryList={this.props.country} newError={errorMsg} />
+                        <RegisterForm func={this.openModal} onSubmit={this.submitForm} countryList={this.props.country} newError={errorMsg}  mybtn = {this.state.mybtn}/>
                         {/* <RegisterForm func={this.openModal} onSubmit={this.submitForm} countryList={this.props.country}/>                          */}
                     </div>
                     <div className="form-ftr">

@@ -134,7 +134,7 @@ class RegisterForm extends Component {
     } 
       
     render(){
-        const { handleSubmit, error, newError } = this.props;
+        const { handleSubmit, error, newError, mybtn} = this.props;
         let countryArr = [];
         if(this.props.countryList !== null){
             this.props.countryList.map((obj)=>{
@@ -212,7 +212,12 @@ class RegisterForm extends Component {
                         />
                     </div>
                     <div className="submit-div">
-                        <button className="round-btn" type="submit">Register</button>
+                        {
+                            (mybtn === 'reg') ? 
+                                <button className="round-btn" type="submit">Register</button>:
+                                <button className="round-btn" disabled="disabled">wait</button>
+                        }
+                        {/* <button className="round-btn" type="submit">Register</button> */}
                     </div>
                 </form>
             </div>
