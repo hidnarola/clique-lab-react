@@ -41,7 +41,8 @@ const validate = values => {
 	}
 
 	// if (!values.industry_category || (values.industry_category !== undefined && values.industry_category.value == "") || Object.keys(values.industry_category).length === 0) {
-	if (!values.industry_category || values.industry_category.value === undefined) {
+	// if (!values.industry_category || values.industry_category.value === undefined) {
+	if (!values.industry_category) {
 		errors.industry_category = 'This field is required';
 	}
 

@@ -56,7 +56,7 @@ class Future extends Component {
         })
     }
 
-    futureListing(obj){
+    futureListing(obj,index){
         let d = new Date(obj.start_date);
         //var monthNames = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
          var monthNames = [ "Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec" ];
@@ -73,7 +73,8 @@ class Future extends Component {
             img = imgRoutes.CAMPAIGN_IMG_PATH+'/'+obj.cover_image;
         }
         return (
-            <li key={Math.random()}>
+            // <li key={Math.random()}>
+            <li key={index}>
                 <div className="all-people-div">
                     <div className="all-people-img" style={{ "background": "url('" + img + "') no-repeat 100%", "backgroundSize": "100%", "height": "190px", "width": "100%" }}>
                         {/* <img src={`${imgRoutes.CAMPAIGN_IMG_PATH}${obj.cover_image}`} alt="" className="campaign_list_img"/> */}
@@ -98,7 +99,7 @@ class Future extends Component {
     
     componentWillMount(){
         const { dispatch } = this.props;
-        dispatch(getFutureCampaign({"page_size":9,"page_no":1}))   
+        dispatch(getFutureCampaign({"page_size":12,"page_no":1}))   
     }
 
     handlePageChange(pageNumber) {
@@ -116,7 +117,7 @@ class Future extends Component {
         if(isDelete === 1 && del === 1)
         {
             dispatch(resetVal(null));
-            dispatch(getFutureCampaign({"page_size":9,"page_no":1}))
+            dispatch(getFutureCampaign({"page_size":12,"page_no":1}))
             this.setState({del:0});
         }
 
@@ -151,7 +152,7 @@ class Future extends Component {
                 <ul className="all-people-ul d-flex">
                     { 
                         (futureCampaign!==null && status === 1 ) ? 
-                            futureCampaign.map((obj,i) => (this.futureListing(obj)))
+                            futureCampaign.map((obj,index) => (this.futureListing(obj)))
                         :
                             <div className="no_data_found">
                                 <img src={nodataImg} />

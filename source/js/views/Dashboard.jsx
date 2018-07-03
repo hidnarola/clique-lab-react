@@ -6,6 +6,7 @@ import img2 from "img/site/img-02.jpg";
 import img3 from "img/site/img-03.jpg";
 import img4 from "img/site/img-04.jpg";
 import { getCheckoutList } from '../actions/Checkout';
+import { ToastContainer, toast, Slide } from 'react-toastify';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem, UncontrolledDropdown } from 'reactstrap';
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Area, position } from 'recharts';
 import { getSocialAnalytics } from '../actions/analytics';
@@ -135,6 +136,7 @@ class Dashboard extends Component {
         }];
         this.setState({ isRender: 1 });
         dispatch(getCheckoutList());
+        toast.dismiss(this.toastId);
         dispatch(getSocialAnalytics(arrayFilter));
     }
 

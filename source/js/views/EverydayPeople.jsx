@@ -1036,7 +1036,7 @@ class EverydayPeople extends Component {
         );
     }
 
-    renderLi2 = (obj) => {
+    renderLi2 = (obj,index) => {
         let mediaImg = {
             'facebook': fbImg,
             'linkedin': linkedImg,
@@ -1057,7 +1057,8 @@ class EverydayPeople extends Component {
             applied_post_img = imgRoutes.CAMPAIGN_POST_IMG_PATH + obj.applied_post_image;
         }
         return (
-            <li key={Math.random()}>
+            // <li key={Math.random()}>
+            <li key={index}>
                 <div className="fan-festival-box">
                     <div className="festival-head d-flex">
                         <div className="festival-head-l">
@@ -1121,7 +1122,7 @@ class EverydayPeople extends Component {
         dispatch(getCheckoutList());
     }
 
-    renderLi3 = (obj) => {
+    renderLi3 = (obj,index) => {
         let mediaImg = {
             'facebook': fbImg,
             'linkedin': linkedImg,
@@ -1147,7 +1148,8 @@ class EverydayPeople extends Component {
         if (obj.users.suburb !== undefined) { location = obj.users.suburb + ', '; }
         if (obj.users.country !== undefined) { location += obj.users.country.name; }
         return (
-            <li key={Math.random()}>
+            // <li key={Math.random()}>
+            <li key={index}>
                 <div className="fan-festival-box d-flex">
                     <div className="festival-img" style={{ "background": "url('" + img + "') no-repeat 100%", "backgroundSize": "100%" }}></div>
                     <div className="fan-festival-r">

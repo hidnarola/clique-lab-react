@@ -80,7 +80,7 @@ class Active extends Component {
     /*********************************************
                 Lisitng of Active Campagin
     **********************************************/
-        activeListing(obj){
+        activeListing(obj,index){
             let img = '';
             if (obj.is_image == 0) {
                 img = noCampaignImg;
@@ -88,7 +88,8 @@ class Active extends Component {
                 img = imgRoutes.CAMPAIGN_IMG_PATH+'/'+obj.cover_image;
             }
             return (
-                <li key={Math.random()}>
+                // <li key={Math.random()}>
+                <li key={index}>
                     <div className="all-people-div">
                         <div className="all-people-img">
                             <div className="cursor_pointer" onClick={() => this.props.history.push(`${routeCodes.CAMPAIGN_ACTIVE}/${obj._id}`)} style={{ "background": "url('" + img + "') no-repeat 100%", "backgroundSize": "100%", "height": "190px" }}></div>
@@ -170,7 +171,7 @@ class Active extends Component {
                     <ul className="all-people-ul d-flex">
                         {
                             (activeCampaign!==null) ? 
-                                activeCampaign.map((obj,i) => (this.activeListing(obj))) 
+                                activeCampaign.map((obj,index) => (this.activeListing(obj))) 
                             : 
                                 <div className="no_data_found">
                                     <img src={nodataImg} />

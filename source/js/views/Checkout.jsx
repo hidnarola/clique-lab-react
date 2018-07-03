@@ -11,7 +11,7 @@ import FormStep1 from '../components/Payment/Checkout/FormStep1';
 import FormStep2 from '../components/Payment/Checkout/FormStep2';
 import FormStep3 from '../components/Payment/Checkout/FormStep3';
 
-import { reset, stopAsyncValidation,stopSubmit } from 'redux-form';
+import { reset, initialize} from 'redux-form';
 
 class Checkout extends Component {
 
@@ -95,7 +95,9 @@ class Checkout extends Component {
     componentWillUnmount() {
         const { dispatch } = this.props;
 
-        dispatch(reset('wizardCheckout',{}));
+        // dispatch(reset('wizardCheckout',{}));
+
+        dispatch(initialize('wizardCheckout', {}))
 
         // dispatch({type:"@@redux-form/BLUR",payload:"undefiend"})
 
@@ -156,4 +158,8 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(withRouter(Checkout));
+export default connect(mapStateToProps)(withRouter(Checkout)); //before
+ 
+//export default withRouter(connect(mapStateToProps)(Checkout));
+
+
