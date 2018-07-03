@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
-// import { Route, Switch,Redirect } from 'react-router-dom';
 import { BrowserRouter as Router, Route, Link, Redirect, Switch, withRouter } from "react-router-dom";
 
 import { hot } from 'react-hot-loader';
 import { routeCodes } from 'constants/routes';
-import { DefaultLayout, PrivateRoute, LoginPrivateRoute } from '../components/global/RouterWrapper';
+import { 
+    DefaultLayout, 
+    PrivateRoute, 
+    LoginPrivateRoute 
+} from '../components/global/RouterWrapper';
 import ScrollToTop from 'components/global/ScrollToTop';
 import { connect } from 'react-redux';
+import { ToastContainer, toast, Slide } from 'react-toastify';
+import '../../css/campaign/ReactToastify.css';
 
 import Home from 'views/Home';
 import People from 'views/People';
@@ -20,6 +25,7 @@ import AfterRegister from './AfterRegister';
 import CampaignForm from './Campaign';
 import Dashboard from './Dashboard';
 import EverydayPeople from './EverydayPeople';
+
 
 //Campaign
 import CampaignList from './CampaignList';
@@ -37,27 +43,17 @@ import Analytics from './Analytics';
 //payment
 import Cart from '../components/Payment/Cart/Cart';
 import Checkout from './Checkout';
-
 import MyProfile from './MyProfile';
 
 import createHistory from "history/createBrowserHistory"
 import ActiveMemberList from '../components/CampaignList/ActiveMemberList';
 
-import { ToastContainer, toast, Slide } from 'react-toastify';
-import '../../css/campaign/ReactToastify.css';
+
+//Admin Module
+import AdminLogin from 'components/Common/Admin/Login';
+import AdminDashboard from './Admin/Dashboard';
 
 const history = createHistory()
-
-// const notify = () => {
-//     toast.error("Success Notification !", {
-//         position: "top-right",
-//         autoClose: 4000,
-//         hideProgressBar: true,
-//         closeOnClick: true,
-//         pauseOnHover: true,
-//         draggable: true,
-//     });
-// }
 
 class App extends Component {
     constructor(props) {
@@ -147,7 +143,10 @@ class App extends Component {
                             {/* Payment */}
                             <PrivateRoute path={routeCodes.MY_CART} component={Cart} showHeader={true} />
                             <PrivateRoute path={routeCodes.CHECKOUT} component={Checkout} showHeader={true} />
-
+                            
+                            {/* Admin Module*/}
+                            <LoginPrivateRoute exact path={routeCodes.ADMIN_LOGIN} component={AdminLogin} />
+                            <PrivateRoute path={routeCodes.ADMIN_DASHBOARD} component={AdminDashboard} showHeader={true} />
 
                             <Route path='*' component={NotFound} />
                         </Switch>
@@ -188,7 +187,6 @@ export default (connect((state) => {
     const { campaign } = state;
     let alertMessage = null;
     if (campaign.get('alertMessage') !== null) { alertMessage = campaign.get('alertMessage'); }
-
     return {
         alertMessage: alertMessage
     }

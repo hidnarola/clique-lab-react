@@ -10,40 +10,40 @@ import { Alert } from 'reactstrap';
 
 const validate = values => {
     const errors = {}
-    if (!values.username || (values.username!==undefined && values.username.trim()=="")) {
+    if (!values.username || (values.username !== undefined && values.username.trim() == "")) {
         errors.username = 'This field is required'
     }
 
-    if (!values.fullname || (values.fullname!==undefined && values.fullname.trim()=="")) {
+    if (!values.fullname || (values.fullname !== undefined && values.fullname.trim() == "")) {
         errors.fullname = 'This field is required'
     }
 
-    if (!values.email || (values.email!==undefined && values.email.trim()=="")) {
+    if (!values.email || (values.email !== undefined && values.email.trim() == "")) {
         errors.email = 'This field is required'
     } else if (validator.isEmail(values.email) === false) {
         errors.email = 'Enter valid email address'
     }
 
-    if (!values.company || (values.company!==undefined && values.company.trim()=="")) {
+    if (!values.company || (values.company !== undefined && values.company.trim() == "")) {
         errors.company = 'This field is required'
     }
     if (!values.country || JSON.stringify(values.country) == "{}") {
         errors.country = 'This field is required'
     }
 
-    if (!values.password || (values.password!==undefined && values.password.trim()=="")) {
+    if (!values.password || (values.password !== undefined && values.password.trim() == "")) {
         errors.password = 'This field is required'
     } else if (values.password.length < 5) {
         errors.password = 'Must be more than 5 characters'
-    } 
+    }
 
-    if (!values.repeatPassword || (values.repeatPassword!==undefined && values.repeatPassword.trim()=="")) {
+    if (!values.repeatPassword || (values.repeatPassword !== undefined && values.repeatPassword.trim() == "")) {
         errors.repeatPassword = 'This field is required'
     } else if (values.password !== values.repeatPassword) {
         errors.repeatPassword = 'Please enter password same as above.'
     }
 
-    if(!values.check1 || values.check1===''){
+    if (!values.check1 || values.check1 === '') {
         errors.check1 = 'Please accept the terms & condition'
     }
 
@@ -65,18 +65,18 @@ const renderField = ({ input, type, placeholder, meta: { touched, error, warning
     </div>
 )
 
-const renderFieldCheckbox = ({ input, type, name,className,term_privacy,placeholder, newProp, meta: { touched, error, warning } }) => (
+const renderFieldCheckbox = ({ input, type, name, className, term_privacy, placeholder, newProp, meta: { touched, error, warning } }) => (
     <div className={cx('input-div', { 'custom-error': (touched && error) ? true : false })}>
         <input {...input} placeholder={placeholder} type={type} className={className} id={newProp} />
         <label htmlFor="check1">
             I accept the
-            <a href="javascript:void(0)" onClick={() => term_privacy(this, 'TERMS')} style={{"textDecoration":"none","fontWeight":"600"}}> Terms & Conditions </a> and the
-            <a href="javascript:void(0)" onClick={() => term_privacy(this, 'PRIVACY')} style={{"textDecoration":"none","fontWeight":"600"}}> Privacy Policy </a>
+            <a href="javascript:void(0)" onClick={() => term_privacy(this, 'TERMS')} style={{ "textDecoration": "none", "fontWeight": "600" }}> Terms & Conditions </a> and the
+            <a href="javascript:void(0)" onClick={() => term_privacy(this, 'PRIVACY')} style={{ "textDecoration": "none", "fontWeight": "600" }}> Privacy Policy </a>
         </label>
         {touched && ((error && <span>{error}</span>) || (warning && <span>{warning}</span>))}
     </div>
-    
-    
+
+
 )
 
 
@@ -111,7 +111,7 @@ const country_Select = (props) => {
 
 
 class RegisterForm extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             visible: true
@@ -121,35 +121,35 @@ class RegisterForm extends Component {
 
     onDismiss() { this.setState({ 'visible': false }); }
 
-    componentWillReceiveProps(nextProps) { 
-        if(this.state.visible === false && nextProps.newError === null){
+    componentWillReceiveProps(nextProps) {
+        if (this.state.visible === false && nextProps.newError === null) {
             this.setState({ 'visible': true });
         }
-        if(nextProps.newError !== null){
-            this.setState({'showError':false});
+        if (nextProps.newError !== null) {
+            this.setState({ 'showError': false });
         }
-        if((nextProps.username) === undefined || ( (nextProps.password) === undefined)  || (nextProps.password.length < 5 ) ){
-            this.setState({'showError':true});
+        if ((nextProps.username) === undefined || ((nextProps.password) === undefined) || (nextProps.password.length < 5)) {
+            this.setState({ 'showError': true });
         }
-    } 
-      
-    render(){
-        const { handleSubmit, error, newError, mybtn} = this.props;
+    }
+
+    render() {
+        const { handleSubmit, error, newError, mybtn } = this.props;
         let countryArr = [];
-        if(this.props.countryList !== null){
-            this.props.countryList.map((obj)=>{
-                countryArr.push({'value':obj._id,label:obj.name});
+        if (this.props.countryList !== null) {
+            this.props.countryList.map((obj) => {
+                countryArr.push({ 'value': obj._id, label: obj.name });
             });
         }
         return (
             <div>
-                <div style={{"margin":"0 32%"}}>
+                <div style={{ "margin": "0 32%" }}>
                     {/* {newError && <strong>{this.state.visible}</strong>} */}
                     {newError && <Alert color="danger " isOpen={this.state.visible} toggle={this.onDismiss}>{newError}</Alert>}
                 </div>
                 <form onSubmit={handleSubmit}>
                     <h3>Register</h3>
-                    
+
                     <Field
                         name="fullname"
                         type="text"
@@ -199,12 +199,12 @@ class RegisterForm extends Component {
                         component={renderField}
                         placeholder="Repeat Password"
                     />
-                    
+
                     <div className="accept-condition checkbox">
-                        <Field 
+                        <Field
                             name="check1"
-                            component={renderFieldCheckbox} 
-                            type="checkbox" 
+                            component={renderFieldCheckbox}
+                            type="checkbox"
                             value="check1"
                             className="check1"
                             newProp="check1"
@@ -215,8 +215,14 @@ class RegisterForm extends Component {
                         {
                             (mybtn === 'reg') ? 
                                 <button className="round-btn" type="submit">Register</button>:
-                                <button className="round-btn" disabled="disabled">wait</button>
+                                <button className="round-btn" style={{"width":"125px"}} disabled="disabled"><img src="assets/img/site/svg/loading.svg" style={{"width":"65%"}}/></button>
+                                // <div>
+                                //     <button className="round-btn" disabled="disabled">wait</button><img src="assets/img/site/svg/loading1.svg" />
+                                // </div>
                         }
+                        {/* <div>
+                            <button className="round-btn" disabled="disabled">wait<img src="assets/img/site/svg/loading2.svg" /></button>
+                        </div> */}
                         {/* <button className="round-btn" type="submit">Register</button> */}
                     </div>
                 </form>

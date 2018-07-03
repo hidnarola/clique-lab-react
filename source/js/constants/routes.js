@@ -5,7 +5,6 @@ export const routeCodes = {
     PEOPLE: `${ publicPath }people`,
     
     DASHBOARD:`${ publicPath }dashboard`,
-
     SELECT_INDUSTRY:`${ publicPath }select_indutry`,
 
     LOGIN: `${ publicPath }login`,
@@ -22,9 +21,6 @@ export const routeCodes = {
     CAMPAIGN_PAST:`${publicPath}campaigns/past_list`,
     CAMPAIGN_INSPIRED_SUB: `${publicPath}campaigns/inspired_submission`,
     CAMPAIGN_PURCHASED_POSTS: `${publicPath}campaigns/purchased_posts`,
-
-    
-
 
     // Analytics
     ANALYTICS:`${publicPath}analytics`,
@@ -48,4 +44,8 @@ export const routeCodes = {
     //Payment
     MY_CART:`${ publicPath }cart`,
     CHECKOUT:`${ publicPath }checkout`,
+
+    //Admin Module
+    ADMIN_LOGIN: `${ publicPath }admin`,
+    ADMIN_DASHBOARD: `${ publicPath }admin/dashboard`,
 };

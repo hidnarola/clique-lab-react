@@ -22,7 +22,6 @@ class Header2 extends Component {
     mylogout(){        
         const { dispatch, history } = this.props;
         dispatch(logout());
-        // return <Redirect to="/" />
         history.push('/');
     }
 
@@ -38,9 +37,6 @@ class Header2 extends Component {
             <header className="header">
                 <div className="container d-flex">
                     <div className="logo">
-                        {/* <a href="">
-                            <img src={LogoImg} alt="" />
-                        </a> */}
                         <NavLink to={routeCodes.DASHBOARD}>
                             <img src={LogoImg} alt="" />
                         </NavLink>

@@ -422,3 +422,22 @@ tr.order_cart td img {margin-top:-10px}
 }
 
 
+/*********************************************************************
+                            Admin Module
+*********************************************************************/
+.admin_subheading h3{
+    font-weight: 500;
+    margin: 0 0 20px;
+    font-size: 15px;
+    color: #616b84;
+}
+
+.admin_dasboard_transaction.cart-table{ padding: 10px 15px; }
+.admin_dasboard_transaction.cart-table table.table thead th{ 
+    white-space: normal;
+}
+.admin_dasboard_transaction.cart-table table.table tbody tr td:nth-child(6){ text-align: left !important;}
+.admin_dasboard_transaction.cart-table table.table tbody tr td:nth-child(8) label{ padding:1px 4px; color: #fff; border-radius: 3px; font-size: 11px; }
+.admin_dasboard_transaction.cart-table table.table tbody tr td:nth-child(8) label.bg-purple{ background :#6772e5 }
+.admin_dasboard_transaction.cart-table table.table tbody tr td:nth-child(8) label.bg-grey{ background :#a8afbf }
+.admin_dasboard_transaction.cart-table table.table tbody tr td:nth-child(8) label.bg-blue{ background :#83c0f7 }

@@ -1,4 +1,5 @@
 export const LOCALSTORAGE_USER_ITEM_KEY = 'user';
+export const LOCALSTORAGE_ADMIN_ITEM_KEY = 'admin';
 export const LOCALSTORAGE_TOKEN_ITEM_KEY = 'token';
 export const LOCALSTORAGE_REFRESH_TOKEN_ITEM_KEY = 'refreshToken';
 export const LOCALSTORAGE_ROLE_KEY = 'role';

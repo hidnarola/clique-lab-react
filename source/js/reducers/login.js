@@ -1,10 +1,16 @@
 import { Map } from "immutable";
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_ERROR, LOGOUT_REQUEST, LOGOUT_SUCCESS, LOGOUT_ERROR,RESET_VALUES_LOGIN } from "../actions/login";
+import { 
+    LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_ERROR, 
+    LOGOUT_REQUEST, LOGOUT_SUCCESS, LOGOUT_ERROR,
+    ADMIN_LOGIN_REQUEST, ADMIN_LOGIN_SUCCESS, ADMIN_LOGIN_ERROR, 
+    RESET_VALUES_LOGIN 
+} from "../actions/login";
 
 const initialState = Map({
     loading: false,
     error: null,
     user: null,
+    admin: null,
     token: null,
     refreshToken: null,
 });
@@ -46,6 +52,7 @@ const actionMap = {
             loading: true,
             error: null,
             user: null,
+            admin: null,
             token: null,
             refreshToken: null
         }));
@@ -55,6 +62,7 @@ const actionMap = {
             loading: false,
             error: null,
             user: null,
+            admin: null,
             token: null,
             refreshToken: null
         }));
@@ -64,11 +72,46 @@ const actionMap = {
             loading: false,
             error: null,
             user: null,
+            admin: null,
             token: null,
             refreshToken: null
         }));
     },
 
+    [ADMIN_LOGIN_REQUEST]: (state, action) => {
+        return state.merge(Map({
+            loading: true,
+            error: null,
+            user: null,
+            admin: null,
+            token: null,
+            refreshToken: null
+        }));
+    },
+    [ADMIN_LOGIN_SUCCESS]: (state, action) => {
+        return state.merge(Map({
+            loading: false,
+            error: null,
+            admin: action.data.admin,
+            token: action.data.token,
+            refreshToken: action.data.refresh_token
+        }));
+    },
+    [ADMIN_LOGIN_ERROR]: (state, action) => {
+        let error = 'Server Error';
+        if (action.error && action.error.response) {
+            error = action.error.response.message;
+        }
+        return state.merge(Map({
+            loading: false,
+            error: error,
+            user: null,
+            admin: null,
+            token: null,
+            refreshToken: null
+        }));
+    },
+    
     [RESET_VALUES_LOGIN]:(state,action) => {        
         if(action['data']){
             // (action['data']['userAdded'] === false) ? resetObj['userAdded'] = false:'';            
