@@ -43,7 +43,7 @@ const SocialDropdown = (props) => {
     return (
         <Dropdown isOpen={props.open} toggle={props.toggle}>
             <DropdownToggle>
-                {props.currentValue} &nbsp; <i className="dropdown-arrow"></i>
+                <label style={{"textTransform":"capitalize"}}>{props.currentValue}</label> &nbsp; <i className="dropdown-arrow"></i>
             </DropdownToggle>
             <DropdownMenu>
                 <DropdownItem onClick={() => { props.socialSelect('twitter') }} > Twitter </DropdownItem>
@@ -193,6 +193,7 @@ class Stats extends Component {
                 this.state.appliedFilter[0]['filter3'],
             ]
         }];
+        this.setState({ socialCurrentValue: socialName })
         if (totalNoCompare == 1) {
             arrayFilter2[0].filter.splice(1, 2);
         }
@@ -204,7 +205,7 @@ class Stats extends Component {
             arrayFilter2[0].filter.splice(1, 1);
         }
         dispatch(getSocialAnalytics(arrayFilter2));
-        this.setState({ isRender: 0, socialCurrentValue: socialName });
+        this.setState({ isRender: 0 });
     }
 
     renderLi = (obj) => {
@@ -303,7 +304,6 @@ class Stats extends Component {
         if (this.state.likes_share_cmt !== value) {
             this.setState({ likes_share_cmt: value, isRender: 0 });
         }
-
     }
 
     componentWillMount = () => {
@@ -459,7 +459,6 @@ class Stats extends Component {
                     </div>
                 </div>
             </div>
-
         );
     }
 }

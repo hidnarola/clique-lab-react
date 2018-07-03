@@ -328,6 +328,8 @@ td.fc-widget-content{ border:0;}
     .timeing-dropdown .btn.btn-secondary:active,
     .social-dropdown .btn.btn-secondary,
     .social-dropdown .btn.btn-secondary:active{ background-color: transparent; color:#525f7f; font-weight:600; font-size: 13px; padding:0px; border:none}
+    .social-dropdown .dropdown-menu:after{ right:10px !important; left :auto }
+    .right-box .social-dropdown .dropdown-menu{ left:-30px !important}
     .graph-img .y.axis,
     .graph-img .x.axis .tick line,
     .graph-img .x.axis path.domain {
