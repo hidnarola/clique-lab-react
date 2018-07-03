@@ -486,7 +486,7 @@ class GroupList extends Component {
                         </ul>
                     </div>
                     {(
-                        groups !== null && totalGrps > 6 && <Pagination
+                        groups !== null && totalGrps > 12 && <Pagination
                             activePage={this.state.activePage}
                             itemsCountPerPage={12} // 12
                             totalItemsCount={totalGrps}

@@ -31,7 +31,7 @@ class Past extends Component {
         dispatch(downloadCampaignImg(campaignId));
     }
 
-    pastListing(obj){
+    pastListing(obj,index){
         let img = '';
         if (obj.is_image == 0) {
             img = noCampaignImg;
@@ -39,7 +39,8 @@ class Past extends Component {
             img = imgRoutes.CAMPAIGN_IMG_PATH+'/'+obj.cover_image;
         }
         return (
-            <li key={Math.random()}>
+            // <li key={Math.random()}>
+            <li key={index}>
                 <div className="all-people-div">
                     <div className="cursor_pointer" onClick={() => this.props.history.push(`${routeCodes.CAMPAIGN_PAST}/${obj._id}`)} style={{ "background": "url('" + img + "') no-repeat 100%", "backgroundSize": "100%", "height": "190px", "width": "100%" }}>
                         {/* <img src={`${imgRoutes.CAMPAIGN_IMG_PATH}${obj.cover_image}`} alt="" className="campaign_list_img" /> */}
@@ -92,7 +93,7 @@ class Past extends Component {
                 <ul className="all-people-ul d-flex">
                     {
                         (pastCampaign!==null) ? 
-                            pastCampaign.map((obj,i) => (this.pastListing(obj)))
+                            pastCampaign.map((obj,index) => (this.pastListing(obj)))
                         :
                             <div className="no_data_found">
                                 <img src={nodataImg} />

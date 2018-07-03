@@ -54,8 +54,7 @@
         componentWillUnmount() {
             const { dispatch } = this.props;
             this.props.dispatch(untouch('wizardCampaign','call_to_action'));
-            dispatch(initialize('wizardCampaign', {}))
-            
+            dispatch(initialize('wizardCampaign', {})) 
             // dispatch(reset('wizardCampaign'));
         }
 
@@ -228,3 +227,6 @@
     }
 
     export default connect(mapStateToProps)(Campaign)
+    
+    
+

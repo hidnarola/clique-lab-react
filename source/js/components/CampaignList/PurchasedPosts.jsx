@@ -175,7 +175,7 @@ class PurchasedPosts extends Component {
         this.setState({ activePage: pageNumber });
         const { dispatch } = this.props;
         if (pageNumber !== this.state.activePage) {
-            dispatch(puchasedPostSend({ "page_size": 8, "page_no": pageNumber }));
+            dispatch(puchasedPostSend({ "page_size": 12, "page_no": pageNumber }));
         }
     }
 
@@ -187,7 +187,7 @@ class PurchasedPosts extends Component {
         if (match.params.grpId) {
             this.setState({ groupId: match.params.grpId });
         }
-        dispatch(puchasedPostSend({ "page_size": 8, "page_no": 1 }));
+        dispatch(puchasedPostSend({ "page_size": 12, "page_no": 1 }));
     }
 
     downloadPost = (obj) => {
@@ -338,7 +338,7 @@ class PurchasedPosts extends Component {
     }
 
 
-    renderPost = (obj) => {
+    renderPost = (obj,index) => {
 
         let social_media = '';
         let social_media_platform = '';
@@ -400,7 +400,9 @@ class PurchasedPosts extends Component {
             avatar_img = imgRoutes.USER_IMG_PATH + obj.user.image;
         }
 
-        return (<li key={Math.random()}>
+        return (
+        // <li key={Math.random()}>
+        <li key={index}>
             <div className="fan-festival-box">
                 <div className="festival-head d-flex">
                     <div className="festival-head-l">
@@ -468,10 +470,10 @@ class PurchasedPosts extends Component {
                         }
                     </ul>
 
-                    {(total > 8) ?
+                    {(total > 12) ?
                         <Pagination
                             activePage={this.state.activePage}
-                            itemsCountPerPage={8}
+                            itemsCountPerPage={12}
                             totalItemsCount={total}
                             pageRangeDisplayed={5}
                             onChange={this.handlePageChange}

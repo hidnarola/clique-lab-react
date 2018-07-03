@@ -26,7 +26,7 @@ const CustomToastMsg = (props) => {
     return (
         <div>
             Just one more step!<br /><br />
-            We have sent you an email that will allow you to login to Clique. If you didn't receive it, <a href="javascript:void(0)" style={{"color": "#ffc800","textDecoration": "underline", "fontWeight": "500", "fontStyle": "italic"}} onClick={props.rsend}>click HERE</a> and we will resend the email link. We cannot wait to have you onboard
+            We have sent you an email that will allow you to login to Clique. If you didn't receive it, <a href="javascript:void(0)" style={{ "color": "#ffc800", "textDecoration": "underline", "fontWeight": "500", "fontStyle": "italic" }} onClick={props.rsend}>click HERE</a> and we will resend the email link. We cannot wait to have you onboard
         </div>
     )
 }
@@ -39,22 +39,21 @@ class Login extends Component {
             submitAction: false,
             errorMsg: '',
         };
-        this.saveEmail = this.saveEmail.bind(this); 
+        this.saveEmail = this.saveEmail.bind(this);
     }
 
-    saveEmail()
-    {
-        const { dispatch,emailId} = this.props;
+    saveEmail() {
+        const { dispatch, emailId } = this.props;
         let re_email = {
-            "email":emailId 
+            "email": emailId
         }
         dispatch(reSendEmail(re_email));
 
-        setTimeout(()=>{
+        setTimeout(() => {
             toast.success('Email is send to your email id', {
                 className: 'success-custom-tostify',
             });
-        },5000)
+        }, 5000)
     }
 
     submitForm = (values) => {
@@ -90,7 +89,7 @@ class Login extends Component {
         let { errorMsg } = this.state;
         if (message !== null) {
             if (message === 'Promoter registered successfully') {
-                toast.success(<CustomToastMsg rsend = {this.saveEmail}/>,
+                this.toastId = toast.success(<CustomToastMsg rsend={this.saveEmail} />,
                     {
                         className: 'success-custom-tostify',
                         autoClose: false,
@@ -119,16 +118,16 @@ class Login extends Component {
 
     componentDidUpdate() {
         let { message, loading, error, dispatch } = this.props;
-        let { submitAction, load} = this.state;
+        let { submitAction, load } = this.state;
         if (submitAction && !loading) {
             this.setState({ submitAction: false })
-            
+
             if (error !== null) {
-                if (! toast.isActive(this.toastId)) {
-                    this.toastId =  toast.success(error, {
-                            className: 'success-custom-tostify',
-                         });
-                  }
+                if (!toast.isActive(this.toastId)) {
+                    this.toastId = toast.success(error, {
+                        className: 'success-custom-tostify',
+                    });
+                }
                 dispatch(resetForgotVal());
                 // this.setState({errorMsg: error},() => {
                 //     setTimeout(()=>{
@@ -217,7 +216,7 @@ const mapStateToProps = (state) => {
         token: login.get('token'),
         refreshToken: login.get('refreshToken'),
         message: msg,
-        emailId : register.get('email_id')////
+        emailId: register.get('email_id')////
     }
 }
 

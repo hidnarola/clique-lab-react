@@ -6,6 +6,7 @@ import img2 from "img/site/img-02.jpg";
 import img3 from "img/site/img-03.jpg";
 import img4 from "img/site/img-04.jpg";
 import { getCheckoutList } from '../actions/Checkout';
+import { ToastContainer, toast, Slide } from 'react-toastify';
 
 class Dashboard extends Component {
     
@@ -16,6 +17,7 @@ class Dashboard extends Component {
     componentWillMount(){
         const { dispatch } = this.props;
         dispatch(getCheckoutList());
+        toast.dismiss(this.toastId);
     }
 
     render() {
