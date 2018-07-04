@@ -13,6 +13,8 @@ import calendar from 'sagas/calendar';
 import analytics from 'sagas/analytics';
 import myProfile from 'sagas/myProfile';
 
+import adminTransaction from 'sagas/admin/transaction';
+
 
 export default function* rootSaga() {
   yield all([    
@@ -28,5 +30,6 @@ export default function* rootSaga() {
     ...calendar,
     ...analytics,
     ...myProfile,
+    ...adminTransaction,
   ]);
 }

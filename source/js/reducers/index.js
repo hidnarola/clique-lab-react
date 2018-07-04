@@ -11,6 +11,7 @@ import purchasedPosts from 'reducers/purchasedPosts';
 import calendar from 'reducers/calendar';
 import analytics from 'reducers/analytics';
 import myProfile from 'reducers/myProfile';
+import adminTransaction from 'reducers/admin/transaction';
 import { reducer as formReducer } from 'redux-form'
 
 export default combineReducers({    
@@ -26,5 +27,6 @@ export default combineReducers({
     calendar,
     analytics,
     myProfile,
+    adminTransaction,
     form: formReducer
 });
