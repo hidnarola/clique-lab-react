@@ -746,9 +746,11 @@ class EverydayPeople extends Component {
 
         if (this.state.isMoreFilterApply !== true) {
 
-            const { allSliders } = this.state;
+            // const { allSliders } = this.state;
+            const { allSliders ,allDropDown } = this.state;
             let ageVal = _.find(allSliders, function (o) { return o.slider == 'ageRange'; });
-
+            let gender = _.find(allDropDown, function (o) { return o.dropdown == 'genderDrop'; });
+            
             this.setState({
                 allDropDown: [
                     { 'dropdown': 'jobIndustryDrop', 'value': false },
@@ -761,7 +763,9 @@ class EverydayPeople extends Component {
                     { 'dropdown': 'relationship', 'value': false },
                     { 'dropdown': 'musicTaste', 'value': false },
 
-                    { 'dropdown': 'genderDrop', 'value': false },
+                    // { 'dropdown': 'genderDrop', 'value': false },
+                    { 'dropdown': 'genderDrop', 'value': gender['value'] },  
+                
                     // { 'dropdown': 'sortDrop', 'value': { value: 1, label: "Name ASC" } },
                     { 'dropdown': 'sortDrop', 'value': { value: 1, label: "Sort" } },
                 ],
@@ -774,7 +778,7 @@ class EverydayPeople extends Component {
                     { 'slider': 'linkedin', 'value': { min: 0, max: 2500 } },
                     // { 'slider': 'ageRange', 'value': { min: 15, max: 65 } },
                     { 'slider': 'ageRange', 'value': { min: ageVal['value']['min'], max: ageVal['value']['max'] } },
-                ]
+                ],
             })
         }
     }

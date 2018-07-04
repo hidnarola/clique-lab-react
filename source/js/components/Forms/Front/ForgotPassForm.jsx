@@ -53,7 +53,7 @@ class ForgotPassForm extends Component {
                         {
                             (mybtn === 'reset') ?
                                 <button type="submit" className="round-btn">Reset</button> :
-                                <button className="round-btn" disabled="disabled">Wait</button>
+                                <button className="round-btn" style={{"width":"125px"}} disabled="disabled"><img src="assets/img/site/svg/loading.svg" style={{"width":"65%"}}/></button>
                         }
                         {/* <button type="submit" className="round-btn">Reset</button> */}
 

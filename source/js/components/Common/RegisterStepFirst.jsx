@@ -5,6 +5,7 @@ import cx from 'classnames';
 import {FileField_Dropzone,SelectField_ReactSelect,FileField_Dropzone_New} from '../../components/Forms/RenderFormComponent/EveryComponent';
 import { connect } from 'react-redux';
 import {AfterReg} from '../Campaign/CommonCompo';
+import { ToastContainer, toast, Slide } from 'react-toastify';
 
 const validate = values => {
     
@@ -48,6 +49,11 @@ class RegisterStepFirst extends Component{
             selectedOption: '',
             page:1
         }
+    }
+
+    componentWillMount()
+    {
+        toast.dismiss(this.toastId);
     }
 
     handleChange = (selectedOption) => {
