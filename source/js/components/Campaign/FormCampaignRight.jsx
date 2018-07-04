@@ -151,7 +151,7 @@ class FormCampaignRight extends Component {
                         <li>
                             <a><b>Media Format</b></a>
                             {/* <p>{mediaFormat}</p> */}
-                            <p>{mediaFormat.charAt(0).toUpperCase() + mediaFormat.slice(1)}</p>
+                            <p>{mediaFormat ? mediaFormat.charAt(0).toUpperCase() + mediaFormat.slice(1) : ''}</p>
                         </li>
                         <li>
                             <a><b>What not to do?</b></a>
