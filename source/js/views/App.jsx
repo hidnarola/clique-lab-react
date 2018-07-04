@@ -147,6 +147,7 @@ class App extends Component {
                             {/* Admin Module*/}
                             <LoginPrivateRoute exact path={routeCodes.ADMIN_LOGIN} component={AdminLogin} />
                             <PrivateRoute path={routeCodes.ADMIN_DASHBOARD} component={AdminDashboard} showHeader={true} />
+                            
 
                             <Route path='*' component={NotFound} />
                         </Switch>
