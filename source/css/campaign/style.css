@@ -481,7 +481,7 @@ ul.all-people-ul li{ width:33.33%; padding:15px;}
 .change-password{display:block;}
 .change-password a{ font-size:16px; color:#6772e5; font-weight:500;}
 .change-password a:hover{text-decoration:none;color:#43458b;}
-.myprofile-r .round-btn{position:absolute; bottom:0;right:25px;}
+.myprofile-r .round-btn{position:absolute; bottom:0;right:25px;margin-bottom: 45px}
 
 .popup-css .modal-dialog{ max-width:770px; background:#fff; border:0; padding:75px 85px 54px;}
 .popup-css .modal-content{border:0; width:100%;}

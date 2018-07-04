@@ -6,7 +6,9 @@ import cx from 'classnames';
 import { SubmissionError } from 'redux-form';  // ES6
 import Select from 'react-select';
 import { Alert } from 'reactstrap';
+import registerSvg from 'img/site/svg/loading.svg';
 //import { SelectField_ReactSelect } from '../RenderFormComponent/EveryComponent';
+
 
 const validate = values => {
     const errors = {}
@@ -46,7 +48,7 @@ const validate = values => {
     if (!values.check1 || values.check1 === '') {
         errors.check1 = 'Please accept the terms & condition'
     }
-
+    
     return errors
 }
 
@@ -215,7 +217,7 @@ class RegisterForm extends Component {
                         {
                             (mybtn === 'reg') ? 
                                 <button className="round-btn" type="submit">Register</button>:
-                                <button className="round-btn" style={{"width":"125px"}} disabled="disabled"><img src="assets/img/site/svg/loading.svg" style={{"width":"65%"}}/></button>
+                                <button className="round-btn" style={{"width":"125px"}} disabled="disabled"><img src={registerSvg} style={{"width":"65%"}}/></button>
                                 // <div>
                                 //     <button className="round-btn" disabled="disabled">wait</button><img src="assets/img/site/svg/loading1.svg" />
                                 // </div>

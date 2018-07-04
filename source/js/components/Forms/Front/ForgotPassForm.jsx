@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Alert } from 'reactstrap';
 import validator from 'validator';
 import cx from 'classnames';
+import resetSvg from 'img/site/svg/loading.svg';
 
 const validate = values => {
     const errors = {}
@@ -53,7 +54,8 @@ class ForgotPassForm extends Component {
                         {
                             (mybtn === 'reset') ?
                                 <button type="submit" className="round-btn">Reset</button> :
-                                <button className="round-btn" style={{"width":"125px"}} disabled="disabled"><img src="assets/img/site/svg/loading.svg" style={{"width":"65%"}}/></button>
+                                
+                                <button className="round-btn" style={{"width":"125px"}} disabled="disabled"><img src={resetSvg} style={{"width":"65%"}}/></button>
                         }
                         {/* <button type="submit" className="round-btn">Reset</button> */}
 

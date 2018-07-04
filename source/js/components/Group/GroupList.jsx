@@ -482,7 +482,7 @@ class GroupList extends Component {
                 <div className="every-people">
                     <div className="all-people">
                         <ul className="all-people-ul d-flex">
-                            {(groups !== null) ? groups.map((obj, index) => (this.renderLi(obj))) : <div className="no_data_found"><img src={nodataImg} /> <p>No groups available.</p></div>}
+                            {(groups !== null) ? groups.map((obj, index) => (this.renderLi(obj,index))) : <div className="no_data_found"><img src={nodataImg} /> <p>No groups available.</p></div>}
                         </ul>
                     </div>
                     {(

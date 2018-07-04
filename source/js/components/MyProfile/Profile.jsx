@@ -45,7 +45,14 @@ const validate = values => {
 	if (!values.industry_category) {
 		errors.industry_category = 'This field is required';
 	}
+	// else if((values.industry_category && Object.keys(values.industry_category).length > 2 ))
+	// {
+	// 	errors.industry_category = 'This field is required';
+	// }
+	
+	// console.log('DAta>>',values.industry_category);
 
+	// before
 	if (values.avatar) {
 		let file_type = values.avatar[0].type;
 		let extensions = ["image/jpeg", "image/png", "image/jpg"];
@@ -53,6 +60,7 @@ const validate = values => {
 			errors.avatar = 'File type not supported'
 		}
 	}
+
 	return errors
 }
 
@@ -139,6 +147,7 @@ class Profile extends Component {
 			txtNPASS: '',
 			txtCPASS: '',
 			changePasswordFormSubmit: false,
+			disabled:''
 		}
 	}
 
@@ -164,13 +173,15 @@ class Profile extends Component {
 					className: 'success-custom-tostify'
 				});
 				this.changePasswordModaltoggle();
-				this.setState({ isRender: 0 });
+				// this.setState({ isRender: 0 });
+				this.setState({ isRender: 0,disabled:''});
 			} else if (changePass_response.status == 0 && changePass_response.error != null) {
 				let error_msg = '';
 				error_msg = '<ul><li>' + changePass_response.error + '</li></ul>';
 				jQuery('.change_password_err.error_div').html(error_msg);
 				jQuery('.change_password_err.error_div').css({ display: "block" });
-				this.setState({ isRender: 0 });
+				// this.setState({ isRender: 0 });
+				this.setState({ isRender: 0,disabled:''});
 			}
 		}
 	}
@@ -241,8 +252,11 @@ class Profile extends Component {
 				'new_password': txtNPASS,
 			}
 			dispatch(changePass(data));
-			this.setState({ isRender: 1 });
-			//alert('submit');           
+			// this.setState({ isRender: 1 });
+			this.setState({
+                disabled:'disabled',
+                isRender:1 
+            });
 		}
 	}
 
@@ -250,6 +264,7 @@ class Profile extends Component {
 		const { handleSubmit, error, message, submitDisabled } = this.props;
 		const { txtOPASS, txtNPASS, txtCPASS, isRender } = this.state;
 		const industryArr = [];
+
 		if (this.props.industryList) {
 			this.props.industryList.map((obj, index) => {
 				industryArr.push({ value: obj._id, label: obj.name })
@@ -363,7 +378,8 @@ class Profile extends Component {
 								</div>
 								<div className="change_password_err error_div"></div>
 								<div className="submit-btn">
-									<button type="button" className="round-btn" onClick={() => this.submitChangePassword()}>Update</button>
+									{/* <button type="button" className="round-btn" onClick={() => this.submitChangePassword()} >Update</button> */}
+									<button type="button" className="round-btn" onClick={() => this.submitChangePassword()} disabled={this.state.disabled} >Update</button>
 								</div>
 							</form>
 						</div>
