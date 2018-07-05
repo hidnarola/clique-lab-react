@@ -77,8 +77,8 @@ class Members extends Component {
         let selected_value;
         if (sort_wise_pagination.value === 'sort_by_name_az') { selected_value = 1; }
         else if (sort_wise_pagination.value === 'sort_by_name_za') { selected_value = -1; }
-        else if (sort_wise_pagination.value === 'sort_by_since_most') { selected_value = 1; }
-        else if (sort_wise_pagination.value === 'sort_by_since_least') { selected_value = -1; }
+        else if (sort_wise_pagination.value === 'sort_by_since_most') { selected_value = -1; }
+        else if (sort_wise_pagination.value === 'sort_by_since_least') { selected_value = 1; }
         let arrayFilter = {
             "page_size": perPageItem,
             "page_no": activePage,
@@ -137,7 +137,12 @@ class Members extends Component {
                     }
                 </td>
                 <td>{obj.name}</td>
-                <td>{obj.type}</td>
+                <td>
+                    {
+                        (obj.type=='user') ? 'Everyday Person'
+                        : (obj.type=='promoter') ? 'Brand' : ''
+                    }
+                </td>
                 <td>{moment(obj.created_at).format('DD MMM YYYY')}</td>
                 <td style={{ "textAlign": "center" }}>
                     <PlusAction 
@@ -154,8 +159,8 @@ class Members extends Component {
         let selected_value;
         if (selectedOption.value === 'sort_by_name_az') { selected_value = 1; }
         else if (selectedOption.value === 'sort_by_name_za') { selected_value = -1; }
-        else if (selectedOption.value === 'sort_by_since_most') { selected_value = 1; }
-        else if (selectedOption.value === 'sort_by_since_least') { selected_value = -1; }
+        else if (selectedOption.value === 'sort_by_since_most') { selected_value = -1; }
+        else if (selectedOption.value === 'sort_by_since_least') { selected_value = 1; }
         let arrayFilter = {
             "sort": [{ "field": selectedOption.column, "value": parseInt(selected_value) }],
             "page_size": this.state.perPageItem,
@@ -174,8 +179,8 @@ class Members extends Component {
         let selected_value;
         if (sort_wise_pagination.value === 'sort_by_name_az') { selected_value = 1; }
         else if (sort_wise_pagination.value === 'sort_by_name_za') { selected_value = -1; }
-        else if (sort_wise_pagination.value === 'sort_by_since_most') { selected_value = 1; }
-        else if (sort_wise_pagination.value === 'sort_by_since_least') { selected_value = -1; }
+        else if (sort_wise_pagination.value === 'sort_by_since_most') { selected_value = -1; }
+        else if (sort_wise_pagination.value === 'sort_by_since_least') { selected_value = 1; }
         let arrayFilter = {
             "page_size": this.state.perPageItem,
             "page_no": pageNumber,
@@ -198,8 +203,8 @@ class Members extends Component {
         let selected_value;
         if (sort_wise_pagination.value === 'sort_by_name_az') { selected_value = 1; }
         else if (sort_wise_pagination.value === 'sort_by_name_za') { selected_value = -1; }
-        else if (sort_wise_pagination.value === 'sort_by_since_most') { selected_value = 1; }
-        else if (sort_wise_pagination.value === 'sort_by_since_least') { selected_value = -1; }
+        else if (sort_wise_pagination.value === 'sort_by_since_most') { selected_value = -1; }
+        else if (sort_wise_pagination.value === 'sort_by_since_least') { selected_value = 1; }
         let arrayFilter = {
             //"sort": [{ "field": sort_wise_pagination.column, "value": parseInt(selected_value) }],
             "page_size": this.state.perPageItem,

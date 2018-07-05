@@ -77,11 +77,14 @@ class Login extends Component {
                 <div className="login-register-box login_page">
                     <div className="form-logo d-flex">
                         <a>
-                            <img src={LogoImg} alt="" onClick={() => (this.props.history.push("/admn"))} className="cursor_pointer" />
+                            <img src={LogoImg} alt="" onClick={() => (this.props.history.push("/admin"))} className="cursor_pointer" />
                         </a>
                     </div>
                     <div className="form-content d-flex">
                         <AdminLoginForm onSubmit={this.submitForm} />
+                    </div>
+                    <div class="form-ftr">
+                        <p>&copy; 2018 Clique Labs</p>
                     </div>
                 </div>
             </div>
