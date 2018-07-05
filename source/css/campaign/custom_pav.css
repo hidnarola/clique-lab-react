@@ -321,7 +321,7 @@ td.fc-widget-content{ border:0;}
     .btn_add_compare.btn_disable{ cursor: no-drop; border: 2px solid #bcc3d0 !important; color: #bcc3d0 !important; }
     .btn_add_compare.btn_disable:hover{ background: transparent !important; color: #bcc3d0 !important; }
     .btn_add_compare{ padding: 0 20px !important; line-height: 30px !important; font-weight: 600 !important; border-radius: 3px !important; }
-    .btn_close_compare{width: 25px; margin-top: 2px;}
+    .btn_close_compare{width: 25px; margin-top: 4px;}
     
     .analytics-body .right-box-head a{ font-size: 13px; font-weight: 600;}
     .timeing-dropdown .btn.btn-secondary,

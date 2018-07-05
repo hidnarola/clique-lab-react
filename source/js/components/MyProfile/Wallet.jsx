@@ -465,7 +465,7 @@ class Wallet extends Component {
         });
     }
     submitWithDraw = () => {
-        const { dispatch } = this.props;
+        const { dispatch, wallet_balance  } = this.props;
         const { txtAMT, txtBANK } = this.state;
         let isError = 0;
         if (txtAMT === '' || txtAMT.trim() === '') {
@@ -475,6 +475,10 @@ class Wallet extends Component {
         } else if (txtAMT <= 0 || isNaN(txtAMT)) {
             jQuery('#txt_withdraw_amount').css("cssText", "border: 2px solid red !important");
             jQuery('.txt_withdraw_amount_errorMsg').html('Please enter proper value');
+            isError = 1;
+        } else if (txtAMT>wallet_balance.data) {
+            jQuery('#txt_withdraw_amount').css("cssText", "border: 2px solid red !important");
+            jQuery('.txt_withdraw_amount_errorMsg').html('Please don\'t enter more than balance');
             isError = 1;
         }
         if (txtBANK === '') {
