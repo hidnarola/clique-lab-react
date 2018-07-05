@@ -3,7 +3,13 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import cx from "classnames";
-import { getMembers } from '../../actions/admin/members';
+import { getMembers, removeMembers, suspendMembers, resetMembersVal } from '../../actions/admin/members';
+import {
+    Button, Modal, ModalHeader, ModalBody, ModalFooter, Dropdown,
+    DropdownToggle, DropdownMenu, DropdownItem, UncontrolledDropdown
+} from 'reactstrap';
+import { ToastContainer, toast, Slide } from 'react-toastify';
+import '../../../css/campaign/ReactToastify.css';
 import ContentLoader from 'react-content-loader';
 import Pagination from "react-js-pagination";
 import jQuery from 'jquery';
@@ -30,11 +36,28 @@ const TableContentLoader = () => (
         <rect x="5" y="200" rx="3" ry="3" width="395" height="8" />
     </ContentLoader>
 );
+
+const PlusAction = (props) => {
+    return (
+        <UncontrolledDropdown>
+            <DropdownToggle className="btn_members_action">
+                <label className="member_action_label">...</label>
+            </DropdownToggle>
+            <DropdownMenu>
+                <DropdownItem onClick={() => { props.membersAction('email') }}> Email </DropdownItem>
+                <DropdownItem onClick={() => { props.membersAction('remove') }}> Remove </DropdownItem>
+                <DropdownItem onClick={() => { props.membersAction('suspend') }}> Suspend </DropdownItem>
+            </DropdownMenu>
+        </UncontrolledDropdown>
+    );
+}
+
 class Members extends Component {
     constructor(props) {
         super(props);
         this.state = {
             isRender: 0,
+
             activePage: 1,
             perPageItem: 10,
             transaction_search_params: '',
@@ -46,13 +69,65 @@ class Members extends Component {
         const { dispatch } = this.props;
         const { perPageItem, activePage } = this.state;
         dispatch(getMembers({ "page_size": perPageItem, "page_no": activePage }));
-        return;
-        this.setState({ isRender: 1 });
+    }
+
+    componentDidUpdate = () => {
+        const { dispatch, removeMembersData, suspendMembersData } = this.props;
+        const { isRender, perPageItem, activePage, sort_wise_pagination } = this.state;
+        let selected_value;
+        if (sort_wise_pagination.value === 'sort_by_name_az') { selected_value = 1; }
+        else if (sort_wise_pagination.value === 'sort_by_name_za') { selected_value = -1; }
+        else if (sort_wise_pagination.value === 'sort_by_since_most') { selected_value = 1; }
+        else if (sort_wise_pagination.value === 'sort_by_since_least') { selected_value = -1; }
+        let arrayFilter = {
+            "page_size": perPageItem,
+            "page_no": activePage,
+            "search": this.state.transaction_search_params
+        }
+        if(selected_value){
+            arrayFilter["sort"] = [{ "field": sort_wise_pagination.column, "value": parseInt(selected_value) }];
+        }
+        if(isRender==1){
+            if(removeMembersData.status==1){
+                dispatch(resetMembersVal({ getMembers: false, removeMembers: false, suspendMembers: false }));
+                dispatch(getMembers(arrayFilter));
+                toast.success(removeMembersData.message, {
+					className: 'success-custom-tostify'
+				});
+                this.setState({ isRender: 0 });
+            }
+
+            if(suspendMembersData.status==1){
+                dispatch(resetMembersVal({ getMembers: false, removeMembers: false, suspendMembers: false }));
+                dispatch(getMembers(arrayFilter));
+                toast.success(suspendMembersData.message, {
+					className: 'success-custom-tostify'
+				});
+                this.setState({ isRender: 0 });
+            }
+        }
+    }
+
+    membersAction = (action, obj) => {
+        const { dispatch } = this.props;
+        if(action=='email'){
+            window.open( 'mailto:'+obj.email, '_blank' );
+        } else if(action=='remove'){
+            dispatch(removeMembers({'memberData': obj}));
+            this.setState({ isRender: 1 });
+        } else if(action=='suspend'){
+            dispatch(suspendMembers({'memberData': obj}));
+            this.setState({ isRender: 1 });
+        }
     }
 
     renderTr = (obj, index) => {
+        let className='';
+        if(obj.status===false){
+            className='custom_tbl_disabled_row';
+        }
         return (
-            <tr key={index}>
+            <tr className={className} key={index}>
                 <td style={{ "textAlign": "center" }}>
                     {
                         (this.state.activePage == 1) ?
@@ -64,7 +139,12 @@ class Members extends Component {
                 <td>{obj.name}</td>
                 <td>{obj.type}</td>
                 <td>{moment(obj.created_at).format('DD MMM YYYY')}</td>
-                <td></td>
+                <td style={{ "textAlign": "center" }}>
+                    <PlusAction 
+                        membersAction={(action) => { this.membersAction(action, obj); }}
+                        membersData = {obj}
+                    />
+                </td>
             </tr>
         )
     }
@@ -72,10 +152,10 @@ class Members extends Component {
         const { dispatch } = this.props;
         this.setState({ sort_wise_pagination: selectedOption });
         let selected_value;
-        if(selectedOption.value === 'sort_by_name_az'){ selected_value = 1; }
-        else if(selectedOption.value === 'sort_by_name_za') { selected_value = -1; }
-        else if(selectedOption.value === 'sort_by_since_most') { selected_value = 1; }
-        else if(selectedOption.value === 'sort_by_since_least') { selected_value = -1; }
+        if (selectedOption.value === 'sort_by_name_az') { selected_value = 1; }
+        else if (selectedOption.value === 'sort_by_name_za') { selected_value = -1; }
+        else if (selectedOption.value === 'sort_by_since_most') { selected_value = 1; }
+        else if (selectedOption.value === 'sort_by_since_least') { selected_value = -1; }
         let arrayFilter = {
             "sort": [{ "field": selectedOption.column, "value": parseInt(selected_value) }],
             "page_size": this.state.perPageItem,
@@ -92,15 +172,17 @@ class Members extends Component {
         const { dispatch } = this.props;
         this.setState({ activePage: pageNumber });
         let selected_value;
-        if(sort_wise_pagination.value === 'sort_by_name_az'){ selected_value = 1; }
-        else if(sort_wise_pagination.value === 'sort_by_name_za') { selected_value = -1; }
-        else if(sort_wise_pagination.value === 'sort_by_since_most') { selected_value = 1; }
-        else if(sort_wise_pagination.value === 'sort_by_since_least') { selected_value = -1; }
+        if (sort_wise_pagination.value === 'sort_by_name_az') { selected_value = 1; }
+        else if (sort_wise_pagination.value === 'sort_by_name_za') { selected_value = -1; }
+        else if (sort_wise_pagination.value === 'sort_by_since_most') { selected_value = 1; }
+        else if (sort_wise_pagination.value === 'sort_by_since_least') { selected_value = -1; }
         let arrayFilter = {
-            //"sort": [{ "field": sort_wise_pagination.column, "value": parseInt(selected_value) }],
             "page_size": this.state.perPageItem,
             "page_no": pageNumber,
             "search": this.state.transaction_search_params
+        }
+        if(selected_value){
+            arrayFilter["sort"] = [{ "field": sort_wise_pagination.column, "value": parseInt(selected_value) }];
         }
 
         if (pageNumber !== this.state.activePage) {
@@ -114,15 +196,18 @@ class Members extends Component {
         let search_param = jQuery('#txt_transaction_search').val();
         this.setState({ transaction_search_params: search_param });
         let selected_value;
-        if(sort_wise_pagination.value === 'sort_by_name_az'){ selected_value = 1; }
-        else if(sort_wise_pagination.value === 'sort_by_name_za') { selected_value = -1; }
-        else if(sort_wise_pagination.value === 'sort_by_since_most') { selected_value = 1; }
-        else if(sort_wise_pagination.value === 'sort_by_since_least') { selected_value = -1; }
+        if (sort_wise_pagination.value === 'sort_by_name_az') { selected_value = 1; }
+        else if (sort_wise_pagination.value === 'sort_by_name_za') { selected_value = -1; }
+        else if (sort_wise_pagination.value === 'sort_by_since_most') { selected_value = 1; }
+        else if (sort_wise_pagination.value === 'sort_by_since_least') { selected_value = -1; }
         let arrayFilter = {
             //"sort": [{ "field": sort_wise_pagination.column, "value": parseInt(selected_value) }],
             "page_size": this.state.perPageItem,
             "page_no": 1,
             "search": search_param
+        }
+        if(selected_value){
+            arrayFilter["sort"] = [{ "field": sort_wise_pagination.column, "value": parseInt(selected_value) }];
         }
         dispatch(getMembers(arrayFilter));
         this.setState({ activePage: 1 });
@@ -148,11 +233,6 @@ class Members extends Component {
                                     autosize={false}
                                     placeholder="Sort"
                                     className="dropdown-inr admin_transaction_sortBy"
-                                    // options={[
-                                    //     { value: '1', label: 'Sort By Name', column: 'name' },
-                                    //     { value: '-1', label: 'Sort By Date', column: 'created_at' },
-                                    //     { value: '-1', label: 'Sort By Power',column: 'social_power' },
-                                    // ]}
                                     options={[
                                         { value: 'sort_by_name_az', label: 'Name (a-z)', column: 'name' },
                                         { value: 'sort_by_name_za', label: 'Name (z-a)', column: 'name' },
@@ -180,7 +260,7 @@ class Members extends Component {
                     </form>
                 </div>
                 <div className="content-box">
-                    <div className="admin_dasboard_transaction cart-table" style={{ "padding": "30px 30px 60px" }}>
+                    <div className="admin_dasboard_transaction cart-table" style={{ "padding": "30px 30px 30px" }}>
                         <table className="table">
                             <thead>
                                 <tr>
@@ -188,7 +268,7 @@ class Members extends Component {
                                     <th style={{ "width": "30%" }}>Member Name</th>
                                     <th style={{ "width": "30%" }}>Member Type</th>
                                     <th style={{ "width": "20%" }}>Member Since</th>
-                                    <th style={{ "width": "10%" }}>Action</th>
+                                    <th style={{ "width": "10%", "textAlign": "center" }}>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -231,6 +311,8 @@ const mapStateToProps = (state) => {
     const { adminMembers } = state;
     return {
         getMembersData: adminMembers.get('getMembers'),
+        removeMembersData: adminMembers.get('removeMembers'),
+        suspendMembersData: adminMembers.get('suspendMembers'),
     }
 }
 export default connect(mapStateToProps)(Members)
