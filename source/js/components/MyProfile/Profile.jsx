@@ -42,21 +42,43 @@ const validate = values => {
 
 	// if (!values.industry_category || (values.industry_category !== undefined && values.industry_category.value == "") || Object.keys(values.industry_category).length === 0) {
 	// if (!values.industry_category || values.industry_category.value === undefined) {
+
 	if (!values.industry_category) {
 		errors.industry_category = 'This field is required';
 	}
-	// else if((values.industry_category && Object.keys(values.industry_category).length > 2 ))
+
+	// let industry_category_key_lenght = values.industry_category && Object.keys(values.industry_category).length;
+
+	// if(industry_category_key_lenght > 2)
 	// {
 	// 	errors.industry_category = 'This field is required';
 	// }
+	// else
+	// {
+	// 	errors.industry_category = '';
+	// }
 	
-	// console.log('DAta>>',values.industry_category);
+	//before
+	// if (values.avatar) {
+	// 	let file_type = values.avatar[0].type;
+	// 	let extensions = ["image/jpeg", "image/png", "image/jpg"];
+	// 	if (extensions.indexOf(file_type) < 0) {
+	// 		errors.avatar = 'File type not supported'
+	// 	}
+	// }
 
 	if (values.avatar) {
-		let file_type = values.avatar[0].type;
-		let extensions = ["image/jpeg", "image/png", "image/jpg"];
-		if (extensions.indexOf(file_type) < 0) {
-			errors.avatar = 'File type not supported'
+		if ((values.avatar).length > 0 || (values.avatar).length === 0) {
+			if (values.avatar.length > 0) {
+				let file_type = values.avatar[0].type;
+				let extensions = ["image/jpeg", "image/png", "image/jpg"];
+				if (extensions.indexOf(file_type) < 0) {
+					errors.avatar = 'File type not supported';
+				}
+			}
+			else {
+				errors.avatar = 'File type not supported';
+			}
 		}
 	}
 
@@ -103,7 +125,8 @@ const FileField_Dropzone = (props) => {
 				{label}
 			</label>
 			<Dropzone
-				{...input}
+				// {...input}
+				{...input.value}
 				accept={accept ? accept : "image/jpeg, image/png, image/jpg, image/gif"}
 				onDrop={(filesToUpload, e) => {
 					isFileDropped = true;
@@ -120,7 +143,7 @@ const FileField_Dropzone = (props) => {
 						(input.value && meta.error === undefined) ?
 							images
 							:
-							existImage && <img src={existImage} style={{"width":"auto", "height":"200px" }}/>
+							existImage && <img src={existImage} style={{ "width": "auto", "height": "200px" }} />
 					}
 					{((!input.value || meta.error || images.length === 0)) && existImage === '' && <div className={`custom_dropzone_div ${(meta.touched && meta.error) && 'drop_error_div'}`} style={{ 'width': '100% !important' }}>
 						<img src={dropImg} /><br /><br />
@@ -146,7 +169,7 @@ class Profile extends Component {
 			txtNPASS: '',
 			txtCPASS: '',
 			changePasswordFormSubmit: false,
-			disabled:''
+			disabled: ''
 		}
 	}
 
@@ -173,14 +196,14 @@ class Profile extends Component {
 				});
 				this.changePasswordModaltoggle();
 				// this.setState({ isRender: 0 });
-				this.setState({ isRender: 0,disabled:''});
+				this.setState({ isRender: 0, disabled: '' });
 			} else if (changePass_response.status == 0 && changePass_response.error != null) {
 				let error_msg = '';
 				error_msg = '<ul><li>' + changePass_response.error + '</li></ul>';
 				jQuery('.change_password_err.error_div').html(error_msg);
 				jQuery('.change_password_err.error_div').css({ display: "block" });
 				// this.setState({ isRender: 0 });
-				this.setState({ isRender: 0,disabled:''});
+				this.setState({ isRender: 0, disabled: '' });
 			}
 		}
 	}
@@ -229,7 +252,7 @@ class Profile extends Component {
 			jQuery('#txt_new_password').css("cssText", "border: 2px solid red !important");
 			jQuery('.txt_new_password_errorMsg').html('Must be more than 5 characters');
 			isError = 1;
-		} 
+		}
 		if (txtCPASS === '') {
 			jQuery('#txt_confirm_password').css("cssText", "border: 2px solid red !important");
 			jQuery('.txt_confirm_password_errorMsg').html('This field is required');
@@ -253,9 +276,9 @@ class Profile extends Component {
 			dispatch(changePass(data));
 			// this.setState({ isRender: 1 });
 			this.setState({
-                disabled:'disabled',
-                isRender:1 
-            });
+				disabled: 'disabled',
+				isRender: 1
+			});
 		}
 	}
 

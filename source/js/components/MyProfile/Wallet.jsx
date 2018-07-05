@@ -319,7 +319,7 @@ class Wallet extends Component {
             'Visa': visaImg
         };
         return (
-            <div className="card-box" key={Math.random()} id={'card_box_' + obj.id}>
+            <div className="card-box" key={index} id={'card_box_' + obj.id}>
                 <div className="card-box-head d-flex">
                     {
                         (index === 0) ? <i></i> : <i className="light-bg"></i>
@@ -435,9 +435,9 @@ class Wallet extends Component {
     }
 
     // Bank Lisitng
-    bankListDiv = (obj) => {
+    bankListDiv = (obj,index) => {
         return (
-            <div className="card-box wallet-account-box" key={Math.random()}>
+            <div className="card-box wallet-account-box" key={index}>
                 <div className="card-box-head d-flex">
                     {
                         (obj.default === true) ? <i></i> : <i className="light-bg"></i>
@@ -608,7 +608,7 @@ class Wallet extends Component {
                                 </div>
                                 :
                                 (bank.status == 1 && bank.data != null) &&
-                                bank.data.map((obj, index) => (this.bankListDiv(obj)))
+                                bank.data.map((obj, index) => (this.bankListDiv(obj,index)))
                         }
                         <div className="card-box add-card-box">
                             <a href="javascript:void(0)" onClick={this.addBankModal}>

@@ -17,6 +17,7 @@ import cx from "classnames";
  *
  **/
 const TimingDropdown = (props) => {
+    console.log('Time>>',props.currentValue);
     return (
         <Dropdown isOpen={props.open} toggle={props.toggle}>
             <DropdownToggle>
@@ -40,6 +41,7 @@ const TimingDropdown = (props) => {
  *
  **/
 const SocialDropdown = (props) => {
+    console.log('Media>>',props.currentValue);
     return (
         <Dropdown isOpen={props.open} toggle={props.toggle}>
             <DropdownToggle>
@@ -204,8 +206,9 @@ class Stats extends Component {
         if (totalNoCompare == 2 && whichCompare.indexOf(3) > -1) {
             arrayFilter2[0].filter.splice(1, 1);
         }
-        dispatch(getSocialAnalytics(arrayFilter2));
         this.setState({ isRender: 0 });
+        dispatch(getSocialAnalytics(arrayFilter2));
+        
     }
 
     renderLi = (obj) => {
