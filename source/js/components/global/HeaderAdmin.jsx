@@ -9,6 +9,7 @@ import { imgRoutes } from 'constants/img_path';
 import { reactLocalStorage } from 'reactjs-localstorage';
 import _ from 'lodash';
 import checkImg from 'img/site/check-icon.png';
+import noUserImg2 from 'img/site/no_data/no_user2.png';
 
 class HeaderAdmin extends Component {
     constructor(props) {
@@ -35,6 +36,8 @@ class HeaderAdmin extends Component {
         let { match, carts } = this.props;
         let page_name_Array = {
             'Dashboard': routeCodes.ADMIN_DASHBOARD,
+            'Members': routeCodes.ADMIN_MEMBERS,
+            'Transactions': routeCodes.ADMIN_TRANSACTIONS,
         }
         let pg_name = (_.invert(page_name_Array))[this.props.history.location.pathname];
         let admin = JSON.parse(reactLocalStorage.get('admin', true));
@@ -47,8 +50,8 @@ class HeaderAdmin extends Component {
                             toggle={this.toggle} >
                             <DropdownToggle caret>
                                 <a id="">
-                                    <span></span>
-                                    <i className=""></i>
+                                    <span style={{ "background": "url('" + noUserImg2 + "') center -7px / auto 55px no-repeat" }}></span>
+                                    {/* <i className=""></i> */}
                                 </a>
                             </DropdownToggle>
                             <DropdownMenu right>

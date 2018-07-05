@@ -12,6 +12,7 @@ import calendar from 'reducers/calendar';
 import analytics from 'reducers/analytics';
 import myProfile from 'reducers/myProfile';
 import adminTransaction from 'reducers/admin/transaction';
+import adminMembers from 'reducers/admin/members';
 import { reducer as formReducer } from 'redux-form'
 
 export default combineReducers({    
@@ -28,5 +29,6 @@ export default combineReducers({
     analytics,
     myProfile,
     adminTransaction,
+    adminMembers,
     form: formReducer
 });

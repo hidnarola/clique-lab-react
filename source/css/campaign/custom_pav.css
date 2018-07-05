@@ -426,7 +426,7 @@ tr.order_cart td img {margin-top:-10px}
                             Admin Module
 *********************************************************************/
 .admin_subheading h3{
-    font-weight: 500;
+    font-weight: 600;
     margin: 0 0 20px;
     font-size: 15px;
     color: #616b84;
@@ -435,9 +435,13 @@ tr.order_cart td img {margin-top:-10px}
 .admin_dasboard_transaction.cart-table{ padding: 10px 15px; }
 .admin_dasboard_transaction.cart-table table.table thead th{ 
     white-space: normal;
+    border-bottom: 2px solid #e4e9f0;
 }
 .admin_dasboard_transaction.cart-table table.table tbody tr td:nth-child(6){ text-align: left !important;}
 .admin_dasboard_transaction.cart-table table.table tbody tr td:nth-child(8) label{ padding:1px 4px; color: #fff; border-radius: 3px; font-size: 11px; }
 .admin_dasboard_transaction.cart-table table.table tbody tr td:nth-child(8) label.bg-purple{ background :#6772e5 }
 .admin_dasboard_transaction.cart-table table.table tbody tr td:nth-child(8) label.bg-grey{ background :#a8afbf }
 .admin_dasboard_transaction.cart-table table.table tbody tr td:nth-child(8) label.bg-blue{ background :#83c0f7 }
+.admin_dasboard_transaction.cart-table table.table tbody tr:last-child td{ border-bottom :none }
+.admin_transaction_sortBy .Select-control{ padding-top: 8px; padding-bottom: 8px; border-color:#525f7f78 !important; }
+.admin_transaction_sortBy{ margin-right: 10px; margin-top: -11px; } 

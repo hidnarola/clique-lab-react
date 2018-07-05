@@ -100,7 +100,7 @@ class Dashboard extends Component {
                                         </tr>
                                         :
                                         (getTransactionData.status == 1) ?
-                                            getTransactionData.data.map((obj, index) => (this.renderTr(obj,index)))
+                                            getTransactionData.data.map((obj, index) => (this.renderTr(obj, index)))
                                             :
                                             <tr>
                                                 <td colSpan="8" style={{ "textAlign": "center", "padding": "30px" }}>

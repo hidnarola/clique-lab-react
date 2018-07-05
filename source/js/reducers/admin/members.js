@@ -1,11 +1,11 @@
 import { Map } from "immutable";
 import {
-    GET_TRANSACTION_REQUEST, GET_TRANSACTION_SUCCESS, GET_TRANSACTION_ERROR,
-    RESET_TRANSACTION_VALUES
-} from "../../actions/admin/transaction";
+    GET_MEMBERS_REQUEST, GET_MEMBERS_SUCCESS, GET_MEMBERS_ERROR,
+    RESET_MEMBERS_VALUES
+} from "../../actions/admin/members";
 
 const initialState = Map({
-    getTransaction: {
+    getMembers: {
         loading: false,
         error: null,
         status: 0,
@@ -16,10 +16,10 @@ const initialState = Map({
 });
 
 const actionMap = {
-    [GET_TRANSACTION_REQUEST]: (state, action) => {
+    [GET_MEMBERS_REQUEST]: (state, action) => {
         return state.merge(Map({
             ...initialState,
-            getTransaction: {
+            getMembers: {
                 loading: true,
                 error: null,
                 status: 0,
@@ -29,27 +29,27 @@ const actionMap = {
             }
         }));
     },
-    [GET_TRANSACTION_SUCCESS]: (state, action) => {
+    [GET_MEMBERS_SUCCESS]: (state, action) => {
         return state.merge(Map({
             ...initialState,
-            getTransaction: {
+            getMembers: {
                 loading: false,
                 status: action.data.data.status,
                 message: action.data.data.message,
-                data: action.data.data.results.post,
+                data: action.data.data.results.users,
                 total: action.data.data.results.total,
                 error: null,
             }
         }));
     },
-    [GET_TRANSACTION_ERROR]: (state, action) => {
+    [GET_MEMBERS_ERROR]: (state, action) => {
         let error = 'Server Error';
         if (action.error && action.error.response) {
             error = action.error.response.message;
         }
         return state.merge(Map({
             ...initialState,
-            getTransaction: {
+            getMembers: {
                 loading: false,
                 error: error,
                 status: 0,
@@ -60,10 +60,10 @@ const actionMap = {
         }));
     },
 
-    [RESET_TRANSACTION_VALUES]: (state, action) => {
+    [RESET_MEMBERS_VALUES]: (state, action) => {
         let resetObj = {};
         if(action['data']){
-            (action['data']['getTransaction'] === false) ? resetObj['getTransaction'] = { loading: false, error: null, status: 0, message: null, data: null, total: 0} : '';
+            (action['data']['getMembers'] === false) ? resetObj['getMembers'] = { loading: false, error: null, status: 0, message: null, data: null, total: 0} : '';
         }
         return state.merge(Map(resetObj));
     },

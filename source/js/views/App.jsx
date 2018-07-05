@@ -52,6 +52,8 @@ import ActiveMemberList from '../components/CampaignList/ActiveMemberList';
 //Admin Module
 import AdminLogin from 'components/Common/Admin/Login';
 import AdminDashboard from './Admin/Dashboard';
+import AdminMembers from './Admin/Members';
+import AdminTransactions from './Admin/Transactions';
 
 const history = createHistory()
 
@@ -147,7 +149,8 @@ class App extends Component {
                             {/* Admin Module*/}
                             <LoginPrivateRoute exact path={routeCodes.ADMIN_LOGIN} component={AdminLogin} />
                             <PrivateRoute path={routeCodes.ADMIN_DASHBOARD} component={AdminDashboard} showHeader={true} />
-                            
+                            <PrivateRoute path={routeCodes.ADMIN_MEMBERS} component={AdminMembers} showHeader={true} />
+                            <PrivateRoute path={routeCodes.ADMIN_TRANSACTIONS} component={AdminTransactions} showHeader={true} />
 
                             <Route path='*' component={NotFound} />
                         </Switch>

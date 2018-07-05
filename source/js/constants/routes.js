@@ -48,4 +48,6 @@ export const routeCodes = {
     //Admin Module
     ADMIN_LOGIN: `${ publicPath }admin`,
     ADMIN_DASHBOARD: `${ publicPath }admin/dashboard`,
+    ADMIN_MEMBERS: `${ publicPath }admin/members`,
+    ADMIN_TRANSACTIONS: `${ publicPath }admin/transactions`,
 };

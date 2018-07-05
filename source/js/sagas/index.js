@@ -14,6 +14,7 @@ import analytics from 'sagas/analytics';
 import myProfile from 'sagas/myProfile';
 
 import adminTransaction from 'sagas/admin/transaction';
+import adminMembers from 'sagas/admin/members';
 
 
 export default function* rootSaga() {
@@ -31,5 +32,6 @@ export default function* rootSaga() {
     ...analytics,
     ...myProfile,
     ...adminTransaction,
+    ...adminMembers,
   ]);
 }

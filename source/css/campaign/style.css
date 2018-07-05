@@ -164,6 +164,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#895cf2', end
 .campaigns-icon{ background:url(../assets/img/site/campings-icon.png) no-repeat 0 0;}
 .calendar-icon{ background:url(../assets/img/site/calendar-icon.png) no-repeat 0 0;}
 .analytics-icon{ background:url(../assets/img/site/analiytics-icon.png) no-repeat 0 0;}
+.list-icon{ background:url(../assets/img/site/list-icon.png) no-repeat 0 0;}
 .navigation-div ul li a:hover i,
 .navigation-div ul li.active a i{ background-position:0 -20px;}
 

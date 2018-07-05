@@ -25,7 +25,8 @@ class LeftMenuAdmin extends Component {
                     </div>
                     <ul>
                         <li> <NavLink activeClassName='active' className='Menu-link' to={routeCodes.ADMIN_DASHBOARD}> <i className="dashboard-icon"></i>Dashboard </NavLink> </li>
-                        <li> <NavLink activeClassName='active' className='Menu-link' to={routeCodes.EVERYDAYPEOPLE}> <i className="people-icon"></i>Members </NavLink> </li>
+                        <li> <NavLink activeClassName='active' className='Menu-link' to={routeCodes.ADMIN_MEMBERS}> <i className="people-icon"></i>Members </NavLink> </li>
+                        <li> <NavLink activeClassName='active' className='Menu-link' to={routeCodes.ADMIN_TRANSACTIONS}> <i className="list-icon"></i>Transactions </NavLink> </li>
                     </ul>
                 </div>
             </div>
