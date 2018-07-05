@@ -11,6 +11,7 @@ img{max-width:100%;}
 	.login-register-box .select-wrap .Select-placeholder{ font-weight:600; font-size:16px;}
 	.cart-table .subtotal{margin-right: 40px;}
 	.card-box{ min-height:177px; }
+	.admin_transaction_sortBy .Select-control{ padding-top:5px; padding-bottom:5px }
 }
 
 @media(max-width:1657px){
