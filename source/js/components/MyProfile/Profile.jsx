@@ -52,7 +52,6 @@ const validate = values => {
 	
 	// console.log('DAta>>',values.industry_category);
 
-	// before
 	if (values.avatar) {
 		let file_type = values.avatar[0].type;
 		let extensions = ["image/jpeg", "image/png", "image/jpg"];

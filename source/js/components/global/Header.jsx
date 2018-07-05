@@ -120,7 +120,8 @@ class Header extends Component {
                                 {/* <DropdownItem divider /> */}
                                 <DropdownItem onClick={this.mylogout}>
                                     <i className="logout-icon"></i>
-                                    Logout
+                                    {/* Logout */}
+                                    <a href="javascript:void(0)" className="cursor_pointer">Logout</a>
                                 </DropdownItem>
                             </DropdownMenu>
                         </Dropdown>
