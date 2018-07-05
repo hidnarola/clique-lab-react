@@ -21,12 +21,14 @@ import {
     Button, Modal, ModalHeader, ModalBody, ModalFooter, Dropdown,
     DropdownToggle, DropdownMenu, DropdownItem, UncontrolledDropdown
 } from 'reactstrap';
+import cx from "classnames";
 
 const AgeDropDown = (props) => {
     return (
         <Dropdown isOpen={props.open} toggle={props.toggle}>
             <DropdownToggle caret >
-                Age
+                {/* Age */}
+                {(props.isAgeFilterApply === true) ? `${props.currentVal.min} - ${props.currentVal.max}` : 'Age'}
             </DropdownToggle>
             <DropdownMenu>
                 <div className="morefilter-div">
@@ -438,7 +440,9 @@ class Analytics extends Component {
             isSortApply: false,
             isFilterApply: false,
 
-            isAgeFilterApply: false,
+            isAgeFilterApply1: false,
+            isAgeFilterApply2: false,
+            isAgeFilterApply3: false,
 
             totalNoCompare: 1,
             whichCompare: [],
@@ -692,6 +696,7 @@ class Analytics extends Component {
                     }]
                 }, this.afterRemoveCompare);
             }
+            this.setState({isAgeFilterApply1:true});
             this.age_filter_toggle();
         } else if (totalNoCompare == 2) {
             let allSliders = filter2[0]['allSliders'];
@@ -718,6 +723,7 @@ class Analytics extends Component {
                     }]
                 }, this.afterRemoveCompare);
             }
+            this.setState({isAgeFilterApply2:true});
             this.age_filter_toggle2();
         } else if (totalNoCompare == 3) {
             let allSliders = filter3[0]['allSliders'];
@@ -744,6 +750,7 @@ class Analytics extends Component {
                     }]
                 }, this.afterRemoveCompare);
             }
+            this.setState({isAgeFilterApply3:true});
             this.age_filter_toggle3();
         }
     }
@@ -758,7 +765,59 @@ class Analytics extends Component {
     */
     age_filter_toggle() {
         this.setState({ age_filter_open: !this.state.age_filter_open });
+
+        // if (this.state.isAgeFilterApply1 !== true) {
+
+        //     const { filter1 } = this.state;
+
+        //     let stateAllSliders = filter1[0].allSliders;
+        //     let stateAllDropDown = filter1[0].allDropDown;
+            
+        //     // let stateAllDropDown = filter1[0].allDropDown;
+
+        //     console.log("AllState>>",stateAllSliders);
+            
+        //     let facebook = _.find(stateAllSliders, function (o) { return o.slider == 'facebook'; });
+        //     let instagram = _.find(stateAllSliders, function (o) { return o.slider == 'instagram'; });
+        //     let twitter = _.find(stateAllSliders, function (o) { return o.slider == 'twitter'; });
+        //     let pinterest = _.find(stateAllSliders, function (o) { return o.slider == 'pinterest'; });
+        //     let linkedin = _.find(stateAllSliders, function (o) { return o.slider == 'linkedin'; });
+
+
+
+
+        //     console.log("facebook>>",facebook);
+            
+        //     // this.setState({
+        //     //     filter1:[
+        //     //         {
+        //     //             allDropDown: [
+        //     //                 { 'dropdown': 'jobIndustryDrop', 'value': false },
+        //     //                 { 'dropdown': 'jobTitleDrop', 'value': false },
+        //     //                 { 'dropdown': 'yearInIndustry', 'value': false },
+        //     //                 { 'dropdown': 'education', 'value': false },
+        //     //                 { 'dropdown': 'language', 'value': false },
+        //     //                 { 'dropdown': 'ethnicity', 'value': false },
+        //     //                 { 'dropdown': 'sexualOrientation', 'value': false },
+        //     //                 { 'dropdown': 'relationship', 'value': false },
+        //     //                 { 'dropdown': 'musicTaste', 'value': false },
+        //     //                 { 'dropdown': 'genderDrop', 'value': false },
+        //     //             ],
+        //     //             allSliders: [
+        //     //                 { 'slider': 'facebook', 'value': { min: facebook['value']['min'], max: facebook['value']['max'] } },
+        //     //                 { 'slider': 'instagram', 'value': { min: instagram['value']['min'], max: instagram['value']['max'] } },
+        //     //                 { 'slider': 'twitter', 'value': { min: twitter['value']['min'], max: twitter['value']['max'] } },
+        //     //                 { 'slider': 'pinterest', 'value': { min: pinterest['value']['min'], max: pinterest['value']['max'] } },
+        //     //                 { 'slider': 'linkedin', 'value': { min: linkedin['value']['min'], max: linkedin['value']['max'] } },
+        //     //                 { 'slider': 'ageRange', 'value': { min: 20, max: 100 } },
+        //     //             ]
+        //     //         }
+        //     //     ]
+        //     // })
+        // }
+
     }
+
     age_filter_toggle2() {
         this.setState({ age_filter_open2: !this.state.age_filter_open2 });
     }
@@ -1192,13 +1251,15 @@ class Analytics extends Component {
                                 <div className="everypeole-head d-flex">
                                     <div className="everypeole-head-l">
                                         <ul>
-                                            <li className="age-dropdown stats_age_dropdown">
+                                            {/* <li className="age-dropdown stats_age_dropdown"> */}
+                                            <li className={cx('age-dropdown stats_age_dropdown', { 'active': (this.state.isAgeFilterApply1) ? true : false })}>
                                                 <AgeDropDown
                                                     parentMethod={(value) => { (value['min'] > 14) ? this.handleSLider(value, "ageRange", 1) : ''; }}
                                                     currentVal={allSliderArr[0].filter1['ageRange']['value']}
                                                     setAgeFilter={() => { this.setAgeFilter(1) }}
                                                     open={this.state.age_filter_open}
                                                     toggle={this.age_filter_toggle}
+                                                    isAgeFilterApply={this.state.isAgeFilterApply1}
                                                 />
                                             </li>
                                             <li className="stats_filter_li2">
@@ -1251,13 +1312,15 @@ class Analytics extends Component {
                                         <div className="everypeole-head d-flex" style={{ "borderBottom": "none", "padding": "0px" }}>
                                             <div className="everypeole-head-l">
                                                 <ul>
-                                                    <li className="age-dropdown stats_age_dropdown">
+                                                    {/* <li className="age-dropdown stats_age_dropdown"> */}
+                                                    <li className={cx('age-dropdown stats_age_dropdown', { 'active': (this.state.isAgeFilterApply2) ? true : false })}>
                                                         <AgeDropDown
                                                             parentMethod={(value) => { (value['min'] > 14) ? this.handleSLider(value, "ageRange", 2) : ''; }}
                                                             currentVal={allSliderArr[0].filter2['ageRange']['value']}
                                                             setAgeFilter={() => { this.setAgeFilter(2) }}
                                                             open={this.state.age_filter_open2}
                                                             toggle={this.age_filter_toggle2}
+                                                            isAgeFilterApply={this.state.isAgeFilterApply2}
                                                         />
                                                     </li>
                                                     <li className="stats_filter_li2">
@@ -1302,13 +1365,15 @@ class Analytics extends Component {
                                         <div className="everypeole-head d-flex" style={{ "borderBottom": "none", "padding": "0px" }}>
                                             <div className="everypeole-head-l">
                                                 <ul>
-                                                    <li className="age-dropdown stats_age_dropdown">
+                                                    {/* <li className="age-dropdown stats_age_dropdown"> */}
+                                                    <li className={cx('age-dropdown stats_age_dropdown', { 'active': (this.state.isAgeFilterApply3) ? true : false })}>
                                                         <AgeDropDown
                                                             parentMethod={(value) => { (value['min'] > 14) ? this.handleSLider(value, "ageRange", 3) : ''; }}
                                                             currentVal={allSliderArr[0].filter3['ageRange']['value']}
                                                             setAgeFilter={() => { this.setAgeFilter(3) }}
                                                             open={this.state.age_filter_open3}
                                                             toggle={this.age_filter_toggle3}
+                                                            isAgeFilterApply={this.state.isAgeFilterApply3}
                                                         />
                                                     </li>
                                                     <li className="stats_filter_li2">

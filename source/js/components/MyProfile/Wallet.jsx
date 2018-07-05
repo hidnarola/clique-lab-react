@@ -27,6 +27,7 @@ import mastercardImg from 'img/site/credit_card/mastercard.png';
 import visaImg from 'img/site/credit_card/visa.png';
 import plusImg from 'img/site/plus-01.png';
 import closeImg2 from 'img/site/close-2.png';
+import noCampaignImg from 'img/site/no_data/no_campaign.png';
 
 class Wallet extends Component {
     constructor(props) {
@@ -516,13 +517,41 @@ class Wallet extends Component {
         });
         dispatch(getTransactionHistory({ page_no: this.state.transaction_page_no, page_size: this.state.transaction_page_size, search: search_param }));
     }
-    transactionHistoryTR = (obj) => {
+    transactionHistoryTR = (obj,index) => {
+
+        let transection_img = '';
+
+        // imgRoutes.CAMPAIGN_POST_IMG_PATH + obj.image
+        
+        if(obj.post_type === 'applied_post')
+        {
+            if(obj.image === undefined)
+            {
+                transection_img = noCampaignImg
+            }
+            else
+            {
+                transection_img = imgRoutes.CAMPAIGN_POST_IMG_PATH + obj.image;
+            }
+        }
+        else if(obj.post_type === 'inspired_post')
+        {
+            if(obj.image === undefined)
+            {
+                transection_img = noCampaignImg
+            }
+            else
+            {
+                transection_img = imgRoutes.CAMPAIGN_INSPIRED_IMG_PATH + obj.image;
+            }
+        }
+        
         return (
-            <tr key={Math.random()}>
+            <tr key={index}>
                 <td>{obj.campaign_description}</td>
                 <td>{obj.brand}</td>
                 <td>
-                    <div style={{ "background": "url('" + imgRoutes.CAMPAIGN_POST_IMG_PATH + obj.image + "') no-repeat 100%", "backgroundSize": "100%", "height": "75px", "width": "100px" }}></div>
+                    <div style={{ "background": "url('" + transection_img + "') no-repeat 100%", "backgroundSize": "100%", "height": "75px", "width": "100px" }}></div>
                 </td>
                 <td>${obj.price.toFixed(2)}</td>
             </tr>
@@ -651,7 +680,7 @@ class Wallet extends Component {
                             <tbody>
                                 {
                                     (transaction_history.status == 1 && transaction_history.data != null) ?
-                                        transaction_history.data.map((obj, index) => (this.transactionHistoryTR(obj)))
+                                        transaction_history.data.map((obj, index) => (this.transactionHistoryTR(obj,index)))
                                         //window.scrollTo(0, document.body.scrollHeight);
                                         :
                                         (transaction_history.loading !== true) &&

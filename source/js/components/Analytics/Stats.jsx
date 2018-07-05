@@ -17,7 +17,7 @@ import cx from "classnames";
  *
  **/
 const TimingDropdown = (props) => {
-    console.log('Time>>',props.currentValue);
+    
     return (
         <Dropdown isOpen={props.open} toggle={props.toggle}>
             <DropdownToggle>
@@ -41,7 +41,7 @@ const TimingDropdown = (props) => {
  *
  **/
 const SocialDropdown = (props) => {
-    console.log('Media>>',props.currentValue);
+    
     return (
         <Dropdown isOpen={props.open} toggle={props.toggle}>
             <DropdownToggle>
