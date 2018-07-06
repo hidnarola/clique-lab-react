@@ -183,8 +183,10 @@ class Stats extends Component {
     }
 
     getDataSocialWise = (socialName) => {
+        console.log('Soc>>',socialName);
         const { totalNoCompare, whichCompare, dispatch } = this.props;
         const { appliedFilter } = this.state;
+        this.setState({ socialCurrentValue: socialName })
         let arrayFilter2 = [{
             "start_date": moment(moment().format("YYYY-MM-DD")).subtract(this.state.monthCurrentValue, 'months').format('YYYY-MM-DD'),
             "end_date": moment().format("YYYY-MM-DD"),
@@ -195,7 +197,7 @@ class Stats extends Component {
                 this.state.appliedFilter[0]['filter3'],
             ]
         }];
-        this.setState({ socialCurrentValue: socialName })
+        // this.setState({ socialCurrentValue: socialName })
         if (totalNoCompare == 1) {
             arrayFilter2[0].filter.splice(1, 2);
         }

@@ -41,7 +41,11 @@ class DemoGrpahicChart extends Component {
 			<li key={Math.random()}>
 				<div className="demographics-div">
 					<div className="demographics-head d-flex">
-						<div className="demographics-head-l"><h3 style={{ 'textTransform': 'capitalize' }}>{chartData[0]}</h3></div>
+						<div className="demographics-head-l">
+							<h3 style={{ 'textTransform': 'capitalize'}}>{chartData[0]}</h3>
+						</div>
+						<div style={{"fontWeight": "700","marginLeft":"auto","color":"#525f7f"}}>...</div>
+						
 					</div>
 					<div className="demographics-graph">
 						<PieChart
@@ -61,10 +65,10 @@ class DemoGrpahicChart extends Component {
 						<ul>
 							{
 								dataArr.map((obj, index) => {
-									return <li>
+									return <li key={index}>
 										<i className="fa fa-circle" style={{ "color": colorArr[index] }}></i>
 										<strong style={{ "whiteSpace": "nowrap", "overflow": "hidden", "textOverflow": "ellipsis", "width": "14em" }}>
-											{(obj.name == null) ? 'Other' : obj.name}
+											{(obj.name == null) ? 'Other' : obj.name.charAt(0).toUpperCase() + obj.name.slice(1)}
 										</strong>
 									</li>
 								})
