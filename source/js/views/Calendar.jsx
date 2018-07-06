@@ -198,15 +198,16 @@ class Calendar extends Component {
                     }}
                     viewRender={
                         function (view, element) {
-                            // console.log(element);
+                            console.log(element);
                             // console.log('classname', element[0].className);
-                            // console.log(view);
+                            console.log(view);
+                            console.log("start:",view.intervalStart.format("YYYY-MM-DD hh:mm"));
+                            console.log("end:",view.intervalEnd.subtract(1,'days').format("YYYY-MM-DD hh:mm"));
                             // console.log("The view's title is " + view.intervalStart.format());
                         }
                     }
                     eventClick={
                         (calEvent, jsEvent, view) => {
-                            console.log(calEvent);
                             let campDetails = {
                                 'name' : calEvent.title,
                                 'platform': calEvent.social_platform,

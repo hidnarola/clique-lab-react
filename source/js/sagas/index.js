@@ -13,6 +13,7 @@ import calendar from 'sagas/calendar';
 import analytics from 'sagas/analytics';
 import myProfile from 'sagas/myProfile';
 
+import adminPassword from 'sagas/admin/password';
 import adminTransaction from 'sagas/admin/transaction';
 import adminMembers from 'sagas/admin/members';
 
@@ -31,6 +32,7 @@ export default function* rootSaga() {
     ...calendar,
     ...analytics,
     ...myProfile,
+    ...adminPassword,
     ...adminTransaction,
     ...adminMembers,
   ]);

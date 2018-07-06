@@ -5,6 +5,7 @@ import { withRouter } from 'react-router';
 import { reset, Field, reduxForm, formValueSelector } from 'redux-form';
 import { Alert } from 'reactstrap';
 import { adminLogin } from '../../../actions/login';
+import { resetForgotVal } from '../../../actions/admin/password';
 import { routeCodes } from '../../../constants/routes';
 import { ToastContainer, toast, Slide } from 'react-toastify';
 import { reactLocalStorage } from 'reactjs-localstorage';
@@ -46,7 +47,7 @@ class Login extends Component {
     }
 
     componentDidUpdate() {
-        let { message, loading, error, dispatch } = this.props;
+        let { message, loading, error, dispatch, forgotPassRes } = this.props;
         let { submitAction, load } = this.state;
         if (submitAction && !loading) {
             this.setState({ submitAction: false })
@@ -61,6 +62,19 @@ class Login extends Component {
                     className: 'success-custom-tostify',
                 });
             }
+        }
+    }
+
+    componentWillMount(){
+        let { message, loading, error, dispatch, forgotPassRes, resetPassRes } = this.props;
+        if(forgotPassRes.message || resetPassRes.message){
+            let toastMessage = '';
+            if(forgotPassRes.message){ toastMessage = forgotPassRes.message }
+            else if(resetPassRes.message){ toastMessage = resetPassRes.message }
+            toast.success(toastMessage, {
+                className: 'success-custom-tostify',
+            });
+            dispatch(resetForgotVal());
         }
     }
 
@@ -93,13 +107,16 @@ class Login extends Component {
 }
 
 const mapStateToProps = (state) => {
-    const { login } = state;
+    const { login, adminPassword } = state;
+    
     return {
         loading: login.get('loading'),
         error: login.get('error'),
         admin: login.get('admin'),
         token: login.get('token'),
         refreshToken: login.get('refreshToken'),
+        forgotPassRes: adminPassword.get('forgotPassword'),
+        resetPassRes: adminPassword.get('resetPassword'),
     }
 }
 export default connect(mapStateToProps)(withRouter(Login));
@@ -115,6 +132,7 @@ class AdminLoginForm extends Component {
                 <div className="submit-div">
                     <button type="submit" className="round-btn">Login</button>
                 </div>
+                <p>Forgot Password? <Link className="cursor_pointer" to="/admin/forgot_password" style={{ "textDecoration": "none" }}>Reset</Link></p>
             </form>
         )
     }
