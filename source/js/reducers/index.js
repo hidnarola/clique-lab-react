@@ -11,6 +11,7 @@ import purchasedPosts from 'reducers/purchasedPosts';
 import calendar from 'reducers/calendar';
 import analytics from 'reducers/analytics';
 import myProfile from 'reducers/myProfile';
+import adminPassword from 'reducers/admin/password';
 import adminTransaction from 'reducers/admin/transaction';
 import adminMembers from 'reducers/admin/members';
 import { reducer as formReducer } from 'redux-form'
@@ -28,6 +29,7 @@ export default combineReducers({
     calendar,
     analytics,
     myProfile,
+    adminPassword,
     adminTransaction,
     adminMembers,
     form: formReducer

@@ -47,6 +47,8 @@ export const routeCodes = {
 
     //Admin Module
     ADMIN_LOGIN: `${ publicPath }admin`,
+    ADMIN_FORGOT: `${ publicPath }admin/forgot_password`,
+    ADMIN_RESET: `${ publicPath }admin/reset_password`,
     ADMIN_DASHBOARD: `${ publicPath }admin/dashboard`,
     ADMIN_MEMBERS: `${ publicPath }admin/members`,
     ADMIN_TRANSACTIONS: `${ publicPath }admin/transactions`,

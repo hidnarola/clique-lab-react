@@ -51,6 +51,8 @@ import ActiveMemberList from '../components/CampaignList/ActiveMemberList';
 
 //Admin Module
 import AdminLogin from 'components/Common/Admin/Login';
+import AdminForgotPassword from 'components/Common/Admin/ForgotPassword';
+import AdminResetPassword from 'components/Common/Admin/ResetPassword';
 import AdminDashboard from './Admin/Dashboard';
 import AdminMembers from './Admin/Members';
 import AdminTransactions from './Admin/Transactions';
@@ -148,6 +150,8 @@ class App extends Component {
                             
                             {/* Admin Module*/}
                             <LoginPrivateRoute exact path={routeCodes.ADMIN_LOGIN} component={AdminLogin} />
+                            <Route path={`${routeCodes.ADMIN_FORGOT}/:forgot_token?`} component={AdminForgotPassword} />
+                            <Route path={`${routeCodes.ADMIN_RESET}/:forgot_token?`} component={AdminResetPassword} />
                             <PrivateRoute path={routeCodes.ADMIN_DASHBOARD} component={AdminDashboard} showHeader={true} />
                             <PrivateRoute path={routeCodes.ADMIN_MEMBERS} component={AdminMembers} showHeader={true} />
                             <PrivateRoute path={routeCodes.ADMIN_TRANSACTIONS} component={AdminTransactions} showHeader={true} />
