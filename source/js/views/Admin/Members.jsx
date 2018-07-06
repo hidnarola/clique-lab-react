@@ -38,6 +38,7 @@ const TableContentLoader = () => (
 );
 
 const PlusAction = (props) => {
+    console.log(props.membersData.status);
     return (
         <UncontrolledDropdown>
             <DropdownToggle className="btn_members_action">
@@ -46,7 +47,11 @@ const PlusAction = (props) => {
             <DropdownMenu>
                 <DropdownItem onClick={() => { props.membersAction('email') }}> Email </DropdownItem>
                 <DropdownItem onClick={() => { props.membersAction('remove') }}> Remove </DropdownItem>
-                <DropdownItem onClick={() => { props.membersAction('suspend') }}> Suspend </DropdownItem>
+                {
+                    (props.membersData.status==false) ? <DropdownItem style={{cursor: "no-drop", color: "#bfbdbd"}}> Suspended </DropdownItem>
+                    : <DropdownItem onClick={() => { props.membersAction('suspend') }}> Suspend </DropdownItem>
+                }
+                
             </DropdownMenu>
         </UncontrolledDropdown>
     );
@@ -195,7 +200,8 @@ class Members extends Component {
             this.setState({ isRender: 1 });
         }
     }
-    transactionSearch = () => {
+    transactionSearch = (e) => {
+        e.preventDefault();
         const { sort_wise_pagination } = this.state;
         const { dispatch } = this.props;
         let search_param = jQuery('#txt_transaction_search').val();
@@ -248,7 +254,7 @@ class Members extends Component {
                             </li>
                         </ul>
                     </div>
-                    <form style={{ "top": "-12px", "marginLeft": "inherit" }}>
+                    <form method="post" style={{ "top": "-12px", "marginLeft": "inherit" }} onSubmit={this.transactionSearch}>
                         <input
                             className="form-control mr-sm-2"
                             type="search"
@@ -261,7 +267,7 @@ class Members extends Component {
                             autoComplete="off"
                             style={{ "paddingRight": "20px" }}
                         />
-                        <button type="button" onClick={() => this.transactionSearch()}></button>
+                        <button type="submit"></button>
                     </form>
                 </div>
                 <div className="content-box">

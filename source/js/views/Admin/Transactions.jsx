@@ -83,7 +83,8 @@ class Transactions extends Component {
             this.setState({ isRender: 1 });
         }
     }
-    transactionSearch = () => {
+    transactionSearch = (e) => {
+        e.preventDefault();
         const { dispatch } = this.props;
         let search_param = jQuery('#txt_transaction_search').val();
         this.setState({ transaction_search_params: search_param });
@@ -102,7 +103,7 @@ class Transactions extends Component {
             <div className='dashboard-page transactions-history'>
                 <div className="admin_subheading d-flex">
                     <h3>All Transactions</h3>
-                    <form style={{ "top": "-12px" }}>
+                    <form method="post" style={{ "top": "-12px" }} onSubmit={this.transactionSearch}>
                         <input
                             className="form-control mr-sm-2"
                             type="search"
@@ -115,7 +116,7 @@ class Transactions extends Component {
                             autoComplete="off"
                             style={{ "paddingRight": "20px" }}
                         />
-                        <button type="button" onClick={() => this.transactionSearch()}></button>
+                        <button type="submit"></button>
                     </form>
                 </div>
                 <div className="content-box">

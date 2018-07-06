@@ -511,7 +511,8 @@ class Wallet extends Component {
     }
 
     // Transaction History
-    transactionSearch = () => {
+    transactionSearch = (e) => {
+        e.preventDefault();
         const { dispatch } = this.props;
         let search_param = jQuery('#txt_transaction_search').val();
         this.setState({
@@ -626,7 +627,7 @@ class Wallet extends Component {
                 <div className="transactions-history">
                     <div className="d-flex">
                         <h2>Transactions History</h2>
-                        <form>
+                        <form method="post" onSubmit={this.transactionSearch}>
                             <input
                                 className="form-control mr-sm-2"
                                 type="search"
@@ -639,7 +640,7 @@ class Wallet extends Component {
                                 autoComplete="off"
                                 style={{"paddingRight":"20px"}}
                             />
-                            <button type="button" onClick={() => this.transactionSearch()}></button>
+                            <button type="submit"></button>
                         </form>
                     </div>
                     <div className="content-box transactions-body">
