@@ -37,12 +37,51 @@ class DemoGrpahicChart extends Component {
 			}
 			data.push({ name: obj.name, value: obj.count, fill: colorArr[index], stroke: colorArr[index] })
 		});
+
+		let title = '';
+
+		if(chartData[0] === 'country'){
+			title = 'Country';
+		}
+		else if(chartData[0] === 'state'){
+			title = 'State';
+		}
+		else if(chartData[0] === 'suburb'){
+			title = 'Suburb';
+		}
+		else if(chartData[0] === 'gender'){
+			title = 'Gender';
+		}
+		else if(chartData[0] === 'job_industry'){
+			title = 'Job Industry';
+		}
+		else if(chartData[0] === 'education'){
+			title = 'Education level';
+		}
+		else if(chartData[0] === 'language'){
+			title = 'Language spoken';
+		}
+		else if(chartData[0] === 'ethnicity'){
+			title = 'Ethnicity';
+		}
+		else if(chartData[0] === 'music_taste')	{
+			title = 'Music tastes';
+		}
+		else if(chartData[0] === 'relationship_status')	{
+			title = 'Relationship status';
+		}
+		else if(chartData[0] === 'sexual_orientation')	{
+			title = 'Sexual orientation';
+		}
+
+
 		return (
 			<li key={Math.random()}>
 				<div className="demographics-div">
 					<div className="demographics-head d-flex">
 						<div className="demographics-head-l">
-							<h3 style={{ 'textTransform': 'capitalize'}}>{chartData[0]}</h3>
+							{/* <h3 style={{ 'textTransform': 'capitalize'}}>{chartData[0]}</h3> */}
+							<h3>{title}</h3>
 						</div>
 						<div style={{"fontWeight": "700","marginLeft":"auto","color":"#525f7f"}}>...</div>
 						

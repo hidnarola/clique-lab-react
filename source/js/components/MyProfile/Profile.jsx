@@ -7,7 +7,7 @@ import { Field, reduxForm, SubmissionError, initialize } from 'redux-form';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { routeCodes } from '../../constants/routes';
-import { SelectField_ReactSelect } from '../../components/Forms/RenderFormComponent/EveryComponent';
+// import { SelectField_ReactSelect } from '../../components/Forms/RenderFormComponent/EveryComponent';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Alert } from 'reactstrap';
 import { reactLocalStorage } from 'reactjs-localstorage';
 import { changePass, resetValMyProfile } from '../../actions/myProfile';
@@ -17,6 +17,7 @@ import '../../../css/campaign/ReactToastify.css';
 import Dropzone from 'react-dropzone';
 import dropImg from 'img/site/canvas.png';
 import closeImg2 from 'img/site/close-2.png';
+import Select from 'react-select';
 
 const validate = values => {
 	const errors = {}
@@ -57,7 +58,7 @@ const validate = values => {
 	// {
 	// 	errors.industry_category = '';
 	// }
-	
+
 	//before
 	// if (values.avatar) {
 	// 	let file_type = values.avatar[0].type;
@@ -158,6 +159,44 @@ const FileField_Dropzone = (props) => {
 	);
 }
 
+
+const SelectField_ReactSelect = (props) => {
+	const { label, input, meta, selectedValue, wrapperClass, className, labelClass, placeholder, errorClass, initialValue, options, isRequired } = props;
+	let val = '';
+	if (input.value && Object.keys(input.value).length > 0) {
+		val = input.value;
+	} else if (initialValue) {
+		val =  initialValue
+		// { value: initialValue, label: 'est' }
+		// val = val;
+	}
+	console.log('My Val :', val);
+	// console.log('My Val2 :',val);
+	return (
+		<div className={wrapperClass}>
+			<label htmlFor={input.name} className={labelClass}>
+				{label}
+			</label>
+			<Select
+				{...input}
+				value={val}
+				options={options}
+				className={`${className}${meta.touched && ((meta.error && ' txt_error_div') || (meta.warning && ' txt_error_div'))}`}
+				placeholder={placeholder}
+				onChange={(value) => input.onChange(value)}
+				onBlur={() => input.onBlur({ ...input.value })}
+				// onBlur={(value) => ({ ...input.value }) ? input.onBlur({ ...input.value }) : input.onBlur(value)}
+				multi={false}
+				clearable={false}
+			/>
+			{meta.touched && ((meta.error && <span className={`error-div`}>{meta.error}</span>) || (meta.warning && <span className={`error-div`}>{meta.warning}</span>))}
+		</div>
+	);
+}
+
+
+
+
 class Profile extends Component {
 	constructor(props) {
 		super(props);
@@ -181,6 +220,7 @@ class Profile extends Component {
 			email: JSON.parse(localStorage.getItem('user')).email,
 			company: JSON.parse(localStorage.getItem('user')).company,
 			industry_category: JSON.parse(localStorage.getItem('user')).industry_category,
+			// industry_category: { value: JSON.parse(localStorage.getItem('user')).industry_category, label: 'test' },
 			description: JSON.parse(localStorage.getItem('user')).industry_description,
 			//avatar: imgRoutes.ORG_PROMOTER_IMG_PATH + JSON.parse(localStorage.getItem('user')).avatar,
 		}
@@ -338,10 +378,11 @@ class Profile extends Component {
 							label="Industry Category"
 							labelClass="control-label"
 							placeholder="Select industry category"
+							// component={SelectField_ReactSelect}
 							component={SelectField_ReactSelect}
 							options={industryArr}
 							isRequired="true"
-						// initialValue={JSON.parse(localStorage.getItem('user')).industry_category}
+							initialValue={JSON.parse(localStorage.getItem('user')).industry_category}
 						/>
 						<Field
 							name="description"

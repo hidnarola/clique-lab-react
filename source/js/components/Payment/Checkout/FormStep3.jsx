@@ -431,7 +431,7 @@ class FormStep3 extends Component {
                                 </div>
                                 <div className="expiry-date d-flex">
                                     <div className="input-wrap select-wrap">
-                                        <label>Select Date</label>
+                                        <label>Expiry Date</label>
                                         <MonthPickerInput
                                             year={txtCDedit.split('/')[1]-0}
                                             month={(txtCDedit.split('/')[0]-1)}

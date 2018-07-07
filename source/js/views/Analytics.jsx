@@ -819,7 +819,8 @@ class Analytics extends Component {
                             { 'slider': 'ageRange', 'value': { min: 20, max: 100 } },
                         ]
                     }
-                ]
+                ],
+                
             })
         }
     }
