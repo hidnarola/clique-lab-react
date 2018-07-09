@@ -90,8 +90,8 @@ const MoreFilterDropDown = (props) => {
     }
     // <UncontrolledDropdown className="MoreFilterLi">
     // 
-    return (
-        <Dropdown isOpen={props.open} toggle={props.toggle} className="MoreFilterLi stats_filter_li4" >
+    return (        
+        <Dropdown isOpen={props.open} toggle={props.toggle} className="MoreFilterLi stats_filter_li4_2" >
             <DropdownToggle caret >
                 More Filter {" "}
             </DropdownToggle>
@@ -974,8 +974,8 @@ class Analytics extends Component {
         this.setState({ more_filter_open2: !this.state.more_filter_open2 })
 
         const { filter2 } = this.state;
-        let stateAllSliders = filter1[0].allSliders;
-        let stateAllDropDown = filter1[0].allDropDown;
+        let stateAllSliders = filter2[0].allSliders;
+        let stateAllDropDown = filter2[0].allDropDown;
 
         let ageVal = _.find(stateAllSliders,function(o){ return o.slider == 'ageRange'; });
         let gender = _.find(stateAllDropDown, function (o) { return o.dropdown == 'genderDrop'; });
@@ -1014,8 +1014,8 @@ class Analytics extends Component {
         this.setState({ more_filter_open3: !this.state.more_filter_open3 })
 
         const { filter3 } = this.state;
-        let stateAllSliders = filter1[0].allSliders;
-        let stateAllDropDown = filter1[0].allDropDown;
+        let stateAllSliders = filter3[0].allSliders;
+        let stateAllDropDown = filter3[0].allDropDown;
 
         let ageVal = _.find(stateAllSliders,function(o){ return o.slider == 'ageRange'; });
         let gender = _.find(stateAllDropDown, function (o) { return o.dropdown == 'genderDrop'; });
@@ -1299,6 +1299,7 @@ class Analytics extends Component {
         dispatch(getSocialAnalytics(arrayFilter2));
     }
 
+    
     render() {
         let { moreFilterData, loading } = this.props;
         const { appliedFilter, analytics, social_analytics, allSliders, allDropDown, totalNoCompare, whichCompare, filter1, filter2, filter3 } = this.state;
@@ -1371,7 +1372,7 @@ class Analytics extends Component {
                             <div>
                                 <div className="everypeole-head d-flex">
                                     <div className="everypeole-head-l">
-                                        <ul>
+                                        <ul className="first_filter">
                                             {/* <li className="age-dropdown stats_age_dropdown"> */}
                                             <li className={cx('age-dropdown stats_age_dropdown', { 'active': (this.state.isAgeFilterApply1) ? true : false })}>
                                                 <AgeDropDown
@@ -1400,7 +1401,7 @@ class Analytics extends Component {
                                                     ]}
                                                 />
                                             </li>
-                                            <li className="stats_filter_li3"><a href="javascript:void(0)">Location</a></li>
+                                            <li className="stats_filter_li3_1"><a href="javascript:void(0)">Location</a></li>
                                             <li>
                                                 <MoreFilterDropDown
                                                     parentMethod={(selectedOp, dropDownName) => this.handleChange(selectedOp, dropDownName, 1)}
@@ -1434,9 +1435,9 @@ class Analytics extends Component {
                                     ((totalNoCompare == 2 || totalNoCompare == 3) && (whichCompare.indexOf(2) > -1)) ?
                                         <div className="everypeole-head d-flex" style={{ "borderBottom": "none", "padding": "0px" }}>
                                             <div className="everypeole-head-l">
-                                                <ul>
+                                                <ul className="second_filter">
                                                     {/* <li className="age-dropdown stats_age_dropdown"> */}
-                                                    <li className={cx('age-dropdown stats_age_dropdown', { 'active': (this.state.isAgeFilterApply2) ? true : false })}>
+                                                    <li className={cx('age-dropdown stats_age_dropdown2', { 'active': (this.state.isAgeFilterApply2) ? true : false })}>
                                                         <AgeDropDown
                                                             parentMethod={(value) => { (value['min'] > 14) ? this.handleSLider(value, "ageRange", 2) : ''; }}
                                                             currentVal={allSliderArr[0].filter2['ageRange']['value']}
@@ -1455,7 +1456,7 @@ class Analytics extends Component {
                                                             clearable={false}
                                                             autosize={false}
                                                             placeholder="Gender"
-                                                            className='dropdown-inr stats_gender_dropdown'
+                                                            className='dropdown-inr stats_gender_dropdown2'
                                                             options={[
                                                                 { value: '', label: 'All' },
                                                                 { value: 'male', label: 'Male' },
@@ -1463,7 +1464,7 @@ class Analytics extends Component {
                                                             ]}
                                                         />
                                                     </li>
-                                                    <li className="stats_filter_li3"><a href="javascript:void(0)">Location</a></li>
+                                                    <li className="stats_filter_li3_2"><a href="javascript:void(0)">Location</a></li>
                                                     <li>
                                                         <MoreFilterDropDown
                                                             parentMethod={(selectedOp, dropDownName) => this.handleChange(selectedOp, dropDownName, 2)}
@@ -1474,6 +1475,7 @@ class Analytics extends Component {
                                                             applyMoreFilter={() => { this.applyMoreFilter(2) }}
                                                             open={this.state.more_filter_open2}
                                                             toggle={this.more_filter_toggle2}
+                                                            totalNoCompare={totalNoCompare}
                                                         />
                                                     </li>
                                                     <li>
@@ -1488,9 +1490,9 @@ class Analytics extends Component {
                                     (totalNoCompare == 3 || (whichCompare.indexOf(3) > -1)) ?
                                         <div className="everypeole-head d-flex" style={{ "borderBottom": "none", "padding": "0px" }}>
                                             <div className="everypeole-head-l">
-                                                <ul>
+                                                <ul className="third_filter">
                                                     {/* <li className="age-dropdown stats_age_dropdown"> */}
-                                                    <li className={cx('age-dropdown stats_age_dropdown', { 'active': (this.state.isAgeFilterApply3) ? true : false })}>
+                                                    <li className={cx('age-dropdown stats_age_dropdown3', { 'active': (this.state.isAgeFilterApply3) ? true : false })}>
                                                         <AgeDropDown
                                                             parentMethod={(value) => { (value['min'] > 14) ? this.handleSLider(value, "ageRange", 3) : ''; }}
                                                             currentVal={allSliderArr[0].filter3['ageRange']['value']}
@@ -1509,7 +1511,7 @@ class Analytics extends Component {
                                                             clearable={false}
                                                             autosize={false}
                                                             placeholder="Gender"
-                                                            className='dropdown-inr stats_gender_dropdown'
+                                                            className='dropdown-inr stats_gender_dropdown3'
                                                             options={[
                                                                 { value: '', label: 'All' },
                                                                 { value: 'male', label: 'Male' },
@@ -1517,7 +1519,7 @@ class Analytics extends Component {
                                                             ]}
                                                         />
                                                     </li>
-                                                    <li className="stats_filter_li3"><a href="javascript:void(0)">Location</a></li>
+                                                    <li className="stats_filter_li3_3"><a href="javascript:void(0)">Location</a></li>
                                                     <li>
                                                         <MoreFilterDropDown
                                                             parentMethod={(selectedOp, dropDownName) => this.handleChange(selectedOp, dropDownName, 3)}

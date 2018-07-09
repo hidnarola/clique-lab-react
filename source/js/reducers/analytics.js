@@ -120,7 +120,7 @@ const actionMap = {
                 status: action.data.data.status,
                 message: action.data.data.message,
                 data: action.data.data.results,
-            }
+            },
         }));
     },
     [GET_DEMO_GRAPHICS_ERROR]: (state, action) => {

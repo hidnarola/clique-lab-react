@@ -83,7 +83,7 @@ class DemoGrpahicChart extends Component {
 							{/* <h3 style={{ 'textTransform': 'capitalize'}}>{chartData[0]}</h3> */}
 							<h3>{title}</h3>
 						</div>
-						<div style={{"fontWeight": "700","marginLeft":"auto","color":"#525f7f"}}>...</div>
+						{/* <div style={{"fontWeight": "700","marginLeft":"auto","color":"#525f7f"}}>...</div> */}
 						
 					</div>
 					<div className="demographics-graph">
@@ -129,7 +129,7 @@ class DemoGraphics extends Component {
 
 	componentWillMount = () => {
 		const { dispatch } = this.props;
-		dispatch(getDemoGraphics());
+		dispatch(getDemoGraphics());		
 	}
 
 	render() {

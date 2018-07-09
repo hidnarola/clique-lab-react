@@ -137,6 +137,8 @@ class Stats extends Component {
         this.social_toggle = this.social_toggle.bind(this);
     }
 
+   
+
     timing_toggle() { this.setState({ timing_open: !this.state.timing_open }); }
     social_toggle() { this.setState({ social_open: !this.state.social_open }); }
 
@@ -186,7 +188,7 @@ class Stats extends Component {
         console.log('Soc>>',socialName);
         const { totalNoCompare, whichCompare, dispatch } = this.props;
         const { appliedFilter } = this.state;
-        this.setState({ socialCurrentValue: socialName })
+        this.setState({ socialCurrentValue: socialName });
         let arrayFilter2 = [{
             "start_date": moment(moment().format("YYYY-MM-DD")).subtract(this.state.monthCurrentValue, 'months').format('YYYY-MM-DD'),
             "end_date": moment().format("YYYY-MM-DD"),
@@ -197,6 +199,7 @@ class Stats extends Component {
                 this.state.appliedFilter[0]['filter3'],
             ]
         }];
+
         // this.setState({ socialCurrentValue: socialName })
         if (totalNoCompare == 1) {
             arrayFilter2[0].filter.splice(1, 2);

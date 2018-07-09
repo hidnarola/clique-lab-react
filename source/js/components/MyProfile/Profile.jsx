@@ -214,13 +214,36 @@ class Profile extends Component {
 
 	componentWillMount = () => {
 		const { dispatch } = this.props;
+
+	let industryData = [		
+					{_id: "5ac1ce1b4238b40285cca994", label: "Business Services"},
+					{_id: "5ac1ce324238b40285cca995", label: "Information Technology"},
+					{_id: "5ac1cfa14238b40285cca996", label: "Manufacturing"},
+					{_id: "5ac1cfb54238b40285cca997", label: "Health Care"},
+					{_id: "5ac1d0fe4238b40285cca998", label: "Finance"},
+					{_id: "5ac1d1264238b40285cca999", label: "Retail"},
+					{_id: "5ac1d13b4238b40285cca99a", label: "Accounting and Legal"},
+					{_id: "5ac1d5dc4238b40285cca99b", label: "Construction, Repair and Maintenance"},
+					{_id: "5ac1d61f4238b40285cca99d", label: "Media"},
+					{_id: "5ac1d6304238b40285cca99e", label: "Restaurants, Bars and Food Services"},
+					]
+
+	let defaultIndustry = JSON.parse(localStorage.getItem('user')).industry_category;
+	
+	let findIndustry = _.find(industryData, function (o) { return o._id == defaultIndustry });
+
+	let setIndustry = {value:findIndustry._id,label:findIndustry.label}
+
+	
+
 		const existValue = {
 			name: JSON.parse(localStorage.getItem('user')).full_name,
 			username: JSON.parse(localStorage.getItem('user')).username,
 			email: JSON.parse(localStorage.getItem('user')).email,
 			company: JSON.parse(localStorage.getItem('user')).company,
-			industry_category: JSON.parse(localStorage.getItem('user')).industry_category,
-			// industry_category: { value: JSON.parse(localStorage.getItem('user')).industry_category, label: 'test' },
+			// industry_category: JSON.parse(localStorage.getItem('user')).industry_category,
+			 industry_category: setIndustry,
+			// industry_category: { value: JSON.parse(localStorage.getItem('user')).industry_category, label: 'test1' },
 			description: JSON.parse(localStorage.getItem('user')).industry_description,
 			//avatar: imgRoutes.ORG_PROMOTER_IMG_PATH + JSON.parse(localStorage.getItem('user')).avatar,
 		}
@@ -382,7 +405,7 @@ class Profile extends Component {
 							component={SelectField_ReactSelect}
 							options={industryArr}
 							isRequired="true"
-							initialValue={JSON.parse(localStorage.getItem('user')).industry_category}
+							// initialValue={JSON.parse(localStorage.getItem('user')).industry_category}
 						/>
 						<Field
 							name="description"
