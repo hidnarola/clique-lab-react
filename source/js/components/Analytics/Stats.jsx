@@ -17,6 +17,7 @@ import cx from "classnames";
  *
  **/
 const TimingDropdown = (props) => {
+    
     return (
         <Dropdown isOpen={props.open} toggle={props.toggle}>
             <DropdownToggle>
@@ -40,6 +41,7 @@ const TimingDropdown = (props) => {
  *
  **/
 const SocialDropdown = (props) => {
+    
     return (
         <Dropdown isOpen={props.open} toggle={props.toggle}>
             <DropdownToggle>
@@ -181,8 +183,10 @@ class Stats extends Component {
     }
 
     getDataSocialWise = (socialName) => {
+        console.log('Soc>>',socialName);
         const { totalNoCompare, whichCompare, dispatch } = this.props;
         const { appliedFilter } = this.state;
+        this.setState({ socialCurrentValue: socialName })
         let arrayFilter2 = [{
             "start_date": moment(moment().format("YYYY-MM-DD")).subtract(this.state.monthCurrentValue, 'months').format('YYYY-MM-DD'),
             "end_date": moment().format("YYYY-MM-DD"),
@@ -193,7 +197,7 @@ class Stats extends Component {
                 this.state.appliedFilter[0]['filter3'],
             ]
         }];
-        this.setState({ socialCurrentValue: socialName })
+        // this.setState({ socialCurrentValue: socialName })
         if (totalNoCompare == 1) {
             arrayFilter2[0].filter.splice(1, 2);
         }
@@ -204,8 +208,9 @@ class Stats extends Component {
         if (totalNoCompare == 2 && whichCompare.indexOf(3) > -1) {
             arrayFilter2[0].filter.splice(1, 1);
         }
-        dispatch(getSocialAnalytics(arrayFilter2));
         this.setState({ isRender: 0 });
+        dispatch(getSocialAnalytics(arrayFilter2));
+        
     }
 
     renderLi = (obj) => {

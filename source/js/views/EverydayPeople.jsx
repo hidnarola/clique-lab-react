@@ -609,7 +609,6 @@ const MoreFilterDropDown = (props) => {
                             searchable={false} clearable={false} autosize={false}
                             options={[
                                 { 'value': 'Married', label: "Married" },
-                                { 'value': 'Unmarried', label: "Unmarried" },
                                 { 'value': 'Single', label: "Single" }
                             ]}
 

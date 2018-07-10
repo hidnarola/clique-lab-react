@@ -21,12 +21,14 @@ import {
     Button, Modal, ModalHeader, ModalBody, ModalFooter, Dropdown,
     DropdownToggle, DropdownMenu, DropdownItem, UncontrolledDropdown
 } from 'reactstrap';
+import cx from "classnames";
 
 const AgeDropDown = (props) => {
     return (
         <Dropdown isOpen={props.open} toggle={props.toggle}>
             <DropdownToggle caret >
-                Age
+                {/* Age */}
+                {(props.isAgeFilterApply === true) ? `${props.currentVal.min} - ${props.currentVal.max}` : 'Age'}
             </DropdownToggle>
             <DropdownMenu>
                 <div className="morefilter-div">
@@ -87,8 +89,9 @@ const MoreFilterDropDown = (props) => {
 
     }
     // <UncontrolledDropdown className="MoreFilterLi">
+    // 
     return (
-        <Dropdown isOpen={props.open} toggle={props.toggle} className="MoreFilterLi stats_filter_li4">
+        <Dropdown isOpen={props.open} toggle={props.toggle} className="MoreFilterLi stats_filter_li4" >
             <DropdownToggle caret >
                 More Filter {" "}
             </DropdownToggle>
@@ -434,11 +437,17 @@ class Analytics extends Component {
 
             isMoreFilterSelected: false,
             isAgeFilterSelected: false,
-            isGenderFilterSelected: false,
+            
+            isGenderFilterSelected1: false,
+            isGenderFilterSelected2: false,
+            isGenderFilterSelected3: false,
+            
             isSortApply: false,
             isFilterApply: false,
 
-            isAgeFilterApply: false,
+            isAgeFilterApply1: false,
+            isAgeFilterApply2: false,
+            isAgeFilterApply3: false,
 
             totalNoCompare: 1,
             whichCompare: [],
@@ -552,6 +561,7 @@ class Analytics extends Component {
                         this.state.appliedFilter[0]['filter3'],
                     ]
                 }
+                this.setState({ isGenderFilterSelected1: true });
                 //console.log(appliedFilter);
                 //this.filterSendReq(arrayFilter);
             }
@@ -585,6 +595,7 @@ class Analytics extends Component {
                         this.state.appliedFilter[0]['filter3'],
                     ]
                 }
+                this.setState({ isGenderFilterSelected2: true });
                 //console.log(appliedFilter);
                 //this.filterSendReq(arrayFilter);
             }
@@ -618,6 +629,7 @@ class Analytics extends Component {
                         this.state.appliedFilter[0]['filter3'],
                     ]
                 }
+                this.setState({ isGenderFilterSelected3: true });
                 //console.log(appliedFilter);
             }
         }
@@ -692,7 +704,8 @@ class Analytics extends Component {
                     }]
                 }, this.afterRemoveCompare);
             }
-            this.age_filter_toggle();
+            this.setState({isAgeFilterApply1:true,age_filter_open:false});
+            // this.age_filter_toggle();
         } else if (totalNoCompare == 2) {
             let allSliders = filter2[0]['allSliders'];
             let ageFilterIndex = _.findIndex(appliedFilter[0]['filter2'], function (o) { return o.field == 'age'; });
@@ -718,7 +731,8 @@ class Analytics extends Component {
                     }]
                 }, this.afterRemoveCompare);
             }
-            this.age_filter_toggle2();
+            this.setState({isAgeFilterApply2:true,age_filter_open2:false});
+            // this.age_filter_toggle2();
         } else if (totalNoCompare == 3) {
             let allSliders = filter3[0]['allSliders'];
             let ageFilterIndex = _.findIndex(appliedFilter[0]['filter3'], function (o) { return o.field == 'age'; });
@@ -744,7 +758,8 @@ class Analytics extends Component {
                     }]
                 }, this.afterRemoveCompare);
             }
-            this.age_filter_toggle3();
+            this.setState({isAgeFilterApply3:true,age_filter_open3:false});
+            // this.age_filter_toggle3();
         }
     }
 
@@ -758,12 +773,151 @@ class Analytics extends Component {
     */
     age_filter_toggle() {
         this.setState({ age_filter_open: !this.state.age_filter_open });
+
+        if (this.state.isAgeFilterApply1 !== true) {
+
+            const { filter1 } = this.state;
+
+            let stateAllSliders = filter1[0].allSliders;
+            let stateAllDropDown = filter1[0].allDropDown;
+
+            let gender = _.find(stateAllDropDown, function (o) { return o.dropdown == 'genderDrop'; });
+            
+            console.log("AllState>>",stateAllSliders);
+            // console.log("AllDrop>>",stateAllDropDown); // its not working now
+            
+            let facebook = _.find(stateAllSliders, function (o) { return o.slider == 'facebook'; });
+            let instagram = _.find(stateAllSliders, function (o) { return o.slider == 'instagram'; });
+            let twitter = _.find(stateAllSliders, function (o) { return o.slider == 'twitter'; });
+            let pinterest = _.find(stateAllSliders, function (o) { return o.slider == 'pinterest'; });
+            let linkedin = _.find(stateAllSliders, function (o) { return o.slider == 'linkedin'; });
+
+            console.log("facebook>>",facebook);
+            
+            this.setState({
+                filter1:[
+                    {
+                        allDropDown: [
+                            { 'dropdown': 'jobIndustryDrop', 'value': false },
+                            { 'dropdown': 'jobTitleDrop', 'value': false },
+                            { 'dropdown': 'yearInIndustry', 'value': false },
+                            { 'dropdown': 'education', 'value': false },
+                            { 'dropdown': 'language', 'value': false },
+                            { 'dropdown': 'ethnicity', 'value': false },
+                            { 'dropdown': 'sexualOrientation', 'value': false },
+                            { 'dropdown': 'relationship', 'value': false },
+                            { 'dropdown': 'musicTaste', 'value': false },
+                            // { 'dropdown': 'genderDrop', 'value': false },
+                            { 'dropdown': 'genderDrop', 'value': gender['value'] },
+                        ],
+                        allSliders: [
+                            { 'slider': 'facebook', 'value': { min: facebook['value']['min'], max: facebook['value']['max'] } },
+                            { 'slider': 'instagram', 'value': { min: instagram['value']['min'], max: instagram['value']['max'] } },
+                            { 'slider': 'twitter', 'value': { min: twitter['value']['min'], max: twitter['value']['max'] } },
+                            { 'slider': 'pinterest', 'value': { min: pinterest['value']['min'], max: pinterest['value']['max'] } },
+                            { 'slider': 'linkedin', 'value': { min: linkedin['value']['min'], max: linkedin['value']['max'] } },
+                            { 'slider': 'ageRange', 'value': { min: 20, max: 100 } },
+                        ]
+                    }
+                ]
+            })
+        }
     }
+
     age_filter_toggle2() {
         this.setState({ age_filter_open2: !this.state.age_filter_open2 });
+
+        if (this.state.isAgeFilterApply2 !== true) {
+
+            const { filter2 } = this.state;
+
+            let stateAllSliders = filter2[0].allSliders;
+            let stateAllDropDown = filter2[0].allDropDown;
+
+            let gender = _.find(stateAllDropDown, function (o) { return o.dropdown == 'genderDrop'; });
+         
+            let facebook = _.find(stateAllSliders, function (o) { return o.slider == 'facebook'; });
+            let instagram = _.find(stateAllSliders, function (o) { return o.slider == 'instagram'; });
+            let twitter = _.find(stateAllSliders, function (o) { return o.slider == 'twitter'; });
+            let pinterest = _.find(stateAllSliders, function (o) { return o.slider == 'pinterest'; });
+            let linkedin = _.find(stateAllSliders, function (o) { return o.slider == 'linkedin'; });
+
+            this.setState({
+                filter2:[
+                    {
+                        allDropDown: [
+                            { 'dropdown': 'jobIndustryDrop', 'value': false },
+                            { 'dropdown': 'jobTitleDrop', 'value': false },
+                            { 'dropdown': 'yearInIndustry', 'value': false },
+                            { 'dropdown': 'education', 'value': false },
+                            { 'dropdown': 'language', 'value': false },
+                            { 'dropdown': 'ethnicity', 'value': false },
+                            { 'dropdown': 'sexualOrientation', 'value': false },
+                            { 'dropdown': 'relationship', 'value': false },
+                            { 'dropdown': 'musicTaste', 'value': false },
+                            // { 'dropdown': 'genderDrop', 'value': false },
+                            { 'dropdown': 'genderDrop', 'value': gender['value'] },
+                        ],
+                        allSliders: [
+                            { 'slider': 'facebook', 'value': { min: facebook['value']['min'], max: facebook['value']['max'] } },
+                            { 'slider': 'instagram', 'value': { min: instagram['value']['min'], max: instagram['value']['max'] } },
+                            { 'slider': 'twitter', 'value': { min: twitter['value']['min'], max: twitter['value']['max'] } },
+                            { 'slider': 'pinterest', 'value': { min: pinterest['value']['min'], max: pinterest['value']['max'] } },
+                            { 'slider': 'linkedin', 'value': { min: linkedin['value']['min'], max: linkedin['value']['max'] } },
+                            { 'slider': 'ageRange', 'value': { min: 20, max: 100 } },
+                        ]
+                    }
+                ]
+            })
+        }
+
+
     }
     age_filter_toggle3() {
         this.setState({ age_filter_open3: !this.state.age_filter_open3 });
+        if (this.state.isAgeFilterApply3 !== true) {
+
+            const { filter3 } = this.state;
+
+            let stateAllSliders = filter3[0].allSliders;
+            let stateAllDropDown = filter3[0].allDropDown;
+
+            let gender = _.find(stateAllDropDown, function (o) { return o.dropdown == 'genderDrop'; });
+                        
+            let facebook = _.find(stateAllSliders, function (o) { return o.slider == 'facebook'; });
+            let instagram = _.find(stateAllSliders, function (o) { return o.slider == 'instagram'; });
+            let twitter = _.find(stateAllSliders, function (o) { return o.slider == 'twitter'; });
+            let pinterest = _.find(stateAllSliders, function (o) { return o.slider == 'pinterest'; });
+            let linkedin = _.find(stateAllSliders, function (o) { return o.slider == 'linkedin'; });
+
+            this.setState({
+                filter3:[
+                    {
+                        allDropDown: [
+                            { 'dropdown': 'jobIndustryDrop', 'value': false },
+                            { 'dropdown': 'jobTitleDrop', 'value': false },
+                            { 'dropdown': 'yearInIndustry', 'value': false },
+                            { 'dropdown': 'education', 'value': false },
+                            { 'dropdown': 'language', 'value': false },
+                            { 'dropdown': 'ethnicity', 'value': false },
+                            { 'dropdown': 'sexualOrientation', 'value': false },
+                            { 'dropdown': 'relationship', 'value': false },
+                            { 'dropdown': 'musicTaste', 'value': false },
+                            // { 'dropdown': 'genderDrop', 'value': false },
+                            { 'dropdown': 'genderDrop', 'value': gender['value'] },
+                        ],
+                        allSliders: [
+                            { 'slider': 'facebook', 'value': { min: facebook['value']['min'], max: facebook['value']['max'] } },
+                            { 'slider': 'instagram', 'value': { min: instagram['value']['min'], max: instagram['value']['max'] } },
+                            { 'slider': 'twitter', 'value': { min: twitter['value']['min'], max: twitter['value']['max'] } },
+                            { 'slider': 'pinterest', 'value': { min: pinterest['value']['min'], max: pinterest['value']['max'] } },
+                            { 'slider': 'linkedin', 'value': { min: linkedin['value']['min'], max: linkedin['value']['max'] } },
+                            { 'slider': 'ageRange', 'value': { min: 20, max: 100 } },
+                        ]
+                    }
+                ]
+            })
+        }
     }
 
     /** 
@@ -776,6 +930,14 @@ class Analytics extends Component {
     */
     more_filter_toggle() {
         this.setState({ more_filter_open: !this.state.more_filter_open })
+
+        const { filter1 } = this.state;
+        let stateAllSliders = filter1[0].allSliders;
+        let stateAllDropDown = filter1[0].allDropDown;
+
+        let ageVal = _.find(stateAllSliders,function(o){ return o.slider == 'ageRange'; });
+        let gender = _.find(stateAllDropDown, function (o) { return o.dropdown == 'genderDrop'; });
+
         if (this.state.isMoreFilterApply !== true) {
             this.setState({
                 filter1: [
@@ -790,7 +952,7 @@ class Analytics extends Component {
                             { 'dropdown': 'sexualOrientation', 'value': false },
                             { 'dropdown': 'relationship', 'value': false },
                             { 'dropdown': 'musicTaste', 'value': false },
-                            { 'dropdown': 'genderDrop', 'value': false },
+                            { 'dropdown': 'genderDrop', 'value': gender['value'] },
                         ],
 
                         allSliders: [
@@ -799,7 +961,8 @@ class Analytics extends Component {
                             { 'slider': 'twitter', 'value': { min: 0, max: 2500 } },
                             { 'slider': 'pinterest', 'value': { min: 0, max: 2500 } },
                             { 'slider': 'linkedin', 'value': { min: 0, max: 2500 } },
-                            { 'slider': 'ageRange', 'value': { min: 20, max: 100 } },
+                            // { 'slider': 'ageRange', 'value': { min: 20, max: 100 } },
+                            { 'slider': 'ageRange', 'value': { min: ageVal['value']['min'], max: ageVal['value']['max'] } },
                         ]
                     }
                 ]
@@ -808,6 +971,14 @@ class Analytics extends Component {
     }
     more_filter_toggle2() {
         this.setState({ more_filter_open2: !this.state.more_filter_open2 })
+
+        const { filter2 } = this.state;
+        let stateAllSliders = filter1[0].allSliders;
+        let stateAllDropDown = filter1[0].allDropDown;
+
+        let ageVal = _.find(stateAllSliders,function(o){ return o.slider == 'ageRange'; });
+        let gender = _.find(stateAllDropDown, function (o) { return o.dropdown == 'genderDrop'; });
+        
         if (this.state.isMoreFilterApply !== true) {
             this.setState({
                 filter2: [
@@ -822,7 +993,7 @@ class Analytics extends Component {
                             { 'dropdown': 'sexualOrientation', 'value': false },
                             { 'dropdown': 'relationship', 'value': false },
                             { 'dropdown': 'musicTaste', 'value': false },
-                            { 'dropdown': 'genderDrop', 'value': false },
+                            { 'dropdown': 'genderDrop', 'value': gender['value'] },
                         ],
 
                         allSliders: [
@@ -831,7 +1002,7 @@ class Analytics extends Component {
                             { 'slider': 'twitter', 'value': { min: 0, max: 2500 } },
                             { 'slider': 'pinterest', 'value': { min: 0, max: 2500 } },
                             { 'slider': 'linkedin', 'value': { min: 0, max: 2500 } },
-                            { 'slider': 'ageRange', 'value': { min: 20, max: 100 } },
+                            { 'slider': 'ageRange', 'value': { min: ageVal['value']['min'], max: ageVal['value']['max'] } },
                         ]
                     }
                 ]
@@ -840,6 +1011,14 @@ class Analytics extends Component {
     }
     more_filter_toggle3() {
         this.setState({ more_filter_open3: !this.state.more_filter_open3 })
+
+        const { filter3 } = this.state;
+        let stateAllSliders = filter1[0].allSliders;
+        let stateAllDropDown = filter1[0].allDropDown;
+
+        let ageVal = _.find(stateAllSliders,function(o){ return o.slider == 'ageRange'; });
+        let gender = _.find(stateAllDropDown, function (o) { return o.dropdown == 'genderDrop'; });
+
         if (this.state.isMoreFilterApply !== true) {
             this.setState({
                 filter3: [
@@ -854,7 +1033,7 @@ class Analytics extends Component {
                             { 'dropdown': 'sexualOrientation', 'value': false },
                             { 'dropdown': 'relationship', 'value': false },
                             { 'dropdown': 'musicTaste', 'value': false },
-                            { 'dropdown': 'genderDrop', 'value': false },
+                            { 'dropdown': 'genderDrop', 'value': gender['value'] },
                         ],
 
                         allSliders: [
@@ -863,7 +1042,7 @@ class Analytics extends Component {
                             { 'slider': 'twitter', 'value': { min: 0, max: 2500 } },
                             { 'slider': 'pinterest', 'value': { min: 0, max: 2500 } },
                             { 'slider': 'linkedin', 'value': { min: 0, max: 2500 } },
-                            { 'slider': 'ageRange', 'value': { min: 20, max: 100 } },
+                            { 'slider': 'ageRange', 'value': { min: ageVal['value']['min'], max: ageVal['value']['max'] } },
                         ]
                     }
                 ]
@@ -1192,16 +1371,18 @@ class Analytics extends Component {
                                 <div className="everypeole-head d-flex">
                                     <div className="everypeole-head-l">
                                         <ul>
-                                            <li className="age-dropdown stats_age_dropdown">
+                                            {/* <li className="age-dropdown stats_age_dropdown"> */}
+                                            <li className={cx('age-dropdown stats_age_dropdown', { 'active': (this.state.isAgeFilterApply1) ? true : false })}>
                                                 <AgeDropDown
                                                     parentMethod={(value) => { (value['min'] > 14) ? this.handleSLider(value, "ageRange", 1) : ''; }}
                                                     currentVal={allSliderArr[0].filter1['ageRange']['value']}
                                                     setAgeFilter={() => { this.setAgeFilter(1) }}
                                                     open={this.state.age_filter_open}
                                                     toggle={this.age_filter_toggle}
+                                                    isAgeFilterApply={this.state.isAgeFilterApply1}
                                                 />
                                             </li>
-                                            <li className="stats_filter_li2">
+                                            <li className="stats_filter_li2" className={cx('stats_filter_li2', { 'active': (this.state.isGenderFilterSelected1) ? true : false })}>
                                                 <ReactSelect
                                                     name="genderDrop"
                                                     value={allDropArr[0].filter1['gender'].value}
@@ -1212,6 +1393,7 @@ class Analytics extends Component {
                                                     placeholder="Gender"
                                                     className='dropdown-inr stats_gender_dropdown'
                                                     options={[
+                                                        { value: '', label: 'All' },
                                                         { value: 'male', label: 'Male' },
                                                         { value: 'female', label: 'Female' },
                                                     ]}
@@ -1228,6 +1410,7 @@ class Analytics extends Component {
                                                     applyMoreFilter={() => { this.applyMoreFilter(1) }}
                                                     open={this.state.more_filter_open}
                                                     toggle={this.more_filter_toggle}
+                                                    // isMoreFilterApply={this.state.isMoreFilterApply}
                                                 />
                                             </li>
                                         </ul>
@@ -1251,16 +1434,18 @@ class Analytics extends Component {
                                         <div className="everypeole-head d-flex" style={{ "borderBottom": "none", "padding": "0px" }}>
                                             <div className="everypeole-head-l">
                                                 <ul>
-                                                    <li className="age-dropdown stats_age_dropdown">
+                                                    {/* <li className="age-dropdown stats_age_dropdown"> */}
+                                                    <li className={cx('age-dropdown stats_age_dropdown', { 'active': (this.state.isAgeFilterApply2) ? true : false })}>
                                                         <AgeDropDown
                                                             parentMethod={(value) => { (value['min'] > 14) ? this.handleSLider(value, "ageRange", 2) : ''; }}
                                                             currentVal={allSliderArr[0].filter2['ageRange']['value']}
                                                             setAgeFilter={() => { this.setAgeFilter(2) }}
                                                             open={this.state.age_filter_open2}
                                                             toggle={this.age_filter_toggle2}
+                                                            isAgeFilterApply={this.state.isAgeFilterApply2}
                                                         />
                                                     </li>
-                                                    <li className="stats_filter_li2">
+                                                    <li className="stats_filter_li2" className={cx('stats_filter_li2', { 'active': (this.state.isGenderFilterSelected2) ? true : false })}> 
                                                         <ReactSelect
                                                             name="genderDrop"
                                                             value={allDropArr[0].filter2['gender'].value}
@@ -1271,6 +1456,7 @@ class Analytics extends Component {
                                                             placeholder="Gender"
                                                             className='dropdown-inr stats_gender_dropdown'
                                                             options={[
+                                                                { value: '', label: 'All' },
                                                                 { value: 'male', label: 'Male' },
                                                                 { value: 'female', label: 'Female' },
                                                             ]}
@@ -1302,16 +1488,18 @@ class Analytics extends Component {
                                         <div className="everypeole-head d-flex" style={{ "borderBottom": "none", "padding": "0px" }}>
                                             <div className="everypeole-head-l">
                                                 <ul>
-                                                    <li className="age-dropdown stats_age_dropdown">
+                                                    {/* <li className="age-dropdown stats_age_dropdown"> */}
+                                                    <li className={cx('age-dropdown stats_age_dropdown', { 'active': (this.state.isAgeFilterApply3) ? true : false })}>
                                                         <AgeDropDown
                                                             parentMethod={(value) => { (value['min'] > 14) ? this.handleSLider(value, "ageRange", 3) : ''; }}
                                                             currentVal={allSliderArr[0].filter3['ageRange']['value']}
                                                             setAgeFilter={() => { this.setAgeFilter(3) }}
                                                             open={this.state.age_filter_open3}
                                                             toggle={this.age_filter_toggle3}
+                                                            isAgeFilterApply={this.state.isAgeFilterApply3}
                                                         />
                                                     </li>
-                                                    <li className="stats_filter_li2">
+                                                    <li className="stats_filter_li2" className={cx('stats_filter_li2', { 'active': (this.state.isGenderFilterSelected3) ? true : false })}>
                                                         <ReactSelect
                                                             name="genderDrop"
                                                             value={allDropArr[0].filter3['gender'].value}
@@ -1322,6 +1510,7 @@ class Analytics extends Component {
                                                             placeholder="Gender"
                                                             className='dropdown-inr stats_gender_dropdown'
                                                             options={[
+                                                                { value: '', label: 'All' },
                                                                 { value: 'male', label: 'Male' },
                                                                 { value: 'female', label: 'Female' },
                                                             ]}

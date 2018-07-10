@@ -178,7 +178,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#895cf2', end
 .hdr-user .dropdown-menu:after{left:auto;right:10px;}
 
 .hdr-user .dropdown-menu a{position:relative; padding:0 10px 0 38px; font-size:16px; color:#525f7f; font-weight:500; line-height:30px; margin:0 0 13px;}
-.hdr-user .dropdown-menu a:hover{background:transparent; color:#6772e5;}
+.hdr-user .dropdown-menu a:hover{background:transparent; color:#6772e5; }
 .hdr-user .dropdown-menu a span{ width:30px; height:30px; border-radius:80px; position:absolute; top:0; left:0; overflow:hidden; background:#ddd;}
 .hdr-user .dropdown-menu a span img{ width:100%; min-height:30px;}
 .hdr-user .dropdown-menu a:last-child{margin:0;}
