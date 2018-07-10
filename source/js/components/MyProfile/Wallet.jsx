@@ -133,10 +133,11 @@ class Wallet extends Component {
                 error_msg = '<ul><li>' + addBank.error + '</li></ul>';
                 jQuery('.error_div').html(error_msg);
                 jQuery('.error_div').css({ display: "block" });
+                this.setState({ isRender: 0, disabled: '' });
             } else if (addBank.status === 1) {
                 this.addBankModaltoggle();
                 dispatch(getBankList());
-                this.setState({ isRender: 0 });
+                this.setState({ isRender: 0, disabled: '' });
             }
 
             if (deleteBank.status === 1) {
@@ -146,7 +147,7 @@ class Wallet extends Component {
             }
 
             if (wallet_withdraw.status === 1) {
-                dispatch(resetValMyProfile({ addBank: false, deleteBank: false }));
+                dispatch(resetValMyProfile({ addBank: false, deleteBank: false, wallet_withdraw: false }));
                 this.withdrawModaltoggle();
                 dispatch(getWalletBal());
                 this.setState({ isRender: 0, disabled: '' });
@@ -390,7 +391,7 @@ class Wallet extends Component {
                 "bsb": txtBSB,
             }
             dispatch(addBank(data));
-            this.setState({ isRender: 1 });
+            this.setState({ isRender: 1, disabled: 'disabled' });
         }
     }
     onChangeBank = (element, value) => {
@@ -496,8 +497,12 @@ class Wallet extends Component {
             this.setState({ isRender: 1, disabled: 'disabled' });
         }
     }
+
     onWithDrawChange = (element, value) => {
         let { txtAMT, txtBANK } = this.state;
+        if(value==null){
+            value = '';
+        }
         if (element == 'txt_withdraw_amount') { this.setState({ txtAMT: value }) }
         if (element == 'txt_withdraw_bank') { this.setState({ txtBANK: value }) }
         if (value === '' || value === null) {
@@ -846,7 +851,7 @@ class Wallet extends Component {
                                 </div>
                                 <div className="error_div"></div>
                                 <div className="submit-btn">
-                                    <button type="button" className="round-btn" onClick={() => this.submitBank()}>Save</button>
+                                    <button type="button" className="round-btn" onClick={() => this.submitBank()} disabled={this.state.disabled}>Save</button>
                                 </div>
                             </form>
                         </div>

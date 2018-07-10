@@ -22,7 +22,7 @@ const validate = values => {
         }
     }
 
-    if (!values.industryName) {
+    if (!values.industryName || (values.industryName!==undefined && values.industryName.value==="") || Object.keys(values.industryName).length===0) {
         errors.industryName = 'This field is required';
     }
 
