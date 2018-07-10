@@ -150,7 +150,7 @@ class Wallet extends Component {
                 this.withdrawModaltoggle();
                 dispatch(getWalletBal());
                 this.setState({ isRender: 0, disabled: '' });
-                toast.success('Withdraw has been successfully done', {
+                toast.success('Withdrwal has been done successfully', {
                     className: 'success-custom-tostify'
                 });
             }

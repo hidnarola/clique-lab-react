@@ -18,26 +18,33 @@ class Cart extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			listAfterDel: false
+			listAfterDel: false,
 		}
 	}
 
 	componentWillMount() {
 		const { dispatch } = this.props;
-		this.setState({ listAfterDel: true })
+		// this.setState({ listAfterDel: true })
 		dispatch(getCheckoutList());
 	}
 
 
 	removeCart = (item_id) => {
 		const { dispatch } = this.props;
-		dispatch(removeCartItems(item_id));
-		this.setState({ listAfterDel: true });
+		//before
+		// dispatch(removeCartItems(item_id));
+		// this.setState({ listAfterDel: true });
+
+		if(this.state.listAfterDel === false)
+		{
+			this.setState({ listAfterDel: true });
+			dispatch(removeCartItems(item_id));
+		}
 	}
 
 	componentDidUpdate() {
 		const { dispatch, removeItems, modifyStatusPurchase } = this.props;
-		const { listAfterDel } = this.state;
+		const { listAfterDel} = this.state;
 		if (removeItems.status === 1 && listAfterDel === true) {
 			dispatch(getCheckoutList());
 			dispatch(resetVal({ 'removeCart': false }));
@@ -79,7 +86,7 @@ class Cart extends React.Component {
 	// 	);
 	// }
 
-	renderTr = (obj) => {
+	renderTr = (obj,index) => {
 		// let applied_post_img = '';
 		// let inspire_post_img = '';
 		let post_img = '';
@@ -105,7 +112,8 @@ class Cart extends React.Component {
 		//     applied_post_img = imgRoutes.CAMPAIGN_POST_IMG_PATH + obj.applied_post.image;
 		// }
 		return (
-			<tr key={Math.random()}>
+			// <tr key={Math.random()}>
+			<tr key={index}>
 				{/* <td><img src={applied_post_img} alt="" /></td> */}
 				<td><img src={post_img} alt="" /></td>
 				<td>
@@ -166,7 +174,7 @@ class Cart extends React.Component {
 									</tr>
 								</thead>
 								<tbody>
-									{(carts.status === 1) ? carts.data.map((obj, index) => (this.renderTr(obj))) : <tr><td colSpan="6"></td></tr>}
+									{(carts.status === 1) ? carts.data.map((obj, index) => (this.renderTr(obj,index))) : <tr><td colSpan="6"></td></tr>}
 								</tbody>
 								<tfoot>
 									<tr>

@@ -16,8 +16,17 @@ function getDemoGraphics() {
     return postFormData('promoter/campaign/get_demographics', '', headers);
 }
 
+// dashboard bottom
+function getDashboardData(data) {
+    let headers = { 'x-access-token' : localStorage.getItem('token') }
+    // plz provide end point here
+    // return postFormData('promoter/campaign/get_demographics', data, headers);
+}
+
+
 export default {
     getAnalytics,
     getSocialAnalytics,
-    getDemoGraphics
+    getDemoGraphics,
+    getDashboardData
 }

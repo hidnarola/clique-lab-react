@@ -3,6 +3,7 @@ import {
     GET_ANALYTICS_REQUEST, GET_ANALYTICS_SUCCESS, GET_ANALYTICS_ERROR,
     GET_SOCIAL_ANALYTICS_REQUEST, GET_SOCIAL_ANALYTICS_SUCCESS, GET_SOCIAL_ANALYTICS_ERROR,
     GET_DEMO_GRAPHICS_REQUEST, GET_DEMO_GRAPHICS_SUCCESS, GET_DEMO_GRAPHICS_ERROR,
+    GET_DASHBOARD_REQUEST,GET_DASHBOARD_SUCCESS, GET_DASHBOARD_ERROR 
 } from "../actions/analytics";
 
 const initialState = Map({
@@ -20,6 +21,11 @@ const initialState = Map({
     },
     demo_graphics: {
         loading: false,
+        status: 0,
+        message: null,
+        data: null,
+    },
+    dashboard: {
         status: 0,
         message: null,
         data: null,
@@ -74,6 +80,7 @@ const actionMap = {
             }
         }));
     },
+
     [GET_SOCIAL_ANALYTICS_SUCCESS]: (state, action) => {
         // console.log('=======================================');
         // console.log('REDUCERS >>>>>> SOCIAL_ANALYTICS_SUCCESS');
@@ -134,7 +141,45 @@ const actionMap = {
             error: error,
             status: 0,
         }));
-    }
+    },
+
+    // Dashboard bottom
+
+    [GET_DASHBOARD_REQUEST]: (state, action) => {
+        return state.merge(Map({
+            ...initialState,
+            loading: true,
+            dashboard: {
+                status: 0,
+                message: null,
+                data: null,
+            }
+        }));
+    },
+    
+    [GET_DASHBOARD_SUCCESS]: (state, action) => {
+        return state.merge(Map({
+            ...initialState,
+            loading: false,
+            dashboard: {
+                status: action.data.data.status,
+                message: action.data.data.message,
+                data: action.data.data.result,
+            }
+        }));
+    },
+    [GET_DASHBOARD_ERROR]: (state, action) => {
+        let error = 'Server Error';
+        if (action.error && action.error.response.data.message) {
+            error = action.error.response.data.message;
+        }
+        return state.merge(Map({
+            ...initialState,
+            loading: false,
+            error: error,
+            status: 0,
+        }));
+    },
 
 };
 

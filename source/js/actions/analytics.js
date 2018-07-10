@@ -10,6 +10,11 @@ export const GET_DEMO_GRAPHICS_REQUEST = 'GET_DEMO_GRAPHICS_REQUEST';
 export const GET_DEMO_GRAPHICS_SUCCESS = 'GET_DEMO_GRAPHICS_SUCCESS';
 export const GET_DEMO_GRAPHICS_ERROR = 'GET_DEMO_GRAPHICS_ERROR';
 
+export const GET_DASHBOARD_REQUEST = 'GET_DASHBOARD_REQUEST';
+export const GET_DASHBOARD_SUCCESS = 'GET_DASHBOARD_SUCCESS';
+export const GET_DASHBOARD_ERROR = 'GET_DASHBOARD_ERROR';
+
+
 export function getAnalytics(data) { return { type: GET_ANALYTICS_REQUEST, data } }
 export function getAnalyticsSuccess(data) { return { type: GET_ANALYTICS_SUCCESS, data } }
 export function getAnalyticsError(error) { return { type: GET_ANALYTICS_ERROR, error } }
@@ -21,3 +26,9 @@ export function getSocialAnalyticsError(error) { return { type: GET_SOCIAL_ANALY
 export function getDemoGraphics() { return { type: GET_DEMO_GRAPHICS_REQUEST } }
 export function getDemoGraphicsSuccess(data) { return { type: GET_DEMO_GRAPHICS_SUCCESS, data } }
 export function getDemoGraphicsError(error) { return { type: GET_DEMO_GRAPHICS_ERROR, error } }
+
+// Dashbord Bottom
+export function getDashboard(data) { return { type: GET_DASHBOARD_REQUEST, data } }
+export function getDashboardSuccess(data) { return { type: GET_DASHBOARD_SUCCESS, data } }
+export function getDashboardError(error) { return { type: GET_DASHBOARD_ERROR, error } }
+

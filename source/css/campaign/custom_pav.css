@@ -581,22 +581,8 @@ tr.order_cart td img {margin-top:-10px}
 
 
 /* --------location css --------*/
-.stats_filter_li3_1:hover{
-    background: #6772e5 !important;
-}
-.stats_filter_li3_2:hover {
-    background: #83bff7
-}
-.stats_filter_li3_3:hover {
-    background:#f783c3
-}
-
-.stats_filter_li3_1 a{ font-size: 13px !important; line-height: 20px !important; font-weight: 600 !important; border-radius: 3px !important; }
-.stats_filter_li3_1 a:hover{ font-size: 13px !important; line-height: 20px !important; font-weight: 600 !important; border-radius: 3px !important; color:#fff !important;}
-.stats_filter_li3_2 a{ font-size: 13px !important; line-height: 20px !important; font-weight: 600 !important; border-radius: 3px !important; }
-.stats_filter_li3_2 a:hover{ font-size: 13px !important; line-height: 20px !important; font-weight: 600 !important; border-radius: 3px !important; color:#fff !important;}
-.stats_filter_li3_3 a{ font-size: 13px !important; line-height: 20px !important; font-weight: 600 !important; border-radius: 3px !important; }
-.stats_filter_li3_3 a:hover{ font-size: 13px !important; line-height: 20px !important; font-weight: 600 !important; border-radius: 3px !important; color:#fff !important;}
+.everypeole-head ul li.location_2 a:hover{ background: #83bff7 !important }
+.everypeole-head ul li.location_3 a:hover { background:#f783c3 !important }
 /*---------------------------*/
 
 /*------------ hover effect 2 -------*/
@@ -604,14 +590,12 @@ tr.order_cart td img {margin-top:-10px}
 /*------------ hover effect 3 -------*/
 .stats_age_dropdown3 .dropdown button.btn-secondary:hover{background: #f783c3 !important; color:#fff;border: 2px solid #f783c3 !important; }
 
-
+.readonly-text input
+{
+    background-color:#f0f8ff !important;
+}
 
 /* ----------------Analystics DM End----------------------- */
-
-
-
-
-
 
 
 /*********************************************************************

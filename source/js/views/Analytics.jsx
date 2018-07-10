@@ -1401,7 +1401,7 @@ class Analytics extends Component {
                                                     ]}
                                                 />
                                             </li>
-                                            <li className="stats_filter_li3_1"><a href="javascript:void(0)">Location</a></li>
+                                            <li className="stats_filter_li3"><a href="javascript:void(0)">Location</a></li>
                                             <li>
                                                 <MoreFilterDropDown
                                                     parentMethod={(selectedOp, dropDownName) => this.handleChange(selectedOp, dropDownName, 1)}
@@ -1464,7 +1464,7 @@ class Analytics extends Component {
                                                             ]}
                                                         />
                                                     </li>
-                                                    <li className="stats_filter_li3_2"><a href="javascript:void(0)">Location</a></li>
+                                                    <li className="stats_filter_li3 location_2"><a href="javascript:void(0)">Location</a></li>
                                                     <li>
                                                         <MoreFilterDropDown
                                                             parentMethod={(selectedOp, dropDownName) => this.handleChange(selectedOp, dropDownName, 2)}
@@ -1519,7 +1519,7 @@ class Analytics extends Component {
                                                             ]}
                                                         />
                                                     </li>
-                                                    <li className="stats_filter_li3_3"><a href="javascript:void(0)">Location</a></li>
+                                                    <li className="stats_filter_li3 location_3"><a href="javascript:void(0)">Location</a></li>
                                                     <li>
                                                         <MoreFilterDropDown
                                                             parentMethod={(selectedOp, dropDownName) => this.handleChange(selectedOp, dropDownName, 3)}
@@ -1544,7 +1544,7 @@ class Analytics extends Component {
                         )
                     }
                 </div>
-                {curt_page == routeCodes.ANALYTICS_STATS && <Stats analyticsData={analytics} socialAnalyticsData={social_analytics} appliedFilter={appliedFilter} totalNoCompare={totalNoCompare} whichCompare={whichCompare} />}
+                {curt_page == routeCodes.ANALYTICS_STATS && <Stats analyticsData={analytics} socialAnalyticsData={social_analytics} appliedFilter={appliedFilter} totalNoCompare={totalNoCompare} whichCompare={whichCompare}/>}
                 {curt_page == routeCodes.ANALYTICS_DEMOGRAPHICS && <DemoGraphics />}
             </div>
         );

@@ -59,7 +59,7 @@ class DemoGrpahicChart extends Component {
 			title = 'Education level';
 		}
 		else if(chartData[0] === 'language'){
-			title = 'Language spoken';
+			title = 'Languages spoken';
 		}
 		else if(chartData[0] === 'ethnicity'){
 			title = 'Ethnicity';

@@ -20,7 +20,8 @@ class Checkout extends Component {
         this.state = {
             page: 1,
             modal: false,
-            isRender: 0
+            isRender: 0,
+            isPayment:false
         }
         this.toggle = this.toggle.bind(this);
         this.nextPage = this.nextPage.bind(this);
@@ -52,7 +53,15 @@ class Checkout extends Component {
         }
         this.setState({ isRender: 1 });
         //console.log('CheckOut Data>>>',data);
-        dispatch(cartPaymentReq(data));
+
+        if(this.state.isPayment === false)
+        {
+            dispatch(cartPaymentReq(data));
+            this.setState({
+                isPayment:true
+            })
+        }
+        // dispatch(cartPaymentReq(data));
     }
 
     nextPage() { this.setState({ page: this.state.page + 1 }); }

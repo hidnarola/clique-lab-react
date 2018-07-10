@@ -9,7 +9,7 @@ import { getCheckoutList } from '../actions/Checkout';
 import { ToastContainer, toast, Slide } from 'react-toastify';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem, UncontrolledDropdown } from 'reactstrap';
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Area, position } from 'recharts';
-import { getSocialAnalytics } from '../actions/analytics';
+import { getSocialAnalytics, getDashboard } from '../actions/analytics';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import cx from "classnames";
@@ -49,7 +49,7 @@ const SocialDropdown = (props) => {
     return (
         <Dropdown isOpen={props.open} toggle={props.toggle}>
             <DropdownToggle>
-                <label style={{"textTransform":"capitalize"}}>{props.currentValue} &nbsp; </label><i className="dropdown-arrow"></i>
+                <label style={{ "textTransform": "capitalize" }}>{props.currentValue} &nbsp; </label><i className="dropdown-arrow"></i>
             </DropdownToggle>
             <DropdownMenu>
                 <DropdownItem onClick={() => { props.socialSelect('twitter') }} > Twitter </DropdownItem>
@@ -59,6 +59,23 @@ const SocialDropdown = (props) => {
         </Dropdown>
     );
 }
+
+const MostDataDropdown = (props) => {
+    return (
+        <Dropdown isOpen={props.open} toggle={props.toggle}>
+            <DropdownToggle>
+                <label style={{ "textTransform": "capitalize" }}>Posts {props.currentValue}</label><i className="dropdown-arrow"></i>
+            </DropdownToggle>
+            <DropdownMenu>
+                <DropdownItem onClick={() => { props.dashboardDataSelect('most liked') }} > Most Liked </DropdownItem>
+                <DropdownItem onClick={() => { props.dashboardDataSelect('most shared') }} > Most Shared </DropdownItem>
+                <DropdownItem onClick={() => { props.dashboardDataSelect('most comment') }} > Most Commented </DropdownItem>
+                <DropdownItem onClick={() => { props.dashboardDataSelect('submission') }} > Submissions </DropdownItem>
+            </DropdownMenu>
+        </Dropdown>
+    );
+}
+
 
 class CustomTooltip extends Component {
     constructor(props) {
@@ -113,16 +130,20 @@ class Dashboard extends Component {
             socialCurrentValue: 'twitter',
             likes_share_cmt: 'likes',
 
+            dashboardCurrentValue: 'most like',
+
             isRender: 0,
             isRenderChart: false,
 
             timing_open: false,
             social_open: false,
+            dashboard_open: false
         }
     }
 
     timing_toggle = () => { this.setState({ timing_open: !this.state.timing_open }); }
     social_toggle = () => { this.setState({ social_open: !this.state.social_open }); }
+    dashboard_toggle = () => { this.setState({ dashboard_open: !this.state.dashboard_open }); }
 
     componentWillMount = () => {
         const { dispatch } = this.props;
@@ -138,13 +159,15 @@ class Dashboard extends Component {
         dispatch(getCheckoutList());
         toast.dismiss(this.toastId);
         dispatch(getSocialAnalytics(arrayFilter));
+
+        // dispatch(getDashboard('pass filter here'))
     }
 
     componentDidUpdate() {
         const { social_analytics_data } = this.props;
         const { social_analytics, isRender } = this.state;
         let monthArr = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
-        if (social_analytics !== social_analytics_data.data && isRender===1) {
+        if (social_analytics !== social_analytics_data.data && isRender === 1) {
             if (social_analytics_data.status === 1 && social_analytics_data.data !== null) {
                 let social_data = [];
                 let analytics_data = social_analytics_data.data[0];
@@ -209,6 +232,13 @@ class Dashboard extends Component {
         this.setState({ isRender: 1, socialCurrentValue: socialName });
     }
     /****************   End : Dashboard Graph    ****************/
+
+    /** ************ Start : Dashborad Bottom ******* */
+
+    getDashboardDataSelect = (dashbordValue) => {
+        this.setState({ dashboardCurrentValue: dashbordValue });
+    }
+
     render() {
         const { barChartData, isRender, social_analytics, likes_share_cmt, isRenderChart } = this.state;
         const { loading, socialAnalyticsData } = this.props;
@@ -259,17 +289,25 @@ class Dashboard extends Component {
                 </div>
                 <div className="right-btm">
                     <div className="right-box-btm-head d-flex">
-                        <div className="post-dropdown">
-                            <a href="#" role="button" id="post-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Posts <span>Most Liked</span> <i className="dropdown-arrow"></i> </a>
+                        {/* <div className="post-dropdown"> */}
+                        <div className="social-dropdown">
+                            {/* <a href="#" role="button" id="post-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Posts <span>Most Liked</span> <i className="dropdown-arrow"></i> </a>
                             <div className="dropdown-menu" aria-labelledby="post-dropdown">
                                 <a className="dropdown-item" href="#">Most Liked</a>
                                 <a className="dropdown-item" href="#">Most Shared</a>
                                 <a className="dropdown-item" href="#">Most Commented</a>
                                 <a className="dropdown-item" href="#">Submissions</a>
-                            </div>
+                                
+                            </div> */}
+                            <MostDataDropdown
+                                dashboardDataSelect={(value) => { this.getDashboardDataSelect(value); }}
+                                currentValue={this.state.dashboardCurrentValue}
+                                open={this.state.dashboard_open}
+                                toggle={this.dashboard_toggle}
+                            />
                         </div>
                         <div className="view-all">
-                            <a href="#"> View All <i></i> </a>
+                            <a href="javascript:void(0)"> View All <i></i> </a>
                         </div>
                     </div>
                     <div className="right-box-btm-content d-flex">
@@ -397,6 +435,8 @@ const mapStateToProps = (state) => {
         error: checkout.get('error'),
         carts: checkout.get('carts'),
         social_analytics_data: analytics.get('social_analytics'),
+
+        dashboard_data: analytics.get('dashboard'),
     }
 }
 export default connect(mapStateToProps)(Dashboard)

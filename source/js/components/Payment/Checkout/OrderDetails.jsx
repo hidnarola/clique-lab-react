@@ -19,14 +19,20 @@ class OrderDetails extends Component {
 
     componentWillMount() {
         const { dispatch } = this.props;
-        this.setState({ listAfterDel: true })
+        // this.setState({ listAfterDel: true })
         dispatch(getCheckoutList());
     }
 
     removeCart = (item_id) => {
         const { dispatch } = this.props;
-        dispatch(removeCartItems(item_id));
-        this.setState({ listAfterDel : true });
+        //before
+        // dispatch(removeCartItems(item_id));
+        // this.setState({ listAfterDel : true });
+        if(this.state.listAfterDel === false)
+        {
+            this.setState({ listAfterDel : true });
+            dispatch(removeCartItems(item_id));
+        }
     }
 
     componentDidUpdate() {
@@ -61,7 +67,7 @@ class OrderDetails extends Component {
     //     );
     // }
 
-    renderTr = (obj) => {
+    renderTr = (obj,index) => {
        let post_img = '';
 		if (obj.applied_post) {
 			if (obj.applied_post.image == undefined) {
@@ -79,7 +85,8 @@ class OrderDetails extends Component {
 			}
         }
         return (
-            <tr key={Math.random()}>
+            // <tr key={Math.random()}>
+            <tr key={index}>
                 <td><img src={post_img} alt="" style={{"width":"60px"}} /></td>
                 <td style={{verticalAlign:"top"}}>
                     <h3>{obj.applied_post ? obj.applied_post.desription.substring(0,40)+'...' : obj.inspired_post.text.substring(0,40)+'...'}</h3>
@@ -108,7 +115,7 @@ class OrderDetails extends Component {
                             </tr>
                         </thead>
                         <tbody style={{"height":"18em","overflowY":"auto","width": "100%","display": "block"}} className="custom_scrollbar">
-                            {(carts.status === 1) ? carts.data.map((obj, index) => (this.renderTr(obj))) : <tr><td colSpan="6"></td></tr>}
+                            {(carts.status === 1) ? carts.data.map((obj, index) => (this.renderTr(obj,index))) : <tr><td colSpan="6"></td></tr>}
                         </tbody>
                         <tfoot>
                             <tr>

@@ -87,7 +87,8 @@ const validate = values => {
 }
 
 const textField = ({ input, type, label, placeholder, isReadOnly, isRequired, existValue, meta: { touched, error } }) => (
-	<div className={cx('input-wrap', { 'custom-error': (touched && error) ? true : false })}>
+	// <div className={cx('input-wrap', { 'custom-error': (touched && error) ? true : false })}>
+	<div className={cx('input-wrap', { 'custom-error': (touched && error) ? true : false },{ 'readonly-text': (isReadOnly) ? true : false } ) }>
 		<label>{label}</label>
 		{/* <input {...input} placeholder={placeholder} type={type} className={cx({ 'txt_error_div': (touched && error) ? true : false })} autoComplete="off" value={existValue} readOnly={isReadOnly} /> */}
 		<input {...input} placeholder={placeholder} type={type} className={cx({ 'txt_error_div': (touched && error) ? true : false })} autoComplete="off" readOnly={isReadOnly} />

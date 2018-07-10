@@ -51,6 +51,8 @@ const SocialDropdown = (props) => {
                 <DropdownItem onClick={() => { props.socialSelect('twitter') }} > Twitter </DropdownItem>
                 <DropdownItem onClick={() => { props.socialSelect('facebook') }} > Facebook </DropdownItem>
                 <DropdownItem onClick={() => { props.socialSelect('linkedin') }} > Linkedin </DropdownItem>
+                <DropdownItem onClick={() => { props.socialSelect('pinterest') }} > Pinterest </DropdownItem>
+                <DropdownItem onClick={() => { props.socialSelect('instagram') }} > Instagram </DropdownItem>
             </DropdownMenu>
         </Dropdown>
     );
@@ -189,6 +191,7 @@ class Stats extends Component {
         const { totalNoCompare, whichCompare, dispatch } = this.props;
         const { appliedFilter } = this.state;
         this.setState({ socialCurrentValue: socialName });
+        
         let arrayFilter2 = [{
             "start_date": moment(moment().format("YYYY-MM-DD")).subtract(this.state.monthCurrentValue, 'months').format('YYYY-MM-DD'),
             "end_date": moment().format("YYYY-MM-DD"),
@@ -321,7 +324,7 @@ class Stats extends Component {
             social_analytics: socialAnalyticsData,
         });
     }
-
+    
     render() {
         const { barChartData, isRender, social_analytics, likes_share_cmt, isRenderChart } = this.state;
         const { loading, analyticsData, socialAnalyticsData, totalNoCompare, whichCompare } = this.props;
