@@ -45,7 +45,7 @@ class HeaderAdmin extends Component {
             <div className="right-hdr d-flex">
                 <h2> {pg_name} </h2>
                 <div className="right-hdr-r">
-                    <div className="hdr-user ">
+                    <div className="hdr-user">
                         <Dropdown direction='down' isOpen={this.state.dropdownOpen}
                             toggle={this.toggle} >
                             <DropdownToggle caret>
@@ -64,7 +64,7 @@ class HeaderAdmin extends Component {
                                 {/* <DropdownItem divider /> */}
                                 <DropdownItem onClick={this.mylogout}>
                                     <i className="logout-icon"></i>
-                                    Logout
+                                    <a href="javascript:void(0)" className="cursor_pointer">Logout</a>
                                 </DropdownItem>
                             </DropdownMenu>
                         </Dropdown>
