@@ -42,7 +42,6 @@ class AfterRegister extends Component {
 
     submitForm(values, actionGenerator, props) {
         const { dispatch } = this.props;
-
         const formData = new FormData();
         formData.append("industry_category", values.industryName.value);
         formData.append("industry_description", values.description);

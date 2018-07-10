@@ -454,6 +454,7 @@ const actionMap = {
             (action['data']['changePass'] === false) ? resetObj['change_pass'] = {status: 0, message: null, error: null} : '';
             (action['data']['addBank'] === false) ? resetObj['addBank'] = resetDataVal : '';
             (action['data']['deleteBank'] === false) ? resetObj['deleteBank'] = resetDataVal : '';
+            (action['data']['wallet_withdraw'] === false) ? resetObj['wallet_withdraw'] = resetDataVal : '';
         }
         return state.merge(Map(resetObj));
     },

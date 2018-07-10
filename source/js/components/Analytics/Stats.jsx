@@ -179,7 +179,7 @@ class Stats extends Component {
         if (totalNoCompare == 2 && whichCompare.indexOf(2) > -1) {
             arrayFilter2[0].filter.splice(2, 1);
         }
-        if ((totalNoCompare == 2 || totalNoCompare == 3) && whichCompare.indexOf(3) > -1) {
+        if (totalNoCompare == 2 && whichCompare.indexOf(3) > -1) {
             arrayFilter2[0].filter.splice(1, 1);
         }
         this.setState({ isRender: 0 });
@@ -187,7 +187,6 @@ class Stats extends Component {
     }
 
     getDataSocialWise = (socialName) => {
-        console.log('Soc>>',socialName);
         const { totalNoCompare, whichCompare, dispatch } = this.props;
         const { appliedFilter } = this.state;
         this.setState({ socialCurrentValue: socialName });

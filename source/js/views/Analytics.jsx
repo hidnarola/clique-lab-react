@@ -437,11 +437,11 @@ class Analytics extends Component {
 
             isMoreFilterSelected: false,
             isAgeFilterSelected: false,
-            
+
             isGenderFilterSelected1: false,
             isGenderFilterSelected2: false,
             isGenderFilterSelected3: false,
-            
+
             isSortApply: false,
             isFilterApply: false,
 
@@ -704,7 +704,7 @@ class Analytics extends Component {
                     }]
                 }, this.afterRemoveCompare);
             }
-            this.setState({isAgeFilterApply1:true,age_filter_open:false});
+            this.setState({ isAgeFilterApply1: true, age_filter_open: false });
             // this.age_filter_toggle();
         } else if (totalNoCompare == 2) {
             let allSliders = filter2[0]['allSliders'];
@@ -731,7 +731,7 @@ class Analytics extends Component {
                     }]
                 }, this.afterRemoveCompare);
             }
-            this.setState({isAgeFilterApply2:true,age_filter_open2:false});
+            this.setState({ isAgeFilterApply2: true, age_filter_open2: false });
             // this.age_filter_toggle2();
         } else if (totalNoCompare == 3) {
             let allSliders = filter3[0]['allSliders'];
@@ -758,7 +758,7 @@ class Analytics extends Component {
                     }]
                 }, this.afterRemoveCompare);
             }
-            this.setState({isAgeFilterApply3:true,age_filter_open3:false});
+            this.setState({ isAgeFilterApply3: true, age_filter_open3: false });
             // this.age_filter_toggle3();
         }
     }
@@ -782,20 +782,20 @@ class Analytics extends Component {
             let stateAllDropDown = filter1[0].allDropDown;
 
             let gender = _.find(stateAllDropDown, function (o) { return o.dropdown == 'genderDrop'; });
-            
-            console.log("AllState>>",stateAllSliders);
+
+            console.log("AllState>>", stateAllSliders);
             // console.log("AllDrop>>",stateAllDropDown); // its not working now
-            
+
             let facebook = _.find(stateAllSliders, function (o) { return o.slider == 'facebook'; });
             let instagram = _.find(stateAllSliders, function (o) { return o.slider == 'instagram'; });
             let twitter = _.find(stateAllSliders, function (o) { return o.slider == 'twitter'; });
             let pinterest = _.find(stateAllSliders, function (o) { return o.slider == 'pinterest'; });
             let linkedin = _.find(stateAllSliders, function (o) { return o.slider == 'linkedin'; });
 
-            console.log("facebook>>",facebook);
-            
+            console.log("facebook>>", facebook);
+
             this.setState({
-                filter1:[
+                filter1: [
                     {
                         allDropDown: [
                             { 'dropdown': 'jobIndustryDrop', 'value': false },
@@ -836,7 +836,7 @@ class Analytics extends Component {
             let stateAllDropDown = filter2[0].allDropDown;
 
             let gender = _.find(stateAllDropDown, function (o) { return o.dropdown == 'genderDrop'; });
-         
+
             let facebook = _.find(stateAllSliders, function (o) { return o.slider == 'facebook'; });
             let instagram = _.find(stateAllSliders, function (o) { return o.slider == 'instagram'; });
             let twitter = _.find(stateAllSliders, function (o) { return o.slider == 'twitter'; });
@@ -844,7 +844,7 @@ class Analytics extends Component {
             let linkedin = _.find(stateAllSliders, function (o) { return o.slider == 'linkedin'; });
 
             this.setState({
-                filter2:[
+                filter2: [
                     {
                         allDropDown: [
                             { 'dropdown': 'jobIndustryDrop', 'value': false },
@@ -884,7 +884,7 @@ class Analytics extends Component {
             let stateAllDropDown = filter3[0].allDropDown;
 
             let gender = _.find(stateAllDropDown, function (o) { return o.dropdown == 'genderDrop'; });
-                        
+
             let facebook = _.find(stateAllSliders, function (o) { return o.slider == 'facebook'; });
             let instagram = _.find(stateAllSliders, function (o) { return o.slider == 'instagram'; });
             let twitter = _.find(stateAllSliders, function (o) { return o.slider == 'twitter'; });
@@ -892,7 +892,7 @@ class Analytics extends Component {
             let linkedin = _.find(stateAllSliders, function (o) { return o.slider == 'linkedin'; });
 
             this.setState({
-                filter3:[
+                filter3: [
                     {
                         allDropDown: [
                             { 'dropdown': 'jobIndustryDrop', 'value': false },
@@ -936,7 +936,7 @@ class Analytics extends Component {
         let stateAllSliders = filter1[0].allSliders;
         let stateAllDropDown = filter1[0].allDropDown;
 
-        let ageVal = _.find(stateAllSliders,function(o){ return o.slider == 'ageRange'; });
+        let ageVal = _.find(stateAllSliders, function (o) { return o.slider == 'ageRange'; });
         let gender = _.find(stateAllDropDown, function (o) { return o.dropdown == 'genderDrop'; });
 
         if (this.state.isMoreFilterApply !== true) {
@@ -977,9 +977,9 @@ class Analytics extends Component {
         let stateAllSliders = filter2[0].allSliders;
         let stateAllDropDown = filter2[0].allDropDown;
 
-        let ageVal = _.find(stateAllSliders,function(o){ return o.slider == 'ageRange'; });
+        let ageVal = _.find(stateAllSliders, function (o) { return o.slider == 'ageRange'; });
         let gender = _.find(stateAllDropDown, function (o) { return o.dropdown == 'genderDrop'; });
-        
+
         if (this.state.isMoreFilterApply !== true) {
             this.setState({
                 filter2: [
@@ -1017,7 +1017,7 @@ class Analytics extends Component {
         let stateAllSliders = filter3[0].allSliders;
         let stateAllDropDown = filter3[0].allDropDown;
 
-        let ageVal = _.find(stateAllSliders,function(o){ return o.slider == 'ageRange'; });
+        let ageVal = _.find(stateAllSliders, function (o) { return o.slider == 'ageRange'; });
         let gender = _.find(stateAllDropDown, function (o) { return o.dropdown == 'genderDrop'; });
 
         if (this.state.isMoreFilterApply !== true) {
@@ -1412,7 +1412,7 @@ class Analytics extends Component {
                                                     applyMoreFilter={() => { this.applyMoreFilter(1) }}
                                                     open={this.state.more_filter_open}
                                                     toggle={this.more_filter_toggle}
-                                                    // isMoreFilterApply={this.state.isMoreFilterApply}
+                                                // isMoreFilterApply={this.state.isMoreFilterApply}
                                                 />
                                             </li>
                                         </ul>
@@ -1447,7 +1447,7 @@ class Analytics extends Component {
                                                             isAgeFilterApply={this.state.isAgeFilterApply2}
                                                         />
                                                     </li>
-                                                    <li className="stats_filter_li2" className={cx('stats_filter_li2', { 'active': (this.state.isGenderFilterSelected2) ? true : false })}> 
+                                                    <li className="stats_filter_li2" className={cx('stats_filter_li2', { 'active': (this.state.isGenderFilterSelected2) ? true : false })}>
                                                         <ReactSelect
                                                             name="genderDrop"
                                                             value={allDropArr[0].filter2['gender'].value}
