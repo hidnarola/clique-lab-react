@@ -333,7 +333,27 @@ td.fc-widget-content{ border:0;}
     .social-dropdown .btn.btn-secondary,
     .social-dropdown .btn.btn-secondary:active{ background-color: transparent; color:#525f7f; font-weight:600; font-size: 13px; padding:0px; border:none}
     .social-dropdown .dropdown-menu:after{ right:10px !important; left :auto }
-    .right-box .social-dropdown .dropdown-menu{ left:-30px !important}
+    .right-box .social-dropdown .dropdown-menu{ left:-10px !important}
+    .right-box .social-dropdown .btn.btn-secondary label{min-width: 76px;}
+    .right-btm .social-dropdown .dropdown-menu {margin-top: 10px;}
+    .right-btm .social-dropdown .dropdown-menu {
+        margin-top: 10px;
+        width: 170px;
+        right: 50% !important;
+        margin-right: -85px;
+    }
+    .right-btm .social-dropdown .dropdown-menu:after {
+        right: 50% !important;
+        left: auto;
+        margin-right: -12px;
+    }
+    .databox-div.dashbord-post{height: 100%;}
+    .dashbord-post .databox-div-r h3 big{    white-space: nowrap;     text-overflow: ellipsis;   overflow: hidden;}
+    .dashbord-post .databox-div-r > p {
+        min-height: 60px;
+    }
+
+    
     .graph-img .y.axis,
     .graph-img .x.axis .tick line,
     .graph-img .x.axis path.domain {

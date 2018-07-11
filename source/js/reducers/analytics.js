@@ -29,6 +29,8 @@ const initialState = Map({
         status: 0,
         message: null,
         data: null,
+        loading:false,
+        total:0,
     }
 
 });
@@ -148,11 +150,13 @@ const actionMap = {
     [GET_DASHBOARD_REQUEST]: (state, action) => {
         return state.merge(Map({
             ...initialState,
-            loading: true,
+            // loading: true,
             dashboard: {
+                loading: true,
                 status: 0,
                 message: null,
                 data: null,
+                total:0,
             }
         }));
     },
@@ -160,11 +164,13 @@ const actionMap = {
     [GET_DASHBOARD_SUCCESS]: (state, action) => {
         return state.merge(Map({
             ...initialState,
-            loading: false,
+            // loading: false,
             dashboard: {
+                loading: false,
                 status: action.data.data.status,
                 message: action.data.data.message,
-                data: action.data.data.result,
+                data: action.data.data.results.posts,
+                total:action.data.data.results.total
             }
         }));
     },
@@ -175,9 +181,13 @@ const actionMap = {
         }
         return state.merge(Map({
             ...initialState,
-            loading: false,
+            // loading: false,
             error: error,
             status: 0,
+            dashboard:{
+                loading: false,
+                total:0,
+            }
         }));
     },
 

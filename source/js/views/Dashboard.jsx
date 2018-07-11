@@ -5,6 +5,7 @@ import img1 from "img/site/img-01.jpg";
 import img2 from "img/site/img-02.jpg";
 import img3 from "img/site/img-03.jpg";
 import img4 from "img/site/img-04.jpg";
+import Pagination from "react-js-pagination";
 import { getCheckoutList } from '../actions/Checkout';
 import { ToastContainer, toast, Slide } from 'react-toastify';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem, UncontrolledDropdown } from 'reactstrap';
@@ -13,6 +14,13 @@ import { getSocialAnalytics, getDashboard } from '../actions/analytics';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import cx from "classnames";
+import {Facebook} from 'react-content-loader';
+import { NavLink } from 'react-router-dom';
+import { routeCodes } from 'constants/routes';
+
+import { imgRoutes } from '../constants/img_path';
+import noCampaignImg from 'img/site/no_data/no_campaign.png';
+import nodataImg from 'img/site/no_data/04.png';
 
 
 /**
@@ -52,24 +60,45 @@ const SocialDropdown = (props) => {
                 <label style={{ "textTransform": "capitalize" }}>{props.currentValue} &nbsp; </label><i className="dropdown-arrow"></i>
             </DropdownToggle>
             <DropdownMenu>
-                <DropdownItem onClick={() => { props.socialSelect('twitter') }} > Twitter </DropdownItem>
                 <DropdownItem onClick={() => { props.socialSelect('facebook') }} > Facebook </DropdownItem>
+                <DropdownItem onClick={() => { props.socialSelect('twitter') }} > Twitter </DropdownItem>
                 <DropdownItem onClick={() => { props.socialSelect('linkedin') }} > Linkedin </DropdownItem>
+                <DropdownItem onClick={() => { props.socialSelect('instagram') }} > Instagram </DropdownItem>
+                <DropdownItem onClick={() => { props.socialSelect('pinterest') }} > Pinterest </DropdownItem>
             </DropdownMenu>
         </Dropdown>
     );
 }
 
 const MostDataDropdown = (props) => {
+
+    let title = '';
+    if(props.currentValue === 'no_of_likes')
+    {
+        title = 'Most Liked'
+    }
+    else if(props.currentValue === 'no_of_shares')
+    {
+        title = 'Most Shared'
+    }
+    else if(props.currentValue === 'no_of_comments')
+    {
+        title = 'Most Commented'
+    }
+    else if(props.currentValue === 'submission')
+    {
+        title = 'submission';
+    }
+
     return (
         <Dropdown isOpen={props.open} toggle={props.toggle}>
             <DropdownToggle>
-                <label style={{ "textTransform": "capitalize" }}>Posts {props.currentValue}</label><i className="dropdown-arrow"></i>
+                <label style={{ "textTransform": "capitalize" }}>Posts {title}</label><i className="dropdown-arrow"></i>
             </DropdownToggle>
-            <DropdownMenu>
-                <DropdownItem onClick={() => { props.dashboardDataSelect('most liked') }} > Most Liked </DropdownItem>
-                <DropdownItem onClick={() => { props.dashboardDataSelect('most shared') }} > Most Shared </DropdownItem>
-                <DropdownItem onClick={() => { props.dashboardDataSelect('most comment') }} > Most Commented </DropdownItem>
+            <DropdownMenu right>
+                <DropdownItem onClick={() => { props.dashboardDataSelect('no_of_likes') }} > Most Liked </DropdownItem>
+                <DropdownItem onClick={() => { props.dashboardDataSelect('no_of_shares') }} > Most Shared </DropdownItem>
+                <DropdownItem onClick={() => { props.dashboardDataSelect('no_of_comments') }} > Most Commented </DropdownItem>
                 <DropdownItem onClick={() => { props.dashboardDataSelect('submission') }} > Submissions </DropdownItem>
             </DropdownMenu>
         </Dropdown>
@@ -127,18 +156,22 @@ class Dashboard extends Component {
             barChartData: null,
 
             monthCurrentValue: 3,
-            socialCurrentValue: 'twitter',
+            // socialCurrentValue: 'twitter',
+            socialCurrentValue: 'facebook',
             likes_share_cmt: 'likes',
 
-            dashboardCurrentValue: 'most like',
+            dashboardCurrentValue: 'no_of_likes',
 
             isRender: 0,
             isRenderChart: false,
 
             timing_open: false,
             social_open: false,
-            dashboard_open: false
+            dashboard_open: false,
+            activePage:1,
         }
+
+        this.handlePageChange = this.handlePageChange.bind(this)
     }
 
     timing_toggle = () => { this.setState({ timing_open: !this.state.timing_open }); }
@@ -155,12 +188,23 @@ class Dashboard extends Component {
                 []
             ]
         }];
+
+
+        let dashboardFilter = [{
+            "start_date": moment(moment().format("YYYY-MM-DD")).subtract(3, 'months').format('YYYY-MM-DD'),
+            "end_date": moment().format("YYYY-MM-DD"),
+            "social_media_platform": "facebook",
+            "page_size": 4,
+            "page_no": 1
+        }]
+
+
         this.setState({ isRender: 1 });
         dispatch(getCheckoutList());
         toast.dismiss(this.toastId);
         dispatch(getSocialAnalytics(arrayFilter));
 
-        // dispatch(getDashboard('pass filter here'))
+        dispatch(getDashboard(dashboardFilter)); // Dashboard
     }
 
     componentDidUpdate() {
@@ -217,6 +261,8 @@ class Dashboard extends Component {
         }];
         this.setState({ isRender: 1 });
         dispatch(getSocialAnalytics(arrayFilter));
+
+        // dispatch(getDashboard('pass filter here')) Dashboard
     }
     getDataSocialWise = (socialName) => {
         const { dispatch } = this.props;
@@ -228,20 +274,116 @@ class Dashboard extends Component {
                 []
             ]
         }];
+
+        let dashboardFilter = [{
+            "start_date": moment(moment().format("YYYY-MM-DD")).subtract(3, 'months').format('YYYY-MM-DD'),
+            "end_date": moment().format("YYYY-MM-DD"),
+            "social_media_platform": socialName,
+            "page_size": 4,
+            "page_no": 1
+        }]
+
         dispatch(getSocialAnalytics(arrayFilter));
+
+        dispatch(getDashboard(dashboardFilter)); // Dashboard
+
         this.setState({ isRender: 1, socialCurrentValue: socialName });
     }
     /****************   End : Dashboard Graph    ****************/
 
+
+
+
     /** ************ Start : Dashborad Bottom ******* */
 
     getDashboardDataSelect = (dashbordValue) => {
+        const {dispatch} = this.props;
+        const {socialCurrentValue} = this.state;
+        let dashboardFilter = [{
+            "start_date": moment(moment().format("YYYY-MM-DD")).subtract(3, 'months').format('YYYY-MM-DD'),
+            "end_date": moment().format("YYYY-MM-DD"),
+            "social_media_platform": socialCurrentValue,
+            "page_size": 4,
+            "page_no": 1,
+            "sort": [{ "field":dashbordValue , "value": -1}]
+        }]
+
         this.setState({ dashboardCurrentValue: dashbordValue });
+        dispatch(getDashboard(dashboardFilter)); // Dashboard
+    }
+
+    handlePageChange(pageNumber) {
+        this.setState({ activePage: pageNumber });
+        const {socialCurrentValue} = this.state;
+
+        if (pageNumber !== this.state.activePage) {
+
+            let dashboardFilter = [{
+                "start_date": moment(moment().format("YYYY-MM-DD")).subtract(3, 'months').format('YYYY-MM-DD'),
+                "end_date": moment().format("YYYY-MM-DD"),
+                "social_media_platform": socialCurrentValue,
+                "page_size": 4,
+                "page_no": pageNumber
+            }]
+            dispatch(getDashboard(dashboardFilter));
+        }
+    }
+
+    // Display post on dashboard
+    renderPost = (obj, index) => {
+        let post_img = '';
+        if (obj.type === 'applied_post') {
+            if (obj.image === undefined) {
+                post_img = noCampaignImg;
+            }
+            else {
+                post_img = imgRoutes.CAMPAIGN_POST_IMG_PATH + obj.image
+            }
+        }
+        else if (obj.type === 'inspired_post') {
+            if (obj.image === undefined) {
+                post_img = noCampaignImg;
+            }
+            else {
+                post_img = imgRoutes.CAMPAIGN_INSPIRED_IMG_PATH + obj.image
+            }
+        }
+        return (
+            <li key={index}>
+                <div className="databox-div d-flex dashbord-post">
+                    {/* <div className="databox-div-l"><img src={post_img} alt="" /></div> */}
+                    <div className="databox-div-l" style={{ "background": "url('" + post_img + "') no-repeat center", "backgroundSize": "cover"}}></div>
+                    <div className="databox-div-r">
+                        <h3>
+                            <big>{obj.campaign_name}</big>
+                            <small>{obj.user.name}</small>
+                        </h3>
+                        {/* <p>I love the <a href="javascript:void(0)">@thegrocer</a> new dress range! Make life just that bit more bearable! <a href="javascript:void(0)">#thegrocer</a> <a href="javascript:void(0)">#warmsundays</a> <a href="javascript:void(0)">#sponsored</a></p> */}
+                        <p>{ (obj.description.length > 60) ? obj.description.substring(0,60) + '...' : obj.description}</p>
+                        <div className="databox-div-r-btm d-flex">
+                            <h5>
+                                <big>{obj.no_of_likes}</big>
+                                <small>Likes</small>
+                            </h5>
+                            <h5>
+                                <big>{obj.no_of_shares}</big>
+                                <small>shares</small>
+                            </h5>
+                            <h5>
+                                <big>{obj.no_of_comments}</big>
+                                <small>Comments</small>
+                            </h5>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        )
     }
 
     render() {
         const { barChartData, isRender, social_analytics, likes_share_cmt, isRenderChart } = this.state;
-        const { loading, socialAnalyticsData } = this.props;
+        const { loading, dbloading,socialAnalyticsData, dashboard_data } = this.props;
+    
         let monthArr = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
         return (
             <div className='dashboard-page'>
@@ -307,122 +449,39 @@ class Dashboard extends Component {
                             />
                         </div>
                         <div className="view-all">
-                            <a href="javascript:void(0)"> View All <i></i> </a>
+                            <a href="javascript:void(0)"><NavLink to={routeCodes.CAMPAIGN_ACTIVE}>View All</NavLink> <i></i> </a>
                         </div>
                     </div>
                     <div className="right-box-btm-content d-flex">
                         <div className="data-box">
                             <ul className="d-flex">
-                                <li>
-                                    <div className="databox-div d-flex">
-                                        <div className="databox-div-l"><img src={img1} alt="" /></div>
-                                        <div className="databox-div-r">
-                                            <h3>
-                                                <big>LinkedIn Campaign</big>
-                                                <small>John Doe</small>
-                                            </h3>
-                                            <p>I love the <a href="javascript:void(0)">@thegrocer</a> new dress range! Make life just that bit more bearable! <a href="javascript:void(0)">#thegrocer</a> <a href="javascript:void(0)">#warmsundays</a> <a href="javascript:void(0)">#sponsored</a></p>
-                                            <div className="databox-div-r-btm d-flex">
-                                                <h5>
-                                                    <big>335</big>
-                                                    <small>Likes</small>
-                                                </h5>
-                                                <h5>
-                                                    <big>31</big>
-                                                    <small>shares</small>
-                                                </h5>
-                                                <h5>
-                                                    <big>36</big>
-                                                    <small>Comments</small>
-                                                </h5>
+                                {
+                                    (dbloading) ?
+                                        <li>
+                                            <div className="databox-div d-flex">
+                                                {/* <Facebook /> */}
                                             </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div className="databox-div d-flex">
-                                        <div className="databox-div-l"><img src={img2} alt="" /></div>
-                                        <div className="databox-div-r">
-                                            <h3>
-                                                <big>Facebook Campaign</big>
-                                                <small>John Doe</small>
-                                            </h3>
-                                            <p>I love the <a href="javascript:void(0)">@thegrocer</a> new dress range! Make life just that bit more bearable! <a href="javascript:void(0)">#thegrocer</a> <a href="javascript:void(0)">#warmsundays</a> <a href="javascript:void(0)">#sponsored</a></p>
-                                            <div className="databox-div-r-btm d-flex">
-                                                <h5>
-                                                    <big>335</big>
-                                                    <small>Likes</small>
-                                                </h5>
-                                                <h5>
-                                                    <big>31</big>
-                                                    <small>shares</small>
-                                                </h5>
-                                                <h5>
-                                                    <big>36</big>
-                                                    <small>Comments</small>
-                                                </h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div className="databox-div d-flex">
-                                        <div className="databox-div-l"><img src={img3} alt="" /></div>
-                                        <div className="databox-div-r">
-                                            <h3>
-                                                <big>Facebook Campaign</big>
-                                                <small>John Doe</small>
-                                            </h3>
-                                            <p>I love the <a href="javascript:void(0)">@thegrocer</a> new dress range! Make life just that bit more bearable! <a href="javascript:void(0)">#thegrocer</a> <a href="javascript:void(0)">#warmsundays</a> <a href="javascript:void(0)">#sponsored</a></p>
-                                            <div className="databox-div-r-btm d-flex">
-                                                <h5>
-                                                    <big>335</big>
-                                                    <small>Likes</small>
-                                                </h5>
-                                                <h5>
-                                                    <big>31</big>
-                                                    <small>shares</small>
-                                                </h5>
-                                                <h5>
-                                                    <big>36</big>
-                                                    <small>Comments</small>
-                                                </h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div className="databox-div d-flex">
-                                        <div className="databox-div-l"><img src={img4} alt="" /></div>
-                                        <div className="databox-div-r">
-                                            <h3>
-                                                <big>LinkedIn Campaign</big>
-                                                <small>John Doe</small>
-                                            </h3>
-                                            <p>I love the <a href="javascript:void(0)">@thegrocer</a> new dress range! Make life just that bit more bearable! <a href="javascript:void(0)">#thegrocer</a> <a href="javascript:void(0)">#warmsundays</a> <a href="javascript:void(0)">#sponsored</a></p>
-                                            <div className="databox-div-r-btm d-flex">
-                                                <h5>
-                                                    <big>335</big>
-                                                    <small>Likes</small>
-                                                </h5>
-                                                <h5>
-                                                    <big>31</big>
-                                                    <small>shares</small>
-                                                </h5>
-                                                <h5>
-                                                    <big>36</big>
-                                                    <small>Comments</small>
-                                                </h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
+                                        </li>
+                                        :
+                                        (dashboard_data.data !== null && dashboard_data.total > 0) ? dashboard_data.data.map((obj, index) => this.renderPost(obj, index))
+                                            : <h4 style={{ "fontSize": "30px", "fontWeight": "600", "color": "rgb(103, 114, 230)" }}>No Post Available</h4>
+                                }
                             </ul>
                         </div>
+
+                        {/* {(
+                            dashboard_data.data !== null && dashboard_data.total > 4 && <Pagination
+                            activePage={this.state.activePage}
+                            itemsCountPerPage={4} // 12
+                            totalItemsCount={dashboard_data.total}
+                            // pageRangeDisplayed={5}
+                            onChange={this.handlePageChange}
+                        />
+                        )} */}
+
+
                     </div>
-
                 </div>
-
             </div>
         );
     }
@@ -437,6 +496,7 @@ const mapStateToProps = (state) => {
         social_analytics_data: analytics.get('social_analytics'),
 
         dashboard_data: analytics.get('dashboard'),
+        dbloading:analytics.get('dashboard').loading,
     }
 }
 export default connect(mapStateToProps)(Dashboard)
