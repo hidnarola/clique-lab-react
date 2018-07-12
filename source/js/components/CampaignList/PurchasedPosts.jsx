@@ -140,16 +140,24 @@ class AddToModal extends Component {
 }
 
 const PlusAction = (props) => {
+    var objData = props.objData;
     return (
         <UncontrolledDropdown className="festival-ftr-r dropdown">
             <DropdownToggle>
                 <a className="cursor_pointer"><img src={imgPlus} alt="" /></a>
             </DropdownToggle>
-            <DropdownMenu className="dropdown-menu dropdown-menu-right">
-                <a className="dropdown-item" href="javascript:void(0)" onClick={() => { props.downloadPost(); }} >Download</a>
-                <a className="dropdown-item" href="javascript:void(0)" onClick={() => { props.addGroup(); }} >Add user to Group</a>
-                <a className="dropdown-item" href="javascript:void(0)" onClick={() => { props.addCampaign(); }} >Add user to Campaign</a>
-            </DropdownMenu>
+            {
+                (objData.user.removed==false && objData.user.status==true) ?
+                    <DropdownMenu className="dropdown-menu dropdown-menu-right">
+                        <a className="dropdown-item" href="javascript:void(0)" onClick={() => { props.downloadPost(); }} >Download</a>
+                        <a className="dropdown-item" href="javascript:void(0)" onClick={() => { props.addGroup(); }} >Add user to Group</a>
+                        <a className="dropdown-item" href="javascript:void(0)" onClick={() => { props.addCampaign(); }} >Add user to Campaign</a>
+                    </DropdownMenu>
+                    :
+                    <DropdownMenu className="dropdown-menu dropdown-menu-right">
+                        <a className="dropdown-item" href="javascript:void(0)" onClick={() => { props.downloadPost(); }} >Download</a>
+                    </DropdownMenu>
+            }
         </UncontrolledDropdown>
     );
 }

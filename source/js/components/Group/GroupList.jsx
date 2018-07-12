@@ -181,16 +181,16 @@ class GroupList extends Component {
             groupId: '',
             isPluseClick: false,
             sort_wise_pagination: '',
-            load:false,
+            load: false,
 
             messagePopup: false,
             messagePopupSuccessMsg: null,
             messagePopupErrorMsg: null,
 
-            namewise:'1',
-            datewise:'-1',
-            powerwise:'-1',
-            
+            namewise: '1',
+            datewise: '-1',
+            powerwise: '-1',
+
 
         };
 
@@ -201,7 +201,7 @@ class GroupList extends Component {
     }
 
     componentWillMount() {
-        const { dispatch,loading } = this.props;
+        const { dispatch, loading } = this.props;
         dispatch(getGroups({ "page_size": 12, "page_no": 1 }));
     }
 
@@ -238,18 +238,15 @@ class GroupList extends Component {
         const { activePage, sort_wise_pagination } = this.state;
 
         let selected_value;
-    
-        if(sort_wise_pagination.value === 'sort_by_name')
-        {
+
+        if (sort_wise_pagination.value === 'sort_by_name') {
             selected_value = 1;
         }
-        else if(sort_wise_pagination.value === 'sort_by_date')
-        {
+        else if (sort_wise_pagination.value === 'sort_by_date') {
             selected_value = -1;
         }
-        else if(sort_wise_pagination.value === 'sort_by_power')
-        {
-            selected_value = -1; 
+        else if (sort_wise_pagination.value === 'sort_by_power') {
+            selected_value = -1;
         }
 
 
@@ -275,23 +272,21 @@ class GroupList extends Component {
     handleSorting = (selectedOption) => {
         const { dispatch } = this.props;
         const { activePage } = this.state;
+        if (selectedOption === null) {
+            selectedOption = { value: "sort_by_name", label: "Sort By Name", column: "name" }
+        }
         this.setState({ sort_wise_pagination: selectedOption });
         let selected_value;
 
-        if(selectedOption.value === 'sort_by_name')
-        {
+        if (selectedOption.value === 'sort_by_name') {
             selected_value = 1;
-        }
-        else if(selectedOption.value === 'sort_by_date')
-        {
+        } else if (selectedOption.value === 'sort_by_date') {
             selected_value = -1;
-            
+
+        } else if (selectedOption.value === 'sort_by_power') {
+            selected_value = -1;
         }
-        else if(selectedOption.value === 'sort_by_power')
-        {
-            selected_value = -1; 
-        }
-        
+
         let newVar = {
             // "sort": [{ "field": selectedOption.column, "value": parseInt(selectedOption.value) }],
             "sort": [{ "field": selectedOption.column, "value": parseInt(selected_value) }],
@@ -299,7 +294,6 @@ class GroupList extends Component {
             "page_no": 1
         }
         this.setState({ activePage: 1 });
-
         dispatch(getGroups(newVar));
     }
 
@@ -310,7 +304,7 @@ class GroupList extends Component {
     }
 
     componentDidUpdate() {
-        let { showDrop, userAdded, inserted_group, dispatch, group_status,error } = this.props;
+        let { showDrop, userAdded, inserted_group, dispatch, group_status, error } = this.props;
         let { is_inserted, activePage } = this.state;
 
         if (showDrop) {
@@ -335,60 +329,60 @@ class GroupList extends Component {
             this.messagePopupToggle();
             dispatch(resetVal({ 'userAdded': false }));
             dispatch(resetGroupVal());
-        } 
-    
+        }
+
     }
 
     addCampaign = (obj) => {
-        const { dispatch,loading } = this.props;
-        this.setState({ 
+        const { dispatch, loading } = this.props;
+        this.setState({
             groupId: obj._id,
-            isPluseClick: true 
+            isPluseClick: true
         });
-        this.setState({load:true},()=>{
-            setTimeout(()=>{
-                this.setState({load:false})
-            },300);
+        this.setState({ load: true }, () => {
+            setTimeout(() => {
+                this.setState({ load: false })
+            }, 300);
         });
         this.child.setSaveFor('add_to_campaign', null);
-        if(obj.total_member > 0) {
+        if (obj.total_member > 0) {
             dispatch(fetchDropDownReq({ "sendReqFor": "add_to_campaign" }));
         }
 
         setTimeout(() => {
 
-                if(obj.total_member < 1 &&  this.props.dropdownList === null){
-                    //alert('You don’t have members in group yet.')
-                    this.setState({
-                        messagePopupSuccessMsg: null,
-                        messagePopupErrorMsg: 'You don’t have members in group yet.'
-                    });
-                    this.messagePopupToggle();
+            if (obj.total_member < 1 && this.props.dropdownList === null) {
+                //alert('You don’t have members in group yet.')
+                this.setState({
+                    messagePopupSuccessMsg: null,
+                    messagePopupErrorMsg: 'You don’t have members in group yet.'
+                });
+                this.messagePopupToggle();
 
-                } else if(obj.total_member < 1) {
-                    //alert('You don’t have members in group yet.')
-                    this.setState({
-                        messagePopupSuccessMsg: null,
-                        messagePopupErrorMsg: 'You don’t have members in group yet.'
-                    });
-                    this.messagePopupToggle();
+            } else if (obj.total_member < 1) {
+                //alert('You don’t have members in group yet.')
+                this.setState({
+                    messagePopupSuccessMsg: null,
+                    messagePopupErrorMsg: 'You don’t have members in group yet.'
+                });
+                this.messagePopupToggle();
 
-                } else if(this.props.dropdownList === null && this.props.loading === false && obj.total_member < 1 ) {
-                    //alert('You don’t have a campaign yet.')
-                    this.setState({
-                        messagePopupSuccessMsg: null,
-                        messagePopupErrorMsg: 'You don’t have a campaign yet.'
-                    });
-                    this.messagePopupToggle();
-                }
-            },300) //1500
-            
+            } else if (this.props.dropdownList === null && this.props.loading === false && obj.total_member < 1) {
+                //alert('You don’t have a campaign yet.')
+                this.setState({
+                    messagePopupSuccessMsg: null,
+                    messagePopupErrorMsg: 'You don’t have a campaign yet.'
+                });
+                this.messagePopupToggle();
+            }
+        }, 300) //1500
+
 
     }
 
     saveResult = (param1, param2, param3, param4, param5) => {
         let data = {
-            param1:'add_to_campaign', // add by dm  #default param1 itself
+            param1: 'add_to_campaign', // add by dm  #default param1 itself
             param2,
             param3,
             param4,
@@ -398,13 +392,13 @@ class GroupList extends Component {
         dispatch(addUserReq(data))
     }
 
-    renderLi = (obj,index) => {
+    renderLi = (obj, index) => {
         return (
             // <li key={Math.random()}>
             <li key={index}>
                 <div className="all-people-div">
                     <div className="all-people-img">
-                        <div className="cursor_pointer" onClick={() => this.props.history.push(`${routeCodes.LISTGROUPS}/${obj._id}/members`)} style={{ "background": "url('" + imgRoutes.GROUP_IMG_PATH+'/'+obj.image + "') no-repeat 100%", "backgroundSize": "100%", "height": "190px" }}></div>
+                        <div className="cursor_pointer" onClick={() => this.props.history.push(`${routeCodes.LISTGROUPS}/${obj._id}/members`)} style={{ "background": "url('" + imgRoutes.GROUP_IMG_PATH + '/' + obj.image + "') no-repeat 100%", "backgroundSize": "100%", "height": "190px" }}></div>
                         <div className="plus-people dropdown">
                             <PlusAction
                                 addCampaign={() => { this.addCampaign(obj) }}
@@ -429,11 +423,11 @@ class GroupList extends Component {
     }
 
     render() {
-        let { groups, totalGrps, loading, dropdownList ,loading2} = this.props
+        let { groups, totalGrps, loading, dropdownList, loading2 } = this.props
         const { selectedOption, sort_wise_pagination } = this.state;
-        const { namewise,datewise,powerwise} = this.state;  
+        const { namewise, datewise, powerwise } = this.state;
         const value = selectedOption && selectedOption.value;
-        if (loading || this.state.load === true)  {
+        if (loading || this.state.load === true) {
             return (
                 <div className="loader"></div>
             )
@@ -465,7 +459,7 @@ class GroupList extends Component {
                                         options={[
                                             { value: 'sort_by_name', label: 'Sort By Name', column: 'name' },
                                             { value: 'sort_by_date', label: 'Sort By Date', column: 'created_at' },
-                                            { value: 'sort_by_power', label: 'Sort By Power',column: 'social_power' },
+                                            { value: 'sort_by_power', label: 'Sort By Power', column: 'social_power' },
                                         ]}
                                     />
                                 )}
@@ -482,7 +476,7 @@ class GroupList extends Component {
                 <div className="every-people">
                     <div className="all-people">
                         <ul className="all-people-ul d-flex">
-                            {(groups !== null) ? groups.map((obj, index) => (this.renderLi(obj,index))) : <div className="no_data_found"><img src={nodataImg} /> <p>No groups available.</p></div>}
+                            {(groups !== null) ? groups.map((obj, index) => (this.renderLi(obj, index))) : <div className="no_data_found"><img src={nodataImg} /> <p>No groups available.</p></div>}
                         </ul>
                     </div>
                     {(
