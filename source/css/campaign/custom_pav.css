@@ -559,6 +559,7 @@ tr.order_cart td img {margin-top:-10px}
 .stats_filter_li3 .dropdown .dropdown-toggle{ white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 115px;}
 .stats_filter_li3 a{ font-size: 13px !important; line-height: 20px !important; font-weight: 600 !important; border-radius: 3px !important; }
 .stats_filter_li4 .dropdown-menu:after{ left:332px !important; }
+.first_filter .stats_filter_li4 .dropdown-menu:after,.second_filter .stats_filter_li4 .dropdown-menu:after,.third_filter .stats_filter_li4 .dropdown-menu:after{    left: 312px !important;}
 .stats_filter_li4 .Select-control{ border: 2px solid #b5b7be47 !important; }
 .stats_filter_li4 .Select-placeholder{ color: rgba(181, 183, 190,0.6) !important }
 .add_all_results_dropdown .dropdown-menu { padding:10px !important; top:5px !important; left:-9px !important;}
@@ -601,8 +602,9 @@ tr.order_cart td img {margin-top:-10px}
 
 
 /* --------location css --------*/
-.everypeole-head ul li.location_2 a:hover{ background: #83bff7 !important }
-.everypeole-head ul li.location_3 a:hover { background:#f783c3 !important }
+.everypeole-head ul li.location_2 a:hover,.everypeole-head ul.second_filter li button.btn-secondary:hover , .everypeole-head ul.second_filter .Select-control:hover,.everypeole-head ul.second_filter .active .Select-control:hover{ background: #83bff7 !important;  border: 2px solid #83bff7 !important; }
+.everypeole-head ul li.location_3 a:hover,.everypeole-head ul.third_filter li button.btn-secondary:hover , .everypeole-head ul.third_filter .active .Select-control:hover{ background:#f783c3 !important; border: 2px solid #f783c3 !important; }
+
 /*---------------------------*/
 
 /*------------ hover effect 2 -------*/
