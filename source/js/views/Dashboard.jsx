@@ -14,7 +14,7 @@ import { getSocialAnalytics, getDashboard } from '../actions/analytics';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import cx from "classnames";
-import {Facebook} from 'react-content-loader';
+import {Facebook,Code} from 'react-content-loader';
 import { NavLink } from 'react-router-dom';
 import { routeCodes } from 'constants/routes';
 
@@ -62,8 +62,8 @@ const SocialDropdown = (props) => {
             <DropdownMenu>
                 <DropdownItem onClick={() => { props.socialSelect('facebook') }} > Facebook </DropdownItem>
                 <DropdownItem onClick={() => { props.socialSelect('twitter') }} > Twitter </DropdownItem>
-                <DropdownItem onClick={() => { props.socialSelect('linkedin') }} > Linkedin </DropdownItem>
-                <DropdownItem onClick={() => { props.socialSelect('instagram') }} > Instagram </DropdownItem>
+                {/* <DropdownItem onClick={() => { props.socialSelect('linkedin') }} > Linkedin </DropdownItem>
+                <DropdownItem onClick={() => { props.socialSelect('instagram') }} > Instagram </DropdownItem> */}
                 <DropdownItem onClick={() => { props.socialSelect('pinterest') }} > Pinterest </DropdownItem>
             </DropdownMenu>
         </Dropdown>
@@ -73,24 +73,52 @@ const SocialDropdown = (props) => {
 const MostDataDropdown = (props) => {
 
     let title = '';
-    if(props.currentValue === 'no_of_likes')
-    {
-        title = 'Most Liked'
-    }
-    else if(props.currentValue === 'no_of_shares')
-    {
-        title = 'Most Shared'
-    }
-    else if(props.currentValue === 'no_of_comments')
-    {
-        title = 'Most Commented'
-    }
-    else if(props.currentValue === 'submission')
-    {
-        title = 'submission';
-    }
 
-    return (
+    if(props.socialCurrentValue === 'facebook')
+    {
+        if(props.currentValue === 'no_of_likes')
+        {
+            title = 'Most Liked'
+        }
+        else if(props.currentValue === 'no_of_shares')
+        {
+            title = 'Most Shared'
+        }
+        else if(props.currentValue === 'no_of_comments')
+        {
+            title = 'Most Commented'
+        }
+        else if(props.currentValue === 'submission')
+        {
+            title = 'submission';
+        }
+    }
+    else if(props.socialCurrentValue === 'twitter')
+    {
+        if(props.currentValue === 'no_of_likes')
+        {
+            title = 'Most Favorite'
+        }
+        else if(props.currentValue === 'no_of_shares')
+        {
+            title = 'Most Retweet'
+        }
+    }
+    else if(props.socialCurrentValue === 'pinterest')
+    {
+        if(props.currentValue === 'no_of_comments')
+        {
+            title = 'Most Comment'
+        }
+        else if(props.currentValue === 'no_of_shares')
+        {
+            title = 'Most Save'
+        }
+    }
+    else{}
+    
+    return (    
+        (props.socialCurrentValue === 'facebook') ?
         <Dropdown isOpen={props.open} toggle={props.toggle}>
             <DropdownToggle>
                 <label style={{ "textTransform": "capitalize" }}>Posts {title}</label><i className="dropdown-arrow"></i>
@@ -102,6 +130,28 @@ const MostDataDropdown = (props) => {
                 <DropdownItem onClick={() => { props.dashboardDataSelect('submission') }} > Submissions </DropdownItem>
             </DropdownMenu>
         </Dropdown>
+        :(props.socialCurrentValue === 'twitter') ?
+        <Dropdown isOpen={props.open} toggle={props.toggle}>
+            <DropdownToggle>
+                <label style={{ "textTransform": "capitalize" }}>Posts {title}</label><i className="dropdown-arrow"></i>
+            </DropdownToggle>
+            <DropdownMenu right>
+                <DropdownItem onClick={() => { props.dashboardDataSelect('no_of_likes') }} > Most Favorite </DropdownItem>
+                <DropdownItem onClick={() => { props.dashboardDataSelect('no_of_shares') }} > Most Retweet </DropdownItem>
+            </DropdownMenu>
+        </Dropdown>
+        :(props.socialCurrentValue === 'pinterest') ?
+        <Dropdown isOpen={props.open} toggle={props.toggle}>
+            <DropdownToggle>
+                <label style={{ "textTransform": "capitalize" }}>Posts {title}</label><i className="dropdown-arrow"></i>
+            </DropdownToggle>
+            <DropdownMenu right>
+                <DropdownItem onClick={() => { props.dashboardDataSelect('no_of_comments') }} > Most Comment </DropdownItem>
+                <DropdownItem onClick={() => { props.dashboardDataSelect('no_of_shares') }} > Most Save </DropdownItem>
+            </DropdownMenu>
+        </Dropdown>
+        :
+        '' 
     );
 }
 
@@ -171,7 +221,7 @@ class Dashboard extends Component {
             activePage:1,
         }
 
-        this.handlePageChange = this.handlePageChange.bind(this)
+        
     }
 
     timing_toggle = () => { this.setState({ timing_open: !this.state.timing_open }); }
@@ -180,24 +230,36 @@ class Dashboard extends Component {
 
     componentWillMount = () => {
         const { dispatch } = this.props;
+
+        //
+        const {socialCurrentValue,dashboardCurrentValue} = this.state;
+        if(socialCurrentValue === 'facebook' || socialCurrentValue === 'twitter')
+        {
+            this.setState({dashboardCurrentValue:'no_of_likes'});
+        }
+        else if(socialCurrentValue === 'pinterest')
+        {
+            this.setState({dashboardCurrentValue:'no_of_comments'});
+        }
+
         let arrayFilter = [{
             "start_date": moment(moment().format("YYYY-MM-DD")).subtract(3, 'months').format('YYYY-MM-DD'),
             "end_date": moment().format("YYYY-MM-DD"),
-            "social_media_platform": "twitter",
+            "social_media_platform": "facebook",
             "filter": [
                 []
             ]
         }];
-
 
         let dashboardFilter = [{
             "start_date": moment(moment().format("YYYY-MM-DD")).subtract(3, 'months').format('YYYY-MM-DD'),
             "end_date": moment().format("YYYY-MM-DD"),
             "social_media_platform": "facebook",
             "page_size": 4,
-            "page_no": 1
+            "page_no": 1,
+            "sort": [{ "field":this.state.dashboardCurrentValue , "value": -1}] //
+            // "sort": [{ "field":'no_of_likes' , "value": -1}] //
         }]
-
 
         this.setState({ isRender: 1 });
         dispatch(getCheckoutList());
@@ -262,10 +324,43 @@ class Dashboard extends Component {
         this.setState({ isRender: 1 });
         dispatch(getSocialAnalytics(arrayFilter));
 
-        // dispatch(getDashboard('pass filter here')) Dashboard
+        if(socialCurrentValue === 'facebook' || socialCurrentValue === 'twitter')
+        {
+            this.setState({dashboardCurrentValue:'no_of_likes'});
+        }
+        else if(socialCurrentValue === 'pinterest')
+        {
+            this.setState({dashboardCurrentValue:'no_of_comments'});
+        }
+
+        let dashboardFilter = [{
+            "start_date": start_date,
+            "end_date": end_date,
+            "social_media_platform": socialCurrentValue,
+            "page_size": 4,
+            "page_no": 1,
+            "sort": [{ "field":this.state.dashboardCurrentValue , "value": -1}] //
+            // "sort": [{ "field":'no_of_likes' , "value": -1}] //
+
+        }]
+
+        // this.setState({socialCurrentValue:socialCurrentValue});
+        dispatch(getDashboard(dashboardFilter)); //Dashboard
+
     }
+
     getDataSocialWise = (socialName) => {
         const { dispatch } = this.props;
+         //
+         if(socialName === 'facebook' || socialName === 'twitter')
+         {
+             this.setState({dashboardCurrentValue:'no_of_likes'});
+         }
+         else if(socialName === 'pinterest')
+         {
+             this.setState({dashboardCurrentValue:'no_of_comments'});
+         }
+
         let arrayFilter = [{
             "start_date": moment(moment().format("YYYY-MM-DD")).subtract(this.state.monthCurrentValue, 'months').format('YYYY-MM-DD'),
             "end_date": moment().format("YYYY-MM-DD"),
@@ -276,11 +371,15 @@ class Dashboard extends Component {
         }];
 
         let dashboardFilter = [{
-            "start_date": moment(moment().format("YYYY-MM-DD")).subtract(3, 'months').format('YYYY-MM-DD'),
+            // "start_date": moment(moment().format("YYYY-MM-DD")).subtract(3, 'months').format('YYYY-MM-DD'),
+            "start_date": moment(moment().format("YYYY-MM-DD")).subtract(this.state.monthCurrentValue, 'months').format('YYYY-MM-DD'),
             "end_date": moment().format("YYYY-MM-DD"),
             "social_media_platform": socialName,
             "page_size": 4,
-            "page_no": 1
+            "page_no": 1,
+            "sort": [{ "field":this.state.dashboardCurrentValue , "value": -1}] //
+            // "sort": [{ "field":'no_of_likes' , "value": -1}] //
+
         }]
 
         dispatch(getSocialAnalytics(arrayFilter));
@@ -291,16 +390,13 @@ class Dashboard extends Component {
     }
     /****************   End : Dashboard Graph    ****************/
 
-
-
-
     /** ************ Start : Dashborad Bottom ******* */
 
     getDashboardDataSelect = (dashbordValue) => {
         const {dispatch} = this.props;
-        const {socialCurrentValue} = this.state;
+        const {socialCurrentValue,monthCurrentValue} = this.state;
         let dashboardFilter = [{
-            "start_date": moment(moment().format("YYYY-MM-DD")).subtract(3, 'months').format('YYYY-MM-DD'),
+            "start_date": moment(moment().format("YYYY-MM-DD")).subtract(monthCurrentValue, 'months').format('YYYY-MM-DD'),
             "end_date": moment().format("YYYY-MM-DD"),
             "social_media_platform": socialCurrentValue,
             "page_size": 4,
@@ -312,25 +408,32 @@ class Dashboard extends Component {
         dispatch(getDashboard(dashboardFilter)); // Dashboard
     }
 
-    handlePageChange(pageNumber) {
-        this.setState({ activePage: pageNumber });
-        const {socialCurrentValue} = this.state;
-
-        if (pageNumber !== this.state.activePage) {
-
-            let dashboardFilter = [{
-                "start_date": moment(moment().format("YYYY-MM-DD")).subtract(3, 'months').format('YYYY-MM-DD'),
-                "end_date": moment().format("YYYY-MM-DD"),
-                "social_media_platform": socialCurrentValue,
-                "page_size": 4,
-                "page_no": pageNumber
-            }]
-            dispatch(getDashboard(dashboardFilter));
-        }
-    }
 
     // Display post on dashboard
-    renderPost = (obj, index) => {
+    renderPost = (obj, index,socialCurrentValue) => {
+
+        let likes =''
+        let shares =''
+        let comments =''
+
+        if(socialCurrentValue === 'facebook')
+        {
+            likes = 'Likes';
+            shares = 'Shares';
+            comments = 'Comments';
+        }
+        else if(socialCurrentValue === 'twitter')
+        {
+            likes = 'Favorite';
+            shares = 'Retweet';
+        }
+        else if(socialCurrentValue === 'pinterest')
+        {
+            shares = 'Save';
+            comments = 'Comments';
+        }
+
+        /** Set image for post */
         let post_img = '';
         if (obj.type === 'applied_post') {
             if (obj.image === undefined) {
@@ -359,20 +462,31 @@ class Dashboard extends Component {
                             <small>{obj.user.name}</small>
                         </h3>
                         {/* <p>I love the <a href="javascript:void(0)">@thegrocer</a> new dress range! Make life just that bit more bearable! <a href="javascript:void(0)">#thegrocer</a> <a href="javascript:void(0)">#warmsundays</a> <a href="javascript:void(0)">#sponsored</a></p> */}
-                        <p>{ (obj.description.length > 60) ? obj.description.substring(0,60) + '...' : obj.description}</p>
+                        <p>{ (obj.description.length > 50) ? obj.description.substring(0,50) + '...' : obj.description}</p>
                         <div className="databox-div-r-btm d-flex">
+                            {(socialCurrentValue === 'facebook' || socialCurrentValue === 'twitter') ? 
                             <h5>
                                 <big>{obj.no_of_likes}</big>
-                                <small>Likes</small>
+                                {/* <small>Likes</small> */}
+                                <small>{likes}</small>
                             </h5>
+                            : ''
+                            }
+                            {(socialCurrentValue === 'facebook' || socialCurrentValue === 'pinterest' || socialCurrentValue === 'twitter' ) ?
                             <h5>
                                 <big>{obj.no_of_shares}</big>
-                                <small>shares</small>
-                            </h5>
+                                {/* <small>shares</small> */}
+                                <small>{shares}</small>
+                            </h5>:''
+                            }
+                            {(socialCurrentValue === 'facebook' || socialCurrentValue === 'pinterest') ?
                             <h5>
                                 <big>{obj.no_of_comments}</big>
-                                <small>Comments</small>
+                                {/* <small>Comments</small> */}
+                                <small>{comments}</small>
                             </h5>
+                            :''
+                            }
                         </div>
                     </div>
                 </div>
@@ -381,8 +495,8 @@ class Dashboard extends Component {
     }
 
     render() {
-        const { barChartData, isRender, social_analytics, likes_share_cmt, isRenderChart } = this.state;
-        const { loading, dbloading,socialAnalyticsData, dashboard_data } = this.props;
+        const { barChartData, isRender, social_analytics, likes_share_cmt, isRenderChart,socialCurrentValue } = this.state;
+        const { loading, dbloading,socialAnalyticsData, dashboard_data,social_analytics_data} = this.props;
     
         let monthArr = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
         return (
@@ -427,25 +541,18 @@ class Dashboard extends Component {
                             <li> <a href="javascript:void(0)" className={cx({ 'active': (this.state.likes_share_cmt === 'shares') ? true : false })} onClick={() => { this.like_share_comm('shares') }}> <small>26</small><span>Shares</span> </a> </li>
                             <li> <a href="javascript:void(0)" className={cx({ 'active': (this.state.likes_share_cmt === 'comments') ? true : false })} onClick={() => { this.like_share_comm('comments') }}> <small>86</small><span>Comments</span> </a> </li>
                         </ul>
-                    </div>
+                    </div> 
                 </div>
                 <div className="right-btm">
                     <div className="right-box-btm-head d-flex">
                         {/* <div className="post-dropdown"> */}
                         <div className="social-dropdown">
-                            {/* <a href="#" role="button" id="post-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Posts <span>Most Liked</span> <i className="dropdown-arrow"></i> </a>
-                            <div className="dropdown-menu" aria-labelledby="post-dropdown">
-                                <a className="dropdown-item" href="#">Most Liked</a>
-                                <a className="dropdown-item" href="#">Most Shared</a>
-                                <a className="dropdown-item" href="#">Most Commented</a>
-                                <a className="dropdown-item" href="#">Submissions</a>
-                                
-                            </div> */}
                             <MostDataDropdown
                                 dashboardDataSelect={(value) => { this.getDashboardDataSelect(value); }}
                                 currentValue={this.state.dashboardCurrentValue}
                                 open={this.state.dashboard_open}
                                 toggle={this.dashboard_toggle}
+                                socialCurrentValue={this.state.socialCurrentValue}
                             />
                         </div>
                         <div className="view-all">
@@ -459,27 +566,17 @@ class Dashboard extends Component {
                                     (dbloading) ?
                                         <li>
                                             <div className="databox-div d-flex">
-                                                {/* <Facebook /> */}
+                                                {/* <Facebook />
+                                                <Code /> */}
+                                                <div className="loader" style={{ "zIndex": "999999999" }}></div>
                                             </div>
                                         </li>
                                         :
-                                        (dashboard_data.data !== null && dashboard_data.total > 0) ? dashboard_data.data.map((obj, index) => this.renderPost(obj, index))
+                                        (dashboard_data.data !== null && dashboard_data.total > 0) ? dashboard_data.data.map((obj, index) => this.renderPost(obj, index,socialCurrentValue))
                                             : <h4 style={{ "fontSize": "30px", "fontWeight": "600", "color": "rgb(103, 114, 230)" }}>No Post Available</h4>
                                 }
                             </ul>
                         </div>
-
-                        {/* {(
-                            dashboard_data.data !== null && dashboard_data.total > 4 && <Pagination
-                            activePage={this.state.activePage}
-                            itemsCountPerPage={4} // 12
-                            totalItemsCount={dashboard_data.total}
-                            // pageRangeDisplayed={5}
-                            onChange={this.handlePageChange}
-                        />
-                        )} */}
-
-
                     </div>
                 </div>
             </div>

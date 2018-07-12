@@ -368,7 +368,7 @@ class Stats extends Component {
                                     <h3>Purchased posts</h3>
                                     {
                                         analyticsData.map((obj, index) => (
-                                            <h5 key={Math.random()} className={compareColor[index]}>{`$` + obj.purchased_campaign}</h5>
+                                            <h5 key={Math.random()} className={compareColor[index]}>{obj.purchased_campaign}</h5>
                                         ))
                                     }
                                 </div>
@@ -378,7 +378,7 @@ class Stats extends Component {
                                     <h3>Applicants</h3>
                                     {
                                         analyticsData.map((obj, index) => (
-                                            <h5 key={Math.random()} className={compareColor[index]}>{`$` + obj.number_of_appplicants}</h5>
+                                            <h5 key={Math.random()} className={compareColor[index]}>{obj.number_of_appplicants}</h5>
                                         ))
                                     }
                                 </div>
@@ -398,7 +398,7 @@ class Stats extends Component {
                                     <h3>Reach total</h3>
                                     {
                                         analyticsData.map((obj, index) => (
-                                            <h5 key={Math.random()} className={compareColor[index]}>{`$` + obj.no_of_reach_total}</h5>
+                                            <h5 key={Math.random()} className={compareColor[index]}>{obj.no_of_reach_total}</h5>
                                         ))
                                     }
                                 </div>
@@ -408,7 +408,7 @@ class Stats extends Component {
                                     <h3>Engagement total</h3>
                                     {
                                         analyticsData.map((obj, index) => (
-                                            <h5 key={Math.random()} className={compareColor[index]}>{`$` + obj.total_no_of_engagement}</h5>
+                                            <h5 key={Math.random()} className={compareColor[index]}>{obj.total_no_of_engagement}</h5>
                                         ))
                                     }
                                 </div>

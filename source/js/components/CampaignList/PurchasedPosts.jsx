@@ -10,6 +10,7 @@ import instaImg from 'img/site/instagram.png';
 import imgPlus from 'img/site/plus-01.png';
 import closeImg2 from 'img/site/close-2.png';
 import noCampaignImg from 'img/site/no_data/no_campaign.png';
+import nodataImg from 'img/site/no_data/05.png';
 
 import noUserImg2 from 'img/site/no_data/no_user2.png';
 import Pagination from "react-js-pagination";
@@ -466,7 +467,7 @@ class PurchasedPosts extends Component {
                 <div className="all-people">
                     <ul className="fan-festival d-flex">
                         {
-                            (allPosts) ? allPosts.map((obj, index) => (this.renderPost(obj))) : ""
+                            (allPosts) ? allPosts.map((obj, index) => (this.renderPost(obj))) : <div className="no_data_found"> <img src={nodataImg} /> <p>No purchased posts.</p> </div>
                         }
                     </ul>
 

@@ -91,7 +91,7 @@ const MoreFilterDropDown = (props) => {
     // <UncontrolledDropdown className="MoreFilterLi">
     // 
     return (        
-        <Dropdown isOpen={props.open} toggle={props.toggle} className="MoreFilterLi stats_filter_li4_2" >
+        <Dropdown isOpen={props.open} toggle={props.toggle} className="MoreFilterLi stats_filter_li4" >
             <DropdownToggle caret >
                 More Filter {" "}
             </DropdownToggle>
