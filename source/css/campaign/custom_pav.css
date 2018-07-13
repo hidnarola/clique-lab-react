@@ -272,7 +272,7 @@ td.fc-widget-content{ border:0;}
     .stats_filter_li4 .dropdown-menu{ padding:50px !important; }
     .stats_age_dropdown .range-div{ width: 80px !important; }
     .stats_age_dropdown.active,
-    .stats_filter_li4.active{ background-color: #6772e5; }
+    .stats_filter_li4.active{ background-color: #6772e5;    border-radius: 3px !important; }
     .stats_age_dropdown.active .dropdown-toggle,
     .stats_filter_li4.active .dropdown-toggle{ color:#fff !important;}
     .stats_age_dropdown .dropdown-menu:after{ left: 11px; top:-15px}
@@ -458,7 +458,7 @@ tr.order_cart td img {margin-top:-10px}
 
 /* .stats_age_dropdown2.active,
 .stats_filter_li4.active{ background-color: #83bff7; } */
-.stats_age_dropdown2.active{ background-color: #83bff7; }
+.stats_age_dropdown2.active{ background-color: #83bff7;    border-radius: 3px !important; }
 
 .stats_age_dropdown2.active .dropdown-toggle,
 .stats_filter_li4_2.active .dropdown-toggle{ color:#fff !important;}
@@ -518,7 +518,7 @@ tr.order_cart td img {margin-top:-10px}
 .stats_age_dropdown3 .range-div{ width: 80px !important; }
 /* .stats_age_dropdown3.active,
 .stats_filter_li4.active{ background-color: #f783c3; } */
-.stats_age_dropdown3.active{ background-color: #f783c3; }
+.stats_age_dropdown3.active{ background-color: #f783c3;border-radius: 3px !important;}
 
 .stats_age_dropdown3.active .dropdown-toggle,
 .stats_filter_li4.active .dropdown-toggle{ color:#fff !important;}
@@ -602,9 +602,12 @@ tr.order_cart td img {margin-top:-10px}
 
 
 /* --------location css --------*/
-.everypeole-head ul li.location_2 a:hover,.everypeole-head ul.second_filter li button.btn-secondary:hover , .everypeole-head ul.second_filter .Select-control:hover,.everypeole-head ul.second_filter .active .Select-control:hover{ background: #83bff7 !important;  border: 2px solid #83bff7 !important; }
-.everypeole-head ul li.location_3 a:hover,.everypeole-head ul.third_filter li button.btn-secondary:hover , .everypeole-head ul.third_filter .active .Select-control:hover{ background:#f783c3 !important; border: 2px solid #f783c3 !important; }
-
+.everypeole-head ul.first_filter li .stats_gender_dropdown:hover .Select-control,.everypeole-head ul.first_filter li a:hover,.everypeole-head ul.first_filter  li.active .dropdown button.btn-secondary , .everypeole-head ul.first_filter .dropdown.show button.btn-secondary{background: #6772e5 !important;  border: 2px solid #6772e5 !important; color:#fff;}
+.everypeole-head ul li.location_2 a:hover,.everypeole-head ul.second_filter li button.btn-secondary:hover ,.everypeole-head ul.second_filter li.places_autocomplete_list:hover .dropdown button.btn-secondary,.everypeole-head ul.second_filter .dropdown.show button.btn-secondary,.everypeole-head ul.second_filter li.active .dropdown button.btn-secondary, .everypeole-head ul.second_filter li > .Select > .Select-control:hover,.everypeole-head ul.second_filter .active .Select-control:hover{ background: #83bff7 !important;  border: 2px solid #83bff7 !important; color:#fff;}
+.everypeole-head ul li.location_3 a:hover,.everypeole-head ul.third_filter li button.btn-secondary:hover ,.everypeole-head ul.third_filter li.active .dropdown button.btn-secondary,.everypeole-head ul.third_filter .dropdown.show button.btn-secondary , .everypeole-head ul.third_filter li > .Select > .Select-control:hover{ background:#f783c3 !important; border: 2px solid #f783c3 !important; color:#fff;}
+.everypeole-head ul.first_filter li.active .Select-control{ border: 2px solid #6772e5 !important;}
+.everypeole-head ul.second_filter li.active .Select-control{ border: 2px solid #83bff7 !important;}
+.everypeole-head ul.third_filter li.active .Select-control{border: 2px solid #f783c3 !important;}
 /*---------------------------*/
 
 /*------------ hover effect 2 -------*/
@@ -650,3 +653,11 @@ tr.order_cart td img {margin-top:-10px}
 .admin_dasboard_transaction.cart-table .dropdown .dropdown-menu .dropdown-item{ font-weight: 600; color: #525f7f; font-size: 13px; padding: 2px 5px; }
 .admin_dasboard_transaction.cart-table .dropdown .dropdown-menu .dropdown-item:hover{ color: #43458b; }
 .admin_dasboard_transaction.cart-table table.table tbody tr.custom_tbl_disabled_row{ background: #ffc6c685; }
+/*Dharav*/
+.analytics-head .everypeole-head .everypeole-head-l ul li.age-dropdown,.analytics-head .everypeole-head .everypeole-head-l ul li.age-dropdown button {width: 90px;}
+.everypeole-head ul.first_filter li > .Select.is-open.is-focused .Select-control{    border: 2px solid rgba(82, 95, 127, .5) !important;}
+.everypeole-head ul.first_filter li > .Select.is-open.is-focused .Select-control:hover,.everypeole-head ul.first_filter li.active > .Select.is-open.is-focused .Select-control{background:#6772e5 !important; border: 2px solid #6772e5 !important;}
+.everypeole-head ul.second_filter li > .Select.is-open.is-focused .Select-control{ border: 2px solid rgba(82, 95, 127, .5) !important;}
+.everypeole-head ul.second_filter li > .Select.is-open.is-focused .Select-control:hover,.everypeole-head ul.second_filter li.active > .Select.is-open.is-focused .Select-control{border: 2px solid #83bff7 !important;background: #83bff7 !important;}
+.everypeole-head ul.third_filter li > .Select.is-open.is-focused .Select-control{ border: 2px solid rgba(82, 95, 127, .5) !important;}
+.everypeole-head ul.third_filter li > .Select.is-open.is-focused .Select-control:hover,.everypeole-head ul.third_filter li.active > .Select.is-open.is-focused .Select-control{border: 2px solid #f783c3 !important; background: #f783c3 !important;}

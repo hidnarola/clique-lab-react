@@ -385,6 +385,7 @@ ul.all-people-ul li{ width:33.33%; padding:15px;}
 .plus-people>.dropdown>button{display:block;text-decoration:none; background:transparent !important; border:transparent !important; color:transparent !important; padding:0;}
 .plus-people .dropdown-toggle::after{display:none;}
 .dropdown button.dropdown-item{display:block; padding:0; font-weight:500; color: #212529; text-align: inherit; white-space: nowrap; background-color: transparent; border:0; font-size:14px; margin:8px 0;}
+.dropdown button.dropdown-item:hover{color: #6772e5;}
 .plus-people button img{ max-width:28px; box-shadow:0 0 20px 0 rgba(0,0,0,.2); border-radius:80px;}
 .all-people-content{ border-radius:0 0 4px 4px; padding:22px;}
 .all-people-content button.btn{margin-left:auto; font-size:12px; color:#4f699d !important; font-weight:500; line-height:20px; display:block; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; background:transparent; border:transparent; padding:0; min-width:94px;}
@@ -573,7 +574,7 @@ border-radius:4px; background:#fff;}
 .transactions-body .table th:first-child{ padding-left:30px;}
 .transactions-body .table td{font-size:16px; color:#525f7f; vertical-align:top; font-weight:500; vertical-align:middle; padding:20px; border-bottom:2px solid rgba(147,147,163,.1);}
 
-.loadmore-btn a.round-btn{margin:0 auto; width:160px; display:block;}
+.loadmore-btn a.round-btn{margin:0 auto; width:160px; display:block;margin-top: 30px}
 .loadmore-btn a.round-btn:hover{text-decoration:none;}
 .transactions-body .loadmore-btn td{text-align:center; border-bottom:0; padding-bottom:0;}
 

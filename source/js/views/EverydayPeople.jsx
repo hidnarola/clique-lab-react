@@ -805,7 +805,7 @@ class EverydayPeople extends Component {
                     { 'slider': 'pinterest', 'value': { min: pinterest['value']['min'], max: pinterest['value']['max'] } },
                     { 'slider': 'linkedin', 'value': { min: linkedin['value']['min'], max: linkedin['value']['max'] } },
                     { 'slider': 'ageRange', 'value': { min: 15, max: 65 } },
-                ]
+                ],
             })
         }
 

@@ -488,9 +488,10 @@ class Wallet extends Component {
             jQuery('.txt_withdraw_bank_errorMsg').html('This field is required');
             isError = 1;
         }
+        let amt = parseFloat(txtAMT).toFixed(2);
         if (isError == 0) {
             let data = {
-                'amount': txtAMT,
+                'amount': amt,
                 'bank_account': txtBANK.value,
             }
             dispatch(walletWithdraw(data));

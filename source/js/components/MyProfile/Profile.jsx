@@ -41,23 +41,11 @@ const validate = values => {
 		errors.description = 'This field is required';
 	}
 
-	// if (!values.industry_category || (values.industry_category !== undefined && values.industry_category.value == "") || Object.keys(values.industry_category).length === 0) {
-	// if (!values.industry_category || values.industry_category.value === undefined) {
-
-	if (!values.industry_category) {
+	// if (!values.industry_category)
+	if(!values.industry_category || (values.industry_category !== undefined && values.industry_category.value == "") || Object.keys(values.industry_category).length === 0) 
+	 {
 		errors.industry_category = 'This field is required';
 	}
-
-	// let industry_category_key_lenght = values.industry_category && Object.keys(values.industry_category).length;
-
-	// if(industry_category_key_lenght > 2)
-	// {
-	// 	errors.industry_category = 'This field is required';
-	// }
-	// else
-	// {
-	// 	errors.industry_category = '';
-	// }
 
 	//before
 	// if (values.avatar) {

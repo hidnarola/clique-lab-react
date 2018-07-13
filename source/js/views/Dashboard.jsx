@@ -211,6 +211,7 @@ class Dashboard extends Component {
             totalcmt: 0,
             totalshare: 0,
             totallike: 0,
+            cnt:3,
         }
 
 
@@ -477,24 +478,35 @@ class Dashboard extends Component {
         )
     }
 
-
+    /** Counter to count share,like,comments */
     getCounter = (obj, index) => {
-        const { totallike, totalshare, totalcmt } = this.state;
-        setState({
-            totallike: totallike + obj.like_cnt,
-            totalshare: totalshare + obj.share_cnt,
-            totalcmt: totalcmt + obj.comment_cnt,
-        })
+        const { totallike, totalshare, totalcmt,cnt} = this.state;
+
+        // console.log('hi');
+     
+        // this.setState({
+        //     totallike: totallike + obj.like_cnt,
+        //     totalshare: totalshare + obj.share_cnt,
+        //     totalcmt: totalcmt + obj.comment_cnt,
+        // })
     }
 
     render() {
         const { barChartData, isRender, social_analytics, likes_share_cmt, isRenderChart, socialCurrentValue } = this.state;
         const { loading, dbloading,error, socialAnalyticsData, dashboard_data, social_analytics_data } = this.props;
         const { totallike, totalshare, totalcmt } = this.state;
-        if (!dbloading && error === null ) {
-            let obj = social_analytics_data.data[0];
-            social_analytics_data.data[0].map((obj, index) => this.getCounter(obj, index));
+
+        const len=0;
+    
+        if(!dbloading && social_analytics_data.data !== null)
+        {
+            this.len = Object.keys(social_analytics_data.data[0]).length;
+        // if (dbloading === false  && error === null ) {
+            console.log('Caling');
+            let myData = social_analytics_data.data[0];
+            myData.map((obj, index) => this.getCounter(obj, index));
         }
+
         let monthArr = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
         return (
             <div className='dashboard-page'>
@@ -519,6 +531,7 @@ class Dashboard extends Component {
                     </div>
                     <div className="right-box-content d-flex">
                         <div className="graph-img" style={{ width: 'auto', height: '350px' }}>
+                            {(totallike > 0 || totalshare > 0 || totalcmt > 0) ?
                             <ResponsiveContainer>
                                 <BarChart data={social_analytics}
                                     margin={{ top: 30, right: 0, left: 0, bottom: 20 }}>
@@ -530,6 +543,9 @@ class Dashboard extends Component {
                                     <Bar dataKey="compare1" stackId="a" fill="#6772e6" />
                                 </BarChart>
                             </ResponsiveContainer>
+                            :
+                            <h4 style={{ "fontSize": "30px", "marginTop":"150px", "fontWeight": "600", "color": "rgb(103, 114, 230)" }}>No Data Found</h4>
+                            }
                         </div>
                     </div>
                     <div className="right-box-btm">
@@ -570,8 +586,8 @@ class Dashboard extends Component {
                                         </li>
                                         :
                                         (dashboard_data.data !== null && dashboard_data.total > 0) ? dashboard_data.data.map((obj, index) => this.renderPost(obj, index, socialCurrentValue))
-                                            : <h4 style={{ "fontSize": "30px", "fontWeight": "600", "color": "rgb(103, 114, 230)" }}>No Post Available</h4>
-                                }
+                                            : <h4 style={{ "fontSize": "30px", "fontWeight": "600", "margin":"0 auto", "color": "rgb(103, 114, 230)" }}>No Posts Found</h4>
+                                }                            
                             </ul>
                         </div>
                     </div>
@@ -590,8 +606,8 @@ const mapStateToProps = (state) => {
         social_analytics_data: analytics.get('social_analytics'),
 
         dashboard_data: analytics.get('dashboard'),
-        dbloading: analytics.get('dashboard').loading,
-        error: analytics.get('dashboard'),
+        dbloading: analytics.get('dashboard').dbloading,
+        error: analytics.get('error'),
     }
 }
 export default connect(mapStateToProps)(Dashboard)
