@@ -450,6 +450,8 @@ class Wallet extends Component {
                     </div>
                 </div>
                 <h4>{obj.bank_name}</h4>
+                {/* <h4>{obj.bank_name.substring(0,20) + '...' }</h4> */}
+                
                 <h4><small>BSB</small> <strong>{obj.bsb}</strong></h4>
                 <h5><small>Account Name </small> <strong>{obj.account_holder_name}</strong></h5>
                 <h5><small>Account Number</small> <strong>{`********${("0"+obj.bank_Account_last4).slice(-2)}`}</strong></h5>
@@ -611,7 +613,7 @@ class Wallet extends Component {
                                 (wallet_balance.status == 1 && wallet_balance.data != null) &&
                                 <div className="wallet-balance-box">
                                     <h4>
-                                        <strong>${wallet_balance.data}</strong>
+                                        <strong>${wallet_balance.data.toFixed(2)}</strong>
                                         <small>Current Balance</small>
                                     </h4>
                                     <button type="button" className="round-btn" onClick={() => this.withdrawModalOpen()}>Withdrawal</button>

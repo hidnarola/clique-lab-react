@@ -24,21 +24,17 @@ const validate = values => {
     if (!values.post_code || values.post_code.trim() === '') {
         errors.post_code = 'This field is required';
     }
-    /*
     else if (!validator.matches(values.post_code, /^[0-9]/)) {
         errors.post_code = 'Must be a positive value';
-    }else if (values.post_code.length > 4) {
-        errors.post_code = 'Max. character length is 4';
+    }else if (values.post_code.length !== 4 ) {
+        errors.post_code = 'Enter valid pin code';
     }
-    */
-
     return errors;
 };
 
 const textField = (
     { input, type, label, placeholder, isRequired, meta: { touched, error, pristine } }
 ) => (
-
         <div className={cx('input-wrap', { 'custom-error': (touched && error) ? true : false })}>
             <label>{label}</label>
             <input {...input} placeholder={placeholder} type={type} className={touched && ((error && `txt_error_div`))} />

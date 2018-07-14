@@ -559,7 +559,7 @@ tr.order_cart td img {margin-top:-10px}
 .stats_filter_li3 .dropdown .dropdown-toggle{ white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 115px;}
 .stats_filter_li3 a{ font-size: 13px !important; line-height: 20px !important; font-weight: 600 !important; border-radius: 3px !important; }
 .stats_filter_li4 .dropdown-menu:after{ left:332px !important; }
-.first_filter .stats_filter_li4 .dropdown-menu:after,.second_filter .stats_filter_li4 .dropdown-menu:after,.third_filter .stats_filter_li4 .dropdown-menu:after{    left: 312px !important;}
+.first_filter .stats_filter_li4 .dropdown-menu:after,.second_filter .stats_filter_li4 .dropdown-menu:after,.third_filter .stats_filter_li4 .dropdown-menu:after{    left: 340px !important;}
 .stats_filter_li4 .Select-control{ border: 2px solid #b5b7be47 !important; }
 .stats_filter_li4 .Select-placeholder{ color: rgba(181, 183, 190,0.6) !important }
 .add_all_results_dropdown .dropdown-menu { padding:10px !important; top:5px !important; left:-9px !important;}
@@ -661,3 +661,9 @@ tr.order_cart td img {margin-top:-10px}
 .everypeole-head ul.second_filter li > .Select.is-open.is-focused .Select-control:hover,.everypeole-head ul.second_filter li.active > .Select.is-open.is-focused .Select-control{border: 2px solid #83bff7 !important;background: #83bff7 !important;}
 .everypeole-head ul.third_filter li > .Select.is-open.is-focused .Select-control{ border: 2px solid rgba(82, 95, 127, .5) !important;}
 .everypeole-head ul.third_filter li > .Select.is-open.is-focused .Select-control:hover,.everypeole-head ul.third_filter li.active > .Select.is-open.is-focused .Select-control{border: 2px solid #f783c3 !important; background: #f783c3 !important;}
+.analytics-body .social-dropdown .dropdown .dropdown-menu:after{right: 1px !important;} 
+.fc-ltr .fc-basic-view .fc-day-top .fc-day-number{font-weight: 400 !important;}
+
+button.round-btn.loading-btn {
+    background-color: #6782e5 !important;
+}

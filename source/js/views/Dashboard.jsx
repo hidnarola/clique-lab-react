@@ -252,7 +252,7 @@ class Dashboard extends Component {
             // "sort": [{ "field":'no_of_likes' , "value": -1}] //
         }]
 
-        this.setState({ isRender: 1 });
+        this.setState({ isRender: 1 }); 
         dispatch(getCheckoutList());
         toast.dismiss(this.toastId);
         dispatch(getSocialAnalytics(arrayFilter));
@@ -482,8 +482,7 @@ class Dashboard extends Component {
     getCounter = (obj, index) => {
         const { totallike, totalshare, totalcmt,cnt} = this.state;
 
-        // console.log('hi');
-     
+        console.log('hi');
         // this.setState({
         //     totallike: totallike + obj.like_cnt,
         //     totalshare: totalshare + obj.share_cnt,
@@ -550,9 +549,9 @@ class Dashboard extends Component {
                     </div>
                     <div className="right-box-btm">
                         <ul className="data-counter d-flex">
-                            <li> <a href="javascript:void(0)" className={cx({ 'active': (this.state.likes_share_cmt === 'likes') ? true : false })} onClick={() => { this.like_share_comm('likes') }}> <small>{totallike}</small><span>Likes</span> </a> </li>
-                            <li> <a href="javascript:void(0)" className={cx({ 'active': (this.state.likes_share_cmt === 'shares') ? true : false })} onClick={() => { this.like_share_comm('shares') }}> <small>{totalshare}</small><span>Shares</span> </a> </li>
-                            <li> <a href="javascript:void(0)" className={cx({ 'active': (this.state.likes_share_cmt === 'comments') ? true : false })} onClick={() => { this.like_share_comm('comments') }}> <small>{totalcmt}</small><span>Comments</span> </a> </li>
+                            <li> <a href="javascript:void(0)" className={cx({ 'active': (this.state.likes_share_cmt === 'likes') ? true : false })} onClick={() => { this.like_share_comm('likes') }}> <small>{totallike > 0 ? totallike : 0}</small><span>Likes</span> </a> </li>
+                            <li> <a href="javascript:void(0)" className={cx({ 'active': (this.state.likes_share_cmt === 'shares') ? true : false })} onClick={() => { this.like_share_comm('shares') }}> <small>{totalshare > 0 ? totalshare : 0}</small><span>Shares</span> </a> </li>
+                            <li> <a href="javascript:void(0)" className={cx({ 'active': (this.state.likes_share_cmt === 'comments') ? true : false })} onClick={() => { this.like_share_comm('comments') }}> <small>{totalcmt > 0 ? totalcmt : 0}</small><span>Comments</span> </a> </li>
                         </ul>
                     </div>
                 </div>

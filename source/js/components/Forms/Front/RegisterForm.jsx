@@ -217,7 +217,7 @@ class RegisterForm extends Component {
                         {
                             (mybtn === 'reg') ? 
                                 <button className="round-btn" type="submit">Register</button>:
-                                <button className="round-btn" style={{"width":"125px"}} disabled="disabled"><img src={registerSvg} style={{"width":"65%"}}/></button>
+                                <button className="round-btn loading-btn" style={{"width":"125px"}} disabled="disabled"><img src={registerSvg} style={{"width":"65%"}}/></button>
                                 // <div>
                                 //     <button className="round-btn" disabled="disabled">wait</button><img src="assets/img/site/svg/loading1.svg" />
                                 // </div>
