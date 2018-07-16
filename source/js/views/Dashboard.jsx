@@ -202,6 +202,7 @@ class Dashboard extends Component {
             dashboardCurrentValue: 'no_of_likes',
 
             isRender: 0,
+            isload:1,
             isRenderChart: false,
 
             timing_open: false,
@@ -211,10 +212,7 @@ class Dashboard extends Component {
             totalcmt: 0,
             totalshare: 0,
             totallike: 0,
-            cnt:3,
         }
-
-
     }
 
     timing_toggle = () => { this.setState({ timing_open: !this.state.timing_open }); }
@@ -480,14 +478,18 @@ class Dashboard extends Component {
 
     /** Counter to count share,like,comments */
     getCounter = (obj, index) => {
-        const { totallike, totalshare, totalcmt,cnt} = this.state;
-
-        // console.log('hi');
-        // this.setState({
-        //     totallike: totallike + obj.like_cnt,
-        //     totalshare: totalshare + obj.share_cnt,
-        //     totalcmt: totalcmt + obj.comment_cnt,
-        // })
+        const { totallike, totalshare, totalcmt} = this.state;
+    
+        if(this.state.isload === 1)
+        {
+            console.log('DADTATAA123>>>');
+            this.setState({
+                totallike: totallike + obj.like_cnt,
+                totalshare: totalshare + obj.share_cnt,
+                totalcmt: totalcmt + obj.comment_cnt,
+                isload:0
+            })
+        }
     }
 
     render() {
@@ -495,13 +497,9 @@ class Dashboard extends Component {
         const { loading, dbloading,error, socialAnalyticsData, dashboard_data, social_analytics_data } = this.props;
         const { totallike, totalshare, totalcmt } = this.state;
 
-        const len=0;
-    
         if(!dbloading && social_analytics_data.data !== null)
         {
-            this.len = Object.keys(social_analytics_data.data[0]).length;
-        // if (dbloading === false  && error === null ) {
-            console.log('Caling');
+            console.log('Caling from render');
             let myData = social_analytics_data.data[0];
             myData.map((obj, index) => this.getCounter(obj, index));
         }
