@@ -14,7 +14,7 @@ import { getSocialAnalytics, getDashboard } from '../actions/analytics';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import cx from "classnames";
-import {Facebook,Code} from 'react-content-loader';
+import { Facebook, Code } from 'react-content-loader';
 import { NavLink } from 'react-router-dom';
 import { routeCodes } from 'constants/routes';
 
@@ -74,84 +74,73 @@ const MostDataDropdown = (props) => {
 
     let title = '';
 
-    if(props.socialCurrentValue === 'facebook')
-    {
-        if(props.currentValue === 'no_of_likes')
-        {
+    if (props.socialCurrentValue === 'facebook') {
+        if (props.currentValue === 'no_of_likes') {
             title = 'Most Liked'
         }
-        else if(props.currentValue === 'no_of_shares')
-        {
+        else if (props.currentValue === 'no_of_shares') {
             title = 'Most Shared'
         }
-        else if(props.currentValue === 'no_of_comments')
-        {
+        else if (props.currentValue === 'no_of_comments') {
             title = 'Most Commented'
         }
-        else if(props.currentValue === 'submission')
-        {
+        else if (props.currentValue === 'submission') {
             title = 'submission';
         }
     }
-    else if(props.socialCurrentValue === 'twitter')
-    {
-        if(props.currentValue === 'no_of_likes')
-        {
+    else if (props.socialCurrentValue === 'twitter') {
+        if (props.currentValue === 'no_of_likes') {
             title = 'Most Favorite'
         }
-        else if(props.currentValue === 'no_of_shares')
-        {
+        else if (props.currentValue === 'no_of_shares') {
             title = 'Most Retweet'
         }
     }
-    else if(props.socialCurrentValue === 'pinterest')
-    {
-        if(props.currentValue === 'no_of_comments')
-        {
+    else if (props.socialCurrentValue === 'pinterest') {
+        if (props.currentValue === 'no_of_comments') {
             title = 'Most Comment'
         }
-        else if(props.currentValue === 'no_of_shares')
-        {
+        else if (props.currentValue === 'no_of_shares') {
             title = 'Most Save'
         }
     }
-    else{}
-    
-    return (    
+    else { }
+
+    return (
         (props.socialCurrentValue === 'facebook') ?
-        <Dropdown isOpen={props.open} toggle={props.toggle}>
-            <DropdownToggle>
-                <label style={{ "textTransform": "capitalize" }}>Posts {title}</label><i className="dropdown-arrow"></i>
-            </DropdownToggle>
-            <DropdownMenu right>
-                <DropdownItem onClick={() => { props.dashboardDataSelect('no_of_likes') }} > Most Liked </DropdownItem>
-                <DropdownItem onClick={() => { props.dashboardDataSelect('no_of_shares') }} > Most Shared </DropdownItem>
-                <DropdownItem onClick={() => { props.dashboardDataSelect('no_of_comments') }} > Most Commented </DropdownItem>
-                <DropdownItem onClick={() => { props.dashboardDataSelect('submission') }} > Submissions </DropdownItem>
-            </DropdownMenu>
-        </Dropdown>
-        :(props.socialCurrentValue === 'twitter') ?
-        <Dropdown isOpen={props.open} toggle={props.toggle}>
-            <DropdownToggle>
-                <label style={{ "textTransform": "capitalize" }}>Posts {title}</label><i className="dropdown-arrow"></i>
-            </DropdownToggle>
-            <DropdownMenu right>
-                <DropdownItem onClick={() => { props.dashboardDataSelect('no_of_likes') }} > Most Favorite </DropdownItem>
-                <DropdownItem onClick={() => { props.dashboardDataSelect('no_of_shares') }} > Most Retweet </DropdownItem>
-            </DropdownMenu>
-        </Dropdown>
-        :(props.socialCurrentValue === 'pinterest') ?
-        <Dropdown isOpen={props.open} toggle={props.toggle}>
-            <DropdownToggle>
-                <label style={{ "textTransform": "capitalize" }}>Posts {title}</label><i className="dropdown-arrow"></i>
-            </DropdownToggle>
-            <DropdownMenu right>
-                <DropdownItem onClick={() => { props.dashboardDataSelect('no_of_comments') }} > Most Comment </DropdownItem>
-                <DropdownItem onClick={() => { props.dashboardDataSelect('no_of_shares') }} > Most Save </DropdownItem>
-            </DropdownMenu>
-        </Dropdown>
-        :
-        '' 
+            <Dropdown isOpen={props.open} toggle={props.toggle}>
+                <DropdownToggle>
+                    <label style={{ "textTransform": "capitalize" }}>Posts {title}</label><i className="dropdown-arrow"></i>
+                </DropdownToggle>
+                <DropdownMenu right>
+                    <DropdownItem onClick={() => { props.dashboardDataSelect('no_of_likes') }} > Most Liked </DropdownItem>
+                    <DropdownItem onClick={() => { props.dashboardDataSelect('no_of_shares') }} > Most Shared </DropdownItem>
+                    <DropdownItem onClick={() => { props.dashboardDataSelect('no_of_comments') }} > Most Commented </DropdownItem>
+                    <DropdownItem onClick={() => { props.dashboardDataSelect('submission') }} > Submissions </DropdownItem>
+                </DropdownMenu>
+            </Dropdown>
+            : (props.socialCurrentValue === 'twitter') ?
+                <Dropdown isOpen={props.open} toggle={props.toggle}>
+                    <DropdownToggle>
+                        <label style={{ "textTransform": "capitalize" }}>Posts {title}</label><i className="dropdown-arrow"></i>
+                    </DropdownToggle>
+                    <DropdownMenu right>
+                        <DropdownItem onClick={() => { props.dashboardDataSelect('no_of_likes') }} > Most Favorite </DropdownItem>
+                        <DropdownItem onClick={() => { props.dashboardDataSelect('no_of_shares') }} > Most Retweet </DropdownItem>
+                    </DropdownMenu>
+                </Dropdown>
+                : (props.socialCurrentValue === 'pinterest') ?
+                    <Dropdown isOpen={props.open} toggle={props.toggle}>
+                        <DropdownToggle>
+                            <label style={{ "textTransform": "capitalize" }}>Posts {title}</label><i className="dropdown-arrow"></i>
+                        </DropdownToggle>
+                        <DropdownMenu right>
+                            <DropdownItem onClick={() => { props.dashboardDataSelect('no_of_comments') }} > Most Comment </DropdownItem>
+                            <DropdownItem onClick={() => { props.dashboardDataSelect('no_of_shares') }} > Most Save </DropdownItem>
+                        </DropdownMenu>
+                    </Dropdown>
+                    :
+                    ''
     );
 }
 
@@ -218,10 +207,13 @@ class Dashboard extends Component {
             timing_open: false,
             social_open: false,
             dashboard_open: false,
-            activePage:1,
+            activePage: 1,
+            totalcmt: 0,
+            totalshare: 0,
+            totallike: 0,
         }
 
-        
+
     }
 
     timing_toggle = () => { this.setState({ timing_open: !this.state.timing_open }); }
@@ -232,14 +224,12 @@ class Dashboard extends Component {
         const { dispatch } = this.props;
 
         //
-        const {socialCurrentValue,dashboardCurrentValue} = this.state;
-        if(socialCurrentValue === 'facebook' || socialCurrentValue === 'twitter')
-        {
-            this.setState({dashboardCurrentValue:'no_of_likes'});
+        const { socialCurrentValue, dashboardCurrentValue } = this.state;
+        if (socialCurrentValue === 'facebook' || socialCurrentValue === 'twitter') {
+            this.setState({ dashboardCurrentValue: 'no_of_likes' });
         }
-        else if(socialCurrentValue === 'pinterest')
-        {
-            this.setState({dashboardCurrentValue:'no_of_comments'});
+        else if (socialCurrentValue === 'pinterest') {
+            this.setState({ dashboardCurrentValue: 'no_of_comments' });
         }
 
         let arrayFilter = [{
@@ -257,7 +247,7 @@ class Dashboard extends Component {
             "social_media_platform": "facebook",
             "page_size": 4,
             "page_no": 1,
-            "sort": [{ "field":this.state.dashboardCurrentValue , "value": -1}] //
+            "sort": [{ "field": this.state.dashboardCurrentValue, "value": -1 }] //
             // "sort": [{ "field":'no_of_likes' , "value": -1}] //
         }]
 
@@ -324,13 +314,11 @@ class Dashboard extends Component {
         this.setState({ isRender: 1 });
         dispatch(getSocialAnalytics(arrayFilter));
 
-        if(socialCurrentValue === 'facebook' || socialCurrentValue === 'twitter')
-        {
-            this.setState({dashboardCurrentValue:'no_of_likes'});
+        if (socialCurrentValue === 'facebook' || socialCurrentValue === 'twitter') {
+            this.setState({ dashboardCurrentValue: 'no_of_likes' });
         }
-        else if(socialCurrentValue === 'pinterest')
-        {
-            this.setState({dashboardCurrentValue:'no_of_comments'});
+        else if (socialCurrentValue === 'pinterest') {
+            this.setState({ dashboardCurrentValue: 'no_of_comments' });
         }
 
         let dashboardFilter = [{
@@ -339,7 +327,7 @@ class Dashboard extends Component {
             "social_media_platform": socialCurrentValue,
             "page_size": 4,
             "page_no": 1,
-            "sort": [{ "field":this.state.dashboardCurrentValue , "value": -1}] //
+            "sort": [{ "field": this.state.dashboardCurrentValue, "value": -1 }] //
             // "sort": [{ "field":'no_of_likes' , "value": -1}] //
 
         }]
@@ -351,15 +339,13 @@ class Dashboard extends Component {
 
     getDataSocialWise = (socialName) => {
         const { dispatch } = this.props;
-         //
-         if(socialName === 'facebook' || socialName === 'twitter')
-         {
-             this.setState({dashboardCurrentValue:'no_of_likes'});
-         }
-         else if(socialName === 'pinterest')
-         {
-             this.setState({dashboardCurrentValue:'no_of_comments'});
-         }
+        //
+        if (socialName === 'facebook' || socialName === 'twitter') {
+            this.setState({ dashboardCurrentValue: 'no_of_likes' });
+        }
+        else if (socialName === 'pinterest') {
+            this.setState({ dashboardCurrentValue: 'no_of_comments' });
+        }
 
         let arrayFilter = [{
             "start_date": moment(moment().format("YYYY-MM-DD")).subtract(this.state.monthCurrentValue, 'months').format('YYYY-MM-DD'),
@@ -377,7 +363,7 @@ class Dashboard extends Component {
             "social_media_platform": socialName,
             "page_size": 4,
             "page_no": 1,
-            "sort": [{ "field":this.state.dashboardCurrentValue , "value": -1}] //
+            "sort": [{ "field": this.state.dashboardCurrentValue, "value": -1 }] //
             // "sort": [{ "field":'no_of_likes' , "value": -1}] //
 
         }]
@@ -393,15 +379,15 @@ class Dashboard extends Component {
     /** ************ Start : Dashborad Bottom ******* */
 
     getDashboardDataSelect = (dashbordValue) => {
-        const {dispatch} = this.props;
-        const {socialCurrentValue,monthCurrentValue} = this.state;
+        const { dispatch } = this.props;
+        const { socialCurrentValue, monthCurrentValue } = this.state;
         let dashboardFilter = [{
             "start_date": moment(moment().format("YYYY-MM-DD")).subtract(monthCurrentValue, 'months').format('YYYY-MM-DD'),
             "end_date": moment().format("YYYY-MM-DD"),
             "social_media_platform": socialCurrentValue,
             "page_size": 4,
             "page_no": 1,
-            "sort": [{ "field":dashbordValue , "value": -1}]
+            "sort": [{ "field": dashbordValue, "value": -1 }]
         }]
 
         this.setState({ dashboardCurrentValue: dashbordValue });
@@ -410,25 +396,22 @@ class Dashboard extends Component {
 
 
     // Display post on dashboard
-    renderPost = (obj, index,socialCurrentValue) => {
+    renderPost = (obj, index, socialCurrentValue) => {
 
-        let likes =''
-        let shares =''
-        let comments =''
+        let likes = ''
+        let shares = ''
+        let comments = ''
 
-        if(socialCurrentValue === 'facebook')
-        {
+        if (socialCurrentValue === 'facebook') {
             likes = 'Likes';
             shares = 'Shares';
             comments = 'Comments';
         }
-        else if(socialCurrentValue === 'twitter')
-        {
+        else if (socialCurrentValue === 'twitter') {
             likes = 'Favorite';
             shares = 'Retweet';
         }
-        else if(socialCurrentValue === 'pinterest')
-        {
+        else if (socialCurrentValue === 'pinterest') {
             shares = 'Save';
             comments = 'Comments';
         }
@@ -455,37 +438,37 @@ class Dashboard extends Component {
             <li key={index}>
                 <div className="databox-div d-flex dashbord-post">
                     {/* <div className="databox-div-l"><img src={post_img} alt="" /></div> */}
-                    <div className="databox-div-l" style={{ "background": "url('" + post_img + "') no-repeat center", "backgroundSize": "cover"}}></div>
+                    <div className="databox-div-l" style={{ "background": "url('" + post_img + "') no-repeat center", "backgroundSize": "cover" }}></div>
                     <div className="databox-div-r">
                         <h3>
                             <big>{obj.campaign_name}</big>
                             <small>{obj.user.name}</small>
                         </h3>
                         {/* <p>I love the <a href="javascript:void(0)">@thegrocer</a> new dress range! Make life just that bit more bearable! <a href="javascript:void(0)">#thegrocer</a> <a href="javascript:void(0)">#warmsundays</a> <a href="javascript:void(0)">#sponsored</a></p> */}
-                        <p>{ (obj.description.length > 50) ? obj.description.substring(0,50) + '...' : obj.description}</p>
+                        <p>{(obj.description.length > 50) ? obj.description.substring(0, 50) + '...' : obj.description}</p>
                         <div className="databox-div-r-btm d-flex">
-                            {(socialCurrentValue === 'facebook' || socialCurrentValue === 'twitter') ? 
-                            <h5>
-                                <big>{obj.no_of_likes}</big>
-                                {/* <small>Likes</small> */}
-                                <small>{likes}</small>
-                            </h5>
-                            : ''
+                            {(socialCurrentValue === 'facebook' || socialCurrentValue === 'twitter') ?
+                                <h5>
+                                    <big>{obj.no_of_likes}</big>
+                                    {/* <small>Likes</small> */}
+                                    <small>{likes}</small>
+                                </h5>
+                                : ''
                             }
-                            {(socialCurrentValue === 'facebook' || socialCurrentValue === 'pinterest' || socialCurrentValue === 'twitter' ) ?
-                            <h5>
-                                <big>{obj.no_of_shares}</big>
-                                {/* <small>shares</small> */}
-                                <small>{shares}</small>
-                            </h5>:''
+                            {(socialCurrentValue === 'facebook' || socialCurrentValue === 'pinterest' || socialCurrentValue === 'twitter') ?
+                                <h5>
+                                    <big>{obj.no_of_shares}</big>
+                                    {/* <small>shares</small> */}
+                                    <small>{shares}</small>
+                                </h5> : ''
                             }
                             {(socialCurrentValue === 'facebook' || socialCurrentValue === 'pinterest') ?
-                            <h5>
-                                <big>{obj.no_of_comments}</big>
-                                {/* <small>Comments</small> */}
-                                <small>{comments}</small>
-                            </h5>
-                            :''
+                                <h5>
+                                    <big>{obj.no_of_comments}</big>
+                                    {/* <small>Comments</small> */}
+                                    <small>{comments}</small>
+                                </h5>
+                                : ''
                             }
                         </div>
                     </div>
@@ -494,10 +477,24 @@ class Dashboard extends Component {
         )
     }
 
+
+    getCounter = (obj, index) => {
+        const { totallike, totalshare, totalcmt } = this.state;
+        setState({
+            totallike: totallike + obj.like_cnt,
+            totalshare: totalshare + obj.share_cnt,
+            totalcmt: totalcmt + obj.comment_cnt,
+        })
+    }
+
     render() {
-        const { barChartData, isRender, social_analytics, likes_share_cmt, isRenderChart,socialCurrentValue } = this.state;
-        const { loading, dbloading,socialAnalyticsData, dashboard_data,social_analytics_data} = this.props;
-    
+        const { barChartData, isRender, social_analytics, likes_share_cmt, isRenderChart, socialCurrentValue } = this.state;
+        const { loading, dbloading,error, socialAnalyticsData, dashboard_data, social_analytics_data } = this.props;
+        const { totallike, totalshare, totalcmt } = this.state;
+        if (!dbloading && error === null ) {
+            let obj = social_analytics_data.data[0];
+            social_analytics_data.data[0].map((obj, index) => this.getCounter(obj, index));
+        }
         let monthArr = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
         return (
             <div className='dashboard-page'>
@@ -537,11 +534,11 @@ class Dashboard extends Component {
                     </div>
                     <div className="right-box-btm">
                         <ul className="data-counter d-flex">
-                            <li> <a href="javascript:void(0)" className={cx({ 'active': (this.state.likes_share_cmt === 'likes') ? true : false })} onClick={() => { this.like_share_comm('likes') }}> <small>235</small><span>Likes</span> </a> </li>
-                            <li> <a href="javascript:void(0)" className={cx({ 'active': (this.state.likes_share_cmt === 'shares') ? true : false })} onClick={() => { this.like_share_comm('shares') }}> <small>26</small><span>Shares</span> </a> </li>
-                            <li> <a href="javascript:void(0)" className={cx({ 'active': (this.state.likes_share_cmt === 'comments') ? true : false })} onClick={() => { this.like_share_comm('comments') }}> <small>86</small><span>Comments</span> </a> </li>
+                            <li> <a href="javascript:void(0)" className={cx({ 'active': (this.state.likes_share_cmt === 'likes') ? true : false })} onClick={() => { this.like_share_comm('likes') }}> <small>{totallike}</small><span>Likes</span> </a> </li>
+                            <li> <a href="javascript:void(0)" className={cx({ 'active': (this.state.likes_share_cmt === 'shares') ? true : false })} onClick={() => { this.like_share_comm('shares') }}> <small>{totalshare}</small><span>Shares</span> </a> </li>
+                            <li> <a href="javascript:void(0)" className={cx({ 'active': (this.state.likes_share_cmt === 'comments') ? true : false })} onClick={() => { this.like_share_comm('comments') }}> <small>{totalcmt}</small><span>Comments</span> </a> </li>
                         </ul>
-                    </div> 
+                    </div>
                 </div>
                 <div className="right-btm">
                     <div className="right-box-btm-head d-flex">
@@ -572,7 +569,7 @@ class Dashboard extends Component {
                                             </div>
                                         </li>
                                         :
-                                        (dashboard_data.data !== null && dashboard_data.total > 0) ? dashboard_data.data.map((obj, index) => this.renderPost(obj, index,socialCurrentValue))
+                                        (dashboard_data.data !== null && dashboard_data.total > 0) ? dashboard_data.data.map((obj, index) => this.renderPost(obj, index, socialCurrentValue))
                                             : <h4 style={{ "fontSize": "30px", "fontWeight": "600", "color": "rgb(103, 114, 230)" }}>No Post Available</h4>
                                 }
                             </ul>
@@ -593,7 +590,8 @@ const mapStateToProps = (state) => {
         social_analytics_data: analytics.get('social_analytics'),
 
         dashboard_data: analytics.get('dashboard'),
-        dbloading:analytics.get('dashboard').loading,
+        dbloading: analytics.get('dashboard').loading,
+        error: analytics.get('dashboard'),
     }
 }
 export default connect(mapStateToProps)(Dashboard)
