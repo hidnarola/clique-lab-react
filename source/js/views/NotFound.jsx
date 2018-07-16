@@ -33,7 +33,7 @@ export default class NotFound extends Component {
     return (
       <RouteStatus code={ 404 }>
         <div className="notfound-main-div">
-            <img src={pageNotFoundImg} />
+            <img src={pageNotFoundImg} /><br />
             <a href="javascript:void(0)" onClick={() => history.back()}>BACK</a>
             {/* <Link to={routeCodes.DASHBOARD}>BACK TO HOME</Link> */}
         </div>

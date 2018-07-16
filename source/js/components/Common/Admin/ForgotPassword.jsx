@@ -8,6 +8,7 @@ import validator from 'validator';
 import cx from 'classnames';
 import LogoImg from 'img/common/logo.png';
 import resetSvg from 'img/site/svg/loading.svg';
+import { ToastContainer, toast, Slide } from 'react-toastify';
 import { forgotPassword } from '../../../actions/admin/password';
 
 const validate = values => {
@@ -50,6 +51,12 @@ class ForgotPassword extends Component {
         if (forgotPassRes.status === 1 && passReset) {
             this.setState({ passReset: false });
             history.push('/admin');
+        }
+
+        if (forgotPassRes.error) {
+            toast.success(forgotPassRes.error, {
+                className: 'success-custom-tostify',
+            });
         }
     }
 

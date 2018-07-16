@@ -47,7 +47,7 @@ const actionMap = {
     [FORGOT_PASSWORD_ERROR]: (state, action) => {
         let error = 'Server Error';
         if (action.error && action.error.response) {
-            error = action.error.response.message;
+            error = action.error.response.data.message;
         }
         return state.merge(Map({
             ...initialState,
@@ -59,6 +59,7 @@ const actionMap = {
             }
         }));
     },
+
     [RESET_PASSWORD_REQUEST]: (state, action) => {
         return state.merge(Map({
             ...initialState,

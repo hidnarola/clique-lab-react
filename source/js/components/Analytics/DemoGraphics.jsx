@@ -4,6 +4,8 @@ import { PieChart, Pie, Legend } from 'recharts';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem, UncontrolledDropdown } from 'reactstrap';
 import { getDemoGraphics } from '../../actions/analytics';
 import nodataImg2 from 'img/site/no_data/04.png';
+import nodataImg from 'img/site/no_data/07.png';
+
 import pieChart from 'img/site/pie-chart.png';
 
 class DemoGrpahicChart extends Component {

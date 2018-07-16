@@ -160,6 +160,9 @@ class Members extends Component {
     }
     handleSorting = (selectedOption) => {
         const { dispatch } = this.props;
+        if (selectedOption === null) {
+            selectedOption = { value: 'sort_by_name_az', label: 'Name (a-z)', column: 'name' }
+        }
         this.setState({ sort_wise_pagination: selectedOption });
         let selected_value;
         if (selectedOption.value === 'sort_by_name_az') { selected_value = 1; }
