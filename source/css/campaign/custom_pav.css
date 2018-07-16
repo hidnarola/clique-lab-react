@@ -642,7 +642,7 @@ tr.order_cart td img {margin-top:-10px}
 .admin_transaction_sortBy .Select-control{ padding-top: 8px; padding-bottom: 8px; border-color:#525f7f78 !important; }
 .admin_transaction_sortBy{ margin-right: 10px; margin-top: -11px; } 
 .admin_dasboard_transaction.cart-table .btn_members_action { background: transparent; border: 0; padding: 0; color: #616b92; vertical-align: top;}
-.admin_dasboard_transaction.cart-table .member_action_label{ margin: 0; line-height: 5px; vertical-align: top; display: block; font-size: 25px; font-weight: 600; cursor: pointer }
+.admin_dasboard_transaction.cart-table .member_action_label{ margin: 0; line-height: 20px; position: relative; top:-5px; vertical-align: top; display: block; font-size: 25px; font-weight: 600; cursor: pointer }
 .admin_dasboard_transaction.cart-table .dropdown .dropdown-menu{ margin:25px 0 0 !important; right: 35px !important; left: inherit !important }
 .admin_dasboard_transaction.cart-table .dropdown .dropdown-menu:after{ top: -15px; right: 7px; left: inherit !important; }
 .admin_dasboard_transaction.cart-table .dropdown .dropdown-menu .dropdown-item{ font-weight: 600; color: #525f7f; font-size: 13px; padding: 2px 5px; }

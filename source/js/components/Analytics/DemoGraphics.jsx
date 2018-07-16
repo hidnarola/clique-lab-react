@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { PieChart, Pie, Legend } from 'recharts';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem, UncontrolledDropdown } from 'reactstrap';
 import { getDemoGraphics } from '../../actions/analytics';
+import nodataImg from 'img/site/no_data/07.png';
 
 import pieChart from 'img/site/pie-chart.png';
 
@@ -151,17 +152,19 @@ class DemoGraphics extends Component {
 			<div className="analytics-body content-box">
 				<ul className="demographics-ul d-flex">
 					{
-						(demo_graphics_data.status == 1) ?
-							(result.length > 0) &&
-							result.map((obj, index) => {
-								return (
-									<DemoGrpahicChart
-										chartData={obj}
-										chartDataIndex={index}
-									/>
-								)
-							})
-							: ''
+							(demo_graphics_data.status == 1) ?
+								(result.length > 0) &&
+									result.map((obj, index) => {
+										return (
+											<DemoGrpahicChart
+												chartData={obj}
+												chartDataIndex={index}
+											/>
+										)
+									})
+								:
+								<div className="no_data_found"> <img src={nodataImg} /> <p>No data available.</p> </div>
+						
 					}
 				</ul>
 			</div>
