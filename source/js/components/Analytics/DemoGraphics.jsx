@@ -166,7 +166,7 @@ class DemoGraphics extends Component {
 						}
 					</ul>
 				</div>
-				: <div className="no_data_found test"> <img src={nodataImg2} /> <p>No data available.</p> </div>
+				: <div className="no_data_found test"> <img src={nodataImg} /> <p>No data available.</p> </div>
 		);
 	}
 }

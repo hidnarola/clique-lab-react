@@ -110,7 +110,7 @@ const MostDataDropdown = (props) => {
         (props.socialCurrentValue === 'facebook') ?
             <Dropdown isOpen={props.open} toggle={props.toggle}>
                 <DropdownToggle>
-                    <label style={{ "textTransform": "capitalize" }}>Posts <span style={{"color":"#6772e5"}}>{title}</span></label><i className="dropdown-arrow"></i>
+                    <label style={{ "textTransform": "capitalize" }}>Posts <span style={{"color":"#6772e5","paddingLeft":"5px"}}>{title}</span></label><i className="dropdown-arrow"></i>
                 </DropdownToggle>
                 <DropdownMenu right>
                     <DropdownItem onClick={() => { props.dashboardDataSelect('no_of_likes') }} > Most Liked </DropdownItem>
@@ -122,7 +122,7 @@ const MostDataDropdown = (props) => {
             : (props.socialCurrentValue === 'twitter') ?
                 <Dropdown isOpen={props.open} toggle={props.toggle}>
                     <DropdownToggle>
-                        <label style={{ "textTransform": "capitalize" }}>Posts <span style={{"color":"#6772e5"}}>{title}</span></label><i className="dropdown-arrow"></i>
+                        <label style={{ "textTransform": "capitalize" }}>Posts <span style={{"color":"#6772e5","paddingLeft":"5px"}}>{title}</span></label><i className="dropdown-arrow"></i>
                     </DropdownToggle>
                     <DropdownMenu right>
                         <DropdownItem onClick={() => { props.dashboardDataSelect('no_of_likes') }} > Most Favorite </DropdownItem>
@@ -132,7 +132,7 @@ const MostDataDropdown = (props) => {
                 : (props.socialCurrentValue === 'pinterest') ?
                     <Dropdown isOpen={props.open} toggle={props.toggle}>
                         <DropdownToggle>
-                            <label style={{ "textTransform": "capitalize" }}>Posts <span style={{"color":"#6772e5"}}>{title}</span></label><i className="dropdown-arrow"></i>
+                            <label style={{ "textTransform": "capitalize" }}>Posts <span style={{"color":"#6772e5","paddingLeft":"5px"}}>{title}</span></label><i className="dropdown-arrow"></i>
                         </DropdownToggle>
                         <DropdownMenu right>
                             <DropdownItem onClick={() => { props.dashboardDataSelect('no_of_comments') }} > Most Comment </DropdownItem>
