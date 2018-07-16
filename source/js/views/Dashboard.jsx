@@ -477,16 +477,14 @@ class Dashboard extends Component {
     }
 
     /** Counter to count share,like,comments */
-    getCounter = (obj, index) => {
-        const { totallike, totalshare, totalcmt} = this.state;
-    
+    getCounter = (obj) => {
+        // const { totallike, totalshare, totalcmt} = this.state;
         if(this.state.isload === 1)
         {
-            console.log('DADTATAA123>>>');
             this.setState({
-                totallike: totallike + obj.like_cnt,
-                totalshare: totalshare + obj.share_cnt,
-                totalcmt: totalcmt + obj.comment_cnt,
+                totallike:  obj.like_cnt,
+                totalshare:  obj.share_cnt,
+                totalcmt:  obj.comment_cnt,
                 isload:0
             })
         }
@@ -499,9 +497,19 @@ class Dashboard extends Component {
 
         if(!dbloading && social_analytics_data.data !== null)
         {
-            console.log('Caling from render');
             let myData = social_analytics_data.data[0];
-            myData.map((obj, index) => this.getCounter(obj, index));
+            let d = {
+                "like_cnt":0,
+                "comment_cnt":0,
+                "share_cnt":0
+            };
+            myData.map((obj, index) => {
+                d.like_cnt += obj.like_cnt;
+                d.comment_cnt += obj.comment_cnt;
+                d.share_cnt += obj.share_cnt;
+            });
+
+            this.getCounter(d);
         }
 
         let monthArr = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
