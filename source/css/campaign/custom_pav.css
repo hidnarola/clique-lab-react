@@ -276,6 +276,7 @@ td.fc-widget-content{ border:0;}
     .stats_age_dropdown.active .dropdown-toggle,
     .stats_filter_li4.active .dropdown-toggle{ color:#fff !important;}
     .stats_age_dropdown .dropdown-menu:after{ left: 11px; top:-15px}
+    .first_filter .stats_age_dropdown .dropdown-menu:after{ left: 26px; top:-15px}
     .add_all_results_dropdown .dropdown-menu:after{ right: 5px; left: auto; top: -14px; }
     .stats_filter_li3 .dropdown-menu:after{ left: 35px; top:-15px}
 
@@ -462,7 +463,7 @@ tr.order_cart td img {margin-top:-10px}
 
 .stats_age_dropdown2.active .dropdown-toggle,
 .stats_filter_li4_2.active .dropdown-toggle{ color:#fff !important;}
-.stats_age_dropdown2 .dropdown-menu:after{ left: 11px; top:-15px}
+.stats_age_dropdown2 .dropdown-menu:after{ left: 26px; top:-15px}
 .add_all_results_dropdown .dropdown-menu:after{ right: 5px; left: auto; top: -14px; }
 .stats_filter_li3 .dropdown-menu:after{ left: 35px; top:-15px}
 
@@ -522,7 +523,7 @@ tr.order_cart td img {margin-top:-10px}
 
 .stats_age_dropdown3.active .dropdown-toggle,
 .stats_filter_li4.active .dropdown-toggle{ color:#fff !important;}
-.stats_age_dropdown3 .dropdown-menu:after{ left: 11px; top:-15px}
+.stats_age_dropdown3 .dropdown-menu:after{ left: 26px; top:-15px}
 .add_all_results_dropdown .dropdown-menu:after{ right: 5px; left: auto; top: -14px; }
 .stats_filter_li3 .dropdown-menu:after{ left: 35px; top:-15px}
 
@@ -667,3 +668,4 @@ tr.order_cart td img {margin-top:-10px}
 button.round-btn.loading-btn {
     background-color: #6782e5 !important;
 }
+

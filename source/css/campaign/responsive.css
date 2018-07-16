@@ -1,6 +1,8 @@
 img{max-width:100%;}
 .form-content {height: 800px;}
-
+@media(min-width:1601px){
+	.myprofile-r .dropzone-image-preview-wrapper{height: 242px;}
+}
 @media(min-width:1658px){
 	.Select-placeholder, .Select--single > .Select-control .Select-value {line-height: 22px;}
 	.group-head-r ul li.create-group a{ padding:0 10px;}

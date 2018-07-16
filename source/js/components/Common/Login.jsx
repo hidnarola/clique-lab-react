@@ -89,12 +89,12 @@ class Login extends Component {
         let { errorMsg } = this.state;
         if (message !== null) {
             if (message === 'Promoter registered successfully') {
-                this.toastId = toast.success(<CustomToastMsg rsend={this.saveEmail} />,
-                    {
-                        className: 'success-custom-tostify',
-                        autoClose: false,
-                        closeOnClick: false,
-                    });
+                    this.toastId = toast.success(<CustomToastMsg rsend={this.saveEmail} />,
+                        {
+                            className: 'success-custom-tostify',
+                            autoClose: false,
+                            closeOnClick: false,
+                        });
             } else if (message) {
                 toast.success(message, {
                     className: 'success-custom-tostify',

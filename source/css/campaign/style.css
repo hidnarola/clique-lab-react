@@ -764,3 +764,7 @@ label.pink-color{ color: #f783c3; margin-bottom:0px !important }
 
 .calendar_sorting .Select-value-label{ padding-right:5px !important; color:#6772e5 !important; }
 .calendar_sorting .Select-value-label:after{content:"View by";font-weight: 600 !important; color:#525f7f; font-size: 13px !important; position: absolute; top:0; left:0; }
+.right-box .social-dropdown .dropdown-menu{padding: 10px 20px!important;  min-width: 130px;}
+.recharts-wrapper {
+  margin : 0 auto;
+}

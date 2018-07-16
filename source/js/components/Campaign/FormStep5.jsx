@@ -10,7 +10,7 @@ import deleteImg from 'img/site/delete-icon.png';
 
 import FormStep4 from '../Campaign/FormStep4';
 
-const validate = values => {
+const validate = (values,imgArr) => {
     const errors = {};
     let images = [];
 

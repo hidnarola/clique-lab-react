@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { PieChart, Pie, Legend } from 'recharts';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem, UncontrolledDropdown } from 'reactstrap';
 import { getDemoGraphics } from '../../actions/analytics';
-
+import nodataImg2 from 'img/site/no_data/04.png';
 import pieChart from 'img/site/pie-chart.png';
 
 class DemoGrpahicChart extends Component {
@@ -40,37 +40,37 @@ class DemoGrpahicChart extends Component {
 
 		let title = '';
 
-		if(chartData[0] === 'country'){
+		if (chartData[0] === 'country') {
 			title = 'Country';
 		}
-		else if(chartData[0] === 'state'){
+		else if (chartData[0] === 'state') {
 			title = 'State';
 		}
-		else if(chartData[0] === 'suburb'){
+		else if (chartData[0] === 'suburb') {
 			title = 'Suburb';
 		}
-		else if(chartData[0] === 'gender'){
+		else if (chartData[0] === 'gender') {
 			title = 'Gender';
 		}
-		else if(chartData[0] === 'job_industry'){
+		else if (chartData[0] === 'job_industry') {
 			title = 'Job Industry';
 		}
-		else if(chartData[0] === 'education'){
+		else if (chartData[0] === 'education') {
 			title = 'Education level';
 		}
-		else if(chartData[0] === 'language'){
+		else if (chartData[0] === 'language') {
 			title = 'Languages spoken';
 		}
-		else if(chartData[0] === 'ethnicity'){
+		else if (chartData[0] === 'ethnicity') {
 			title = 'Ethnicity';
 		}
-		else if(chartData[0] === 'music_taste')	{
+		else if (chartData[0] === 'music_taste') {
 			title = 'Music tastes';
 		}
-		else if(chartData[0] === 'relationship_status')	{
+		else if (chartData[0] === 'relationship_status') {
 			title = 'Relationship status';
 		}
-		else if(chartData[0] === 'sexual_orientation')	{
+		else if (chartData[0] === 'sexual_orientation') {
 			title = 'Sexual orientation';
 		}
 
@@ -84,16 +84,16 @@ class DemoGrpahicChart extends Component {
 							<h3>{title}</h3>
 						</div>
 						{/* <div style={{"fontWeight": "700","marginLeft":"auto","color":"#525f7f"}}>...</div> */}
-						
+
 					</div>
-					<div className="demographics-graph">
+					<div className="demographics-graph text-center">
 						<PieChart
 							width={200}
 							height={130}
 						>
 							<Pie
 								data={data}
-								cx={115}
+								cx={97}
 								innerRadius={35}
 								outerRadius={58}
 								fill="#8884d8"
@@ -129,18 +129,19 @@ class DemoGraphics extends Component {
 
 	componentWillMount = () => {
 		const { dispatch } = this.props;
-		dispatch(getDemoGraphics());		
+		dispatch(getDemoGraphics());
 	}
 
 	render() {
 		const { isRender } = this.state;
 		const { demo_graphics_data } = this.props;
 		let result = [];
-		if (demo_graphics_data.status == 1) {
+		if (demo_graphics_data.status == 1 && demo_graphics_data.data !== null) {
 			result = Object.keys(demo_graphics_data.data).map(function (key) {
 				return [key, demo_graphics_data.data[key]];
 			});
 		}
+
 		let data01 = [
 			{ name: 'A2', value: 50, fill: '#6772e5', stroke: '#6772e5' },
 			{ name: 'A3', value: 50, fill: '#83bff7', stroke: '#83bff7' },
@@ -148,11 +149,10 @@ class DemoGraphics extends Component {
 		]
 		if (demo_graphics_data.loading) { return (<div className="loader"></div>) }
 		return (
-			<div className="analytics-body content-box">
-				<ul className="demographics-ul d-flex">
-					{
-						(demo_graphics_data.status == 1) ?
-							(result.length > 0) &&
+			(result.length > 0) ?
+				<div className="analytics-body content-box">
+					<ul className="demographics-ul d-flex">
+						{
 							result.map((obj, index) => {
 								return (
 									<DemoGrpahicChart
@@ -161,10 +161,10 @@ class DemoGraphics extends Component {
 									/>
 								)
 							})
-							: ''
-					}
-				</ul>
-			</div>
+						}
+					</ul>
+				</div>
+				: <div className="no_data_found test"> <img src={nodataImg2} /> <p>No data available.</p> </div>
 		);
 	}
 }

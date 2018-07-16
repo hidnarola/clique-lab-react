@@ -40,7 +40,6 @@ const textField = (
             <input {...input} placeholder={placeholder} type={type} className={touched && ((error && `txt_error_div`))} />
             {touched && ((error && <span className="error-div">{error}</span>))}
         </div>
-
     )
 
 class FormStep2 extends Component {

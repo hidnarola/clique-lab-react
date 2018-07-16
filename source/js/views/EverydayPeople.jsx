@@ -150,11 +150,11 @@ class AddToModal extends Component {
 
 const DropDownSocial = (userObj) => {
     let followers, fb, linkd, insta, twit, pint = 0;
-    if (userObj.userObj.facebook !== undefined) { if (userObj.userObj.facebook.no_of_friends !== undefined) { fb = userObj.userObj.facebook.no_of_friends; } else { fb = 0; } } else { fb = 0; }
-    if (userObj.userObj.instagram !== undefined) { if (userObj.userObj.instagram.no_of_friends !== undefined) { insta = userObj.userObj.instagram.no_of_friends; } else { insta = 0; } } else { insta = 0; }
-    if (userObj.userObj.linkedin !== undefined) { if (userObj.userObj.linkedin.no_of_friends !== undefined) { linkd = userObj.userObj.linkedin.no_of_friends; } else { linkd = 0; } } else { linkd = 0; }
-    if (userObj.userObj.pinterest !== undefined) { if (userObj.userObj.pinterest.no_of_friends !== undefined) { pint = userObj.userObj.pinterest.no_of_friends; } else { pint = 0; } } else { pint = 0; }
-    if (userObj.userObj.twitter !== undefined) { if (userObj.userObj.twitter.no_of_friends !== undefined) { twit = userObj.userObj.twitter.no_of_friends; } else { twit = 0; } } else { twit = 0; }
+    if (userObj.userObj.facebook !== undefined) { if (userObj.userObj.facebook.no_of_friends !== undefined && userObj.userObj.facebook.enable) { fb = userObj.userObj.facebook.no_of_friends; } else { fb = 0; } } else { fb = 0; }
+    if (userObj.userObj.instagram !== undefined) { if (userObj.userObj.instagram.no_of_friends !== undefined && userObj.userObj.instagram.enable ) { insta = userObj.userObj.instagram.no_of_friends; } else { insta = 0; } } else { insta = 0; }
+    if (userObj.userObj.linkedin !== undefined) { if (userObj.userObj.linkedin.no_of_friends !== undefined && userObj.userObj.linkedin.enable) { linkd = userObj.userObj.linkedin.no_of_friends; } else { linkd = 0; } } else { linkd = 0; }
+    if (userObj.userObj.pinterest !== undefined) { if (userObj.userObj.pinterest.no_of_friends !== undefined && userObj.userObj.pinterest.enable) { pint = userObj.userObj.pinterest.no_of_friends; } else { pint = 0; } } else { pint = 0; }
+    if (userObj.userObj.twitter !== undefined) { if (userObj.userObj.twitter.no_of_friends !== undefined && userObj.userObj.twitter.enable) { twit = userObj.userObj.twitter.no_of_friends; } else { twit = 0; } } else { twit = 0; }
     return (
         <UncontrolledDropdown direction="up">
             <DropdownToggle caret>
@@ -1665,6 +1665,28 @@ class EverydayPeople extends Component {
         this.child.setSaveFor(value['value'], null, this.state.appliedFilter[0]);
         dispatch(fetchDropDownReq({ "sendReqFor": value['value'] }));
         // /promoter/group/:new_group_id/:old_group_id/add_filter_result_to_group
+
+        //add on 14-7-2018
+       
+        let msgData = '';
+        if(value.value === 'add_to_campaign')
+        {
+            msgData = 'No campaign found for given user';
+        } 
+        else if (value.value === 'add_to_group')
+        {
+            msgData = 'No group found for given user';
+        }
+
+        setTimeout(() => {
+            if (this.props.dropdownList === null && this.props.loading === false) {
+                this.setState({
+                    messagePopupSuccessMsg: null,
+                    messagePopupErrorMsg: msgData
+                });
+                this.messagePopupToggle();
+            }
+        }, 1500) // 1000
     }
 
     createGroupSubmit = (values) => {

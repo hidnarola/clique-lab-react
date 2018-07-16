@@ -472,6 +472,8 @@ class Wallet extends Component {
         const { dispatch, wallet_balance  } = this.props;
         const { txtAMT, txtBANK } = this.state;
         let isError = 0;
+        // let t = typeof()
+        
         if (txtAMT === '' || txtAMT.trim() === '') {
             jQuery('#txt_withdraw_amount').css("cssText", "border: 2px solid red !important");
             jQuery('.txt_withdraw_amount_errorMsg').html('This field is required');
@@ -485,6 +487,12 @@ class Wallet extends Component {
             jQuery('.txt_withdraw_amount_errorMsg').html('Please don\'t enter more than balance');
             isError = 1;
         }
+        else if (txtAMT < 1 || isNaN(txtAMT)) {
+            jQuery('#txt_withdraw_amount').css("cssText", "border: 2px solid red !important");
+            jQuery('.txt_withdraw_amount_errorMsg').html('Amount should be grater then or equal 1');
+            isError = 1;
+        }
+        
         if (txtBANK === '') {
             jQuery('.txt_withdraw_bank .Select-control').css("cssText", "border: 2px solid red !important");
             jQuery('.txt_withdraw_bank_errorMsg').html('This field is required');

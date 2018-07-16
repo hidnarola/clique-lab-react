@@ -110,7 +110,7 @@ const MostDataDropdown = (props) => {
         (props.socialCurrentValue === 'facebook') ?
             <Dropdown isOpen={props.open} toggle={props.toggle}>
                 <DropdownToggle>
-                    <label style={{ "textTransform": "capitalize" }}>Posts {title}</label><i className="dropdown-arrow"></i>
+                    <label style={{ "textTransform": "capitalize" }}>Posts <span style={{"color":"#6772e5"}}>{title}</span></label><i className="dropdown-arrow"></i>
                 </DropdownToggle>
                 <DropdownMenu right>
                     <DropdownItem onClick={() => { props.dashboardDataSelect('no_of_likes') }} > Most Liked </DropdownItem>
@@ -122,7 +122,7 @@ const MostDataDropdown = (props) => {
             : (props.socialCurrentValue === 'twitter') ?
                 <Dropdown isOpen={props.open} toggle={props.toggle}>
                     <DropdownToggle>
-                        <label style={{ "textTransform": "capitalize" }}>Posts {title}</label><i className="dropdown-arrow"></i>
+                        <label style={{ "textTransform": "capitalize" }}>Posts <span style={{"color":"#6772e5"}}>{title}</span></label><i className="dropdown-arrow"></i>
                     </DropdownToggle>
                     <DropdownMenu right>
                         <DropdownItem onClick={() => { props.dashboardDataSelect('no_of_likes') }} > Most Favorite </DropdownItem>
@@ -132,7 +132,7 @@ const MostDataDropdown = (props) => {
                 : (props.socialCurrentValue === 'pinterest') ?
                     <Dropdown isOpen={props.open} toggle={props.toggle}>
                         <DropdownToggle>
-                            <label style={{ "textTransform": "capitalize" }}>Posts {title}</label><i className="dropdown-arrow"></i>
+                            <label style={{ "textTransform": "capitalize" }}>Posts <span style={{"color":"#6772e5"}}>{title}</span></label><i className="dropdown-arrow"></i>
                         </DropdownToggle>
                         <DropdownMenu right>
                             <DropdownItem onClick={() => { props.dashboardDataSelect('no_of_comments') }} > Most Comment </DropdownItem>
@@ -482,7 +482,7 @@ class Dashboard extends Component {
     getCounter = (obj, index) => {
         const { totallike, totalshare, totalcmt,cnt} = this.state;
 
-        console.log('hi');
+        // console.log('hi');
         // this.setState({
         //     totallike: totallike + obj.like_cnt,
         //     totalshare: totalshare + obj.share_cnt,
@@ -568,7 +568,10 @@ class Dashboard extends Component {
                             />
                         </div>
                         <div className="view-all">
+                            {(dashboard_data.data !== null && dashboard_data.total > 0) ?
                             <a href="javascript:void(0)"><NavLink to={routeCodes.CAMPAIGN_ACTIVE}>View All</NavLink> <i></i> </a>
+                            :''
+                            }
                         </div>
                     </div>
                     <div className="right-box-btm-content d-flex">
