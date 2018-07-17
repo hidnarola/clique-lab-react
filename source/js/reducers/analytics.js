@@ -3,12 +3,15 @@ import {
     GET_ANALYTICS_REQUEST, GET_ANALYTICS_SUCCESS, GET_ANALYTICS_ERROR,
     GET_SOCIAL_ANALYTICS_REQUEST, GET_SOCIAL_ANALYTICS_SUCCESS, GET_SOCIAL_ANALYTICS_ERROR,
     GET_DEMO_GRAPHICS_REQUEST, GET_DEMO_GRAPHICS_SUCCESS, GET_DEMO_GRAPHICS_ERROR,
-    GET_DASHBOARD_REQUEST,GET_DASHBOARD_SUCCESS, GET_DASHBOARD_ERROR 
+    GET_DASHBOARD_REQUEST,GET_DASHBOARD_SUCCESS, GET_DASHBOARD_ERROR, 
+    SET_DASHBOARD_CURRENT_VALUE_REQUEST,
+    // ,SET_DASHBOARD_CURRENT_VALUE_SUCCESS,SET_DASHBOARD_CURRENT_VALUE_ERROR
 } from "../actions/analytics";
 
 const initialState = Map({
     loading: false,
     error: null,
+    dashboardCurrentValue:'no_of_likes',
     analytics: {
         status: 0,
         message: null,
@@ -147,18 +150,10 @@ const actionMap = {
 
     // Dashboard bottom
 
-    [GET_DASHBOARD_REQUEST]: (state, action) => {
+    [SET_DASHBOARD_CURRENT_VALUE_REQUEST]: (state, action) => {
+        console.log('Reducer Call>>>',action);
         return state.merge(Map({
-            ...initialState,
-            error:null,
-            // loading: true,
-            dashboard: {
-                dbloading: true,
-                status: 0,
-                message: null,
-                data: null,
-                total:0,
-            }
+           dashboardCurrentValue:action.data
         }));
     },
     
@@ -188,6 +183,21 @@ const actionMap = {
             status: 0,
             dashboard:{
                 dbloading: false,
+                total:0,
+            }
+        }));
+    },
+
+    [GET_DASHBOARD_REQUEST]: (state, action) => {
+        return state.merge(Map({
+            ...initialState,
+            error:null,
+            // loading: true,
+            dashboard: {
+                dbloading: true,
+                status: 0,
+                message: null,
+                data: null,
                 total:0,
             }
         }));

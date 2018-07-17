@@ -367,7 +367,9 @@ class GroupList extends Component {
                 });
                 this.messagePopupToggle();
 
-            } else if (this.props.dropdownList === null && this.props.loading === false && obj.total_member < 1) {
+            } 
+            // else if (this.props.dropdownList === null && this.props.loading === false && obj.total_member < 1) {
+            else if (this.props.dropdownList === null && this.props.loading === false ) {
                 //alert('You don’t have a campaign yet.')
                 this.setState({
                     messagePopupSuccessMsg: null,

@@ -14,6 +14,9 @@ img{max-width:100%;}
 	.cart-table .subtotal{margin-right: 40px;}
 	.card-box{ min-height:177px; }
 	.admin_transaction_sortBy .Select-control{ padding-top:5px; padding-bottom:5px }
+	.transactions-history .group-head-r .Select-control{height: 38px;}
+	.transactions-history .group-head-r.sort-date-btn .Select-placeholder{line-height: 26px;}
+
 }
 
 @media(max-width:1657px){

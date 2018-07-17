@@ -656,7 +656,8 @@ ul.fan-festival li:nth-child(2n+2){margin-left:auto;}
 .festival-ftr-r a img{ width:28px; height:28px; border-radius:80px; box-shadow:0 10px 24px 0 rgba(0,0,0,.1);}
 
 .festival-ftr-r  .dropdown-menu{right:0; left:auto !important; transform:translate(0) !important; bottom: 100% !important; top: auto !important; margin:0 0 20px; padding:15px 30px;}
-.festival-ftr-r .dropdown-menu:after {position: absolute; top:auto; left:auto; bottom: -20px; right: 0px; -webkit-transform: rotate(-180deg); -moz-transform: rotate(-180deg); transform: rotate(-180deg);}
+.festival-ftr-r .dropdown-menu:after{    border-left: 10px solid transparent;  border-right: 10px solid transparent;  border-bottom: 30px solid #fff;  position: absolute;  top: -10px;  left: 10px;}
+.festival-ftr-r .dropdown-menu:after {position: absolute; top:auto; left:auto; bottom: -20px; right: 2px; -webkit-transform: rotate(-180deg); -moz-transform: rotate(-180deg); transform: rotate(-180deg);}
 .festival-ftr-r .dropdown-menu a {display: block; padding: 10px 0;}
 
 .h-view .fan-festival-box{padding:0;}

@@ -15,6 +15,12 @@ export const GET_DASHBOARD_SUCCESS = 'GET_DASHBOARD_SUCCESS';
 export const GET_DASHBOARD_ERROR = 'GET_DASHBOARD_ERROR';
 
 
+export const SET_DASHBOARD_CURRENT_VALUE_REQUEST = 'SET_DASHBOARD_CURRENT_VALUE_REQUEST';
+// export const SET_DASHBOARD_CURRENT_VALUE_SUCCESS = 'SET_DASHBOARD_CURRENT_VALUE_SUCCESS';
+// export const SET_DASHBOARD_CURRENT_VALUE_ERROR = 'SET_DASHBOARD_CURRENT_VALUE_ERROR';
+
+
+
 export function getAnalytics(data) { return { type: GET_ANALYTICS_REQUEST, data } }
 export function getAnalyticsSuccess(data) { return { type: GET_ANALYTICS_SUCCESS, data } }
 export function getAnalyticsError(error) { return { type: GET_ANALYTICS_ERROR, error } }
@@ -31,4 +37,9 @@ export function getDemoGraphicsError(error) { return { type: GET_DEMO_GRAPHICS_E
 export function getDashboard(data) { return { type: GET_DASHBOARD_REQUEST, data } }
 export function getDashboardSuccess(data) { return { type: GET_DASHBOARD_SUCCESS, data } }
 export function getDashboardError(error) { return { type: GET_DASHBOARD_ERROR, error } }
+
+// set dashboard current value
+export function set_DashboardCurrentValue(data){return { type: SET_DASHBOARD_CURRENT_VALUE_REQUEST, data } }
+
+
 

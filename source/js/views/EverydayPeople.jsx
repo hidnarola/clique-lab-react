@@ -1665,7 +1665,6 @@ class EverydayPeople extends Component {
         this.child.setSaveFor(value['value'], null, this.state.appliedFilter[0]);
         dispatch(fetchDropDownReq({ "sendReqFor": value['value'] }));
         // /promoter/group/:new_group_id/:old_group_id/add_filter_result_to_group
-
         //add on 14-7-2018
        
         let msgData = '';
@@ -1673,7 +1672,7 @@ class EverydayPeople extends Component {
         {
             msgData = 'No campaign found for given user';
         } 
-        else if (value.value === 'add_to_group')
+        else if(value.value === 'add_to_group')
         {
             msgData = 'No group found for given user';
         }
