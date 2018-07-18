@@ -173,6 +173,7 @@ class CustomTooltip extends Component {
 
     render() {
         const { active } = this.props;
+        
         if (active) {
             const { payload, label } = this.props;
             return (
@@ -275,9 +276,6 @@ class Dashboard extends Component {
                     if (likes_share_cmt === 'shares') { showChart = 'shares'; }
                     if (likes_share_cmt === 'comments') { showChart = 'comments'; }
                 }
-                console.log('socilaMedia>>', socialCurrentValue);
-                console.log('socilaMedia Data>>', likes_share_cmt);
-                console.log('DB Value>>', this.state.dashboardCurrentValue);
                 analytics_data.map((obj, index) => {
                     // social_data.push({ name: monthArr[obj._id - 1], compare1: (Math.floor(Math.random() * 201)) });
                     if (showChart === 'likes') {
@@ -300,21 +298,6 @@ class Dashboard extends Component {
     /*************************************************************
                         Start : Dashboard Graph
     *************************************************************/
-
-
-    // componentWillUpdate(nextState) {
-    //     console.log('Props>>>>>>>', nextState);
-
-    //     const {isRender,dashboardCurrentValue} = this.state;
-
-    //     if (isRender === 1) {
-    //         this.setState({
-    //             dashboardCurrentValue: nextState.db_currentValue,
-    //             isRender:0,
-    //         })
-    //     }
-    // }
-
 
     like_share_comm = (value) => {
         const { dispatch } = this.props;
@@ -390,17 +373,17 @@ class Dashboard extends Component {
     }
 
     getDataSocialWise = (socialName) => {
-        const { dispatch, db_currentValue } = this.props;
+        const { dispatch} = this.props;
         //
-        let d = '';
+        let d = ''; // dashboard current value
         if (socialName === 'facebook' || socialName === 'twitter') {
-             this.setState({ dashboardCurrentValue: 'no_of_likes' });
-            // dispatch(set_DashboardCurrentValue('no_of_likes'));
+            this.setState({ dashboardCurrentValue: 'no_of_likes' });
+            this.setState({ likes_share_cmt: 'likes' });
             d='no_of_likes';
         }
         else if (socialName === 'pinterest') {
-             this.setState({ dashboardCurrentValue: 'no_of_comments' });
-            // dispatch(set_DashboardCurrentValue('no_of_comments'));
+            this.setState({ dashboardCurrentValue: 'no_of_comments' });
+            this.setState({ likes_share_cmt: 'comments' })
             d='no_of_comments';
         }
 
@@ -604,10 +587,12 @@ class Dashboard extends Component {
                                         margin={{ top: 30, right: 0, left: 0, bottom: 20 }}>
                                         <XAxis dataKey="name" />
                                         <Tooltip
-                                            content={<CustomTooltip />}
-                                            position={{ y: 240 }}
+                                            // content={<CustomTooltip/>}
+                                            // // content={<CustomTooltip data={this.state.social_analytics}/>}
+                                            position={{ y: 215 }}
+                                            
                                         />
-                                        <Bar dataKey="compare1" stackId="a" fill="#6772e6" />
+                                        <Bar dataKey="compare1" fill="#6772e6" />
                                     </BarChart>
                                 </ResponsiveContainer>
                                 :

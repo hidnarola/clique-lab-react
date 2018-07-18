@@ -134,6 +134,7 @@ class Wallet extends Component {
                 jQuery('.error_div').html(error_msg);
                 jQuery('.error_div').css({ display: "block" });
                 this.setState({ isRender: 0, disabled: '' });
+                dispatch(resetValMyProfile({ addBank: false})); // now
             } else if (addBank.status === 1) {
                 this.addBankModaltoggle();
                 dispatch(getBankList());

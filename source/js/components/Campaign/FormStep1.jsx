@@ -46,6 +46,8 @@ class FormStep1 extends Component {
     }
 
     render() {
+
+        console.log('Moment>>>',moment());
         const { handleSubmit,prevImg } = this.props;
         return (
             <form onSubmit={handleSubmit}>

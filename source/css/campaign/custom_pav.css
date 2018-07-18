@@ -669,3 +669,7 @@ button.round-btn.loading-btn {
     background-color: #6782e5 !important;
 }
 
+/* For dashboard graph label */
+.dashboard-page .recharts-tooltip-wrapper p.recharts-tooltip-label{display:none !important}
+.dashboard-page .recharts-tooltip-wrapper ul.recharts-tooltip-item-list > li > span{display:none}
+.dashboard-page .recharts-tooltip-wrapper ul.recharts-tooltip-item-list > li > span.recharts-tooltip-item-value{display:inline-block !important}

@@ -17,7 +17,7 @@ import cx from "classnames";
  *
  **/
 const TimingDropdown = (props) => {
-    
+
     return (
         <Dropdown isOpen={props.open} toggle={props.toggle}>
             <DropdownToggle>
@@ -41,18 +41,18 @@ const TimingDropdown = (props) => {
  *
  **/
 const SocialDropdown = (props) => {
-    
+
     return (
         <Dropdown isOpen={props.open} toggle={props.toggle}>
             <DropdownToggle>
-                <label style={{"textTransform":"capitalize"}}>{props.currentValue}</label> &nbsp; <i className="dropdown-arrow"></i>
+                <label style={{ "textTransform": "capitalize" }}>{props.currentValue}</label> &nbsp; <i className="dropdown-arrow"></i>
             </DropdownToggle>
             <DropdownMenu>
-                <DropdownItem onClick={() => { props.socialSelect('twitter') }} > Twitter </DropdownItem>
                 <DropdownItem onClick={() => { props.socialSelect('facebook') }} > Facebook </DropdownItem>
-                <DropdownItem onClick={() => { props.socialSelect('linkedin') }} > Linkedin </DropdownItem>
+                <DropdownItem onClick={() => { props.socialSelect('twitter') }} > Twitter </DropdownItem>
+                {/* <DropdownItem onClick={() => { props.socialSelect('linkedin') }} > Linkedin </DropdownItem> */}
                 <DropdownItem onClick={() => { props.socialSelect('pinterest') }} > Pinterest </DropdownItem>
-                <DropdownItem onClick={() => { props.socialSelect('instagram') }} > Instagram </DropdownItem>
+                {/* <DropdownItem onClick={() => { props.socialSelect('instagram') }} > Instagram </DropdownItem> */}
             </DropdownMenu>
         </Dropdown>
     );
@@ -121,7 +121,8 @@ class Stats extends Component {
             barChartData: null,
 
             monthCurrentValue: 3,
-            socialCurrentValue: 'twitter',
+            // socialCurrentValue: 'twitter',
+            socialCurrentValue: 'facebook',
             likes_share_cmt: 'likes',
 
             isRender: 0,
@@ -139,7 +140,7 @@ class Stats extends Component {
         this.social_toggle = this.social_toggle.bind(this);
     }
 
-   
+
 
     timing_toggle() { this.setState({ timing_open: !this.state.timing_open }); }
     social_toggle() { this.setState({ social_open: !this.state.social_open }); }
@@ -147,20 +148,26 @@ class Stats extends Component {
     getDataMonthWise = (months) => {
         const { totalNoCompare, whichCompare, dispatch } = this.props;
         const { appliedFilter, socialCurrentValue } = this.state;
+        let data = '';
         let start_date = '';
-        let end_date = moment().format("YYYY-MM-DD");
+        // let end_date = moment().format("YYYY-MM-DD");
+        let end_date = moment().endOf('month').format("YYYY-MM-DD");
         if (months == '3M') {
-            start_date = moment(end_date).subtract(3, 'months').format('YYYY-MM-DD');
-            this.setState({ monthCurrentValue: 3 })
+            start_date = moment(end_date).startOf('month').subtract(2, 'months').format('YYYY-MM-DD');
+            this.setState({ monthCurrentValue: 3 });
+            data = 3;
         } else if (months == '6M') {
-            start_date = moment(end_date).subtract(6, 'months').format('YYYY-MM-DD');
-            this.setState({ monthCurrentValue: 6 })
+            start_date = moment(end_date).startOf('month').subtract(5, 'months').format('YYYY-MM-DD');
+            this.setState({ monthCurrentValue: 6 });
+            data = 6;
         } else if (months == '9M') {
-            start_date = moment(end_date).subtract(9, 'months').format('YYYY-MM-DD');
-            this.setState({ monthCurrentValue: 9 })
+            start_date = moment(end_date).startOf('month').subtract(8, 'months').format('YYYY-MM-DD');
+            this.setState({ monthCurrentValue: 9 });
+            data = 9;
         } else if (months == '12M') {
-            start_date = moment(end_date).subtract(12, 'months').format('YYYY-MM-DD');
-            this.setState({ monthCurrentValue: 12 })
+            start_date = moment(end_date).startOf('month').subtract(11, 'months').format('YYYY-MM-DD');
+            this.setState({ monthCurrentValue: 12 });
+            data = 12;
         }
         let arrayFilter2 = [{
             "start_date": start_date,
@@ -184,16 +191,17 @@ class Stats extends Component {
         }
         this.setState({ isRender: 0 });
         dispatch(getSocialAnalytics(arrayFilter2));
+
+        this.get_CurrentMonth(data);
     }
 
     getDataSocialWise = (socialName) => {
         const { totalNoCompare, whichCompare, dispatch } = this.props;
-        const { appliedFilter } = this.state;
-        this.setState({ socialCurrentValue: socialName });
-        
+        const { appliedFilter,socialCurrentValue } = this.state;
+
         let arrayFilter2 = [{
-            "start_date": moment(moment().format("YYYY-MM-DD")).subtract(this.state.monthCurrentValue, 'months').format('YYYY-MM-DD'),
-            "end_date": moment().format("YYYY-MM-DD"),
+            "start_date": moment(moment().endOf('month').format("YYYY-MM-DD")).subtract(this.state.monthCurrentValue - 1, 'months').startOf('month').format('YYYY-MM-DD'),
+            "end_date": moment().endOf('month').format("YYYY-MM-DD"),
             "social_media_platform": socialName,
             "filter": [
                 this.state.appliedFilter[0]['filter'],
@@ -202,7 +210,6 @@ class Stats extends Component {
             ]
         }];
 
-        // this.setState({ socialCurrentValue: socialName })
         if (totalNoCompare == 1) {
             arrayFilter2[0].filter.splice(1, 2);
         }
@@ -215,7 +222,22 @@ class Stats extends Component {
         }
         this.setState({ isRender: 0 });
         dispatch(getSocialAnalytics(arrayFilter2));
-        
+        this.setState({ socialCurrentValue: socialName });
+
+        let data = '';
+        if(socialName === 'facebook')
+        {
+            data = 'facebook';
+        }
+        if(socialName === 'twitter')
+        {   
+            data = 'twitter';
+        }
+        else if(socialName === 'pinterest')
+        {
+            data = 'pinterest';
+        }
+        this.get_CurrentSocialMedia(data);
     }
 
     renderLi = (obj) => {
@@ -272,7 +294,7 @@ class Stats extends Component {
     componentDidUpdate = (prevProps, prevState) => {
         const { social_analytics_data } = this.props;
         const { social_analytics, isRender } = this.state;
-        if (social_analytics !== social_analytics_data.data) {
+        if (social_analytics !== social_analytics_data.data ) {
             if (social_analytics_data.status === 1 && social_analytics_data.data !== null) {
                 this.setState({
                     isRender: 0,
@@ -322,8 +344,19 @@ class Stats extends Component {
             appliedFilter: appliedFilter,
             social_analytics: socialAnalyticsData,
         });
+        // this.get_CurrentSocialMedia_And_Month();
     }
-    
+
+
+    // ----------- now ------------ [18-7-2018]
+
+    get_CurrentSocialMedia = (data) =>{
+        this.props.socialMediaData(data);
+    }
+    get_CurrentMonth = (data) =>{
+        this.props.monthData(data);
+    }
+
     render() {
         const { barChartData, isRender, social_analytics, likes_share_cmt, isRenderChart } = this.state;
         const { loading, analyticsData, socialAnalyticsData, totalNoCompare, whichCompare } = this.props;
@@ -437,7 +470,7 @@ class Stats extends Component {
                         </div>
                     </div>
                     <div className="right-box-content d-flex">
-                        <div className="graph-img" style={{ width: 'auto', height: '500px'}}>
+                        <div className="graph-img" style={{ width: 'auto', height: '500px' }}>
                             <ResponsiveContainer>
                                 <BarChart data={barChartData}
                                     //onMouseMove={this.onChartMouseMove}

@@ -16,7 +16,7 @@ import closeImg from 'img/site/close-icon.png';
 import ReactSelect from 'react-select';
 import InputRange from 'react-input-range';
 import _ from 'lodash';
-import moment from 'moment';
+import moment, { months } from 'moment';
 import {
     Button, Modal, ModalHeader, ModalBody, ModalFooter, Dropdown,
     DropdownToggle, DropdownMenu, DropdownItem, UncontrolledDropdown
@@ -90,7 +90,7 @@ const MoreFilterDropDown = (props) => {
     }
     // <UncontrolledDropdown className="MoreFilterLi">
     // 
-    return (        
+    return (
         <Dropdown isOpen={props.open} toggle={props.toggle} className="MoreFilterLi stats_filter_li4" >
             <DropdownToggle caret >
                 More Filter {" "}
@@ -465,6 +465,9 @@ class Analytics extends Component {
             isMoreFilterApply3: false,
 
             statsForceRefresh: false,
+
+            newSocialMediaValue: '',
+            newMonthValue:''
         }
         this.age_filter_toggle = this.age_filter_toggle.bind(this);
         this.age_filter_toggle2 = this.age_filter_toggle2.bind(this);
@@ -486,9 +489,10 @@ class Analytics extends Component {
             }
         ];
         let arrayFilter2 = [{
-            "start_date": moment(moment().format("YYYY-MM-DD")).subtract(3, 'months').format('YYYY-MM-DD'),
-            "end_date": moment().format("YYYY-MM-DD"),
-            "social_media_platform": "twitter",
+            "start_date": moment(moment().endOf('month').format("YYYY-MM-DD")).subtract(2, 'months').startOf('month').format('YYYY-MM-DD'),
+            "end_date": moment().endOf('month').format("YYYY-MM-DD"),
+            // "social_media_platform": "twitter",
+            "social_media_platform": "facebook",
             "filter": [
                 []
             ]
@@ -820,7 +824,7 @@ class Analytics extends Component {
                         ]
                     }
                 ],
-                
+
             })
         }
     }
@@ -1263,6 +1267,8 @@ class Analytics extends Component {
         const { appliedFilter, totalNoCompare, whichCompare } = this.state;
         const { dispatch } = this.props;
 
+        const { newSocialMediaValue,newMonthValue } = this.state;
+
         let arrayFilter = [{
             "filter": [
                 this.state.appliedFilter[0]['filter'],
@@ -1272,9 +1278,12 @@ class Analytics extends Component {
         }];
 
         let arrayFilter2 = [{
-            "start_date": moment(moment().format("YYYY-MM-DD")).subtract(3, 'months').format('YYYY-MM-DD'),
-            "end_date": moment().format("YYYY-MM-DD"),
-            "social_media_platform": "twitter",
+            // "start_date": moment(moment().format("YYYY-MM-DD")).subtract(3, 'months').format('YYYY-MM-DD'),
+            // "end_date": moment().format("YYYY-MM-DD"),
+            "start_date": moment(moment().endOf('month').format("YYYY-MM-DD")).subtract(newMonthValue - 1, 'months').startOf('month').format('YYYY-MM-DD'),
+            "end_date": moment().endOf('month').format("YYYY-MM-DD"),
+            // "social_media_platform": "twitter",
+            "social_media_platform": newSocialMediaValue,
             "filter": [
                 this.state.appliedFilter[0]['filter'],
                 this.state.appliedFilter[0]['filter2'],
@@ -1299,7 +1308,17 @@ class Analytics extends Component {
         dispatch(getSocialAnalytics(arrayFilter2));
     }
 
-    
+
+    //------------now -------------[18-7-2018]
+
+    getSocialData = (socialmedia) => {
+        this.setState({ newSocialMediaValue: socialmedia });
+    }
+
+    getMonthData = (month) => {
+        this.setState({ newMonthValue: month });
+    }
+
     render() {
         let { moreFilterData, loading } = this.props;
         const { appliedFilter, analytics, social_analytics, allSliders, allDropDown, totalNoCompare, whichCompare, filter1, filter2, filter3 } = this.state;
@@ -1356,7 +1375,7 @@ class Analytics extends Component {
             this.props.history.push(routeCodes.ANALYTICS_STATS);
         }
         //console.log(totalNoCompare,(whichCompare.indexOf(2) > -1));
-        if (loading) { return (<div className="loader"></div>) }
+        // if (loading) { return (<div className="loader"></div>) }
         return (
             <div>
                 <div className="analytics-head">
@@ -1544,7 +1563,7 @@ class Analytics extends Component {
                         )
                     }
                 </div>
-                {curt_page == routeCodes.ANALYTICS_STATS && <Stats analyticsData={analytics} socialAnalyticsData={social_analytics} appliedFilter={appliedFilter} totalNoCompare={totalNoCompare} whichCompare={whichCompare}/>}
+                {curt_page == routeCodes.ANALYTICS_STATS && <Stats analyticsData={analytics} socialAnalyticsData={social_analytics} appliedFilter={appliedFilter} totalNoCompare={totalNoCompare} whichCompare={whichCompare} socialMediaData={this.getSocialData} monthData={this.getMonthData} />}
                 {curt_page == routeCodes.ANALYTICS_DEMOGRAPHICS && <DemoGraphics />}
             </div>
         );
