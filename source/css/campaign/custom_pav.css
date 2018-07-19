@@ -372,9 +372,9 @@ td.fc-widget-content{ border:0;}
         font-weight: 600;
         color: #525f7f;
     }
-    .recharts-tooltip-wrapper { box-shadow: 0 0 30px 0 #52649c59; background: #fff; border-radius: 3px; padding: 10px; position:relative; z-index:100; width:80px; height:auto; text-align: left; left:-50px !important}
+    /* .recharts-tooltip-wrapper { border-radius: 3px; padding: 10px; position:relative; z-index:100; width:80px; height:auto; text-align: left; left:-50px !important} */
     .recharts-tooltip-wrapper .graph.custom-tooltip .label{  font-weight:600; font-size:14px; }
-    .recharts-tooltip-wrapper:after{content:''; width:0;height:0; border-left:10px solid transparent; border-right:10px solid transparent; border-top:10px solid #fff; position: absolute; top:100%; left:50%; transform:translateX(-50%);}
+    .recharts-tooltip-wrapper:after{content:''; width:0;height:0; border-left:5px solid transparent; border-right:5px solid transparent; border-top:5px solid #fff; position: absolute; top:100%; left:50%; transform:translateX(-50%);}
     .graph-img svg>path {fill:transparent !important;}
     .graph-img svg a path{fill:#6772e6 !important;}
 
@@ -672,4 +672,28 @@ button.round-btn.loading-btn {
 /* For dashboard graph label */
 .dashboard-page .recharts-tooltip-wrapper p.recharts-tooltip-label{display:none !important}
 .dashboard-page .recharts-tooltip-wrapper ul.recharts-tooltip-item-list > li > span{display:none}
-.dashboard-page .recharts-tooltip-wrapper ul.recharts-tooltip-item-list > li > span.recharts-tooltip-item-value{display:inline-block !important}
+.dashboard-page .recharts-tooltip-wrapper ul.recharts-tooltip-item-list > li > span.recharts-tooltip-item-value{display:inline-block !important;font-size: 12px;font-weight: 600;}
+
+.recharts-default-tooltip {
+   
+    width: 40px;
+    height: 40px;
+    border: 3px solid #fff !important;
+    border-radius: 50% 50% 0 50%;
+    background-color: #fff !important;
+    box-shadow: 0 0 30px 0 #52649c59;
+    transform: rotate(45deg);
+    margin: 0 auto !important;
+    padding: 0 !important;
+}
+.recharts-default-tooltip ul{
+    transform: rotate(-45deg);
+    width: 34px;
+}
+.recharts-default-tooltip ul li{
+    padding-top: 5px !important;
+    padding-bottom: 3px !important;
+}
+.recharts-tooltip-wrapper {
+    margin-left: -30px;
+}

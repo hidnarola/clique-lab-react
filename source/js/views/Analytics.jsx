@@ -1266,8 +1266,9 @@ class Analytics extends Component {
     afterRemoveCompare = () => {
         const { appliedFilter, totalNoCompare, whichCompare } = this.state;
         const { dispatch } = this.props;
-
         const { newSocialMediaValue,newMonthValue } = this.state;
+        let month = 3;
+        if(newMonthValue === '' || newMonthValue === undefined){month = month ;}else{month = newMonthValue}
 
         let arrayFilter = [{
             "filter": [
@@ -1280,7 +1281,7 @@ class Analytics extends Component {
         let arrayFilter2 = [{
             // "start_date": moment(moment().format("YYYY-MM-DD")).subtract(3, 'months').format('YYYY-MM-DD'),
             // "end_date": moment().format("YYYY-MM-DD"),
-            "start_date": moment(moment().endOf('month').format("YYYY-MM-DD")).subtract(newMonthValue - 1, 'months').startOf('month').format('YYYY-MM-DD'),
+            "start_date": moment(moment().endOf('month').format("YYYY-MM-DD")).subtract(month - 1, 'months').startOf('month').format('YYYY-MM-DD'),
             "end_date": moment().endOf('month').format("YYYY-MM-DD"),
             // "social_media_platform": "twitter",
             "social_media_platform": newSocialMediaValue,

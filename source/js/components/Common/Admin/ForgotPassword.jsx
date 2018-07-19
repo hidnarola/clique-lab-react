@@ -11,6 +11,8 @@ import resetSvg from 'img/site/svg/loading.svg';
 import { ToastContainer, toast, Slide } from 'react-toastify';
 import { forgotPassword } from '../../../actions/admin/password';
 
+// import ForgotPassForm from '../../Forms/Front/ForgotPassForm';
+
 const validate = values => {
     const errors = {}
     if (!values.email) { errors.email = 'This field is required'; }
@@ -32,32 +34,42 @@ class ForgotPassword extends Component {
             'visible': true,
             mybtn: 'reset',
             passReset: true,
-
+            sendData: false,
         };
         this.onDismiss = this.onDismiss.bind(this);
     }
 
     componentDidUpdate() {
-        let { history, forgotPassRes } = this.props;
+        let { history, forgotPassRes,loading } = this.props;
         let { passReset, mybtn, sendData } = this.state;
 
-        if (sendData && forgotPassRes.loading) {
+        console.log('caling',forgotPassRes);
+        // if (sendData && forgotPassRes.loading) {
+        if (sendData && loading) {
             this.setState({
                 mybtn: 'wait',
                 sendData: false,
             })
         }
-
+    
         if (forgotPassRes.status === 1 && passReset) {
             this.setState({ passReset: false });
             history.push('/admin');
         }
 
         if (forgotPassRes.error) {
-            toast.success(forgotPassRes.error, {
-                className: 'success-custom-tostify',
-            });
+            if (!toast.isActive(this.toastId)) {
+                this.toastId = toast.success(forgotPassRes.error, {
+                    className: 'success-custom-tostify',
+                });
+            }
         }
+    }
+
+    componentWillReceiveProps(nextProps){
+        this.setState({
+            mybtn:'reset'
+        })
     }
 
     submitForm = (values) => {
@@ -87,7 +99,9 @@ class ForgotPassword extends Component {
                         </a>
                     </div>
                     <div className="form-content d-flex">
-                        <ForgotPasswordForm onSubmit={this.submitForm} />
+                        {/* <ForgotPasswordForm onSubmit={this.submitForm} /> */}
+                        <ForgotPasswordForm onSubmit={this.submitForm} mybtn={this.state.mybtn} />
+
                     </div>
                     <div className="form-ftr">
                         <p>Back to <Link className="cursor_pointer" to="/admin" style={{ "textDecoration": "none" }}> Login page.</Link></p>
@@ -100,10 +114,12 @@ class ForgotPassword extends Component {
 const mapStateToProps = (state) => {
     const { adminPassword } = state
     return {
-        forgotPassRes: adminPassword.get('forgotPassword')
+        forgotPassRes: adminPassword.get('forgotPassword'),
+        loading:adminPassword.get('forgotPassword').loading
     }
 }
 export default connect(mapStateToProps)(withRouter(ForgotPassword));
+
 
 class ForgotPasswordForm extends Component {
     render() {
@@ -113,7 +129,12 @@ class ForgotPasswordForm extends Component {
                 <h3>Reset Password</h3>
                 <Field name="email" type="email" component={renderField} placeholder="Email" />
                 <div className="submit-div">
-                    <button type="submit" className="round-btn">Reset</button>
+                    {/* <button type="submit" className="round-btn">Reset</button> */}
+                    {
+                        (mybtn === 'reset') ?
+                            <button type="submit" className="round-btn">Reset</button> :
+                            <button className="round-btn" style={{ "width": "125px", "background": "#6772e5", "cursor": "no-drop" }} disabled="disabled"><img src={resetSvg} style={{ "width": "65%" }} /></button>
+                    }
                 </div>
             </form>
         )
@@ -124,3 +145,5 @@ ForgotPasswordForm = reduxForm({
     form: 'forgotPasswordForm',
     validate
 })(ForgotPasswordForm);
+
+

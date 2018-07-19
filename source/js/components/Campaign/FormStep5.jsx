@@ -62,9 +62,6 @@ const validate = (values,imgArr) => {
 class FileField_Dropzone extends Component {
     constructor(props) {
         super(props);
-        // this.state = {
-        //     length:0
-        // }
     }
 
     render() {
@@ -135,7 +132,7 @@ class FormStep5 extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            allImages: []
+            allImages: [],
         }
     }
 
@@ -152,10 +149,6 @@ class FormStep5 extends Component {
         this.props.change('imagesNew', imgArr);
         this.setState({ allImages: imgArr });
         multipleImagesFun(imgArr);
-
-        // console.log('IMG ARR>>',imgArr);
-        // let len = Object.keys(imgArr).length;
-        // this.setState({length:len});
     }
 
     handleImagesSelection = (data) => {
@@ -190,10 +183,10 @@ class FormStep5 extends Component {
                             <div className="submit-btn d-flex">
                                 <button type="button" onClick={previousPage} className="round-btn prev-btn">Previous</button>
                                 {/* <button type="submit" className="round-btn next-btn" disabled={submitDisabled}>Done</button> */}
-                                
+                                {(this.state.allImages.length > 0) ?
                                 <button type="submit" className="round-btn next-btn">Done</button>
-                                
-                                {/* <button type="submit" className="round-btn next-btn" disabled={pristine}>Done</button> */}
+                                :<button type="submit" className="round-btn next-btn" disabled="disabled">Done</button>
+                                }
                             </div>
                         </div>
                     </div>
