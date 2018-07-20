@@ -12,8 +12,10 @@
     import { connect } from 'react-redux';
     import { createCampaign } from '../actions/campaign';
     import { routeCodes } from '../constants/routes';
-    import { reset, initialize, untouch} from 'redux-form';
+    import { reset, initialize,untouch,formValueSelector,change} from 'redux-form';
     import closeImg from 'img/site/close-2.png';
+
+    const selector = formValueSelector('formName');
 
     class Campaign extends Component {
 
@@ -53,8 +55,8 @@
 
         componentWillUnmount() {
             const { dispatch } = this.props;
-            this.props.dispatch(untouch('wizardCampaign','call_to_action'));
-            dispatch(initialize('wizardCampaign', {})) 
+            // this.props.dispatch(untouch('wizardCampaign','call_to_action'));
+            dispatch(initialize('wizardCampaign', {}))   // final     
             // dispatch(reset('wizardCampaign'));
         }
 

@@ -246,5 +246,6 @@ export default reduxForm({
     form: 'wizardCampaign', //                 <------ same form name
     destroyOnUnmount: false, //        <------ preserve form data
     forceUnregisterOnUnmount: true, // <------ unregister fields on unmount
+    // enableReinitialize:true,
     validate,
 })(FormStep3);

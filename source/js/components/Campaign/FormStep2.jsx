@@ -148,5 +148,6 @@ export default reduxForm({
     form: 'wizardCampaign',
     destroyOnUnmount: false,
     forceUnregisterOnUnmount: true,
+    // enableReinitialize:true,
     validate,
 })(FormStep2);

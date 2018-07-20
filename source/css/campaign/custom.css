@@ -235,7 +235,7 @@ ul { padding: 0; }
   .industry-l-box .images-preview-wrapper{border:0;}
   .industry-l-box .image-preview{padding: 10px; height: 265px; border: 3px dotted #d4d4de;}
   .industry-l-box .image-preview img{max-height:100%;}
-  .custom_dropzone_div p{color: #5b6ca2; font-weight: 600; font-size: 14px;}
+  .custom_dropzone_div p{color: #5b6ca2; font-weight: 600; font-size: 14px;padding: 40px 0 0 0}
   .custom_dropzone_div .btn_drop_browse{
     width: 10em;
     padding: 6px;

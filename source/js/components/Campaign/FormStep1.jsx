@@ -46,8 +46,6 @@ class FormStep1 extends Component {
     }
 
     render() {
-
-        console.log('Moment>>>',moment());
         const { handleSubmit,prevImg } = this.props;
         return (
             <form onSubmit={handleSubmit}>
@@ -108,5 +106,6 @@ export default reduxForm({
     form: 'wizardCampaign', // <------ same form name
     destroyOnUnmount: false, // <------ preserve form data
     forceUnregisterOnUnmount: true, // <------ unregister fields on unmount
+    // enableReinitialize:true,
     validate,
 })(FormStep1);
