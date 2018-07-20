@@ -479,12 +479,12 @@ class Stats extends Component {
                                     <XAxis dataKey="name" />
 
                                     {/* <YAxis /> */}
-                                    {/* <Tooltip
+                                    <Tooltip
                                         content={<CustomTooltip />}
                                         totalNoCompare={totalNoCompare}
                                         whichCompare={whichCompare}
                                         position={{ y: 350 }}
-                                    /> */}
+                                    />
                                     {/* <Legend /> */}
                                     <Bar dataKey="compare1" stackId="a" fill="#6772e6" />
                                     <Bar dataKey="compare2" stackId="a" fill="#83bff7" />

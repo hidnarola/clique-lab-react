@@ -104,10 +104,12 @@ class Checkout extends Component {
     componentWillUnmount() {
         const { dispatch } = this.props;
 
-        // dispatch(reset('wizardCheckout',{}));
+        dispatch(reset('wizardCheckout',{}));
 
-        dispatch(initialize('wizardCheckout', {}))
+        // dispatch(initialize('wizardCheckout', {}));
 
+        
+        // this.props.reset();
         // dispatch({type:"@@redux-form/BLUR",payload:"undefiend"})
 
         // dispatch(reset('wizardCheckout2'));

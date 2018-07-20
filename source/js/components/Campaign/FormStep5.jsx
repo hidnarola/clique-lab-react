@@ -7,6 +7,7 @@ import _ from 'lodash';
 import Dropzone from 'react-dropzone';
 import dropImg from 'img/site/canvas.png';
 import deleteImg from 'img/site/delete-icon.png';
+import jQuery from 'jquery';
 
 import FormStep4 from '../Campaign/FormStep4';
 
@@ -121,7 +122,9 @@ class FileField_Dropzone extends Component {
                     </div>
                 </Dropzone>
                 { images.length > 0 && <div className="uploaded_img"> {images} </div> }
-                {(!meta.valid && meta.error && input.value) && <span className="error-div">{meta.error}</span>}
+                {/* {((!meta.valid && meta.error && input.value))&& <span className="error-div">{meta.error}</span>} */}
+                {((!meta.valid && meta.error && input.value) || (images.length < 1 && meta.touched)  )&& <span className="error-div">{meta.error}</span>}
+                
                 {/* {((meta.touched && meta.error) || (!input.value && meta.touched && meta.error )) && <span className="error-div">{meta.error}</span>} */}
             </div>
         );
@@ -157,8 +160,15 @@ class FormStep5 extends Component {
         multipleImagesFun(data);
     }
 
+
     render() {
         const { handleSubmit, previousPage, submitDisabled ,pristine} = this.props;
+
+        if(this.state.allImages.length < 1)
+        {
+            this.props.change('imagesNew', '');
+        }
+
         return (
             <form onSubmit={handleSubmit}>
                 <div className="right-box create-campaign d-flex">
@@ -182,11 +192,7 @@ class FormStep5 extends Component {
                             </div>
                             <div className="submit-btn d-flex">
                                 <button type="button" onClick={previousPage} className="round-btn prev-btn">Previous</button>
-                                {/* <button type="submit" className="round-btn next-btn" disabled={submitDisabled}>Done</button> */}
-                                {(this.state.allImages.length > 0) ?
-                                <button type="submit" className="round-btn next-btn">Done</button>
-                                :<button type="submit" className="round-btn next-btn" disabled="disabled">Done</button>
-                                }
+                                <button type="submit" className="round-btn next-btn" disabled={submitDisabled}>Done</button>
                             </div>
                         </div>
                     </div>

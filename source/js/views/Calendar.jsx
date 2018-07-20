@@ -34,6 +34,7 @@ class Calendar extends Component {
         this.toggle = this.toggle.bind(this);
     }
 
+    
     componentWillMount() {
         const { dispatch } = this.props;
         let start_date = moment().format("YYYY-MM-01");

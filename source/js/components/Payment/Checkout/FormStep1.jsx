@@ -135,6 +135,7 @@ export default reduxForm({
     form: 'wizardCheckout', // <------ same form name
     destroyOnUnmount: false, // <------ preserve form data
     forceUnregisterOnUnmount: true, // <------ unregister fields on unmount
+    // enableReinitialize: true,
     validate,
 })(FormStep1);
 

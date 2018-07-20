@@ -669,12 +669,12 @@ button.round-btn.loading-btn {
     background-color: #6782e5 !important;
 }
 
-/* For dashboard graph label */
+/* For dashboard graph */
 .dashboard-page .recharts-tooltip-wrapper p.recharts-tooltip-label{display:none !important}
 .dashboard-page .recharts-tooltip-wrapper ul.recharts-tooltip-item-list > li > span{display:none}
 .dashboard-page .recharts-tooltip-wrapper ul.recharts-tooltip-item-list > li > span.recharts-tooltip-item-value{display:inline-block !important;font-size: 12px;font-weight: 600;}
 
-.recharts-default-tooltip {
+.dashboard-page .recharts-default-tooltip {
    
     width: 40px;
     height: 40px;
@@ -686,14 +686,24 @@ button.round-btn.loading-btn {
     margin: 0 auto !important;
     padding: 0 !important;
 }
-.recharts-default-tooltip ul{
+.dashboard-page .recharts-default-tooltip ul{
     transform: rotate(-45deg);
     width: 34px;
 }
-.recharts-default-tooltip ul li{
+.dashboard-page .recharts-default-tooltip ul li{
     padding-top: 5px !important;
     padding-bottom: 3px !important;
 }
-.recharts-tooltip-wrapper {
+.dashboard-page .recharts-tooltip-wrapper {
     margin-left: -30px;
+} 
+
+/* For Analytics graph */
+.analytics-body  .graph.custom-tooltip {
+    padding: 5px;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(204, 204, 204);
+    white-space: nowrap;
+    margin-top: -15px;
 }
+.analytics-body  .recharts-tooltip-wrapper .graph.custom-tooltip .label{display: block;}

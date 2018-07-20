@@ -500,5 +500,6 @@ export default connect(mapStateToProps)(reduxForm({
     form: 'wizardCheckout',
     destroyOnUnmount: false,
     forceUnregisterOnUnmount: true,
+    // enableReinitialize: true,
     validate,
 })(FormStep3));
