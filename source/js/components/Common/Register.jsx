@@ -48,7 +48,6 @@ class Register extends Component {
         let { dispatch, error, user } = this.props;
         let { errorMsg } = this.state;
         if (error !== null) {
-
             toast.success(error, {
                 className: 'success-custom-tostify',
             });

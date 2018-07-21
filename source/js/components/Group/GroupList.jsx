@@ -377,7 +377,7 @@ class GroupList extends Component {
                 });
                 this.messagePopupToggle();
             }
-        }, 300) //1500
+        }, 1500) //1500
 
 
     }

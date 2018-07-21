@@ -7,7 +7,8 @@ import { Link, Redirect } from 'react-router-dom';
 import { forgotPass, resetForgotVal } from '../../actions/forgotPass';
 import ForgotPassForm from '../Forms/Front/ForgotPassForm';
 import PropTypes from 'prop-types';
-import { ToastContainer, toast, Slide } from 'react-toastify';
+// import { ToastContainer, toast, Slide } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 
 class ForgotPassword extends Component {
@@ -16,8 +17,8 @@ class ForgotPassword extends Component {
         this.state = {
             passReset: true,
             errorMsg: '',
-            mybtn:'reset',
-            sendData:false,
+            mybtn: 'reset',
+            sendData: false,
         }
     }
 
@@ -27,42 +28,42 @@ class ForgotPassword extends Component {
             email: values.email,
         }
         dispatch(forgotPass(forgotData));
-        this.setState({sendData:true});
+        this.setState({ sendData: true });
     }
 
-    componentDidUpdate(){
-        let { error, status, history,loading } = this.props;
-        let { passReset,mybtn,sendData } = this.state;
-       
-        if(sendData && loading)
-        {
+    componentDidUpdate() {
+        let { error, status, history, loading } = this.props;
+        let { passReset, mybtn, sendData } = this.state;
+
+        if (sendData && loading) {
             this.setState({
-                mybtn:'wait',
-                sendData:false,
+                mybtn: 'wait',
+                sendData: false,
             })
         }
-        
-        if(status===1 && passReset){
-            this.setState({passReset: false});
+
+        if (status === 1 && passReset) {
+            this.setState({ passReset: false });
             history.push('/login');
             //return <Redirect to="/login" />
         }
     }
 
-    componentWillReceiveProps(nextProps){
+    componentWillReceiveProps(nextProps) {
 
-        if(nextProps.error)
-        {
+        if (nextProps.error) {
             this.setState({
-                mybtn:'reset',
+                mybtn: 'reset',
             })
         }
 
-        if (! toast.isActive(this.toastId)) {
-            this.toastId =  toast.success(nextProps.error, {
+        if (nextProps.error !== null) {
+            if (!toast.isActive(this.toastId)) {
+                this.toastId = toast.success(nextProps.error, {
                     className: 'success-custom-tostify',
-                 });
-          }
+                });
+            }
+        }
 
         // this.setState({errorMsg:nextProps.error},()=>{
         //     setTimeout(()=>{
@@ -70,17 +71,17 @@ class ForgotPassword extends Component {
         //     },3000)
         // });
     }
-    
-    render(){
-        if(this.props.match.params.forgot_token!==undefined){
-            if(this.props.match.params.forgot_token!==''){
-                return <Redirect to={ `/reset_password/${this.props.match.params.forgot_token}`} />
+
+    render() {
+        if (this.props.match.params.forgot_token !== undefined) {
+            if (this.props.match.params.forgot_token !== '') {
+                return <Redirect to={`/reset_password/${this.props.match.params.forgot_token}`} />
             }
         }
         let { error } = this.props;
-        let {errorMsg} = this.state;
-        
-        return(
+        let { errorMsg } = this.state;
+
+        return (
             <div className="login-register-bg">
                 <div className="login-register-box forgot_pass_page">
                     <div className="form-logo d-flex">
@@ -90,10 +91,10 @@ class ForgotPassword extends Component {
                     </div>
                     <div className="form-content d-flex">
                         {/* <ForgotPassForm onSubmit={this.submitForm} newError={error} /> */}
-                        <ForgotPassForm onSubmit={this.submitForm} newError={errorMsg} mybtn = {this.state.mybtn}/>
+                        <ForgotPassForm onSubmit={this.submitForm} newError={errorMsg} mybtn={this.state.mybtn} />
                     </div>
                     <div className="form-ftr">
-                        <p>Already have an account?<Link className="cursor_pointer" to="/login" style={{"textDecoration":"none"}}> Login here.</Link></p>
+                        <p>Already have an account?<Link className="cursor_pointer" to="/login" style={{ "textDecoration": "none" }}> Login here.</Link></p>
                     </div>
                 </div>
             </div>

@@ -463,9 +463,8 @@ ul.all-people-ul li{ width:33.33%; padding:15px;}
 #group-popup button.close{position:absolute; top:-45px; right:-55px; opacity:1;}
 #group-popup button.close svg{width:20px; height:20px; fill:#6772e5;}
 
-#terms-condition button.close{position:absolute; top:40px; right:70px; opacity:1;}
+#terms-condition button.close{position:absolute; top:40px; right:70px; opacity:1;z-index:9}
 #terms-condition button.close svg{width:20px; height:20px; fill:#6772e5;}
-
 
 
 .profile-head{display:block;}
@@ -530,10 +529,10 @@ ul.all-people-ul li{ width:33.33%; padding:15px;}
 .card-box-head-r a{text-decoration:none; margin:0 0 0 8px;     width: 20px; height: 22px; display: inline-block; vertical-align: middle;}
 .card-box-head-r a img{ display:none;}
 .card-box-head-r a:first-child{background:url(../assets/img/site/edit-icon.png) no-repeat 0 50%; }
-.card-box-head-r a:first-child:hover{background:url(../assets/img/site/edit-hover.png) no-repeat 0 50%; }
+/* .card-box-head-r a:first-child:hover{background:url(../assets/img/site/edit-hover.png) no-repeat 0 50%; } */
 
 .card-box-head-r a + a {background:url(../assets/img/site/delete-icon.png) no-repeat 0 50%; }
-.card-box-head-r a + a:hover{background:url(../assets/img/site/delete-hover.png) no-repeat 0 50%; }
+/* .card-box-head-r a + a:hover{background:url(../assets/img/site/delete-hover.png) no-repeat 0 50%; } */
 
 .wallet-balance{margin:0 0 45px;}
 .card-box-body{display:block; margin:0 0 12px;}

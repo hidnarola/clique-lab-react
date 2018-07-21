@@ -12,10 +12,8 @@
     import { connect } from 'react-redux';
     import { createCampaign } from '../actions/campaign';
     import { routeCodes } from '../constants/routes';
-    import { reset, initialize,untouch,formValueSelector,change} from 'redux-form';
+    import { reset, initialize,untouch,change} from 'redux-form';
     import closeImg from 'img/site/close-2.png';
-
-    const selector = formValueSelector('formName');
 
     class Campaign extends Component {
 
