@@ -54,7 +54,7 @@ ul { padding: 0; }
 
 .hdr-user .dropdown .dropdown-toggle{ border:0; border-radius:0; background:transparent !important; padding:0; }
 .hdr-user .dropdown .dropdown-toggle a span {width:40px; height:40px; background: #000; margin-right:6px; display: inline-block; vertical-align: top; border-radius: 80px;}
-.hdr-user .dropdown .dropdown-toggle::after{ background: url(../assets/img/site/down-arrow.png) no-repeat 0 50%; display: inline-block; vertical-align: top; width: 14px; height:40px; margin-left: 6px; content:''; border:0;}
+.hdr-user .dropdown .dropdown-toggle::after{ background: url(/assets/svg/chevron-down.svg) no-repeat 0 50%; display: inline-block; vertical-align: top; width: 14px; height:40px; margin-left: 6px; content:''; border:0;}
 .btn-secondary.focus,
 .btn-secondary:focus {box-shadow: none !important;}
 .hdr-user .dropdown .dropdown-menu button{ position:relative; padding:0 0 0 48px; font-size:16px; color:#525f7f; font-weight: 500; line-height: 30px;}

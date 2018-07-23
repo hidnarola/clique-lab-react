@@ -96,10 +96,11 @@ class Login extends Component {
                         closeOnClick: false,
                     });
 
-            } else if (message) {
+            } else if (message) {        
                 toast.success(message, {
                     className: 'success-custom-tostify',
                 });
+                
                 dispatch(resetForgotVal());
                 dispatch(resetRegisterVal());
             }
