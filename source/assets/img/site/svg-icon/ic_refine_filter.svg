@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #bcc3d0;
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+    </style>
+  </defs>
+  <g id="ic_refine_filter" transform="translate(-1074 -371)">
+    <circle id="Ellipse_3" data-name="Ellipse 3" class="cls-1" cx="15" cy="15" r="15" transform="translate(1074 371)"/>
+    <path id="cross" class="cls-2" d="M1094.692,390.227a1.038,1.038,0,0,1-1.468,1.468L1089,387.469l-4.226,4.226a1.038,1.038,0,0,1-1.468-1.468l4.226-4.226-4.226-4.226a1.038,1.038,0,0,1,1.468-1.468l4.226,4.226,4.226-4.226a1.038,1.038,0,0,1,1.468,1.468L1090.466,386Z"/>
+  </g>
+</svg>

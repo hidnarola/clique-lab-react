@@ -160,8 +160,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#895cf2', end
 .navigation-div ul li a i,.navigation-div ul li a:hover i,.navigation-div ul li a.active i {background-position: center !important; background-size: 18px !important; height: 18px;width: 24px; display: inline-block; position: absolute; top: 50%; margin-top: -9px;left: 16px; background-repeat: no-repeat;}
 
 
-.navigation-div ul li .dashboard-icon{ background:url(../assets/svg/menu_meter.svg);background-repeat: no-repeat;}
-.navigation-div ul li a:hover .dashboard-icon,.navigation-div ul li a.active .dashboard-icon{ background:url(../assets/svg/menu_meter_white.svg);background-repeat: no-repeat;}
+.navigation-div ul li .dashboard-icon{ background:url(/assets/svg/menu_meter.svg);background-repeat: no-repeat;}
+.navigation-div ul li a:hover .dashboard-icon,.navigation-div ul li a.active .dashboard-icon{ background:url(/assets/svg/menu_meter_white.svg);background-repeat: no-repeat;}
 .navigation-div ul li .create-icon{ background:url(/assets/svg/ic_plus-rounded.svg);background-repeat: no-repeat; }
 .navigation-div ul li a:hover .create-icon,.navigation-div ul li a.active .create-icon{ background:url(/assets/svg/ic_plus-rounded-white.svg);background-repeat: no-repeat; }
 .navigation-div ul li .people-icon{ background:url(/assets/svg/menu_user.svg);background-repeat: no-repeat; }
@@ -202,7 +202,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#895cf2', end
 .hdr-user .dropdown-menu a i{position:absolute; top:50%; left:0; -webkit-transform:translateY(-50%); -moz-transform:translateY(-50%); transform:translateY(-50%);}
 .logout-icon{background:url(../assets/img/site/logout-icon.png) no-repeat 0 0; display:inline-block; width:30px; height:30px;}
 .newaccount-icon{background:url(../assets/img/site/plus-icon.png) no-repeat 0 0; display:inline-block; width:30px; height:30px;}
-.hdr-user>a>i{background:url(../assets/svg/chevron-down.svg) no-repeat 0 0;display:inline-block; vertical-align:top; width:14px; height:50px; margin-left:6px;}
+.hdr-user>a>i{background:url(/assets/svg/chevron-down.svg) no-repeat 0 0;display:inline-block; vertical-align:top; width:14px; height:50px; margin-left:6px;}
 
 .hdr-cart{display:inline-block; vertical-align:top; margin-right:10px;}
 .hdr-cart>a{display:block;position:relative;}

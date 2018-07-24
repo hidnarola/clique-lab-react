@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 89 89">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #6c27b3;
+      }
+
+      .cls-2 {
+        fill: #501a96;
+      }
+
+      .cls-3 {
+        fill: #fff;
+      }
+
+      .cls-4 {
+        fill: #d1d1d1;
+      }
+
+      .cls-5 {
+        filter: url(#Ellipse_1);
+      }
+    </style>
+    <filter id="Ellipse_1" x="0" y="0" width="89" height="89" filterUnits="userSpaceOnUse">
+      <feOffset dy="10" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="10.5" result="blur"/>
+      <feFlood flood-color="#6c27b3" flood-opacity="0.102"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="social_s_instagram" transform="translate(31.5 21.5)">
+    <g class="cls-5" transform="matrix(1, 0, 0, 1, -31.5, -21.5)">
+      <circle id="Ellipse_1-2" data-name="Ellipse 1" class="cls-1" cx="13" cy="13" r="13" transform="translate(31.5 21.5)"/>
+    </g>
+    <path id="Path_1" data-name="Path 1" class="cls-2" d="M28.822,16.791a21.884,21.884,0,0,1-4.8.035c-2.276-.175-5.6-1.226-6.828.875-1.969,3.364-1,7.67-.539,11.481l6.842,6.841a13,13,0,0,0,12.28-12.278Z" transform="translate(-9.793 -10.041)"/>
+    <g id="Group_1" data-name="Group 1" transform="translate(5.559 5.559)">
+      <path id="Path_2" data-name="Path 2" class="cls-3" d="M24.774,14.325H18.758a4.438,4.438,0,0,0-4.433,4.433v6.015a4.439,4.439,0,0,0,4.433,4.433h6.015a4.439,4.439,0,0,0,4.433-4.433V18.758a4.439,4.439,0,0,0-4.434-4.433ZM27.71,24.774a2.936,2.936,0,0,1-2.936,2.936H18.758a2.936,2.936,0,0,1-2.936-2.936V18.758a2.936,2.936,0,0,1,2.936-2.936h6.015a2.936,2.936,0,0,1,2.936,2.936Z" transform="translate(-14.325 -14.325)"/>
+      <path id="Path_3" data-name="Path 3" class="cls-3" d="M27.43,23.581a3.849,3.849,0,1,0,3.849,3.849,3.854,3.854,0,0,0-3.849-3.849Zm0,6.2a2.352,2.352,0,1,1,2.352-2.352,2.352,2.352,0,0,1-2.352,2.352Z" transform="translate(-19.989 -19.989)"/>
+    </g>
+    <g id="Group_2" data-name="Group 2" transform="translate(12.971 5.559)">
+      <path id="Path_4" data-name="Path 4" class="cls-4" d="M42.905,22.2a.922.922,0,1,1-.922-.922.922.922,0,0,1,.922.922Z" transform="translate(-38.098 -18.581)"/>
+      <path id="Path_5" data-name="Path 5" class="cls-4" d="M36.462,14.325H33.425v1.5h3.037A2.936,2.936,0,0,1,39.4,18.758v6.015a2.936,2.936,0,0,1-2.936,2.936H33.425v1.5h3.037A4.439,4.439,0,0,0,40.9,24.774V18.758A4.438,4.438,0,0,0,36.462,14.325Z" transform="translate(-33.425 -14.325)"/>
+      <path id="Path_6" data-name="Path 6" class="cls-4" d="M33.454,23.581h-.029v1.5h.029a2.352,2.352,0,0,1,0,4.7h-.029v1.5h.029a3.849,3.849,0,0,0,0-7.7Z" transform="translate(-33.425 -19.989)"/>
+    </g>
+  </g>
+</svg>
