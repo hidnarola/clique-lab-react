@@ -23,7 +23,7 @@ img{max-width:100%;}
 	.right-hdr h2 {font-size: 22px; line-height: 40px;}
 	.hdr-cart>a>i {background: url(../assets/img/site/cart-icon.png) no-repeat 0 4px;height: 40px;}
 	.hdr-user>a{line-height:40px;}
-	.hdr-user>a>i{line-height:40px; height:40px; background:url(/assets/svg/chevron-down.svg) no-repeat 0 50%;}
+	.hdr-user>a>i{line-height:40px; height:40px; background:url(../assets/svg/chevron-down.svg) no-repeat 0 50%;}
 	.hdr-user>a>span{ width:40px; height:40px;}
 	.right-hdr h2 strong{ line-height:40px;}
 	
