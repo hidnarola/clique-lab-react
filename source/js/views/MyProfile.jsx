@@ -13,7 +13,9 @@ import { editProfile } from '../actions/myProfile';
 import { industryFetch } from '../actions/afterRegister';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { reactLocalStorage } from 'reactjs-localstorage';
-import closeImg2 from 'img/site/close-2.png';
+// import closeImg2 from 'img/site/close-2.png';
+import closeImg2 from 'img/site/svg-icon/cross.svg';
+
 
 const BtnAddNewPermission = () => {
 	return (

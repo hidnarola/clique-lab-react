@@ -35,7 +35,7 @@ export const renderFieldDatePicker = ({ input, value, type, placeholder, default
                 //value={input.value ? moment(input.value) : moment()}
                 />
                 <i className="">
-                    <img src={calendarImg} alt="" />
+                    {/* <img src={calendarImg} alt="" /> */}
                 </i>
             </div>
 

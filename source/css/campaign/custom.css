@@ -165,7 +165,7 @@ ul { padding: 0; }
   .morefilter-div{ margin:0 0 20px;}
   .morefilter-div label{ font-size:13px; font-weight:600; color:#43458b; line-height:22px; display:block; margin:0 0 5px;}
   .Select-control:hover{box-shadow:none !important;}
-  .all-people-content .dropdown-arrow { background:url(../assets/img/site/down-arrow-1.png) no-repeat 0 0 / 10px auto !important; transform:rotate(-180deg); width:10px; height:17px;}
+  .all-people-content .dropdown-arrow { background:url(/assets/svg/chevron-down.svg) no-repeat 0 0 / 10px auto !important; transform:rotate(-180deg); width:10px; height:12px;}
   
   .dropdown-inr{ font-size:14px; font-weight: 500; color: #525f7f !important;}
   
@@ -173,7 +173,7 @@ ul { padding: 0; }
   .Select {box-shadow:none !important;}
   .Select-control { border: 2px solid #dcdfe5; padding:5px 30px 5px 10px; line-height: 18px; font-weight: 500; color: #525f7f; background: transparent !important; height: 34px; border-radius: 0; font-size: 14px; box-shadow:none !important;  }
   .Select-arrow{display:none;}
-  .Select-control > .Select-arrow-zone{padding:0; background: url(../assets/img/site/down-arrow-1.png) no-repeat 0 0; display: inline-block; vertical-align: top; width: 14px; height: 20px; position: absolute;    right: 10px; top: 50%; -webkit-transform: translateY(-50%); -moz-transform: translateY(-50%); transform: translateY(-50%);}
+  .Select-control > .Select-arrow-zone{padding:0; background: url(/assets/svg/chevron-down.svg) no-repeat 0 0; display: inline-block; vertical-align: top; width: 14px; height: 10px; position: absolute;    right: 10px; top: 50%; -webkit-transform: translateY(-50%); -moz-transform: translateY(-50%); transform: translateY(-50%);}
   .Select-input{ height:auto; padding:0;}
   .Select-placeholder, .Select--single > .Select-control .Select-value{padding:0 25px 0 15px; top: 50%; transform: translateY(-50%); margin:0; line-height:18px; font-weight: 500; color: #525f7f; font-size: 14px; display:flex; align-items:center;  }
   .Select.has-value.Select--single > .Select-control .Select-value .Select-value-label, 

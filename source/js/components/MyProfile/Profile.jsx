@@ -16,7 +16,9 @@ import { imgRoutes } from 'constants/img_path';
 import '../../../css/campaign/ReactToastify.css';
 import Dropzone from 'react-dropzone';
 import dropImg from 'img/site/canvas.png';
-import closeImg2 from 'img/site/close-2.png';
+//import closeImg2 from 'img/site/close-2.png';
+import closeImg2 from 'img/site/svg-icon/cross.svg';
+
 import Select from 'react-select';
 
 const validate = values => {

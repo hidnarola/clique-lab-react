@@ -5,7 +5,8 @@ import { routeCodes } from 'constants/routes';
 import { imgRoutes } from '../../../constants/img_path';
 import { getCheckoutList, removeCartItems } from '../../../actions/Checkout';
 import { resetVal } from '../../../actions/everyDay';
-import trashImg from 'img/site/trash-icon.png';
+//import trashImg from 'img/site/trash-icon.png';
+import trashImg from 'img/site/svg-icon/ic_trash_red.svg';
 import nodataImg from 'img/site/nodata.png';
 import noCampaignImg from 'img/site/no_data/no_campaign.png';
 

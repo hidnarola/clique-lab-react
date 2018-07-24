@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import voca from 'voca';
 import dummyImg from 'img/site/img-06.jpg';
 import coverDummyImg from 'img/site/cover_dummy.jpg';
-import fbImg from 'img/site/facebook-01.png';
-import linkedImg from 'img/site/linkedin.png';
-import instaImg from 'img/site/instagram.png';
-import pinImg from 'img/site/pintrest.png';
-import twitterImg from 'img/site/twitter.png';
+import fbImg from 'img/site/svg-icon/s_faceboook.svg';
+import linkedImg from 'img/site/svg-icon/s_linkedIn.svg';
+import instaImg from 'img/site/svg-icon/s_instagram.svg';
+import pinImg from 'img/site/svg-icon/s_pinterests.svg';
+import twitterImg from 'img/site/svg-icon/s_twitter.svg';
 import _ from 'lodash';
 
 class FormCampaignRight extends Component {

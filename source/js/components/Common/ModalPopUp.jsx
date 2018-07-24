@@ -1,7 +1,8 @@
 import React from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import closeImg from 'img/site/close-2.png';
-import closeImg2 from 'img/site/close-2.png';
+import closeImg from 'img/site/svg-icon/cross.svg';
+// import closeImg2 from 'img/site/close-2.png';
+import closeImg2 from 'img/site/svg-icon/cross.svg';
 
 class ModalPopUp extends React.Component {
     

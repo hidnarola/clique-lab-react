@@ -2,13 +2,24 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import jQuery from 'jquery';
 import img1 from 'img/big-img01.jpg';
-import fbImg from 'img/site/facebook-01.png';
-import linkedImg from 'img/site/linkedin.png';
-import pinImg from 'img/site/pintrest.png';
-import twitterImg from 'img/site/twitter.png';
-import instaImg from 'img/site/instagram.png';
+// import fbImg from 'img/site/facebook-01.png';
+// import linkedImg from 'img/site/linkedin.png';
+// import pinImg from 'img/site/pintrest.png';
+// import twitterImg from 'img/site/twitter.png';
+// import instaImg from 'img/site/instagram.png';
+
+import fbImg from 'img/site/svg-icon/s_faceboook.svg';
+import linkedImg from 'img/site/svg-icon/s_linkedIn.svg';
+import instaImg from 'img/site/svg-icon/s_instagram.svg';
+import pinImg from 'img/site/svg-icon/s_pinterests.svg';
+import twitterImg from 'img/site/svg-icon/s_twitter.svg';
+
+
+
 import imgPlus from 'img/site/plus-01.png';
-import closeImg2 from 'img/site/close-2.png';
+// import closeImg2 from 'img/site/close-2.png';
+import closeImg2 from 'img/site/svg-icon/cross.svg';
+
 import noCampaignImg from 'img/site/no_data/no_campaign.png';
 import nodataImg from 'img/site/no_data/05.png';
 

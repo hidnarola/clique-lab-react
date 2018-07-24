@@ -7,8 +7,10 @@ import { imgRoutes } from '../../../constants/img_path';
 import { getCheckoutList, removeCartItems, modifyStatusReset } from '../../../actions/Checkout';
 
 import { resetVal } from '../../../actions/Checkout';
-import trashImg from 'img/site/trash-icon.png';
-import nodataImg from 'img/site/no_data/08.png';
+//import trashImg from 'img/site/trash-icon.png';
+import trashImg from 'img/site/svg-icon/ic_trash_red.svg';
+// import nodataImg from 'img/site/no_data/08.png';
+import nodataImg from 'img/site/svg-icon/cart.svg';
 import noCampaignImg from 'img/site/no_data/no_campaign.png';
 
 import { ToastContainer, toast, Slide } from 'react-toastify';

@@ -87,6 +87,7 @@ const actionMap = {
             loading:false,
             isresend:true,
             error:null,
+            message: action.data.data.message,// 23-07-2018
         }));
     },
     [RE_SEND_EMAIL_ERROR]: (state, action) => {

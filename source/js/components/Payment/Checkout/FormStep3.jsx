@@ -10,12 +10,19 @@ import { addCard, editCard, deleteCard, getCardList, resetVal } from '../../../a
 import { Facebook, List, Code } from 'react-content-loader';
 import SweetAlert from "react-bootstrap-sweetalert";
 import MonthPickerInput from 'react-month-picker-input';
-import editImg from 'img/site/edit-icon.png';
-import deleteImg from 'img/site/delete-icon.png';
+// import editImg from 'img/site/edit-icon.png';
+// import deleteImg from 'img/site/delete-icon.png';
+
+import editImg from 'img/site/svg-icon/ic_document-edit_gray.svg';
+import deleteImg from 'img/site/svg-icon/ic_trash_gray.svg';
+
+
 import mastercardImg from 'img/site/credit_card/mastercard.png';
 import visaImg from 'img/site/credit_card/visa.png';
 import plusImg from 'img/site/plus-01.png';
-import closeImg2 from 'img/site/close-2.png';
+// import closeImg2 from 'img/site/close-2.png';
+import closeImg2 from 'img/site/svg-icon/cross.svg';
+
 import cx from 'classnames';
 
 const validate = values => {

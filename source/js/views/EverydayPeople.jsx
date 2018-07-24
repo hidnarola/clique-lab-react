@@ -7,13 +7,22 @@ import { purchaseAll, resetAlertMsg } from '../actions/campaign';
 import { getGroups, addGroups, resetGroupVal } from '../actions/groups';
 import { modifyStatusReq, getCheckoutList } from '../actions/Checkout';
 import sampleImg from 'img/site/400x218.png';
-import closeImg from 'img/site/close.png';
-import closeImg2 from 'img/site/close-2.png';
-import fbImg from 'img/site/facebook-01.png';
-import linkedImg from 'img/site/linkedin.png';
-import pinImg from 'img/site/pintrest.png';
-import twitterImg from 'img/site/twitter.png';
-import instaImg from 'img/site/instagram.png';
+import closeImg from 'img/site/svg-icon/ic_close_dark.svg';
+//import closeImg2 from 'img/site/close-2.png';
+import closeImg2 from 'img/site/svg-icon/cross.svg';
+
+// import fbImg from 'img/site/facebook-01.png';
+// import linkedImg from 'img/site/linkedin.png';
+// import pinImg from 'img/site/pintrest.png';
+// import twitterImg from 'img/site/twitter.png';
+// import instaImg from 'img/site/instagram.png';
+import fbImg from 'img/site/svg-icon/s_faceboook.svg';
+import linkedImg from 'img/site/svg-icon/s_linkedIn.svg';
+import instaImg from 'img/site/svg-icon/s_instagram.svg';
+import pinImg from 'img/site/svg-icon/s_pinterests.svg';
+import twitterImg from 'img/site/svg-icon/s_twitter.svg';
+
+
 import nodataImg2 from 'img/site/no_data/04.png';
 import nodataImg from 'img/site/no_data/05.png';
 import noUserImg from 'img/site/no_data/no_user.png';

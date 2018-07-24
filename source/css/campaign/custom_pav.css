@@ -707,3 +707,7 @@ button.round-btn.loading-btn {
     margin-top: -15px;
 }
 .analytics-body  .recharts-tooltip-wrapper .graph.custom-tooltip .label{display: block;}
+.cls-1 { fill: #4f699d  }.cls-1:hover {   fill : #fff; }
+.dashboard-icon svg{    width: 19px;
+    height: 20px;}
+.all-people-div .submission-div-r a.cursor_pointer {  width: 22px;  height: 22px;  display: inline-block;}

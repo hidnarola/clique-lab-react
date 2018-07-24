@@ -20,8 +20,9 @@ import PropTypes from 'prop-types';
 import ReactSelect from 'react-select';
 import nodataImg from 'img/site/no_data/04.png';
 import plusImg from 'img/site/plus-sign.png';
-import closeImg from 'img/site/close-2.png';
-import closeImg2 from 'img/site/close-2.png';
+import closeImg from 'img/site/svg-icon/cross.svg';
+// import closeImg2 from 'img/site/close-2.png';
+import closeImg2 from 'img/site/svg-icon/cross.svg';
 
 const validate = values => {
     const errors = {}

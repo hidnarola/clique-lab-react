@@ -13,7 +13,10 @@
     import { createCampaign } from '../actions/campaign';
     import { routeCodes } from '../constants/routes';
     import { reset, initialize,untouch,change} from 'redux-form';
-    import closeImg from 'img/site/close-2.png';
+    // import closeImg from 'img/site/close-2.png';
+    import closeImg from 'img/site/svg-icon/cross.svg';
+
+   
 
     class Campaign extends Component {
 
@@ -89,7 +92,7 @@
                 } else {
                     public_or_private = values.public_or_private.value;
                 }
-
+                
                 const formData = new FormData();
                 formData.append("name", values.campaignName);
                 formData.append("start_date", values.campaignStartDate);

@@ -13,11 +13,18 @@ import _ from 'lodash';
 import ReactSelect from 'react-select';
 import { routeCodes } from '../constants/routes';
 import moment from 'moment';
-import fbImg from 'img/site/facebook-01.png';
-import linkedImg from 'img/site/linkedin.png';
-import pinImg from 'img/site/pintrest.png';
-import twitterImg from 'img/site/twitter.png';
-import instaImg from 'img/site/instagram.png';
+// import fbImg from 'img/site/facebook-01.png';
+// import linkedImg from 'img/site/linkedin.png';
+// import pinImg from 'img/site/pintrest.png';
+// import twitterImg from 'img/site/twitter.png';
+// import instaImg from 'img/site/instagram.png';
+
+import fbImg from 'img/site/svg-icon/s_faceboook.svg';
+import linkedImg from 'img/site/svg-icon/s_linkedIn.svg';
+import instaImg from 'img/site/svg-icon/s_instagram.svg';
+import pinImg from 'img/site/svg-icon/s_pinterests.svg';
+import twitterImg from 'img/site/svg-icon/s_twitter.svg';
+
 
 class Calendar extends Component {
     constructor(props) {

@@ -11,8 +11,13 @@ import { Alert } from 'reactstrap';
 import validator from 'validator';
 import cx from 'classnames';
 
-import editImg from 'img/site/edit-icon.png';
-import deleteImg from 'img/site/delete-icon.png';
+// import editImg from 'img/site/edit-icon.png';
+// import deleteImg from 'img/site/delete-icon.png';
+
+import editImg from 'img/site/svg-icon/ic_document-edit_gray.svg';
+import deleteImg from 'img/site/svg-icon/ic_trash_gray.svg';
+
+
 import visaImg from 'img/site/visa-icon.png';
 import plusImg from 'img/site/plus-01.png';
 

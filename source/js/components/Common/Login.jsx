@@ -38,6 +38,8 @@ class Login extends Component {
             redirectToReferrer: false,
             submitAction: false,
             errorMsg: '',
+            registerToast: 1,
+            loginToast: 2,
         };
         this.saveEmail = this.saveEmail.bind(this);
     }
@@ -50,10 +52,19 @@ class Login extends Component {
         dispatch(reSendEmail(re_email));
 
         setTimeout(() => {
-            toast.success('Email is send to your email id', {
-                className: 'success-custom-tostify',
-            });
-        }, 5000)
+            const { message, error, errorResendEmail } = this.props;
+            if (errorResendEmail !== null) {
+                toast.success(errorResendEmail, {
+                    className: 'success-custom-tostify',
+                });
+            }
+            else if (message) {
+                toast.success('Email is send to your email id', {
+                    className: 'success-custom-tostify',
+                });
+            }
+
+        }, 3000)
     }
 
     submitForm = (values) => {
@@ -90,17 +101,17 @@ class Login extends Component {
         if (message !== null) {
             if (message === 'Promoter registered successfully') {
                 this.toastId = toast.success(<CustomToastMsg rsend={this.saveEmail} />,
+                // this.state.registerToast = toast.success(<CustomToastMsg rsend={this.saveEmail} />,
                     {
                         className: 'success-custom-tostify',
                         autoClose: false,
                         closeOnClick: false,
                     });
-
-            } else if (message) {        
+            } else if (message) {
                 toast.success(message, {
                     className: 'success-custom-tostify',
                 });
-                
+
                 dispatch(resetForgotVal());
                 dispatch(resetRegisterVal());
             }
@@ -120,16 +131,22 @@ class Login extends Component {
 
     componentDidUpdate() {
         let { message, loading, error, dispatch } = this.props;
-        let { submitAction, load } = this.state;
+        let { submitAction, load, isenter } = this.state;
+
         if (submitAction && !loading) {
             this.setState({ submitAction: false })
 
             if (error !== null) {
-                if (!toast.isActive(this.toastId)) {
+                // if (!toast.isActive(this.toastId)) { // remove bcz resend link show all ready so invailid email not show
                     this.toastId = toast.success(error, {
                         className: 'success-custom-tostify',
                     });
-                }
+                // }
+                // if (!toast.isActive(this.state.loginToast)) {
+                //     this.state.loginToast = toast.success(error, {
+                //         className: 'success-custom-tostify',
+                //     });
+                // }
                 dispatch(resetForgotVal());
                 // this.setState({errorMsg: error},() => {
                 //     setTimeout(()=>{
@@ -153,7 +170,8 @@ class Login extends Component {
     }
 
     componentWillUnmount() {
-        toast.dismiss(this.toastId);
+        // toast.dismiss(this.toastId);
+        toast.dismiss();
     }
 
     render() {
@@ -222,7 +240,8 @@ const mapStateToProps = (state) => {
         token: login.get('token'),
         refreshToken: login.get('refreshToken'),
         message: msg,
-        emailId: register.get('email_id')////
+        emailId: register.get('email_id'),////
+        errorResendEmail: register.get('error')//// 23-07-2018
     }
 }
 

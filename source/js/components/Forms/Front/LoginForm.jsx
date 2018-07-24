@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { Link, NavLink, Redirect } from 'react-router-dom';
 
 import { reSendEmail } from '../../../actions/register';//
+import loginSvg from 'img/site/svg/loading.svg';
 
 import cx from 'classnames';
 import { Alert } from 'reactstrap';
@@ -75,7 +76,7 @@ class LoginForm extends Component {
 
     render() {
         const { showError } = this.state;
-        const { handleSubmit, error, newError, username, password } = this.props;
+        const { handleSubmit, error, newError, username, password} = this.props;
         return (
             <div>
                 <div style={{ "margin": "0 32%" }}>

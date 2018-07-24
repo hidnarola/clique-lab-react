@@ -14,7 +14,9 @@ import { getJoinedRef, getRevenueRef } from '../../actions/myProfile';
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Alert } from 'reactstrap';
 import { Accordion, AccordionItem, AccordionItemTitle, AccordionItemBody } from 'react-accessible-accordion';
-import closeImg2 from 'img/site/close-2.png';
+// import closeImg2 from 'img/site/close-2.png';
+import closeImg2 from 'img/site/svg-icon/cross.svg';
+
 import '../../../css/campaign/fancy-example.css';
 
 class CustomTooltip extends Component {

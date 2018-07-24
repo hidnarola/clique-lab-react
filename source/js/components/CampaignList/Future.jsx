@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import fakeImg from 'img/site/people-01.jpg';
 import nodataImg from 'img/site/no_data/05.png';
-import trashImg from 'img/site/trash-icon.png';
+import trashImg from 'img/site/svg-icon/ic_trash_red.svg';
 import noCampaignImg from 'img/site/no_data/no_campaign.png';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem ,UncontrolledDropdown } from 'reactstrap';
 import { withRouter } from 'react-router';
