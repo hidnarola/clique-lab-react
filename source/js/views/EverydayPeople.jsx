@@ -33,7 +33,8 @@ import downarrowImg from 'img/site/down-arrow-1.png';
 import { Redirect, withRouter } from 'react-router';
 import { Field, reduxForm } from 'redux-form';
 
-import imgPlus from 'img/site/plus-01.png';
+// import imgPlus from 'img/site/plus-01.png';
+import imgPlus from 'img/site/svg/ic_plus2.svg';
 import CreateGroupForm from '../components/Forms/Group/CreateGroupForm';
 import ReactSelect from 'react-select';
 import InputRange from 'react-input-range';
@@ -291,7 +292,7 @@ const PlusAction = (props) => {
     return (
         <UncontrolledDropdown>
             <DropdownToggle>
-                <img src={imgPlus} alt="" />
+                <a className="cursor_pointer"><img src={imgPlus} alt="" /></a>
             </DropdownToggle>
             <DropdownMenu>
                 <DropdownItem onClick={() => { props.addCampaign(); }}>

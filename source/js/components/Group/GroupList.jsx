@@ -19,7 +19,7 @@ import { getGroups, addGroups, resetGroupVal } from '../../actions/groups';
 import PropTypes from 'prop-types';
 import ReactSelect from 'react-select';
 import nodataImg from 'img/site/no_data/04.png';
-import plusImg from 'img/site/plus-sign.png';
+import plusImg from 'img/site/svg/ic_plus2.svg';
 import closeImg from 'img/site/svg-icon/cross.svg';
 // import closeImg2 from 'img/site/close-2.png';
 import closeImg2 from 'img/site/svg-icon/cross.svg';
@@ -158,7 +158,7 @@ const PlusAction = (props) => {
     return (
         <UncontrolledDropdown>
             <DropdownToggle>
-                <img src={plusImg} alt="" />
+            <a className="cursor_pointer"> <img src={plusImg} alt="" /></a>
             </DropdownToggle>
             <DropdownMenu>
                 <DropdownItem onClick={() => { props.addCampaign(); }}>Add to Campaign</DropdownItem>

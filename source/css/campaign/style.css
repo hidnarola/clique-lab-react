@@ -609,7 +609,7 @@ border-radius:4px; background:#fff;}
 .premission-head-l span img{max-width:100%; min-height:40px;}
 .premission-head-l small{ line-height:40px; font-size:18px; color:#43458b; font-weight:500; padding:0 0 0 10px;}
 .premission-head-r{ margin-left:auto;}
-.premission-head-r a{ line-height:40px; margin:0 0 0 10px; }
+.premission-head-r a{ line-height:40px;     margin: 0 0 0 15px;width: 12px;  display: inline-block; }
 .premission-points>ul{ list-style:none; margin:0; padding:0; flex-wrap:wrap; width: 95%; margin: 15px 0 0 5%;}
 .premission-points>ul>li{width:49%; font-size:16px; color:#525f7f; line-height:34px; font-weight:600;}
 .premission-points>ul>li:nth-child(2n+2){margin-left:auto;}

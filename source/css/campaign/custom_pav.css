@@ -710,4 +710,18 @@ button.round-btn.loading-btn {
 .cls-1 { fill: #4f699d  }.cls-1:hover {   fill : #fff; }
 .dashboard-icon svg{    width: 19px;
     height: 20px;}
-.all-people-div .submission-div-r a.cursor_pointer {  width: 22px;  height: 22px;  display: inline-block;}
+/* .all-people-div .plus-people a.cursor_pointer {  width: 22px;  height: 22px;  display: inline-block;} */
+.plus-people  button > a.cursor_pointer  {display: block; height: 50px;  width: 50px;  overflow: hidden; line-height: 50px;}
+.plus-people  button > a.cursor_pointer  img{ -webkit-transform: scale(2.5);  transform: scale(2.5); margin: 0 auto 0 -5px; box-shadow: none;}
+.festival-ftr-r button a.cursor_pointer { line-height: normal;}
+.festival-ftr-r a img{    border-radius: 0; -webkit-box-shadow: none;  box-shadow: none;  transform: scale(2.6); position: relative;  top: 7px;}
+.add-card-box a img{
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border-radius: 0;
+    height: 57px;
+    width: 57px;
+    transform: scale(2.5);
+    position: relative;
+    top: 15px;
+}

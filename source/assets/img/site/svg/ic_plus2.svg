@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 97 97">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+      }
+
+      .cls-2 {
+        fill: #4f699d;
+      }
+
+      .cls-3 {
+        filter: url(#plus);
+      }
+
+      .cls-4 {
+        filter: url(#Ellipse_3);
+      }
+    </style>
+    <filter id="Ellipse_3" x="0" y="0" width="97" height="97" filterUnits="userSpaceOnUse">
+      <feOffset dy="10" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="10" result="blur"/>
+      <feFlood flood-color="#7b31cf" flood-opacity="0.102"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="plus" x="11.035" y="11.035" width="74.93" height="74.93" filterUnits="userSpaceOnUse">
+      <feOffset dy="10" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="10" result="blur-2"/>
+      <feFlood flood-color="#7b31cf" flood-opacity="0.102"/>
+      <feComposite operator="in" in2="blur-2"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="ic_plus2" transform="translate(-841 -286)">
+    <g class="cls-4" transform="matrix(1, 0, 0, 1, 841, 286)">
+      <circle id="Ellipse_3-2" data-name="Ellipse 3" class="cls-1" cx="18.5" cy="18.5" r="18.5" transform="translate(30 20)"/>
+    </g>
+    <g class="cls-3" transform="matrix(1, 0, 0, 1, 841, 286)">
+      <path id="plus-2" data-name="plus" class="cls-2" d="M896.965,324.641a1.267,1.267,0,0,1-1.268,1.268h-5.07V330.7a1.268,1.268,0,1,1-2.535,0v-4.789H883.3a1.268,1.268,0,0,1,0-2.535h4.789V318.3a1.268,1.268,0,1,1,2.535,0v5.07h5.07A1.268,1.268,0,0,1,896.965,324.641Z" transform="translate(-841 -286)"/>
+    </g>
+  </g>
+</svg>

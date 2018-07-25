@@ -54,7 +54,7 @@ const PlusAction = () => {
     return (
         <UncontrolledDropdown className="plus-people dropdown">
             <DropdownToggle>
-                <a className="cursor_pointer"><img src="/assets/img/site/plus-sign.png" alt="" /></a>
+                <a className="cursor_pointer"><img src="img/site/svg/ic_plus2.svg" alt="" /></a>
             </DropdownToggle>
             <DropdownMenu className="dropdown-menu dropdown-menu-right">
                 <a className="dropdown-item" href="#">Add to Campaign</a>

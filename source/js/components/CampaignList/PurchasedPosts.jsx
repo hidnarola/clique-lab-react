@@ -16,7 +16,7 @@ import twitterImg from 'img/site/svg-icon/s_twitter.svg';
 
 
 
-import imgPlus from 'img/site/plus-01.png';
+import imgPlus from 'img/site/svg/ic_plus2.svg';
 // import closeImg2 from 'img/site/close-2.png';
 import closeImg2 from 'img/site/svg-icon/cross.svg';
 

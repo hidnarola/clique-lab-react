@@ -4,7 +4,7 @@ import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import { getActiveCampaignMem } from '../../actions/campaign';
 import nodataImg from 'img/site/nodata.png';
-import plusImg from 'img/site/plus-sign.png';
+import plusImg from 'img/site/svg/ic_plus2.svg';
 import fbImg from 'img/site/facebook-01.png';
 import { imgRoutes } from '../../constants/img_path';
 import { routeCodes } from '../../constants/routes';

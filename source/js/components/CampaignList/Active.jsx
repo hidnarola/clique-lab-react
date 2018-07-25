@@ -5,7 +5,7 @@ import fakeImg from 'img/site/people-01.jpg';
 import { withRouter } from 'react-router';
 import noCampaignImg from 'img/site/no_data/no_campaign.png';
 import nodataImg from 'img/site/no_data/05.png';
-import plusImg from 'img/site/plus-01.png';
+import plusImg from 'img/site/svg/ic_plus2.svg';
 import PropTypes from 'prop-types';
 import { imgRoutes } from '../../constants/img_path';
 import { routeCodes } from '../../constants/routes';

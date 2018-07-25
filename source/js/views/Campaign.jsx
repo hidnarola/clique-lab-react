@@ -57,8 +57,8 @@
         componentWillUnmount() {
             const { dispatch } = this.props;
             // this.props.dispatch(untouch('wizardCampaign','call_to_action'));
-            dispatch(initialize('wizardCampaign', {}))   // final     
-            // dispatch(reset('wizardCampaign'));
+            dispatch(initialize('wizardCampaign', {}))   // final                 
+            // dispatch(reset('wizardCampaign')); 
         }
 
         resetFormData() {
@@ -87,7 +87,8 @@
                     atTagArr.push(obj.value);
                 });
                 let public_or_private = 'public';
-                if (values.public_or_private === undefined) {
+                // if (values.public_or_private === undefined) {
+                if (values.public_or_private === undefined || Object.keys(values.public_or_private).length < 1)  {
                     public_or_private = 'public';
                 } else {
                     public_or_private = values.public_or_private.value;
