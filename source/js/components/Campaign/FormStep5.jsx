@@ -5,7 +5,8 @@ import { renderFieldCampaign } from '../../components/Forms/RenderFormComponent/
 import FormCampaignRight from './FormCampaignRight';
 import _ from 'lodash';
 import Dropzone from 'react-dropzone';
-import dropImg from 'img/site/canvas.png';
+// import dropImg from 'img/site/canvas.png';
+import dropImg from 'img/site/svg/photo.svg'
 import deleteImg from 'img/site/delete-icon.png';
 import jQuery from 'jquery';
 

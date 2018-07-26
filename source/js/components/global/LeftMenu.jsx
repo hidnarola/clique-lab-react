@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { withRouter, Link, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-import LogoImg from 'img/common/logo.png';
+// import LogoImg from 'img/common/logo.png';
+import LogoImg from 'img/site/svg/logo.svg';
 import { routeCodes } from 'constants/routes';
 import jQuery from 'jquery';
 

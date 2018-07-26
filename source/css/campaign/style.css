@@ -475,7 +475,7 @@ ul.all-people-ul li{ width:33.33%; padding:15px;}
 #group-popup .submit-btn{max-width:230px; margin:0 auto;}
 #group-popup .submit-btn button{width:100%;}
 
-#group-popup button.close{position:absolute; top:-45px; right:-55px; opacity:1;}
+#group-popup button.close{position:absolute; top:-45px; right:-55px; opacity:1;width: 15px;}
 #group-popup button.close svg{width:20px; height:20px; fill:#6772e5;}
 
 #terms-condition button.close{position:absolute; top:40px; right:70px; opacity:1;z-index:9;width: 18px;}

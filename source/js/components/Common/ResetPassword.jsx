@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 
-import LogoImg from 'img/common/logo.png';
+// import LogoImg from 'img/common/logo.png';
+import LogoImg from 'img/site/svg/logo.svg';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { Link, Redirect } from 'react-router-dom';

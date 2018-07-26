@@ -5,7 +5,8 @@ import { withRouter } from 'react-router'
 import { SubmissionError } from 'redux-form';
 import { reactLocalStorage } from 'reactjs-localstorage';
 import CryptoJS from 'crypto-js';
-import LogoImg from 'img/common/logo.png';
+// import LogoImg from 'img/common/logo.png';
+import LogoImg from 'img/site/svg/logo.svg';
 import LoginForm from '../Forms/Front/LoginForm';
 import { login } from '../../actions/login';
 import { resetForgotVal } from '../../actions/forgotPass';
@@ -38,8 +39,6 @@ class Login extends Component {
             redirectToReferrer: false,
             submitAction: false,
             errorMsg: '',
-            registerToast: 1,
-            loginToast: 2,
         };
         this.saveEmail = this.saveEmail.bind(this);
     }
@@ -64,7 +63,7 @@ class Login extends Component {
                 });
             }
 
-        }, 3000)
+        }, 5000)
     }
 
     submitForm = (values) => {
@@ -100,8 +99,8 @@ class Login extends Component {
         let { errorMsg } = this.state;
         if (message !== null) {
             if (message === 'Promoter registered successfully') {
-                this.toastId = toast.success(<CustomToastMsg rsend={this.saveEmail} />,
-                // this.state.registerToast = toast.success(<CustomToastMsg rsend={this.saveEmail} />,
+                // this.toastId = toast.success(<CustomToastMsg rsend={this.saveEmail} />,
+                toast.success(<CustomToastMsg rsend={this.saveEmail} />,
                     {
                         className: 'success-custom-tostify',
                         autoClose: false,
@@ -129,6 +128,7 @@ class Login extends Component {
     }
 
 
+   
     componentDidUpdate() {
         let { message, loading, error, dispatch } = this.props;
         let { submitAction, load, isenter } = this.state;
@@ -137,16 +137,11 @@ class Login extends Component {
             this.setState({ submitAction: false })
 
             if (error !== null) {
-                // if (!toast.isActive(this.toastId)) { // remove bcz resend link show all ready so invailid email not show
+                if (!toast.isActive(this.toastId)) { 
                     this.toastId = toast.success(error, {
                         className: 'success-custom-tostify',
                     });
-                // }
-                // if (!toast.isActive(this.state.loginToast)) {
-                //     this.state.loginToast = toast.success(error, {
-                //         className: 'success-custom-tostify',
-                //     });
-                // }
+                }
                 dispatch(resetForgotVal());
                 // this.setState({errorMsg: error},() => {
                 //     setTimeout(()=>{

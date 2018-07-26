@@ -9,7 +9,8 @@ import _ from 'lodash';
 import uploadImg from 'img/site/upload-img.jpg';
 import filrUp from 'img/site/filrUp.jpg';
 import calendarImg from 'img/site/calendar-icon.jpg';
-import dropImg from 'img/site/canvas.png';
+import dropImg from 'img/site/svg/photo.svg'
+// import dropImg from 'img/site/svg/photo.svg';
 
 export const renderFieldCampaign = ({ input, type, placeholder, label, id, isRequired, meta: { touched, error, warning, pristine } }) => (
     <div className={cx('input-wrap ', { 'custom-error': (touched && error) ? true : false })} >

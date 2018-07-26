@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import LogoImg from 'img/common/logo.png';
+// import LogoImg from 'img/common/logo.png';
+import LogoImg from 'img/site/svg/logo.svg';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import ModalPopUp from './ModalPopUp';
 import { TERMS, PRIVACY } from '../../constants/pages';

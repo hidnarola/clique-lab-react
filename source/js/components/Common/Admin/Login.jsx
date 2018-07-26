@@ -9,7 +9,8 @@ import { resetForgotVal } from '../../../actions/admin/password';
 import { routeCodes } from '../../../constants/routes';
 import { ToastContainer, toast, Slide } from 'react-toastify';
 import { reactLocalStorage } from 'reactjs-localstorage';
-import LogoImg from 'img/common/logo.png';
+// import LogoImg from 'img/common/logo.png';
+import LogoImg from 'img/site/svg/logo.svg';
 import cx from 'classnames';
 import validator from 'validator';
 

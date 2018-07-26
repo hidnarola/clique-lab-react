@@ -6,7 +6,7 @@ import { withRouter } from 'react-router';
 import { Alert } from 'reactstrap';
 import validator from 'validator';
 import cx from 'classnames';
-import LogoImg from 'img/common/logo.png';
+import LogoImg from 'img/site/svg/logo.svg';
 import resetSvg from 'img/site/svg/loading.svg';
 import { ToastContainer, toast, Slide } from 'react-toastify';
 import { forgotPassword } from '../../../actions/admin/password';

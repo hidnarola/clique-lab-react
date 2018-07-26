@@ -1382,7 +1382,7 @@ class EverydayPeople extends Component {
         let arrayFilter = {
             "page_size": this.state.perPageItem,
             "page_no": 1,
-            groupId: match.params.grpId
+            groupId: match.params.grpId,
         }
         //this.setState({ forceRefreshed: true });
         this.filterSendReq(arrayFilter);
