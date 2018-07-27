@@ -767,8 +767,7 @@ class Wallet extends Component {
                                             onChange={
                                                 (selectedYear, selectedMonth) => this.onChange('txt_card_date', selectedMonth + '/' + selectedYear)
                                             }
-                                            closeOnSelect={true}
-                                            
+                                            closeOnSelect={true}        
                                         />
                                         <span className="txt_card_date_errorMsg" style={{ "color": "red" }}></span>
                                     </div>

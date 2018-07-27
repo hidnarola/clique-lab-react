@@ -43,6 +43,10 @@ class LeftMenu extends Component {
         else if (history.location.pathname === routeCodes.CAMPAIGN_PURCHASED_POSTS) {
             jQuery('.campToogleMenu_UL').css({ display: 'block' });
         }
+
+        jQuery('.mobile-nav').click(function(){
+            jQuery('body').toggleClass('nav-open');
+        });
     }
 
     componentWillMount= () => {
@@ -52,6 +56,17 @@ class LeftMenu extends Component {
             jQuery('.campToogleMenu_UL').css({ display: 'block' });
             jQuery('.campToogleMenu_UL').slideToggle();
         }
+
+
+        // $("button").click(function(){
+        //     $("p").toggleClass("main");
+        // });
+
+        // jQuery('.mobile-nav').click(function(){
+        //     jQuery('.left-panel').toggleClass('.nav-open');
+        // });
+        // alert('hi');
+
     }
     
     

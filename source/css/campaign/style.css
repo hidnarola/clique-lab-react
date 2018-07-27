@@ -259,7 +259,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#895cf2', end
 .post-dropdown>a{ font-size:18px; color:#43458b; font-weight:500;}
 .post-dropdown>a:hover{text-decoration:none; }
 .post-dropdown>a span{color:#6772e5;}
-.dropdown-arrow{background: url(../assets/img/site/svg/chevron-down.svg) no-repeat 0 0; display: inline-block; vertical-align: top; width: 14px; height: 20px; margin-left: 6px;}
+.dropdown-arrow{background: url(../assets/img/site/svg/chevron-down.svg) no-repeat 0 50%; display: inline-block; vertical-align: top; width: 14px; height: 20px; margin-left: 6px;}
 .post-dropdown>a i{ margin-top:3px;}
 .post-dropdown .dropdown-menu{ margin:25px 0 0;}
 .post-dropdown .dropdown-menu a{ padding:0; margin:0 0 30px; font-weight:500; }
@@ -301,7 +301,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#895cf2', end
 .create-campaign-r-head h4{margin:0; text-align:center; font-size:12px; color:#fff; line-height:20px; padding:23px 0 0;}
 .create-campaign-r-img{display:block;}
 .create-campaign-r-img img{max-height:132px;}
-.create-campaign-r-summer{ width:256px; background:#fff; padding:13px; z-index: 100; position: relative; box-shadow: 0 4px 24px 0 rgba(0,0,0,.1); margin:-30px auto 15px;}
+.create-campaign-r-summer{ width:256px; background:#fff; padding:13px; z-index: 0; position: relative; box-shadow: 0 4px 24px 0 rgba(0,0,0,.1); margin:-30px auto 15px;}
 .create-campaign-r-summer h4{margin:0; padding:0; font-size:12px; color:#3d3d4c; line-height:100%; font-weight:500;}
 .create-campaign-r-summer h5{ margin-left:auto;  font-size:12px; color:#6772e5; line-height:100%; font-weight:500;}
 .create-campaign-r-responses{width:256px; margin:0 auto 15px; padding:0 13px;}

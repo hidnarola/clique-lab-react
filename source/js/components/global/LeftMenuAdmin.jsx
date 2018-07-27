@@ -10,6 +10,12 @@ class LeftMenuAdmin extends Component {
     constructor(props) {
         super(props);
     }
+    componentDidMount = () => {
+        jQuery('.mobile-nav').click(function(){
+            jQuery('body').toggleClass('nav-open');
+        });
+    }
+
     render() {
         return (
             <div className="left-panel">
