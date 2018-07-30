@@ -1,5 +1,9 @@
 img{max-width:100%;}
 .form-content {height: 800px;}
+.Select.has-value.Select--single > .Select-control .Select-value .Select-value-label{text-overflow: ellipsis;white-space: nowrap; overflow: hidden; padding-right: 0;}
+.stats_gender_dropdown .Select-value {padding-right: 10px !important;}
+.stats_gender_dropdown .Select-value .Select-value-label {padding-right: 0px !important;}
+
 @media(min-width:1601px){
 	.myprofile-r .dropzone-image-preview-wrapper{height: 242px;}
 }
@@ -16,7 +20,7 @@ img{max-width:100%;}
 	.admin_transaction_sortBy .Select-control{ padding-top:5px; padding-bottom:5px }
 	.transactions-history .group-head-r .Select-control{height: 38px;}
 	.transactions-history .group-head-r.sort-date-btn .Select-placeholder{line-height: 26px;}
-
+	
 }
 
 @media(max-width:1657px){
@@ -149,6 +153,7 @@ img{max-width:100%;}
 	.demographics-body ul li i {line-height:16px; padding: 0 6px 0 0; font-size: 14px;}	
 	.demographics-div{min-height:initial; height:100%;}
 	.cursor_pointer{ background-size:cover !important; }
+	.admin_dasboard_transaction.cart-table .dropdown .dropdown-menu {margin: 35px 0 0 !important; right: 20px !important; left: inherit !important; transform: initial !important; }
 }
 
 @media(min-width:1025px) and (max-width:1169px){
@@ -290,6 +295,8 @@ img{max-width:100%;}
 	.dashbord-post .databox-div-r > p {min-height:initial;}
 	.recharts-wrapper,
 	.recharts-wrapper svg{ width:100% !important;}
+	.admin_dasboard_transaction.cart-table {overflow: auto;	}
+	.cart-table table.table{ min-width:1100px;}
 }
 
 @media(max-width:1099px){
@@ -297,7 +304,7 @@ img{max-width:100%;}
 .databox-div-r{ width:100%; padding:20px;}
 .databox-div-l{ width:100%;}
 .databox-div-l{height:250px;}
-.recharts-wrapper{width:100%;}
+.recharts-wrapper{width:100% !important;}
 .recharts-wrapper svg{ width:100% !important;}
 
 }
@@ -355,6 +362,11 @@ ul.fan-festival.h-view .festival-body {margin: 0 0 10px;}
 	.step-content{ width:calc(100% - 70px);}
 	.input-wrap-2 i {width:20px; height:20px; line-height:42px; background-size:20px auto;}
 	.input-wrap-2 input{padding:12px 15px; font-weight:400;}
+	.how-much .input-2 input {width:100% ; margin:0 0 20px;	}
+	.how-much .input-2 .select-wrap{ width:100%; margin:0 0 20px;}
+	.input-2.select-wrap{ flex-wrap:wrap;}
+	.admin_dasboard_transaction.cart-table {overflow: auto;	}
+	.cart-table table.table{ min-width:1100px;}
 }
 
 @media(max-width:1024px){
@@ -382,7 +394,8 @@ filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='#c76eff', endC
 .right-hdr { display: block; padding:0 0 20px 140px; border-bottom: 1px solid #c8cfda; margin:0 0 20px;}
 .hdr-cart {margin-right:0;}
 
-
+.admin_dasboard_transaction.cart-table {overflow: auto;	}
+.cart-table table.table{ min-width:1100px;}
 .navigation-div ul li .dashboard-icon{ background:url(../assets/img/site/svg/menu_meter_white.svg);background-repeat: no-repeat;}
 .navigation-div ul li .create-icon{ background:url(../assets/img/site/svg/ic_plus-rounded-white.svg);background-repeat: no-repeat; }
 .navigation-div ul li .people-icon{ background:url(../assets/img/site/svg/menu_user_white.svg);background-repeat: no-repeat; }
@@ -531,7 +544,10 @@ ul.fan-festival.h-view .festival-body {margin: 0 0 20px 8px;}
 .login-register-bg{ padding:50px;}
 .stats_age_dropdown .dropdown button.btn-secondary,
 .stats_filter_li4 button.btn-secondary{ padding:0 5px !important;}
-
+.stats_filter_li4 .dropdown-menu:after {left:288px !important;}
+.first_filter .stats_filter_li4 .dropdown-menu:after, 
+.second_filter .stats_filter_li4 .dropdown-menu:after, 
+.third_filter .stats_filter_li4 .dropdown-menu:after { left:311px !important;}
 
 }
 
@@ -637,7 +653,7 @@ ul.all-people-ul>li {width:100%; padding:0; max-width:450px; margin:0 auto 25px;
 .all-people-head {margin:0 0 20px;}
 .plus-people {top: 15px; right:15px;}
 .profile-head>ul>li {margin:8px;}
-.profile-head>ul>li>a {font-size:16px; padding:0 0 10px;}
+.profile-head>ul>li>a {font-size:15px; padding:0 0 10px;}
 .profile-body { padding:20px;}
 .myprofile-l {width:100%;}
 .input-wrap {margin: 0 0 20px;}
@@ -685,9 +701,10 @@ ul.fan-festival>li {width:100%; padding: 0 0 20px;}
 .festival-head-l h3{width:100%;}
 .campaigns-links.profile-head>ul>li {display: inline-block; margin: 0 10px 10px 0; }
 .submission-div.d-flex{display: -webkit-box!important; display: -ms-flexbox!important; display: flex!important;}
-ul.fan-festival.h-view .festival-img {margin: 0; width: 100%; margin: 0 0 20px; }
-.fan-festival-r {margin-left: auto; padding: 0 15px 15px 15px; width: 100%; }
-ul.fan-festival.h-view .festival-head {margin: 0 0 15px;}
+ul.fan-festival.h-view .festival-img {margin: 0; width: 100%; margin:0; height:200px; }
+.fan-festival-r {margin-left: auto; padding:20px !important; width: 100%; }
+ul.fan-festival.h-view .festival-head {margin: 0 0 15px; padding:0 50px 0 0; position: relative;}
+.festival-head-r{ position: absolute; top:50%; right:-10px; transform:translateY(-50%); }
 ul.fan-festival.h-view .festival-body {margin: 0 0 15px;}
 .average-box {padding: 15px; margin: 0 0 15px;}
 .average-box-inr {padding:0;}
@@ -752,11 +769,29 @@ html, body, .loader, .loader>div, .login-register-bg, .login-register-box.login_
 .stats_filter_li3 .dropdown-menu{ left: -172px !important; transform: initial !important; top: 40px !important;}
 .stats_filter_li3 .dropdown-menu:after {left: auto; top: -15px; right: 57px;}
 .MoreFilterLi.stats_filter_li4 .dropdown-menu{ padding:20px !important;}
-
+.active-campaigns .all-people-content{flex-direction: column;}
+.create-campaign-r-summer {display: -ms-flexbox!important; display: -webkit-box!important; display: flex!important;}
+.how-much .input-2 .select-wrap,
+.how-much .input-2 input {width: 100%; margin:0 0 20px;}
+.how-much .input-2 .select-wrap{ margin:0 0 20px;}
+#group-popup.modal-dialog {padding:25px !important; width:96%; margin:3% auto; }
+.modal-content .custom_dropzone_div p {padding: 0;}
+.custom_dropzone_div {width: 100%; padding:50px;height: auto;}
+.h-view .fan-festival-r {padding: 10px 30px 30px;}
+.fc-view.fc-oneMonth-view table{ min-width:748px;}
+.fc-toolbar.fc-header-toolbar {margin-bottom:0;}
+.admin_dasboard_transaction.cart-table .dropdown .dropdown-menu {right: 5px !important;}
+#group-popup button.close {top: 0;right: 0;}
 }
 
-@media(max-width:440px){
+@media(max-width:458px){
 	.MoreFilterLi .dropdown-menu{ top:50px !important;}
 	.stats_filter_li4 .dropdown-menu:after { left:36px !important;}
+}
+@media(max-width:463px){
+	body .first_filter .stats_filter_li4 .dropdown-menu:after, 
+	body .second_filter .stats_filter_li4 .dropdown-menu:after, 
+	body .third_filter .stats_filter_li4 .dropdown-menu:after{ left:34px !important;}
+	.MoreFilterLi .dropdown-menu {top:50px !important;}
 }
 

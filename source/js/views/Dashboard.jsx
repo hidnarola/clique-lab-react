@@ -62,9 +62,9 @@ const SocialDropdown = (props) => {
             <DropdownMenu>
                 <DropdownItem onClick={() => { props.socialSelect('facebook') }} > Facebook </DropdownItem>
                 <DropdownItem onClick={() => { props.socialSelect('twitter') }} > Twitter </DropdownItem>
-                {/* <DropdownItem onClick={() => { props.socialSelect('linkedin') }} > Linkedin </DropdownItem>
-                <DropdownItem onClick={() => { props.socialSelect('instagram') }} > Instagram </DropdownItem> */}
+                {/* <DropdownItem onClick={() => { props.socialSelect('instagram') }} > Instagram </DropdownItem> */}
                 <DropdownItem onClick={() => { props.socialSelect('pinterest') }} > Pinterest </DropdownItem>
+                <DropdownItem onClick={() => { props.socialSelect('linkedin') }} > Linkedin </DropdownItem>
             </DropdownMenu>
         </Dropdown>
     );
@@ -74,7 +74,8 @@ const MostDataDropdown = (props) => {
 
     let title = '';
 
-    if (props.socialCurrentValue === 'facebook') {
+    // if (props.socialCurrentValue === 'facebook') {
+    if (props.socialCurrentValue === 'facebook' || props.socialCurrentValue === 'linkedin') {
         if (props.currentValue === 'no_of_likes') {
             title = 'Most Liked'
         }
@@ -107,7 +108,8 @@ const MostDataDropdown = (props) => {
     else { }
 
     return (
-        (props.socialCurrentValue === 'facebook') ?
+        // (props.socialCurrentValue === 'facebook') ?
+        (props.socialCurrentValue === 'facebook' || props.socialCurrentValue === 'linkedin') ?
             <Dropdown isOpen={props.open} toggle={props.toggle}>
                 <DropdownToggle>
                     <label style={{ "textTransform": "capitalize" }}>Posts <span style={{ "color": "#6772e5", "paddingLeft": "5px" }}>{title}</span></label><i className="dropdown-arrow"></i>
@@ -116,7 +118,7 @@ const MostDataDropdown = (props) => {
                     <DropdownItem onClick={() => { props.dashboardDataSelect('no_of_likes') }} > Most Liked </DropdownItem>
                     <DropdownItem onClick={() => { props.dashboardDataSelect('no_of_shares') }} > Most Shared </DropdownItem>
                     <DropdownItem onClick={() => { props.dashboardDataSelect('no_of_comments') }} > Most Commented </DropdownItem>
-                    <DropdownItem onClick={() => { props.dashboardDataSelect('submission') }} > Submissions </DropdownItem>
+                    {/* <DropdownItem onClick={() => { props.dashboardDataSelect('submission') }} > Submissions </DropdownItem> */}
                 </DropdownMenu>
             </Dropdown>
             : (props.socialCurrentValue === 'twitter') ?
@@ -173,7 +175,7 @@ class CustomTooltip extends Component {
 
     render() {
         const { active } = this.props;
-        
+
         if (active) {
             const { payload, label } = this.props;
             return (
@@ -301,10 +303,10 @@ class Dashboard extends Component {
 
     like_share_comm = (value) => {
         const { dispatch } = this.props;
-        const { socialCurrentValue,monthCurrentValue } = this.state;
+        const { socialCurrentValue, monthCurrentValue } = this.state;
         if (this.state.likes_share_cmt !== value) {
             // this.setState({ likes_share_cmt: value, isRender: 1 });
-            this.setState({ likes_share_cmt: value, isRender: 1});
+            this.setState({ likes_share_cmt: value, isRender: 1 });
 
             // Now
             let arrayFilter = [{
@@ -373,18 +375,19 @@ class Dashboard extends Component {
     }
 
     getDataSocialWise = (socialName) => {
-        const { dispatch} = this.props;
+        const { dispatch } = this.props;
         //
         let d = ''; // dashboard current value
-        if (socialName === 'facebook' || socialName === 'twitter') {
+        // if (socialName === 'facebook' || socialName === 'twitter') {
+        if (socialName === 'facebook' || socialName === 'twitter' || socialName === 'linkedin') {
             this.setState({ dashboardCurrentValue: 'no_of_likes' });
             this.setState({ likes_share_cmt: 'likes' });
-            d='no_of_likes';
+            d = 'no_of_likes';
         }
         else if (socialName === 'pinterest') {
             this.setState({ dashboardCurrentValue: 'no_of_comments' });
             this.setState({ likes_share_cmt: 'comments' })
-            d='no_of_comments';
+            d = 'no_of_comments';
         }
 
         let arrayFilter = [{
@@ -448,7 +451,8 @@ class Dashboard extends Component {
         let shares = ''
         let comments = ''
 
-        if (socialCurrentValue === 'facebook') {
+        // if (socialCurrentValue === 'facebook') {
+        if (socialCurrentValue === 'facebook' || socialCurrentValue === 'linkedin') {
             likes = 'Likes';
             shares = 'Shares';
             comments = 'Comments';
@@ -480,6 +484,24 @@ class Dashboard extends Component {
                 post_img = imgRoutes.CAMPAIGN_INSPIRED_IMG_PATH + obj.image
             }
         }
+        //--------------change color of # and @ text---------------------------
+        // var str = obj.description;
+        // var arr = str.split(' ');
+        // var finalStr = [];
+        // arr.map(function (value, index) {
+        //     var t = value.substring(0, 1);
+        //     console.log(t, ' ', value);
+        //     if (t === '#' || t === '@') {
+        //     finalStr.push(<span>value</span>);
+        //     } else {
+        //         finalStr.push(value);
+        //     }
+        // });
+        // var text = finalStr.toString();
+        // console.log('Type>',finalStr);
+        // var finalString = text.replace(/,/g, " ");
+    
+        //-----------------------------------------
         return (
             <li key={index}>
                 <div className="databox-div d-flex dashbord-post">
@@ -492,8 +514,10 @@ class Dashboard extends Component {
                         </h3>
                         {/* <p>I love the <a href="javascript:void(0)">@thegrocer</a> new dress range! Make life just that bit more bearable! <a href="javascript:void(0)">#thegrocer</a> <a href="javascript:void(0)">#warmsundays</a> <a href="javascript:void(0)">#sponsored</a></p> */}
                         <p>{(obj.description.length > 50) ? obj.description.substring(0, 50) + '...' : obj.description}</p>
+                        {/* <p>{finalString}</p> */}
                         <div className="databox-div-r-btm d-flex">
-                            {(socialCurrentValue === 'facebook' || socialCurrentValue === 'twitter') ?
+                            {/* {(socialCurrentValue === 'facebook' || socialCurrentValue === 'twitter') ? */}
+                            {(socialCurrentValue === 'facebook' || socialCurrentValue === 'twitter' || socialCurrentValue === 'linkedin') ?
                                 <h5>
                                     <big>{obj.no_of_likes}</big>
                                     {/* <small>Likes</small> */}
@@ -501,14 +525,16 @@ class Dashboard extends Component {
                                 </h5>
                                 : ''
                             }
-                            {(socialCurrentValue === 'facebook' || socialCurrentValue === 'pinterest' || socialCurrentValue === 'twitter') ?
+                            {/* {(socialCurrentValue === 'facebook' || socialCurrentValue === 'pinterest' || socialCurrentValue === 'twitter') ? */}
+                            {(socialCurrentValue === 'facebook' || socialCurrentValue === 'pinterest' || socialCurrentValue === 'twitter' || socialCurrentValue === 'linkedin') ?
                                 <h5>
                                     <big>{obj.no_of_shares}</big>
                                     {/* <small>shares</small> */}
                                     <small>{shares}</small>
                                 </h5> : ''
                             }
-                            {(socialCurrentValue === 'facebook' || socialCurrentValue === 'pinterest') ?
+                            {/* {(socialCurrentValue === 'facebook' || socialCurrentValue === 'pinterest') ? */}
+                            {(socialCurrentValue === 'facebook' || socialCurrentValue === 'pinterest' || socialCurrentValue === 'linkedin') ?
                                 <h5>
                                     <big>{obj.no_of_comments}</big>
                                     {/* <small>Comments</small> */}
@@ -590,7 +616,7 @@ class Dashboard extends Component {
                                             // content={<CustomTooltip/>}
                                             // // content={<CustomTooltip data={this.state.social_analytics}/>}
                                             position={{ y: 215 }}
-                                            
+
                                         />
                                         <Bar dataKey="compare1" fill="#6772e6" />
                                     </BarChart>
@@ -601,8 +627,9 @@ class Dashboard extends Component {
                         </div>
                     </div>
                     <div className="right-box-btm">
+                        {/* (socialCurrentValue === 'facebook') ? */}
                         {
-                            (socialCurrentValue === 'facebook') ?
+                            (socialCurrentValue === 'facebook' || socialCurrentValue === 'linkedin') ?
                                 <ul className="data-counter d-flex">
                                     <li> <a href="javascript:void(0)" className={cx({ 'active': (this.state.likes_share_cmt === 'likes') ? true : false })} onClick={() => { this.like_share_comm('likes') }}> <small>{totallike > 0 ? totallike : 0}</small><span>Likes</span> </a> </li>
                                     <li> <a href="javascript:void(0)" className={cx({ 'active': (this.state.likes_share_cmt === 'shares') ? true : false })} onClick={() => { this.like_share_comm('shares') }}> <small>{totalshare > 0 ? totalshare : 0}</small><span>Shares</span> </a> </li>

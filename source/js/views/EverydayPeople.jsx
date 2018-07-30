@@ -1472,6 +1472,9 @@ class EverydayPeople extends Component {
         const { allSliders, appliedFilter, allDropDown } = this.state;
         const { dispatch } = this.props;
 
+        let pathname = this.props.history.location.pathname;
+        let sortData;
+
         let ageFilterIndex = _.findIndex(appliedFilter[0]['filter'], function (o) { return o.field == 'age'; });
         let ageVal = _.find(allSliders, function (o) { return o.slider == 'ageRange'; });
 
@@ -1489,9 +1492,16 @@ class EverydayPeople extends Component {
 
         let sortDropArr = _.find(allDropDown, function (o) { return o.dropdown == 'sortDrop'; });
 
+        if(pathname === '/campaigns/inspired_submission'){
+            sortData = [{ "field": "created_at", "value": -1 }];
+        }else{
+            sortData = [{ "field": "name", "value": parseInt(sortDropArr['value']['value']) }];
+        }
+
         let arrayFilter = {
             "filter": this.state.appliedFilter[0]['filter'],
-            "sort": [{ "field": "name", "value": parseInt(sortDropArr['value']['value']) }],
+            // "sort": [{ "field": "name", "value": parseInt(sortDropArr['value']['value']) }],
+            "sort": sortData, // declare above
             "page_size": this.state.perPageItem,
             "page_no": 1
         }

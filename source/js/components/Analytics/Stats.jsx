@@ -50,8 +50,8 @@ const SocialDropdown = (props) => {
             <DropdownMenu>
                 <DropdownItem onClick={() => { props.socialSelect('facebook') }} > Facebook </DropdownItem>
                 <DropdownItem onClick={() => { props.socialSelect('twitter') }} > Twitter </DropdownItem>
-                {/* <DropdownItem onClick={() => { props.socialSelect('linkedin') }} > Linkedin </DropdownItem> */}
                 <DropdownItem onClick={() => { props.socialSelect('pinterest') }} > Pinterest </DropdownItem>
+                <DropdownItem onClick={() => { props.socialSelect('linkedin') }} > Linkedin </DropdownItem>
                 {/* <DropdownItem onClick={() => { props.socialSelect('instagram') }} > Instagram </DropdownItem> */}
             </DropdownMenu>
         </Dropdown>

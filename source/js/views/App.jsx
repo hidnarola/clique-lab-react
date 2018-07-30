@@ -123,7 +123,7 @@ class App extends Component {
                             <PrivateRoute path={routeCodes.CAMPAIGN_FUTURE} component={CampaignList} showHeader={true} />
                             <PrivateRoute exact path={routeCodes.CAMPAIGN_PAST} component={CampaignList} showHeader={true} />
 
-                            {/* DM */}
+                            {/* DM  Past Campaign*/}
                             <PrivateRoute path={`${routeCodes.CAMPAIGN_PAST}/:pastCampaignId`} component={EverydayPeople} showHeader={true} />
 
                             {/* <PrivateRoute path={routeCodes.CAMPAIGN_INSPIRED_SUB} component={CampaignInspiredSub} showHeader={true} /> */}
